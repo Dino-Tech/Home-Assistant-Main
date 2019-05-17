@@ -1,0 +1,265 @@
+##  light# /config/includes/light.yaml
+#############################################################
+
+- platform: !secret light_platform
+  username: !secret light_username
+  password: !secret light_password
+#  name: "Fireplace light"
+#  state_topic: "Fireplace/light/status"
+#  command_topic: "Fireplace/light/switch"
+#  brightness_state_topic: 'Fireplace/light/brightness'
+#  brightness_command_topic: 'Fireplace/light/brightness/set'
+#  qos: 0
+#  payload_on: "ON"
+#  payload_off: "OFF"
+#  optimistic: false
+
+- platform: mqtt
+  name: "Corner Light"
+  state_topic: "stat/sonoff20/POWER"
+  command_topic: "cmnd/sonoff20/POWER"
+  availability_topic: "tele/sonoff20/LWT"
+  rgb_state_topic: "stat/sonoff20/COLOR"
+  rgb_command_topic: "cmnd/sonoff20/COLOR"
+  rgb_command_template: "{{ '%02x%02x%02x0000' | format(red, green, blue) }}"
+  brightness_state_topic: "stat/sonoff20/DIMMER"
+  brightness_value_template: "{{ value_json.brightness }}"
+  brightness_command_topic: "cmnd/sonoff20/DIMMER"
+  brightness_scale: 100
+  color_temp_command_topic: "cmnd/sonoff20/CT"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: false
+
+- platform: mqtt
+  name: "Bed Light"
+  state_topic: "stat/sonoff21/POWER"
+  command_topic: "cmnd/sonoff21/POWER"
+  availability_topic: "tele/sonoff21/LWT"
+  rgb_state_topic: "stat/sonoff21/COLOR"
+  rgb_command_topic: "cmnd/sonoff21/COLOR"
+  rgb_command_template: "{{ '%02x%02x%02x0000' | format(red, green, blue) }}"
+  brightness_state_topic: "stat/sonoff21/DIMMER"
+  brightness_value_template: "{{ value_json.brightness }}"
+  brightness_command_topic: "cmnd/sonoff21/DIMMER"
+  brightness_scale: 100
+  color_temp_command_topic: "cmnd/sonoff21/CT"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: false
+
+- platform: mqtt
+  name: "Hallway Night Light"
+  command_topic: "cmnd/sonoff39/power1"
+  state_topic: "stat/sonoff39/POWER1"
+  availability_topic: "tele/sonoff39/LWT"
+  brightness_state_topic: "stat/sonoff36/dimmer"
+  brightness_value_template: "{{ value_json.brightness }}"
+  brightness_command_topic: "cmnd/sonoff39/dimmer"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: false
+
+- platform: mqtt
+  name: "Hall Night Light"
+  command_topic: "cmnd/sonoff39/power1"
+  state_topic: "stat/sonoff39/POWER1"
+  availability_topic: "tele/sonoff39/LWT"
+  brightness_state_topic: "stat/sonoff39/dimmer"
+  brightness_value_template: "{{ value_json.brightness }}"
+  brightness_command_topic: "cmnd/sonoff39/dimmer"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: false
+
+- platform: mqtt
+  name: "Kitchen Night Light"
+  command_topic: "cmnd/sonoff38/power1"
+  state_topic: "stat/sonoff38/POWER1"
+  availability_topic: "tele/sonoff38/LWT"
+  brightness_state_topic: "stat/sonoff38/dimmer"
+  brightness_value_template: "{{ value_json.brightness }}"
+  brightness_command_topic: "cmnd/sonoff38/dimmer"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: false
+
+- platform: mqtt
+  name: "Den Night Light"
+  command_topic: "cmnd/sonoff39/power1"
+  state_topic: "stat/sonoff39/POWER1"
+  availability_topic: "tele/sonoff39/LWT"
+  brightness_state_topic: "stat/sonoff39/dimmer"
+  brightness_value_template: "{{ value_json.brightness }}"
+  brightness_command_topic: "cmnd/sonoff39/dimmer"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: false
+
+- platform: mqtt
+  name: "Mbath Night Light"
+  command_topic: "cmnd/sonoff40/power2"
+  state_topic: "stat/sonoff40/POWER2"
+  availability_topic: "tele/sonoff40/LWT"
+  brightness_state_topic: "stat/sonoff40/dimmer"
+  brightness_value_template: "{{ value_json.brightness }}"
+  brightness_command_topic: "cmnd/sonoff40/dimmer"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: false
+
+- platform: switch
+  name: Attic Lights
+  entity_id: switch.attic_lights
+
+- platform: switch
+  name: Kitchen Sink Light
+  entity_id: switch.kitchen_sink_light
+
+- platform: switch
+  name: TV Accent Lights
+  entity_id: switch.tv_accent_lights
+
+- platform: switch
+  name: Back Flood Lights
+  entity_id: switch.back_flood_lights
+
+- platform: switch
+  name: Bedroom Ceiling Light
+  entity_id: switch.bedroom_ceiling_light
+
+- platform: switch
+  name: Kitchen Ceiling Center
+  entity_id: switch.ceiling_center
+
+- platform: switch
+  name: Kitchen Ceiling Left
+  entity_id: switch.ceiling_left
+
+- platform: switch
+  name: Kitchen Ceiling Right
+  entity_id: switch.ceiling_right
+
+- platform: switch
+  name: Coffee Light
+  entity_id: switch.coffee_light
+
+- platform: switch
+  name: Desk Back Light
+  entity_id: switch.desk_back_light
+
+- platform: switch
+  name: Foyer Accent Lights
+  entity_id: switch.foyer_accent_lights
+
+- platform: switch
+  name: Foyer Light
+  entity_id: switch.foyer_light
+
+- platform: switch
+  name: Front Flood Lights
+  entity_id: switch.front_flood_lights
+
+- platform: switch
+  name: Garage Ceiling Lights
+  entity_id: switch.garage_ceiling_lights
+
+- platform: switch
+  name: Entry Hall Light
+  entity_id: switch.hall_light
+
+- platform: switch
+  name: Hallway Light
+  entity_id: switch.hallway_light
+
+- platform: switch
+  name: Living Room Ceiling Light
+  entity_id: switch.living_room_ceiling_light
+
+- platform: switch
+  name: Living Room Lamp
+  entity_id: switch.living_room_lamp
+
+- platform: switch
+  name: Office Ceiling Light
+  entity_id: switch.office_ceiling_light
+
+- platform: switch
+  name: Office Lamps
+  entity_id: switch.office_lamps
+
+- platform: switch
+  name: Patio Light
+  entity_id: switch.patio_light
+
+- platform: switch
+  name: Porch Light
+  entity_id: switch.porch_light
+
+- platform: switch
+  name: Side Door Light
+  entity_id: switch.side_door_light
+
+- platform: switch
+  name: Guest Ceiling Light
+  entity_id: switch.spare_room_ceiling_light
+
+- platform: switch
+  name: Guest Room Lamp
+  entity_id: switch.spare_room_lamp
+
+- platform: switch
+  name: Table Light
+  entity_id: switch.table_light
+
+#############################################################
+#- platform: mqtt
+#  name: "Driveway Lights LED"
+#  command_topic: "cmnd/sonoff07/power2"
+#  state_topic: "stat/sonoff07/POWER2"
+#  availability_topic: "tele/sonoff07/LWT"
+#  brightness_state_topic: "stat/sonoff07/dimmer"
+#  brightness_value_template: "{{ value_json.brightness }}"
+#  brightness_command_topic: "cmnd/sonoff07/dimmer"
+#  qos: 1
+#  payload_available: "Online"
+#  payload_not_available: "Offline"
+#  payload_on: "ON"
+#  payload_off: "OFF"
+#  retain: false
+
+#- platform: mqtt
+#  name: "Bed Light"
+#  command_topic: "cmnd/sonoff21/power"
+#  state_topic: "stat/sonoff21/POWER"
+#  rgb_state_topic: "stat/sonoff21/color"
+#  rgb_command_topic: "cmnd/sonoff21/color"
+#  brightness_state_topic: "stat/sonoff21/dimmer"
+#  brightness_command_topic: "cmnd/sonoff21/dimmer"
+#  color_temp_state_topic: "stat/sonoff21/CT"
+#  color_temp_command_topic: "cmnd/sonoff21/CT"
+#  qos: 1
+#  payload_on: "ON"
+#  payload_off: "OFF"
+#  retain: true

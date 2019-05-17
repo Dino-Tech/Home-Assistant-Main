@@ -1,0 +1,57 @@
+## logbook# /config/includes/logbook.yaml
+############################################################
+include:
+  domains:
+    - automation
+    - binary_sensor
+    - device_tracker
+    - light
+    - switch
+  entities:
+    - sensor.kitchen_temp
+    - sensor.kitchen_humidity
+    - sensor.living_room_thermostat_temperature
+    - sensor.living_room_thermostat_humidity
+    - sensor.filtered_realistic_temperature
+    - sensor.filtered_realistic_humidity
+    - sensor.office_smoke_temp
+    - sensor.office_humidity
+    - sensor.office_temp
+    - sensor.office_temp_avg
+    - sensor.bedroom_temp
+    - sensor.bedroom_humidity
+    - sensor.laundry_smoke_temp
+    - sensor.mbath_humidity
+    - sensor.mbath_temp
+    - sensor.spare_room_humidity
+    - sensor.spare_room_temp
+exclude:
+  domains:
+    - camera
+    - media_player
+    - sun
+    - moon
+    - sensor
+    - group
+    - script
+  entities:
+    - binary_sensor.living_room_thermostat_fan
+    - binary_sensor.new_life_away
+    - binary_sensor.living_room_thermostat_has_leaf
+    - binary_sensor.living_room_thermostat_online
+    - binary_sensor.hallway_nest_protect_online
+    - binary_sensor.kitchen_nest_protect_online
+    - switch.cabinet_sw2
+    - switch.kitchen_cabinet_lights
+    - switch.kitchen_stove_light
+    - switch.office_monitor
+    - switch.living_room_lamp_sw2
+    - switch.living_room_lamp_switch
+    - switch.hall_switch_2
+    - switch.hall_switch_1
+    - switch.front_flood_lights_switch
+    - switch.foyer_light_switch
+    - switch.fountain_switch
+    - switch.ceiling_left_sw
+    - switch.ceiling_right_sw
+    - switch.hallway_switch

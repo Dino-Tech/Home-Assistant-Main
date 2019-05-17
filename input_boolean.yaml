@@ -1,0 +1,122 @@
+#  /config/includes/input_boolean.yaml
+#######################################################
+weather:
+
+owm_weather:
+
+motion_tv_alert:
+  name: Motion TV Alert
+  initial: off
+  icon: mdi:television
+darrens_work_alarm:
+  name: Darren Work Tomorrow
+  initial: off
+  icon: mdi:alarm
+donnas_work_alarm:
+  name: Donna Work Tomorrow
+  initial: on
+  icon: mdi:alarm
+auto_card_backz:
+  name: Auto Card Backz
+  initial: off
+  icon: mdi:image
+auto_backgroundz:
+  name: Auto Backgroundz
+  initial: off
+  icon: mdi:image-area
+auto_tablet:
+  name: Auto Tablet
+  initial: on
+  icon: mdi:television-off
+auto_cameras:
+  name: Auto Cameras
+  initial: off
+  icon: mdi:cctv
+auto_camera_image:
+  name: Auto Camera Image
+  initial: off
+  icon: mdi:cctv
+blank_space:
+  initial: off
+  icon: fas:window-minimize
+browser_refresh:
+  name: Browser Refresh
+  initial: off
+  icon: fas:sync-alt
+browser_home:
+  name: Browser Home
+  initial: off
+  icon: mdi:home
+driveway_motion_lights:
+  name: Driveway Motion Lights
+  initial: on
+  icon: mdi:run-fast
+disable_popups:
+  name: Disable Popups
+  initial: off
+  icon: mdi:television-off
+disable_inside_popups:
+  name: Disable Inside Popups
+  initial: on
+  icon: mdi:television-off
+laundry_notify:
+  name: Laundry Notifications
+  initial: on
+  icon: mdi:message-bulleted
+bedroom_lamps:
+  name: Bedroom Lamps
+  initial: off
+  icon: mdi:floor-lamp
+alarm_arm_away_switch:
+  name: Alarm Away
+  initial: off
+  icon: mdi:bell
+alarm_arm_home_switch:
+  name: Alarm Home
+  initial: off
+  icon: mdi:bell
+alarm_disarm_switch:
+  name: Alarm Disarm
+  initial: off
+  icon: mdi:bell-off
+disable_door_chime:
+  name: Disable Door Chime
+  initial: on
+  icon: mdi:bell-off
+people_home_boolean:
+  name: Jesus Freaks
+  initial: on
+  icon: mdi:account-multiple
+darren_home:
+  name: Darren
+  initial: on
+donna_home:
+  name: Donna
+  initial: on
+tristan_home:
+  name: Tristan
+  initial: off
+notifications:
+  name: Notifications
+  initial: on
+  icon: mdi:message-text-outline
+voice_notifications:
+  name: Voice Notifications
+  initial: off
+  icon: mdi:voice
+disable_alarm_lights:
+  name: Disable Alarm Lights
+  initial: off
+  icon: mdi:alarm-off
+disable_garage_notify:
+  name: Disable Garage Notify
+  initial: off
+  icon: mdi:message-bulleted-off
+disable_interior_auto_lights:
+  name: Disable Interior Lights
+  initial: off
+  icon: mdi:lightbulb-outline
+disable_exterior_auto_lights:
+  name: Disable Exterior Lights
+  initial: off
+  icon: mdi:lightbulb-outline

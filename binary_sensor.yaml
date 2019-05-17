@@ -1,0 +1,289 @@
+## binary sensor#  /config/includes/binary_sensor.yaml
+#######################################################
+- platform: mqtt
+  name: "Garage Smoke Detected"
+  state_topic: "shellies/shellysmoke-5B898B/sensor/smoke"
+  qos: 2
+  payload_on: 'true'
+  payload_off: 'false'
+  device_class: smoke
+
+- platform: mqtt
+  name: "Laundry Smoke Detected"
+  state_topic: "shellies/shellysmoke-5B899E/sensor/smoke"
+  qos: 2
+  payload_on: 'true'
+  payload_off: 'false'
+  device_class: smoke
+
+- platform: mqtt
+  state_topic: "shellies/shellysmoke-5B897C/sensor/smoke"
+  name: "Office Smoke Detected"
+  qos: 2
+  payload_on: 'true'
+  payload_off: 'false'
+  device_class: smoke
+
+- platform: mqtt
+  name: "Water Heater"
+  state_topic: "RFBridge/water1"
+  availability_topic: "tele/RF_Bridge/LWT"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: moisture
+
+- platform: mqtt
+  name: "Washer Leak"
+  state_topic: "RFBridge/water2"
+  availability_topic: "tele/RF_Bridge/LWT"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: moisture
+
+- platform: mqtt
+  name: "Garage Door"
+  state_topic: "RFBridge/sensor1"
+  availability_topic: "tele/RF_Bridge/LWT"
+  qos: 1
+  payload_on: "Open"
+  payload_off: "Closed"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: garage_door
+
+- platform: mqtt
+  name: "Front Door"
+  state_topic: "RFBridge/sensor2"
+  availability_topic: "tele/RF_Bridge/LWT"
+  qos: 1
+  payload_on: "Open"
+  payload_off: "Closed"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: door
+
+- platform: mqtt
+  name: "Front Motion"
+  state_topic: "RFBridge/motion1"
+  availability_topic: "tele/RF_Bridge/LWT"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  name: "Driveway Motion"
+  state_topic: "RFBridge/motion2"
+  availability_topic: "tele/RF_Bridge/LWT"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  name: "Entry Hall Motion"
+  state_topic: "RFBridge/motion3"
+  availability_topic: "tele/RF_Bridge/LWT"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  name: "Back Motion"
+  state_topic: "RFBridge/motion4"
+  availability_topic: "tele/RF_Bridge/LWT"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  name: "Garage Motion"
+  state_topic: "RFBridge/motion5"
+  availability_topic: "tele/RF_Bridge/LWT"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  name: "Hallway RF Motion"
+  state_topic: "RFBridge/motion6"
+  availability_topic: "tele/RF_Bridge/LWT"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  name: "Bedroom Motion"
+  state_topic: "Bedroom/PIR/state"
+  availability_topic: "tele/sonoffKLD-034/LWT"
+  qos: 1
+  payload_on: "1"
+  payload_off: "0"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  name: "Hallway Motion"
+  state_topic: "Hallway/PIR/state"
+  availability_topic: "tele/sonoff39/LWT"
+  qos: 1
+  payload_on: "1"
+  payload_off: "0"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  name: "MBath Motion"
+  state_topic: "MBath/PIR/state"
+  availability_topic: "tele/sonoff40/LWT"
+  qos: 1
+  payload_on: "1"
+  payload_off: "0"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  name: "Kitchen Motion"
+  state_topic: "Kitchen/PIR/state"
+  availability_topic: "tele/sonoff38/LWT"
+  qos: 1
+  payload_on: "1"
+  payload_off: "0"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  name: "Hall Motion"
+  state_topic: "Hall/PIR/state"
+  availability_topic: "tele/sonoff39/LWT"
+  qos: 1
+  payload_on: "1"
+  payload_off: "0"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  name: "Den Motion"
+  state_topic: "Den/PIR/state"
+  availability_topic: "tele/sonoff39/LWT"
+  qos: 1
+  payload_on: "1"
+  payload_off: "0"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  name: "Office Motion"
+  state_topic: "Office/PIR/state"
+  availability_topic: "tele/sonoffT302/LWT"
+  qos: 1
+  payload_on: "1"
+  payload_off: "0"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  device_class: motion
+
+- platform: mqtt
+  state_topic: "alarmpanel/sensor/motion"
+  name: "Movement"
+  payload_on: '{"value":true}'
+  payload_off: '{"value":false}'
+  device_class: motion 
+
+- platform: mqtt
+  state_topic: "alarmpanel/sensor/face"
+  name: "Face Detected"
+  payload_on: '{"value":true}'
+  payload_off: '{"value":false}'
+  device_class: motion 
+  
+#- name: front_door #0
+#  platform: mqtt
+#  state_topic: /test/sensor/front_door/relay/0
+#  payload_on: 1
+#  payload_off: 0
+#  availability_topic: /test/sensor/front_door/status
+#  payload_available: 1
+#  payload_not_available: 0
+##sensor:
+#- name: Hallway_Motion #1
+#  platform: mqtt
+#  state_topic: /test/sensor/front_door/relay/1
+#  payload_on: 1
+#  payload_off: 0
+#  availability_topic: /test/sensor/front_door/status
+#  payload_available: 1
+#  payload_not_available: 0
+##sensor:
+#- name: Entry_Hall_Motion #2
+#  platform: mqtt
+#  state_topic: /test/sensor/front_door/relay/2
+#  payload_on: 1
+#  payload_off: 0
+#  availability_topic: /test/sensor/front_door/status
+#  payload_available: 1
+#  payload_not_available: 0
+##sensor:
+#- name: old_garage_door_open #3
+# platform: mqtt
+# state_topic: /test/sensor/front_door/relay/3
+#  payload_on: 1
+#  payload_off: 0
+#  availability_topic: /test/sensor/front_door/status
+#  payload_available: 1
+#  payload_not_available: 0
+##sensor:
+#- name: Back_Motion #4
+#  platform: mqtt
+# state_topic: /test/sensor/front_door/relay/4
+#  payload_on: 1
+#  payload_off: 0
+#  availability_topic: /test/sensor/front_door/status
+#  payload_available: 1
+#  payload_not_available: 0
+##sensor:
+#- name: Front_Motion #5
+#  platform: mqtt
+#  state_topic: /test/sensor/front_door/relay/5
+#  payload_on: 1
+#  payload_off: 0
+#  availability_topic: /test/sensor/front_door/status
+#  payload_available: 1
+#  payload_not_available: 0
+##sensor:
+#- name: Old_Office_Motion #6
+#  platform: mqtt
+#  state_topic: /test/sensor/front_door/relay/6
+#  payload_on: 1
+#  payload_off: 0
+#  availability_topic: /test/sensor/front_door/status
+#  payload_available: 1
+#  payload_not_available: 0
