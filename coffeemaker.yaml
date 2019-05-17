@@ -1,5 +1,7 @@
  # /config/packages/coffeemaker.yaml
 #########################################################
+## Credits to Thomas Lovén for package/YAML
+#########################################################
 homeassistant:
   customize:
     package.node_anchors:
