@@ -1,0 +1,324 @@
+homeassistant:
+  auth_providers:
+   - type: homeassistant
+   - type: legacy_api_password
+     api_password: !secret http_password
+  name: !secret home_name
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  elevation: !secret home_elevation
+  unit_system: imperial
+  time_zone: America/Chicago
+  packages: !include_dir_named packages
+  customize: !include customize.yaml
+  customize_domain: {}
+  customize_glob: {}
+
+config:
+
+http:
+  base_url: !secret base_url
+
+panel_iframe:
+  backup:
+    title: 'Snapshots'
+    icon: mdi:cloud-upload
+    url: !secret backup_url
+  ide:
+    title: IDE
+    icon: mdi:access-point-network
+    url: !secret ide_url
+
+custom_updater:
+  track:
+    - cards
+    - components
+  card_urls:
+    - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
+    - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
+    - https://raw.githubusercontent.com/maykar/custom-lovelace/master/tracker.json
+    - https://raw.githubusercontent.com/kalkih/simple-weather-card/master/tracker.json
+    - https://raw.githubusercontent.com/MizterB/lovelace-secondaryinfo-entity-row/master/custom_cards.json
+    - https://raw.githubusercontent.com/nervetattoo/simple-thermostat/master/tracker.json
+    - https://raw.githubusercontent.com/atomic7777/atomic_calendar/master/tracker.json
+
+updater:
+
+recorder:
+  db_url: !secret db_url
+  purge_interval: 1
+  purge_keep_days: 7
+  exclude:
+    domains:
+      - automation
+      - weblink
+      - updater
+      - camera
+      - media_player
+      - group
+      - automation
+      - scene
+      - script
+    entities:
+      - sun.sun
+      - sensor.last_boot
+      - sensor.date
+      - sensor.time
+
+discovery:
+  ignore: 
+    - igd
+
+lovelace:
+  mode: yaml
+
+conversation:
+
+map:
+
+sun:
+
+logger:
+  default: error
+  logs:
+    homeassistant.components.mqtt: info
+    homeassistant.components.camera: critical
+    homeassistant.components.device_tracker: critical
+    homeassistant.components: info
+
+system_health:
+
+speedtestdotnet:
+  scan_interval:
+    days: 1
+  monitored_conditions:
+    - ping
+    - download
+    - upload
+
+#ifttt:
+#  key: !secret ifttt_key
+
+tuya:
+  username: !secret TUYA_USERNAME
+  password: !secret TUYA_PASSWORD
+  country_code: 1
+
+nest:
+  client_id: !secret nest_client_id 
+  client_secret: !secret nest_client_secret
+
+#sonoff:
+#  username: !secret sonoff_username
+#  password: !secret sonoff_password
+#  api_region: 'us'
+
+google:
+  client_id: !secret google_client_id
+  client_secret: !secret google_client_secret
+
+#googlehome:
+#  devices:
+#    - host: 192.168.1.69 # office_google
+#      rssi_threshold: -50
+#      track_alarms: true
+#    - host: 192.168.1.246 # living_room_google
+#    - host: 192.168.1.244 # Kitchen display
+#      rssi_threshold: -50
+#      track_alarms: true
+#    - host: 192.168.1.83 # foyer_speaker
+#    - host: 192.168.1.115 # garage_mini
+#      rssi_threshold: -80
+#    - host: 192.168.1.114 # kitchen_mini
+#    - host: 192.168.1.88 # bathroom_speaker
+#    - host: 192.168.1.113 # living_room_mini
+#    - host: 192.168.1.89 # darren's_speaker
+#    - host: 192.168.1.86 # bedroom_speaker
+#    - host: 192.168.1.79 # Office_mini_speaker
+#    - host: 192.168.1.155 # Hall bathroom
+
+#media_player:
+#  - platform: spotify
+#    client_id: !secret spotify_client_id
+#    client_secret: !secret spotify_client_secret
+
+#stream:
+
+camera:
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url1
+    name: Kitchen Cam
+    verify_ssl: false
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url2
+    name: Den Cam
+    verify_ssl: false
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url3
+    name: Driveway Cam
+    verify_ssl: false
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url4
+    name: Front Door
+    verify_ssl: false
+#  - platform: generic
+#    name: Front Door
+#    still_image_url: http://192.168.1.134:8123/local/images-lovelace/card_backz/still_front1.jpg
+#    stream_source: rtsp://dinotech:dino2@192.168.1.91/live  # !secret stream_source4
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url5
+    name: Entry Hall
+    verify_ssl: false
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url6
+    name: Garage Cam
+    verify_ssl: false
+#  - platform: generic
+#    name: Garage Cam
+#    still_image_url: http://192.168.1.134:8123/local/images-lovelace/card_backz/still_garage1.jpg
+#    stream_source: !secret stream_source6
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url7
+    name: Patio Cam
+    verify_ssl: false
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url8
+    name: Office Cam
+    verify_ssl: false
+#  - platform: generic
+#    name: Office Cam
+#    still_image_url: http://192.168.1.134:8123/local/images-lovelace/card_backz/still_drive1.jpg
+#    stream_source: !secret stream_source8
+  - platform: generic
+    still_image_url: 'https://icons.wxug.com/data/weather-maps/radar/united-states/new-orleans-louisiana-region-current-radar-animation.gif'
+    name: Local Radar
+  - platform: generic
+    still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=MSY&brand=wui&num=6&delay=15&type=TR0&frame=0&scale=1.000&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=1&lightning=1&smooth=1&rand=25760093&lat=0&lon=0&label=you'
+    name: New Orleans Radar
+  - platform: generic
+    still_image_url: 'https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.google_maps_105311213674095510695.attributes.latitude }},{{ states.device_tracker.google_maps_105311213674095510695.attributes.longitude }}&zoom=16&size=400x400&maptype=roadmap&markers=color:lime%7Clabel:P%7C{{ states.device_tracker.google_maps_105311213674095510695.attributes.latitude }},{{ states.device_tracker.google_maps_105311213674095510695.attributes.longitude }}&key=AIzaSyCOhs24OA4pbiUFRLF8-0crkMDTOVdVIro'  #!secret google_api_key
+    name: Darren Map
+    limit_refetch_to_url_change: true
+#  - platform: generic
+#    still_image_url: 'https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.google_maps_117348287487191396666.attributes.latitude }},{{ states.device_tracker.google_maps_117348287487191396666.attributes.longitude }}&zoom=16&size=400x400&maptype=roadmap&markers=color:magenta%7Clabel:P%7C{{ states.device_tracker.google_maps_117348287487191396666.attributes.latitude }},{{ states.device_tracker.google_maps_117348287487191396666.attributes.longitude }}&key=AIzaSyCOhs24OA4pbiUFRLF8-0crkMDTOVdVIro'  #!secret google_api_key
+#    name: Donna Map
+#    limit_refetch_to_url_change: true
+#  - platform: mjpeg
+#    mjpeg_url: !secret mjpeg_url
+#    name: AlarmPanel Camera
+
+zone 2:
+    name: !secret zone2_name
+    latitude: !secret zone2_latitude
+    longitude: !secret zone2_longitude
+    radius: 240
+
+device_tracker:
+  - platform: nmap_tracker
+    hosts:
+      - !secret nmap_host_p1
+      - !secret nmap_host_p2
+      - !secret nmap_host_p3
+    home_interval: 05
+    exclude:
+     - !secret hass_ip
+    interval_seconds: 30
+    consider_home: 300
+    new_device_defaults:
+      track_new_devices: true
+      hide_if_away: False
+  - platform: ping
+    hosts:
+      darren: !secret nmap_host_p1
+      donna: !secret nmap_host_p2
+  - platform: google_maps
+    username: !secret google_maps_username
+    password: !secret google_maps_password
+    max_gps_accuracy: 200 
+  - platform: bluetooth_tracker
+
+person:
+  - name: Darren
+    id: darren2017
+    user_id: !secret user_id_darren
+    device_trackers:
+      - device_tracker.darren
+      - device_tracker.pixel_2_xl
+      - device_tracker.b4_f1_da_b7_29_f7 # darren
+  - name: Donna
+    id: donna2012
+    user_id: !secret user_id_donna
+    device_trackers:
+      - device_tracker.donna
+      - device_tracker.donnas_iphone
+      - device_tracker.donna_s_iphone
+      - device_tracker.78_9f_70_ba_e0_3f # donna
+  - name: Tristan
+    id: tristan2019
+    device_trackers:
+      - device_tracker.tristan
+      - device_tracker.44_91_60_d9_8f_a2
+
+tts:
+  - platform: google_translate
+    service_name: google_say
+
+alarm_control_panel:
+  - platform: manual_mqtt
+    state_topic: home/alarm
+    command_topic: home/alarm/set
+    name: "HA Alarm"
+    code: !secret alarm_code
+    pending_time: 30
+    delay_time: 20
+    trigger_time: 4
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      pending_time: 0
+      delay_time: 0
+    triggered:
+      pending_time: 0
+
+input_datetime:
+  time:
+    name: Time
+    has_date: false
+    has_time: true
+    initial: "01:31:00"
+  time_donnas_alarm:
+    name: Donna's Alarm Time
+    has_date: false
+    has_time: true
+    initial: "05:55:00"
+  time_darrens_alarm:
+    name: Darren's Alarm Time
+    has_date: false
+    has_time: true
+    initial: "09:00:00"
+  date:
+    name: Date
+    has_date: true
+    has_time: false
+    initial: "2019-04-17"
+  datetime:
+    name: Date and Time
+    has_date: true
+    has_time: true
+    initial: "2019-04-17 01:31:00"
+
+automation: !include automations.yaml
+binary_sensor: !include includes/binary_sensor.yaml
+cloud: !include includes/cloud.yaml
+group: !include groups.yaml
+history: !include includes/history.yaml 
+input_boolean: !include includes/input_boolean.yaml
+input_select: !include includes/input_select.yaml
+ios: !include includes/ios.yaml
+konnected: !include includes/konnected.yaml
+light: !include includes/light.yaml
+logbook: !include includes/logbook.yaml
+notify: !include includes/notify.yaml
+script: !include scripts.yaml
+sensor: !include includes/sensor.yaml
+switch: !include includes/switch.yaml
