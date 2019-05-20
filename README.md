@@ -27,7 +27,7 @@ iOS (wife)
 used for voice controlled Lovelace commands/devices
 
 **Tablets:**
-Insignia 10.1(2) - (currently 1 wall mounted),
+Insignia 10.1(2) - (currently 1 wall mounted & 1 in office for screen designing),
 Android 7"(1) - wall mounted alarm panel keypad
 
 **Security:**
