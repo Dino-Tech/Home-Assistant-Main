@@ -5,3 +5,24 @@ Message me via the HomeAssistant forums if you have any questions or recommendat
 
 If I've helped you, and you really want to, you can buy me a coffee, but don't feel obliged - I'm not doing this for free coffee, but I do get tired :stuck_out_tongue_winking_eye:
 <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>
+
+I currently have one instance of Home Assistant running.
+
+**Cameras:**
+Wyze
+
+**Thermostat:**
+Nest
+
+**Power Supply:**
+UPS
+
+**Device Trackers:**
+nmap
+bluetooth
+ping
+Google Maps (for GPS and battery statuses)
+iOS (wife)
+
+**Google Home & Assistant**
+used for voice controlled Lovelace commands/devices
