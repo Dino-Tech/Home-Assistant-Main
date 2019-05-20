@@ -18,10 +18,10 @@ Nest
 UPS
 
 **Device Trackers:**
-nmap
-bluetooth
-ping
-Google Maps (for GPS and battery statuses)
+nmap,
+bluetooth,
+ping,
+Google Maps (for GPS and battery statuses),
 iOS (wife)
 
 **Google Home & Assistant**
