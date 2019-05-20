@@ -27,10 +27,10 @@ iOS (wife)
 used for voice controlled Lovelace commands/devices
 
 **Tablets:**
-Insignia 10.1(2)
-Android 7"(1), alarm panel keypad
+Insignia 10.1(2) - (currently 1 wall mounted),
+Android 7"(1) - wall mounted alarm panel keypad
 
 **Security:**
-Konnected 18 zone set up
-Sonoff RF Bridge, running tasmota
-RF PIR Motion detectors(14), used for alarm & automations, tablet 'ON' & 'OFF' screens
+Konnected 18 zone set up - 
+Sonoff RF Bridge - running tasmota,
+RF PIR Motion detectors(14) - used for alarm & automations, tablet 'ON' & 'OFF' screens
