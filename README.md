@@ -33,4 +33,4 @@ Android 7"(1) - wall mounted alarm panel keypad
 **Security:**
 Konnected 18 zone set up - 
 Sonoff RF Bridge - running tasmota,
-RF PIR Motion detectors(14) - used for alarm & automations, tablet 'ON' & 'OFF' screens
+RF PIR Motion detectors(14) - used for alarm, automations & tablet 'ON' & 'OFF' screens
