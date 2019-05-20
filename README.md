@@ -1,4 +1,4 @@
-# Home-Assistant-Tablet-Main
+# Home-Assistant-Main
 Home Assistant Config Files (YAMLs). These are my Home Assistant configuration files.
 
 Message me via the HomeAssistant forums if you have any questions or recommendations in regards to my repository! 
