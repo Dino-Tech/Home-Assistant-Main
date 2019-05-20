@@ -7,13 +7,13 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 
 **I currently have one instance of Home Assistant running on a RPi3B.**
 
-**Cameras:**
+**Cameras(8):**
 Wyze
 
 **Thermostat:**
 Nest
 
-**Power Supply:**
+**Power Supply(4):**
 UPS
 
 **Device Trackers:**
@@ -25,3 +25,12 @@ iOS (wife)
 
 **Google Home & Assistant**
 used for voice controlled Lovelace commands/devices
+
+**Tablets:**
+Insignia 10.1(2)
+Android 7"(1), alarm panel keypad
+
+**Security:**
+Konnected 18 zone set up
+Sonoff RF Bridge, running tasmota
+RF PIR Motion detectors(14), used for alarm & automations, tablet 'ON' & 'OFF' screens
