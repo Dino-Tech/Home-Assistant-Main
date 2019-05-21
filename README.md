@@ -23,8 +23,8 @@ ping,
 Google Maps (for GPS and battery statuses),
 iOS (wife)
 
-**Google Homes & Assistant Powered Devices**
-used for voice controlled Lovelace commands/devices. Google Hub(1), Google Homes(2), Google min1s(5), Google Assisted speakers(4) - Zolo mini, Insignia(2), Insignia portable(1)
+**Google Homes & Assistant Powered Devices(14)**
+used for voice controlled Lovelace commands/devices. Google Hub(1), Google Homes(2), Google min1s(5), Google Assisted speakers - Zolo mini(1), Insignia(2), Insignia portable(1), Chromecast powered TV's(2)
 
 **Tablets:**
 Insignia 10.1(2) - (currently 1 wall mounted & 1 in office for screen designing),
