@@ -1,90 +1,84 @@
 resources:
-  - url: /customcards/github/thomasloven/card-tools.js?track=true
+  - url: /local/github/thomasloven/card-tools.js?track=true
     type: js
-  - url: https://fonts.googleapis.com/css?family=Indie Flower|Righteous|Permanent Marker
+  - url: https://fonts.googleapis.com/css?family=Indie Flower|Righteous #|Permanent Marker
     type: css
-  - url: /customcards/custom-lovelace/kiosk.js
+  - url: /local/github/thomasloven/layout-card.js?track=true
     type: js
-  - url: /customcards/github/thomasloven/layout-card.js?track=true
-    type: js
-  - url: /customcards/github/maykar/compact-custom-header.js?track=true
+  - url: /local/github/maykar/compact-custom-header.js?track=true
     type: module
-  - url: /customcards/github/thomasloven/gap-card.js?track=true
+  - url: /local/custom-lovelace/state-switch.js
     type: js
-  - url: /customcards/custom-lovelace/thermostat-card/thermostat-card.js
+  - url: /local/custom-lovelace/atomic-calendar.js
     type: module
-  - url: /customcards/custom-lovelace/browser-commander.js
+  - url: /local/github/thomasloven/popup-card.js?track=true
     type: js
-  - url: /customcards/custom-lovelace/card-modder.js
+  - url: /local/custom-lovelace/fold-entity-row.js
     type: js
-  - url: /customcards/github/thomasloven/slider-entity-row.js?track=true
+  - url: /local/custom-lovelace/card-modder.js
     type: js
-  - url: /customcards/custom-lovelace/circle-sensor-card.js
+  - url: /local/custom-lovelace/browser-commander.js
+    type: js
+  - url: /local/custom-lovelace/auto-entities.js
+    type: js
+  - url: /local/github/thomasloven/slider-entity-row.js?track=true
+    type: js
+  - url: /local/github/thomasloven/gap-card.js?track=true
+    type: js
+  - url: /local/github/thomasloven/dummy-entity-row.js?track=true
+    type: js
+  - url: /local/github/thomasloven/time-input-row.js
+    type: js
+  - url: /local/custom-lovelace/lovelace-countdown-dates.js?v=0.1.1.8
+    type: js
+  - url: /local/custom-lovelace/thermostat-card/thermostat-card.js
     type: module
-  - url: /customcards/custom-lovelace/vertical-stack-in-card.js
-    type: js
-  - url: /customcards/custom-lovelace/surveillance-card.js
+  - url: /local/github/custom-cards/button-card.js?track=true
     type: module
-  - url: /customcards/custom-lovelace/light-entity-row.js
-    type: js
-  - url: /customcards/custom-lovelace/monster-card.js
-    type: js
-  - url: /customcards/custom-lovelace/auto-entities.js
-    type: js
-  - url: /customcards/custom-lovelace/canvas-gauge-card.js
+  - url: /local/custom-lovelace/mini-graph-card-bundle.js
     type: module
-  - url: /customcards/github/custom-cards/button-card.js?track=true
+  - url: /local/custom-lovelace/mini-media-player-bundle.js
     type: module
-  - url: /customcards/custom-lovelace/no-card.js
+  - url: /local/custom-lovelace/simple-weather-card.bundle.js
     type: module
-  - url: /customcards/custom-lovelace/mini-graph-card-bundle.js
+  - url: /local/custom-lovelace/radial-menu.js
     type: module
-  - url: /customcards/custom-lovelace/mini-media-player-bundle.js
+  - url: /local/custom-lovelace/dark-sky-weather-card.js
     type: module
-  - url: /customcards/custom-lovelace/simple-weather-card.bundle.js
+  - url: /local/custom-lovelace/camera-card.js
     type: module
-  - url: /customcards/custom-lovelace/radial-menu.js
+  - url: /community_plugin/gauge-card/gauge-card.js
+    type: js
+  - url: /community_plugin/bar-card/bar-card.js
+    type: js
+  - url: /community_plugin/tracker-card/tracker-card.js
     type: module
-  - url: /customcards/github/thomasloven/popup-card.js?track=true
+  - url: /community_plugin/bignumber-card/bignumber-card.js
     type: js
-  - url: /customcards/custom-lovelace/alarm_control_panel-card.js?v=0.4.9
-    type: js
-  - url: /customcards/custom-lovelace/bignumber-card.js
-    type: js
-  - url: /customcards/custom-lovelace/simple-thermostat/simple-thermostat.js
+  - url: /community_plugin/canvas-gauge-card/canvas-gauge-card.js
     type: module
-  - url: /customcards/custom-lovelace/dark-sky-weather-card.js
+  - url: /community_plugin/monster-card/monster-card.js
+    type: js
+  - url: /community_plugin/circle-sensor-card/circle-sensor-card.js
     type: module
-  - url: /customcards/custom-lovelace/text-element.js
+  - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
     type: js
-  - url: /customcards/custom-lovelace/dual-gauge-card.js
-    type: js
-  - url: /customcards/custom-lovelace/state-switch.js
-    type: js
-  - url: /customcards/github/custom-cards/tracker-card.js?track=true
+  - url: /community_plugin/surveillance-card/surveillance-card.js
     type: module
-  - url: /customcards/custom-lovelace/fold-entity-row.js
+  - url: /community_plugin/light-entity-row/light-entity-row.js
     type: js
-  - url: /customcards/custom-lovelace/useful-markdown-card.js
-    type: js
-  - url: /customcards/custom-lovelace/toggle-lock-entity-row.js
-    type: js
-  - url: /customcards/custom-lovelace/gauge-card.js
-    type: js
-  - url: /customcards/custom-lovelace/bar-card.js
-    type: js
-  - url: /customcards/custom-lovelace/secondaryinfo-entity-row.js
-    type: js
-  - url: /customcards/custom-lovelace/atomic-calendar.js
-    type: module
-  - url: /customcards/custom-lovelace/camera-card.js
-    type: module
-  - url: /customcards/github/thomasloven/dummy-entity-row.js?track=true
-    type: js
-  - url: /customcards/github/thomasloven/time-input-row.js
-    type: js
-  - url: /customcards/custom-lovelace/lovelace-countdown-dates.js?v=0.1.1.8
-    type: js
+#  - url: /local/custom-lovelace/simple-thermostat/simple-thermostat.js
+#    type: module
+#  - url: /local/custom-lovelace/text-element.js
+#    type: js
+#  - url: /local/custom-lovelace/dual-gauge-card.js
+#    type: js
+#  - url: /local/custom-lovelace/useful-markdown-card.js
+#    type: js
+#  - url: /local/custom-lovelace/toggle-lock-entity-row.js
+#    type: js
+#  - url: /local/custom-lovelace/secondaryinfo-entity-row.js
+#    type: js
 
 popup_cards:
   sensor.zdummy_sensor_1:
