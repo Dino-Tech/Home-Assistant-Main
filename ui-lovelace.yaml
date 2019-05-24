@@ -1,89 +1,90 @@
 resources:
-  - url: /local/github/thomasloven/card-tools.js?track=true
+  - url: /customcards/github/thomasloven/card-tools.js?track=true
     type: js
   - url: https://fonts.googleapis.com/css?family=Indie Flower|Righteous #|Permanent Marker
     type: css
-  - url: /local/github/thomasloven/layout-card.js?track=true
+  - url: /customcards/github/thomasloven/layout-card.js?track=true
     type: js
-  - url: /local/github/maykar/compact-custom-header.js?track=true
+  - url: /customcards/github/maykar/compact-custom-header.js?track=true
     type: module
-  - url: /local/custom-lovelace/state-switch.js
+  - url: /customcards/github/thomasloven/gap-card.js?track=true
     type: js
-  - url: /local/custom-lovelace/atomic-calendar.js
+  - url: /customcards/custom-lovelace/thermostat-card/thermostat-card.js
     type: module
-  - url: /local/github/thomasloven/popup-card.js?track=true
+  - url: /customcards/custom-lovelace/browser-commander.js
     type: js
-  - url: /local/custom-lovelace/fold-entity-row.js
+  - url: /customcards/custom-lovelace/card-modder.js
     type: js
-  - url: /local/custom-lovelace/card-modder.js
+  - url: /customcards/github/thomasloven/slider-entity-row.js?track=true
     type: js
-  - url: /local/custom-lovelace/browser-commander.js
-    type: js
-  - url: /local/custom-lovelace/auto-entities.js
-    type: js
-  - url: /local/github/thomasloven/slider-entity-row.js?track=true
-    type: js
-  - url: /local/github/thomasloven/gap-card.js?track=true
-    type: js
-  - url: /local/github/thomasloven/dummy-entity-row.js?track=true
-    type: js
-  - url: /local/github/thomasloven/time-input-row.js
-    type: js
-  - url: /local/custom-lovelace/lovelace-countdown-dates.js?v=0.1.1.8
-    type: js
-  - url: /local/custom-lovelace/thermostat-card/thermostat-card.js
+  - url: /customcards/custom-lovelace/circle-sensor-card.js
     type: module
-  - url: /local/github/custom-cards/button-card.js?track=true
+  - url: /customcards/custom-lovelace/vertical-stack-in-card.js
+    type: js
+  - url: /customcards/custom-lovelace/surveillance-card.js
     type: module
-  - url: /local/custom-lovelace/mini-graph-card-bundle.js
+  - url: /customcards/custom-lovelace/light-entity-row.js
+    type: js
+  - url: /customcards/custom-lovelace/auto-entities.js
+    type: js
+  - url: /customcards/custom-lovelace/canvas-gauge-card.js
     type: module
-  - url: /local/custom-lovelace/mini-media-player-bundle.js
+  - url: /customcards/github/custom-cards/button-card.js?track=true
     type: module
-  - url: /local/custom-lovelace/simple-weather-card.bundle.js
+  - url: /customcards/custom-lovelace/mini-graph-card-bundle.js
     type: module
-  - url: /local/custom-lovelace/radial-menu.js
+  - url: /customcards/custom-lovelace/mini-media-player-bundle.js
     type: module
-  - url: /local/custom-lovelace/dark-sky-weather-card.js
+  - url: /customcards/custom-lovelace/simple-weather-card.bundle.js
+    type: module
+  - url: /customcards/custom-lovelace/radial-menu.js
+    type: module
+  - url: /customcards/github/thomasloven/popup-card.js?track=true
+    type: js
+  - url: /customcards/custom-lovelace/bignumber-card.js
+    type: js
+  - url: /customcards/custom-lovelace/dark-sky-weather-card.js
+    type: module
+  - url: /customcards/custom-lovelace/state-switch.js
+    type: js
+  - url: /customcards/github/custom-cards/tracker-card.js?track=true
+    type: module
+  - url: /customcards/custom-lovelace/fold-entity-row.js
+    type: js
+  - url: /customcards/custom-lovelace/gauge-card.js
+    type: js
+  - url: /customcards/custom-lovelace/bar-card.js
+    type: js
+  - url: /customcards/custom-lovelace/atomic-calendar.js
     type: module
   - url: /local/custom-lovelace/camera-card.js
     type: module
-  - url: /community_plugin/gauge-card/gauge-card.js
+  - url: /customcards/github/thomasloven/dummy-entity-row.js?track=true
     type: js
-  - url: /community_plugin/bar-card/bar-card.js
+  - url: /customcards/github/thomasloven/time-input-row.js
     type: js
-  - url: /community_plugin/tracker-card/tracker-card.js
-    type: module
-  - url: /community_plugin/bignumber-card/bignumber-card.js
+  - url: /customcards/custom-lovelace/lovelace-countdown-dates.js?v=0.1.1.8
     type: js
-  - url: /community_plugin/canvas-gauge-card/canvas-gauge-card.js
-    type: module
-  - url: /community_plugin/monster-card/monster-card.js
-    type: js
-  - url: /community_plugin/circle-sensor-card/circle-sensor-card.js
-    type: module
-  - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
-    type: js
-  - url: /community_plugin/surveillance-card/surveillance-card.js
-    type: module
-  - url: /community_plugin/light-entity-row/light-entity-row.js
-    type: js
-#  - url: /local/custom-lovelace/simple-thermostat/simple-thermostat.js
+#  - url: /customcards/custom-lovelace/monster-card.js
+#    type: js
+#  - url: /customcards/custom-lovelace/simple-thermostat/simple-thermostat.js
 #    type: module
-#  - url: /local/custom-lovelace/text-element.js
+#  - url: /customcards/custom-lovelace/text-element.js
 #    type: js
-#  - url: /local/custom-lovelace/dual-gauge-card.js
+#  - url: /customcards/custom-lovelace/dual-gauge-card.js
 #    type: js
-#  - url: /local/custom-lovelace/useful-markdown-card.js
+#  - url: /customcards/custom-lovelace/useful-markdown-card.js
 #    type: js
-#  - url: /local/custom-lovelace/toggle-lock-entity-row.js
+#  - url: /customcards/custom-lovelace/toggle-lock-entity-row.js
 #    type: js
-#  - url: /local/custom-lovelace/secondaryinfo-entity-row.js
+#  - url: /customcards/custom-lovelace/secondaryinfo-entity-row.js
 #    type: js
 
 popup_cards:
   sensor.zdummy_sensor_1:
     title: Master Bedroom
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/card_backz/Bdrm9.png")
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -93,6 +94,8 @@ popup_cards:
       "--paper-item-icon-active-color": lime
       "--iron-icon-height": 45px
       "--iron-icon-width": 45px
+      "--app-toolbar-font-size": 1.3em
+      text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
       font-size: 23px
       height: 750px
       width: 100%
@@ -148,9 +151,11 @@ popup_cards:
           tap_action:
             action: toggle
       show_state: false
+
   sensor.zdummy_sensor_2:
     title: Living Room
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/card_backz/Den9.png")
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -160,6 +165,7 @@ popup_cards:
       "--paper-item-icon-active-color": lime
       "--iron-icon-height": 45px
       "--iron-icon-width": 45px
+      "--app-toolbar-font-size": 1.3em
       padding: 14px 0px 0px 0px
       font-size: 24px
       height: 750px
@@ -212,9 +218,11 @@ popup_cards:
           tap_action:
             action: toggle
       show_state: false
+
   sensor.zdummy_sensor_3:
     title: Office Lighting and Outlets
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/card_backz/Office9.png")
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -224,6 +232,7 @@ popup_cards:
       "--paper-item-icon-active-color": lime
       "--iron-icon-height": 45px
       "--iron-icon-width": 45px
+      "--app-toolbar-font-size": 1.3em
       font-size: 24px
       height: 750px
       width: 100%
@@ -302,9 +311,11 @@ popup_cards:
           tap_action:
             action: toggle
       show_state: false
+
   sensor.zdummy_sensor_4:
     title: Kitchen
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/card_backz/Kit9.png")
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -314,6 +325,7 @@ popup_cards:
       "--paper-item-icon-active-color": rgb(255, 255, 0)
       "--iron-icon-height": 45px
       "--iron-icon-width": 45px
+      "--app-toolbar-font-size": 1.3em
       padding: 4px 0px 0px 0px
       text-shadow: "1px 1px 2px green, 0 0 25px lime, 0 0 5px chartreuse"
       font-size: 24px
@@ -371,9 +383,11 @@ popup_cards:
           tap_action:
             action: toggle
       show_state: false
+
   sensor.zdummy_sensor_5:
     title: Laundry
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/card_backz/Washer9.png")
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -383,6 +397,7 @@ popup_cards:
       "--paper-item-icon-active-color": lime
       "--iron-icon-height": 45px
       "--iron-icon-width": 45px
+      "--app-toolbar-font-size": 1.3em
       text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue
       font-size: 22px
       font-stretch: ultra-expanded
@@ -404,101 +419,95 @@ popup_cards:
         - sensor.dryer_amps
         - sensor.dryer_energy_today
         - sensor.dryer_energy_yesterday
-#              - sensor.dryer_signal
-  sensor.zdummy_sensor_6:
+
+  camera.den_cam:
     title: Living Room Camera
     style:
-      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=222222222&user=xxx&pwd=xxxxxxx)"
-      background-repeat: no-repeat
-      background-size: 100% 100%
-      border-radius: 20px
-      border: solid 6px lime # rgb(5, 205, 255)
-      height: 700px
+      background: black
+      border-radius: 12px
+      border: solid 6px lime
+      height: 750px
       width: 100%
     card:
-      type: picture
-      image: /local/images-lovelace/backgroundz/ClearPNG.png
-  sensor.zdummy_sensor_7:
+      type: 'custom:camera-card'
+      entity: camera.den_cam
+
+  camera.entry_hall:
     title: Entry Hall Camera
     style:
-      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=222222222&user=xxx&pwd=xxxxxxx)"
-      background-repeat: no-repeat
-      background-size: 100% 100%
-      border-radius: 20px
-      border: solid 6px lime # rgb(5, 205, 255)
-      height: 700px
+      background: black
+      border-radius: 12px
+      border: solid 6px lime
+      height: 750px
       width: 100%
     card:
-      type: picture
-      image: /local/images-lovelace/backgroundz/ClearPNG.png
-  sensor.zdummy_sensor_8:
+      type: 'custom:camera-card'
+      entity: camera.entry_hall
+
+  camera.garage_cam:
     title: Garage Camera
     style:
-      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=222222222&user=xxx&pwd=xxxxxxx)"
-      background-repeat: no-repeat
-      background-size: 100% 100%
-      border-radius: 20px
-      border: solid 6px lime # rgb(5, 205, 255)
-      height: 700px
+      background: black
+      border-radius: 12px
+      border: solid 6px lime
+      height: 750px
       width: 100%
     card:
-      type: picture
-      image: /local/images-lovelace/backgroundz/ClearPNG.png
-  sensor.zdummy_sensor_9:
+      type: 'custom:camera-card'
+      entity: camera.garage_cam
+
+  camera.kitchen_cam:
     title: Kitchen Camera
     style:
-      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=222222222&user=xxx&pwd=xxxxxxx)"
-      background-repeat: no-repeat
-      background-size: 100% 100%
-      border-radius: 20px
-      border: solid 6px lime # rgb(5, 205, 255)
-      height: 700px
+      background: black
+      border-radius: 12px
+      border: solid 6px lime
+      height: 750px
       width: 100%
     card:
-      type: picture
-      image: /local/images-lovelace/backgroundz/ClearPNG.png
-  sensor.zdummy_sensor_10:
+      type: 'custom:camera-card'
+      entity: camera.kitchen_cam
+
+  camera.front_door:
     title: Front Door Camera
     style:
-      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=222222222&user=xxx&pwd=xxxxxxx)"
-      background-repeat: no-repeat
-      background-size: 100% 100%
-      border-radius: 20px
-      border: solid 6px lime # rgb(5, 205, 255)
-      height: 700px
+      background: black
+      border-radius: 12px
+      border: solid 6px lime
+      height: 750px
       width: 100%
     card:
-      type: picture
-      image: /local/images-lovelace/backgroundz/ClearPNG.png
-  sensor.zdummy_sensor_11:
+      type: 'custom:camera-card'
+      entity: c
+
+  camera.patio_cam:
     title: Patio Camera
     style:
-      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=222222222&user=xxx&pwd=xxxxxxx)"
-      background-repeat: no-repeat
-      background-size: 100% 100%
-      border-radius: 20px
-      border: solid 6px lime # rgb(5, 205, 255)
-      height: 700px
+      background: black
+      border-radius: 12px
+      border: solid 6px lime
+      height: 750px
       width: 100%
     card:
-      type: picture
-      image: /local/images-lovelace/backgroundz/ClearPNG.png
-  sensor.zdummy_sensor_12:
+      type: 'custom:camera-card'
+      entity: camera.patio_cam
+
+  camera.driveway_cam:
     title: Driveway Camera
     style:
-      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=222222222&user=xxx&pwd=xxxxxxx)"
-      background-repeat: no-repeat
-      background-size: 100% 100%
-      border-radius: 20px
-      border: solid 6px lime # rgb(5, 205, 255)
-      height: 700px
+      background: black
+      border-radius: 12px
+      border: solid 6px lime
+      height: 750px
       width: 100%
     card:
-      type: picture
-      image: /local/images-lovelace/backgroundz/ClearPNG.png
+      type: 'custom:camera-card'
+      entity: camera.driveway_cam
+
   sensor.zdummy_sensor_13:
     title: Regional Radar
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url('https://icons.wxug.com/data/weather-maps/radar/united-states/new-orleans-louisiana-region-current-radar-animation.gif')
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -509,9 +518,11 @@ popup_cards:
     card:
       type: picture
       image: /local/images-lovelace/backgroundz/ClearPNG.png
+
   sensor.zdummy_sensor_14:
     title: " "  # New Orleans Radar
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url('https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=MSY&brand=wui&num=6&delay=15&type=TR0&frame=0&scale=1.000&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=1&lightning=1&smooth=1&rand=25760093&lat=0&lon=0&label=you')
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -522,10 +533,11 @@ popup_cards:
     card:
       type: picture
       image: /local/images-lovelace/backgroundz/ClearPNG.png
+
   sensor.zdummy_sensor_15:
     title: Interactive Radar
     style:
-      background-color: rgba(0,0,0,0.6)
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       border-radius: 20px
       border: solid 6px rgb(5, 205, 255)
       height: 750px
@@ -534,23 +546,23 @@ popup_cards:
       type: iframe
       url: https://embed.windy.com/embed2.html
       aspect_ratio: 56.5%
-  sensor.zdummy_sensor_16:
+
+  camera.office_cam:
     title: Office Camera
     style:
-      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=222222222&user=xxx&pwd=xxxxxxx)"
-      background-repeat: no-repeat
-      background-size: 100% 100%
-      border-radius: 20px
+      background: black
+      border-radius: 12px
       border: solid 6px lime
-      height: 700px
+      height: 750px
       width: 100%
     card:
-      type: picture
-      image: /local/images-lovelace/backgroundz/ClearPNG.png
+      type: 'custom:camera-card'
+      entity: camera.office_cam
+
   sensor.zdummy_sensor_17:
     title: Weather Forecast
     style:
-      background-color: black
+      background: linear-gradient(rgba(200,200,200,0.95), 30%, rgba(0,0,0,0.9))
       font-size: 26px
       border-radius: 20px
       border: solid 8px rgb(204, 204, 204)
@@ -559,7 +571,7 @@ popup_cards:
     card:
       type: custom:card-modder
       style:
-        background-image: "url(/local/images-lovelace/WIII_tranz/[[ input_select.auto_cardz.state ]].png)"
+        background-image: "url(/local/images-lovelace/WIII_tranz/[[ input_select.auto_cardz.state ]].png)" #url("/local/backgroundz/ClearPNG.png") # 
         background-repeat: no-repeat
         background-size: 100% 100%
       card:
@@ -602,16 +614,79 @@ popup_cards:
         entity_pop_4: sensor.dark_sky_precip_probability_4d
         entity_pop_5: sensor.dark_sky_precip_probability_5d
         entity_current_text: sensor.dark_sky_current_text
-  sensor.zdummy_sensor_18:
-    title: Input Switches & Scripts
+
+  sensor.zdummy_sensor_29:
+    title: Weather Forecast
     style:
+      background: linear-gradient(rgba(150,150,150,0.95), 20%, rgba(0,0,0,0.9))
+      font-size: 18px
+      border-radius: 15px
+      border: solid 8px dimgray
+      height: 620px
+      width: 100%
+    card:
+      type: custom:card-modder
+      style:
+        background-image: "url(/local/images-lovelace/WIII_tranz/[[ input_select.auto_cardz.state ]].png)" #url("/local/backgroundz/ClearPNG.png") # 
+        background-repeat: no-repeat
+        background-size: 100% 100%
+      card:
+        type: 'custom:dark-sky-weather-card'
+        entity_current_conditions: sensor.dark_sky_icon
+        entity_temperature: sensor.dark_sky_temperature
+        entity_forecast_high_temp_1: sensor.dark_sky_daytime_high_temperature_1d
+        entity_forecast_high_temp_2: sensor.dark_sky_daytime_high_temperature_2d
+        entity_forecast_high_temp_3: sensor.dark_sky_daytime_high_temperature_3d
+        entity_forecast_high_temp_4: sensor.dark_sky_daytime_high_temperature_4d
+        entity_forecast_high_temp_5: sensor.dark_sky_daytime_high_temperature_5d
+        entity_forecast_icon_1: sensor.dark_sky_icon_1d
+        entity_forecast_icon_2: sensor.dark_sky_icon_2d
+        entity_forecast_icon_3: sensor.dark_sky_icon_3d
+        entity_forecast_icon_4: sensor.dark_sky_icon_4d
+        entity_forecast_icon_5: sensor.dark_sky_icon_5d
+        entity_forecast_low_temp_1: sensor.dark_sky_overnight_low_temperature_0d
+        entity_forecast_low_temp_2: sensor.dark_sky_overnight_low_temperature_1d
+        entity_forecast_low_temp_3: sensor.dark_sky_overnight_low_temperature_2d
+        entity_forecast_low_temp_4: sensor.dark_sky_overnight_low_temperature_3d
+        entity_forecast_low_temp_5: sensor.dark_sky_overnight_low_temperature_4d
+        entity_summary_1: sensor.dark_sky_summary_1d
+        entity_summary_2: sensor.dark_sky_summary_2d
+        entity_summary_3: sensor.dark_sky_summary_3d
+        entity_summary_4: sensor.dark_sky_summary_4d
+        entity_summary_5: sensor.dark_sky_summary_5d
+        entity_sun: sun.sun
+        entity_visibility: sensor.dark_sky_visibility
+        entity_daytime_high: sensor.dark_sky_daytime_high_temperature_0d
+        entity_wind_bearing: sensor.dark_sky_wind_bearing
+        entity_wind_speed: sensor.dark_sky_wind_speed
+        entity_humidity: sensor.dark_sky_humidity
+        entity_pressure: sensor.dark_sky_pressure
+        entity_apparent_temp: sensor.dark_sky_apparent_temperature
+        entity_daily_summary: sensor.dark_sky_daily_summary
+        entity_pop: sensor.dark_sky_precip_probability_0d
+        entity_pop_1: sensor.dark_sky_precip_probability_1d
+        entity_pop_2: sensor.dark_sky_precip_probability_2d
+        entity_pop_3: sensor.dark_sky_precip_probability_3d
+        entity_pop_4: sensor.dark_sky_precip_probability_4d
+        entity_pop_5: sensor.dark_sky_precip_probability_5d
+        entity_current_text: sensor.dark_sky_current_text
+
+  sensor.zdummy_sensor_18:
+    title: Input Switches, Selects & Scripts
+    style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/backgroundz/flash001.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 20px
       border: solid 8px rgb(38, 0, 153)
+      "--app-toolbar-font-size": 1.3em
+      "--iron-icon-height": 35px
+      "--iron-icon-width": 35px
+      "--iron-icon-stroke-color": dimgray
+      "--primary-text-color": white
       height: 750px
-      width: 100%
+      width: 85%
       text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue
       font-size: 30px
     card:
@@ -622,21 +697,41 @@ popup_cards:
             type: custom:fold-entity-row
             head:
               type: section
+              label: Input Select
+          filter:
+            include:
+              - domain: input_select
+            exclude:
+              - entity_id: input_select.auto_accentz
+              - entity_id: input_select.auto_cornerz
+              - entity_id: input_select.auto_padding
+              - entity_id: input_select.auto_shadowz
+              - entity_id: input_select.random_views
+              - entity_id: input_select.backgroundz
+              - entity_id: input_select.auto_themez
+              - entity_id: input_select.button_animation_1
+              - entity_id: input_select.button_animation_3
+        - type: section
+        - type: custom:auto-entities
+          card:
+            type: custom:fold-entity-row
+            head:
+              type: section
               label: Input Booleans
           filter:
             include:
               - entity_id: input_boolean.notifications
               - entity_id: input_boolean.voice_notifications
-              - entity_id: input_boolean.driveway_motion_lights
               - entity_id: input_boolean.disable_garage_notify
               - entity_id: input_boolean.disable_popups
-              - entity_id: input_boolean.disable_inside_popups
               - entity_id: input_boolean.browser_refresh
+              - entity_id: input_boolean.auto_backgroundz
               - entity_id: input_boolean.auto_cameras
               - entity_id: input_boolean.auto_camera_image
               - entity_id: input_boolean.auto_tablet
               - entity_id: input_boolean.donnas_work_alarm
               - entity_id: input_boolean.darrens_work_alarm
+              - entity_id: input_boolean.driveway_motion_lights
         - type: section
         - type: custom:auto-entities
           card:
@@ -656,7 +751,26 @@ popup_cards:
               - entity_id: script.restart_ha
               - entity_id: script.siren_lights_disarm
               - entity_id: script.turn_outside_off
-        - type: section
+
+## mobile popup
+  sensor.zdummy_sensor_32:
+    title: " "
+    style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
+      background-image: url("/local/images-lovelace/mobile_backz/Storm2.jpg")
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 14px
+      border: solid 8px rgb(38, 0, 153)
+      "--primary-text-color": white
+      color: "#FFF"
+      height: 750px
+      width: 100%
+      text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue
+      font-size: 24px
+    card:
+      type: entities
+      entities:
         - type: custom:auto-entities
           card:
             type: custom:fold-entity-row
@@ -666,9 +780,57 @@ popup_cards:
           filter:
             include:
               - domain: input_select
+            exclude:
+              - entity_id: input_select.auto_accentz
+              - entity_id: input_select.auto_cornerz
+              - entity_id: input_select.auto_padding
+              - entity_id: input_select.auto_shadowz
+              - entity_id: input_select.random_views
+              - entity_id: input_select.backgroundz
+              - entity_id: input_select.auto_themez
+              - entity_id: input_select.button_animation_1
+              - entity_id: input_select.button_animation_3
+        - type: section
+        - type: custom:auto-entities
+          card:
+            type: custom:fold-entity-row
+            head:
+              type: section
+              label: Input Booleans
+          filter:
+            include:
+              - entity_id: input_boolean.notifications
+              - entity_id: input_boolean.voice_notifications
+              - entity_id: input_boolean.disable_garage_notify
+              - entity_id: input_boolean.disable_popups
+              - entity_id: input_boolean.browser_refresh
+              - entity_id: input_boolean.auto_backgroundz
+              - entity_id: input_boolean.auto_cameras
+              - entity_id: input_boolean.auto_camera_image
+              - entity_id: input_boolean.auto_tablet
+              - entity_id: input_boolean.driveway_motion_lights
+        - type: section
+        - type: custom:auto-entities
+          card:
+            type: custom:fold-entity-row
+            head:
+              type: section
+              label: Scripts
+          filter:
+            include:
+              - entity_id: script.good_night
+              - entity_id: script.reload_automations
+              - entity_id: script.restart_ha
+              - entity_id: script.alarm_arm
+              - entity_id: script.alarm_arm_home
+              - entity_id: script.alarm_disarm
+              - entity_id: script.siren_lights_disarm
+              - entity_id: script.turn_outside_off
+
   sensor.zdummy_sensor_19:
     title: Lights, Fans & Switches On
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/backgroundz/light-bulbs.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -678,6 +840,7 @@ popup_cards:
       "--iron-icon-height": 65px
       "--iron-icon-width": 65px
       "--iron-icon-stroke-color": black
+      "--app-toolbar-font-size": 1.3em
       text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
       font-size: 24px
       height: 700px
@@ -721,35 +884,120 @@ popup_cards:
               - entity_id: switch.ceiling_left_sw
               - entity_id: switch.ceiling_right_sw
               - entity_id: switch.hallway_switch
-  sensor.zdummy_sensor_20:
-    title: New Life Security System
+
+## Mobile popup
+  sensor.zdummy_sensor_30:
+    title: '...Currently "ON"...' 
     style:
-      background: black
-      background-image: url("/local/images-lovelace/backgroundz/black_wood5.jpg")
+      background: rgba(0,0,0,0.0)
+      background-image: url("/local/images-lovelace/mobile_backz/mobile16.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 20px
       border: solid 8px lime
-      "--ha-card-header-font-size": 2.25em
+      "--paper-item-icon-active-color": lime
+      "--iron-icon-height": 40px
+      "--iron-icon-width": 40px
+      "--iron-icon-stroke-color": black
+      "--app-toolbar-font-size": 1.65em
+      "--paper-toggle-button-checked-button-color": lime
+      text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
+      font-size: 20px
+      height: 700px
+      width: 98%
+    card:
+      type: entities
+      entities:
+        - type: custom:auto-entities
+          show_empty: true
+          card:
+            type: entities #glance
+            show_state: false
+          filter:
+            include:
+              - domain: light
+                state: "on"
+                options:
+                  tap_action:
+                    action: toggle
+              - domain: switch
+                state: "on"
+                options:
+                  tap_action:
+                    action: toggle
+            exclude: 
+              - entity_id: switch.cabinet_sw2
+              - entity_id: switch.kitchen_cabinet_lights
+              - entity_id: switch.kitchen_stove_light
+              - entity_id: switch.office_monitor
+              - entity_id: switch.cabinet_sw2
+              - entity_id: switch.kitchen_cabinet_lights
+              - entity_id: switch.kitchen_stove_light
+              - entity_id: switch.office_monitor
+              - entity_id: switch.living_room_lamp_sw2
+              - entity_id: switch.living_room_lamp_switch
+              - entity_id: switch.hall_switch_2
+              - entity_id: switch.hall_switch_1
+              - entity_id: switch.front_flood_lights_switch
+              - entity_id: switch.foyer_light_switch
+              - entity_id: switch.fountain_switch
+              - entity_id: switch.ceiling_left_sw
+              - entity_id: switch.ceiling_right_sw
+              - entity_id: switch.hallway_switch
+
+## Mobile popup
+  sensor.zdummy_sensor_20:
+    title: New Life Security
+    style:
+      background: rgba(0,0,0,0.0)
+      background-image: url("/local/images-lovelace/backgroundz/Stainless.jpg")
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 20px
+      border: solid 8px red
+      "--app-toolbar-font-size": 1.65em
+      text-shadow: "1px 1px 2px black, 0 0 25px red, 0 0 5px firebrick"
+      font-size: 20px
+      height: 600px
+      width: 98%
+    card:
+      type: alarm-panel
+      entity: alarm_control_panel.ha_alarm
+
+  alarm_control_panel.ha_alarm:
+    title: New Life Security
+    theme: Dark-N-Clear
+    style:
+      background: linear-gradient(rgba(130,130,130,0.95), 30%, rgba(0,0,0,0.95))
+      background-image: url("/local/images-lovelace/backgroundz/black_tex.jpg")
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 20px
+      border: solid 8px lime
+      font-size: 30px
       "--primary-text-color": white
       "--primary-color": white
       "--app-toolbar-font-size": 1.0em
       "--dark-primary-color": white
-      font-size: 30px
-      height: 650px
-      width: 48%
+      "--disabled-text-color": white
+      color: white
+      height: 700px
+      width: 60%
     card:
       type: alarm-panel
+      font-size: 30px
       entity: alarm_control_panel.ha_alarm
+
   sensor.zdummy_sensor_21:
     title: Style Selector
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/backgroundz/black_tex.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 20px
       border: solid 10px rgb(0, 51, 153)
-      font-size: 1.75em
+      font-size: 20px
       font-weight: bold
       width: 60%
       height: 750px
@@ -765,30 +1013,11 @@ popup_cards:
         - input_select.auto_accentz
         - type: divider
         - input_select.auto_cornerz
-  alarm_control_panel.ha_alarm:
-    title: New Life Security System
-    theme: Dark-N-Clear
-    style:
-      background: linear-gradient(rgba(130,130,130,0.95), 30%, rgba(0,0,0,0.95))
-      background-image: url("/local/images-lovelace/backgroundz/black_tex.jpg")
-      background-repeat: no-repeat
-      background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px lime
-      font-size: 30px
-      "--primary-text-color": white
-      "--primary-color": white
-      "--app-toolbar-font-size": 1.0em
-      "--dark-primary-color": white
-      height: 700px
-      width: 58%
-    card:
-      type: alarm-panel
-      font-size: 30px
-      entity: alarm_control_panel.ha_alarm
+
   sensor.filtered_realistic_temperature:
     title: " "
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/backgroundz/smokeBlue.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -797,7 +1026,7 @@ popup_cards:
       font-size: 2.625em
       font-weight: bold
       color: "#FFF"
-      height: 650px
+      height: 700px
       width: 100%
     card:
       type: custom:auto-entities
@@ -806,7 +1035,7 @@ popup_cards:
         severity:
           - value: 60
             color: '#0000cc'
-          - value: 78
+          - value: 80
             color: '#0066ff'
           - value: 100
             color: '#ff0000'
@@ -814,14 +1043,14 @@ popup_cards:
         columns: 2
         padding: 6px
         align: split
-        rounding: 10px
+        rounding: 8px
         saturation: 75%
-        height: 65px
+        height: 45px
         card_style:
           background: "rgba(0, 0, 0, 0.3)"
           border-radius: 10px
         title_style:
-          font-size: 28px
+          font-size: 26px
           font-weight: bold
           color: '#FFF'
           text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
@@ -832,17 +1061,16 @@ popup_cards:
           text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
       filter:
         include:
-          - entity_id: "*.*temp*"
+          - entity_id: "sensor.*temp*"
         exclude:
           - entity_id: "*.dark_sky*"
-          - domain: automation
-          - domain: group
-          - domain: switch
+
   sensor.filtered_realistic_humidity:
     title: " "
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-color: rgb(51, 51, 51)
-      background-image: url("/local/images-lovelace/WIII_tranz/bigDropz.png")
+      background-image: url("/local/images-lovelace/backgroundz/smokeWhite.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 20px
@@ -885,15 +1113,14 @@ popup_cards:
           text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
       filter:
         include:
-          - entity_id: "*.*humidity*"
+          - entity_id: "sensor.*humidity*"
         exclude:
           - entity_id: "*.dark_sky*"
-          - domain: automation
-          - domain: group
-          - domain: switch
+
   input_boolean.darren_home:
-    title: Darren's Location...
+    title: Location...
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       border-radius: 20px
       border: solid 10px rgb(0, 51, 153)
       font-size: 1.6em
@@ -904,48 +1131,40 @@ popup_cards:
       default_zoom: 18
       entities:
         - entity: !secret google_maps_darren
-        - zone.home
-        - zone.donnas_work
-      aspect_ratio: 56%
-  input_boolean.donna_home:
-    title: Donna's Location...
-    style:
-      border-radius: 20px
-      border: solid 10px rgb(255, 0, 255)
-      font-size: 1.6em
-      width: 100%
-      height: 750px
-    card:
-      type: map
-      default_zoom: 18
-      entities:
         - entity: !secret google_maps_donna
         - zone.home
         - zone.donnas_work
-      aspect_ratio: 56%
+      aspect_ratio: 9x16 # 145%
+
   weather.dark_sky:
     title: Interactive Radar
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-color: rgba(0,0,0,0.6)
       border-radius: 20px
       border: solid 6px rgb(204, 204, 204)
+      "--app-toolbar-font-size": 1.3em
       height: 750px
       width: 100%
     card:
       type: iframe
       url: https://embed.windy.com/embed2.html
       aspect_ratio: 56.5%
-  sensor.time:
+
+## mobile popup
+  sensor.daylight:
     title: " "
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/backgroundz/lights.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 20px
       border: solid 10px limeGreen
       font-size: 36px
-      height: 500px
-      width: 66%
+      color: white
+      height: 480px
+      width: 80%
     card:
       type: "custom:atomic-calendar"
       title: "New Life Events"
@@ -966,18 +1185,21 @@ popup_cards:
         type: holiday
       - entity: calendar.christian_holidays
         type: icon3, holiday
-      dateSize: 80
+      dateSize: 63
       timeSize: 90
       firstDayOfWeek: 7
       titleSize: 100
+
   input_boolean.people_home_boolean:
     title: SYSTEM STATISTICS
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/backgroundz/ledlite.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 20px
       border: solid 8px blue
+      "--app-toolbar-font-size": 1.3em
       text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
       font-size: 1.7em
       font-weight: bold
@@ -1061,29 +1283,32 @@ popup_cards:
         - sensor.google_wifi_new_version
         - sensor.google_wifi_uptime
         - sensor.google_wifi_last_restart
-  sensor.zdummy_sensor_22:
-    title: " "
+
+  sensor.time:
+    title: Alarm Clock
     style:
       background: linear-gradient(rgba(130,130,130,0.95), 30%, rgba(0,0,0,0.95))
-      background-image: url("/local/images-lovelace/card_backz/clocks.jpg") # card_backz/clocks
+      background-image: url("/local/images-lovelace/card_backz/clocks.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 20px
       border: solid 8px midnightblue
+      "--app-toolbar-font-size": 1.3em
+      "--paper-input-container-shared-input-style_-_font-size": .8em
+      "--paper-input-container-shared-input-style_-_width": 180px
       font-size: 2.25em
       font-weight: bold
-      text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
+      text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
       "--paper-item-icon-color": white
       "--paper-item-icon-active-color": darkblue
       "--iron-icon-height": 35px
       "--iron-icon-width": 35px
       "--iron-icon-stroke-color": midnightblue
       color: "#FFF"
-      height: 620px
-      width: 75%
+      height: 640px
+      width: 65%
     card:
       type: entities
-      title: Alarm Clock Settings
       show_header_toggle: false
       entities:
         - entity: input_datetime.time_donnas_alarm
@@ -1098,7 +1323,7 @@ popup_cards:
           name: " "
         - type: custom:countdown-dates
           title: '...Reminders:'
-          phrase: 'days until next'
+          phrase: 'days until'
           show_age: true
           dates:
             - date: 04/28/2020
@@ -1107,22 +1332,74 @@ popup_cards:
               name: Darren's birthday
             - date: 07/07/2019
               name: Golden Anniversary
-              icon: mdi:diamond
+            - date: 12/31/2019
+              name: New Year Countdown
+            - date: 07/03/2019
+              name: Vacation Countdown
+
+## mobile popup 
+  sensor.zdummy_sensor_31:
+    title: Alarm Clock
+    style:
+      background: rgba(0,0,0,0.0)
+      background-image: url("/local/images-lovelace/card_backz/clocks.1.jpg")
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 14px
+      border: solid 8px blue
+      "--paper-input-container-shared-input-style_-_font-size": .8em
+      "--paper-input-container-shared-input-style_-_width": 180px
+      font-size: 1.2em
+      text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px midnightblue"
+      color: "#FFF"
+      height: 630px
+      width: 100%
+    card:
+      type: entities
+      show_header_toggle: false
+      entities:
+        - entity: input_datetime.time_donnas_alarm
+          type: custom:time-input-row
+        - entity: input_boolean.donnas_work_alarm
+        - entity: input_datetime.time_darrens_alarm
+          type: custom:time-input-row
+        - entity: input_boolean.darrens_work_alarm
+        - type: custom:dummy-entity-row
+          entity: sun.sun
+          icon: mdi:this-icon-does-not-exist
+          name: " "
+        - type: custom:countdown-dates
+          title: '...Reminders:'
+          phrase: 'days'
+          show_age: true
+          dates:
+            - date: 04/28/2020
+              name: Donna's b'day
+            - date: 07/06/2019
+              name: Darren's b'day
+            - date: 07/07/2019
+              name: Anniversary
+            - date: 12/31/2019
+              name: New Year's
+            - date: 07/03/2019
+              name: Vacation
+
   sensor.zdummy_sensor_23:
     title: Motion Sensors
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/backgroundz/movement3.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
       "--paper-item-icon-color": dimgray
       "--paper-item-icon-active-color": lime
-      "--iron-icon-height": 65px
-      "--iron-icon-width": 65px
-#      "--iron-icon-stroke-color": lightgray
+      "--iron-icon-height": 55px
+      "--iron-icon-width": 55px
+      "--app-toolbar-font-size": 1.0em
       "--primary-text-color": white
       border-radius: 20px
       border: solid 8px lime
-      font-size: 1.625em
+      font-size: 1.5em
       font-weight: bold
       text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
       height: 700px
@@ -1146,18 +1423,21 @@ popup_cards:
           filter:
             include:
               - entity_id: "binary_sensor.*motion*"
+
   sensor.zdummy_sensor_24:
     title: A Device has a Low Battery
     style:
-      background-color: rgb(51, 51, 51)
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/backgroundz/battery1.png")
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 20px
       border: solid 8px red
+      text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+      "--app-toolbar-font-size": 1.3em
       font-size: 2.625em
       font-weight: bold
-      color: "#FFF"
+      color: "red"
       height: 700px
       width: 100%
     card:
@@ -1178,7 +1458,7 @@ popup_cards:
         align: split
         rounding: 10px
         saturation: 80%
-        height: 80px
+        height: 65px
         card_style:
           background: "rgba(0, 0, 0, 0.5)"
           border-radius: 10px
@@ -1192,16 +1472,71 @@ popup_cards:
           font-weight: bold
       filter:
         include:
-          - entity_id: "*batt*"
+          - entity_id: "sensor.*batt*"
         exclude:
-          - domain: automation
-          - domain: group
-          - domain: switch
-          - domain: script
           - entity_id: sensor.donna_s_iphone_battery_state
+          - entity_id: sensor.office_battery_smoke
+
+## mobile popup
+  sensor.pixel2statusbatt:
+    title: 'Battery Health'
+    style:
+      background: rgba(0,0,0,0.0)
+      background-image: url("/local/images-lovelace/backgroundz/battery1.png")
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 14px
+      border: solid 8px red
+      "--app-toolbar-font-size": 1.3em
+      text-shadow: "1px 1px 2px black, 0 0 25px red, 0 0 5px firebrick"
+      font-size: 2.0em
+      font-weight: bold
+      color: "white"
+      height: 700px
+      width: 100%
+    card:
+      type: custom:auto-entities
+      card:
+        type: custom:bar-card
+        severity:
+          - value: 25
+            color: '#DC143C'
+          - value: 50
+            color: '#bf9540'
+          - value: 100
+            color: '#40bf40'
+        title_position: inside
+        tap_action: none
+        columns: 1
+        padding: 6px
+        align: split
+        show_icon: true
+        rounding: 10px
+        saturation: 80%
+        height: 32px
+        card_style:
+          background: "rgba(0, 0, 0, 0.7)"
+          border-radius: 5px
+        title_style:
+          font-weight: bold
+          font-size: 20px
+          color: '#FFF'
+          text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
+        value_style:
+          font-size: 24px
+          font-weight: bold
+      filter:
+        include:
+          - entity_id: "sensor.*batt*"
+        exclude:
+          - entity_id: sensor.donna_s_iphone_battery_state
+          - entity_id: sensor.office_battery_smoke
+          - entity_id: sensor.iphone6statusbatt
+
   sensor.zdummy_sensor_25:
     title: " "
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/backgroundz/doors002.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -1239,9 +1574,11 @@ popup_cards:
             include:
               - entity_id: "binary_sensor.*door*"
               - entity_id: "binary_sensor.*window*"
+
   sensor.zdummy_sensor_26:
     title: " "
     style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/backgroundz/detect02.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -1284,14 +1621,6 @@ popup_cards:
           entity: sun.sun
           icon: mdi:this-icon-does-not-exist
           name: " "
-        - type: custom:dummy-entity-row
-          entity: sun.sun
-          icon: mdi:this-icon-does-not-exist
-          name: " "
-        - type: custom:dummy-entity-row
-          entity: sun.sun
-          icon: mdi:this-icon-does-not-exist
-          name: " "
         - type: custom:auto-entities
           show_empty: true
           card:
@@ -1302,21 +1631,51 @@ popup_cards:
               - entity_id: "binary_sensor.*smoke*"
         - entity: sensor.hallway_nest_protect_smoke_status
         - entity: sensor.kitchen_nest_protect_smoke_status
-  sensor.processor_use:
-    title: Home Assistant Components...
+
+## Mobile popup
+  sensor.zdummy_sensor_28:
+    title: "Nest Controls... "
     style:
-      background: linear-gradient(rgba(130,130,130,0.95), 30%, rgba(0,0,0,0.95))
-      background-image: url("/local/images-lovelace/backgroundz/ha_3.jpg")
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
+      background-image: url("/local/images-lovelace/backgroundz/Stainless.jpg")
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      "--primary-text-color": white
+      "--app-toolbar-font-size": 1.3em
+      border-radius: 30px
+      border: solid 8px gray
+      font-size: 24px
+      font-weight: bold
+      text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+      height: 445px
+      width: 98%
+    card:
+      type: custom:thermostat-card
+      entity: climate.living_room
+      chevron_size: 100
+      hvac:
+        states:
+          'Off': 'off'
+          'Cooling': 'cool'
+          'Heating': 'heat'
+        attribute: operation_mode
+
+  sensor.processor_use:
+    title: Home Assistant
+    style:
+      background: rgba(0,0,0,0.0)
+      background-image: url("/local/images-lovelace/card_backz/HA-logo2.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 20px
-      border: solid 6.5px lime
-      font-size: 2.37em
+      border: solid 8px dodgerblue
+      "--app-toolbar-font-size": 1.2em
+      font-size: 2.1em
       font-weight: bold
       color: "#FFF"
-      text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px Chartreuse"
-      height: 630px
-      width: 100%
+      text-shadow: "2px 2px 4px black, 0 0 25px dimgray, 0 0 5px dimgray"
+      height: 480px
+      width: 60%
     card:
       type: entities
       show_header_toggle: false
@@ -1329,6 +1688,7 @@ popup_cards:
         - sensor.switch_count
         - sensor.tracker_count
         - sensor.ha_latest_version
+
   sensor.sunrise:
     title: " "
     style:
@@ -1339,7 +1699,9 @@ popup_cards:
       font-weight: bold
       color: "#FFF"
       text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px Chartreuse"
-      height: 620px
+      "--paper-input-container-shared-input-style_-_font-size": .9em
+      "--paper-input-container-shared-input-style_-_width": 180px
+      height: 660px
       width: 65%
     card:
       type: custom:card-modder
@@ -1377,10 +1739,11 @@ popup_cards:
             name: " "
           - input_boolean.cfe_off
           - input_number.cfe_off
+
   sensor.sunset:
     title: " "
     style:
-      background: black
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-image: url("/local/images-lovelace/backgroundz/stickyNote.png")
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -1408,7 +1771,7 @@ popup_cards:
           name: " "
         - type: custom:countdown-dates
           title: "...REMINDERS : "
-          phrase: 'days until next'
+          phrase: 'days until'
           show_age: true
           dates:
             - date: 04/28/2020
@@ -1417,6 +1780,10 @@ popup_cards:
               name: Darren's birthday
             - date: 07/07/2019
               name: Golden Anniversary
+            - date: 12/31/2019
+              name: 2020 Countdown
+            - date: 07/03/2019
+              name: Vacation Countdown
 
 title: New Life Home
 views:
