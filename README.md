@@ -12,9 +12,9 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 I'm currently running [Home Assistant](https://home-assistant.io) version __0.93.2__ running on a RPi3B.
 
 # A Few Stats On my Setup:
-| Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors |
-|:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|
-|12               |37      |56              |70        |82           |109      |281      | 
+| Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
+|:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------:|
+|12               |37      |56              |70        |82           |109      |281      |12       | 
 
 **Cameras(8):**
 Wyze
