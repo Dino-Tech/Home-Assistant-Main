@@ -5,7 +5,16 @@ Message me via Discord or the HomeAssistant forums if you have any questions or 
 
 If I've helped you, and you really want to, you can <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>, but don't feel obliged - I'm not doing this for free coffee, but I do get tired :stuck_out_tongue_winking_eye: 
 
-**I currently have one instance of Home Assistant running on a RPi3B.**
+<p align="center">
+  <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif">
+</p>
+
+I'm currently running [Home Assistant](https://home-assistant.io) version __0.93.2__ running on a RPi3B.
+
+# A Few Stats On my Setup:
+| Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors |
+|:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|
+|12               |37      |56              |70        |82           |109      |281      | 
 
 **Cameras(8):**
 Wyze
