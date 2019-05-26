@@ -1,11 +1,11 @@
 # Home-Assistant-Main
 Home Assistant Config Files (YAMLs). These are my Home Assistant configuration files.
 
-Message me via Discord or the HomeAssistant forums if you have any questions or recommendations in regards to my repository! 
+Message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-may-24-new-mobile-popups-lovelace-screens/84271) if you have any questions or recommendations in regards to my repository! 
 
 If I've helped you, and you really want to, you can <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>, but don't feel obliged - I'm not doing this for free coffee, but I do get tired :stuck_out_tongue_winking_eye: 
 
-<p align="center">
+<p align="left">
   <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif">
 </p>
 
@@ -17,10 +17,11 @@ I'm currently running [Home Assistant](https://home-assistant.io) version __0.93
 |12               |37      |56              |70        |82           |109      |281      |12       | 
 
 ### Cameras(8):
-* Wyze
+* Wyze Cam v2(7)
+* Wyze Pan Cam(1)
 
 ### Thermostat:
-* Nest
+* Google Nest Thermostat E
 
 ### Power Supply(4):
 * UPS
@@ -29,7 +30,7 @@ I'm currently running [Home Assistant](https://home-assistant.io) version __0.93
 * nmap
 * bluetooth
 * ping
-* Google Maps (for GPS and battery statuses),iOS (wife's phone)
+* Google Maps (for GPS and battery statuses & HA iOS App)
 
 ### Google Homes & Assistant Powered Devices(14)
 *(used for voice controlled Lovelace commands/device control)* 
