@@ -1,0 +1,22 @@
+## notify#  /config/includes/notify.yaml
+########################################################
+- name: notify_all
+  platform: group
+  services:
+    - service: ios_donnas_iphone
+    - service: darren
+#    - service: darren_pixel_2xl_dinopixel2xl
+#    - service: html_notify_desk
+#    - service: html_notify_tablet
+
+# pushbullet
+- platform: pushbullet
+  name: Darren
+  api_key: !secret pushbullet_api
+  
+# html5
+- platform: html5
+  name: Darren Pixel 2XL
+  vapid_pub_key: BAHF3qovT3YwZlgluTTAO0csV2HAYdr2-DzV4Jty5RJsCLFr2oWbUAVjkA0qAsybvm_yEMf0MFkmPJV7bC_rpRg
+  vapid_prv_key: lp1U5wMyiGRwHZ4iZLXwS0Sk0KQ8WgvtRifM8_f6hlE
+  vapid_email: alphaprops.dwilson@gmail.com

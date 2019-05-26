@@ -1,0 +1,43 @@
+## history# /config/includes/history.yaml
+############################################################
+exclude:
+  domains:
+    - camera
+    - media_player
+    - sun
+    - moon
+    - automation
+    - sensor
+    - group
+    - script
+    - switch
+  entities:
+    - binary_sensor.living_room_thermostat_fan
+    - binary_sensor.new_life_away
+    - binary_sensor.living_room_thermostat_has_leaf
+    - binary_sensor.living_room_thermostat_online
+    - binary_sensor.hallway_nest_protect_online
+    - binary_sensor.kitchen_nest_protect_online
+include:
+  domains:
+    - binary_sensor
+    - device_tracker
+    - light
+  entities:
+    - sensor.kitchen_temp
+    - sensor.kitchen_humidity
+    - sensor.living_room_thermostat_temperature
+    - sensor.living_room_thermostat_humidity
+    - sensor.filtered_realistic_temperature
+    - sensor.filtered_realistic_humidity
+    - sensor.office_smoke_temp
+    - sensor.office_humidity
+    - sensor.office_temp
+    - sensor.office_temp_avg
+    - sensor.bedroom_temp
+    - sensor.bedroom_humidity
+    - sensor.laundry_smoke_temp
+    - sensor.mbath_humidity
+    - sensor.mbath_temp
+    - sensor.spare_room_humidity
+    - sensor.spare_room_temp
