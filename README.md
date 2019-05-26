@@ -56,5 +56,5 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 
 ### Desktop Screens
 
-### Pop-up Gallery
-* [Pop-ups](https://imgur.com/a/tbY9HW2)
+### Pop-up Images Gallery
+* Tablet [Pop-ups](https://imgur.com/a/tbY9HW2)
