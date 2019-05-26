@@ -51,7 +51,7 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 
 # Screenshots
 ### Main Tablet
-
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/1.png" />
 ### Mobile Screens
 
 ### Desktop Screens
