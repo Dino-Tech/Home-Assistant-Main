@@ -25,6 +25,8 @@ I'm currently running [Home Assistant](https://home-assistant.io) version __0.93
 
 ### Power Supply(4):
 * UPS
+[3 Prong UPS](https://amzn.to/2W0GKbD)
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=dinotech4affo-20&language=en_US&marketplace=amazon&region=US&placement=B01HDC236Q&asins=B01HDC236Q&linkId=bc306b235175f5bc562351ba508e6c0b&show_border=true&link_opens_in_new_window=true"></iframe>
 
 ### Device Trackers:
 * nmap
