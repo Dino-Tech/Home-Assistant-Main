@@ -1,5 +1,5 @@
 # Home-Assistant-Main
-Home Assistant Config Files (YAMLs). These are my Home Assistant configuration files.
+### Home Assistant Config Files (YAMLs). These are my Home Assistant configuration files.
 
 Message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-may-24-new-mobile-popups-lovelace-screens/84271) if you have any questions or recommendations in regards to my repository! 
 
@@ -9,7 +9,7 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
   <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif">
 </p>
 
-I'm currently running [Home Assistant](https://home-assistant.io) version __0.93.2__ on a RPi3B.
+### I'm currently running [Home Assistant](https://home-assistant.io) version __0.93.2__ on a RPi3B.
 
 # A Few Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
@@ -17,11 +17,11 @@ I'm currently running [Home Assistant](https://home-assistant.io) version __0.93
 |12               |37      |56              |70        |82           |109      |281      |12       | 
 
 ### Cameras(8):
-* Wyze Cam v2(7)
-* Wyze Pan Cam(1)
+* [Wyze Cam v2(7)](http://amzn.to/2QqoYsf)
+* [Wyze Pan Cam(1)](http://amzn.to/2QqoYsf)
 
 ### Thermostat:
-* Google Nest Thermostat E
+* [Google Nest Thermostat E](http://amzn.to/2Qpyqfe)
 
 ### Power Supply(4):
 * [3 Prong UPS](http://amzn.to/2W0GKbD)
@@ -43,6 +43,6 @@ I'm currently running [Home Assistant](https://home-assistant.io) version __0.93
 * Android 7"(1) - wall mounted alarm panel keypad
 
 ### Security:
-* Konnected alarm - 18 zone set up - 
-* Sonoff RF Bridge - running tasmota
+* [Konnected alarm](http://amzn.to/2YIlunM) - 18 zone system
+* [Sonoff RF Bridge](http://amzn.to/2QlTfIL) - running tasmota
 * RF PIR Motion detectors(14) - *(used for alarm, automations & tablet 'ON' & 'OFF' screens)
