@@ -24,9 +24,13 @@ I'm currently running [Home Assistant](https://home-assistant.io) version __0.93
 * Google Nest Thermostat E
 
 ### Power Supply(4):
-* UPS
 [3 Prong UPS](https://amzn.to/2W0GKbD)
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=dinotech4affo-20&language=en_US&marketplace=amazon&region=US&placement=B01HDC236Q&asins=B01HDC236Q&linkId=bc306b235175f5bc562351ba508e6c0b&show_border=true&link_opens_in_new_window=true"></iframe>
+</td><td align="center">
+ 
+[2 Prong UPS](https://amzn.to/2W6W5Yf)
+</td><td align="center" colspan="2">
+<tr><td align="center"><a href="https://www.amazon.com/APC-Back-UPS-Battery-Protector-BE425M/dp/B01HDC236Q/ref=as_li_ss_il?s=electronics&ie=UTF8&qid=1519445552&sr=1-2&keywords=apc+450&linkCode=li1&tag=dinotech4affo-20&linkId=2714bb0d8d474110a2ff82c16f6f5b43&language=en_US" target="_blank"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01HDC236Q&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dinotech4affo-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=dinotech4affo-20&language=en_US&l=li1&o=1&a=B01HDC236Q" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/gp/product/B00KH07WRC/ref=as_li_ss_il?ie=UTF8&psc=1&linkCode=li1&tag=dinotech4affo-20&linkId=40e743f09e1efb1d92b0e5b67d5dfbc8&language=en_US" target="_blank"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00KH07WRC&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dinotech4affo-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=dinotech4affo-20&language=en_US&l=li1&o=1&a=B00KH07WRC" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
 
 ### Device Trackers:
 * nmap
