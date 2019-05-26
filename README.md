@@ -47,4 +47,4 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 * [Sonoff RF Bridge](http://amzn.to/2QlTfIL) - running tasmota
 * [Sonoff PIR Motion Sensors](http://amzn.to/2ExNXVA)
 * [IR Pyroelectric Infrared PIR Motion Sensors](http://amzn.to/2YUfGI9)
-*(14 total - used for alarm, automations & tablet 'ON' & 'OFF' screens)
+*(14 total - used for alarm, automations & tablet 'ON' & 'OFF' screens)*
