@@ -5,7 +5,7 @@ Message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) or the [H
 
 If I've helped you, and you really want to, you can <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>, but don't feel obliged - I'm not doing this for free coffee, but I do get tired :stuck_out_tongue_winking_eye: 
 
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/demo.html">
+<html src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/demo.html">
   
 <p align="left">
   <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif">
