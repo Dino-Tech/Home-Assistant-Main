@@ -50,8 +50,9 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 *(14 total - used for alarm, automations & tablet 'ON' & 'OFF' screens)*
 
 # Screenshots
-### Main Tablet
+### Main Kiosk Screen
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/1.png" />
+
 ### Mobile Screens
 
 ### Desktop Screens
