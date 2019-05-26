@@ -51,4 +51,4 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 
 # Screenshots
 ### Main Tablet
-![Default](https://githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/1.png)
+!(https://githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/1.png)
