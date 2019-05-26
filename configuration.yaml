@@ -164,7 +164,7 @@ camera:
 #  - platform: generic
 #    name: Front Door
 #    still_image_url: http://192.168.1.134:8123/local/images-lovelace/card_backz/still_front1.jpg
-#    stream_source: rtsp://dinotech:dino2@192.168.1.91/live  # !secret stream_source4
+#    stream_source: !secret stream_source4
   - platform: mjpeg
     mjpeg_url: !secret mjpeg_url5
     name: Entry Hall
@@ -195,14 +195,6 @@ camera:
   - platform: generic
     still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=MSY&brand=wui&num=6&delay=15&type=TR0&frame=0&scale=1.000&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=1&lightning=1&smooth=1&rand=25760093&lat=0&lon=0&label=you'
     name: New Orleans Radar
-  - platform: generic
-    still_image_url: 'https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.google_maps_105311213674095510695.attributes.latitude }},{{ states.device_tracker.google_maps_105311213674095510695.attributes.longitude }}&zoom=16&size=400x400&maptype=roadmap&markers=color:lime%7Clabel:P%7C{{ states.device_tracker.google_maps_105311213674095510695.attributes.latitude }},{{ states.device_tracker.google_maps_105311213674095510695.attributes.longitude }}&key=AIzaSyCOhs24OA4pbiUFRLF8-0crkMDTOVdVIro'  #!secret google_api_key
-    name: Darren Map
-    limit_refetch_to_url_change: true
-#  - platform: generic
-#    still_image_url: 'https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.google_maps_117348287487191396666.attributes.latitude }},{{ states.device_tracker.google_maps_117348287487191396666.attributes.longitude }}&zoom=16&size=400x400&maptype=roadmap&markers=color:magenta%7Clabel:P%7C{{ states.device_tracker.google_maps_117348287487191396666.attributes.latitude }},{{ states.device_tracker.google_maps_117348287487191396666.attributes.longitude }}&key=AIzaSyCOhs24OA4pbiUFRLF8-0crkMDTOVdVIro'  #!secret google_api_key
-#    name: Donna Map
-#    limit_refetch_to_url_change: true
 #  - platform: mjpeg
 #    mjpeg_url: !secret mjpeg_url
 #    name: AlarmPanel Camera
@@ -307,6 +299,7 @@ input_datetime:
     has_time: true
     initial: "2019-04-17 01:31:00"
 
+alert: !include includes/alert.yaml
 automation: !include automations.yaml
 binary_sensor: !include includes/binary_sensor.yaml
 cloud: !include includes/cloud.yaml
