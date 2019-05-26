@@ -24,13 +24,20 @@ I'm currently running [Home Assistant](https://home-assistant.io) version __0.93
 * Google Nest Thermostat E
 
 ### Power Supply(4):
-[3 Prong UPS](https://amzn.to/2W0GKbD)
+<table align="center" border="0">
+<tr><td colspan="2">
+
+#### <a name="battery"></a>Battery Backups ></a>
+</td></tr>
+<tr><td align="center">
+
+[3 Prong UPS](http://amzn.to/2W0GKbD)
 </td><td align="center">
  
-[2 Prong UPS](https://amzn.to/2W6W5Yf)
-</td><td align="center" colspan="2">
+[2 Prong UPS](http://amzn.to/2W6W5Yf)
+</td><td align="center" colspan="2"></td></tr>
 <tr><td align="center"><a href="https://www.amazon.com/APC-Back-UPS-Battery-Protector-BE425M/dp/B01HDC236Q/ref=as_li_ss_il?s=electronics&ie=UTF8&qid=1519445552&sr=1-2&keywords=apc+450&linkCode=li1&tag=dinotech4affo-20&linkId=2714bb0d8d474110a2ff82c16f6f5b43&language=en_US" target="_blank"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01HDC236Q&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dinotech4affo-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=dinotech4affo-20&language=en_US&l=li1&o=1&a=B01HDC236Q" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-</td><td align="center"><a href="https://www.amazon.com/gp/product/B00KH07WRC/ref=as_li_ss_il?ie=UTF8&psc=1&linkCode=li1&tag=dinotech4affo-20&linkId=40e743f09e1efb1d92b0e5b67d5dfbc8&language=en_US" target="_blank"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00KH07WRC&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dinotech4affo-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=dinotech4affo-20&language=en_US&l=li1&o=1&a=B00KH07WRC" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/gp/product/B00KH07WRC/ref=as_li_ss_il?ie=UTF8&psc=1&linkCode=li1&tag=dinotech4affo-20&linkId=40e743f09e1efb1d92b0e5b67d5dfbc8&language=en_US" target="_blank"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00KH07WRC&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dinotech4affo-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=dinotech4affo-20&language=en_US&l=li1&o=1&a=B00KH07WRC" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></a></td></tr>
 
 ### Device Trackers:
 * nmap
