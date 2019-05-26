@@ -51,6 +51,10 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 
 # Screenshots
 ### Main Kiosk Screen
+Main panel has auto-changing background images, sleep and wake functions that are controlled via motion, time of day/night,  voice activated and presence detection. The drop downs selection keeps the screen less cluttered until needed to select popups to view so backgrounds are more visible when not in use....
+
+The end result is like having 30 different views that can accessed via one main screen... with one path, `/lovelace/0` without having to navigate to another view and that was my goal!
+
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/1.png" />
 
 ### Mobile Screens
