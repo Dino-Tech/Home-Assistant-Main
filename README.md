@@ -45,4 +45,6 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 ### Security:
 * [Konnected alarm](http://amzn.to/2YIlunM) - 18 zone system
 * [Sonoff RF Bridge](http://amzn.to/2QlTfIL) - running tasmota
-* RF PIR Motion detectors(14) - *(used for alarm, automations & tablet 'ON' & 'OFF' screens)
+* [Sonoff PIR Motion Sensors](http://amzn.to/2ExNXVA)
+* [IR Pyroelectric Infrared PIR Motion Sensors](http://amzn.to/2YUfGI9)
+*(14 total - used for alarm, automations & tablet 'ON' & 'OFF' screens)
