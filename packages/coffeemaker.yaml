@@ -1,0 +1,144 @@
+ # /config/packages/coffeemaker.yaml
+#########################################################
+homeassistant:
+  customize:
+    package.node_anchors:
+      coffee_switch: &cfe_switch switch.coffee_maker
+      common: &common
+        package: coffeemaker
+
+    input_datetime.cfe_on:
+      <<: *common
+      friendly_name: Time
+    input_number.cfe_off:
+      <<: *common
+      friendly_name: Timer (mins)
+    input_boolean.cfe_on:
+      <<: *common
+      friendly_name: Morning Coffee
+    input_boolean.cfe_off:
+      <<: *common
+      friendly_name: Automatic shut off
+    script.cfe_off:
+      <<: *common
+    automation.coffee_timer_on:
+      <<: *common
+    automation.coffee_auto_off:
+      <<: *common
+
+input_datetime:
+  cfe_on:
+    has_date: false
+    has_time: true
+    initial: "08:00"
+input_number:
+  cfe_off:
+    initial: 20
+    min: 5
+    max: 60
+    step: 5
+input_boolean:
+  cfe_on:
+    initial: off
+  cfe_off:
+    initial: on
+
+script:
+  cfe_off:
+    sequence:
+      - delay: 00:{{ states('input_number.cfe_off') | int}}:00
+      - service: homeassistant.turn_off
+        data:
+          entity_id: *cfe_switch
+      - service: notify.darren
+        data_template:
+          message: "Coffee maker has turned off. The ({{ states('input_number.cfe_off') | int }} minute timer has expired)"
+      - service: script.browser_close_popup
+
+  coffee_time_popup:
+    sequence:
+      - event: browser_command
+        event_data:
+          command: popup
+          title: " "
+          style:
+            background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
+            border-radius: 30px
+            border: solid 10px limegreen
+            font-size: 1.7em
+            font-weight: bold
+            color: "#FFF"
+            text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px Chartreuse"
+            height: 600px
+            width: 58%
+          card:
+            type: custom:card-modder
+            style:
+              background-image: url("/local/images-lovelace/backgroundz/coffee4.png")
+              background-repeat: no-repeat
+              background-size: 100% 100%
+            card:
+              type: entities
+              show_header_toggle: false
+              entities:
+                - type: custom:dummy-entity-row
+                  entity: sun.sun
+                  icon: mdi:this-icon-does-not-exist
+                  name: " "
+                - type: custom:dummy-entity-row
+                  entity: sun.sun
+                  icon: mdi:this-icon-does-not-exist
+                  name: " "
+                - type: custom:dummy-entity-row
+                  entity: sun.sun
+                  icon: mdi:this-icon-does-not-exist
+                  name: " "
+                - type: custom:dummy-entity-row
+                  entity: sun.sun
+                  icon: mdi:this-icon-does-not-exist
+                  name: " "
+                - entity: switch.coffee_maker
+                - input_boolean.cfe_on
+                - type: custom:time-input-row
+                  entity: input_datetime.cfe_on
+                - type: custom:dummy-entity-row
+                  entity: sun.sun
+                  icon: mdi:this-icon-does-not-exist
+                  name: " "
+                - input_boolean.cfe_off
+                - input_number.cfe_off
+
+automation:
+  - alias: Coffee - Timer On
+    initial_state: True
+    trigger:
+      - platform: template
+        value_template: >
+          {{ states('sensor.time') == states('input_datetime.cfe_on')[:5] }}
+    condition:
+      condition: state
+      entity_id: input_boolean.cfe_on
+      state: 'on'
+    action:
+      - service: homeassistant.turn_off
+        data:
+          entity_id: input_boolean.cfe_on
+      - service: homeassistant.turn_on
+        data:
+          entity_id: *cfe_switch
+      - service: notify.darren
+        data_template:
+          message: "Coffee maker is on and will turn off in ({{ states('input_number.cfe_off') | int }} minutes)"
+
+  - alias: Coffee - Auto Off
+    initial_state: True
+    trigger:
+      - platform: state
+        entity_id: *cfe_switch
+        to: 'on'
+    condition:
+      condition: state
+      entity_id: input_boolean.cfe_off
+      state: 'on'
+    action:
+      - service: script.cfe_off
