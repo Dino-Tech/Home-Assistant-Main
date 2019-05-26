@@ -24,12 +24,9 @@ I'm currently running [Home Assistant](https://home-assistant.io) version __0.93
 * Google Nest Thermostat E
 
 ### Power Supply(4):
-[3 Prong UPS](http://amzn.to/2W0GKbD)
-</td><td align="center">
+* [3 Prong UPS](http://amzn.to/2W0GKbD)
 
-[2 Prong UPS](http://amzn.to/2W6W5Yf)
-</td><td align="center" colspan="2">
-
+* [2 Prong UPS](http://amzn.to/2W6W5Yf)
 
 ### Device Trackers:
 * nmap
