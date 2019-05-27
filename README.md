@@ -61,8 +61,8 @@ The end result is like having 30 different views that can be accessed via *_one_
 
 ### Mobile Screens
 
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/mobile1" />
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/mobile2" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/mobile1.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/mobile2.jpg" />
 
 ### Desktop Screens
 
