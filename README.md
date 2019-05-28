@@ -16,7 +16,7 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 # A Few Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
 |:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------:|
-|12               |37      |56              |70        |82           |109      |281      |12       | 
+|12               |37      |56              |70        |78           |107      |281      |19       | 
 
 ### Cameras(8):
 * [Wyze Cam v2(7)](http://amzn.to/2QqoYsf)
@@ -38,8 +38,15 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 * [Google Maps Location Sharing](https://www.home-assistant.io/components/google_maps/) *(for GPS and battery statuses & HA iOS App)*
 
 ### Google Homes & Assistant Powered Devices(14) 
-* Google Hub(1), Google Home(2), Google Home Mini(5), Google Assisted speakers - Zolo mini(1), Insignia(2), Insignia portable(1), Chromecast powered TV's(2)
-*(used for voice controlled Lovelace commands/device control)*
+* Google Hub(1),
+* Google Home(2),
+* Google Home Mini(5), 
+#### Google Assisted speakers
+* Zolo mini(1) 
+* Insignia(2) 
+* Insignia portable(1) 
+* Chromecast's(2)
+*(used for voice controlled Lovelace screen commands/device control)*
 
 ### Tablets:
 * Insignia 10.1"(2) - (currently 1 wall mounted & 1 in office for screen designing)
