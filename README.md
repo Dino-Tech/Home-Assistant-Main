@@ -27,7 +27,6 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 
 ### Power Supply(4):
 * [3 Prong UPS](http://amzn.to/2W0GKbD)
-
 * [2 Prong UPS](http://amzn.to/2W6W5Yf)
 
 ### Device Trackers:
