@@ -31,10 +31,11 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 * [2 Prong UPS](http://amzn.to/2W6W5Yf)
 
 ### Device Trackers:
-* nmap
-* bluetooth
-* ping
-* Google Maps (for GPS and battery statuses & HA iOS App)
+* [NMAP](https://www.home-assistant.io/components/nmap_tracker/)
+* [Bluetooth Tracker](https://www.home-assistant.io/components/bluetooth_tracker/)
+* [Ping (ICMP)](https://www.home-assistant.io/components/ping/)
+* [Person](https://www.home-assistant.io/components/person/)
+* [Google Maps Location Sharing](https://www.home-assistant.io/components/google_maps/) *(for GPS and battery statuses & HA iOS App)*
 
 ### Google Homes & Assistant Powered Devices(14) 
 * Google Hub(1), Google Home(2), Google Home Mini(5), Google Assisted speakers - Zolo mini(1), Insignia(2), Insignia portable(1), Chromecast powered TV's(2)
@@ -71,7 +72,7 @@ The end result is like having 30 different views that can be accessed via *_one_
 #### Guest Access Mobile Login *(restricted access)*
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/mobile_screens1.jpg" />
 
-### Desktop Login *(all access)*
+### Desktop Login *(desk menu with all areas access)*
 
 ### Pop-up Images Gallery
 * [Tablet Pop-ups](https://imgur.com/a/tbY9HW2)
