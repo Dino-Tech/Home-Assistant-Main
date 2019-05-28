@@ -73,6 +73,7 @@ The end result is like having 30 different views that can be accessed via *_one_
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/mobile_screens1.jpg" />
 
 ### Desktop Login *(desk menu with all areas access)*
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/Desk%20Menu.jpg" />
 
 ### Pop-up Images Gallery
 * [Tablet Pop-ups](https://imgur.com/a/tbY9HW2)
