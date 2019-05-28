@@ -44,7 +44,9 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 * Zolo mini (1) 
 * Insignia (2) 
 * Insignia portable (1) 
-* Chromecast's (2)
+* Google Chromecast (3rd Generation) (1)
+* Google Chromecast Ultra (1)
+
 *(used for voice controlled Lovelace screen commands/device control)*
 
 ### Tablets:
