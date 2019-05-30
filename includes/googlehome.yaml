@@ -1,0 +1,21 @@
+##      /config/includes/googlehome.yaml
+#####################################################
+
+devices:
+  - host: 192.168.1.69 # office_google
+    rssi_threshold: -50
+    track_alarms: true
+  - host: 192.168.1.246 # living_room_google
+  - host: 192.168.1.244 # Kitchen display
+    rssi_threshold: -50
+    track_alarms: true
+  - host: 192.168.1.83 # foyer_speaker
+  - host: 192.168.1.115 # garage_mini
+    rssi_threshold: -80
+  - host: 192.168.1.114 # kitchen_mini
+  - host: 192.168.1.88 # bathroom_speaker
+  - host: 192.168.1.113 # living_room_mini
+  - host: 192.168.1.89 # darren's_speaker
+  - host: 192.168.1.86 # bedroom_speaker
+  - host: 192.168.1.79 # Office_mini_speaker
+  - host: 192.168.1.155 # Hall bathroom
