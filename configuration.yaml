@@ -29,6 +29,9 @@ panel_iframe:
     icon: mdi:access-point-network
     url: !secret ide_url
 
+#hacs:
+#  token: !secret hacs_github_access_token
+
 custom_updater:
   track:
     - cards
@@ -38,9 +41,8 @@ custom_updater:
     - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
     - https://raw.githubusercontent.com/maykar/custom-lovelace/master/tracker.json
     - https://raw.githubusercontent.com/kalkih/simple-weather-card/master/tracker.json
-    - https://raw.githubusercontent.com/MizterB/lovelace-secondaryinfo-entity-row/master/custom_cards.json
-    - https://raw.githubusercontent.com/nervetattoo/simple-thermostat/master/tracker.json
     - https://raw.githubusercontent.com/atomic7777/atomic_calendar/master/tracker.json
+    - https://raw.githubusercontent.com/nervetattoo/simple-thermostat/master/tracker.json
 
 updater:
 
@@ -96,9 +98,6 @@ speedtestdotnet:
     - download
     - upload
 
-#ifttt:
-#  key: !secret ifttt_key
-
 tuya:
   username: !secret TUYA_USERNAME
   password: !secret TUYA_PASSWORD
@@ -108,41 +107,9 @@ nest:
   client_id: !secret nest_client_id 
   client_secret: !secret nest_client_secret
 
-#sonoff:
-#  username: !secret sonoff_username
-#  password: !secret sonoff_password
-#  api_region: 'us'
-
 google:
   client_id: !secret google_client_id
   client_secret: !secret google_client_secret
-
-#googlehome:
-#  devices:
-#    - host: 192.168.1.69 # office_google
-#      rssi_threshold: -50
-#      track_alarms: true
-#    - host: 192.168.1.246 # living_room_google
-#    - host: 192.168.1.244 # Kitchen display
-#      rssi_threshold: -50
-#      track_alarms: true
-#    - host: 192.168.1.83 # foyer_speaker
-#    - host: 192.168.1.115 # garage_mini
-#      rssi_threshold: -80
-#    - host: 192.168.1.114 # kitchen_mini
-#    - host: 192.168.1.88 # bathroom_speaker
-#    - host: 192.168.1.113 # living_room_mini
-#    - host: 192.168.1.89 # darren's_speaker
-#    - host: 192.168.1.86 # bedroom_speaker
-#    - host: 192.168.1.79 # Office_mini_speaker
-#    - host: 192.168.1.155 # Hall bathroom
-
-#media_player:
-#  - platform: spotify
-#    client_id: !secret spotify_client_id
-#    client_secret: !secret spotify_client_secret
-
-#stream:
 
 camera:
   - platform: mjpeg
@@ -161,10 +128,6 @@ camera:
     mjpeg_url: !secret mjpeg_url4
     name: Front Door
     verify_ssl: false
-#  - platform: generic
-#    name: Front Door
-#    still_image_url: http://192.168.1.134:8123/local/images-lovelace/card_backz/still_front1.jpg
-#    stream_source: !secret stream_source4
   - platform: mjpeg
     mjpeg_url: !secret mjpeg_url5
     name: Entry Hall
@@ -173,10 +136,6 @@ camera:
     mjpeg_url: !secret mjpeg_url6
     name: Garage Cam
     verify_ssl: false
-#  - platform: generic
-#    name: Garage Cam
-#    still_image_url: http://192.168.1.134:8123/local/images-lovelace/card_backz/still_garage1.jpg
-#    stream_source: !secret stream_source6
   - platform: mjpeg
     mjpeg_url: !secret mjpeg_url7
     name: Patio Cam
@@ -185,19 +144,16 @@ camera:
     mjpeg_url: !secret mjpeg_url8
     name: Office Cam
     verify_ssl: false
-#  - platform: generic
-#    name: Office Cam
-#    still_image_url: http://192.168.1.134:8123/local/images-lovelace/card_backz/still_drive1.jpg
-#    stream_source: !secret stream_source8
   - platform: generic
     still_image_url: 'https://icons.wxug.com/data/weather-maps/radar/united-states/new-orleans-louisiana-region-current-radar-animation.gif'
     name: Local Radar
   - platform: generic
     still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=MSY&brand=wui&num=6&delay=15&type=TR0&frame=0&scale=1.000&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=1&lightning=1&smooth=1&rand=25760093&lat=0&lon=0&label=you'
     name: New Orleans Radar
-#  - platform: mjpeg
-#    mjpeg_url: !secret mjpeg_url
-#    name: AlarmPanel Camera
+  - platform: generic
+    still_image_url: 'https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.google_maps_105311213674095510695.attributes.latitude }},{{ states.device_tracker.google_maps_105311213674095510695.attributes.longitude }}&zoom=16&size=400x400&maptype=roadmap&markers=color:lime%7Clabel:P%7C{{ states.device_tracker.google_maps_105311213674095510695.attributes.latitude }},{{ states.device_tracker.google_maps_105311213674095510695.attributes.longitude }}&key=AIzaSyCOhs24OA4pbiUFRLF8-0crkMDTOVdVIro'  #!secret google_api_key
+    name: Darren Map
+    limit_refetch_to_url_change: true
 
 zone 2:
     name: !secret zone2_name
@@ -237,6 +193,7 @@ person:
       - device_tracker.darren
       - device_tracker.pixel_2_xl
       - device_tracker.b4_f1_da_b7_29_f7 # darren
+      - device_tracker.google_maps_105311213674095510695
   - name: Donna
     id: donna2012
     user_id: !secret user_id_donna
@@ -245,6 +202,7 @@ person:
       - device_tracker.donnas_iphone
       - device_tracker.donna_s_iphone
       - device_tracker.78_9f_70_ba_e0_3f # donna
+      - device_tracker.google_maps_117348287487191396666
   - name: Tristan
     id: tristan2019
     device_trackers:
@@ -303,6 +261,8 @@ alert: !include includes/alert.yaml
 automation: !include automations.yaml
 binary_sensor: !include includes/binary_sensor.yaml
 cloud: !include includes/cloud.yaml
+cover: !include includes/cover.yaml
+##  googlehome: !include includes/googlehome.yaml
 group: !include groups.yaml
 history: !include includes/history.yaml 
 input_boolean: !include includes/input_boolean.yaml
