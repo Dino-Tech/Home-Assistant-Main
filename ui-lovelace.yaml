@@ -67,6 +67,8 @@ resources:
     type: js
   - url: /customcards/custom-lovelace/simple-thermostat/simple-thermostat.js
     type: module
+  - url: /customcards/custom-lovelace/decluttering-card.js
+    type: module
 ##  - url: /customcards/custom-lovelace/popup.js
 ##    type: js
 #  - url: /customcards/custom-lovelace/text-element.js
@@ -81,6 +83,38 @@ resources:
 #    type: js
 #  - url: /customcards/custom-lovelace/monster-card.js
 #    type: js
+
+decluttering_templates:
+  bar_card_temp:
+    type: custom:bar-card
+    severity:
+      - value: '[[value_1]]'
+        color: '[[color_1]]'
+      - value: '[[value_2]]'
+        color: '[[color_2]]'
+      - value: 100
+        color: '[[color_3]]'
+    title_position: inside
+    tap_action: info
+    columns: '[[columns]]'
+    padding: 2px
+    align: split
+    rounding: 6px
+    saturation: 85%
+    height: '[[height]]'
+    card_style:
+      background: 'rgba(0, 0, 0, 0.4)'
+      border-radius: 10px
+    title_style:
+      font-weight: bold
+      font-size: 24px
+      color: '#FFF'
+      text-shadow: '1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen'
+    value_style:
+      font-size: 26px
+      font-weight: bold
+    entity: '[[entity]]'
+    title: '[[title]]'
 
 popup_cards:
   sensor.zdummy_sensor_1:
@@ -200,7 +234,7 @@ popup_cards:
           tap_action:
             action: toggle
         - type: entity-button
-          entity: switch.hallway_light # light.fireplace_lights
+          entity: light.fireplace_lights
           name: Fireplace
           tap_action:
             action: toggle
@@ -619,20 +653,24 @@ popup_cards:
 
 ## mobile popup
   sensor.zdummy_sensor_29:
-    title: Weather Forecast
+    title: Forecast
     style:
       background: linear-gradient(rgba(150,150,150,1), 20%, rgba(0,0,0,0.95))
-      font-size: 18px
+      font-size: 20px
+      background-size: 100% 100%
       border-radius: 15px
       border: solid 8px dimgray
-      height: 620px
+      height: 100% #620px
       width: 100%
+      overflow: hidden
     card:
       type: custom:card-modder
       style:
         background-image: "url(/local/images-lovelace/WIII_tranz/[[ input_select.auto_cardz.state ]].png)" #url("/local/backgroundz/ClearPNG.png") # 
         background-repeat: no-repeat
         background-size: 100% 100%
+        height: 680px
+        overflow: hidden
       card:
         type: 'custom:dark-sky-weather-card'
         entity_current_conditions: sensor.dark_sky_icon
@@ -664,7 +702,7 @@ popup_cards:
         entity_wind_speed: sensor.dark_sky_wind_speed
         entity_humidity: sensor.dark_sky_humidity
         entity_pressure: sensor.dark_sky_pressure
-        entity_apparent_temp: sensor.dark_sky_apparent_temperature
+#        entity_apparent_temp: sensor.dark_sky_apparent_temperature
         entity_daily_summary: sensor.dark_sky_daily_summary
         entity_pop: sensor.dark_sky_precip_probability_0d
         entity_pop_1: sensor.dark_sky_precip_probability_1d
@@ -767,7 +805,7 @@ popup_cards:
       border: solid 8px rgb(38, 0, 153)
       "--primary-text-color": white
       color: "#FFF"
-      height: 750px
+      height: 100%
       width: 100%
       text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue
       font-size: 24px
@@ -887,6 +925,9 @@ popup_cards:
               - entity_id: switch.ceiling_left_sw
               - entity_id: switch.ceiling_right_sw
               - entity_id: switch.hallway_switch
+              - entity_id: switch.coffee_light
+              - entity_id: switch.tv_accent_lights
+              - entity_id: switch.foyer_accent_lights
 
 ## Mobile popup
   sensor.zdummy_sensor_30:
@@ -947,6 +988,9 @@ popup_cards:
               - entity_id: switch.ceiling_left_sw
               - entity_id: switch.ceiling_right_sw
               - entity_id: switch.hallway_switch
+              - entity_id: switch.coffee_light
+              - entity_id: switch.tv_accent_lights
+              - entity_id: switch.foyer_accent_lights
 
 ## Mobile popup
   sensor.zdummy_sensor_20:
@@ -962,8 +1006,8 @@ popup_cards:
       text-shadow: "1px 1px 2px black, 0 0 25px red, 0 0 5px firebrick"
       font-size: 20px
       color: white
-      height: 600px
-      width: 98%
+      height: 100% # 600px
+      width: 100%
       overflow: hidden
     card:
       type: alarm-panel
@@ -1407,10 +1451,10 @@ popup_cards:
       border: solid 8px blue
       "--paper-input-container-shared-input-style_-_font-size": .8em
       "--paper-input-container-shared-input-style_-_width": 180px
-      font-size: 1.2em
+      font-size: 18px
       text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px midnightblue"
       color: "#FFF"
-      height: 630px
+      height: 100% #630px
       width: 100%
     card:
       type: entities
@@ -1550,7 +1594,7 @@ popup_cards:
       font-size: 2.0em
       font-weight: bold
       color: "white"
-      height: 700px
+      height: 100%
       width: 100%
     card:
       type: custom:auto-entities
@@ -1846,7 +1890,7 @@ popup_cards:
             - date: 07/03/2019
               name: Vacation Countdown
 
-# multi user/multi view home screens
+# home screen: multi-user/multi-view/access restrictions
 title: New Life Home
 views:
   - id: 0
@@ -1932,8 +1976,12 @@ views:
                       - type: custom:fold-entity-row
                         head: 
                           type: section
-                          label: Cameras
+                          label: Security
                         items:
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_20
+                            icon: mdi:bell
+                            name: "Alarm Panel"
                           - type: custom:dummy-entity-row
                             entity: camera.front_door
                             icon: mdi:cctv
@@ -1947,6 +1995,10 @@ views:
                             icon: mdi:cctv
                             name: "Driveway Cam"
                           - type: custom:dummy-entity-row
+                            entity: camera.garage_cam
+                            icon: mdi:cctv
+                            name: "Garage Camera"
+                          - type: custom:dummy-entity-row
                             entity: camera.den_cam
                             icon: mdi:cctv
                             name: "Den Camera"
@@ -1955,10 +2007,6 @@ views:
                             icon: mdi:cctv
                             name: "Entry Hall Cam"
                           - type: custom:dummy-entity-row
-                            entity: camera.garage_cam
-                            icon: mdi:cctv
-                            name: "Garage Camera"
-                          - type: custom:dummy-entity-row
                             entity: camera.kitchen_cam
                             icon: mdi:cctv
                             name: "Kitchen Camera"
@@ -1966,27 +2014,22 @@ views:
                             entity: camera.office_cam
                             icon: mdi:cctv
                             name: "Office Camera"
-                          - type: entity-button
-                            entity: switch.garage_door
-                            name: Garage Door
-                            tap_action:
-                              action: toggle
                           - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_21
+                            entity: sensor.zdummy_sensor_23
                             icon: mdi:arrow-right-drop-circle-outline
-                            name: "Screen Styles"
+                            name: "Motion Sensors"
                           - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_32
+                            entity: sensor.zdummy_sensor_25
                             icon: mdi:arrow-right-drop-circle-outline
-                            name: "Settings"
-                          - type: entity-button
-                            name: Goodnight
-                            tap_action:
-                              action: call-service
-                              service: script.turn_on
-                              service_data:
-                                entity_id: script.good_night
-                            entity: script.good_night
+                            name: "Doors & Windows"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_26
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Smoke Detectors"
+                          - type: custom:dummy-entity-row
+                            entity: input_boolean.darren_home
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Where Are We?"
                 - type: custom:card-modder
                   style:
                     background: rgba(0,0,0,0.35)
@@ -2008,7 +2051,7 @@ views:
                           - type: custom:dummy-entity-row
                             entity: sensor.zdummy_sensor_30
                             icon: mdi:arrow-right-drop-circle-outline
-                            name: "Lights ON"
+                            name: "Currently 'ON'"
                           - type: custom:dummy-entity-row
                             entity: sensor.sunrise
                             icon: mdi:arrow-right-drop-circle-outline
@@ -2025,6 +2068,47 @@ views:
                             entity: sensor.zdummy_sensor_28
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Air Conditioner"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_21
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Screen Styles"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_32
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Settings"
+                          - type: 'custom:hui-glance-card'
+                            columns: 2
+                            entities:
+                              - type: entity-button
+                                name: Goodnight
+                                tap_action:
+                                  action: call-service
+                                  service: script.turn_on
+                                  service_data:
+                                    entity_id: script.good_night
+                                entity: script.good_night
+                              - type: entity-button
+                                entity: cover.garage_door
+                                name: Garage
+                                tap_action:
+                                  action: toggle
+                - type: custom:card-modder
+                  style:
+                    background: rgba(0,0,0,0.35)
+                    border-radius: 15px
+                    font-weight: bold
+                    font-size: 1.75em
+                    text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
+                    "--paper-item-icon-color": lime
+                    "--iron-icon-stroke-color": green
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head: 
+                          type: section
+                          label: Rooms
+                        items:
                           - type: custom:dummy-entity-row
                             entity: sensor.zdummy_sensor_2
                             icon: mdi:arrow-right-drop-circle-outline
@@ -2045,39 +2129,6 @@ views:
                             entity: sensor.zdummy_sensor_1
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Bedroom"
-                - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.35)
-                    border-radius: 15px
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                    "--paper-item-icon-color": lime
-                    "--iron-icon-stroke-color": green
-                  card:
-                    type: entities
-                    entities:
-                      - type: custom:fold-entity-row
-                        head: 
-                          type: section
-                          label: Security
-                        items:
-                          - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_20
-                            icon: mdi:arrow-right-drop-circle-outline
-                            name: "Alarm Panel"
-                          - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_23
-                            icon: mdi:arrow-right-drop-circle-outline
-                            name: "Motion Sensors"
-                          - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_25
-                            icon: mdi:arrow-right-drop-circle-outline
-                            name: "Doors & Windows"
-                          - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_26
-                            icon: mdi:arrow-right-drop-circle-outline
-                            name: "Smoke Detectors"
                           - type: custom:dummy-entity-row
                             entity: input_boolean.darren_home
                             icon: mdi:arrow-right-drop-circle-outline
@@ -2113,92 +2164,54 @@ views:
                             name: "Local Radar"
                 - type: custom:vertical-stack-in-card
                   cards:
-                    - type: custom:bar-card
-                      severity:
-                        - value: 20
-                          color: '#DC143C'
-                        - value: 40
-                          color: '#bf9540'
-                        - value: 100
-                          color: 'rgba(64, 238, 64,0.4)'
-                      title_position: inside
-                      tap_action: info
-                      columns: 1
-                      padding: 2px
-                      align: split
-                      rounding: 5px
-                      saturation: 85%
-                      height: 31px
-                      card_style:
-                        background: "rgba(0, 0, 0, 0.4)"
-                        border-radius: 10px
-                      title_style:
-                        font-weight: bold
-                        font-size: 24px
-                        color: '#FFF'
-                        text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                      value_style:
-                        font-size: 26px
-                        font-weight: bold
-                      entity: sensor.pixel2statusbatt
-                      title: Pixel 2 XL
-                    - type: custom:bar-card
-                      severity:
-                        - value: 30
-                          color: 'rgba(64, 238, 64,0.4)'
-                        - value: 50
-                          color: '#f3f400'
-                        - value: 100
-                          color: '#b30000'
-                      title_position: inside
-                      tap_action: info
-                      columns: 1
-                      padding: 2px
-                      align: split
-                      rounding: 5px
-                      saturation: 85%
-                      height: 31px
-                      card_style:
-                        background: "rgba(0, 0, 0, 0.4)"
-                        border-radius: 10px
-                      title_style:
-                        font-weight: bold
-                        font-size: 24px
-                        color: '#FFF'
-                        text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                      value_style:
-                        font-size: 26px
-                        font-weight: bold
-                      entities:
-                        - sensor.processor_use
-                    - type: custom:bar-card
-                      severity:
-                        - value: 40
-                          color: 'rgba(0, 0, 255,0.8)'
-                        - value: 100
-                          color: 'rgba(64, 238, 64,0.4)'
-                      title_position: inside
-                      tap_action: info
-                      columns: 1
-                      padding: 2px
-                      align: split
-                      rounding: 5px
-                      saturation: 85%
-                      height: 32px
-                      card_style:
-                        background: "rgba(0, 0, 0, 0.4)"
-                        border-radius: 10px
-                      title_style:
-                        font-weight: bold
-                        font-size: 24px
-                        color: '#FFF'
-                        text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                      value_style:
-                        font-size: 26px
-                        font-weight: bold
-                      entities:
-                        - sensor.outside_avg_temperature
-                        - sensor.filtered_realistic_temperature
+                    - type: custom:decluttering-card
+                      template: bar_card_temp
+                      variables:
+                        - value_1: 20
+                        - color_1: '#DC143C'
+                        - value_2: 40
+                        - color_2: '#bf9540'
+                        - color_3: 'rgba(64, 238, 64,0.4)'
+                        - columns: 1
+                        - height: 31px
+                        - entity: sensor.pixel2statusbatt
+                        - title: Pixel 2 XL Battery
+                    - type: custom:decluttering-card
+                      template: bar_card_temp
+                      variables:
+                        - value_1: 30
+                        - color_1: 'rgba(64, 238, 64,0.4)'
+                        - value_2: 50
+                        - color_2: '#f3f400'
+                        - color_3: '#b30000'
+                        - columns: 1
+                        - height: 31px
+                        - entity: sensor.processor_use
+                        - title: Processor Use
+                    - type: custom:decluttering-card
+                      template: bar_card_temp
+                      variables:
+                        - value_1: 40
+                        - color_1: 'rgba(0, 0, 255,0.8)'
+                        - value_2: 50
+                        - color_2: 'rgba(64, 238, 64,0.4)'
+                        - color_3: 'rgba(64, 238, 64,0.4)'
+                        - columns: 1
+                        - height: 31px
+                        - entity: sensor.outside_avg_temperature
+                        - title: Outside Temp
+                    - type: custom:decluttering-card
+                      template: bar_card_temp
+                      variables:
+                        - value_1: 40
+                        - color_1: 'rgba(0, 0, 255,0.8)'
+                        - value_2: 50
+                        - color_2: 'rgba(64, 238, 64,0.4)'
+                        - color_3: 'rgba(64, 238, 64,0.4)'
+                        - columns: 1
+                        - height: 31px
+                        - entity: sensor.filtered_realistic_temperature
+                        - title: Inside Temp
 
           Donna:
             type: custom:card-modder
@@ -2672,35 +2685,18 @@ views:
                             entity: input_boolean.darren_home
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Location"
-                - type: custom:bar-card
-                  severity:
-                    - value: 20
-                      color: '#40ee40'
-                    - value: 50
-                      color: '#f3f400'
-                    - value: 100
-                      color: '#b30000'
-                  title_position: inside
-                  tap_action: info
-                  columns: 1
-                  padding: 2px
-                  align: split
-                  rounding: 10px
-                  saturation: 85%
-                  height: 28px
-                  card_style:
-                    background: "rgba(0, 0, 0, 0.4)"
-                    border-radius: 10px
-                  title_style:
-                    font-weight: bold
-                    font-size: 24px
-                    color: '#FFF'
-                    text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                  value_style:
-                    font-size: 26px
-                    font-weight: bold
-                  entities:
-                    - sensor.processor_use
+                - type: custom:decluttering-card
+                  template: bar_card_temp
+                  variables:
+                    - value_1: 30
+                    - color_1: '#40ee40'
+                    - value_2: 50
+                    - color_2: '#f3f400'
+                    - color_3: '#b30000'
+                    - columns: 1
+                    - height: 28px
+                    - entity: sensor.processor_use
+                    - title: Processor Use
                 - break ##################################################
                 - type: custom:bar-card
                   severity:
