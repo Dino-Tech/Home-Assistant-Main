@@ -3,9 +3,6 @@
 
 Message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-may-24-new-mobile-popups-lovelace-screens/84271) if you have any questions or recommendations in regards to my repository! 
 
-<script type="text/javascript" src="https://www.brainyquote.com/link/quotebr.js"></script>
-<small><i><a href="https://www.brainyquote.com/quote_of_the_day" target="_blank" rel="nofollow">more Quotes</a></i></small>
-
 If I've helped you, and you really want to, you can <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>, but don't feel obliged - I'm not doing this for free coffee, but I do get tired :stuck_out_tongue_winking_eye: 
 
 <p align="center">
