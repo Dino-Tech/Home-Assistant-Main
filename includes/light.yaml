@@ -233,6 +233,11 @@
   name: Table Light
   entity_id: switch.table_light
 
+- platform: switch
+  name: Salt Light
+  entity_id: switch.salt_light
+
+
 #############################################################
 #- platform: mqtt
 #  name: "Driveway Lights LED"
