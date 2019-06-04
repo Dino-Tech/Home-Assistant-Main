@@ -1,0 +1,974 @@
+# /config/includes/sensor.yaml
+####################################################
+
+- platform: min_max
+  entity_ids:
+    - sensor.porch_humidity
+    - sensor.outside_ht_humidity # patio
+  name: 'Outside Avg Humidity'
+  type: mean
+
+- platform: min_max
+  entity_ids:
+    - sensor.office_humidity
+    - sensor.kld_humidity
+  name: 'Office Temp Avg'
+  type: mean
+
+- platform: min_max
+  entity_ids:
+    - sensor.office_temp
+    - sensor.office_smoke_temp
+    - sensor.kld_temp
+  name: 'Office Humidity Avg'
+  type: mean
+
+- platform: min_max
+  entity_ids:
+    - sensor.bedroom_temp
+    - sensor.bedroom_smoke_temp
+  name: 'Bedroom Avg Temperature'
+  type: mean
+
+- platform: min_max
+  entity_ids:
+    - sensor.spare_room_temp
+    - sensor.guest_smoke_temp
+  name: 'Guest Avg Temperature'
+  type: mean
+
+- platform: min_max
+  entity_ids:
+    - sensor.porch_temp
+    - sensor.outside_ht_temp # patio
+  name: 'Outside Avg Temperature'
+  type: mean
+
+- platform: min_max
+  entity_ids:
+    - sensor.office_humidity
+    - sensor.bedroom_humidity
+    - sensor.living_room_thermostat_humidity
+    - sensor.kitchen_humidity
+    - sensor.mbath_humidity
+    - sensor.spare_room_humidity
+    - sensor.laundry_room_humidity
+  name: 'realistic_humidity'
+  type: mean
+
+- platform: min_max
+  entity_ids:
+    - sensor.living_room_thermostat_temperature
+    - sensor.laundry_smoke_temp
+    - sensor.office_temp
+    - sensor.office_smoke_temp
+    - sensor.bedroom_temp
+    - sensor.kitchen_temp
+    - sensor.mbath_temp
+    - sensor.spare_room_temp
+    - sensor.laundry_room_temp
+    - sensor.bedroom_smoke_temp
+    - sensor.guest_smoke_temp
+  name: 'realistic_temperature'
+  type: mean
+
+- platform: filter
+  name: "Filtered Outside Temperature"
+  entity_id: sensor.outside_avg_temperature
+  filters:
+    - filter: outlier
+      window_size: 4
+      radius: 2.0
+    - filter: lowpass
+      time_constant: 10
+    - filter: time_simple_moving_average
+      window_size: 00:05
+      precision: 2
+
+- platform: filter
+  name: "Filtered Outside Humidity"
+  entity_id: sensor.outside_avg_humidity
+  filters:
+    - filter: outlier
+      window_size: 4
+      radius: 4.0
+    - filter: lowpass
+      time_constant: 10
+      precision: 2
+
+- platform: filter
+  name: "Filtered Realistic Temperature"
+  entity_id: sensor.realistic_temperature
+  filters:
+    - filter: outlier
+      window_size: 4
+      radius: 2.0
+    - filter: lowpass
+      time_constant: 10
+    - filter: time_simple_moving_average
+      window_size: 00:05
+      precision: 2
+
+- platform: filter
+  name: "Filtered Realistic Humidity"
+  entity_id: sensor.realistic_humidity
+  filters:
+    - filter: outlier
+      window_size: 4
+      radius: 4.0
+    - filter: lowpass
+      time_constant: 10
+      precision: 2
+
+# Current Time and Date
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+    - 'date_time'
+    - 'date_time_iso'
+    - 'time_date'
+    - 'time_utc'
+    - 'beat'
+
+# HA latest version
+- platform: rest
+  name: "HA Latest Version"
+  resource: https://pypi.python.org/pypi/homeassistant/json
+  value_template: '{{ value_json.info.version }}'
+  scan_interval: 3600
+
+#  GitHub
+#- platform: github
+#  access_token: !secret github_token
+#  repositories:
+#    - path: 'Dino-Tech/Home-Assistant-Main'
+
+- platform: google_wifi
+
+- platform: template
+  sensors:
+    day_night:
+      friendly_name: "Day/Night"
+      value_template: >-
+        {% if is_state('sun.sun', 'above_horizon') %}
+          Day
+        {% else %}
+          Night
+        {% endif %}
+      entity_picture_template: >-
+        {% if is_state('sun.sun', 'above_horizon') %}
+          /local/images-lovelace/sun.jpg
+        {% else %}
+          /local/images-lovelace/night.jpg
+        {% endif %}
+
+- platform: template
+  sensors:
+    dark_sky_current_text:
+      value_template: '{% if is_state("sensor.dark_sky_icon","clear-day") %} Clear 
+                       {% elif is_state("sensor.dark_sky_icon","clear-night") %} Clear 
+                       {% elif is_state("sensor.dark_sky_icon","rain") %} Rain
+                       {% elif is_state("sensor.dark_sky_icon","snow") %} Snowy
+                       {% elif is_state("sensor.dark_sky_icon","fog") %} Foggy
+                       {% elif is_state("sensor.dark_sky_icon","sleet") %} Sleet
+                       {% elif is_state("sensor.dark_sky_icon","wind") %} Windy
+                       {% elif is_state("sensor.dark_sky_icon","cloudy") %} Cloudy
+                       {% elif is_state("sensor.dark_sky_icon","partly-cloudy-day") %} Partly Cloudy
+                       {% elif is_state("sensor.dark_sky_icon","partly-cloudy-night") %} Partly Cloudy
+                       {% elif is_state("sensor.dark_sky_icon","hail") %} Hailing
+                       {% elif is_state("sensor.dark_sky_icon","lightning") %} Lightning
+                       {% elif is_state("sensor.dark_sky_icon","thunderstorm") %} Thunderstorm
+                       {% endif %}'
+
+- platform: template
+  sensors:
+    office_battery_smoke:
+      unit_of_measurement: '%'
+      value_template: >
+          {% if states('sensor.office_smoke_battery') != "unknown" %}
+            {{ states('sensor.office_smoke_battery')| int }}
+          {% else %}
+            0
+          {% endif %}
+      icon_template: >-
+          {% if states('sensor.office_smoke_battery') != "unknown" %}
+            {% set battery_level = states('sensor.office_smoke_battery')|int (-1)%}
+            {% if battery_level == -1 %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
+
+    pixel_battery_icon:
+      unit_of_measurement: '%'
+      value_template: >
+          {% if states('sensor.pixel2statusbatt') != "unknown" %}
+            {{ states('sensor.pixel2statusbatt')| int }}
+          {% else %}
+            0
+          {% endif %}
+      icon_template: >-
+          {% if states('sensor.pixel2statusbatt') != "unknown" %}
+            {% set battery_level = states('sensor.pixel2statusbatt')|int (-1)%}
+            {% if battery_level == -1 %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
+
+    iphone_battery_icon:
+      unit_of_measurement: '%'
+      value_template: >
+          {% if states('sensor.iphone6statusbatt') != "unknown" %}
+            {{ states('sensor.iphone6statusbatt')| int }}
+          {% else %}
+            0
+          {% endif %}
+      icon_template: >-
+          {% if states('sensor.iphone6statusbatt') != "unknown" %}
+            {% set battery_level = states('sensor.iphone6statusbatt')|int (-1)%}
+            {% if battery_level == -1 %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
+
+- platform: template
+  sensors:
+
+    pixel2statusbatt:
+      friendly_name: Darren's Pixel2XL
+      value_template: '{% if states.device_tracker.google_maps_105311213674095510695 %} {{ states.device_tracker.google_maps_105311213674095510695.attributes.battery_level |int }} {% else %} Unknown {% endif %}'
+      unit_of_measurement: '%'
+
+    iphone6statusbatt:
+      friendly_name: Donna's iPhone
+      value_template: '{% if states.device_tracker.google_maps_117348287487191396666 %} {{ states.device_tracker.google_maps_117348287487191396666.attributes.battery_level |int }} {% else %} Unknown {% endif %}'
+      unit_of_measurement: '%'
+
+    sunset:
+      value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom("%I:%M") %} {{ timestamp.lstrip("0") }}'
+      unit_of_measurement: 'PM'
+
+    sunrise:
+      value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_rising) | timestamp_custom("%I:%M") %} {{ timestamp.lstrip("0") }}'
+      unit_of_measurement: 'AM'
+
+    daylight:
+      value_template: >
+        {% set nr = as_timestamp(state_attr('sun.sun','next_rising')) %}
+        {% set ns = as_timestamp(state_attr('sun.sun','next_setting')) %}
+        {% if nr > ns %}
+          {% set nr = nr - 60*60*24 %}
+        {% endif %}
+        {{ (ns - nr)|timestamp_custom('%H:%M',false) }}
+
+#Thanks to @ccostan for the code here.  Some Intresting HA stats
+    sensor_count:
+      entity_id: []
+      friendly_name: 'Sensors'
+      value_template: >
+        {%- set domains = ['sensor'] -%}
+        {%- for domain in domains -%}
+          {%- for item in states[domain] -%}
+            {% if loop.first %}
+              {{loop.length}}
+            {% endif %}
+          {%- endfor -%}
+        {%- endfor -%}
+
+    automation_count:
+      entity_id: []
+      friendly_name: 'Automations'
+      value_template: >
+        {%- set domains = ['automation'] -%}
+        {%- for domain in domains -%}
+          {%- for item in states[domain] -%}
+            {% if loop.first %}
+              {{loop.length}}
+            {% endif %}
+          {%- endfor -%}
+        {%- endfor -%}
+
+    script_count:
+      entity_id: []
+      friendly_name: 'Scripts'
+      value_template: >
+        {%- set domains = ['script'] -%}
+        {%- for domain in domains -%}
+          {%- for item in states[domain] -%}
+            {% if loop.first %}
+              {{loop.length}}
+            {% endif %}
+          {%- endfor -%}
+        {%- endfor -%}
+
+    switch_count:
+      entity_id: []
+      friendly_name: 'Switches'
+      value_template: >
+        {%- set domains = ['switch'] -%}
+        {%- for domain in domains -%}
+          {%- for item in states[domain] -%}
+            {% if loop.first %}
+              {{loop.length}}
+            {% endif %}
+          {%- endfor -%}
+        {%- endfor -%}
+
+    binary_sensor_count:
+      entity_id: []
+      friendly_name: 'Binary Sensors'
+      value_template: >
+        {%- set domains = ['binary_sensor'] -%}
+        {%- for domain in domains -%}
+          {%- for item in states[domain] -%}
+            {% if loop.first %}
+              {{loop.length}}
+            {% endif %}
+          {%- endfor -%}
+        {%- endfor -%}
+
+    lights_count:
+      entity_id: []
+      friendly_name: 'Lights'
+      value_template: >
+        {%- set domains = ['light'] -%}
+        {%- for domain in domains -%}
+          {%- for item in states[domain] -%}
+            {% if loop.first %}
+              {{loop.length}}
+            {% endif %}
+          {%- endfor -%}
+        {%- endfor -%}
+
+    tracker_count:
+      entity_id: []
+      friendly_name: 'Devices'
+      value_template: >
+        {%- set domains = ['device_tracker'] -%}
+        {%- for domain in domains -%}
+          {%- for item in states[domain] -%}
+            {% if loop.first %}
+              {{loop.length}}
+            {% endif %}
+          {%- endfor -%}
+        {%- endfor -%}
+
+    alert_count:
+      entity_id: []
+      friendly_name: 'Alerts'
+      value_template: >
+        {%- set domains = ['alert'] -%}
+        {%- for domain in domains -%}
+          {%- for item in states[domain] -%}
+            {% if loop.first %}
+              {{loop.length}}
+            {% endif %}
+          {%- endfor -%}
+        {%- endfor -%}
+
+- platform: mqtt
+  name: "Washer State"
+  state_topic: "hass/state/washer"
+  icon: mdi:washing-machine
+
+- platform: mqtt
+  name: "Washer Watts"
+  state_topic: "tele/SNF-Washer/SENSOR"
+  value_template: "{{value_json['ENERGY'].Power }}"
+  qos: 2
+  unit_of_measurement : "W"
+  icon: mdi:flash-outline
+  availability_topic: "tele/SNF-Washer/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Washer Voltage"
+  state_topic: "tele/SNF-Washer/SENSOR"
+  value_template: "{{value_json['ENERGY'].Voltage }}"
+  qos: 2
+  unit_of_measurement : "V"
+  icon: mdi:flash-circle
+  availability_topic: "tele/SNF-Washer/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Washer Amps"
+  state_topic: "tele/SNF-Washer/SENSOR"
+  value_template: "{{value_json['ENERGY'].Current }}"
+  qos: 2
+  unit_of_measurement : "A"
+  icon: mdi:flash
+  availability_topic: "tele/SNF-Washer/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Washer Energy Today"
+  icon: mdi:google-analytics
+  state_topic: "tele/SNF-Washer/SENSOR"
+  value_template: "{{value_json['ENERGY'].Today }}"
+  qos: 2
+  unit_of_measurement : "kWh"
+  availability_topic: "tele/SNF-Washer/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Washer Energy Yesterday"
+  icon: mdi:chart-line-stacked
+  state_topic: "tele/SNF-Washer/SENSOR"
+  value_template: "{{value_json['ENERGY'].Yesterday }}"
+  qos: 2
+  unit_of_measurement : "kWh"
+  availability_topic: "tele/SNF-Washer/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  state_topic: "tele/SNF-Washer/STATE"
+  name: "Washer Signal"
+  icon: mdi:rss
+  unit_of_measurement: "%"
+  value_template: "{{value_json['Wifi'].RSSI }}"
+  availability_topic: "tele/SNF-Washer/LWT"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Dryer State"
+  state_topic: "hass/state/dryer"
+  icon: mdi:washing-machine
+
+- platform: mqtt
+  name: "Dryer Watts"
+  state_topic: "tele/SNF-Dryer/SENSOR"
+  value_template: "{{value_json['ENERGY'].Power }}"
+  qos: 2
+  unit_of_measurement : "W"
+  icon: mdi:flash-outline
+  availability_topic: "tele/SNF-Dryer/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Dryer Voltage"
+  state_topic: "tele/SNF-Dryer/SENSOR"
+  value_template: "{{value_json['ENERGY'].Voltage }}"
+  qos: 2
+  unit_of_measurement : "V"
+  icon: mdi:flash-circle
+  availability_topic: "tele/SNF-Dryer/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Dryer Amps"
+  state_topic: "tele/SNF-Dryer/SENSOR"
+  value_template: "{{value_json['ENERGY'].Current }}"
+  qos: 2
+  unit_of_measurement : "A"
+  icon: mdi:flash
+  availability_topic: "tele/SNF-Dryer/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Dryer Energy Today"
+  icon: mdi:google-analytics
+  state_topic: "tele/SNF-Dryer/SENSOR"
+  value_template: "{{value_json['ENERGY'].Today }}"
+  qos: 2
+  unit_of_measurement : "kWh"
+  availability_topic: "tele/SNF-Dryer/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Dryer Energy Yesterday"
+  icon: mdi:chart-line-stacked
+  state_topic: "tele/SNF-Dryer/SENSOR"
+  value_template: "{{value_json['ENERGY'].Yesterday }}"
+  qos: 2
+  unit_of_measurement : "kWh"
+  availability_topic: "tele/SNF-Dryer/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  state_topic: "tele/SNF-Dryer/STATE"
+  name: "Dryer Signal"
+  icon: mdi:rss
+  unit_of_measurement: "%"
+  value_template: "{{value_json['Wifi'].RSSI }}"
+  availability_topic: "tele/SNF-Dryer/LWT"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  state_topic: "tele/sonoff40/STATE"
+  name: "Mbath Signal"
+  icon: mdi:rss
+  unit_of_measurement: "%"
+  value_template: "{{value_json['Wifi'].RSSI }}"
+  availability_topic: "tele/sonoff40/LWT"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Mbath Temp"
+  state_topic: "tele/sonoff40/SENSOR"
+  value_template: "{{value_json['AM2301'].Temperature }}"
+  qos: 1
+  unit_of_measurement: "°F"
+  availability_topic: "tele/sonoff40/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Mbath Humidity"
+  state_topic: "tele/sonoff40/SENSOR"
+  value_template: "{{value_json['AM2301'].Humidity }}"
+  qos: 1
+  unit_of_measurement: "%"
+  device_class: humidity
+  availability_topic: "tele/sonoff40/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Kitchen Temp"
+  state_topic: "tele/sonoff09/SENSOR"
+  value_template: "{{value_json['AM2301'].Temperature }}"
+  qos: 1
+  unit_of_measurement: "°F"
+  availability_topic: "tele/sonoff09/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Kitchen Humidity"
+  state_topic: "tele/sonoff09/SENSOR"
+  value_template: "{{value_json['AM2301'].Humidity }}"
+  qos: 1
+  unit_of_measurement: "%"
+  device_class: humidity
+  availability_topic: "tele/sonoff09/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Office Temp"
+  state_topic: "tele/sonoffT302/SENSOR"
+  value_template: "{{value_json['AM2301'].Temperature }}"
+  qos: 1
+  unit_of_measurement: "°F"
+  availability_topic: "tele/sonoffT302/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Office Humidity"
+  state_topic: "tele/sonoffT302/SENSOR"
+  value_template: "{{value_json['AM2301'].Humidity }}"
+  qos: 1
+  unit_of_measurement: "%"
+  device_class: humidity
+  availability_topic: "tele/sonoffT302/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Bedroom Temp"
+  state_topic: "tele/sonoffKLD-034/SENSOR"
+  value_template: "{{value_json['AM2301'].Temperature }}"
+  qos: 1
+  unit_of_measurement: "°F"
+  availability_topic: "tele/sonoffKLD-034/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "Bedroom Humidity"
+  state_topic: "tele/sonoffKLD-034/SENSOR"
+  value_template: "{{value_json['AM2301'].Humidity }}"
+  qos: 1
+  unit_of_measurement: "%"
+  device_class: humidity
+  availability_topic: "tele/sonoffKLD-034/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+
+- platform: mqtt
+  name: "KLD Temp"
+  state_topic: "tele/sonoff32/SENSOR"
+  value_template: "{{value_json['AM2301'].Temperature }}"
+  qos: 1
+  unit_of_measurement: "°F"
+  availability_topic: "tele/sonoff32/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+- platform: mqtt
+  name: "KLD Humidity"
+  state_topic: "tele/sonoff32/SENSOR"
+  value_template: "{{value_json['AM2301'].Humidity }}"
+  qos: 1
+  unit_of_measurement: "%"
+  device_class: humidity
+  availability_topic: "tele/sonoff32/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+
+####################
+- platform: mqtt
+  state_topic: "shellies/shellyht-58F218/sensor/temperature"
+  name: "Porch Temp"
+  icon: mdi:thermometer
+  unit_of_measurement: "°F"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellyht-58F218/sensor/battery"
+  name: "Porch HT Battery"
+  icon: mdi:battery-charging-80
+  unit_of_measurement: "%"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellyht-58F218/sensor/humidity"
+  name: "Porch Humidity"
+  icon: mdi:water
+  unit_of_measurement: "%"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellyht-58FD2A/sensor/temperature"
+  name: "Laundry Room Temp"
+  icon: mdi:thermometer
+  unit_of_measurement: "°F"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellyht-58FD2A/sensor/battery"
+  name: "Laundry Room Battery"
+  icon: mdi:battery-charging-80
+  unit_of_measurement: "%"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellyht-58FD2A/sensor/humidity"
+  name: "Laundry Room Humidity"
+  icon: mdi:water
+  unit_of_measurement: "%"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellyht-5A8B31/sensor/temperature"
+  name: "Outside HT Temp"
+  icon: mdi:thermometer
+  unit_of_measurement: "°F"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellyht-5A8B31/sensor/battery"
+  name: "Outside HT Battery"
+  icon: mdi:battery-charging-80
+  unit_of_measurement: "%"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellyht-5A8B31/sensor/humidity"
+  name: "Outside HT Humidity"
+  icon: mdi:water
+  unit_of_measurement: "%"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellyht-5A8AFC/sensor/temperature"
+  name: "Spare Room Temp"
+  icon: mdi:thermometer
+  unit_of_measurement: "°F"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellyht-5A8AFC/sensor/battery"
+  name: "Spare Room Battery"
+  icon: mdi:battery-charging-80
+  unit_of_measurement: "%"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellyht-5A8AFC/sensor/humidity"
+  name: "Spare Room Humidity"
+  icon: mdi:water
+  unit_of_measurement: "%"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellysmoke-743B47/sensor/temperature"
+  name: "Guest Smoke Temp"
+  icon: mdi:thermometer
+  unit_of_measurement: "°F"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellysmoke-743B47/sensor/battery"
+  name: "Guest Smoke Battery"
+  icon: mdi:battery-charging-80
+  unit_of_measurement: "%"
+  qos: 2
+####################  shellies/shellysmoke-743B24/online
+- platform: mqtt
+  state_topic: "shellies/shellysmoke-743B24/sensor/temperature"
+  name: "Bedroom Smoke Temp"
+  icon: mdi:thermometer
+  unit_of_measurement: "°F"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellysmoke-743B24/sensor/battery"
+  name: "Bedroom Smoke Battery"
+  icon: mdi:battery-charging-80
+  unit_of_measurement: "%"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellysmoke-5B899E/sensor/temperature"
+  name: "Laundry Smoke Temp"
+  icon: mdi:thermometer
+  unit_of_measurement: "°F"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellysmoke-5B899E/sensor/battery"
+  name: "Laundry Smoke Battery"
+  icon: mdi:battery-charging-80
+  unit_of_measurement: "%"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellysmoke-5B897C/sensor/temperature"
+  name: "Office Smoke Temp"
+  icon: mdi:thermometer
+  unit_of_measurement: "°F"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellysmoke-5B897C/sensor/battery"
+  name: "Office Smoke Battery"
+  icon: mdi:battery-charging-80
+  unit_of_measurement: "%"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellysmoke-5B898B/sensor/temperature"
+  name: "Garage Smoke Temp"
+  icon: mdi:thermometer
+  unit_of_measurement: "°F"
+  qos: 2
+####################
+- platform: mqtt
+  state_topic: "shellies/shellysmoke-5B898B/sensor/battery"
+  name: "Garage Smoke Battery"
+  icon: mdi:battery-charging-80
+  unit_of_measurement: "%"
+  qos: 2
+
+- platform: feedparser
+  name: Bible Gateway Feed
+  feed_url: 'http://www.biblegateway.com/votd/get/?format=atom'
+  date_format: '%a, %b %d %I:%M %p'
+
+- platform: feedparser
+  name: Quote of the Day # Verse Feed
+  feed_url: 'https://www.brainyquote.com/link/quotebr.rss'  # 'https://www.theverseoftheday.info/rss/the-verse-of-the-day'
+  date_format: '%a, %b %d %I:%M %p'
+  inclusions:
+
+# Uptime Sensor
+- platform: uptime
+
+- platform: systemmonitor
+  resources:
+    - type: disk_free
+      arg: /
+    - type: disk_use_percent
+      arg: /
+    - type: memory_free
+    - type: processor_use
+    - type: last_boot
+    - type: memory_use_percent
+    - type: load_1m
+
+- platform: template
+  sensors:
+    door_count:
+      entity_id: sensor.door_count
+      friendly_name: "Open Door Count"
+      value_template: >-
+        {{ states.binary_sensor | selectattr('state', 'eq', 'on') | selectattr('attributes.device_class', 'eq', 'door') | list | count | int }}
+
+- platform: template
+  sensors:
+    window_count:
+      entity_id: sensor.window_count
+      friendly_name: "Open Window Count"
+      value_template: >-
+        {{ states.binary_sensor | selectattr('state', 'eq', 'on') | selectattr('attributes.device_class', 'eq', 'window') | list | count | int }}
+
+- platform: template
+  sensors:
+    time_12_hour_am_pm:
+      friendly_name: "Time 12 Hour AM PM"
+      value_template: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%I:%M %p') }}"
+
+- platform: template
+  sensors:
+    time_12_hour:
+      friendly_name: "Time 12 Hour"
+      value_template: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%I:%M') }}"
+
+- platform: mqtt
+  name: "zdummy sensor 1"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 2"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 3"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 4"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 5"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 6"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 7"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 8"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 9"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 10"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 11"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 12"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 13"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 14"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 15"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 16"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 17"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 18"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 19"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 20"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 21"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 22"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 23"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 24"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 25"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 26"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 27"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 28"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 29"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 30"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 31"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 32"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 33"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 34"
+  state_topic: "zdummy/state/one"
+- platform: mqtt
+  name: "zdummy sensor 35"
+  state_topic: "zdummy/state/one"
