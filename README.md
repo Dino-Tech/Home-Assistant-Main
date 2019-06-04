@@ -16,7 +16,7 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 # A Few Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
 |:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------:|
-|12               |38      |59              |71        |78           |108      |292      |19       | 
+|12               |38      |59              |71        |78           |108      |299      |19       | 
 
 ### Cameras(8):
 * [Wyze Cam v2(7)](http://amzn.to/2QqoYsf)
