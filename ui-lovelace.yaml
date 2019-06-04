@@ -69,6 +69,8 @@ resources:
     type: module
   - url: /customcards/custom-lovelace/decluttering-card.js
     type: module
+  - url: /customcards/custom-lovelace/quote-day-card.js
+    type: js 
 ##  - url: /customcards/custom-lovelace/popup.js
 ##    type: js
 #  - url: /customcards/custom-lovelace/text-element.js
@@ -83,6 +85,146 @@ resources:
 #    type: js
 #  - url: /customcards/custom-lovelace/monster-card.js
 #    type: js
+
+anchors:
+  darren_styles: &darrenstyles
+    style:
+      background: rgba(0,0,0,0.35)
+      border-radius: 15px
+      "--primary-text-color": white
+      font-weight: bold
+      font-size: 1.75em
+      text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
+      "--paper-item-icon-color": lime
+      "--iron-icon-stroke-color": green
+      "--iron-icon-height": 41px
+      "--iron-icon-width": 41px
+
+  donna_styles: &donnastyles
+    style:
+      background: rgba(0,0,0,0.35)
+      border-radius: 15px
+      "--primary-text-color": white
+      font-weight: bold
+      font-size: 1.75em
+      text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
+      "--paper-item-icon-color": rgb(240, 26, 255)
+      "--iron-icon-stroke-color": Magenta
+
+  office_menu_styles: &officemenustyles
+    style:
+      background-color: rgba(0,0,0,0.3)
+      border-radius: 12px
+      border: solid 1px rgba( 0, 0, 0,1.0)
+      box-shadow: 5px 5px 5px rgba( 100, 100, 100,0.3)
+      padding: 15px
+
+  header_text: &headertext
+    style:
+      border-radius: 12px
+      --paper-card-background-color: 'rgba(0, 0, 0, 0.0)'
+      box-shadow: 2px 2px rgba(0,0,0,0.0) 
+      padding: 0px 10px
+      height: 28px
+
+  light_button_style: &lightbuttonstyle
+    styles:
+      card:
+        - border-radius: 12px
+        - width: 105px
+        - height: 105px
+        - --paper-card-background-color: 'rgba(0, 0, 0, 0.8)' #var(--homekit-white)
+      label:
+        - color: white
+        - font-size: 12px
+        - font-family: Helvetica
+        - padding: 0px 10px
+        - justify-self: start
+      state:
+        - font-size: 12px
+        - font-family: Helvetica
+        - padding: 0px 10px
+        - justify-self: start
+        - text-transform: capitalize
+        - font-weight: bold
+        - padding-left: 10px
+      grid:
+        - grid-template-areas: '"i" "n" "s" "l"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr min-content min-content
+      img_cell:
+        - align-self: start
+        - text-align: start
+        - margin-right: 60px
+      name:
+        - justify-self: start
+        - padding-left: 10px
+        - font-weight: bold
+        - font-family: Helvetica 
+        - font-size: 14px
+
+  light_button_state: &lightbuttonstate
+    state:
+      - value: "on"
+         
+        styles:
+          name:
+            - color: black
+          state:
+            - color: white
+          lock:
+            - color: black
+      - value: "off"
+        styles:
+          card:
+            - opacity: 0.5
+          icon:
+            - color: white
+          name:
+            - color: white
+          state:
+            - color: white
+          lock:
+            - color: black
+      - value: "unavailable"
+        style:
+          - opacity: 0.2
+          - color: black
+          - --paper-item-icon-color: black
+
+  standard_button_actions: &standardbuttonactions
+    tap_action:
+      action: more-info
+      haptic: light
+
+  show_label: &showlabel
+    show_state: false
+    show_label: true
+  show_state: &showstate
+    show_state: true
+    show_label: false
+  show_both: &showboth
+    show_state: true
+    show_label: true
+  show_none: &shownone
+    show_state: false
+    show_label: false
+    show_name: false
+
+  view_extra_styles: &viewextrastyles
+    extra_styles: >
+      @keyframes ready {
+        from {border: solid 10px lime;}
+        to {border: solid 10px black;}
+      }
+      @keyframes alarm {
+        from {border: solid 10px red;}
+        to {border: solid 10px black; background: red;}
+      }
+      @keyframes alert {
+        from {border: solid 10px yellow;}
+        to {border: solid 10px black;}
+      }
 
 decluttering_templates:
   bar_card_temp:
@@ -115,6 +257,19 @@ decluttering_templates:
       font-weight: bold
     entity: '[[entity]]'
     title: '[[title]]'
+
+  motion_button_temp:
+    type: custom:button-card
+    entity: '[[entity]]'
+    name: '[[name]]'
+    icon: 'mdi:motion-sensor'
+    show_last_changed: true
+    color: auto
+    size: 30%
+    <<: *lightbuttonstyle
+    <<: *showboth
+    <<: *lightbuttonstate
+    <<: *standardbuttonactions
 
 popup_cards:
   sensor.zdummy_sensor_1:
@@ -456,89 +611,18 @@ popup_cards:
         - sensor.dryer_energy_today
         - sensor.dryer_energy_yesterday
 
-  camera.den_cam:
-    title: Living Room Camera
+  sensor.zdummy_sensor_6:
+    title: Den Camera
     style:
       background: black
       border-radius: 12px
-      border: solid 6px lime
-      height: 750px
+      border: solid 3px lime
+      height: 100% #750px
       width: 100%
+      overflow: hidden
     card:
       type: 'custom:camera-card'
       entity: camera.den_cam
-
-  camera.entry_hall:
-    title: Entry Hall Camera
-    style:
-      background: black
-      border-radius: 12px
-      border: solid 6px lime
-      height: 750px
-      width: 100%
-    card:
-      type: 'custom:camera-card'
-      entity: camera.entry_hall
-
-  camera.garage_cam:
-    title: Garage Camera
-    style:
-      background: black
-      border-radius: 12px
-      border: solid 6px lime
-      height: 750px
-      width: 100%
-    card:
-      type: 'custom:camera-card'
-      entity: camera.garage_cam
-
-  camera.kitchen_cam:
-    title: Kitchen Camera
-    style:
-      background: black
-      border-radius: 12px
-      border: solid 6px lime
-      height: 750px
-      width: 100%
-    card:
-      type: 'custom:camera-card'
-      entity: camera.kitchen_cam
-
-  camera.front_door:
-    title: Front Door Camera
-    style:
-      background: black
-      border-radius: 12px
-      border: solid 6px lime
-      height: 750px
-      width: 100%
-    card:
-      type: 'custom:camera-card'
-      entity: camera.front_door
-
-  camera.patio_cam:
-    title: Patio Camera
-    style:
-      background: black
-      border-radius: 12px
-      border: solid 6px lime
-      height: 750px
-      width: 100%
-    card:
-      type: 'custom:camera-card'
-      entity: camera.patio_cam
-
-  camera.driveway_cam:
-    title: Driveway Camera
-    style:
-      background: black
-      border-radius: 12px
-      border: solid 6px lime
-      height: 750px
-      width: 100%
-    card:
-      type: 'custom:camera-card'
-      entity: camera.driveway_cam
 
   sensor.zdummy_sensor_13:
     title: Regional Radar
@@ -548,7 +632,7 @@ popup_cards:
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 20px
-      border: solid 6px rgb(204, 204, 204)
+      border: solid 3px rgb(204, 204, 204)
       height: 700px
       width: 100%
     card:
@@ -563,7 +647,7 @@ popup_cards:
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 20px
-      border: solid 6px rgb(204, 204, 204)
+      border: solid 3px rgb(204, 204, 204)
       height: 700px
       width: 100%
     card:
@@ -575,25 +659,14 @@ popup_cards:
     style:
       background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       border-radius: 20px
-      border: solid 6px rgb(5, 205, 255)
+      border: solid 3px rgb(5, 205, 255)
       height: 750px
       width: 100%
+      overflow: hidden
     card:
       type: iframe
       url: https://embed.windy.com/embed2.html
       aspect_ratio: 56.5%
-
-  camera.office_cam:
-    title: Office Camera
-    style:
-      background: black
-      border-radius: 12px
-      border: solid 6px lime
-      height: 750px
-      width: 100%
-    card:
-      type: 'custom:camera-card'
-      entity: camera.office_cam
 
   sensor.zdummy_sensor_17:
     title: Weather Forecast
@@ -601,7 +674,7 @@ popup_cards:
       background: linear-gradient(rgba(200,200,200,0.95), 30%, rgba(0,0,0,0.9))
       font-size: 26px
       border-radius: 20px
-      border: solid 8px rgb(204, 204, 204)
+      border: solid 3px rgb(204, 204, 204)
       height: 750px
       width: 100%
     card:
@@ -659,7 +732,7 @@ popup_cards:
       font-size: 20px
       background-size: 100% 100%
       border-radius: 15px
-      border: solid 8px dimgray
+      border: solid 3px dimgray
       height: 100% #620px
       width: 100%
       overflow: hidden
@@ -715,12 +788,12 @@ popup_cards:
   sensor.zdummy_sensor_18:
     title: Input Switches, Selects & Scripts
     style:
-      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
+      background: rgba(0,0,0,0.0)
       background-image: url("/local/images-lovelace/backgroundz/flash001.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px rgb(38, 0, 153)
+      border-radius: 15px
+      border: solid 3px rgb(38, 0, 153)
       "--app-toolbar-font-size": 1.3em
       "--iron-icon-height": 35px
       "--iron-icon-width": 35px
@@ -802,7 +875,7 @@ popup_cards:
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 14px
-      border: solid 8px rgb(38, 0, 153)
+      border: solid 3px rgb(38, 0, 153)
       "--primary-text-color": white
       color: "#FFF"
       height: 100%
@@ -875,8 +948,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/backgroundz/light-bulbs.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px lime
+      border-radius: 15px
+      border: solid 3px lime
       "--paper-item-icon-active-color": lime
       "--iron-icon-height": 65px
       "--iron-icon-width": 65px
@@ -937,8 +1010,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/mobile_backz/mobile16.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px lime
+      border-radius: 15px
+      border: solid 3px lime
       "--paper-item-icon-active-color": lime
       "--iron-icon-height": 40px
       "--iron-icon-width": 40px
@@ -993,18 +1066,19 @@ popup_cards:
               - entity_id: switch.foyer_accent_lights
 
 ## Mobile popup
-  sensor.zdummy_sensor_20:
+  alarm_control_panel.ha_alarm:
     title: New Life Security
     style:
       background: rgba(240,240,240,0.95)
 #      background-image: url("/local/images-lovelace/backgroundz/Stainless.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px red
+      border-radius: 15px
+      border: solid 3px red
+      "--base-unit": 20px
       "--app-toolbar-font-size": 1.65em
       text-shadow: "1px 1px 2px black, 0 0 25px red, 0 0 5px firebrick"
-      font-size: 20px
+      font-size: "calc(var(--base-unit))"
       color: white
       height: 100% # 600px
       width: 100%
@@ -1013,7 +1087,7 @@ popup_cards:
       type: alarm-panel
       entity: alarm_control_panel.ha_alarm
 
-  alarm_control_panel.ha_alarm:
+  sensor.zdummy_sensor_20:
     title: New Life Security
     theme: Dark-N-Clear
     style:
@@ -1021,8 +1095,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/backgroundz/black_tex.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px lime
+      border-radius: 15px
+      border: solid 3px lime
       font-size: 30px
       "--primary-text-color": white
       "--primary-color": white
@@ -1045,8 +1119,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/backgroundz/black_tex.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 10px rgb(0, 51, 153)
+      border-radius: 15px
+      border: solid 3px rgb(0, 51, 153)
       font-size: 20px
       font-weight: bold
       width: 60%
@@ -1071,8 +1145,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/backgroundz/smokeBlue.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px rgb(0, 92, 230)
+      border-radius: 15px
+      border: solid 3px rgb(0, 92, 230)
       font-size: 2.625em
       font-weight: bold
       color: "#FFF"
@@ -1123,8 +1197,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/card_backz/Storm.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px rgb(0, 92, 230)
+      border-radius: 15px
+      border: solid 3px rgb(0, 92, 230)
       font-size: 1.625em
       font-weight: bold
       color: "#FFF"
@@ -1175,8 +1249,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/backgroundz/smokeWhite.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px dodgerblue
+      border-radius: 15px
+      border: solid 3px dodgerblue
       font-size: 2.625em
       font-weight: bold
       color: "#FFF"
@@ -1223,8 +1297,8 @@ popup_cards:
     title: Location...
     style:
       background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
-      border-radius: 20px
-      border: solid 10px rgb(0, 51, 153)
+      border-radius: 15px
+      border: solid 3px rgb(0, 51, 153)
       font-size: 1.6em
       width: 100%
       height: 750px
@@ -1243,8 +1317,8 @@ popup_cards:
     style:
       background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
       background-color: rgba(0,0,0,0.6)
-      border-radius: 20px
-      border: solid 6px rgb(204, 204, 204)
+      border-radius: 15px
+      border: solid 3px rgb(204, 204, 204)
       "--app-toolbar-font-size": 1.3em
       height: 750px
       width: 100%
@@ -1261,8 +1335,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/backgroundz/lights.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 10px limeGreen
+      border-radius: 15px
+      border: solid 3px limeGreen
       font-size: 36px
       color: white
       height: 100% #480px
@@ -1299,8 +1373,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/backgroundz/ledlite.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px blue
+      border-radius: 15px
+      border: solid 3px blue
       "--app-toolbar-font-size": 1.3em
       text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
       font-size: 1.7em
@@ -1393,8 +1467,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/card_backz/clocks.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px midnightblue
+      border-radius: 15px
+      border: solid 3px midnightblue
       "--app-toolbar-font-size": 1.3em
       "--paper-input-container-shared-input-style_-_font-size": .8em
       "--paper-input-container-shared-input-style_-_width": 180px
@@ -1447,11 +1521,11 @@ popup_cards:
       background-image: url("/local/images-lovelace/card_backz/clocks.1.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 14px
-      border: solid 8px blue
+      border-radius: 15px
+      border: solid 3px blue
       "--paper-input-container-shared-input-style_-_font-size": .8em
       "--paper-input-container-shared-input-style_-_width": 180px
-      font-size: 18px
+      font-size: 19px
       text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px midnightblue"
       color: "#FFF"
       height: 100% #630px
@@ -1466,10 +1540,9 @@ popup_cards:
         - entity: input_datetime.time_darrens_alarm
           type: custom:time-input-row
         - entity: input_boolean.darrens_work_alarm
-        - type: custom:dummy-entity-row
-          entity: sun.sun
-          icon: mdi:this-icon-does-not-exist
-          name: " "
+        - type: custom:bignumber-card
+          entity: sensor.time_12_hour
+          scale: 50px
         - type: custom:countdown-dates
           title: '...Reminders:'
           phrase: 'days'
@@ -1499,8 +1572,8 @@ popup_cards:
       "--iron-icon-width": 55px
       "--app-toolbar-font-size": 1.0em
       "--primary-text-color": white
-      border-radius: 20px
-      border: solid 8px lime
+      border-radius: 15px
+      border: solid 3px lime
       font-size: 1.5em
       font-weight: bold
       text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
@@ -1513,18 +1586,173 @@ popup_cards:
           entity: sun.sun
           icon: mdi:this-icon-does-not-exist
           name: " "
-        - type: custom:dummy-entity-row
-          entity: sun.sun
-          icon: mdi:this-icon-does-not-exist
-          name: " "
         - type: custom:auto-entities
           show_empty: true
           card:
             type: glance
+            columns: 3
             show_state: false
           filter:
             include:
               - entity_id: "binary_sensor.*motion*"
+
+  sensor.zdummy_sensor_34:
+    title: 'Motion Sensors'
+    style:
+      background: rgba(0,0,0,0.0)
+      background-image: url("/local/images-lovelace/backgroundz/black_wood5.jpg")
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      "--app-toolbar-font-size": 2.6em
+      "--primary-text-color": rgba(255,255,255,0.5)
+      border-radius: 15px
+      border: solid 3px dimgray
+      font-weight: bold
+      height: 700px
+      width: 98%
+    card:
+      type: vertical-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - height: 10px
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - width: 15px 
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.front_motion
+                - name: Front
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.driveway_motion
+                - name: Driveway
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.back_motion
+                - name: Patio
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - width: 15px
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - width: 15px 
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.bedroom_motion
+                - name: Master
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.den_motion
+                - name: Den
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.entry_hall_motion
+                - name: Entry Hall
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - width: 15px
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - width: 15px 
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.office_motion
+                - name: Office
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.garage_motion
+                - name: Garage
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.hall_motion
+                - name: Hall
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - width: 15px
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - width: 15px 
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.hallway_motion
+                - name: Hallway
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.hallway_rf_motion
+                - name: Hallway (up)
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.kitchen_motion
+                - name: Kitchen
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - width: 15px
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - width: 15px 
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.living_room_motion
+                - name: Den (low)
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.mbath_motion
+                - name: En Suite
+            - type: custom:decluttering-card
+              template: motion_button_temp
+              variables:
+                - entity: binary_sensor.movement
+                - name: Kiosk
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - width: 15px
 
   sensor.zdummy_sensor_24:
     title: A Device has a Low Battery
@@ -1533,8 +1761,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/backgroundz/battery1.png")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px red
+      border-radius: 15px
+      border: solid 3px red
       text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
       "--app-toolbar-font-size": 1.3em
       font-size: 2.625em
@@ -1587,8 +1815,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/backgroundz/battery1.png")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 14px
-      border: solid 8px red
+      border-radius: 15px
+      border: solid 3px red
       "--app-toolbar-font-size": 1.3em
       text-shadow: "1px 1px 2px black, 0 0 25px red, 0 0 5px firebrick"
       font-size: 2.0em
@@ -1638,7 +1866,7 @@ popup_cards:
   sensor.zdummy_sensor_25:
     title: " "
     style:
-      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
+      background: linear-gradient(rgba(30,30,30,1), 40%, rgba(230,230,230,1))
       background-image: url("/local/images-lovelace/backgroundz/doors002.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
@@ -1647,35 +1875,31 @@ popup_cards:
       "--iron-icon-height": 55px
       "--iron-icon-width": 55px
       "--primary-text-color": lightgray
-      border-radius: 20px
-      border: solid 8px midnightblue
+      border-radius: 15px
+      border: solid 3px midnightblue
       font-size: 24px
       font-weight: bold
       text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
-      height: 700px
+      height: 100% #700px
       width: 98%
     card:
       type: entities
       entities:
         - entity: sensor.door_count
         - entity: sensor.window_count
-        - type: custom:dummy-entity-row
-          entity: sun.sun
-          icon: mdi:this-icon-does-not-exist
-          name: " "
-        - type: custom:dummy-entity-row
-          entity: sun.sun
-          icon: mdi:this-icon-does-not-exist
-          name: " "
         - type: custom:auto-entities
           show_empty: true
           card:
             type: glance
+            columns: 3
             show_state: false
           filter:
             include:
               - entity_id: "binary_sensor.*door*"
               - entity_id: "binary_sensor.*window*"
+              - entity_id: cover.garage_door
+            exclude:
+              - entity_id: binary_sensor.garage_door
 
   sensor.zdummy_sensor_26:
     title: " "
@@ -1689,8 +1913,8 @@ popup_cards:
       "--iron-icon-height": 50px
       "--iron-icon-width": 50px
       "--primary-text-color": lightgray
-      border-radius: 20px
-      border: solid 8px crimson
+      border-radius: 15px
+      border: solid 3px crimson
       font-size: 24px
       font-weight: bold
       text-shadow: "1px 1px 2px black, 0 0 25px red, 0 0 5px firebrick"
@@ -1746,8 +1970,8 @@ popup_cards:
       background-size: 100% 100%
       "--primary-text-color": white
       "--app-toolbar-font-size": 1.3em
-      border-radius: 30px
-      border: solid 8px gray
+      border-radius: 15px
+      border: solid 3px gray
       font-size: 24px
       font-weight: bold
       text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
@@ -1771,8 +1995,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/mobile_backz/Storm2.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px blue
+      border-radius: 15px
+      border: solid 3px blue
       "--app-toolbar-font-size": 1.2em
       font-size: 2.1em
       font-weight: bold
@@ -1798,8 +2022,8 @@ popup_cards:
     title: " "
     style:
       background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
-      border-radius: 30px
-      border: solid 10px limegreen
+      border-radius: 15px
+      border: solid 3px limegreen
       font-size: 1.8em
       font-weight: bold
       color: "#FFF"
@@ -1852,8 +2076,8 @@ popup_cards:
       background-image: url("/local/images-lovelace/backgroundz/stickyNote.png")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 20px
-      border: solid 8px goldenrod
+      border-radius: 15px
+      border: solid 3px goldenrod
       font-family: 'Indie Flower'
       font-size: 3.25em
       font-weight: bold
@@ -1915,19 +2139,7 @@ views:
               "--primary-color": white
               display: block
               animation: '[[ input_select.alert_type.state ]] 2s linear 24'
-            extra_styles: >
-              @keyframes ready {
-                from {border: solid 10px lime;}
-                to {border: solid 10px black;}
-              }
-              @keyframes alarm {
-                from {border: solid 10px red;}
-                to {border: solid 10px black; background: red;}
-              }
-              @keyframes alert {
-                from {border: solid 10px yellow;}
-                to {border: solid 10px black;}
-              }
+            <<: *viewextrastyles
             recurse: false
             card:
               type: custom:layout-card
@@ -1961,15 +2173,7 @@ views:
                         notifications:
                           hide: true
                 - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.35)
-                    border-radius: 15px
-                    "--primary-text-color": white
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                    "--paper-item-icon-color": lime
-                    "--iron-icon-stroke-color": green
+                  <<: *darrenstyles
                   card:
                     type: entities
                     entities:
@@ -1978,44 +2182,53 @@ views:
                           type: section
                           label: Security
                         items:
+                          - type: 'custom:hui-glance-card'
+                            columns: 2
+                            entities:
+                              - type: entity-button
+                                entity: cover.garage_door
+                                name: Garage
+                                tap_action:
+                                  action: toggle
+                              - type: entity-button
+                                entity: alarm_control_panel.ha_alarm
+                                name: Alarm
+                                icon: mdi:bell
+                                tap_action:
+                                  action: more-info
+                          - type: 'custom:hui-glance-card'
+                            columns: 2
+                            show_state: false
+                            entities:
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Outside
+                                icon: mdi:cctv
+                                tap_action:
+                                  action: navigate
+                                  navigation_path: /lovelace/10
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Inside
+                                icon: mdi:cctv
+                                tap_action:
+                                  action: navigate
+                                  navigation_path: /lovelace/11
+                          - type: 'custom:hui-glance-card'
+                            columns: 1
+                            show_state: false
+                            entities:
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Goodnight
+                                icon: mdi:sleep
+                                tap_action:
+                                  action: call-service
+                                  service: script.turn_on
+                                  service_data:
+                                    entity_id: script.good_night
                           - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_20
-                            icon: mdi:bell
-                            name: "Alarm Panel"
-                          - type: custom:dummy-entity-row
-                            entity: camera.front_door
-                            icon: mdi:cctv
-                            name: "Front Door Cam"
-                          - type: custom:dummy-entity-row
-                            entity: camera.patio_cam
-                            icon: mdi:cctv
-                            name: "Patio Camera"
-                          - type: custom:dummy-entity-row
-                            entity: camera.driveway_cam
-                            icon: mdi:cctv
-                            name: "Driveway Cam"
-                          - type: custom:dummy-entity-row
-                            entity: camera.garage_cam
-                            icon: mdi:cctv
-                            name: "Garage Camera"
-                          - type: custom:dummy-entity-row
-                            entity: camera.den_cam
-                            icon: mdi:cctv
-                            name: "Den Camera"
-                          - type: custom:dummy-entity-row
-                            entity: camera.entry_hall
-                            icon: mdi:cctv
-                            name: "Entry Hall Cam"
-                          - type: custom:dummy-entity-row
-                            entity: camera.kitchen_cam
-                            icon: mdi:cctv
-                            name: "Kitchen Camera"
-                          - type: custom:dummy-entity-row
-                            entity: camera.office_cam
-                            icon: mdi:cctv
-                            name: "Office Camera"
-                          - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_23
+                            entity: sensor.zdummy_sensor_34
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Motion Sensors"
                           - type: custom:dummy-entity-row
@@ -2031,15 +2244,7 @@ views:
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Where Are We?"
                 - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.35)
-                    border-radius: 15px
-                    "--primary-text-color": white
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                    "--paper-item-icon-color": lime
-                    "--iron-icon-stroke-color": green
+                  <<: *darrenstyles
                   card:
                     type: entities
                     entities:
@@ -2048,6 +2253,24 @@ views:
                           type: section
                           label: Controls
                         items:
+                          - type: 'custom:hui-glance-card'
+                            columns: 2
+                            show_state: false
+                            entities:
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Power
+                                icon: mdi:power
+                                tap_action:
+                                  action: navigate
+                                  navigation_path: /lovelace/4
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Settings
+                                icon: mdi:settings-outline
+                                tap_action:
+                                  action: navigate
+                                  navigation_path: /lovelace/5
                           - type: custom:dummy-entity-row
                             entity: sensor.zdummy_sensor_30
                             icon: mdi:arrow-right-drop-circle-outline
@@ -2075,32 +2298,9 @@ views:
                           - type: custom:dummy-entity-row
                             entity: sensor.zdummy_sensor_32
                             icon: mdi:arrow-right-drop-circle-outline
-                            name: "Settings"
-                          - type: 'custom:hui-glance-card'
-                            columns: 2
-                            entities:
-                              - type: entity-button
-                                name: Goodnight
-                                tap_action:
-                                  action: call-service
-                                  service: script.turn_on
-                                  service_data:
-                                    entity_id: script.good_night
-                                entity: script.good_night
-                              - type: entity-button
-                                entity: cover.garage_door
-                                name: Garage
-                                tap_action:
-                                  action: toggle
+                            name: "Scripts"
                 - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.35)
-                    border-radius: 15px
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                    "--paper-item-icon-color": lime
-                    "--iron-icon-stroke-color": green
+                  <<: *darrenstyles
                   card:
                     type: entities
                     entities:
@@ -2109,39 +2309,67 @@ views:
                           type: section
                           label: Rooms
                         items:
-                          - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_2
-                            icon: mdi:arrow-right-drop-circle-outline
-                            name: "Living Room"
-                          - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_4
-                            icon: mdi:arrow-right-drop-circle-outline
-                            name: "Kitchen"
-                          - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_3
-                            icon: mdi:arrow-right-drop-circle-outline
-                            name: "Office"
-                          - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_5
-                            icon: mdi:arrow-right-drop-circle-outline
-                            name: "Laundry"
-                          - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_1
-                            icon: mdi:arrow-right-drop-circle-outline
-                            name: "Bedroom"
-                          - type: custom:dummy-entity-row
-                            entity: input_boolean.darren_home
-                            icon: mdi:arrow-right-drop-circle-outline
-                            name: "Where Are We?"
+                          - type: 'custom:hui-glance-card'
+                            columns: 2
+                            show_state: false
+                            entities:
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Office
+                                icon: mdi:arrow-up-drop-circle
+                                tap_action:
+                                  action: navigate
+                                  navigation_path: /lovelace/22
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Kitchen
+                                icon: mdi:arrow-up-drop-circle
+                                tap_action:
+                                  action: navigate
+                                  navigation_path: /lovelace/20
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Bedroom
+                                icon: mdi:arrow-up-drop-circle
+                                tap_action:
+                                  action: navigate
+                                  navigation_path: /lovelace/23
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Den
+                                icon: mdi:arrow-up-drop-circle
+                                tap_action:
+                                  action: navigate
+                                  navigation_path: /lovelace/21
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Laundry
+                                icon: mdi:arrow-up-drop-circle
+                                tap_action:
+                                  action: navigate
+                                  navigation_path: /lovelace/24
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Everything
+                                icon: mdi:arrow-up-drop-circle
+                                tap_action:
+                                  action: navigate
+                                  navigation_path: /lovelace/29
+                          - type: 'custom:hui-glance-card'
+                            columns: 1
+                            show_state: false
+                            entities:
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Goodnight
+                                icon: mdi:sleep
+                                tap_action:
+                                  action: call-service
+                                  service: script.turn_on
+                                  service_data:
+                                    entity_id: script.good_night
                 - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.35)
-                    border-radius: 15px
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                    "--paper-item-icon-color": lime
-                    "--iron-icon-stroke-color": green
+                  <<: *darrenstyles
                   card:
                     type: entities
                     entities:
@@ -2174,7 +2402,7 @@ views:
                         - color_3: 'rgba(64, 238, 64,0.4)'
                         - columns: 1
                         - height: 31px
-                        - entity: sensor.pixel2statusbatt
+                        - entity: sensor.pixel_battery_icon # sensor.pixel2statusbatt
                         - title: Pixel 2 XL Battery
                     - type: custom:decluttering-card
                       template: bar_card_temp
@@ -2224,19 +2452,7 @@ views:
               "--primary-color": white
               display: block
               animation: '[[ input_select.alert_type.state ]] 2s linear 24'
-            extra_styles: >
-              @keyframes ready {
-                from {border: solid 10px lime;}
-                to {border: solid 10px black;}
-              }
-              @keyframes alarm {
-                from {border: solid 10px red;}
-                to {border: solid 10px black; background: red;}
-              }
-              @keyframes alert {
-                from {border: solid 10px yellow;}
-                to {border: solid 10px black;}
-              }
+            <<: *viewextrastyles
             recurse: false
             card:
               type: custom:layout-card
@@ -2248,65 +2464,48 @@ views:
                   main_config: true
                   kiosk_mode: true
                 - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.35)
-                    border-radius: 15px
-                    "--primary-text-color": white
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
-                    "--paper-item-icon-color": rgb(240, 26, 255)
-                    "--iron-icon-stroke-color": Magenta
+                  <<: *donnastyles
                   card:
                     type: entities
                     entities:
                       - type: custom:fold-entity-row
                         head: 
                           type: section
-                          label: Cameras
+                          label: Security
                         items:
-                          - type: custom:dummy-entity-row
-                            entity: camera.front_door
-                            icon: mdi:cctv
-                            name: "Front Door Cam"
-                          - type: custom:dummy-entity-row
-                            entity: camera.patio_cam
-                            icon: mdi:cctv
-                            name: "Patio Camera"
-                          - type: custom:dummy-entity-row
-                            entity: camera.driveway_cam
-                            icon: mdi:cctv
-                            name: "Driveway Cam"
-                          - type: custom:dummy-entity-row
-                            entity: camera.den_cam
-                            icon: mdi:cctv
-                            name: "Den Camera"
-                          - type: custom:dummy-entity-row
-                            entity: camera.entry_hall
-                            icon: mdi:cctv
-                            name: "Entry Hall Cam"
-                          - type: custom:dummy-entity-row
-                            entity: camera.garage_cam
-                            icon: mdi:cctv
-                            name: "Garage Camera"
-                          - type: custom:dummy-entity-row
-                            entity: camera.kitchen_cam
-                            icon: mdi:cctv
-                            name: "Kitchen Camera"
-                          - type: custom:dummy-entity-row
-                            entity: camera.office_cam
-                            icon: mdi:cctv
-                            name: "Office Camera"
+                          - type: 'custom:hui-glance-card'
+                            columns: 2
+                            entities:
+                              - type: entity-button
+                                entity: cover.garage_door
+                                name: Garage
+                                tap_action:
+                                  action: toggle
+                              - type: entity-button
+                                entity: alarm_control_panel.ha_alarm
+                                name: Alarm
+                                tap_action:
+                                  action: more-info
+                          - type: 'custom:hui-glance-card'
+                            columns: 2
+                            show_state: false
+                            entities:
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Outside
+                                icon: mdi:cctv
+                                tap_action:
+                                  action: navigate
+                                  navigation_path: /lovelace/10
+                              - type: entity-button
+                                entity: sensor.zdummy_sensor_1
+                                name: Inside
+                                icon: mdi:cctv
+                                tap_action:
+                                  action: navigate
+                                  navigation_path: /lovelace/11
                 - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.35)
-                    border-radius: 15px
-                    "--primary-text-color": white
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
-                    "--paper-item-icon-color": rgb(240, 26, 255)
-                    "--iron-icon-stroke-color": Magenta
+                  <<: *donnastyles
                   card:
                     type: entities
                     entities:
@@ -2319,10 +2518,6 @@ views:
                             entity: sensor.zdummy_sensor_30
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Lights ON"
-                          - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_20
-                            icon: mdi:arrow-right-drop-circle-outline
-                            name: "Alarm Panel"
                           - type: custom:dummy-entity-row
                             entity: sensor.zdummy_sensor_31
                             icon: mdi:arrow-right-drop-circle-outline
@@ -2340,15 +2535,7 @@ views:
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Where Are We?"
                 - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.35)
-                    border-radius: 15px
-                    "--primary-text-color": white
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
-                    "--paper-item-icon-color": rgb(240, 26, 255)
-                    "--iron-icon-stroke-color": Magenta
+                  <<: *donnastyles
                   card:
                     type: entities
                     entities:
@@ -2435,22 +2622,10 @@ views:
               background-color: rgba(0, 0, 0,0.0)
               background-size: 100% 100%
               border-radius: 25px
-              border: 'solid 12px [[ input_select.auto_borderz.state ]]'
+              border: 'solid 10px [[ input_select.auto_borderz.state ]]'
               display: block
               animation: '[[ input_select.alert_type.state ]] 2s linear 24'
-            extra_styles: >
-              @keyframes ready {
-                from {border: solid 12px rgb(127, 255, 0);}
-                to {border: solid 12px black;}
-              }
-              @keyframes alarm {
-                from {border: solid 12px rgb(255, 0, 0);}
-                to {border: solid 12px black; background: red;}
-              }
-              @keyframes alert {
-                from {border: solid 12px rgb(255, 255, 76);}
-                to {border: solid 12px black;}
-              }
+            <<: *viewextrastyles
             recurse: false
             card:
               type: custom:layout-card
@@ -2459,14 +2634,7 @@ views:
               max_width: [368px, 908px]
               cards:
                 - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.5)
-                    border-radius: 15px
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                    "--paper-item-icon-color": lime
-                    "--iron-icon-stroke-color": green
+                  <<: *darrenstyles
                   card:
                     type: entities
                     entities:
@@ -2496,14 +2664,7 @@ views:
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Battery Status"
                 - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.5)
-                    border-radius: 15px
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                    "--paper-item-icon-color": lime
-                    "--iron-icon-stroke-color": green
+                  <<: *darrenstyles
                   card:
                     type: entities
                     entities:
@@ -2513,50 +2674,43 @@ views:
                           label: Cameras
                         items:
                           - type: custom:dummy-entity-row
-                            entity: camera.den_cam
+                            entity: sensor.zdummy_sensor_6
                             icon: mdi:none
                             name: " "
                           - type: custom:dummy-entity-row
-                            entity: camera.den_cam
+                            entity: sensor.zdummy_sensor_6
                             icon: mdi:cctv
                             name: "Den Camera"
                           - type: custom:dummy-entity-row
-                            entity: camera.entry_hall
+                            entity: sensor.zdummy_sensor_7
                             icon: mdi:cctv
                             name: "Entry Hall Cam"
                           - type: custom:dummy-entity-row
-                            entity: camera.garage_cam
+                            entity: sensor.zdummy_sensor_8
                             icon: mdi:cctv
                             name: "Garage Camera"
                           - type: custom:dummy-entity-row
-                            entity: camera.kitchen_cam
+                            entity: sensor.zdummy_sensor_9
                             icon: mdi:cctv
                             name: "Kitchen Camera"
                           - type: custom:dummy-entity-row
-                            entity: camera.front_door
+                            entity: sensor.zdummy_sensor_10
                             icon: mdi:cctv
                             name: "Front Door Cam"
                           - type: custom:dummy-entity-row
-                            entity: camera.patio_cam
+                            entity: sensor.zdummy_sensor_11
                             icon: mdi:cctv
                             name: "Patio Camera"
                           - type: custom:dummy-entity-row
-                            entity: camera.driveway_cam
+                            entity: sensor.zdummy_sensor_12
                             icon: mdi:cctv
                             name: "Driveway Cam"
                           - type: custom:dummy-entity-row
-                            entity: camera.office_cam
+                            entity: sensor.zdummy_sensor_16
                             icon: mdi:cctv
                             name: "Office Camera"
                 - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.5)
-                    border-radius: 15px
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                    "--paper-item-icon-color": lime
-                    "--iron-icon-stroke-color": green
+                  <<: *darrenstyles
                   card:
                     type: entities
                     entities:
@@ -2598,14 +2752,7 @@ views:
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Bedroom"
                 - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.5)
-                    border-radius: 15px
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                    "--paper-item-icon-color": lime
-                    "--iron-icon-stroke-color": green
+                  <<: *darrenstyles
                   card:
                     type: entities
                     entities:
@@ -2631,14 +2778,7 @@ views:
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Local Radar"
                 - type: custom:card-modder
-                  style:
-                    background: rgba(0,0,0,0.5)
-                    border-radius: 15px
-                    font-weight: bold
-                    font-size: 1.75em
-                    text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
-                    "--paper-item-icon-color": lime
-                    "--iron-icon-stroke-color": green
+                  <<: *darrenstyles
                   card:
                     type: entities
                     entities:
@@ -2830,22 +2970,10 @@ views:
               background-color: rgba(0, 0, 0,0.0)
               background-size: 100% 100%
               border-radius: 25px
-              border: 'solid 12px [[ input_select.auto_borderz.state ]]'
+              border: 'solid 10px [[ input_select.auto_borderz.state ]]'
               display: block
               animation: '[[ input_select.alert_type.state ]] 2s linear 24'
-            extra_styles: >
-              @keyframes ready {
-                from {border: solid 12px rgb(127, 255, 0);}
-                to {border: solid 12px black;}
-              }
-              @keyframes alarm {
-                from {border: solid 12px rgb(255, 0, 0);}
-                to {border: solid 12px black; background: red;}
-              }
-              @keyframes alert {
-                from {border: solid 12px rgb(255, 255, 76);}
-                to {border: solid 12px black;}
-              }
+            <<: *viewextrastyles
             recurse: false
             card:
               type: custom:layout-card
@@ -2874,12 +3002,7 @@ views:
                         notifications:
                           hide: true
                 - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.3)
-                    border-radius: 12px
-                    border: solid 1px rgba( 0, 0, 0,1.0)
-                    box-shadow: 5px 5px 5px rgba( 100, 100, 100,0.3)
-                    padding: 15px
+                  <<: *officemenustyles
                   card:
                     type: picture
                     image: /local/images-lovelace/card_backz/view.28.jpg
@@ -2887,12 +3010,7 @@ views:
                       action: navigate
                       navigation_path: /lovelace/28
                 - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.3)
-                    border-radius: 12px
-                    border: solid 1px rgba( 0, 0, 0,1.0)
-                    box-shadow: 5px 5px 5px rgba( 100, 100, 100,0.3)
-                    padding: 15px
+                  <<: *officemenustyles
                   card:
                     type: picture
                     image: /local/images-lovelace/card_backz/view.31.jpg
@@ -2901,12 +3019,7 @@ views:
                       navigation_path: /lovelace/31
                 - break
                 - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.3)
-                    border-radius: 12px
-                    border: solid 1px rgba( 0, 0, 0,1.0)
-                    box-shadow: 5px 5px 5px rgba( 100, 100, 100,0.3)
-                    padding: 15px
+                  <<: *officemenustyles
                   card:
                     type: picture
                     image: /local/images-lovelace/card_backz/view.35.jpg
@@ -2914,12 +3027,7 @@ views:
                       action: navigate
                       navigation_path: /lovelace/35
                 - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.3)
-                    border-radius: 12px
-                    border: solid 1px rgba( 0, 0, 0,1.0)
-                    box-shadow: 5px 5px 5px rgba( 100, 100, 100,0.3)
-                    padding: 15px
+                  <<: *officemenustyles
                   card:
                     type: picture
                     image: /local/images-lovelace/card_backz/view.34.jpg
@@ -2928,12 +3036,7 @@ views:
                       navigation_path: /lovelace/34
                 - break
                 - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.3)
-                    border-radius: 12px
-                    border: solid 1px rgba( 0, 0, 0,1.0)
-                    box-shadow: 5px 5px 5px rgba( 100, 100, 100,0.3)
-                    padding: 15px
+                  <<: *officemenustyles
                   card:
                     type: picture
                     image: /local/images-lovelace/card_backz/view.36.jpg
@@ -2941,12 +3044,7 @@ views:
                       action: navigate
                       navigation_path: /lovelace/36
                 - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.3)
-                    border-radius: 12px
-                    border: solid 1px rgba( 0, 0, 0,1.0)
-                    box-shadow: 5px 5px 5px rgba( 100, 100, 100,0.3)
-                    padding: 15px
+                  <<: *officemenustyles
                   card:
                     type: picture
                     image: /local/images-lovelace/card_backz/view.37.jpg
@@ -2955,12 +3053,7 @@ views:
                       navigation_path: /lovelace/37
                 - break
                 - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.3)
-                    border-radius: 12px
-                    border: solid 1px rgba( 0, 0, 0,1.0)
-                    box-shadow: 5px 5px 5px rgba( 100, 100, 100,0.3)
-                    padding: 15px
+                  <<: *officemenustyles
                   card:
                     type: picture
                     image: /local/images-lovelace/card_backz/view.29.jpg
@@ -2969,6 +3062,8 @@ views:
                       navigation_path: /lovelace/29
                 - type: horizontal-stack
                   cards:
+                    - type: custom:gap-card
+                    - type: custom:gap-card
                     - type: custom:card-modder
                       style:
                         background-color: rgba(0,0,0,0.0)
@@ -2980,32 +3075,8 @@ views:
                         tap_action:
                           action: navigate
                           navigation_path: /lovelace/0
-                    - type: custom:card-modder
-                      style:
-                        background-color: rgba(0,0,0,0.0)
-                        border-radius: 90px
-                        box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.0)
-                      card:
-                        type: picture
-                        image: /local/icons/round/round_close.png
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/1
-                    - type: custom:card-modder
-                      style:
-                        background-color: rgba(0,0,0,0.0)
-                        border-radius: 90px
-                        box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.0)
-                      card:
-                        type: picture-entity
-                        entity: input_boolean.browser_refresh
-                        tap_action: 
-                          action: toggle
-                        show_state: false
-                        show_name: false
-                        state_image:
-                          "on": /local/icons/round/round_redo.png
-                          "off": /local/icons/round/round_redo.png
+                    - type: custom:gap-card
+                    - type: custom:gap-card
 
           Guest:
             type: custom:card-modder
@@ -3018,19 +3089,7 @@ views:
               "--primary-color": white
               display: block
               animation: '[[ input_select.alert_type.state ]] 2s linear 24'
-            extra_styles: >
-              @keyframes ready {
-                from {border: solid 10px lime;}
-                to {border: solid 10px black;}
-              }
-              @keyframes alarm {
-                from {border: solid 10px red;}
-                to {border: solid 10px black; background: red;}
-              }
-              @keyframes alert {
-                from {border: solid 10px yellow;}
-                to {border: solid 10px black;}
-              }
+            <<: *viewextrastyles
             recurse: false
             card:
               type: custom:layout-card
@@ -3088,7 +3147,7 @@ views:
                         name: Ceiling
                         tap_action:
                           action: toggle
-                      - entity: camera.patio_cam
+                      - entity: sensor.zdummy_sensor_11
                         icon: 'mdi:lightbulb'
                         name: Nite Lite
                         tap_action:
@@ -3149,231 +3208,326 @@ views:
 
 # mobile view
   - id: 1
-    title: Menu Rooms
-    theme: Dark-N-Clear
-    background: center / cover no-repeat url("/local/images-lovelace/backgroundz/black_tex.jpg") fixed
-    icon: mdi:home
+    title: mobile_buttons
+    background: center / cover no-repeat url("/local/images-lovelace/backgroundz/blackSteel.jpg") fixed
+    icon: mdi:weather-partlycloudy
     cards:
-      - type: custom:card-modder
-        style:
-          background-color: rgba(0, 191, 255,0.075)
-          background-size: 100% 100%
-          padding: 20px 3px 20px 3px
-          border-radius: 25px
-          border: solid 12px rgb(0, 191, 255)
-          display: block
-          animation: '[[ input_select.alert_type.state ]] 2s linear infinite'
-        extra_styles: >
-          @keyframes ready {
-            from {border: solid 12px rgb(127, 255, 0);}
-            to {border: solid 12px black;}
-          }
-          @keyframes alarm {
-            from {border: solid 12px rgb(255, 0, 0);}
-            to {border: solid 12px black;}
-          }
-          @keyframes alert {
-            from {border: solid 12px rgb(255, 255, 76);}
-            to {border: solid 12px black;}
-          }
-        recurse: false
-        card:
-          type: vertical-stack
-          cards:
-            - type: custom:compact-custom-header
-              header: false
-            - type: horizontal-stack
-              cards:
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+      - type: vertical-stack
+        cards:
+          - type: custom:compact-custom-header
+          - type: 'custom:card-modder'
+            <<: *headertext
+            card:
+              content: '##### Doors'
+              type: markdown
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture
-                    image: /local/icons/Blue/bluMaster.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/23
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px 
+              - type: custom:button-card
+                entity: binary_sensor.front_door
+                name: Front Door
+                icon: "mdi:door"
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: custom:button-card
+                entity: binary_sensor.side_door_k
+                name: Side Door
+                icon: "mdi:door"
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: custom:button-card
+                entity: binary_sensor.back_door_k
+                name: Back Door
+                icon: "mdi:door"
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture
-                    image: /local/icons/Blue/bluKit.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/20
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px
+          - type: 'custom:card-modder'
+            <<: *headertext
+            card:
+              content: '##### Motion'
+              type: markdown
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture
-                    image: /local/icons/Blue/blu41.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/22
-            - type: horizontal-stack
-              cards:
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px 
+              - type: custom:button-card
+                entity: binary_sensor.front_motion
+                name: Front
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: custom:button-card
+                entity: binary_sensor.driveway_motion
+                name: Driveway
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: custom:button-card
+                entity: binary_sensor.back_motion
+                name: Patio
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture
-                    image: /local/icons/Blue/bluDen.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/21
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture
-                    image: /local/icons/Blue/blu3.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/12
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px 
+              - type: custom:button-card
+                entity: binary_sensor.bedroom_motion
+                name: Master
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: custom:button-card
+                entity: binary_sensor.den_motion
+                name: Den
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: custom:button-card
+                entity: binary_sensor.entry_hall_motion
+                name: Entry Hall
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture
-                    image: /local/icons/Blue/bluLaundry.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/24
-            - type: horizontal-stack
-              cards:
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture
-                    image: /local/icons/Blue/blu2.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/10
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px 
+              - type: custom:button-card
+                entity: binary_sensor.face_detected
+                name: Face
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: custom:button-card
+                entity: binary_sensor.garage_motion
+                name: Garage
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: custom:button-card
+                entity: binary_sensor.hall_motion
+                name: Hall
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture
-                    image: /local/icons/Blue/blu60.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/11
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture
-                    image: /local/icons/Blue/blu6.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/16
-            - type: horizontal-stack
-              cards:
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px 
+              - type: custom:button-card
+                entity: binary_sensor.hallway_motion
+                name: Hallway
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: custom:button-card
+                entity: binary_sensor.hallway_rf_motion
+                name: Hallway (up)
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: custom:button-card
+                entity: binary_sensor.kitchen_motion
+                name: Kitchen
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture
-                    image: /local/icons/Blue/blu7.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/13
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture
-                    image: /local/icons/Blue/blu8.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/14
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px 
+              - type: custom:button-card
+                entity: binary_sensor.living_room_motion
+                name: Den (low)
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: custom:button-card
+                entity: binary_sensor.mbath_motion
+                name: En Suite
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: custom:button-card
+                entity: binary_sensor.movement
+                name: Kiosk
+                icon: 'mdi:motion-sensor'
+                show_last_changed: true
+                color: auto
+                size: 30%
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture
-                    image: /local/icons/Blue/blu4.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/15
-            - type: horizontal-stack
-              cards:
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px
+          - type: 'custom:card-modder'
+            <<: *headertext
+            card:
+              content: '##### Alarms'
+              type: markdown
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture-entity
-                    entity: script.good_night
-                    show_state: false
-                    show_name: false
-                    tap_action:
-                      action: toggle
-                    state_image:
-                      "off": /local/icons/Blue/bluSleep.png
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                    - width: 15px 
+              - type: custom:button-card
+                entity: binary_sensor.garage_smoke_detected
+                name: Smoke Alarm
+                icon: "mdi:smoke-detector"
+                show_last_changed: true
+                size: 30%
+                color: auto
+                <<: *lightbuttonstyle
+                <<: *showboth
+                <<: *lightbuttonstate
+                <<: *standardbuttonactions
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
                   card:
-                    type: picture-entity
-                    entity: script.browser_navigate
-                    show_state: false
-                    show_name: false
-                    tap_action:
-                      action: toggle
-                    state_image:
-                      "off": /local/icons/Blue/bluEsc.png
-                - type: custom:card-modder
-                  style:
-                    background-color: rgba(0,0,0,0.0)
-                    background-size: 100% 100%
-                    border-radius: 90px
-                    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
-                  card:
-                    type: picture
-                    image: /local/icons/Blue/bluHome9.png
-                    tap_action:
-                      action: navigate
-                      navigation_path: /lovelace/0   # ?kiosk
+                    - width: 15px
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - height: 20px
 
 # multi view
   - id: 2
@@ -4631,46 +4785,73 @@ views:
 
 # multi_view
   - id: 10
-    title: driveway_motion_view
+    title: Outside Cameras
+    background: center / cover no-repeat url("/local/images-lovelace/backgroundz/blackSteel.jpg") fixed
     icon: mdi:numeric-1-box
     panel: true
     cards:
       - type: vertical-stack
         cards:
-          - type: custom:card-modder
-            style:
-              border-radius: 20px
-              border: solid 12px rgb(255, 0, 0)
-              animation: alarm 2s linear 20 # <<---- THIS NUMBER 20 DENOTES HOW MANY TIMES THE ANIMATION RUNS
-            extra_styles: >
-              @keyframes alarm {
-                from {border: solid 12px red;}
-                to {border: solid 12px black;}
-              }
-            card:
-              type: picture-glance
-              entities:
-                - input_boolean.browser_home
-                - input_boolean.browser_refresh
-                - switch.side_door_light
-                - switch.front_flood_lights
-                - switch.back_flood_lights
-                - input_boolean.alarm_arm_home_switch
-                - input_boolean.alarm_disarm_switch
-                - switch.siren_2
-              camera_image: camera.driveway_cam
           - type: horizontal-stack
             cards:
-              - type: custom:card-modder
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+              - type: 'custom:card-modder'
                 style:
-                  background-color: rgba(0,0,0,0.0)
-                  box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                  border-radius: 12px
+                  overflow: hidden
                 card:
-                  type: picture
-                  image: /local/icons/gold/goldButtonCamera.png
-                  tap_action:
-                    action: navigate
-                    navigation_path: /lovelace/1
+                  type: 'custom:camera-card'
+                  entity: camera.driveway_cam
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+              - type: 'custom:card-modder'
+                style:
+                  border-radius: 12px
+                  overflow: hidden
+                card:
+                  type: 'custom:camera-card'
+                  entity: camera.front_door
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+              - type: 'custom:card-modder'
+                style:
+                  border-radius: 12px
+                  overflow: hidden
+                card:
+                  type: 'custom:camera-card'
+                  entity: camera.patio_cam
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+          - type: horizontal-stack
+            cards:
+              - type: custom:gap-card
               - type: custom:card-modder
                 style:
                   background-color: rgba(0,0,0,0.0)
@@ -4681,60 +4862,116 @@ views:
                   tap_action:
                     action: navigate
                     navigation_path: /lovelace/0
-              - type: custom:card-modder
-                style:
-                  background-color: rgba(0,0,0,0.0)
-                  box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
-                card:
-                  type: picture
-                  image: /local/icons/gold/goldButtonAlarm.png
-                  tap_action:
-                    action: navigate
-                    navigation_path: /lovelace/2
+              - type: custom:gap-card
           - type: custom:compact-custom-header
 
 # multi_view
   - id: 11
-    title: garage_motion_view
+    title: Inside Cameras
+    background: center / cover no-repeat url("/local/images-lovelace/backgroundz/blackSteel.jpg") fixed
     icon: mdi:numeric-2-box
     panel: true
     cards:
       - type: vertical-stack
         cards:
-          - type: custom:card-modder
-            style:
-              border-radius: 20px
-              border: solid 12px rgb(255, 0, 0)
-              animation: alarm 2s linear 20
-            extra_styles: >
-              @keyframes alarm {
-                from {border: solid 12px red;}
-                to {border: solid 12px black;}
-              }
-            card:
-              type: picture-glance
-              entities:
-                - input_boolean.browser_home
-                - input_boolean.browser_refresh
-                - switch.garage_ceiling_lights
-                - switch.front_flood_lights
-                - switch.back_flood_lights
-                - input_boolean.alarm_arm_home_switch
-                - input_boolean.alarm_disarm_switch
-                - switch.siren_2
-              camera_image: camera.garage_cam
           - type: horizontal-stack
             cards:
-              - type: custom:card-modder
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+              - type: 'custom:card-modder'
                 style:
-                  background-color: rgba(0,0,0,0.0)
-                  box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
+                  border-radius: 12px
+                  overflow: hidden
                 card:
-                  type: picture
-                  image: /local/icons/gold/goldButtonCamera.png
-                  tap_action:
-                    action: navigate
-                    navigation_path: /lovelace/1
+                  type: 'custom:camera-card'
+                  entity: camera.den_cam
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+              - type: 'custom:card-modder'
+                style:
+                  border-radius: 12px
+                  overflow: hidden
+                card:
+                  type: 'custom:camera-card'
+                  entity: camera.kitchen_cam
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+              - type: 'custom:card-modder'
+                style:
+                  border-radius: 12px
+                  overflow: hidden
+                card:
+                  type: 'custom:camera-card'
+                  entity: camera.garage_cam
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+              - type: 'custom:card-modder'
+                style:
+                  border-radius: 12px
+                  overflow: hidden
+                card:
+                  type: 'custom:camera-card'
+                  entity: camera.office_cam
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+              - type: 'custom:card-modder'
+                style:
+                  border-radius: 12px
+                  overflow: hidden
+                card:
+                  type: 'custom:camera-card'
+                  entity: camera.entry_hall
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 1px 
+          - type: horizontal-stack
+            cards:
+              - type: custom:gap-card
               - type: custom:card-modder
                 style:
                   background-color: rgba(0,0,0,0.0)
@@ -4745,16 +4982,7 @@ views:
                   tap_action:
                     action: navigate
                     navigation_path: /lovelace/0
-              - type: custom:card-modder
-                style:
-                  background-color: rgba(0,0,0,0.0)
-                  box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.0)
-                card:
-                  type: picture
-                  image: /local/icons/gold/goldButtonAlarm.png
-                  tap_action:
-                    action: navigate
-                    navigation_path: /lovelace/2
+              - type: custom:gap-card
           - type: custom:compact-custom-header
 
 # multi_view
