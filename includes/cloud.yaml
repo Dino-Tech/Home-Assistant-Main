@@ -1,0 +1,157 @@
+##        /config/includes/cloud.yaml
+#####################################################
+google_actions:
+  filter:
+    include_entities:
+      - script.browser_close_popup
+      - script.browser_popup_1
+      - script.browser_popup_2
+      - script.browser_popup_3
+      - script.browser_popup_4
+      - script.browser_popup_5
+      - script.browser_popup_6
+      - script.browser_popup_7
+      - script.browser_random_cameras
+      - script.front_motion_tv
+      - script.garage_motion_tv
+      - script.driveway_screen
+      - script.garage_screen
+      - script.front_door_screen
+      - script.patio_screen
+      - script.den_screen
+      - script.kitchen_screen
+      - script.entry_hall_screen
+      - script.morning_screen
+      - script.green_screen
+      - script.aqua_screen
+      - script.blue_fire_screen
+      - script.night_screen
+      - script.red_fire_screen
+      - script.sleep_tablet
+      - script.space_screen
+      - script.off_screen
+      - script.home_assistant_screen
+      - script.star_screen
+      - script.wake_tablet
+      - script.donnas_wake_up
+      - script.border_red
+      - script.border_lime
+      - script.border_yellow
+      - script.border_blue
+      - script.system_popup
+      - script.calendar_popup
+      - script.regional_radar_popup
+      - script.local_radar_popup
+      - script.forecast_popup
+      - script.lights_on_popup
+      - script.alarm_panel_popup
+      - script.outside_lights_on
+      - script.outside_all_off
+      - group.exterior_lighting
+      - group.cabinet_lights
+      - cover.garage_door
+    include_domains:
+      - switch
+      - light
+      - binary_sensor
+      - input_boolean
+    exclude_entities:
+      - light.driveway_lights_led
+      - light.22507506807d3a4cab3f # darrens lamp
+      - light.22507506807d3a4c9e4b # donnas lamp
+      - light.22507506807d3a4c9f35 # office desk light
+      - light.fireplace_lights
+      - climate.living_room
+      - input_boolean.weather
+      - input_boolean.owm_weather
+      - input_boolean.motion_tv_alert
+      - input_boolean.blank_space
+      - input_boolean.disable_door_chime
+      - input_boolean.people_home_boolean
+      - input_boolean.darren_home
+      - input_boolean.donna_home
+      - input_boolean.tristan_home
+      - switch.test_kld
+      - switch.chime_2
+      - switch.cabinet_sw2
+      - switch.ceiling_right_sw
+      - switch.ceiling_left_sw
+      - switch.front_flood_lights_switch
+      - switch.living_room_lamp_switch
+      - switch.living_room_lamp_sw2
+      - switch.foyer_light_switch
+      - switch.fountain_switch
+      - switch.hallway_switch
+      - switch.hall_switch_1
+      - switch.hall_switch_2
+      - switch.kitchen_cabinet_lights
+      - switch.kitchen_stove_light
+      - switch.attic_lights
+      - switch.kitchen_sink_light
+      - switch.tv_accent_lights
+      - switch.table_light
+      - switch.spare_room_lamp
+      - switch.spare_room_ceiling_light
+      - switch.side_door_light
+      - switch.porch_light
+      - switch.patio_light
+      - switch.office_lamps
+      - switch.office_ceiling_light
+      - switch.living_room_lamp
+      - switch.living_room_ceiling_light
+      - switch.hallway_light
+      - switch.garage_ceiling_lights
+      - switch.front_flood_lights
+      - switch.foyer_light
+      - switch.foyer_accent_lights
+      - switch.desk_back_light
+      - switch.coffee_light
+      - switch.ceiling_right
+      - switch.ceiling_left
+      - switch.ceiling_center
+      - switch.bedroom_ceiling_light
+      - switch.back_flood_lights
+      - switch.salt_light
+  entity_config:
+    cover.garage_door:
+      name: "Garage Door"
+      room: "Garage"
+      aliases:
+       - "Garage"
+    switch.garage_door:
+      name: "Garage Door Switch"
+      room: "Virtual Switches"
+    binary_sensor.garage_door:
+      name: "Garage Sensor"
+      room: "Security"
+    input_boolean.browser_refresh:
+      name: "Reload Lovelace"
+      room: "Virtual Switches"
+    input_boolean.auto_backgroundz:
+      name: "Auto Backgrounds"
+      room: "Virtual switches"
+    input_boolean.auto_card_backz:
+      name: "Auto Card Backs"
+      room: "Virtual switches"
+    input_boolean.alarm_arm_away_switch:
+      name: "Away Alarm"
+      room: "Security"
+    input_boolean.alarm_arm_home_switch:
+      name: "Home Alarm"
+      room: "Security"
+    input_boolean.alarm_disarm_switch:
+      name: "Disarm Alarm"
+      room: "Security"
+    script.browser_close_popup:
+      name: "Close Pop Up"
+    script.off_screen:
+      name: "Off Screen"
+    script.sleep_tablet:
+      name: "Screensaver"
+    script.wake_tablet:
+      name: "Wake Tablet"
+    script.home_assistant_screen:
+      name: "Home Assistant Screen"
+    light.salt_light:
+      name: "Salt Light"
+      room: "Bedroom"
