@@ -9,12 +9,9 @@
 frontend:
   javascript_version: latest
   extra_html_url:
-    - /local/custom-lovelace/custom-weather-animated.html
     - /local/hass-fontawesome-solid.html
     - /local/hass-fontawesome-regular.html
     - https://fonts.googleapis.com/css?family=Indie Flower|Permanent Marker|Righteous
-  extra_html_url_es5:
-    - /local/custom-lovelace/custom-weather-animated.html
   themes:
     Dark-N-Clear:
       dark-primary-color: "#4d4d4d"
@@ -22,7 +19,7 @@ frontend:
       light-primary-color: "#a2a2a9"
       paper-card-background-color: "rgba(0,0,0,0.0)"
       paper-grey-200: "#acacb9"
-      paper-item-icon-color: "#d6d6dc" #f1f1f4  #d6d6dc
+      paper-item-icon-color: "#d6d6dc"
       paper-listbox-background-color: "#0b0e0f"
       primary-background-color: "#000000"
       primary-color: "4d4d4d" # # # # # # # # # <<---- DO NOT CHANGE # # # 
@@ -68,7 +65,7 @@ frontend:
       label-badge-border-color: 'lime'
       label-badge-background-color: "black"
       label-badge-text-color: 'lime'
-      primary-font-family: "Righteous" # # "Permanent Marker"
+      primary-font-family: "Righteous"
       paper-font-common-base_-_font-family: "var(--primary-font-family)"
       paper-font-common-code_-_font-family: "var(--primary-font-family)"
       paper-font-body1_-_font-family: "var(--primary-font-family)"
@@ -97,7 +94,7 @@ frontend:
       light-primary-color: "#a2a2a9"
       paper-card-background-color: "rgba(0,0,0,0.4)"
       paper-grey-200: "#acacb9"
-      paper-item-icon-color: "rgba(0,0,0,0.1)" # "#d6d6dc"
+      paper-item-icon-color: "rgba(0,0,0,0.1)"
       paper-listbox-background-color: "#0b0e0f"
       primary-background-color: "#000000"
       primary-color: "4d4d4d" # # # # # # # # # <<---- DO NOT CHANGE # # # 
@@ -106,24 +103,24 @@ frontend:
       text-primary-color: "#d6d6dc"
       secondary-background-color: "#737373"
       sidebar-text_-_background: "#66757f"
-      iron-icon-stroke-color: "#F2F2F2" # "#525260"
+      iron-icon-stroke-color: "#F2F2F2"
       ha-card-box-shadow: "3px 3px rgba(0,0,0,0.7)"
       ha-card-border-radius: "16px"
-      paper-card-header-color: "#d6d6dc" # "var(--paper-item-icon-color)"
+      paper-card-header-color: "#d6d6dc"
       paper-item-icon-active-color: "#66ff33"
-      paper-item-icon_-_color: "rgba(255, 255, 255,0.075)" # "var(--primary-text-color)"
+      paper-item-icon_-_color: "rgba(255, 255, 255,0.075)"
       paper-listbox-color: "var(--primary-text-color)"
       paper-grey-50: "var(--primary-text-color)"
       paper-slider-active-color: "var(--light-primary-color)"
-      paper-slider-knob-color: "rgba(0,0,0,0.4)" # "var(--paper-item-icon-color)"
+      paper-slider-knob-color: "var(--paper-item-icon-color)"
       paper-slider-knob-start-color: "var(--secondary-background-color)"
       paper-slider-pin-color: "var(--secondary-background-color)"
       paper-slider-secondary-color: "var(--dark-primary-color)"
       paper-toggle-button-checked-ink-color: "var(--dark-primary-color)"
       paper-toggle-button-checked-button-color: "#66ff33"
       paper-toggle-button-unchecked-button-color: "var(--table-row-background-color)"
-      paper-toggle-button-checked-bar-color: "rgba(255, 255, 255,0.2)" # "var(--paper-item-icon-color)"
-      paper-toggle-button-unchecked-bar-color: "rgba(255, 255, 255,0.2)" # "var(--paper-item-icon-color)"
+      paper-toggle-button-checked-bar-color: "rgba(255, 255, 255,0.2)"
+      paper-toggle-button-unchecked-bar-color: "rgba(255, 255, 255,0.2)"
       table-row-background-color: "#22232b" 
       table-row-alternative-background-color: "#121317"
       sidebar-icon-color: "rgba(255, 255, 255,0.075)" # "#838395"
@@ -143,7 +140,7 @@ frontend:
       label-badge-border-color: 'var(--label-badge-red)'
       label-badge-background-color: "#121317"
       label-badge-text-color: 'var(--primary-text-color)'
-      primary-font-family: "Righteous" #"Permanent Marker"
+      primary-font-family: "Righteous"
       paper-font-common-base_-_font-family: "var(--primary-font-family)"
       paper-font-common-code_-_font-family: "var(--primary-font-family)"
       paper-font-body1_-_font-family: "var(--primary-font-family)"
@@ -259,7 +256,7 @@ frontend:
       paper-toggle-button-checked-ink-color: "#d80129"
       paper-toggle-button-checked-button-color: "#838395"
       paper-toggle-button-checked-bar-color: "#404040"
-      paper-toggle-button-unchecked-button-color: var(--paper-toggle-button-checked-button-color)
+      paper-toggle-button-unchecked-button-color: "#838395"
       paper-toggle-button-unchecked-bar-color: "#737373"
       paper-slider-knob-color: "#838395"
       paper-slider-knob-start-color: "#838395"
