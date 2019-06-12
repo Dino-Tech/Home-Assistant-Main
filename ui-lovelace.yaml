@@ -1,91 +1,95 @@
 resources:
-  - url: /customcards/github/thomasloven/card-tools.js?track=true
+  - url: /community_plugin/lovelace-card-tools/card-tools.js
     type: js
   - url: https://fonts.googleapis.com/css?family=Indie Flower|Righteous #|Permanent Marker
     type: css
-  - url: /customcards/github/thomasloven/layout-card.js?track=true
+  - url: /community_plugin/lovelace-layout-card/layout-card.js
     type: js
-  - url: /customcards/github/maykar/compact-custom-header.js?track=true
+  - url: /community_plugin/compact-custom-header/compact-custom-header.js
     type: module
-  - url: /customcards/github/thomasloven/gap-card.js?track=true
+  - url: /community_plugin/lovelace-gap-card/gap-card.js
     type: js
-  - url: /customcards/custom-lovelace/thermostat-card/thermostat-card.js
+  - url: /local/custom-lovelace/thermostat-card/thermostat-card.js
     type: module
-  - url: /customcards/custom-lovelace/browser-commander.js
+  - url: /community_plugin/lovelace-browser-commander/browser-commander.js
     type: js
-  - url: /customcards/custom-lovelace/card-modder.js
+  - url: /community_plugin/lovelace-card-modder/card-modder.js
     type: js
-  - url: /customcards/github/thomasloven/slider-entity-row.js?track=true
+  - url: /community_plugin/lovelace-card-mod/card-mod.js
+    type: module
+  - url: /community_plugin/lovelace-slider-entity-row/slider-entity-row.js
     type: js
-  - url: /customcards/custom-lovelace/circle-sensor-card.js
+  - url: /community_plugin/circle-sensor-card/circle-sensor-card.js
     type: module
-  - url: /customcards/custom-lovelace/vertical-stack-in-card.js
+  - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
     type: js
-  - url: /customcards/custom-lovelace/surveillance-card.js
+  - url: /community_plugin/surveillance-card/surveillance-card.js
     type: module
-  - url: /customcards/custom-lovelace/light-entity-row.js
+  - url: /community_plugin/light-entity-row/light-entity-row.js
     type: js
-  - url: /customcards/custom-lovelace/auto-entities.js
+  - url: /community_plugin/lovelace-auto-entities/auto-entities.js
     type: js
-  - url: /customcards/custom-lovelace/canvas-gauge-card.js
+  - url: /community_plugin/canvas-gauge-card/canvas-gauge-card.js
     type: module
-  - url: /customcards/github/custom-cards/button-card.js?track=true
+  - url: /community_plugin/button-card/button-card.js
     type: module
-  - url: /customcards/custom-lovelace/mini-graph-card-bundle.js
+  - url: /community_plugin/mini-graph-card/mini-graph-card.js
     type: module
-  - url: /customcards/custom-lovelace/mini-media-player-bundle.js
+  - url: /community_plugin/mini-media-player/mini-media-player.js
     type: module
-  - url: /customcards/custom-lovelace/simple-weather-card.bundle.js
+  - url: /local/custom-lovelace/simple-weather-card.bundle.js
     type: module
-  - url: /customcards/custom-lovelace/radial-menu.js
+  - url: /community_plugin/radial-menu/radial-menu.js
     type: module
-  - url: /customcards/github/thomasloven/popup-card.js?track=true
+  - url: /community_plugin/lovelace-popup-card/popup-card.js
     type: js
-  - url: /customcards/custom-lovelace/bignumber-card.js
+  - url: /community_plugin/bignumber-card/bignumber-card.js
     type: js
   - url: /local/custom-lovelace/dark-sky-weather-card.js
     type: module
-  - url: /customcards/custom-lovelace/state-switch.js
+  - url: /community_plugin/lovelace-state-switch/state-switch.js
     type: js
-  - url: /customcards/github/custom-cards/tracker-card.js?track=true
+  - url: /local/github/custom-cards/tracker-card.js?track=true
     type: module
-  - url: /customcards/custom-lovelace/fold-entity-row.js
+  - url: /community_plugin/lovelace-fold-entity-row/fold-entity-row.js
     type: js
-  - url: /customcards/custom-lovelace/gauge-card.js
+  - url: /local/custom-lovelace/gauge-card.js
     type: js
-  - url: /customcards/custom-lovelace/bar-card.js
+  - url: /community_plugin/bar-card/bar-card.js
     type: js
-  - url: /customcards/custom-lovelace/atomic-calendar.js
+  - url: /community_plugin/lovelace-dummy-entity-row/dummy-entity-row.js
+    type: js
+  - url: /community_plugin/lovelace-time-input-row/time-input-row.js
+    type: js
+  - url: /community_plugin/text-divider-row/text-divider-row.js
+    type: module
+  - url: /community_plugin/decluttering-card/decluttering-card.js
+    type: module
+  - url: /community_plugin/monster-card/monster-card.js
+    type: js
+  - url: /local/custom-lovelace/lovelace-countdown-dates.js?v=0.1.1.8
+    type: js
+  - url: /local/custom-lovelace/atomic-calendar.js
     type: module
   - url: /local/custom-lovelace/camera-card.js
     type: module
-  - url: /customcards/github/thomasloven/dummy-entity-row.js?track=true
-    type: js
-  - url: /customcards/github/thomasloven/time-input-row.js
-    type: js
-  - url: /customcards/custom-lovelace/lovelace-countdown-dates.js?v=0.1.1.8
-    type: js
-  - url: /customcards/custom-lovelace/simple-thermostat/simple-thermostat.js
-    type: module
-  - url: /customcards/custom-lovelace/decluttering-card.js
-    type: module
-  - url: /customcards/custom-lovelace/quote-day-card.js
+  - url: /local/custom-lovelace/quote-day-card.js
     type: js 
-##  - url: /customcards/custom-lovelace/popup.js
-##    type: js
-#  - url: /customcards/custom-lovelace/text-element.js
-#    type: js
-#  - url: /customcards/custom-lovelace/dual-gauge-card.js
-#    type: js
-#  - url: /customcards/custom-lovelace/useful-markdown-card.js
-#    type: js
-#  - url: /customcards/custom-lovelace/toggle-lock-entity-row.js
-#    type: js
-#  - url: /customcards/custom-lovelace/secondaryinfo-entity-row.js
-#    type: js
-#  - url: /customcards/custom-lovelace/monster-card.js
-#    type: js
 
+#  - url: /local/custom-lovelace/simple-thermostat/simple-thermostat.js
+#    type: module
+#  - url: /local/custom-lovelace/popup.js
+#    type: js
+#  - url: /local/custom-lovelace/text-element.js
+#    type: js
+#  - url: /local/custom-lovelace/dual-gauge-card.js
+#    type: js
+#  - url: /local/custom-lovelace/useful-markdown-card.js
+#    type: js
+#  - url: /local/custom-lovelace/toggle-lock-entity-row.js
+#    type: js
+#  - url: /local/custom-lovelace/secondaryinfo-entity-row.js
+#    type: js
 anchors:
   darren_styles: &darrenstyles
     style:
@@ -228,48 +232,50 @@ anchors:
 
 decluttering_templates:
   bar_card_temp:
-    type: custom:bar-card
-    severity:
-      - value: '[[value_1]]'
-        color: '[[color_1]]'
-      - value: '[[value_2]]'
-        color: '[[color_2]]'
-      - value: 100
-        color: '[[color_3]]'
-    title_position: inside
-    tap_action: info
-    columns: '[[columns]]'
-    padding: 2px
-    align: split
-    rounding: 6px
-    saturation: 85%
-    height: '[[height]]'
-    card_style:
-      background: 'rgba(0, 0, 0, 0.4)'
-      border-radius: 10px
-    title_style:
-      font-weight: bold
-      font-size: 24px
-      color: '#FFF'
-      text-shadow: '1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen'
-    value_style:
-      font-size: 26px
-      font-weight: bold
-    entity: '[[entity]]'
-    title: '[[title]]'
+    card:
+      type: custom:bar-card
+      severity:
+        - value: '[[value_1]]'
+          color: '[[color_1]]'
+        - value: '[[value_2]]'
+          color: '[[color_2]]'
+        - value: 100
+          color: '[[color_3]]'
+      title_position: inside
+      tap_action: info
+      columns: '[[columns]]'
+      padding: 2px
+      align: split
+      rounding: 6px
+      saturation: 85%
+      height: '[[height]]'
+      card_style:
+        background: 'rgba(0, 0, 0, 0.4)'
+        border-radius: 10px
+      title_style:
+        font-weight: bold
+        font-size: 22px
+        color: '#FFF'
+        text-shadow: '1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen'
+      value_style:
+        font-size: 24px
+        font-weight: bold
+      entity: '[[entity]]'
+      title: '[[title]]'
 
   motion_button_temp:
-    type: custom:button-card
-    entity: '[[entity]]'
-    name: '[[name]]'
-    icon: 'mdi:motion-sensor'
-    show_last_changed: true
-    color: auto
-    size: 30%
-    <<: *lightbuttonstyle
-    <<: *showboth
-    <<: *lightbuttonstate
-    <<: *standardbuttonactions
+    card:
+      type: custom:button-card
+      entity: '[[entity]]'
+      name: '[[name]]'
+      icon: '[[icon]]'
+      show_last_changed: true
+      color: auto
+      size: 30%
+      <<: *lightbuttonstyle
+      <<: *showboth
+      <<: *lightbuttonstate
+      <<: *standardbuttonactions
 
 popup_cards:
   sensor.zdummy_sensor_1:
@@ -1066,19 +1072,19 @@ popup_cards:
               - entity_id: switch.foyer_accent_lights
 
 ## Mobile popup
-  alarm_control_panel.ha_alarm:
+  sensor.zdummy_sensor_20:
     title: New Life Security
     style:
       background: rgba(240,240,240,0.95)
-#      background-image: url("/local/images-lovelace/backgroundz/Stainless.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 15px
       border: solid 3px red
+      "--primary-text-color": white
       "--base-unit": 20px
-      "--app-toolbar-font-size": 1.65em
+      "--app-toolbar-font-size": 1.75em
       text-shadow: "1px 1px 2px black, 0 0 25px red, 0 0 5px firebrick"
-      font-size: "calc(var(--base-unit))"
+      font-size: 26px
       color: white
       height: 100% # 600px
       width: 100%
@@ -1087,30 +1093,66 @@ popup_cards:
       type: alarm-panel
       entity: alarm_control_panel.ha_alarm
 
-  sensor.zdummy_sensor_20:
+  alarm_control_panel.ha_alarm:
     title: New Life Security
-    theme: Dark-N-Clear
     style:
-      background: linear-gradient(rgba(130,130,130,0.95), 30%, rgba(0,0,0,0.95))
-      background-image: url("/local/images-lovelace/backgroundz/black_tex.jpg")
+      background: url("/local/images-lovelace/backgroundz/black_steel2.jpg")
       background-repeat: no-repeat
       background-size: 100% 100%
-      border-radius: 15px
-      border: solid 3px lime
-      font-size: 30px
+      border-radius: 13px
+      border: solid 2px lime
+      font-size: 26px
+      "--paper-card-background-color": "rgba(0,0,0,0.0)"
       "--primary-text-color": white
-      "--primary-color": white
-      "--app-toolbar-font-size": 1.0em
-      "--dark-primary-color": white
-      "--disabled-text-color": white
+      "--app-toolbar-font-size": 1.3em
+      "--iron-icon-height": 50px
+      "--iron-icon-width": 50px
+      "--iron-icon-stroke-color": lime
+      "--paper-item-icon-active-color": "#cc0000"
+      "--paper-item-icon-color": "rgba(0, 255, 0,0.4)" # "#e6e600"
+      text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
       color: white
-      height: 700px
-      width: 60%
+      height: 730px
+      width: 44%
       overflow: hidden
-    card:
-      type: alarm-panel
-      font-size: 30px
-      entity: alarm_control_panel.ha_alarm
+    card: 
+      type: vertical-stack
+      cards:
+        - type: 'custom:hui-glance-card'
+          columns: 1
+          show_state: false
+          show_name: false
+          entities:
+            - type: entity-button
+              entity: sensor.zdummy_sensor_1
+              name: PANIC
+              icon: mdi:alert-decagram
+              tap_action:
+                action: call-service
+                service: script.turn_on
+                service_data:
+                  entity_id: script.triggered_flash
+        - type: 'custom:hui-alarm-panel-card' # alarm-panel # 
+          style:
+            .: |
+              ha-card {
+                --mdc-theme-primary: white;
+              }
+            "#keypad mwc-button":
+              $: |
+                :host {
+                  background: transparent;
+                }
+                button {
+                  font-size: 27px !important;
+                }
+            "#keypad mwc-button:nth-of-type(12)":
+              $: |
+                button {
+                  font-size: 17px !important;
+                  --mdc-theme-primary: lime;
+                }
+          entity: alarm_control_panel.ha_alarm
 
   sensor.zdummy_sensor_21:
     title: Style Selector
