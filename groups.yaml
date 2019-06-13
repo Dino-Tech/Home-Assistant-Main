@@ -1,260 +1,6 @@
 ## groups# /config/groups.yaml
-##################################################
-##                                              ##
-##   STILL INCLUDED IN MY CONFIGURATION...BUT...##
-##   NEEDS UPDATING AS MANY OF THESE GROUPS ARE ##
-##   NO LONGER NEEDED IN CURRENT SET UP         ##
-##                                              ##
-##################################################
-default_view:
-  view: yes
-  name: New Life Home
-  icon: mdi:home-assistant
-  entities:
-    - climate.living_room
-    - group.automation_override
-    - group.scripts
-    - group.home_status
-    - group.garage_door
-    - group.time_date
-lights_view:
-  view: yes
-  icon: mdi:flash
-  entities:
-    - group.lights
-    - group.switches
-security_view:
-  view: yes
-  icon: mdi:security
-  entities:
-#    - group.security
-#    - group.alarm_kiosk_sensors
-    - group.motion_sensors
-    - group.all_doors_away
-    - group.all_windows
-camera_view:
-  view: yes
-  icon: mdi:cctv
-  entities:
-    - switch.hall_light
-    - group.cameras
-office_view:
-  view: yes
-  icon: mdi:laptop-chromebook
-  entities:
-    - group.office_lights
-    - group.office_switches
-kitchen_view:
-  view: yes
-  icon: mdi:food-fork-drink
-  entities:
-    - group.kitchen_lights
-    - group.kitchen_switches
-    - media_player.kitchen_display
-living_room_view:
-  view: yes
-  icon: mdi:sofa
-  entities:
-    - group.living_room_lights
-    - switch.hallway_light
-    - group.living_room_switches
-    - media_player.living_room_tv
-bedroom_view:
-  view: yes
-  icon: mdi:hotel
-  entities:  
-    - group.bedroom_lights
-    - group.bedroom_switches
-    - media_player.bedroom_tv
-weather_view:
-  view: yes
-  icon: mdi:weather-partlycloudy
-  entities:
-    - group.weather
-    - group.weather_summary
-    - group.weather_forecast
-indoor_enviornment:
-  view: yes
-  icon: mdi:thermometer-lines
-  entities:
-    - group.living_room_climate
-    - group.room_temps
-smoke_alarm_view:
-  view: yes
-  icon: mdi:smoke-detector
-  entities:
-    - group.hallway_monitor
-    - group.kitchen_monitor
-    - group.office_monitor
-    - group.laundry_monitor
-exterior:
-  view: yes
-  icon: mdi:gate
-  entities:
-    - group.outside_master
-    - group.front_yard
-    - group.backyard
-#    - group.garage_lights
-#    - group.garage_door
-laundry_view:
-  view: yes
-  icon: mdi:washing-machine
-  entities:
-    - group.washerpanel
-    - group.dryerpanel
-system_view:
-  view: yes
-  icon: mdi:access-point-network
-  entities:
-    - group.network
-    - group.pi
-#    - group.battery_levels
-#    - group.wifi
 #############################################
-#  groups
-#############################################
-motion_sensors:
-  name: Motion Sensors
-  control: hidden
-  entities:
-    - binary_sensor.living_room_motion
-    - binary_sensor.entry_hall_motion
-    - binary_sensor.hallway_motion
-    - binary_sensor.front_motion
-    - binary_sensor.back_motion
-    - binary_sensor.office_motion
-    - binary_sensor.driveway_motion
-    - binary_sensor.bedroom_motion
-    - binary_sensor.bathroom_motion
-    - binary_sensor.hall_motion
-    - binary_sensor.den_motion
-    - binary_sensor.kitchen_motion
-    - binary_sensor.mbath_glass_break
-alarm_kiosk_sensors:
-  name: Alarm Kiosk Sensors
-  control: hidden
-  entities:
-    - binary_sensor.movement
-    - binary_sensor.face_detected
-all_doors_away:
-  name: Door Sensors
-  control: hidden
-  entities:
-    - binary_sensor.front_door
-    - binary_sensor.back_door_k
-    - binary_sensor.side_door_k
-    - binary_sensor.garage_entry_door_k
-    - binary_sensor.garage_door_open
-all_doors_home:
-  name: All Doors Home
-  control: hidden
-  entities:
-    - binary_sensor.front_door
-    - binary_sensor.back_door_k
-    - binary_sensor.side_door_k
-all_windows:
-  name: Window Sensors
-  control: hidden
-  entities:
-    - binary_sensor.den_windows
-    - binary_sensor.garage_windows
-    - binary_sensor.mbdrm_windows
-    - binary_sensor.office_windows
-    - binary_sensor.kitchen_bay_windows
-    - binary_sensor.kitchen_sink_windows
-    - binary_sensor.mbdrm_windows
-    - binary_sensor.tristans_window
-cameras:
-  name: Cameras
-  control: hidden
-  entities:
-#    - camera.alarmpanel_camera
-    - camera.entry_hall
-    - camera.front_door
-    - camera.kitchen_cam
-    - camera.garage_cam
-    - camera.driveway_cam
-    - camera.patio_cam
-    - camera.den_cam
-washerpanel:
-  name: Washer
-  entities:
-    - sensor.washer_state
-    - sensor.washer_voltage
-    - sensor.washer_watts
-    - sensor.washer_amps
-    - sensor.washer_energy_today
-    - sensor.washer_energy_yesterday
-    - sensor.washer_signal
-dryerpanel:
-  name: Dryer
-  entities:
-    - sensor.dryer_state
-    - sensor.dryer_voltage
-    - sensor.dryer_watts
-    - sensor.dryer_amps
-    - sensor.dryer_energy_today
-    - sensor.dryer_energy_yesterday
-    - sensor.dryer_signal
-living_room_climate:
-  name: Living Room Climate
-  control: hidden
-  entities:
-    - climate.living_room
-    - sensor.living_room_thermostat_temperature
-    - sensor.living_room_thermostat_target
-    - sensor.living_room_thermostat_humidity
-    - binary_sensor.living_room_thermostat_fan
-    - binary_sensor.new_life_away
-    - binary_sensor.living_room_thermostat_has_leaf
-    - binary_sensor.living_room_thermostat_online
-#    - binary_sensor.living_room_thermostat_is_locked
-    - sensor.living_room_thermostat_hvac_state
-    - sensor.living_room_thermostat_operation_mode
-#    - sensor.new_life_eta
-room_temps:
-  name: Room Temps
-  entities:
-    - sensor.kitchen_temp
-    - sensor.kitchen_humidity
-    - sensor.office_temp
-    - sensor.office_smoke_temp
-    - sensor.office_humidity
-    - sensor.bedroom_temp
-    - sensor.bedroom_humidity
-    - sensor.laundry_smoke_temp
-    - sensor.living_room_thermostat_temperature
-    - sensor.living_room_thermostat_humidity
-hallway_monitor:
-  name: Hallway Nest Protect
-  control: hidden
-  entities:
-    - binary_sensor.hallway_nest_protect_online
-    - sensor.hallway_nest_protect_battery_health
-    - sensor.hallway_nest_protect_co_status
-    - sensor.hallway_nest_protect_smoke_status
-    - sensor.hallway_nest_protect_color_status
-kitchen_monitor:
-  name: Kitchen Nest Protect
-  control: hidden
-  entities:
-    - binary_sensor.kitchen_nest_protect_online
-    - sensor.kitchen_nest_protect_battery_health
-    - sensor.kitchen_nest_protect_co_status
-    - sensor.kitchen_nest_protect_smoke_status
-    - sensor.hallway_nest_protect_color_status
-laundry_monitor:
-    - sensor.laundry_smoke_temp
-    - sensor.laundry_smoke_detected
-    - binary_sensor.laundry_smoke_battery
-office_monitor:
-    - sensor.office_smoke_temp
-    - sensor.office_smoke_detected
-    - binary_sensor.office_smoke_battery
-garage_monitor:
-    - sensor.garage_smoke_temp
-    - sensor.garage_smoke_detected
-    - binary_sensor.garage_smoke_battery
+# presence groups
 people_home_tracker:
   entities:
     - input_boolean.darren_home
@@ -283,174 +29,35 @@ tristan_presence:
   entities:
     - device_tracker.tristan
     - device_tracker.44_91_60_d9_8f_a2
-scripts:
-  name: Scene
-  control: hidden
-  entities:
-    - sensor.day_night
-    - script.good_night
-    - script.reload_automations
-    - script.set_nest_away
-    - script.set_nest_home
-    - script.turn_outside_off
-    - script.restart_ha
-automation_override:
-  name: Automation Override
-  control: hidden
-  entities:
-    - input_boolean.disable_alarm_lights
-    - input_boolean.disable_door_chime
-    - input_boolean.notifications
-    - input_boolean.disable_garage_notify
-    - input_boolean.disable_exterior_auto_lights
-    - input_boolean.disable_interior_auto_lights
-    - input_boolean.bedroom_lamps
-    - input_boolean.disable_donnas_lamp_auto
-lights:
-  name: Lights
-  control: hidden
-  entities:
-    - light.fireplace_lights
-    - light.corner_light
-    - light.bed_light
-    - light.hallway_night_light
-    - switch.foyer_accent_lights
-    - switch.living_room_lamp
-    - switch.living_room_ceiling_light
-    - switch.tv_accent_lights
-    - switch.foyer_light
-    - switch.hallway_switch #light
-    - light.22507506807d3a4c9f35 # office_desk_light
-    - light.22507506807d3a4c9e4b # donnas lamp
-    - light.22507506807d3a4cab3f # darrens lamp
-#          - switch.sonoff_100022d9fc # bathroom light
-    - switch.bedroom_ceiling_light
-    - switch.office_ceiling_light
-    - switch.office_lamps
-    - switch.spare_room_ceiling_light
-    - switch.spare_room_lamp
-    - switch.office_desk_lamp
-    - switch.desk_back_light
-    - switch.coffee_light
-    - switch.ceiling_right
-    - switch.ceiling_left
-    - switch.ceiling_center
-    - switch.table_light
-    - switch.kitchen_sink_light
-    - switch.cabinet_sw1
-    - switch.kitchen_cabinet_lights
-    - switch.kitchen_stove_light
-    - switch.garage_ceiling_lights
-    - switch.attic_lights
-    - switch.hall_light
-    - switch.side_door_light
-    - switch.porch_light
-    - switch.front_flood_lights
-    - switch.back_flood_lights
-    - switch.patio_light
-    - light.hallway_night_light
-    - light.kitchen_night_light
-    - light.hall_night_light
-    - light.den_night_light
-    - light.mbath_night_light
-switches:
-  name: Switches
-  control: hidden
-  entities:
-    - switch.subwoofer
-    - switch.hallway_night_plug
-    - switch.test_kld # KLD w/temp humid
-    - switch.air_cleaner
-    - switch.air_machine
-    - switch.printer
-    - switch.office_monitor
-    - switch.office_sound
-    - switch.office_video
-    - switch.office_ceiling_fan
-    - switch.spare_room_ceiling_fan
-    - switch.spare_room_outlet
-    - switch.office_work_bench
-    - switch.living_room_fan
-    - switch.coffee_maker
-    - switch.fountain
-    - switch.bedroom_ceiling_fan
-    - switch.patio_fan
-night_switches:
-  name: Switches
-  control: hidden
-  entities:
-    - switch.subwoofer
-    - switch.hallway_night_plug
-    - switch.test_kld # KLD w/temp humid
-    - switch.printer
-    - switch.office_sound
-    - switch.office_video
-    - switch.spare_room_outlet
-    - switch.office_work_bench
-    - switch.coffee_maker
-    - switch.fountain
-    - switch.patio_fan
-    - switch.hallway_night_plug
-    - switch.kitchen_night_plug
-    - switch.hall_night_plug
-    - switch.den_night_plug
-    - switch.mbath_night_plug
-network:
-  name: Network
-  control: hidden
-  entities:
-    - sensor.speedtest_ping
-    - sensor.speedtest_download
-    - sensor.speedtest_upload
-    - sensor.uptime
-pi:
-  name: Computer RPi3-B
-  control: hidden
-  entities:
-    - sensor.disk_use_percent
-    - sensor.disk_free
-    - sensor.memory_free
-    - sensor.processor_use
-    - sensor.last_boot
-    - sensor.memory_use_percent
-office_lights:
-  name: Office Lights
-  control: hidden
-  entities:
-    - switch.office_ceiling_light
-    - light.22507506807d3a4c9f35 # office desk light
-    - switch.office_desk_lamp
-    - switch.desk_back_light
-    - switch.office_lamps
-    - light.corner_light
-    - light.bed_light
-office_switches:
-  name: Office Switches
-  control: hidden
-  entities:
-    - switch.office_monitor
-    - switch.office_sound
-    - switch.office_video
-    - switch.office_work_bench
-    - switch.air_cleaner
-    - switch.printer
-    - switch.office_ceiling_fan
-bedroom_lights:
-  name: Bedroom Lights
-  control: hidden
-  entities:
-    - switch.bedroom_ceiling_light
-    - light.22507506807d3a4cab3f # darrens lamp
-    - light.22507506807d3a4c9e4b # donnas lamp
+# light groups
 bedroom_lamps:
+  entities:
     - light.22507506807d3a4cab3f # darrens lamp
     - light.22507506807d3a4c9e4b # donnas lamp
-bedroom_switches:
-  name: Bedroom Switches
-  control: hidden
+    - light.salt_light
+bedroom_lights:
   entities:
-    - switch.bedroom_ceiling_fan
-    - switch.air_machine
+    - switch.bedroom_ceiling_light
+    - light.22507506807d3a4cab3f # darrens lamp
+    - light.22507506807d3a4c9e4b # donnas lamp
+front_yard:
+  entities:
+    - switch.front_flood_lights
+    - switch.porch_light
+    - switch.side_door_light
+backyard:
+  entities:
+    - switch.patio_light
+    - switch.back_flood_lights
+    - switch.patio_fan
+    - switch.fountain
+exterior_lighting:
+  entities:
+    - switch.front_flood_lights
+    - switch.porch_light
+    - switch.side_door_light
+    - switch.patio_light
+    - switch.back_flood_lights
 kitchen_lights:
   name: Kitchen Lights
   entities:
@@ -461,46 +68,15 @@ kitchen_lights:
     - switch.cabinet_sw1
     - switch.coffee_light
     - switch.kitchen_sink_light
-#    - switch.hall_light
-front_yard:
-  name: Front Yard
-  control: hidden
+office_lights:
   entities:
-    - switch.front_flood_lights
-    - switch.porch_light
-    - switch.side_door_light
-backyard:
-  name: Backyard
-  control: hidden
-  entities:
-    - switch.patio_light
-    - switch.back_flood_lights
-    - switch.patio_fan
-    - switch.fountain
-exterior_lighting:
-    - switch.front_flood_lights
-    - switch.porch_light
-    - switch.side_door_light
-    - switch.patio_light
-    - switch.back_flood_lights
-living_room_lights:
-  name: Living Room Lights
-  control: hidden
-  entities:
-    - switch.living_room_ceiling_light
-    - switch.living_room_lamp
-    - light.fireplace_lights
-    - switch.tv_accent_lights
-    - switch.foyer_light
-living_room_switches:
-  name: Living Room Switches
-  control: hidden
-  entities:
-    - switch.living_room_ceiling_fan
-    - switch.living_room_fan
-##############################################
-#  3 way switch automation groups
-##############################################
+    - switch.office_ceiling_light
+    - light.22507506807d3a4c9f35 # office desk light
+    - switch.office_desk_lamp
+    - switch.desk_back_light
+    - switch.office_lamps
+    - light.corner_light
+    - light.bed_light
 office_lamps_switch:
   entities:
     - switch.office_desk_lamp
@@ -513,7 +89,33 @@ cabinet_light_switches:
     - switch.kitchen_stove_light
     - switch.cabinet_sw1
     - switch.cabinet_sw2
+living_room_lights:
+  name: Living Room Lights
+  entities:
+    - switch.living_room_ceiling_light
+    - switch.living_room_lamp
+    - light.fireplace_lights
+    - switch.tv_accent_lights
+night_switches:
+  entities:
+    - switch.subwoofer
+    - switch.hallway_night_plug
+    - switch.test_kld # KLD w/temp humid
+    - switch.printer
+    - switch.office_sound
+    - switch.office_video
+    - switch.spare_room_outlet
+    - switch.coffee_maker
+    - switch.fountain
+    - switch.patio_fan
+    - switch.hallway_night_plug
+    - switch.kitchen_night_plug
+    - switch.hall_night_plug
+    - switch.den_night_plug
+    - switch.mbath_night_plug
+# alarm groups
 alarm_lights:
+  entities:
     - switch.office_ceiling_light
     - switch.ceiling_center
     - switch.bedroom_ceiling_light
@@ -523,6 +125,7 @@ alarm_lights:
     - switch.porch_light
     - switch.side_door_light
 alarm_triggered_lights:
+  entities:
     - switch.office_ceiling_light
     - switch.ceiling_center
     - switch.bedroom_ceiling_light
@@ -534,40 +137,28 @@ alarm_triggered_lights:
     - switch.table_light
     - switch.front_flood_lights
     - switch.back_flood_lights
-#chromecast_tvs:
-#  entities:
-#    - media_player.living_room_tv
-#    - media_player.bedroom_tv
-#all_speakers:
-#  entities:
-#    - media_player.kitchen_display
-#    - media_player.living_room_google
-#    - media_player.living_room_mini
-#    - media_player.kitchen_mini
-#    - media_player.office_google
-#    - media_player.office_speaker
-#    - media_player.nightstand_speaker
-#    - media_player.bathroom_speaker
-#    - media_player.garage_mini
-#    - media_player.foyer_speaker
-#    - media_player.hallway_speaker
-#google_home_group:
-#  entities:
-#    - media_player.office_google
-#    - media_player.living_room_google
-#    - media_player.kitchen_display
-#speaker_groups:
-#  name: Speaker Groups
-#  icon: mdi:speaker-wireless
-#  control: hidden
-#  entities:
-#    - media_player.front_group
-#    - media_player.front_speakers
-#    - media_player.all_speakers
-#    - media_player.inside_speakers
-#    - media_player.office_group
-#mediaplayer_dimmer_livingroom:
-#  name: Theater Lighting
-#  entities:
-#    - input_boolean.mediaplayer_dimmer_livingroom
-#    - input_number.mediaplayer_dimmer_livingroom
+all_doors_away:
+  name: Door Sensors
+  entities:
+    - binary_sensor.front_door
+    - binary_sensor.back_door_k
+    - binary_sensor.side_door_k
+    - binary_sensor.garage_entry_door_k
+    - binary_sensor.garage_door_open
+all_doors_home:
+  name: All Doors Home
+  entities:
+    - binary_sensor.front_door
+    - binary_sensor.back_door_k
+    - binary_sensor.side_door_k
+all_windows:
+  name: Window Sensors
+  entities:
+    - binary_sensor.den_windows
+    - binary_sensor.garage_windows
+    - binary_sensor.mbdrm_windows
+    - binary_sensor.office_windows
+    - binary_sensor.kitchen_bay_windows
+    - binary_sensor.kitchen_sink_windows
+    - binary_sensor.mbdrm_windows
+    - binary_sensor.tristans_window
