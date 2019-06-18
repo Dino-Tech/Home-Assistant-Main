@@ -11,7 +11,7 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
   <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/logo-round-192x192.png">
 </p>
 
-### I'm currently running [Home Assistant](https://home-assistant.io) version __0.94.1__ on a RPi3B.
+### I'm currently running [Home Assistant](https://home-assistant.io) version __0.94.2__ on a RPi3B.
 
 # A Few Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
