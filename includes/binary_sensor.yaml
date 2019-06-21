@@ -298,6 +298,12 @@
 
 - platform: template
   sensors:
+    bathroom_ht_battery_low:
+      value_template: '{{ states("sensor.shelly_shht_1_22c698_battery")|float < 15 }}'
+      friendly_name: 'Bathroom HT battery is low'
+
+- platform: template
+  sensors:
     pixel_2_xl_battery_low:
       value_template: '{{ states.device_tracker.google_maps_105311213674095510695.attributes.battery_level < 15 }}'
       friendly_name: 'Pixel 2 XL battery is low'
@@ -307,3 +313,9 @@
     iphone_6_battery_low:
       value_template: '{{ states.device_tracker.google_maps_117348287487191396666.attributes.battery_level < 15 }}'
       friendly_name: 'iPhone 6 battery is low'
+
+- platform: template
+  sensors:
+    hacs_update_available:
+      value_template: '{{ states("sensor.hacs")|float > 0 }}'
+      friendly_name: 'HACS update(s) available'
