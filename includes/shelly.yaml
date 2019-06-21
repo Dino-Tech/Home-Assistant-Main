@@ -1,0 +1,36 @@
+discovery: true
+wifi_sensor: true
+devices:
+  - id: 5BAC9E
+    light_switch: true
+    name: Sink Light
+  - id: 5A8AFC
+    name: Guest H&T
+  - id: 5A8B31
+    name: Patio H&T
+  - id: 58F218
+    name: Porch H&T
+  - id: 58FD2A
+    name: Laundry H&T
+  - id: 22C698
+    name: Bathroom H&T
+  - id: 32BA73
+    name: Bathroom
+  - id: 32BA73-1
+    light_switch: true
+    name: Bathroom Ceiling Light
+  - id: 32BA73-2
+    name: Bathroom Vent
+  - id: 5549CB
+    light_switch: true
+    name: Bathroom Mirror Light
+  - id: 5B899E
+    name: Laundry Smoke
+  - id: 5B898B
+    name: Garage Smoke
+  - id: 5B897C
+    name: Office Smoke
+  - id: 743B24
+    name: Bedroom Smoke
+  - id: 743B47
+    name: Guest Smoke
