@@ -161,6 +161,20 @@ laundry_ht_battery:
   notifiers:
     - darren
 
+bathroom_ht_battery:
+  name: Bathroom HT Battery is Low
+  entity_id: binary_sensor.bathroom_ht_battery_low
+  repeat: 30
+  notifiers:
+    - darren
+
+hacs_update_available:
+  name: HACS update(s) available
+  entity_id: binary_sensor.hacs_update_available
+  repeat: 300
+  notifiers:
+    - darren
+
 pixel_2_xl_battery:
   name: Pixel 2 XL Battery is Low
   entity_id: binary_sensor.pixel_2_xl_battery_low
