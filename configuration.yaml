@@ -1,0 +1,279 @@
+homeassistant:
+  auth_providers:
+   - type: homeassistant
+   - type: legacy_api_password
+     api_password: !secret http_password
+  name: !secret home_name
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  elevation: !secret home_elevation
+  unit_system: imperial
+  time_zone: America/Chicago
+  packages: !include_dir_named packages
+  customize: !include customize.yaml
+  customize_domain: {}
+  customize_glob: {}
+
+config:
+
+http:
+  base_url: !secret base_url
+
+ssdp:
+
+zeroconf:
+
+panel_iframe:
+  backup:
+    title: 'Snapshots'
+    icon: mdi:cloud-upload
+    url: !secret backup_url
+  ide:
+    title: IDE
+    icon: mdi:access-point-network
+    url: !secret ide_url
+
+hacs:
+  token: !secret hacs_github_access_token
+
+browser_mod:
+  devices:
+    7637fa5a-1bb11402:
+      name: OfficePC
+    8cbac5dd-062b044f:
+      name: OfficeTab LAN
+    0ac1b283-1a747210:
+      name: OfficeTab Cloud
+    d9a3ee30-adeeb816:
+      name: Kiosk
+    e1ac2ca4-b3ff61de: 
+      name: Pixel LAN
+    bcd1ca7c-85b2d4da:
+      name: Pixel DNS 
+    41aa9a6f-34c805e0:
+      name: Pixel Cloud
+    0bb0d449-a8e944da:
+      name: Pixel VPN
+
+updater:
+
+breaking_changes:
+
+recorder:
+  db_url: !secret db_url
+  purge_interval: 1
+  purge_keep_days: 7
+  exclude:
+    domains:
+      - automation
+      - weblink
+      - updater
+      - camera
+      - media_player
+      - group
+      - automation
+      - scene
+      - script
+    entities:
+      - sun.sun
+      - sensor.last_boot
+      - sensor.date
+      - sensor.time
+
+discovery:
+  ignore: 
+    - igd
+
+lovelace:
+  mode: yaml
+
+conversation:
+
+map:
+
+sun:
+
+logger:
+  default: error
+  logs:
+    homeassistant.components.mqtt: info
+    homeassistant.components.camera: critical
+    homeassistant.components.device_tracker: critical
+    homeassistant.components: info
+
+system_health:
+
+speedtestdotnet:
+  scan_interval:
+    days: 1
+  monitored_conditions:
+    - ping
+    - download
+    - upload
+
+life360:
+  driving_speed: 18
+  interval_seconds: 10
+  max_gps_accuracy: 200
+  max_update_wait:
+    minutes: 45
+  show_as_state:
+    - driving
+    - moving
+  warning_threshold: 2
+  error_threshold: 3
+
+tuya:
+  username: !secret TUYA_USERNAME
+  password: !secret TUYA_PASSWORD
+  country_code: 1
+
+nest:
+  client_id: !secret nest_client_id 
+  client_secret: !secret nest_client_secret
+
+google:
+  client_id: !secret google_client_id
+  client_secret: !secret google_client_secret
+
+zone 2:
+    name: !secret zone2_name
+    latitude: !secret zone2_latitude
+    longitude: !secret zone2_longitude
+    radius: 240
+
+device_tracker:
+  - platform: nmap_tracker
+    hosts:
+      - !secret nmap_host_p1
+      - !secret nmap_host_p2
+      - !secret nmap_host_p3
+    home_interval: 05
+    exclude:
+     - !secret hass_ip
+    interval_seconds: 30
+    consider_home: 300
+    new_device_defaults:
+      track_new_devices: true
+      hide_if_away: False
+  - platform: ping
+    hosts:
+      darren: !secret nmap_host_p1
+      donna: !secret nmap_host_p2
+#  - platform: google_maps
+#    username: !secret google_maps_username
+#    password: !secret google_maps_password
+#    max_gps_accuracy: 200 
+#  - platform: bluetooth_tracker
+
+person:
+  - name: Darren
+    id: darren2017
+    user_id: !secret user_id_darren
+    device_trackers:
+      - device_tracker.darren
+#      - device_tracker.pixel_2_xl
+      - device_tracker.b4_f1_da_b7_29_f7 # darren
+      - device_tracker.life360_darren_wilson
+  - name: Donna
+    id: donna2012
+    user_id: !secret user_id_donna
+    device_trackers:
+      - device_tracker.donna
+#      - device_tracker.donnas_iphone
+#      - device_tracker.donna_s_iphone
+      - device_tracker.78_9f_70_ba_e0_3f # donna
+      - device_tracker.life360_donna_wilson
+  - name: Tristan
+    id: tristan2019
+    device_trackers:
+      - device_tracker.tristan
+      - device_tracker.44_91_60_d9_8f_a2
+
+tts:
+  - platform: google_translate
+    service_name: google_say
+
+alarm_control_panel:
+  - platform: manual_mqtt
+    state_topic: home/alarm
+    command_topic: home/alarm/set
+    name: "HA Alarm"
+    code: !secret alarm_code
+    pending_time: 30
+    delay_time: 20
+    trigger_time: 4
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      pending_time: 0
+      delay_time: 0
+    triggered:
+      pending_time: 0
+
+input_datetime:
+  time:
+    name: Time
+    has_date: false
+    has_time: true
+    initial: "01:31:00"
+  time_donnas_alarm:
+    name: Donna's Alarm Time
+    has_date: false
+    has_time: true
+    initial: "05:55:00"
+  time_darrens_alarm:
+    name: Darren's Alarm Time
+    has_date: false
+    has_time: true
+    initial: "04:55:00"
+  date:
+    name: Date
+    has_date: true
+    has_time: false
+    initial: "2019-04-17"
+  datetime:
+    name: Date and Time
+    has_date: true
+    has_time: true
+    initial: "2019-04-17 01:31:00"
+
+alert: !include includes/alert.yaml
+automation: !include automations.yaml
+binary_sensor: !include includes/binary_sensor.yaml
+camera: !include includes/camera.yaml
+cloud: !include includes/cloud.yaml
+cover: !include includes/cover.yaml
+##  googlehome: !include includes/googlehome.yaml
+group: !include groups.yaml
+history: !include includes/history.yaml 
+input_boolean: !include includes/input_boolean.yaml
+input_select: !include includes/input_select.yaml
+ios: !include includes/ios.yaml
+konnected: !include includes/konnected.yaml
+light: !include includes/light.yaml
+logbook: !include includes/logbook.yaml
+notify: !include includes/notify.yaml
+script: !include scripts.yaml
+sensor: !include includes/sensor.yaml
+shelly: !include includes/shelly.yaml
+switch: !include includes/switch.yaml
+
+###########################################
+#  SECTION BELOW IS CURRENTLY NOT IN USE, #
+#  BUT WILL BE ADDED BACK EVENTUALLY      #
+###########################################
+#ifttt:
+#  key: !secret ifttt_key
+
+#sonoff:
+#  username: !secret sonoff_username
+#  password: !secret sonoff_password
+#  api_region: 'us'
+
+#media_player:
+#  - platform: spotify
+#    client_id: !secret spotify_client_id
+#    client_secret: !secret spotify_client_secret
+
+#stream:
