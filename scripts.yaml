@@ -162,17 +162,51 @@ browser_blackout_off:
     - service: browser_mod.command
       data:
         command: no-blackout
-find_browser_commander_ids:
-  sequence:
-    - event: browser_command
-      event_data:
-        command: debug
-browser_theme:
+browser_theme_green:
   sequence:
     - service: browser_mod.command
       data:
         command: set-theme
         theme: Green-Nightz
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+browser_theme_clear:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: set-theme
+        theme: Dark-N-Clear
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+browser_theme_black:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: set-theme
+        theme: Dark-Side
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+browser_theme_night:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: set-theme
+        theme: Dark-Nightz
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+browser_theme_smoke:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: set-theme
+        theme: Dark-N-Smoke
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
 browser_home:
   sequence:
     - service: browser_mod.command
@@ -189,8 +223,8 @@ browser_close_popup:
         command: close-popup
 browser_refresh:
   sequence:
-    - event: browser_command
-      event_data:
+    - service: browser_mod.command
+      data:
         command: lovelace-reload
     - service: input_boolean.turn_off
       data:
@@ -202,8 +236,8 @@ browser_navigate:
         command: navigate
         navigation_path: /lovelace/0?clear_cch_cache
     - delay: '00:00:01'
-    - event: browser_command
-      event_data:
+    - service: browser_mod.command
+      data:
         command: lovelace-reload
 browser_tablet:
   sequence:
@@ -212,8 +246,8 @@ browser_tablet:
         command: navigate
         navigation_path: /lovelace/0
     - delay: '00:00:02'
-    - event: browser_command
-      event_data:
+    - service: browser_mod.command
+      data:
         command: lovelace-reload
 browser_random_cameras:
   sequence:
