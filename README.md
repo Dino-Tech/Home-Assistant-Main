@@ -73,8 +73,8 @@ The end result is like having 30 different views that can be accessed via *_one_
 
 #### Pixel 2 XL Mobile Login *(selected views mobile access)*
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/7.21_update.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/7.21_update3.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/7.21_update2.jpg" />
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/mobile5.jpg" />
 
 #### iPhone 6 Mobile Login *(restricted views access)*
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/iPhone.jpg" />
