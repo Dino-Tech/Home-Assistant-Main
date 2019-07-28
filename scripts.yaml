@@ -1,0 +1,4563 @@
+## scripts# /config/scripts.yaml
+################################################
+# Bedtime
+good_night:
+  sequence:
+    - service: homeassistant.turn_off
+      entity_id: 
+        - group.lights
+        - group.night_switches
+        - input_boolean.disable_popups
+        - input_boolean.disable_garage_notify
+        - input_boolean.motion_tv_alert
+        - input_boolean.auto_tablet
+        - input_boolean.auto_backgroundz
+    - service: alarm_control_panel.alarm_arm_home
+      entity_id: alarm_control_panel.ha_alarm
+      data:
+        code: !secret alarm_code
+    - service: homeassistant.turn_on
+      entity_id: 
+        - input_boolean.notifications
+        - input_boolean.driveway_motion_lights
+        - switch.air_cleaner
+    - service: media_player.volume_set
+      data:
+        entity_id: 
+          - media_player.office_mini
+          - media_player.office_google
+        volume_level: '0.35'
+    - service: tts.google_say
+      entity_id: 
+        - media_player.pixel_dns
+        - media_player.pixel_lan
+        - media_player.office_group
+      data_template:
+        message: > 
+          Good night. '{{ ["You are a child of God.", "Sleep well!", "God is good ALL the time!"] | random }}'
+    - service: script.off_screen
+    - delay: '00:00:04'
+    - service: script.alarm_clock
+    - wait_template: "{{ is_state('input_boolean.darrens_work_alarm', 'on') }}"
+      timeout: '00:01:00'
+      continue_on_timeout: 'true'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: script.coffee_time_popup
+    - wait_template: "{{ is_state('input_boolean.cfe_on', 'on') }}"
+      timeout: '00:01:00'
+      continue_on_timeout: 'true'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: script.browser_blackout_all
+####################################################
+###       POPUPS, CAMERAS, BROWSER SCRIPTS       ###
+####################################################
+browser_blackout_button:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: blackout
+        deviceID:
+          - Pixel DNS
+          - Pixel LAN
+          - Pixel Cloud
+    - service: tts.google_say
+      data:
+        entity_id:
+          - media_player.pixel_dns
+          - media_player.pixel_lan
+      data_template:
+        message: "Browser blackout is active"
+browser_blackout_all:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: blackout
+browser_blackout_off:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: no-blackout
+browser_theme_green:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: set-theme
+        theme: Green-Nightz
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+browser_theme_clear:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: set-theme
+        theme: Dark-N-Clear
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+browser_theme_black:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: set-theme
+        theme: Dark-Side
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+browser_theme_night:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: set-theme
+        theme: Dark-Nightz
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+browser_theme_smoke:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: set-theme
+        theme: Dark-N-Smoke
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+browser_donna:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/8
+        deviceID:
+          - OfficeTab LAN
+          - Kiosk
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.donnas_screen
+browser_home:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/0
+        deviceID:
+          - OfficeTab LAN
+          - Kiosk
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.browser_home
+browser_close_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+browser_refresh:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.browser_refresh
+browser_sidebar_show:
+  sequence:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.sidebar_show
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.sidebar_hide
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+browser_sidebar_hide:
+  sequence:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.sidebar_hide
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.sidebar_show
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+browser_disable_cch:
+  sequence:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.disable_cch
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/0?clear_cch_cache
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+    - delay: '00:00:01'
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+    - delay: '00:01:00'
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.disable_cch
+browser_navigate:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/0?clear_cch_cache
+    - delay: '00:00:01'
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+browser_tablet:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/0
+    - delay: '00:00:02'
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
+browser_random_cameras:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/25
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+    - service: input_boolean.turn_on
+      entity_id: 
+        - input_boolean.auto_cameras
+#####################################################
+browser_popup_1:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.disable_popups
+      state: 'off'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: more-info
+        entity_id: camera.front_door
+        large: true
+    - service: tts.google_say
+      data:
+        entity_id:
+          - media_player.pixel_dns
+          - media_player.pixel_lan
+          - media_player.pixel_cloud
+      data_template:
+        message: "Someone is at the front door!"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alert
+    - delay: '00:00:30'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - delay: '00:01:00'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+browser_popup_2:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.disable_inside_popups
+      state: 'off'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: more-info
+        entity_id: camera.entry_hall
+        large: true
+    - service: tts.google_say
+      data:
+        entity_id:
+          - media_player.pixel_dns
+          - media_player.pixel_lan
+          - media_player.pixel_cloud
+      data_template:
+        message: "Entry hall motion detected!"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alert
+    - delay: '00:00:30'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - delay: '00:01:00'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+browser_popup_3:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.disable_popups
+      state: 'off'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: more-info
+        entity_id: camera.garage_cam
+        large: true
+    - service: tts.google_say
+      data:
+        entity_id:
+          - media_player.pixel_dns
+          - media_player.pixel_lan
+          - media_player.pixel_cloud
+      data_template:
+        message: "You have a visitor in the garage!"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alert
+    - delay: '00:00:30'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - delay: '00:01:00'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+browser_popup_4:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.disable_inside_popups
+      state: 'off'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: more-info
+        entity_id: camera.den_cam
+        large: true
+    - service: tts.google_say
+      data:
+        entity_id:
+          - media_player.pixel_dns
+          - media_player.pixel_lan
+          - media_player.pixel_cloud
+      data_template:
+        message: "Someone is in the livingroom!"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alert
+    - delay: '00:00:30'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - delay: '00:01:00'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+browser_popup_5:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.disable_inside_popups
+      state: 'off'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: more-info
+        entity_id: camera.kitchen_cam
+        large: true
+    - service: tts.google_say
+      data:
+        entity_id:
+          - media_player.pixel_dns
+          - media_player.pixel_lan
+          - media_player.pixel_cloud
+      data_template:
+        message: "Someone is in the kitchen!"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alert
+    - delay: '00:00:30'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - delay: '00:01:00'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+browser_popup_6:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.disable_popups
+      state: 'off'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: more-info
+        entity_id: camera.patio_cam
+        large: true
+    - service: tts.google_say
+      data:
+        entity_id:
+          - media_player.pixel_dns
+          - media_player.pixel_lan
+          - media_player.pixel_cloud
+      data_template:
+        message: "Someone is on the patio!"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alert
+    - delay: '00:00:30'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - delay: '00:01:00'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+browser_popup_7:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.disable_popups
+      state: 'off'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: more-info
+        entity_id: camera.driveway_cam
+        large: true
+    - service: tts.google_say
+      data:
+        entity_id:
+          - media_player.pixel_dns
+          - media_player.pixel_lan
+          - media_player.pixel_cloud
+      data_template:
+        message: "Someone is at the side door!"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alert
+    - delay: '00:00:30'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - delay: '00:01:00'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+browser_popup_8:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.disable_inside_popups
+      state: 'off'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: more-info
+        entity_id: camera.rambo_cam
+        large: true
+    - service: tts.google_say
+      data:
+        entity_id:
+          - media_player.pixel_dns
+          - media_player.pixel_lan
+          - media_player.pixel_cloud
+      data_template:
+        message: "Rambo, motion detected!"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alert
+    - delay: '00:00:30'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - delay: '00:01:00'
+    - service: browser_mod.command
+      data:
+        command: close-popup
+############################################################
+#######         FULL SCREEN CAMERA VIEWS            ########
+############################################################
+driveway_screen:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/25
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.auto_cameras
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_camera
+        option: '894154842'
+############################################################
+garage_screen:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/25
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.auto_cameras
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_camera
+        option: '1303952849'
+############################################################
+front_door_screen:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/25
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.auto_cameras
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_camera
+        option: '1302564213'
+############################################################
+patio_screen:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/25
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.auto_cameras
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_camera
+        option: '209914028'
+############################################################
+den_screen:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/25
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.auto_cameras
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_camera
+        option: '1263565836'
+############################################################
+kitchen_screen:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/25
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.auto_cameras
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_camera
+        option: '889985706'
+############################################################
+entry_hall_screen:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: /lovelace/25
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.auto_cameras
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_camera
+        option: '626133761'
+############################################################
+#######         WALLPAPER & BORDER COLOR SETS        #######
+############################################################
+morning_screen:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.wallpaper
+        option: dawn
+    - service: input_boolean.turn_on
+      entity_id: 
+        - input_boolean.auto_tablet
+############################################################
+night_screen: ## at sunset
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.wallpaper
+        option: ColorSunset
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_borderz
+        option: Black
+############################################################
+purple_screen:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.wallpaper
+        option: light-purple
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_borderz
+        option: Purple
+############################################################
+red_fire_screen:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.wallpaper
+        option: Fire
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_borderz
+        option: Red
+############################################################
+blue_fire_screen:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.wallpaper
+        option: Fire
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_borderz
+        option: DarkBlue
+############################################################
+green_screen:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.wallpaper
+        option: green.ice
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_borderz
+        option: Chartreuse
+############################################################
+star_screen:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.wallpaper
+        option: ColorSunset
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_borderz
+        option: Black
+############################################################
+space_screen:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.wallpaper
+        option: space01
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_borderz
+        option: Black
+############################################################
+aqua_screen:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.wallpaper
+        option: lights
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_borderz
+        option: Lime
+############################################################
+sleep_tablet: ## CLOCK SCREENSAVER
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        title: " "
+        auto_close: true
+        style:
+          background: black
+          font-family: "Digital-7 Mono"
+          "--primary-text-color": rgba(255,255,255,0.2)
+          "--paper-card-background-color": black
+          "--iron-icon-stroke-color": black
+          font-weight: bold
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: custom:bignumber-card
+          entity: sensor.time_12_hour
+          scale: 290px
+############################################################
+off_screen: ## BLACK SCREEN
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: blackout
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+############################################################
+wake_tablet: ## NORMAL VIEW
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: no-blackout
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+############################################################
+home_assistant_screen: ## HA SCREENSAVER
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: navigate
+        navigation_path: http://192.168.1.134:8123/local/demo.html
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+############################################################
+border_red:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_borderz
+        option: Red
+############################################################
+border_lime:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_borderz
+        option: Lime
+############################################################
+border_yellow:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_borderz
+        option: Yellow
+############################################################
+border_blue:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.auto_borderz
+        option: Blue
+############################################################
+scene_selector:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: Scene Selector
+        style:
+          background: url("/local/images-lovelace/mobile_backz/Storm2.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 14px
+          border: solid 3px rgb(38, 0, 153)
+          "--primary-text-color": white
+          color: "#FFF"
+          height: 100%
+          width: 100%
+          margin: 0
+          text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue
+          font-size: 24px
+          text-transform: capitalize
+          font-variant: small-caps
+        card:
+          type: entities
+          entities:
+            - type: custom:auto-entities
+              card:
+                type: custom:fold-entity-row
+                head:
+                  type: section
+                  label: Scripts
+              filter:
+                include:
+                  - entity_id: script.good_night
+                  - entity_id: script.reload_automations
+                  - entity_id: script.restart_ha
+                  - entity_id: script.alarm_arm
+                  - entity_id: script.alarm_arm_home
+                  - entity_id: script.alarm_disarm
+                  - entity_id: script.siren_lights_disarm
+                  - entity_id: script.turn_outside_off
+            - type: section
+            - type: custom:auto-entities
+              card:
+                type: custom:fold-entity-row
+                head:
+                  type: section
+                  label: Auto Controls
+              filter:
+                include:
+                  - entity_id: input_boolean.notifications
+                  - entity_id: input_boolean.voice_notifications
+                  - entity_id: input_boolean.disable_garage_notify
+                  - entity_id: input_boolean.disable_popups
+                  - entity_id: input_boolean.browser_refresh
+                  - entity_id: input_boolean.auto_backgroundz
+                  - entity_id: input_boolean.auto_cameras
+                  - entity_id: input_boolean.auto_camera_image
+                  - entity_id: input_boolean.auto_tablet
+                  - entity_id: input_boolean.driveway_motion_lights
+############################################################
+style_selector:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: Style Selector
+        style:
+          background: url("/local/images-lovelace/backgroundz/black_tex.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px rgb(0, 51, 153)
+          font-size: 20px
+          font-weight: bold
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: entities
+          entities:
+            - input_select.auto_borderz
+            - type: divider
+            - input_select.wallpaper
+            - type: divider
+            - input_select.auto_shadowz
+            - type: divider
+            - input_select.auto_accentz
+            - type: divider
+            - input_select.auto_cornerz
+            - type: divider
+            - input_select.backgroundz
+            - type: divider
+            - input_select.button_animation_1
+############################################################
+mobile_location:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: Location...
+        style:
+          background: dimgray
+          border-radius: 15px
+          border: solid 3px rgb(0, 51, 153)
+          font-size: 1.6em
+          height: 100%
+          width: 100%
+          margin: 0
+          text-transform: capitalize
+          font-variant: small-caps
+        card:
+          type: map
+          default_zoom: 18
+          entities:
+            - entity: device_tracker.life360_darren_wilson
+            - entity: device_tracker.life360_donna_wilson
+            - zone.home
+            - zone.donnas_work
+          aspect_ratio: 9x16
+############################################################
+mobile_thermostat:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: "Nest Controls... "
+        style:
+          background: url("/local/images-lovelace/backgroundz/Stainless.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--primary-text-color": white
+          "--app-toolbar-font-size": 1.3em
+          border-radius: 15px
+          border: solid 3px gray
+          font-size: 24px
+          font-weight: bold
+          text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+          height: 100%
+          width: 100%
+          margin: 0
+          text-transform: capitalize
+          font-variant: small-caps
+        card:
+          type: entities
+          show_header_toggle: false
+          entities:
+            - type: custom:thermostat-card
+              entity: climate.living_room
+              chevron_size: 100
+              hvac:
+                states:
+                  'Off': 'off'
+                  'Cooling': 'cool'
+                  'Heating': 'heat'
+                attribute: operation_mode
+            - type: custom:bar-card
+              severity:
+                - value: 100
+                  color: 'rgba(0, 255, 0,0.5)'
+              title_position: inside
+              tap_action: info
+              columns: 1
+              padding: 2px
+              align: split
+              rounding: 10px
+              saturation: 75%
+              height: 50px
+              card_style:
+                background: "rgba(0, 0, 0, 0.4)"
+                border-radius: 10px
+              title_style:
+                font-size: 23px
+                color: '#F2F2F2'
+                text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+              value_style:
+                font-size: 26px
+                font-weight: bold
+              entities:
+                - sensor.filtered_realistic_temperature
+                - sensor.filtered_outside_temperature
+                - sensor.filtered_realistic_humidity
+                - sensor.filtered_outside_humidity
+############################################################
+alarm_clock:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        title: Alarm Clock
+        style:
+          background: url("/local/images-lovelace/card_backz/clocks.1.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px blue
+          "--paper-input-container-shared-input-style_-_font-size": .8em
+          "--paper-input-container-shared-input-style_-_width": 180px
+          font-size: 16px
+          text-transform: capitalize
+          font-variant: small-caps
+          text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px midnightblue"
+          color: "#FFF"
+          height: 100% #630px
+          width: 100%
+        card:
+          type: entities
+          show_header_toggle: false
+          entities:
+            - entity: input_datetime.time_donnas_alarm
+              type: custom:time-input-row
+            - entity: input_boolean.donnas_work_alarm
+            - entity: input_datetime.time_darrens_alarm
+              type: custom:time-input-row
+            - entity: input_boolean.darrens_work_alarm
+            - type: custom:bignumber-card
+              entity: sensor.time_12_hour
+              scale: 50px
+            - type: custom:countdown-dates
+              title: '...Reminders:'
+              phrase: 'days'
+              show_age: true
+              dates:
+                - date: 04/28/2020
+                  name: Donna's b'day
+                - date: 07/06/2020
+                  name: Darren's b'day
+                - date: 07/07/2020
+                  name: Anniversary
+                - date: 12/31/2019
+                  name: New Year's
+############################################################
+kitchen_controls:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        title: " "
+        style:
+          background: url("/local/images-lovelace/card_backz/Kit9.png")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px rgb(19, 235, 19)
+          "--primary-text-color": "#F2F2F2"
+          "--paper-item-icon-color": rgb(19, 235, 19)
+          "--paper-item-icon-active-color": rgb(255, 255, 0)
+          "--iron-icon-height": 45px
+          "--iron-icon-width": 45px
+          "--app-toolbar-font-size": 1.3em
+          padding: 4px 0px 0px 0px
+          text-shadow: "1px 1px 2px green, 0 0 25px lime, 0 0 5px chartreuse"
+          font-size: 24px
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: glance
+          entities:
+            - type: entity-button
+              entity: binary_sensor.kitchen_motion
+              name: Motion
+            - type: entity-button
+              entity: switch.ceiling_center
+              name: Island
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.ceiling_left
+              name: Left
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.ceiling_right
+              name: Right
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.kitchen_sink_light
+              name: Sink
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.cabinet_sw1
+              name: Cabinets
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.table_light
+              name: Table
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.radio_wtemp_humid
+              name: Radio
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.coffee_light
+              name: Coffee # Area
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.coffee_maker
+              name: Coffee Maker # Area
+              tap_action:
+                action: toggle
+          show_state: false
+############################################################
+office_controls:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        title: " "
+        style:
+          background: url("/local/images-lovelace/card_backz/Office9.png")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px rgb(128, 128, 128)
+          "--primary-text-color": "#F2F2F2"
+          "--paper-item-icon-color": rgb(128, 128, 128)
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 45px
+          "--iron-icon-width": 45px
+          "--app-toolbar-font-size": 1.3em
+          font-size: 24px
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: glance
+          entities:
+            - type: entity-button
+              entity: binary_sensor.office_motion
+              name: Motion
+            - type: entity-button
+              entity: sensor.office_temp_avg
+              name: Temp
+            - type: entity-button
+              entity: switch.office_ceiling_light
+              name: Ceiling
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.office_ceiling_fan
+              name: Fan
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: light.22507506807d3a4c9f35 # office desk light
+              name: Desk
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.office_lamps
+              name: All Lamps
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: light.corner_light
+              name: Right
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: light.bed_light
+              name: Left
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.desk_back_light
+              name: Accent
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.office_work_bench
+              name: Bench
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.office_sound
+              name: Audio
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.office_video
+              name: Video
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.office_monitor
+              name: Monitor
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.air_cleaner
+              name: Purifier
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.printer
+              name: Printer
+              tap_action:
+                action: toggle
+          show_state: false
+############################################################
+den_controls:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        title: " "
+        style:
+          background: url("/local/images-lovelace/card_backz/Den9.png")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px rgb(0, 13, 255)
+          "--primary-text-color": "#F2F2F2"
+          "--paper-item-icon-color": rgb(0, 13, 255)
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 45px
+          "--iron-icon-width": 45px
+          "--app-toolbar-font-size": 1.3em
+          padding: 14px 0px 0px 0px
+          font-size: 24px
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: glance
+          entities:
+            - type: entity-button
+              entity: binary_sensor.living_room_motion
+              name: Motion
+            - type: entity-button
+              entity: binary_sensor.front_door
+              name: Front Door
+            - type: entity-button
+              entity: binary_sensor.den_windows
+              name: Windows
+            - type: entity-button
+              entity: switch.living_room_ceiling_light
+              name: Ceiling
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.living_room_ceiling_fan
+              name: Fan
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.living_room_lamp
+              name: Lamp
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: light.fireplace_lights
+              name: Fireplace
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.tv_accent_lights
+              name: TV Accent
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.foyer_light
+              name: Foyer
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.foyer_accent_lights
+              name: Foyer Accent
+              tap_action:
+                action: toggle
+          show_state: false
+############################################################
+bedroom_controls:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        title: " "
+        style:
+          background: url("/local/images-lovelace/card_backz/Bdrm9.png")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px rgb(240, 26, 255)
+          "--primary-text-color": "#F2F2F2"
+          "--paper-item-icon-color": rgb(240, 26, 255)
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 45px
+          "--iron-icon-width": 45px
+          "--app-toolbar-font-size": 1.3em
+          text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
+          font-size: 23px
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: glance
+          entities:
+            - type: entity-button
+              entity: sensor.bedroom_humidity
+              name: Humidity
+              tap_action:
+                action: more-info
+            - type: entity-button
+              entity: light.salt_light
+              name: Salt Light
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: binary_sensor.bedroom_motion
+              name: Motion
+            - type: entity-button
+              entity: switch.bedroom_ceiling_light
+              name: Ceiling
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.bedroom_ceiling_fan
+              name: Fan
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: light.22507506807d3a4c9e4b # donnas lamp
+              name: Donna's
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: light.22507506807d3a4cab3f # darrens lamp
+              name: Darren's
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: input_boolean.bedroom_lamps
+              icon: mdi:floor-lamp
+              name: Lamps
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: switch.air_machine
+              icon: mdi:weather-windy
+              name: Purifier
+              tap_action:
+                action: toggle
+            - type: entity-button
+              entity: light.hallway_night_light
+              name: Night
+              tap_action:
+                action: toggle
+          show_state: false
+############################################################
+laundry_controls:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/card_backz/Washer9.png")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px DodgerBlue
+          "--primary-text-color": "#F2F2F2"
+          "--paper-item-icon-color": black
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 45px
+          "--iron-icon-width": 45px
+          "--app-toolbar-font-size": 1.3em
+          text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue
+          font-size: 22px
+          font-stretch: ultra-expanded
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: entities
+          entities:
+            - sensor.washer_state
+            - sensor.washer_voltage
+            - sensor.washer_watts
+            - sensor.washer_amps
+            - sensor.washer_energy_today
+            - sensor.washer_energy_yesterday
+            - sensor.washer_signal
+            - sensor.dryer_state
+            - sensor.dryer_voltage
+            - sensor.dryer_watts
+            - sensor.dryer_amps
+            - sensor.dryer_energy_today
+            - sensor.dryer_energy_yesterday
+############################################################
+mobile_low_battery:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/backgroundz/battery1.png")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px red
+          "--primary-text-color": white
+          "--app-toolbar-font-size": 1.3em
+          text-shadow: "1px 1px 2px black, 0 0 25px red, 0 0 5px firebrick"
+          font-size: 2.0em
+          font-weight: bold
+          text-transform: capitalize
+          font-variant: small-caps
+          color: "white"
+          height: 100%
+          width: 100%
+        card:
+          type: custom:auto-entities
+          card:
+            type: custom:bar-card
+            severity:
+              - value: 25
+                color: '#DC143C'
+              - value: 50
+                color: '#bf9540'
+              - value: 100
+                color: '#40bf40'
+            title_position: inside
+            tap_action: none
+            columns: 1
+            padding: 6px
+            align: split
+            show_icon: true
+            rounding: 10px
+            saturation: 80%
+            height: 24px
+            card_style:
+              background: "rgba(0, 0, 0, 0.7)"
+              border-radius: 5px
+            title_style:
+              font-weight: bold
+              font-size: 20px
+              color: '#FFF'
+              text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
+            value_style:
+              font-size: 24px
+              font-weight: bold
+          filter:
+            include:
+              - entity_id: "sensor.*batt*"
+            exclude:
+              - entity_id: sensor.donna_s_iphone_battery_state
+              - entity_id: sensor.office_battery_smoke
+              - entity_id: sensor.iphone6statusbatt
+              - entity_id: sensor.iphone_battery_icon
+              - entity_id: sensor.pixel_battery_icon
+############################################################
+low_battery_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/backgroundz/battery1.png")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--primary-text-color": white
+          font-size: 36px
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+          border-radius: 20px
+          border: solid 12px rgb(255, 0, 0)
+        card:
+          type: custom:auto-entities
+          card:
+            type: custom:bar-card
+            severity:
+              - value: 25
+                color: '#DC143C'
+              - value: 50
+                color: '#bf9540'
+              - value: 100
+                color: '#40bf40'
+            title_position: inside
+            tap_action: none
+            columns: 2
+            padding: 6px
+            align: split
+            rounding: 10px
+            saturation: 75%
+            height: 60px
+            card_style:
+              background: "rgba(0, 0, 0, 0.3)"
+              border-radius: 10px
+            title_style:
+              font-weight: bold
+              font-size: 28px
+              color: '#FFF'
+              text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
+            value_style:
+              font-size: 30px
+              font-weight: bold
+          filter:
+            include:
+              - entity_id: "sensor.*batt*"
+            exclude:
+              - entity_id: sensor.donna_s_iphone_battery_state
+              - entity_id: sensor.office_battery_smoke
+############################################################
+arrived_home_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: Welcome Home!
+        style:
+          background: url("/local/images-lovelace/mobile_backz/welcomeDoor.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 12px
+          border: solid 6px teal
+          "--iron-icon-stroke-color": "#FFF"
+          "--paper-item-icon-color": teal
+          "--paper-item-icon-active-color": lime
+          "--app-toolbar-font-size": 1.4em
+          "--primary-text-color": white
+          "--iron-icon-height": 40px
+          "--iron-icon-width": 40px
+          "--ha-card-box-shadow": 3px 3px rgba(0,0,0,0.0)
+          text-shadow: "1px 1px 2px black, 0 0 25px teal, 0 0 5px aqua"
+          font-size: 24px
+          font-weight: bold
+          text-transform: capitalize
+          font-variant: small-caps
+          letter-spacing: 1px
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: entities
+          entities:
+            - type: custom:dummy-entity-row
+              entity: sun.sun
+              icon: mdi:this-icon-does-not-exist
+              name: " "
+            - type: custom:dummy-entity-row
+              entity: sun.sun
+              icon: mdi:this-icon-does-not-exist
+              name: " "
+            - type: 'custom:hui-glance-card'
+              columns: 1
+              entities:
+                - type: entity-button
+                  entity: cover.garage_door
+                  name: Garage Door
+                  tap_action:
+                    action: toggle
+            - type: custom:dummy-entity-row
+              entity: sun.sun
+              icon: mdi:this-icon-does-not-exist
+              name: " "
+            - type: custom:dummy-entity-row
+              entity: sun.sun
+              icon: mdi:this-icon-does-not-exist
+              name: " "
+            - type: 'custom:hui-glance-card'
+              columns: 1
+              entities:
+                - type: entity-button
+                  entity: switch.front_flood_lights
+                  name: Exterior Lights
+                  tap_action:
+                    action: call-service
+                    service: homeassistant.toggle
+                    service_data:
+                      entity_id: group.exterior_lighting
+############################################################
+ha_status:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/mobile_backz/Storm2.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px blue
+          "--primary-text-color": white
+          "--app-toolbar-font-size": 1.2em
+          font-size: 1.7em
+          font-weight: bold
+          color: "#FFF"
+          text-shadow: "2px 2px 4px black, 0 0 25px dimgray, 0 0 5px dimgray"
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: entities
+          show_header_toggle: false
+          entities:
+            - sensor.automation_count
+            - sensor.binary_sensor_count
+            - sensor.lights_count
+            - sensor.script_count
+            - sensor.sensor_count
+            - sensor.switch_count
+            - sensor.tracker_count
+            - sensor.alert_count
+            - sensor.ha_latest_version
+            - entity: sensor.hacs
+              name: HACS
+############################################################
+status_ha_tablet:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/mobile_backz/Storm2.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px blue
+          "--primary-text-color": white
+          font-size: 1.7em
+          font-weight: bold
+          color: "#FFF"
+          text-transform: capitalize
+          font-variant: small-caps
+          text-shadow: "2px 2px 4px black, 0 0 25px dimgray, 0 0 5px dimgray"
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: entities
+          show_header_toggle: false
+          entities:
+            - sensor.automation_count
+            - sensor.binary_sensor_count
+            - sensor.lights_count
+            - sensor.script_count
+            - sensor.sensor_count
+            - sensor.switch_count
+            - sensor.tracker_count
+            - sensor.alert_count
+            - sensor.ha_latest_version
+            - entity: sensor.hacs
+              name: HACS
+############################################################
+mobile_radar:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        auto_close: true
+        style:
+          background: black
+          border-radius: 15px
+          border: solid 3px blue
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: entities
+          show_header_toggle: false
+          entities:
+            - type: 'custom:hui-picture-entity-card'
+              entity: camera.local_radar
+              show_state: false
+              show_name: false
+            - type: 'custom:hui-picture-entity-card'
+              entity: camera.new_orleans_radar
+              show_state: false
+              show_name: false
+############################################################
+mobile_radar_nws:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        auto_close: true
+        style:
+          background: dimgray
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: entities
+          show_header_toggle: false
+          entities:
+            - type: 'custom:hui-picture-entity-card'
+              entity: camera.hourly_precip
+              show_state: false
+            - type: 'custom:hui-picture-entity-card'
+              entity: camera.short_range
+              show_state: false
+############################################################
+mobile_humidity:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/mobile_backz/welcomeDoor.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px rgb(0, 92, 230)
+          "--primary-text-color": white
+          font-size: 1.625em
+          font-weight: bold
+          text-transform: capitalize
+          font-variant: small-caps
+          color: "#FFF"
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: custom:auto-entities
+          card:
+            type: custom:bar-card
+            severity:
+              - value: 40
+                color: '#A0522D'
+              - value: 80
+                color: '#0066ff'
+              - value: 100
+                color: '#00FFFF'
+            title_position: inside
+            columns: 1
+            padding: 2px
+            align: split
+            rounding: 4px
+            saturation: 75%
+            height: 29px
+            card_style:
+              background: "rgba(0, 0, 0, 0.3)"
+              border-radius: 10px
+            title_style:
+              font-size: 20px
+              font-weight: bold
+              color: '#FFF'
+              text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
+            value_style:
+              font-size: 24px
+              font-weight: bold
+              color: '#FFF'
+              text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
+          filter:
+            include:
+              - entity_id: "sensor.*humidity*"
+              - entity_id: sensor.dark_sky_humidity
+            exclude:
+              - entity_id: "*.dark_sky*"
+############################################################
+mobile_inside_temps:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/mobile_backz/welcome1.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px rgb(0, 92, 230)
+          "--primary-text-color": white
+          font-size: 1.625em
+          font-weight: bold
+          text-transform: capitalize
+          font-variant: small-caps
+          color: "#FFF"
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: custom:auto-entities
+          card:
+            type: custom:bar-card
+            severity:
+              - value: 50
+                color: '#0000cc'
+              - value: 80
+                color: '#0066ff'
+              - value: 100
+                color: '#ff0000'
+            title_position: inside
+            columns: 1
+            padding: 2px
+            align: split
+            rounding: 4px
+            saturation: 75%
+            height: 23px
+            card_style:
+              background: "rgba(0, 0, 0, 0.3)"
+              border-radius: 10px
+            title_style:
+              font-size: 20px
+              font-weight: bold
+              color: '#FFF'
+              text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
+            value_style:
+              font-size: 24px
+              font-weight: bold
+              color: '#FFF'
+              text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
+          filter:
+            include:
+              - entity_id: "sensor.*temp*"
+            exclude:
+              - entity_id: "*.dark_sky*"
+############################################################
+stale_snapshot_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        title: Snapshots are stale!
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/backgroundz/Dark_city.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          font-size: 48px
+          font-weight: bold
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+          border-radius: 20px
+          border: solid 12px rgb(255, 0, 0)
+        card:
+          type: markdown
+          content: >-
+            ## Snapshots are stale! Please visit the "Hass.io Google Drive Backup" add-on
+            status page for details.
+          title: Stale Snapshots!
+############################################################
+calendar_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        title: " "
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/backgroundz/lights.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 14px
+          border: solid 2px limeGreen
+          font-size: 26px
+          text-transform: capitalize
+          font-variant: small-caps
+          "--primary-text-color": white
+          height: 100% #520px
+          width: 100% #68%
+          margin: 0
+        card:
+          type: entities
+          entities:
+            - type: "custom:atomic-calendar"
+              title: "New Life Events"
+              enableModeChange: true
+              defaultMode: 2
+              showDate: true
+              CalEventHolidayColor: lime
+              CalEventIcon1Filter: events
+              CalEventIcon2Filter: birthday
+              CalEventIcon1: " " #fas:calendar-plus
+              CalEventIcon2: " " #fas:gift
+              CalEventIcon3: " " #fas:cross
+              entities:
+              - entity: calendar.contacts
+                type: icon2, holiday
+                color: purple
+              - entity: calendar.holidays_in_united_states
+                type: holiday
+              - entity: calendar.christian_holidays
+                type: icon3, holiday
+              dateSize: 70
+              timeSize: 80
+              firstDayOfWeek: 7
+              titleSize: 96
+            - type: custom:countdown-dates
+              title: "...REMINDERS : "
+              phrase: 'days'
+              show_age: true
+              dates:
+                - date: 04/28/2020
+                  name: Donna's bday
+                - date: 07/06/2020
+                  name: Darren's bday
+                - date: 07/07/2020
+                  name: Anniversary
+                - date: 12/31/2019
+                  name: New Year
+############################################################
+alarm_panel_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        title: New Life Security
+        style:
+          background: url("/local/images-lovelace/backgroundz/black_steel2.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 13px
+          border: solid 2px lime
+          font-size: 26px
+          text-transform: capitalize
+          font-variant: small-caps
+          "--paper-card-background-color": "rgba(0,0,0,0.0)"
+          "--primary-text-color": white
+          "--app-toolbar-font-size": 1.3em
+          "--iron-icon-height": 50px
+          "--iron-icon-width": 50px
+          "--iron-icon-stroke-color": lime
+          "--paper-item-icon-active-color": "#cc0000"
+          "--paper-item-icon-color": "rgba(0, 255, 0,0.4)" # "#e6e600"
+          text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
+          color: white
+          height: 100%
+          width: 44%
+          margin: 0
+          overflow: hidden
+        card: 
+          type: vertical-stack
+          cards:
+            - type: 'custom:hui-glance-card'
+              columns: 1
+              show_state: false
+              entities:
+                - type: entity-button
+                  entity: sensor.zdummy_sensor_1
+                  name: PANIC
+                  icon: mdi:alert-decagram
+                  tap_action:
+                    action: call-service
+                    service: script.turn_on
+                    service_data:
+                      entity_id: script.triggered_flash
+            - type: 'custom:hui-alarm-panel-card' # alarm-panel # 
+              style:
+                .: |
+                  ha-card {
+                    --mdc-theme-primary: white;
+                  }
+                "#keypad mwc-button":
+                  $: |
+                    :host {
+                      background: transparent;
+                    }
+                    button {
+                      font-size: 27px !important;
+                    }
+                "#keypad mwc-button:nth-of-type(12)":
+                  $: |
+                    button {
+                      font-size: 17px !important;
+                      --mdc-theme-primary: lime;
+                    }
+              entity: alarm_control_panel.ha_alarm
+############################################################
+mobile_iframe:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: Interactive Radar
+        style:
+          background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
+          border-radius: 15px
+          border: solid 3px rgb(5, 205, 255)
+          height: 100%
+          width: 100%
+          margin: 0
+          overflow: hidden
+        card:
+          type: iframe
+          url: https://embed.windy.com/embed2.html
+          aspect_ratio: 165%
+############################################################
+regional_radar_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        title: Regional Radar
+        auto_close: true
+        style:
+          background: url('https://icons.wxug.com/data/weather-maps/radar/united-states/new-orleans-louisiana-region-current-radar-animation.gif')
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 20px
+          border: solid 6px rgb(204, 204, 204)
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: picture
+          image: /local/images-lovelace/backgroundz/ClearPNG.png
+############################################################
+local_radar_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        title: New Orleans Radar
+        style:
+          background: url('https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=MSY&brand=wui&num=6&delay=15&type=TR0&frame=0&scale=1.000&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=1&lightning=1&smooth=1&rand=25760093&lat=0&lon=0&label=you')
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 20px
+          border: solid 6px rgb(204, 204, 204)
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: picture
+          image: /local/images-lovelace/backgroundz/ClearPNG.png
+############################################################
+mobile_forecast:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        auto_close: true
+        style:
+          background: linear-gradient(rgba(150,150,150,1), 20%, rgba(0,0,0,0.95))
+          font-size: 1.25em
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px dimgray
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+          overflow: hidden
+        card:
+          type: custom:card-modder
+          style:
+            background-image: "url(/local/images-lovelace/WIII_tranz/[[ input_select.auto_cardz.state ]].png)" #url("/local/backgroundz/ClearPNG.png") # 
+            background-repeat: no-repeat
+            background-size: 100% 100%
+            height: 680px
+            overflow: hidden
+          card:
+            type: custom:weather-card
+            entity: weather.dark_sky
+############################################################
+forecast_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        auto_close: true
+        style:
+          background-color: black
+          "--primary-text-color": white
+          font-size: 1.75em
+          text-transform: capitalize
+          font-variant: small-caps
+          border-radius: 10px
+          border: solid 8px rgb(204, 204, 204)
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: 'custom:dark-sky-weather-card'
+          entity_current_conditions: sensor.dark_sky_icon
+          entity_temperature: sensor.dark_sky_temperature
+          entity_forecast_high_temp_1: sensor.dark_sky_daytime_high_temperature_1d
+          entity_forecast_high_temp_2: sensor.dark_sky_daytime_high_temperature_2d
+          entity_forecast_high_temp_3: sensor.dark_sky_daytime_high_temperature_3d
+          entity_forecast_high_temp_4: sensor.dark_sky_daytime_high_temperature_4d
+          entity_forecast_high_temp_5: sensor.dark_sky_daytime_high_temperature_5d
+          entity_forecast_icon_1: sensor.dark_sky_icon_1d
+          entity_forecast_icon_2: sensor.dark_sky_icon_2d
+          entity_forecast_icon_3: sensor.dark_sky_icon_3d
+          entity_forecast_icon_4: sensor.dark_sky_icon_4d
+          entity_forecast_icon_5: sensor.dark_sky_icon_5d
+          entity_forecast_low_temp_1: sensor.dark_sky_overnight_low_temperature_0d
+          entity_forecast_low_temp_2: sensor.dark_sky_overnight_low_temperature_1d
+          entity_forecast_low_temp_3: sensor.dark_sky_overnight_low_temperature_2d
+          entity_forecast_low_temp_4: sensor.dark_sky_overnight_low_temperature_3d
+          entity_forecast_low_temp_5: sensor.dark_sky_overnight_low_temperature_4d
+          entity_summary_1: sensor.dark_sky_summary_1d
+          entity_summary_2: sensor.dark_sky_summary_2d
+          entity_summary_3: sensor.dark_sky_summary_3d
+          entity_summary_4: sensor.dark_sky_summary_4d
+          entity_summary_5: sensor.dark_sky_summary_5d
+          entity_sun: sun.sun
+          entity_visibility: sensor.dark_sky_visibility
+          entity_daytime_high: sensor.dark_sky_daytime_high_temperature_0d
+          entity_wind_bearing: sensor.dark_sky_wind_bearing
+          entity_wind_speed: sensor.dark_sky_wind_speed
+          entity_humidity: sensor.dark_sky_humidity
+          entity_pressure: sensor.dark_sky_pressure
+          entity_apparent_temp: sensor.dark_sky_apparent_temperature
+          entity_daily_summary: sensor.dark_sky_daily_summary
+          entity_pop: sensor.dark_sky_precip_probability_0d
+          entity_pop_1: sensor.dark_sky_precip_probability_1d
+          entity_pop_2: sensor.dark_sky_precip_probability_2d
+          entity_pop_3: sensor.dark_sky_precip_probability_3d
+          entity_pop_4: sensor.dark_sky_precip_probability_4d
+          entity_pop_5: sensor.dark_sky_precip_probability_5d
+          entity_current_text: sensor.dark_sky_current_text
+############################################################
+lights_on_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        title: Lights, Fans & Switches On
+        style:
+          background: url("/local/images-lovelace/backgroundz/light-bulbs.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px lime
+          "--primary-text-color": white
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 60px
+          "--iron-icon-width": 60px
+          "--iron-icon-stroke-color": black
+          "--app-toolbar-font-size": 1.3em
+          text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
+          font-size: 1.625em
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: entities
+          entities:
+            - type: custom:auto-entities
+              show_empty: true
+              card:
+                type: glance
+                show_state: false
+              filter:
+                include:
+                  - domain: light
+                    state: "on"
+                    options:
+                      tap_action:
+                        action: toggle
+                  - domain: switch
+                    state: "on"
+                    options:
+                      tap_action:
+                        action: toggle
+                exclude: 
+                  - entity_id: switch.cabinet_sw2
+                  - entity_id: switch.kitchen_cabinet_lights
+                  - entity_id: switch.kitchen_stove_light
+                  - entity_id: switch.office_monitor
+                  - entity_id: switch.cabinet_sw2
+                  - entity_id: switch.kitchen_cabinet_lights
+                  - entity_id: switch.kitchen_stove_light
+                  - entity_id: switch.office_monitor
+                  - entity_id: switch.living_room_lamp_sw2
+                  - entity_id: switch.living_room_lamp_switch
+                  - entity_id: switch.hall_switch_2
+                  - entity_id: switch.hall_switch_1
+                  - entity_id: switch.front_flood_lights_switch
+                  - entity_id: switch.foyer_light_switch
+                  - entity_id: switch.fountain_switch
+                  - entity_id: switch.ceiling_left_sw
+                  - entity_id: switch.ceiling_right_sw
+                  - entity_id: switch.hallway_switch
+                  - entity_id: switch.coffee_light
+                  - entity_id: switch.tv_accent_lights
+                  - entity_id: switch.foyer_accent_lights
+############################################################
+mobile_alarms:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/backgroundz/black_tex.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 2.6em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: 'custom:card-modder'
+              style:
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
+                height: 20px
+              card:
+                content: ' '
+                type: markdown
+            - type: 'custom:card-modder'
+              style:
+                border-radius: 12px
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0) 
+                padding: 0px 0px 10px 10px
+                height: 28px
+                font-family: Righteous
+              card:
+                content: '# Smoke Alarms'
+                type: markdown
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.bedroom_smoke_detected
+                    - name: Master Smoke
+                    - icon: "mdi:smoke-detector"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.garage_smoke_detected
+                    - name: Garage Smoke
+                    - icon: "mdi:smoke-detector"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.guest_smoke_detected
+                    - name: Guest Smoke
+                    - icon: "mdi:smoke-detector"
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.laundry_smoke_detected
+                    - name: Laundry Smoke
+                    - icon: "mdi:smoke-detector"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.office_smoke_detected
+                    - name: Office Smoke
+                    - icon: "mdi:smoke-detector"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: sensor.kitchen_nest_protect_smoke_status
+                    - name: Kitchen Smoke
+                    - icon: "mdi:smoke-detector"
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: sensor.kitchen_nest_protect_smoke_status
+                    - name: Hallway Smoke
+                    - icon: "mdi:smoke-detector"
+            - type: 'custom:card-modder'
+              style:
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
+                height: 40px
+              card:
+                content: ' '
+                type: markdown
+            - type: 'custom:card-modder'
+              style:
+                border-radius: 12px
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0) 
+                padding: 0px 0px 10px 10px
+                height: 28px
+                font-family: Righteous
+              card:
+                content: '# Water Leak Alarms'
+                type: markdown
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.washer_leak
+                    - name: Washer
+                    - icon: "mdi:water-off"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.water_heater
+                    - name: Water Heater
+                    - icon: "mdi:water-off"
+############################################################
+mobile_rambo_cam:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: more-info
+        entity_id: camera.rambo_cam
+        large: true
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+############################################################
+mobile_entrances:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        auto_close: true #title: 'Entry Points'
+        style:
+          background: url("/local/images-lovelace/backgroundz/black_tex.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 2.6em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: 'custom:card-modder'
+              style:
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
+                height: 20px
+              card:
+                content: ' '
+                type: markdown
+            - type: 'custom:card-modder'
+              style:
+                border-radius: 12px
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0) 
+                padding: 0px 0px 10px 10px
+                height: 28px
+                font-family: Righteous
+              card:
+                content: '# Doors'
+                type: markdown
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.front_door
+                    - name: Front Door
+                    - icon: "mdi:door"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.side_door_k
+                    - name: Side Door
+                    - icon: "mdi:door"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.back_door_k
+                    - name: Back Door
+                    - icon: "mdi:door"
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: 'custom:card-modder'
+              style:
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
+                height: 40px
+              card:
+                content: ' '
+                type: markdown
+            - type: 'custom:card-modder'
+              style:
+                border-radius: 12px
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0) 
+                padding: 0px 0px 10px 10px
+                height: 28px
+                font-family: Righteous
+              card:
+                content: '# Windows'
+                type: markdown
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.den_windows
+                    - name: Living Room
+                    - icon: "mdi:window-closed"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.garage_windows
+                    - name: Garage
+                    - icon: "mdi:window-closed"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.kitchen_bay_windows
+                    - name: Dining Room
+                    - icon: "mdi:window-closed"
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.kitchen_sink_windows
+                    - name: Kitchen
+                    - icon: "mdi:window-closed"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.mbath_glass_break
+                    - name: Ensuite
+                    - icon: "mdi:window-closed"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.mbath_window
+                    - name: Water Closet
+                    - icon: "mdi:window-closed"
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.mbdrm_windows
+                    - name: Master
+                    - icon: "mdi:window-closed"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.office_windows
+                    - name: Office
+                    - icon: "mdi:window-closed"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.tristans_window
+                    - name: Guest Room
+                    - icon: "mdi:window-closed"
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+############################################################
+mobile_front_yard:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: 'Front & Driveway'
+        style:
+          background: url("/local/images-lovelace/backgroundz/black_tex.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px 
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.front_door
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: switch_button2_temp
+                  variables:
+                    - entity: switch.porch_light
+                    - name: Porch Light
+                    - icon: "mdi:lightbulb"
+                - type: custom:decluttering-card
+                  template: motion_button2_temp
+                  variables:
+                    - entity: binary_sensor.front_door
+                    - name: Front Door
+                    - icon: "mdi:door"
+                - type: custom:decluttering-card
+                  template: motion_button2_temp
+                  variables:
+                    - entity: binary_sensor.front_motion
+                    - name: Front Motion
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px 
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.driveway_cam
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: switch_button2_temp
+                  variables:
+                    - entity: switch.side_door_light
+                    - name: Side Light
+                    - icon: "mdi:lightbulb"
+                - type: custom:decluttering-card
+                  template: switch_button2_temp
+                  variables:
+                    - entity: switch.front_flood_lights
+                    - name: Flood Light
+                    - icon: "mdi:lightbulb"
+                - type: custom:decluttering-card
+                  template: motion_button2_temp
+                  variables:
+                    - entity: binary_sensor.driveway_motion
+                    - name: Side Motion
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+############################################################
+mobile_back_yard:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: 'Backyard'
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px 
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.patio_cam
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: entities
+              entities:
+                - type: custom:bar-card
+                  severity:
+                    - value: 100
+                      color: 'rgba(0, 255, 0,0.5)'
+                  title_position: inside
+                  tap_action: info
+                  columns: 1
+                  padding: 2px
+                  align: split
+                  rounding: 10px
+                  saturation: 75%
+                  height: 50px
+                  card_style:
+                    background: "rgba(0, 0, 0, 0.4)"
+                    border-radius: 10px
+                  title_style:
+                    font-size: 26px
+                    font-variant: small-caps
+                    color: '#F2F2F2'
+                    text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+                  value_style:
+                    font-size: 28px
+                    font-weight: bold
+                  entities:
+                    - sensor.shelly_shht_1_5a8b31_humidity
+                    - sensor.shelly_shht_1_5a8b31_temperature
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: fan_button_temp
+                  variables:
+                    - entity: switch.patio_fan
+                    - name: Patio Fan
+                    - icon: "mdi:fan"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.fountain
+                    - name: Fountain
+                    - icon: "mdi:water-pump"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.back_flood_lights
+                    - name: Back Floods
+                    - icon: 'mdi:lightbulb'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.patio_light
+                    - name: Patio Light
+                    - icon: "mdi:lightbulb"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.back_door_k
+                    - name: Back Door
+                    - icon: "mdi:door"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.back_motion
+                    - name: Patio Motion
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+############################################################
+mobile_motion:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/backgroundz/black_tex.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 2.6em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: 'custom:card-modder'
+              style:
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
+                height: 20px
+              card:
+                content: ' '
+                type: markdown
+            - type: 'custom:card-modder'
+              style:
+                border-radius: 12px
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0) 
+                padding: 0px 0px 10px 10px
+                height: 28px
+                font-family: Righteous
+              card:
+                content: '# Motion Sensors'
+                type: markdown
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 10px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.front_motion
+                    - name: Front
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.driveway_motion
+                    - name: Driveway
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.back_motion
+                    - name: Patio
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.bedroom_motion
+                    - name: Master
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.den_motion
+                    - name: Den
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.entry_hall_motion
+                    - name: Entry Hall
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.office_motion
+                    - name: Office
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.garage_motion
+                    - name: Garage
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.hall_motion
+                    - name: Hall
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.hallway_motion
+                    - name: Hallway
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.hallway_rf_motion
+                    - name: Hallway (up)
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.kitchen_motion
+                    - name: Kitchen
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.living_room_motion
+                    - name: Den (low)
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.mbath_motion
+                    - name: En Suite
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.movement
+                    - name: Kiosk
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+############################################################
+all_devices:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: '...All Devices...' 
+        style:
+          background: url("/local/images-lovelace/mobile_backz/mobile16.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px lime
+          "--primary-text-color": white
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 40px
+          "--iron-icon-width": 40px
+          "--iron-icon-stroke-color": black
+          "--app-toolbar-font-size": 1.65em
+          "--paper-toggle-button-checked-button-color": lime
+          text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
+          font-size: 20px
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: entities
+          entities:
+            - type: custom:auto-entities
+              show_empty: true
+              card:
+                type: glance
+                show_state: false
+                columns: 3
+              filter:
+                include:
+                  - domain: light
+                    options:
+                      tap_action:
+                        action: toggle
+                  - domain: switch
+                    options:
+                      tap_action:
+                        action: toggle
+                exclude: 
+                  - entity_id: switch.cabinet_sw2
+                  - entity_id: switch.kitchen_cabinet_lights
+                  - entity_id: switch.kitchen_stove_light
+                  - entity_id: switch.office_monitor
+                  - entity_id: switch.cabinet_sw2
+                  - entity_id: switch.kitchen_cabinet_lights
+                  - entity_id: switch.kitchen_stove_light
+                  - entity_id: switch.office_monitor
+                  - entity_id: switch.living_room_lamp_sw2
+                  - entity_id: switch.living_room_lamp_switch
+                  - entity_id: switch.hall_switch_2
+                  - entity_id: switch.hall_switch_1
+                  - entity_id: switch.front_flood_lights_switch
+                  - entity_id: switch.foyer_light_switch
+                  - entity_id: switch.fountain_switch
+                  - entity_id: switch.ceiling_left_sw
+                  - entity_id: switch.ceiling_right_sw
+                  - entity_id: switch.hallway_switch
+############################################################
+mobile_lights_on:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: '... Currently "ON"...' 
+        style:
+          background: url("/local/images-lovelace/mobile_backz/mobile16.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px lime
+          "--primary-text-color": white
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 40px
+          "--iron-icon-width": 40px
+          "--iron-icon-stroke-color": black
+          "--app-toolbar-font-size": 1.65em
+          "--paper-toggle-button-checked-button-color": lime
+          text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
+          font-size: 1.375em
+          text-transform: capitalize
+          font-variant: small-caps
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: entities
+          entities:
+            - type: custom:auto-entities
+              show_empty: true
+              card:
+                type: entities
+                show_state: false
+              filter:
+                include:
+                  - domain: light
+                    state: "on"
+                    options:
+                      tap_action:
+                        action: toggle
+                  - domain: switch
+                    state: "on"
+                    options:
+                      tap_action:
+                        action: toggle
+                exclude: 
+                  - entity_id: switch.cabinet_sw2
+                  - entity_id: switch.kitchen_cabinet_lights
+                  - entity_id: switch.kitchen_stove_light
+                  - entity_id: switch.office_monitor
+                  - entity_id: switch.cabinet_sw2
+                  - entity_id: switch.kitchen_cabinet_lights
+                  - entity_id: switch.kitchen_stove_light
+                  - entity_id: switch.office_monitor
+                  - entity_id: switch.living_room_lamp_sw2
+                  - entity_id: switch.living_room_lamp_switch
+                  - entity_id: switch.hall_switch_2
+                  - entity_id: switch.hall_switch_1
+                  - entity_id: switch.front_flood_lights_switch
+                  - entity_id: switch.foyer_light_switch
+                  - entity_id: switch.fountain_switch
+                  - entity_id: switch.ceiling_left_sw
+                  - entity_id: switch.ceiling_right_sw
+                  - entity_id: switch.hallway_switch
+                  - entity_id: switch.coffee_light
+                  - entity_id: switch.tv_accent_lights
+                  - entity_id: switch.foyer_accent_lights
+############################################################
+system_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        title: SYSTEM STATISTICS
+        auto_close: true
+        style:
+          background-image: url("/local/images-lovelace/backgroundz/ledlite.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 20px
+          border: solid 8px blue
+          "--primary-text-color": white
+          font-size: 1.7em
+          font-weight: bold
+          text-transform: capitalize
+          font-variant: small-caps
+          color: "#FFF"
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: entities
+          show_header_toggle: false
+          entities:
+            - type: custom:vertical-stack-in-card
+              cards:
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:bar-card
+                      title: CPU
+                      title_position: inside
+                      hue: 240
+                      align: split
+                      height: 80px
+                      rounding: 8px
+                      padding-left: 2px
+                      padding-right: 8px
+                      entity: sensor.processor_use
+                      card_style:
+                        background: rgba(0, 0, 204,0.35)
+                        box-shadow: none
+                        border-radius: 10px
+                      title_style:
+                        font-size: 30px
+                      value_style:
+                        font-size: 30px
+                    - type: custom:bar-card
+                      title: RAM
+                      title_position: inside
+                      hue: 240
+                      align: split
+                      height: 80px
+                      rounding: 8px
+                      padding-left: 2px
+                      padding-right: 8px
+                      entity: sensor.memory_use_percent
+                      card_style:
+                        background: rgba(0, 0, 204,0.45)
+                        box-shadow: none
+                        border-radius: 10px
+                      title_style:
+                        font-size: 30px
+                      value_style:
+                        font-size: 30px
+                    - type: custom:bar-card
+                      title: Disk
+                      title_position: inside
+                      hue: 240
+                      align: split
+                      height: 80px
+                      rounding: 8px
+                      padding-left: 2px
+                      padding-right: 8px
+                      entity: sensor.disk_free
+                      card_style:
+                        background: rgba(0, 0, 204,0.35)
+                        box-shadow: none
+                        border-radius: 10px
+                      title_style:
+                        font-size: 30px
+                      value_style:
+                        font-size: 30px
+            - sensor.speedtest_download
+            - sensor.last_boot
+            - sensor.uptime
+            - sensor.ha_latest_version
+            - binary_sensor.remote_ui
+            - type: section
+              label: " "
+            - type: section
+              label: Google WiFi
+            - type: section
+              label: " "
+            - sensor.google_wifi_status
+            - sensor.google_wifi_new_version
+            - sensor.google_wifi_uptime
+            - sensor.google_wifi_last_restart
+############################################################
+smoke_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - OfficePC
+          - OfficeTab LAN
+          - Kiosk
+        title: "... Smoke Detectors ..."
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/backgroundz/detect02.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--primary-text-color": white
+          "--paper-item-icon-color": dimgray
+          "--paper-item-icon-active-color": red
+          "--iron-icon-height": 50px
+          "--iron-icon-width": 50px
+          "--app-toolbar-font-size": 1.3em
+          border-radius: 15px
+          border: solid 3px crimson
+          font-size: 20px
+          font-weight: bold
+          text-shadow: "1px 1px 2px black, 0 0 25px red, 0 0 5px firebrick"
+          height: 100%
+          width: 100%
+          margin: 0
+        card:
+          type: entities
+          entities:
+            - type: custom:dummy-entity-row
+              entity: sun.sun
+              icon: mdi:this-icon-does-not-exist
+              name: " "
+            - type: custom:dummy-entity-row
+              entity: sun.sun
+              icon: mdi:this-icon-does-not-exist
+              name: " "
+            - type: 'custom:hui-glance-card'
+              columns: 2
+              entities:
+                - type: entity-button
+                  entity: binary_sensor.bedroom_smoke_detected
+                  name: Bedroom
+                - type: entity-button
+                  entity: binary_sensor.garage_smoke_detected
+                  name: Garage
+                - type: entity-button
+                  entity: binary_sensor.guest_smoke_detected
+                  name: Guest
+                - type: entity-button
+                  entity: binary_sensor.laundry_smoke_detected
+                  name: Laundry
+                - type: entity-button
+                  entity: sensor.hallway_nest_protect_smoke_status
+                  name: Hallway
+                - type: entity-button
+                  entity: sensor.kitchen_nest_protect_smoke_status
+                  name: Kitchen
+            - type: 'custom:hui-glance-card'
+              columns: 1
+              entities:
+                - type: entity-button
+                  entity: binary_sensor.office_smoke_detected
+                  name: Office
+############################################################
+###               TIMERS & ALARM SCRIPTS                 ###
+############################################################
+fountain_timer:
+  sequence:
+    - condition: state
+      entity_id: switch.fountain
+      state: 'off'
+    - service: switch.turn_on
+      entity_id: switch.fountain
+    - delay: '00:10:00'
+    - service: switch.turn_off
+      entity_id: switch.fountain
+############################################################
+side_light_timer:
+  sequence:
+    - condition: state
+      entity_id: switch.side_door_light
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.disable_exterior_auto_lights
+      state: 'off'
+    - service: switch.turn_on
+      entity_id: switch.side_door_light
+    - delay: '02:00:00'
+    - service: switch.turn_off
+      entity_id: switch.side_door_light
+############################################################
+coffee_on:
+  sequence:
+    - service: switch.turn_on
+      entity_id: 
+        - switch.coffee_maker
+        - switch.coffee_light
+    - service: notify.darren
+      data:
+        title: "New Life Alert"
+        message: "Coffee Maker ON!"
+############################################################
+## Darren's wake up alarm
+darrens_wake_up:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.darrens_work_alarm
+      state: 'on'
+    - service: light.turn_on
+      data:
+        entity_id: light.corner_light
+        brightness_pct: 10
+        transition: 4
+    - delay: '00:01:00'
+    - service: light.turn_on
+      data:
+        entity_id: light.corner_light
+        brightness_pct: 30
+        transition: 4
+    - delay: '00:01:00'
+    - service: light.turn_on
+      data:
+        entity_id: light.bed_light
+        brightness_pct: 10
+        transition: 4
+    - delay: '00:01:00'
+    - service: light.turn_on
+      data:
+        entity_id: light.bed_light
+        brightness_pct: 30
+        transition: 2
+    - delay: '00:02:00'
+    - service: light.turn_on
+      entity_id: light.22507506807d3a4c9f35 # office desk light
+    - service: switch.turn_off
+      entity_id:
+        - switch.air_cleaner
+############################################################
+# Donna's wake up alarm
+donnas_wake_up:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.22507506807d3a4cab3f # darrens lamp
+        brightness_pct: 15
+        transition: 2
+    - delay: '00:04:00'
+    - service: light.turn_on
+      data:
+        entity_id: light.22507506807d3a4cab3f # darrens lamp
+        brightness_pct: 25
+        transition: 2
+    - delay: '00:04:00'
+    - service: light.turn_on
+      data:
+        entity_id: light.22507506807d3a4c9e4b # donnas lamp
+        brightness_pct: 15
+        transition: 2
+    - service: media_player.turn_on
+      data:
+        entity_id: media_player.bedroom_speaker
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.bedroom_speaker
+        volume_level: '0.45'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.bedroom_speaker
+      data_template:
+        message: > 
+          Good morning. '{{ ["Your husband loves you so much!", "You are a child of God.", "Have a blessed day!", "Your husband loves you so much!", "God is good ALL the time!"] | random }}'
+    - delay: '00:01:00'
+    - service: light.turn_on
+      data:
+        entity_id: light.22507506807d3a4c9e4b # donnas lamp
+        brightness_pct: 35
+        transition: 2
+    - delay: '00:35:00'
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.bedroom_lamps
+    - service: input_boolean.turn_off
+      entity_id:
+        - input_boolean.notifications
+        - input_boolean.voice_notifications
+    - delay: '00:30:00'
+    - service: input_boolean.turn_on
+      entity_id:
+        - input_boolean.notifications
+        - input_boolean.voice_notifications
+        - input_boolean.auto_backgroundz
+############################################################
+###                   PRESENCE SCRIPTS                   ###
+############################################################
+# Darren Home
+darren_home:
+  sequence:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.darren_home
+    - service: homeassistant.turn_on
+      entity_id: 
+        - light.bed_light
+        - light.corner_light
+        - light.22507506807d3a4c9f35 # office_desk_light
+        - switch.office_monitor
+        - switch.living_room_fan
+    - condition: state
+      entity_id: cover.garage_door
+      state: closed
+    - service: homeassistant.turn_on
+      entity_id: 
+        - switch.garage_door
+############################################################
+# Darren Away
+darren_away:
+  sequence:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.darren_home
+    - service: homeassistant.turn_off
+      entity_id: 
+        - light.22507506807d3a4c9f35 # office_desk_light
+        - light.bed_light
+        - light.corner_light
+        - switch.office_monitor
+        - switch.living_room_fan
+############################################################
+# People Home
+people_home:
+  sequence:
+    - service: homeassistant.turn_on
+      entity_id:
+        - input_boolean.disable_garage_notify
+        - input_boolean.people_home_boolean
+        - input_boolean.auto_tablet
+        - input_boolean.auto_backgroundz
+        - input_boolean.disable_inside_popups
+    - service: homeassistant.turn_off
+      entity_id:
+        - input_boolean.disable_popups
+        - input_boolean.notifications
+        - input_boolean.voice_notifications
+        - switch.radio_wtemp_humid
+    - service: notify.notify_all
+      data:
+        title: "New Life Alert"
+        message: "Jesus Freakz Home!"
+############################################################
+# People Away
+people_away:
+  sequence:
+    - service: homeassistant.turn_off
+      entity_id:
+        - input_boolean.disable_garage_notify
+        - input_boolean.people_home_boolean
+        - input_boolean.motion_tv_alert
+        - input_boolean.auto_tablet
+        - input_boolean.auto_cameras
+        - input_boolean.disable_popups
+        - input_boolean.disable_inside_popups
+    - service: homeassistant.turn_on
+      entity_id:
+        - input_boolean.notifications
+        - input_boolean.voice_notifications
+        - input_boolean.driveway_motion_lights
+        - switch.radio_wtemp_humid
+    - service: notify.notify_all
+      data:
+        title: "New Life Alert"
+        message: "Jesus Freakz Gone!"
+############################################################
+# Auto Notifications
+notifications_auto_on:
+  sequence:
+    - service: input_boolean.turn_on
+      entity_id:
+        - input_boolean.notifications
+        - input_boolean.driveway_motion_lights
+    - service: input_boolean.turn_off
+      entity_id:
+        - input_boolean.voice_notifications
+        - input_boolean.disable_garage_notify
+        - input_boolean.disable_popups
+        - input_boolean.auto_tablet
+        - input_boolean.auto_backgroundz
+        - input_boolean.motion_tv_alert  # for camera stream via chromecast
+    - service: notify.html5_pixel_2_xl
+      data:
+        message: "Notifications turned ON"
+    - service: tts.google_say
+      entity_id: media_player.office_google
+      data_template:
+        message: "Notifications turned on"
+    - service: script.off_screen
+############################################################
+# Restart HASS
+restart_ha:
+  sequence:
+    - service: homeassistant.restart
+############################################################
+# Reload Automations
+reload_automations:
+  sequence:
+    - service: automation.reload
+############################################################
+###            DOORS, MOTION, LIGHTS SCRIPTS             ###
+############################################################
+# Outside OFF
+outside_all_off:
+  sequence:
+    - service: homeassistant.turn_off
+      entity_id:
+        - group.front_yard
+        - group.backyard
+############################################################
+# Outside Lights ON
+outside_lights_on:
+  sequence:
+    - service: homeassistant.turn_on
+      entity_id:
+        - group.exterior_lighting
+############################################################
+# Garage Entry Light
+garage_entry_light:
+  sequence:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon 
+    - condition: state
+      entity_id: input_boolean.disable_interior_auto_lights
+      state: 'off'
+    - condition: state
+      entity_id: switch.garage_ceiling_lights
+      state: 'off'
+    - service: switch.turn_on
+      entity_id: switch.garage_ceiling_lights
+    - delay: '00:07:00'
+    - service: switch.turn_off
+      entity_id: switch.garage_ceiling_lights
+############################################################
+# Garage Entry Door Voice
+garage_entry_voice:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.voice_notifications
+      state: 'on'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.60'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.living_room_google
+      data_template:
+        message: "The garage entry door has been opened!"
+############################################################
+# Garage Entry Door Notify
+garage_entry_door_open:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.notifications
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.garage_entry_door_k
+      state: 'on'
+    - delay: '00:00:10'
+    - service: script.garage_entry_door_open_loop
+############################################################
+# Garage Entry Door Open Loop
+garage_entry_door_open_loop:
+  sequence:
+    - condition: state
+      entity_id: binary_sensor.garage_entry_door_k
+      state: 'on'
+    - service: mqtt.publish
+      data_template:
+        {"topic":"alarmpanel/command", "payload":"{'speak':'Garage entry door open. Please close the door!'}"}
+    - service: notify.darren
+      data:
+        title: "New Life Alert"
+        message: "GARAGE ENTRY door open"
+    - delay:
+        milliseconds: 100
+    - service: script.garage_entry_door_open
+############################################################
+## '[Motion TV on] Garage'
+garage_motion_tv:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.motion_tv_alert
+      state: 'on'
+    - service: media_player.turn_on
+      entity_id: media_player.living_room_tv
+    - service: camera.play_stream
+      data:
+        entity_id: camera.garage_cam
+        media_player: media_player.living_room_tv
+############################################################
+# Garage Door notify voice
+garage_notify:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.voice_notifications
+      state: 'on'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.60'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.living_room_google
+      data_template:
+        message: "You have a visitor in the garage"
+############################################################
+# Side Door Voice
+side_door_voice:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.voice_notifications
+      state: 'on'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.60'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.living_room_google
+      data_template:
+        message: "The side door has been opened!"
+############################################################
+# Side Door Open
+side_door_open:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.notifications
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.side_door_k
+      state: 'on'
+    - delay: '00:00:10'
+    - service: script.side_door_open_loop
+############################################################
+# Side Door Open Loop
+side_door_open_loop:
+  sequence:
+    - condition: state
+      entity_id: binary_sensor.side_door_k
+      state: 'on'
+    - service: mqtt.publish
+      data_template:
+        {"topic":"alarmpanel/command", "payload":"{'speak':'Side door open. Please close the door!'}"}
+    - service: notify.darren
+      data:
+        title: "New Life Alert"
+        message: "SIDE door open"
+    - delay:
+        milliseconds: 100
+    - service: script.side_door_open
+############################################################
+## '[Auto Light] Back door'
+back_door_light:
+  sequence:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon 
+    - condition: state
+      entity_id: input_boolean.disable_exterior_auto_lights
+      state: 'off'
+    - condition: state
+      entity_id: switch.patio_light
+      state: 'off'
+    - service: switch.turn_on
+      entity_id: switch.patio_light
+    - delay: '00:08:00'
+    - service: switch.turn_off
+      entity_id: switch.patio_light
+############################################################
+## '[Notify] Back door'
+back_door_notify:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.notifications
+      state: 'on'
+    - service: notify.darren
+      data:
+        title: "New Life Alert"
+        message: "BACK door opened"
+    - condition: state
+      entity_id: input_boolean.voice_notifications
+      state: 'on'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.60'
+    - delay: '00:00:02'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.living_room_google
+      data_template:
+        message: "Back door has been opened!"
+############################################################
+## [Motion TV on] Front door
+front_motion_tv:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.motion_tv_alert
+      state: 'on'
+    - service: media_player.turn_on
+      entity_id: media_player.living_room_tv
+    - service: camera.play_stream
+      data:
+        entity_id: camera.front_door
+        media_player: media_player.living_room_tv
+############################################################
+## '[Auto Light] Front door'
+front_door_light:
+  sequence:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon 
+    - condition: state
+      entity_id: input_boolean.disable_exterior_auto_lights
+      state: 'off'
+    - condition: state
+      entity_id: switch.porch_light
+      state: 'off'
+    - service: switch.turn_on
+      entity_id: switch.porch_light
+    - delay: '00:07:00'
+    - service: switch.turn_off
+      entity_id: switch.porch_light
+############################################################
+## '[Notify] Front door'
+front_door_notify:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.notifications
+      state: 'on'
+    - service: notify.darren
+      data:
+        title: "New Life Alert"
+        message: "FRONT door opened"
+    - service: notify.darren
+      data:
+        title: "New Life Alert"
+        message: "FRONT door opened"
+    - condition: state
+      entity_id: input_boolean.voice_notifications
+      state: 'on'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.65'
+    - delay: '00:00:02'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.living_room_google
+      data_template:
+        message: "Front door has been opened!"
+    - delay: '00:02:00'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.35'
+############################################################
+#  Motion ON driveway NOTIFY
+driveway_notify:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.notifications
+      state: 'on'
+    - service: notify.notify_all
+      data:
+        title: "New Life Alert"
+        message: "Driveway Motion Detected!"
+    - condition: state
+      entity_id: input_boolean.voice_notifications
+      state: 'on'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.60'
+#    - delay: '00:00:02'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.living_room_google
+      data_template:
+        message: "You have a visitor at the side door"
+############################################################
+## '[Auto On] Driveway Light'
+driveway_light:
+  sequence:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon 
+    - condition: state
+      entity_id: input_boolean.driveway_motion_lights
+      state: 'on'
+    - service: homeassistant.turn_on
+      entity_id: group.front_yard
+    - delay: '00:07:00'
+    - service: homeassistant.turn_off
+      entity_id: group.front_yard
+############################################################
+#  Motion ON patio NOTIFY
+patio_motion:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.notifications
+      state: 'on'
+    - service: notify.darren
+      data:
+        title: "New Life Alert"
+        message: "Back Motion Detected!"
+    - condition: state
+      entity_id: input_boolean.voice_notifications
+      state: 'on'
+    - delay: '00:00:04'
+    - condition: state
+      entity_id: binary_sensor.back_door_k
+      state: 'off'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.60'
+    - delay: '00:00:02'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.living_room_google
+      data_template:
+        message: "You have a visitor on the patio"
+############################################################
+#  Motion ON patio Light
+patio_light:
+  sequence:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon 
+    - condition: state
+      entity_id: switch.patio_light
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.disable_exterior_auto_lights
+      state: 'off'
+    - service: switch.turn_on
+      entity_id: switch.patio_light
+    - delay: '00:10:00'
+    - service: switch.turn_off
+      entity_id: switch.patio_light
+############################################################
+#  Motion ON porch NOTIFY
+front_notify:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.notifications
+      state: 'on'
+    - service: notify.notify_all
+      data:
+        title: "New Life Alert"
+        message: "Front Motion Detected!"
+    - condition: state
+      entity_id: input_boolean.voice_notifications
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.front_door
+      state: 'off'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.foyer_speaker
+        volume_level: '0.80'
+    - delay: '00:00:02'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.foyer_speaker
+      data_template:
+        message: "You have a visitor at the front door"
+############################################################
+## 'Motion ON porch light'
+front_light:
+  sequence:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon 
+    - condition: state
+      entity_id: input_boolean.disable_exterior_auto_lights
+      state: 'off'
+    - condition: state
+      entity_id: switch.porch_light
+      state: 'off'
+    - service: switch.turn_on
+      entity_id: switch.porch_light
+    - delay: '00:10:00'
+    - service: switch.turn_off
+      entity_id: switch.porch_light
+############################################################
+# Motion Office
+motion_office:
+  sequence:
+    - condition: state
+      entity_id: switch.office_ceiling_light
+      state: 'off'
+    - service: tts.google_say
+      entity_id: media_player.office_google
+      data_template:
+        message: "Hello. Welcome to my office"
+    - service: notify.darren
+      data:
+        title: "New Life Alert"
+        message: "Office Motion"
+    - service: switch.turn_on
+      entity_id: switch.office_ceiling_light
+    - delay: '00:00:45'
+    - service: switch.turn_off
+      entity_id: switch.office_ceiling_light
+############################################################
+## '[Notify] Water Heater Leak'
+water_heater_leak:
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.inside_group
+        volume_level: '0.70'
+    - delay: '00:00:06'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.inside_group
+      data_template:
+        message: "Water heater is Leaking! Call someone NOW!!!"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alarm
+    - service: script.water_heater_leak_loop
+    - condition: state
+      entity_id: binary_sensor.water_heater
+      state: 'off'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - delay: '00:00:10'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.inside_group
+        volume_level: '0.30'
+############################################################
+## '[Notify] Water Heater Leak LOOP'
+water_heater_leak_loop:
+  sequence:
+    - delay: '00:01:00'
+    - condition: state
+      entity_id: binary_sensor.water_heater
+      state: 'on'
+    - service: script.water_heater_leak
+############################################################
+## '[Notify] Washing Machine Leak'
+washer_leak:
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.inside_group
+        volume_level: '0.70'
+    - delay: '00:00:06'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.inside_group
+      data_template:
+        message: "Washing machine is Leaking! Call someone NOW!!!"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alarm
+    - service: script.washer_leak_loop
+    - condition: state
+      entity_id: binary_sensor.washer_leak
+      state: 'off'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - delay: '00:00:10'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.inside_group
+        volume_level: '0.30'
+############################################################
+## '[Notify] Washer Leak LOOP'
+washer_leak_loop:
+  sequence:
+    - delay: '00:01:00'
+    - condition: state
+      entity_id: binary_sensor.washer_leak
+      state: 'on'
+    - service: script.washer_leak
+############################################################
+###                    NEST  SCRIPTS                     ###
+############################################################
+# Nest Set Away
+nest_set_away:
+  sequence:
+    - service: nest.set_away_mode
+      data:
+        away_mode: away
+# Nest Set Home
+nest_set_home:
+  sequence:
+    - service: nest.set_away_mode
+      data:
+        away_mode: home
+############################################################
+###                    ALARM SCRIPTS                     ###
+############################################################
+# Arm/Disarm New Life Alarm
+alarm_arm:
+  sequence:
+    - service: alarm_control_panel.alarm_arm_away
+      entity_id: alarm_control_panel.ha_alarm
+      data:
+        code: !secret alarm_code
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.alarm_arm_away_switch
+
+alarm_arm_home:
+  sequence:
+    - service: alarm_control_panel.alarm_arm_home
+      entity_id: alarm_control_panel.ha_alarm
+      data:
+        code: !secret alarm_code
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.alarm_arm_home
+
+alarm_disarm:
+  sequence:
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.ha_alarm
+      data:
+        code: !secret alarm_code
+    - service: script.siren_lights_disarm
+    - service: script.disarm_not_triggered
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.alarm_disarm_switch
+############################################################
+# [Alarm] Disarmed Lights Off
+siren_lights_disarm:
+  sequence:
+    - condition: state
+      entity_id: switch.siren_2
+      state: 'on'
+    - service: switch.turn_off
+      data:
+        entity_id: switch.siren_2
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.alarm_triggered_lights
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.disable_alarm_lights
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - service: notify.notify_all
+      data:
+        title: "New Life Security"
+        message: "Disarmed Lights and Siren"
+############################################################
+#- alias: '[Alarm] Disarmed Off'
+disarm_not_triggered:
+  sequence:
+    - condition: state
+      entity_id: switch.siren_2
+      state: 'off'
+    - service: notify.notify_all
+      data:
+        title: "New Life Security"
+        message: "Alarm Disarmed"
+    - condition: state
+      entity_id: input_boolean.voice_notifications
+      state: 'on'
+    - service: mqtt.publish
+      data_template:
+        {"topic":"alarmpanel/command", "payload":"{'speak':'Alarm disarmed! Welcome home!'}"}
+    - service: tts.google_say
+      data:
+        entity_id: media_player.kitchen_mini
+      data_template:
+        message: "Alarm disarmed! Welcome home!"
+############################################################
+#  Alarm Lights Flasher
+light_flash:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.disable_alarm_lights
+      state: 'off'
+    - service: homeassistant.turn_on
+      entity_id: group.alarm_lights
+    - delay:
+        milliseconds: 500
+    - service: homeassistant.turn_off
+      entity_id: group.alarm_lights
+    - delay:
+        milliseconds: 100
+    - service: script.light_loop
+## Light Loop
+light_loop:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.disable_alarm_lights
+      state: 'off'
+    - delay:
+        milliseconds: 400
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: 'triggered'
+    - service: script.light_flash
+############################################################
+#- alias: '[Alarm] Trigger Alarm Home Mode'
+home_mode_trigger:
+  sequence:
+    - service: alarm_control_panel.alarm_trigger
+      data:
+        entity_id: alarm_control_panel.ha_alarm
+    - service: tts.google_say
+      data:
+        entity_id: media_player.living_room_google
+      data_template:
+        message: "Alarm triggered! Nine one one has been notified!"
+    - service: mqtt.publish
+      data_template:
+        {"topic":"alarmpanel/command", "payload":"{'speak':'Alarm triggered! Nine one one has been notified!'}"}
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alarm
+    - service: notify.notify_all
+      data_template:
+        message: '{{ trigger.to_state.attributes.friendly_name }} opened'
+      data:
+        title: 'ALARM TRIGGERED Home Mode'
+############################################################
+#- alias: '[Alarm] Trigger Alarm Away Mode'
+away_mode_trigger:
+  sequence:
+    - service: alarm_control_panel.alarm_trigger
+      data:
+        entity_id: alarm_control_panel.ha_alarm
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alarm
+    - service: notify.notify_all
+      data_template:
+        message: '{{ trigger.to_state.attributes.friendly_name }} opened'
+      data:
+        title: 'ALARM TRIGGERED Away Mode'
+############################################################
+#- alias: '[Alarm] Triggered Flash'
+triggered_flash:
+  sequence:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.alarm_triggered_lights
+    - service: switch.turn_on
+      data:
+        entity_id: switch.siren_2
+    - service: script.light_flash
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.inside_group
+        volume_level: '0.80'
+    - delay: '00:00:01'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.inside_group
+      data_template:
+        message: "Alarm triggered! Nine one one has been notified!"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alarm
+    - service: alarm_control_panel.alarm_trigger
+      data:
+        entity_id: alarm_control_panel.ha_alarm
+    - service: mqtt.publish
+      data_template:
+        {"topic":"alarmpanel/command", "payload":"{'speak':'Alarm triggered! Nine one one has been notified!'}"}
+############################################################
+#- alias: '[Alarm] System Arming'
+system_arming:
+  sequence:
+    - service: mqtt.publish
+      data_template:
+        {"topic":"alarmpanel/command", "payload":"{'speak':'Alarm arming! Please leave now!'}"}
+    - service: tts.google_say
+      data:
+        entity_id: media_player.living_room_google
+      data_template:
+        message: "Alarm arming! Please leave now!"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: alert
+    - delay: '00:00:20'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+############################################################
+#- alias: '[Alarm] Away Mode Armed'
+away_mode_armed:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: ready
+    - delay: '00:00:08'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - service: mqtt.publish
+      data_template:
+        {"topic":"alarmpanel/command", "payload":"{'speak':'Alarm armed, away mode activated!'}"}
+    - delay: '00:00:10'
+    - service: tts.google_say
+      data:
+        entity_id: media_player.living_room_google
+      data_template:
+        message: "Motion detectors are now active!"
+    - service: notify.notify_all
+      data:
+        title: "New Life Security"
+        message: "Away Mode ON"
+############################################################
+#- alias: '[Alarm] Home Mode Armed'
+home_mode_armed:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: ready
+    - delay: '00:00:08'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - service: notify.notify_all
+      data:
+        title: "New Life Security"
+        message: "Home Mode ON"
+    - condition: state
+      entity_id: input_boolean.voice_notifications
+      state: 'on'
+    - service: mqtt.publish
+      data_template:
+        {"topic":"alarmpanel/command", "payload":"{'speak':'Alarm, home mode activated!'}"}
