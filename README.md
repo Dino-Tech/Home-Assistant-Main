@@ -11,12 +11,12 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
   <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/logo-round-192x192.png">
 </p>
 
-### I'm currently running [Home Assistant](https://home-assistant.io) version __0.96.2__ on a RPi3B.
+### I'm currently running [Home Assistant](https://home-assistant.io) version __0.97.1__ on a RPi4B.
 
 # A Few Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
 |:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------:|
-|8                |42      |62              |73        |84           |143      |344      |21       | 
+|8                |42      |62              |74        |84           |158      |365      |21       | 
 
 ### Cameras(8):
 * [Wyze Cam v2(7)](http://amzn.to/2QqoYsf)
@@ -34,7 +34,7 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 * [Bluetooth Tracker](https://www.home-assistant.io/components/bluetooth_tracker/)
 * [Ping (ICMP)](https://www.home-assistant.io/components/ping/)
 * [Person](https://www.home-assistant.io/components/person/)
-* [Google Maps Location Sharing](https://www.home-assistant.io/components/google_maps/) *(for GPS and battery statuses & HA iOS App)*
+* [Life360](https://www.home-assistant.io/components/life360/) *(for GPS and battery statuses & HA iOS App)*
 
 ### Google Homes & Assistant Powered Devices(14) 
 * Google Hub (1)
