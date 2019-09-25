@@ -12,6 +12,10 @@ good_night:
         - input_boolean.motion_tv_alert
         - input_boolean.auto_tablet
         - input_boolean.auto_backgroundz
+        - input_boolean.disable_patio_motion
+        - input_boolean.disable_garage_auto_lights
+        - input_boolean.disable_cabinet_auto_lights
+        - input_boolean.disable_auto_bathroom
     - service: alarm_control_panel.alarm_arm_home
       entity_id: alarm_control_panel.ha_alarm
       data:
@@ -52,6 +56,22 @@ good_night:
       data:
         command: close-popup
     - service: script.browser_blackout_all
+################################################
+# Morning
+morning:
+  sequence:
+    - service: homeassistant.turn_on
+      entity_id: 
+        - input_boolean.auto_backgroundz
+        - input_boolean.auto_tablet
+        - input_boolean.auto_backgroundz
+        - light.cabinet_lights
+        - light.den_lamp
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.ha_alarm
+      data:
+        code: !secret alarm_code
+    - service: script.browser_blackout_off
 ####################################################
 ###       POPUPS, CAMERAS, BROWSER SCRIPTS       ###
 ####################################################
@@ -63,12 +83,14 @@ browser_blackout_button:
         deviceID:
           - Pixel DNS
           - Pixel LAN
+          - iPhone Cloud
           - Pixel Cloud
     - service: tts.google_say
       data:
         entity_id:
           - media_player.pixel_dns
           - media_player.pixel_lan
+          - media_player.pixel_cloud
       data_template:
         message: "Browser blackout is active"
 browser_blackout_all:
@@ -81,6 +103,9 @@ browser_blackout_off:
     - service: browser_mod.command
       data:
         command: no-blackout
+    - service: browser_mod.command
+      data:
+        command: lovelace-reload
 browser_theme_green:
   sequence:
     - service: browser_mod.command
@@ -131,7 +156,7 @@ browser_donna:
     - service: browser_mod.command
       data:
         command: navigate
-        navigation_path: /lovelace/8
+        navigation_path: /lovelace/6
         deviceID:
           - OfficeTab LAN
           - Kiosk
@@ -163,41 +188,41 @@ browser_refresh:
     - service: input_boolean.turn_off
       data:
         entity_id: input_boolean.browser_refresh
-browser_sidebar_show:
-  sequence:
-    - service: input_boolean.turn_on
-      data:
-        entity_id: input_boolean.sidebar_show
-    - service: input_boolean.turn_off
-      data:
-        entity_id: input_boolean.sidebar_hide
-    - service: browser_mod.command
-      data:
-        command: lovelace-reload
-        deviceID:
-          - Pixel DNS
-          - Pixel Cloud
-          - Pixel LAN
-browser_sidebar_hide:
-  sequence:
-    - service: input_boolean.turn_on
-      data:
-        entity_id: input_boolean.sidebar_hide
-    - service: input_boolean.turn_off
-      data:
-        entity_id: input_boolean.sidebar_show
-    - service: browser_mod.command
-      data:
-        command: lovelace-reload
-        deviceID:
-          - Pixel DNS
-          - Pixel Cloud
-          - Pixel LAN
+#browser_sidebar_show:
+#  sequence:
+#    - service: input_boolean.turn_on
+#      data:
+#        entity_id: input_boolean.sidebar_show
+#    - service: input_boolean.turn_off
+#      data:
+#        entity_id: input_boolean.sidebar_hide
+#    - service: browser_mod.command
+#      data:
+#        command: lovelace-reload
+#        deviceID:
+#          - Pixel DNS
+#          - Pixel Cloud
+#          - Pixel LAN
+#browser_sidebar_hide:
+#  sequence:
+#    - service: input_boolean.turn_on
+#      data:
+#        entity_id: input_boolean.sidebar_hide
+#   - service: input_boolean.turn_off
+#     data:
+#        entity_id: input_boolean.sidebar_show
+#    - service: browser_mod.command
+#      data:
+#       command: lovelace-reload
+#       deviceID:
+#         - Pixel DNS
+#         - Pixel Cloud
+#         - Pixel LAN
 browser_disable_cch:
   sequence:
     - service: input_boolean.turn_on
       data:
-        entity_id: input_boolean.disable_cch
+       entity_id: input_boolean.disable_cch
     - service: browser_mod.command
       data:
         command: navigate
@@ -243,7 +268,7 @@ browser_random_cameras:
     - service: browser_mod.command
       data:
         command: navigate
-        navigation_path: /lovelace/25
+        navigation_path: /lovelace/1
         deviceID:
           - OfficePC
           - OfficeTab LAN
@@ -350,10 +375,10 @@ browser_popup_3:
       data:
         entity_id: input_select.alert_type
         option: stop
-    - delay: '00:01:00'
-    - service: browser_mod.command
-      data:
-        command: close-popup
+#    - delay: '00:01:00'
+#    - service: browser_mod.command
+#      data:
+#        command: close-popup
 browser_popup_4:
   sequence:
     - condition: state
@@ -532,7 +557,7 @@ driveway_screen:
     - service: browser_mod.command
       data:
         command: navigate
-        navigation_path: /lovelace/25
+        navigation_path: /lovelace/1
         deviceID:
           - OfficePC
           - OfficeTab LAN
@@ -549,7 +574,7 @@ garage_screen:
     - service: browser_mod.command
       data:
         command: navigate
-        navigation_path: /lovelace/25
+        navigation_path: /lovelace/1
         deviceID:
           - OfficePC
           - OfficeTab LAN
@@ -566,7 +591,7 @@ front_door_screen:
     - service: browser_mod.command
       data:
         command: navigate
-        navigation_path: /lovelace/25
+        navigation_path: /lovelace/1
         deviceID:
           - OfficePC
           - OfficeTab LAN
@@ -583,7 +608,7 @@ patio_screen:
     - service: browser_mod.command
       data:
         command: navigate
-        navigation_path: /lovelace/25
+        navigation_path: /lovelace/1
         deviceID:
           - OfficePC
           - OfficeTab LAN
@@ -600,7 +625,7 @@ den_screen:
     - service: browser_mod.command
       data:
         command: navigate
-        navigation_path: /lovelace/25
+        navigation_path: /lovelace/1
         deviceID:
           - OfficePC
           - OfficeTab LAN
@@ -617,7 +642,7 @@ kitchen_screen:
     - service: browser_mod.command
       data:
         command: navigate
-        navigation_path: /lovelace/25
+        navigation_path: /lovelace/1
         deviceID:
           - OfficePC
           - OfficeTab LAN
@@ -634,7 +659,7 @@ entry_hall_screen:
     - service: browser_mod.command
       data:
         command: navigate
-        navigation_path: /lovelace/25
+        navigation_path: /lovelace/1
         deviceID:
           - OfficePC
           - OfficeTab LAN
@@ -763,9 +788,11 @@ sleep_tablet: ## CLOCK SCREENSAVER
           "--primary-text-color": rgba(255,255,255,0.2)
           "--paper-card-background-color": black
           "--iron-icon-stroke-color": black
+          border: solid 3px black
           font-weight: bold
-          height: 100%
           width: 100%
+          height: 800px
+          box-sizing: border-box
           margin: 0
         card:
           type: custom:bignumber-card
@@ -843,60 +870,44 @@ scene_selector:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
-        title: Scene Selector
+        title: " "
         style:
-          background: url("/local/images-lovelace/mobile_backz/Storm2.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
-          border-radius: 14px
-          border: solid 3px rgb(38, 0, 153)
-          "--primary-text-color": white
-          color: "#FFF"
-          height: 100%
-          width: 100%
-          margin: 0
-          text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue
-          font-size: 24px
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.80)
+          "--iron-icon-height": 40px
+          "--iron-icon-width": 40px
+          "--iron-icon-stroke-color": black
+          "--paper-item-icon-active-color": lime
+          "--paper-toggle-button-checked-button-color": lime
           text-transform: capitalize
           font-variant: small-caps
+          font-weight: bold
+          text-shadow: "2px 2px 4px #000000"
+          border-radius: 15px
+          border: solid 3px dimgray
+          box-sizing: border-box
+          width: 100%
+          margin: 0
         card:
           type: entities
+          show_header_toggle: false
+          theme: Green-Nightz
           entities:
-            - type: custom:auto-entities
-              card:
-                type: custom:fold-entity-row
-                head:
-                  type: section
-                  label: Scripts
-              filter:
-                include:
-                  - entity_id: script.good_night
-                  - entity_id: script.reload_automations
-                  - entity_id: script.restart_ha
-                  - entity_id: script.alarm_arm
-                  - entity_id: script.alarm_arm_home
-                  - entity_id: script.alarm_disarm
-                  - entity_id: script.siren_lights_disarm
-                  - entity_id: script.turn_outside_off
-            - type: section
-            - type: custom:auto-entities
-              card:
-                type: custom:fold-entity-row
-                head:
-                  type: section
-                  label: Auto Controls
-              filter:
-                include:
-                  - entity_id: input_boolean.notifications
-                  - entity_id: input_boolean.voice_notifications
-                  - entity_id: input_boolean.disable_garage_notify
-                  - entity_id: input_boolean.disable_popups
-                  - entity_id: input_boolean.browser_refresh
-                  - entity_id: input_boolean.auto_backgroundz
-                  - entity_id: input_boolean.auto_cameras
-                  - entity_id: input_boolean.auto_camera_image
-                  - entity_id: input_boolean.auto_tablet
-                  - entity_id: input_boolean.driveway_motion_lights
+            - type: 'custom:text-divider-row'
+              text: Scripts
+            - script.outside_all_off
+            - script.outside_lights_on
+            - script.restart_ha
+            - script.reload_automations
+            - script.reload_scripts
+            - script.run_config_check
+            - script.alarm_arm
+            - script.alarm_arm_home
+            - script.alarm_disarm
+            - script.siren_lights_disarm
 ############################################################
 style_selector:
   sequence:
@@ -912,16 +923,23 @@ style_selector:
           - Pixel LAN
         title: Style Selector
         style:
-          background: url("/local/images-lovelace/backgroundz/black_tex.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
-          border-radius: 15px
-          border: solid 3px rgb(0, 51, 153)
-          font-size: 20px
-          font-weight: bold
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.80)
+          "--iron-icon-height": 40px
+          "--iron-icon-width": 40px
+          "--iron-icon-stroke-color": black
+          "--paper-item-icon-active-color": lime
+          "--paper-toggle-button-checked-button-color": lime
           text-transform: capitalize
           font-variant: small-caps
-          height: 100%
+          font-weight: bold
+          text-shadow: "2px 2px 4px #000000"
+          border-radius: 15px
+          border: solid 3px dimgray
+          box-sizing: border-box
           width: 100%
           margin: 0
         card:
@@ -953,17 +971,22 @@ mobile_location:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
+          - iPhone Cloud
         title: Location...
         style:
-          background: dimgray
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.80)
+          "--ha-card-border-radius": 0px
+          font-weight: bold
+          text-shadow: "2px 2px 4px #000000"
           border-radius: 15px
-          border: solid 3px rgb(0, 51, 153)
-          font-size: 1.6em
-          height: 100%
+          border: solid 3px dimgray
+          box-sizing: border-box
           width: 100%
           margin: 0
-          text-transform: capitalize
-          font-variant: small-caps
         card:
           type: map
           default_zoom: 18
@@ -986,20 +1009,21 @@ mobile_thermostat:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
-        title: "Nest Controls... "
+          - iPhone Cloud
+        title: "Nest Controls "
         style:
-          background: url("/local/images-lovelace/backgroundz/Stainless.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px dimgray
           "--primary-text-color": white
           "--app-toolbar-font-size": 1.3em
-          border-radius: 15px
-          border: solid 3px gray
           font-size: 24px
           font-weight: bold
-          text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
-          height: 100%
+          text-shadow: "2px 2px 4px black"
           width: 100%
+          box-sizing: border-box
           margin: 0
           text-transform: capitalize
           font-variant: small-caps
@@ -1054,20 +1078,23 @@ alarm_clock:
         command: popup
         title: Alarm Clock
         style:
-          background: url("/local/images-lovelace/card_backz/clocks.1.jpg")
+          background: url("/local/images-lovelace/card_backz/clocks2.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
           border-radius: 15px
-          border: solid 3px blue
+          border: solid 3px DimGray
           "--paper-input-container-shared-input-style_-_font-size": .8em
           "--paper-input-container-shared-input-style_-_width": 180px
-          font-size: 16px
+          "--paper-toggle-button-checked-button-color": Gray
+          "--primary-color": black
+          font-size: 20px
           text-transform: capitalize
           font-variant: small-caps
-          text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px midnightblue"
+          text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px DimGray"
           color: "#FFF"
-          height: 100% #630px
           width: 100%
+          box-sizing: border-box
+          margin: 0
         card:
           type: entities
           show_header_toggle: false
@@ -1080,7 +1107,7 @@ alarm_clock:
             - entity: input_boolean.darrens_work_alarm
             - type: custom:bignumber-card
               entity: sensor.time_12_hour
-              scale: 50px
+              scale: 60px
             - type: custom:countdown-dates
               title: '...Reminders:'
               phrase: 'days'
@@ -1125,8 +1152,8 @@ kitchen_controls:
           font-size: 24px
           text-transform: capitalize
           font-variant: small-caps
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: glance
@@ -1155,7 +1182,7 @@ kitchen_controls:
               tap_action:
                 action: toggle
             - type: entity-button
-              entity: switch.cabinet_sw1
+              entity: light.cabinet_lights
               name: Cabinets
               tap_action:
                 action: toggle
@@ -1209,8 +1236,8 @@ office_controls:
           font-size: 24px
           text-transform: capitalize
           font-variant: small-caps
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: glance
@@ -1317,8 +1344,8 @@ den_controls:
           font-size: 24px
           text-transform: capitalize
           font-variant: small-caps
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: glance
@@ -1327,7 +1354,7 @@ den_controls:
               entity: binary_sensor.living_room_motion
               name: Motion
             - type: entity-button
-              entity: binary_sensor.front_door
+              entity: binary_sensor.wyzesense_7780F0B4
               name: Front Door
             - type: entity-button
               entity: binary_sensor.den_windows
@@ -1398,8 +1425,8 @@ bedroom_controls:
           font-size: 23px
           text-transform: capitalize
           font-variant: small-caps
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: glance
@@ -1486,8 +1513,8 @@ laundry_controls:
           font-stretch: ultra-expanded
           text-transform: capitalize
           font-variant: small-caps
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: entities
@@ -1518,23 +1545,22 @@ mobile_low_battery:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
-        auto_close: true
+          - iPhone Cloud
+        title: "Battery Levels "
         style:
-          background: url("/local/images-lovelace/backgroundz/battery1.png")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
           border-radius: 15px
-          border: solid 3px red
-          "--primary-text-color": white
-          "--app-toolbar-font-size": 1.3em
-          text-shadow: "1px 1px 2px black, 0 0 25px red, 0 0 5px firebrick"
-          font-size: 2.0em
+          border: solid 3px dimgray
           font-weight: bold
-          text-transform: capitalize
-          font-variant: small-caps
-          color: "white"
-          height: 100%
           width: 100%
+          box-sizing: border-box
+          margin: 0
+          text-shadow: "2px 2px 4px black"
+#          text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px DimGray"
         card:
           type: custom:auto-entities
           card:
@@ -1544,37 +1570,36 @@ mobile_low_battery:
                 color: '#DC143C'
               - value: 50
                 color: '#bf9540'
-              - value: 100
+              - value: 120
                 color: '#40bf40'
             title_position: inside
             tap_action: none
             columns: 1
-            padding: 6px
+            padding: 2px
             align: split
             show_icon: true
-            rounding: 10px
-            saturation: 80%
-            height: 24px
+            rounding: 4px
+            saturation: 75%
+            height: 29px
             card_style:
               background: "rgba(0, 0, 0, 0.7)"
               border-radius: 5px
             title_style:
               font-weight: bold
-              font-size: 20px
+              font-size: 19px
               color: '#FFF'
-              text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
+              text-shadow: "2px 2px 4px black"
             value_style:
               font-size: 24px
               font-weight: bold
+              text-shadow: "2px 2px 4px black"
           filter:
             include:
               - entity_id: "sensor.*batt*"
             exclude:
               - entity_id: sensor.donna_s_iphone_battery_state
-              - entity_id: sensor.office_battery_smoke
               - entity_id: sensor.iphone6statusbatt
-              - entity_id: sensor.iphone_battery_icon
-              - entity_id: sensor.pixel_battery_icon
+              - entity_id: sensor.spare_room_battery
 ############################################################
 low_battery_popup:
   sequence:
@@ -1597,11 +1622,11 @@ low_battery_popup:
           font-size: 36px
           text-transform: capitalize
           font-variant: small-caps
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
           border-radius: 20px
-          border: solid 12px rgb(255, 0, 0)
+          border: solid 12px red
         card:
           type: custom:auto-entities
           card:
@@ -1651,6 +1676,7 @@ arrived_home_popup:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
+          - iPhone Cloud
         title: Welcome Home!
         style:
           background: url("/local/images-lovelace/mobile_backz/welcomeDoor.jpg")
@@ -1672,8 +1698,8 @@ arrived_home_popup:
           text-transform: capitalize
           font-variant: small-caps
           letter-spacing: 1px
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: entities
@@ -1728,21 +1754,21 @@ ha_status:
           - Pixel LAN
         auto_close: true
         style:
-          background: url("/local/images-lovelace/mobile_backz/Storm2.jpg")
+          background: url("/local/images-lovelace/backgroundz/black_steel2.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
           border-radius: 15px
-          border: solid 3px blue
+          border: solid 3px lime
           "--primary-text-color": white
           "--app-toolbar-font-size": 1.2em
-          font-size: 1.7em
+          font-size: 1.6em
           font-weight: bold
           color: "#FFF"
-          text-shadow: "2px 2px 4px black, 0 0 25px dimgray, 0 0 5px dimgray"
+          text-shadow: '1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen'
           text-transform: capitalize
           font-variant: small-caps
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: entities
@@ -1759,6 +1785,37 @@ ha_status:
             - sensor.ha_latest_version
             - entity: sensor.hacs
               name: HACS
+            - type: custom:bar-card
+              severity:
+              - value: 100
+                color: '#40bf40'
+              title_position: inside
+              tap_action: info
+              columns: 1
+              padding: 2px
+              align: split
+              rounding: 3px
+              saturation: 85%
+              height: 23px
+              card_style:
+                background: 'rgba(0, 0, 0, 0.4)'
+                border-radius: 10px
+              title_style:
+                font-weight: bold
+                font-size: 20px
+                color: '#FFF'
+                text-shadow: '1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen'
+              value_style:
+                font-size: 20px
+                font-weight: bold
+              entities:
+                - sensor.processor_use
+                - sensor.disk_use_percent
+                - sensor.disk_free
+                - sensor.uptime
+                - sensor.memory_use_percent
+                - sensor.memory_free
+#                - sensor.rpi_power_status
 ############################################################
 status_ha_tablet:
   sequence:
@@ -1786,8 +1843,8 @@ status_ha_tablet:
           text-transform: capitalize
           font-variant: small-caps
           text-shadow: "2px 2px 4px black, 0 0 25px dimgray, 0 0 5px dimgray"
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: entities
@@ -1817,55 +1874,182 @@ mobile_radar:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
+          - iPhone Cloud
         auto_close: true
         style:
-          background: black
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
           border-radius: 15px
-          border: solid 3px blue
-          height: 100%
+          border: solid 3px dimgray
+          font-weight: bold
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
-          type: entities
-          show_header_toggle: false
-          entities:
-            - type: 'custom:hui-picture-entity-card'
-              entity: camera.local_radar
-              show_state: false
-              show_name: false
-            - type: 'custom:hui-picture-entity-card'
-              entity: camera.new_orleans_radar
-              show_state: false
-              show_name: false
+          type: vertical-stack
+          cards:
+            - type: 'custom:card-modder'
+              style:
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
+                height: 15px
+              card:
+                content: ' '
+                type: markdown
+            - type: 'custom:card-modder'
+              style:
+                border-radius: 12px
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
+                padding: 0px 0px 10px 10px
+                height: 24px
+                font-family: Righteous
+              card:
+                content: '# Regional Radar'
+                type: markdown
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 2px 
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.local_radar
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 2px
+            - type: 'custom:card-modder'
+              style:
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
+                height: 10px
+              card:
+                content: ' '
+                type: markdown
+            - type: 'custom:card-modder'
+              style:
+                border-radius: 12px
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
+                padding: 0px 0px 10px 10px
+                height: 24px
+                font-family: Righteous
+              card:
+                content: '# Local Radar'
+                type: markdown
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 2px 
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.new_orleans_radar
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 2px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 7px
 ############################################################
-mobile_radar_nws:
-  sequence:
-    - service: browser_mod.command
-      data:
-        command: close-popup
-    - service: browser_mod.command
-      data:
-        command: popup
-        deviceID:
-          - Pixel DNS
-          - Pixel Cloud
-          - Pixel LAN
-        auto_close: true
-        style:
-          background: dimgray
-          height: 100%
-          width: 100%
-          margin: 0
-        card:
-          type: entities
-          show_header_toggle: false
-          entities:
-            - type: 'custom:hui-picture-entity-card'
-              entity: camera.hourly_precip
-              show_state: false
-            - type: 'custom:hui-picture-entity-card'
-              entity: camera.short_range
-              show_state: false
+#mobile_radar_nws:
+#  sequence:
+#    - service: browser_mod.command
+#      data:
+#        command: close-popup
+#    - service: browser_mod.command
+#      data:
+#        command: popup
+#        deviceID:
+#          - Pixel DNS
+#          - Pixel Cloud
+#          - Pixel LAN
+#          - iPhone Cloud
+#        auto_close: true
+#        style:
+#          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+#          background-repeat: no-repeat
+#          background-size: 100% 100%
+#          "--app-toolbar-font-size": 1.875em
+#          "--primary-text-color": rgba(255,255,255,0.75)
+#          border-radius: 15px
+#          border: solid 3px dimgray
+#          font-weight: bold
+#          width: 100%
+#          box-sizing: border-box
+#          margin: 0
+#        card:
+#          type: vertical-stack
+#          cards:
+#            - type: 'custom:button-card'
+#              color_type: blank-card
+#             styles:
+#                card:
+#                  - height: 2px
+#            - type: horizontal-stack
+#              cards:
+#                - type: 'custom:button-card'
+#                  color_type: blank-card
+#                  styles:
+#                    card:
+#                      - width: 2px 
+#                - type: 'custom:card-modder'
+#                  style:
+#                    border-radius: 12px
+#                    overflow: hidden
+#                  card:
+#                    type: 'custom:camera-card'
+#                    entity: camera.long_range
+#                - type: 'custom:button-card'
+#                  color_type: blank-card
+#                  styles:
+#                    card:
+#                      - width: 2px
+#            - type: horizontal-stack
+#              cards:
+#                - type: 'custom:button-card'
+#                  color_type: blank-card
+#                  styles:
+#                    card:
+#                      - width: 2px 
+#                - type: 'custom:card-modder'
+#                 style:
+#                   border-radius: 12px
+#                    overflow: hidden
+#                 card:
+#                   type: 'custom:camera-card'
+#                    entity: camera.short_range
+#                - type: 'custom:button-card'
+#                  color_type: blank-card
+#                  styles:
+#                    card:
+#                      - width: 2px
+#            - type: 'custom:button-card'
+#             color_type: blank-card
+#              styles:
+#               card:
+#                 - height: 7px
 ############################################################
 mobile_humidity:
   sequence:
@@ -1879,21 +2063,21 @@ mobile_humidity:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
-        auto_close: true
+          - iPhone Cloud
+#        auto_close: true
+        title: "Humidity"
         style:
-          background: url("/local/images-lovelace/mobile_backz/welcomeDoor.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          text-shadow: "2px 2px 4px black"
           border-radius: 15px
-          border: solid 3px rgb(0, 92, 230)
-          "--primary-text-color": white
-          font-size: 1.625em
+          border: solid 3px dimgray
           font-weight: bold
-          text-transform: capitalize
-          font-variant: small-caps
-          color: "#FFF"
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: custom:auto-entities
@@ -1920,12 +2104,12 @@ mobile_humidity:
               font-size: 20px
               font-weight: bold
               color: '#FFF'
-              text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
+              text-shadow: "2px 2px 4px black"
             value_style:
               font-size: 24px
               font-weight: bold
               color: '#FFF'
-              text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
+              text-shadow: "2px 2px 4px black"
           filter:
             include:
               - entity_id: "sensor.*humidity*"
@@ -1945,21 +2129,20 @@ mobile_inside_temps:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
-        auto_close: true
+          - iPhone Cloud
+        title: "Temperature"
         style:
-          background: url("/local/images-lovelace/mobile_backz/welcome1.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          text-shadow: "2px 2px 4px black"
           border-radius: 15px
-          border: solid 3px rgb(0, 92, 230)
-          "--primary-text-color": white
-          font-size: 1.625em
+          border: solid 3px dimgray
           font-weight: bold
-          text-transform: capitalize
-          font-variant: small-caps
-          color: "#FFF"
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: custom:auto-entities
@@ -1978,7 +2161,7 @@ mobile_inside_temps:
             align: split
             rounding: 4px
             saturation: 75%
-            height: 23px
+            height: 29px
             card_style:
               background: "rgba(0, 0, 0, 0.3)"
               border-radius: 10px
@@ -1986,19 +2169,19 @@ mobile_inside_temps:
               font-size: 20px
               font-weight: bold
               color: '#FFF'
-              text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
+              text-shadow: "2px 2px 4px black"
             value_style:
               font-size: 24px
               font-weight: bold
               color: '#FFF'
-              text-shadow: "1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue"
+              text-shadow: "2px 2px 4px black"
           filter:
             include:
               - entity_id: "sensor.*temp*"
             exclude:
               - entity_id: "*.dark_sky*"
 ############################################################
-stale_snapshot_popup:
+mobile_calendar:
   sequence:
     - service: browser_mod.command
       data:
@@ -2006,50 +2189,19 @@ stale_snapshot_popup:
     - service: browser_mod.command
       data:
         command: popup
-        title: Snapshots are stale!
         auto_close: true
         style:
-          background: url("/local/images-lovelace/backgroundz/Dark_city.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
-          font-size: 48px
-          font-weight: bold
-          text-transform: capitalize
-          font-variant: small-caps
-          height: 100%
-          width: 100%
-          margin: 0
-          border-radius: 20px
-          border: solid 12px rgb(255, 0, 0)
-        card:
-          type: markdown
-          content: >-
-            ## Snapshots are stale! Please visit the "Hass.io Google Drive Backup" add-on
-            status page for details.
-          title: Stale Snapshots!
-############################################################
-calendar_popup:
-  sequence:
-    - service: browser_mod.command
-      data:
-        command: close-popup
-    - service: browser_mod.command
-      data:
-        command: popup
-        title: " "
-        auto_close: true
-        style:
-          background: url("/local/images-lovelace/backgroundz/lights.jpg")
-          background-repeat: no-repeat
-          background-size: 100% 100%
-          border-radius: 14px
-          border: solid 2px limeGreen
-          font-size: 26px
+          border-radius: 15px
+          border: solid 3px limeGreen
+          font-size: 22px
           text-transform: capitalize
           font-variant: small-caps
           "--primary-text-color": white
-          height: 100% #520px
-          width: 100% #68%
+          width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: entities
@@ -2078,7 +2230,99 @@ calendar_popup:
               firstDayOfWeek: 7
               titleSize: 96
             - type: custom:countdown-dates
-              title: "...REMINDERS : "
+              title: "REMINDERS..."
+              phrase: 'days'
+              show_age: true
+              dates:
+                - date: 04/28/2020
+                  name: Donna's bday
+                - date: 07/06/2020
+                  name: Darren's bday
+                - date: 07/07/2020
+                  name: Anniversary
+                - date: 12/31/2019
+                  name: New Year
+############################################################
+stale_snapshot_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        title: Snapshots are stale!
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/backgroundz/Dark_city.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          font-size: 48px
+          font-weight: bold
+          text-transform: capitalize
+          font-variant: small-caps
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+          border-radius: 20px
+          border: solid 12px rgb(255, 0, 0)
+        card:
+          type: markdown
+          content: >-
+            ## Snapshots are stale! Please visit the "Hass.io Google Drive Backup" add-on
+            status page for details.
+          title: Stale Snapshots!
+############################################################
+calendar_popup:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        title: " "
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px limeGreen
+          font-size: 26px
+          text-transform: capitalize
+          font-variant: small-caps
+          "--primary-text-color": white
+          height: 520px
+          width: 68%
+          margin: 0
+        card:
+          type: entities
+          entities:
+            - type: "custom:atomic-calendar"
+              title: "New Life Events"
+              enableModeChange: true
+              defaultMode: 2
+              showDate: true
+              CalEventHolidayColor: lime
+              CalEventIcon1Filter: events
+              CalEventIcon2Filter: birthday
+              CalEventIcon1: " " #fas:calendar-plus
+              CalEventIcon2: " " #fas:gift
+              CalEventIcon3: " " #fas:cross
+              entities:
+              - entity: calendar.contacts
+                type: icon2, holiday
+                color: purple
+              - entity: calendar.holidays_in_united_states
+                type: holiday
+              - entity: calendar.christian_holidays
+                type: icon3, holiday
+              dateSize: 70
+              timeSize: 80
+              firstDayOfWeek: 7
+              titleSize: 96
+            - type: custom:countdown-dates
+              title: "REMINDERS..."
               phrase: 'days'
               show_age: true
               dates:
@@ -2101,14 +2345,12 @@ alarm_panel_popup:
         command: popup
         title: New Life Security
         style:
-          background: url("/local/images-lovelace/backgroundz/black_steel2.jpg")
+          background: url("/local/images-lovelace/backgroundz/black_steel.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
-          border-radius: 13px
-          border: solid 2px lime
+          border-radius: 15px
+          border: solid 3px lime
           font-size: 26px
-          text-transform: capitalize
-          font-variant: small-caps
           "--paper-card-background-color": "rgba(0,0,0,0.0)"
           "--primary-text-color": white
           "--app-toolbar-font-size": 1.3em
@@ -2116,11 +2358,11 @@ alarm_panel_popup:
           "--iron-icon-width": 50px
           "--iron-icon-stroke-color": lime
           "--paper-item-icon-active-color": "#cc0000"
-          "--paper-item-icon-color": "rgba(0, 255, 0,0.4)" # "#e6e600"
+          "--paper-item-icon-color": "rgba(0, 255, 0,0.3)" # "#e6e600"
           text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
           color: white
-          height: 100%
-          width: 44%
+          box-sizing: border-box
+          width: 100%
           margin: 0
           overflow: hidden
         card: 
@@ -2173,13 +2415,17 @@ mobile_iframe:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
-        title: Interactive Radar
+          - iPhone Cloud
+        title: Interactive Map
         style:
-          background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
           border-radius: 15px
-          border: solid 3px rgb(5, 205, 255)
-          height: 100%
+          border: solid 3px dimgray
+          "--primary-text-color": white
           width: 100%
+          box-sizing: border-box
           margin: 0
           overflow: hidden
         card:
@@ -2207,8 +2453,8 @@ regional_radar_popup:
           background-size: 100% 100%
           border-radius: 20px
           border: solid 6px rgb(204, 204, 204)
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: picture
@@ -2233,8 +2479,8 @@ local_radar_popup:
           background-size: 100% 100%
           border-radius: 20px
           border: solid 6px rgb(204, 204, 204)
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: picture
@@ -2252,17 +2498,19 @@ mobile_forecast:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
+          - iPhone Cloud
         auto_close: true
         style:
           background: linear-gradient(rgba(150,150,150,1), 20%, rgba(0,0,0,0.95))
           font-size: 1.25em
+          "--primary-text-color": white
           background-size: 100% 100%
           border-radius: 15px
           border: solid 3px dimgray
           text-transform: capitalize
           font-variant: small-caps
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
           overflow: hidden
         card:
@@ -2274,8 +2522,16 @@ mobile_forecast:
             height: 680px
             overflow: hidden
           card:
-            type: custom:weather-card
-            entity: weather.dark_sky
+            type: entities
+            entities:
+              - type: custom:weather-card
+                entity: weather.dark_sky
+              - entity: sensor.dark_sky_hourly_summary
+              - type: custom:dummy-entity-row
+                entity: sun.sun
+                icon: mdi:this-icon-does-not-exist
+                name: " "
+              - entity: sensor.dark_sky_daily_summary
 ############################################################
 forecast_popup:
   sequence:
@@ -2298,8 +2554,8 @@ forecast_popup:
           font-variant: small-caps
           border-radius: 10px
           border: solid 8px rgb(204, 204, 204)
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: 'custom:dark-sky-weather-card'
@@ -2371,8 +2627,8 @@ lights_on_popup:
           font-size: 1.625em
           text-transform: capitalize
           font-variant: small-caps
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: entities
@@ -2389,33 +2645,34 @@ lights_on_popup:
                     options:
                       tap_action:
                         action: toggle
-                  - domain: switch
-                    state: "on"
-                    options:
-                      tap_action:
-                        action: toggle
-                exclude: 
-                  - entity_id: switch.cabinet_sw2
-                  - entity_id: switch.kitchen_cabinet_lights
-                  - entity_id: switch.kitchen_stove_light
+                  - entity_id: switch.subwoofer
+                  - entity_id: switch.spare_room_outlet
+                  - entity_id: switch.guest_ceiling_fan
                   - entity_id: switch.office_monitor
-                  - entity_id: switch.cabinet_sw2
-                  - entity_id: switch.kitchen_cabinet_lights
-                  - entity_id: switch.kitchen_stove_light
-                  - entity_id: switch.office_monitor
-                  - entity_id: switch.living_room_lamp_sw2
-                  - entity_id: switch.living_room_lamp_switch
-                  - entity_id: switch.hall_switch_2
-                  - entity_id: switch.hall_switch_1
-                  - entity_id: switch.front_flood_lights_switch
-                  - entity_id: switch.foyer_light_switch
-                  - entity_id: switch.fountain_switch
-                  - entity_id: switch.ceiling_left_sw
-                  - entity_id: switch.ceiling_right_sw
-                  - entity_id: switch.hallway_switch
-                  - entity_id: switch.coffee_light
-                  - entity_id: switch.tv_accent_lights
-                  - entity_id: switch.foyer_accent_lights
+                  - entity_id: switch.siren_2
+                  - entity_id: switch.shelly_shsw_21_32ba73_2
+                  - entity_id: switch.radio_wtemp_humid
+                  - entity_id: switch.printer
+                  - entity_id: switch.patio_fan
+                  - entity_id: switch.office_work_bench
+                  - entity_id: switch.office_video
+                  - entity_id: switch.office_sound
+                  - entity_id: switch.office_ceiling_fan
+                  - entity_id: switch.mbath_night_plug
+                  - entity_id: switch.living_room_fan
+                  - entity_id: switch.living_room_ceiling_fan
+                  - entity_id: switch.kitchen_night_plug
+                  - entity_id: switch.hallway_night_plug
+                  - entity_id: switch.hall_night_plug
+                  - entity_id: switch.fountain
+                  - entity_id: switch.den_night_plug
+                  - entity_id: switch.coffee_maker
+                  - entity_id: switch.bedroom_ceiling_fan
+                  - entity_id: switch.air_machine
+                  - entity_id: switch.air_cleaner
+                exclude:
+                  - state: "off"
+                  - state: "unavailable"
 ############################################################
 mobile_alarms:
   sequence:
@@ -2429,35 +2686,33 @@ mobile_alarms:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
+          - iPhone Cloud
         auto_close: true
         style:
-          background: url("/local/images-lovelace/backgroundz/black_tex.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
-          "--app-toolbar-font-size": 2.6em
           "--primary-text-color": rgba(255,255,255,0.75)
           border-radius: 15px
           border: solid 3px dimgray
           font-weight: bold
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: vertical-stack
           cards:
-            - type: 'custom:card-modder'
-              style:
-                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
-                box-shadow: 2px 2px rgba(0,0,0,0.0)
-                height: 20px
-              card:
-                content: ' '
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 20px
                 type: markdown
             - type: 'custom:card-modder'
               style:
                 border-radius: 12px
                 '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
-                box-shadow: 2px 2px rgba(0,0,0,0.0) 
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
                 padding: 0px 0px 10px 10px
                 height: 28px
                 font-family: Righteous
@@ -2517,7 +2772,7 @@ mobile_alarms:
                   template: motion_button_temp
                   variables:
                     - entity: sensor.kitchen_nest_protect_smoke_status
-                    - name: Kitchen Smoke
+                    - name: Kitchen
                     - icon: "mdi:smoke-detector"
                 - type: 'custom:button-card'
                   color_type: blank-card
@@ -2534,27 +2789,29 @@ mobile_alarms:
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
-                    - entity: sensor.kitchen_nest_protect_smoke_status
-                    - name: Hallway Smoke
+                    - entity: sensor.hallway_nest_protect_smoke_status
+                    - name: Hallway
                     - icon: "mdi:smoke-detector"
-            - type: 'custom:card-modder'
-              style:
-                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
-                box-shadow: 2px 2px rgba(0,0,0,0.0)
-                height: 40px
-              card:
-                content: ' '
-                type: markdown
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 40px
             - type: 'custom:card-modder'
               style:
                 border-radius: 12px
                 '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
-                box-shadow: 2px 2px rgba(0,0,0,0.0) 
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
                 padding: 0px 0px 10px 10px
                 height: 28px
                 font-family: Righteous
               card:
-                content: '# Water Leak Alarms'
+                content: '# Water Leak Sensors'
                 type: markdown
             - type: horizontal-stack
               cards:
@@ -2575,6 +2832,16 @@ mobile_alarms:
                     - entity: binary_sensor.water_heater
                     - name: Water Heater
                     - icon: "mdi:water-off"
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 120px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 50px
 ############################################################
 mobile_rambo_cam:
   sequence:
@@ -2590,6 +2857,120 @@ mobile_rambo_cam:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
+          - iPhone Cloud
+############################################################
+mobile_rambo_bed:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+          - iPhone Cloud
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 5px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px 
+                - type: 'custom:card-modder'
+                  style:
+                    background-image: "url(/local/images-lovelace/backgroundz/[[ input_select.rambo_pics.state ]].jpg)"
+                    background-size: 100% 100%
+                    border-radius: 12px
+                    height: 250px
+                    font-size: 1.75em
+                    overflow: hidden
+                  card:
+                    type: picture
+                    image: /local/images-lovelace/backgroundz/ClearPNG.png
+                    tap_action:
+                      action: none
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    font-size: 22px
+                    height: 185px
+                  card:
+                    type: custom:countdown-dates
+                    title: "REMINDERS..."
+                    phrase: 'days until'
+                    show_age: true
+                    dates:
+                      - date: 10/05/2019
+                        name: Meds
+                      - date: 11/18/2019
+                        name: Groom
+                      - date: 01/15/2020
+                        name: Vet
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.rambo_cam
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 6px
 ############################################################
 mobile_entrances:
   sequence:
@@ -2603,35 +2984,32 @@ mobile_entrances:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
+          - iPhone Cloud
         auto_close: true #title: 'Entry Points'
         style:
-          background: url("/local/images-lovelace/backgroundz/black_tex.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
-          "--app-toolbar-font-size": 2.6em
           "--primary-text-color": rgba(255,255,255,0.75)
           border-radius: 15px
           border: solid 3px dimgray
           font-weight: bold
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: vertical-stack
           cards:
-            - type: 'custom:card-modder'
-              style:
-                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
-                box-shadow: 2px 2px rgba(0,0,0,0.0)
-                height: 20px
-              card:
-                content: ' '
-                type: markdown
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 20px
             - type: 'custom:card-modder'
               style:
                 border-radius: 12px
                 '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
-                box-shadow: 2px 2px rgba(0,0,0,0.0) 
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
                 padding: 0px 0px 10px 10px
                 height: 28px
                 font-family: Righteous
@@ -2644,11 +3022,11 @@ mobile_entrances:
                   color_type: blank-card
                   styles:
                     card:
-                      - width: 15px 
+                      - width: 15px
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
-                    - entity: binary_sensor.front_door
+                    - entity: binary_sensor.wyzesense_7780f0b4
                     - name: Front Door
                     - icon: "mdi:door"
                 - type: custom:decluttering-card
@@ -2680,7 +3058,7 @@ mobile_entrances:
               style:
                 border-radius: 12px
                 '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
-                box-shadow: 2px 2px rgba(0,0,0,0.0) 
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
                 padding: 0px 0px 10px 10px
                 height: 28px
                 font-family: Righteous
@@ -2777,6 +3155,11 @@ mobile_entrances:
                   styles:
                     card:
                       - width: 15px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 50px
 ############################################################
 mobile_front_yard:
   sequence:
@@ -2790,9 +3173,10 @@ mobile_front_yard:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
+          - iPhone Cloud
         title: 'Front & Driveway'
         style:
-          background: url("/local/images-lovelace/backgroundz/black_tex.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
           "--app-toolbar-font-size": 1.875em
@@ -2800,8 +3184,8 @@ mobile_front_yard:
           border-radius: 15px
           border: solid 3px dimgray
           font-weight: bold
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: vertical-stack
@@ -2831,7 +3215,7 @@ mobile_front_yard:
                   color_type: blank-card
                   styles:
                     card:
-                      - width: 15px 
+                      - width: 15px
                 - type: custom:decluttering-card
                   template: switch_button2_temp
                   variables:
@@ -2841,13 +3225,13 @@ mobile_front_yard:
                 - type: custom:decluttering-card
                   template: motion_button2_temp
                   variables:
-                    - entity: binary_sensor.front_door
+                    - entity: binary_sensor.wyzesense_7780f0b4
                     - name: Front Door
                     - icon: "mdi:door"
                 - type: custom:decluttering-card
                   template: motion_button2_temp
                   variables:
-                    - entity: binary_sensor.front_motion
+                    - entity: binary_sensor.wyzesense_77878ecb
                     - name: Front Motion
                     - icon: 'mdi:motion-sensor'
                 - type: 'custom:button-card'
@@ -2861,7 +3245,7 @@ mobile_front_yard:
                   color_type: blank-card
                   styles:
                     card:
-                      - width: 5px 
+                      - width: 5px
                 - type: 'custom:card-modder'
                   style:
                     border-radius: 12px
@@ -2904,6 +3288,11 @@ mobile_front_yard:
                   styles:
                     card:
                       - width: 15px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 10px
 ############################################################
 mobile_back_yard:
   sequence:
@@ -2917,9 +3306,10 @@ mobile_back_yard:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
+          - iPhone Cloud
         title: 'Backyard'
         style:
-          background: url("/local/images-lovelace/backgroundz/blackSteel.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
           "--app-toolbar-font-size": 1.875em
@@ -2927,8 +3317,8 @@ mobile_back_yard:
           border-radius: 15px
           border: solid 3px dimgray
           font-weight: bold
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: vertical-stack
@@ -2939,7 +3329,7 @@ mobile_back_yard:
                   color_type: blank-card
                   styles:
                     card:
-                      - width: 5px 
+                      - width: 5px
                 - type: 'custom:card-modder'
                   style:
                     border-radius: 12px
@@ -2978,15 +3368,15 @@ mobile_back_yard:
                     font-size: 28px
                     font-weight: bold
                   entities:
-                    - sensor.shelly_shht_1_5a8b31_humidity
                     - sensor.shelly_shht_1_5a8b31_temperature
+                    - sensor.shelly_shht_1_5a8b31_humidity
             - type: horizontal-stack
               cards:
                 - type: 'custom:button-card'
                   color_type: blank-card
                   styles:
                     card:
-                      - width: 15px 
+                      - width: 15px
                 - type: custom:decluttering-card
                   template: fan_button_temp
                   variables:
@@ -3004,6 +3394,154 @@ mobile_back_yard:
                   variables:
                     - entity: switch.back_flood_lights
                     - name: Back Floods
+                    - icon: 'mdi:spotlight-beam'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: fan_button_temp
+                  variables:
+                    - entity: switch.patio_box_fan_switch
+                    - name: Box Fan
+                    - icon: "mdi:fan"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.patio_light
+                    - name: Patio Light
+                    - icon: "mdi:lightbulb"
+#                - type: custom:decluttering-card
+#                  template: motion_button_temp
+#                  variables:
+#                    - entity: binary_sensor.back_door_k
+#                    - name: Back Door
+#                    - icon: "mdi:door"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.patio_accent_lights_switch
+                    - name: Patio Accent
+                    - icon: 'mdi:wall-sconce-flat'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 10px
+############################################################
+mobile_kitchen:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+          - iPhone Cloud
+        title: 'Kitchen'
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.kitchen_cam
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: entities
+              entities:
+                - type: custom:bar-card
+                  severity:
+                    - value: 100
+                      color: 'rgba(0, 255, 0,0.5)'
+                  title_position: inside
+                  tap_action: info
+                  columns: 1
+                  padding: 2px
+                  align: split
+                  rounding: 10px
+                  saturation: 75%
+                  height: 50px
+                  card_style:
+                    background: "rgba(0, 0, 0, 0.4)"
+                    border-radius: 10px
+                  title_style:
+                    font-size: 24px
+                    font-variant: small-caps
+                    color: '#F2F2F2'
+                    text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+                  value_style:
+                    font-size: 26px
+                    font-weight: bold
+                  entities:
+                    - sensor.kitchen_temp
+                    - sensor.kitchen_humidity
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px 
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.ceiling_center
+                    - name: Island Light
+                    - icon: "mdi:lightbulb"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: light.cabinet_lights
+                    - name: Cabinet Lights
+                    - icon: "mdi:wall-sconce-flat"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.kitchen_sink_light
+                    - name: Sink Light
                     - icon: 'mdi:lightbulb'
                 - type: 'custom:button-card'
                   color_type: blank-card
@@ -3016,30 +3554,917 @@ mobile_back_yard:
                   color_type: blank-card
                   styles:
                     card:
-                      - width: 15px 
+                      - width: 15px
                 - type: custom:decluttering-card
                   template: switch_button_temp
                   variables:
-                    - entity: switch.patio_light
-                    - name: Patio Light
-                    - icon: "mdi:lightbulb"
+                    - entity: switch.table_light
+                    - name: Table Light
+                    - icon: "mdi:ceiling-light"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.coffee_maker
+                    - name: Coffee Maker
+                    - icon: "mdi:coffee"
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
-                    - entity: binary_sensor.back_door_k
-                    - name: Back Door
-                    - icon: "mdi:door"
-                - type: custom:decluttering-card
-                  template: motion_button_temp
-                  variables:
-                    - entity: binary_sensor.back_motion
-                    - name: Patio Motion
+                    - entity: binary_sensor.wyzesense_7787900d
+                    - name: Kitchen Motion
                     - icon: 'mdi:motion-sensor'
                 - type: 'custom:button-card'
                   color_type: blank-card
                   styles:
                     card:
                       - width: 15px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 10px
+############################################################
+mobile_den:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+          - iPhone Cloud
+        title: 'Living Room'
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.den_cam
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: entities
+              entities:
+                - type: custom:bar-card
+                  severity:
+                    - value: 100
+                      color: 'rgba(0, 255, 0,0.5)'
+                  title_position: inside
+                  tap_action: info
+                  columns: 1
+                  padding: 2px
+                  align: split
+                  rounding: 10px
+                  saturation: 75%
+                  height: 50px
+                  card_style:
+                    background: "rgba(0, 0, 0, 0.4)"
+                    border-radius: 10px
+                  title_style:
+                    font-size: 26px
+                    font-variant: small-caps
+                    color: '#F2F2F2'
+                    text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+                  value_style:
+                    font-size: 28px
+                    font-weight: bold
+                  entities:
+                    - sensor.living_room_thermostat_temperature
+                    - sensor.living_room_thermostat_humidity
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: fan_button_temp
+                  variables:
+                    - entity: switch.living_room_ceiling_fan
+                    - name: Ceiling Fan
+                    - icon: "mdi:fan"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.living_room_lamp
+                    - name: Lamp
+                    - icon: "mdi:lamp"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.living_room_ceiling_light
+                    - name: Ceiling Light
+                    - icon: 'mdi:lightbulb'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.patio_light
+                    - name: Fireplace
+                    - icon: "mdi:spotlight-beam"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.wyzesense_7780f0b4
+                    - name: Front Door
+                    - icon: "mdi:door"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.living_room_motion
+                    - name: Den Motion
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 10px
+############################################################
+mobile_guest:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+          - iPhone Cloud
+        title: 'Guest Room'
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'picture-entity'
+                    entity: group.guest_lights
+                    state_image:
+                      "on": /local/images-lovelace/card_backz/guestON.jpg
+                      "off": /local/images-lovelace/card_backz/guestOFF.jpg
+                    aspect_ratio: 16x9
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: 'custom:card-modder'
+              style:
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
+                height: 15px
+              card:
+                content: ' '
+                type: markdown
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 6px
+                    "--paper-card-background-color": rgba(0, 0, 0, 0.6)
+                    overflow: hidden
+                  card:
+                    type: custom:mini-media-player
+                    entity: media_player.googlehome9136
+                    icon: mdi:spotify
+                    artwork: full-cover-fit # cover
+                    hide:
+                      source: true
+                      power_state: false
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: entities
+              entities:
+                - type: custom:bar-card
+                  severity:
+                    - value: 100
+                      color: 'rgba(0, 255, 0,0.5)'
+                  title_position: inside
+                  tap_action: info
+                  columns: 1
+                  padding: 2px
+                  align: split
+                  rounding: 10px
+                  saturation: 75%
+                  height: 50px
+                  card_style:
+                    background: "rgba(0, 0, 0, 0.4)"
+                    border-radius: 10px
+                  title_style:
+                    font-size: 24px
+                    font-variant: small-caps
+                    color: '#F2F2F2'
+                    text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+                  value_style:
+                    font-size: 26px
+                    font-weight: bold
+                  entities:
+                    - sensor.guest_avg_temperature
+                    - sensor.spare_room_humidity
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: fan_button_temp
+                  variables:
+                    - entity: switch.guest_ceiling_fan
+                    - name: Ceiling Fan
+                    - icon: "mdi:fan"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.guest_ceiling_light
+                    - name: Ceiling Light
+                    - icon: "mdi:lightbulb"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.spare_room_outlet
+                    - name: Accent Lights
+                    - icon: 'mdi:wall-sconce-variant'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 30px
+############################################################
+mobile_office:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+          - iPhone Cloud
+        title: 'Office'
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'picture-entity'
+                    entity: group.office_lights
+                    state_image:
+                      "on": /local/images-lovelace/card_backz/Office2.ON.jpg
+                      "off": /local/images-lovelace/card_backz/Office2.OFF.jpg
+                    aspect_ratio: 16x9
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: entities
+              entities:
+                - type: custom:bar-card
+                  severity:
+                    - value: 100
+                      color: 'rgba(0, 255, 0,0.5)'
+                  title_position: inside
+                  tap_action: info
+                  columns: 1
+                  padding: 2px
+                  align: split
+                  rounding: 8px
+                  saturation: 75%
+                  height: 33px
+                  card_style:
+                    background: "rgba(0, 0, 0, 0.4)"
+                    border-radius: 10px
+                  title_style:
+                    font-size: 24px
+                    font-variant: small-caps
+                    color: '#F2F2F2'
+                    text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+                  value_style:
+                    font-size: 26px
+                    font-weight: bold
+                  entities:
+                    - sensor.office_temp_avg
+                    - sensor.office_humidity_avg
+                - type: custom:slider-entity-row
+                  entity: light.office_lamps
+                  name: hide_state
+                  full_row: true
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: fan_button_temp
+                  variables:
+                    - entity: switch.office_ceiling_fan
+                    - name: Ceiling Fan
+                    - icon: "mdi:fan"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.air_cleaner
+                    - name: Air Purifier
+                    - icon: "mdi:weather-windy"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: group.office_lamps_switch
+                    - name: Office Lamps
+                    - icon: 'mdi:lamp'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.office_monitor
+                    - name: Monitor
+                    - icon: "mdi:monitor"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.printer
+                    - name: Printer
+                    - icon: "mdi:printer"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.office_motion
+                    - name: Motion
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 7px
+############################################################
+mobile_master:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+          - iPhone Cloud
+        title: 'Master Bedroom'
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'picture-entity'
+                    entity: group.bedroom_lights
+                    state_image:
+                      "on": /local/images-lovelace/card_backz/Bdrm2.ON.jpg
+                      "off": /local/images-lovelace/card_backz/Bdrm2.OFF.jpg
+                    aspect_ratio: 16x9
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: entities
+              entities:
+                - type: custom:bar-card
+                  severity:
+                    - value: 100
+                      color: 'rgba(0, 255, 0,0.5)'
+                  title_position: inside
+                  tap_action: info
+                  columns: 1
+                  padding: 2px
+                  align: split
+                  rounding: 8px
+                  saturation: 75%
+                  height: 33px
+                  card_style:
+                    background: "rgba(0, 0, 0, 0.4)"
+                    border-radius: 10px
+                  title_style:
+                    font-size: 24px
+                    font-variant: small-caps
+                    color: '#F2F2F2'
+                    text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+                  value_style:
+                    font-size: 26px
+                    font-weight: bold
+                  entities:
+                    - sensor.bedroom_avg_temperature
+                    - sensor.bedroom_humidity
+                - type: custom:slider-entity-row
+                  entity: light.bedroom_lamps
+                  name: hide_state
+                  full_row: true
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: fan_button_temp
+                  variables:
+                    - entity: switch.bedroom_ceiling_fan
+                    - name: Ceiling Fan
+                    - icon: "mdi:fan"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.bedroom_ceiling_light
+                    - name: Ceiling Light
+                    - icon: "mdi:lightbulb"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.salt_light
+                    - name: Salt Light
+                    - icon: 'mdi:wall-sconce-variant'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: light.22507506807d3a4c9e4b # donnas lamp
+                    - name: Donna's
+                    - icon: "mdi:lamp"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: light.22507506807d3a4cab3f # darrens lamp
+                    - name: Darren's
+                    - icon: "mdi:lamp"
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.bedroom_motion
+                    - name: Motion
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 7px
+############################################################
+mobile_ensuite:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+          - iPhone Cloud
+        title: 'Ensuite'
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'picture-entity'
+                    entity: light.68836842807d3a63506f # bathtub
+                    state_image:
+                      "on": /local/images-lovelace/card_backz/ensuite1ON.jpg
+                      "off": /local/images-lovelace/card_backz/ensuite1OFF.jpg
+                    aspect_ratio: 16x9
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: 'custom:card-modder'
+              style:
+                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                box-shadow: 2px 2px rgba(0,0,0,0.0)
+                height: 20px
+              card:
+                content: ' '
+                type: markdown
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 6px
+                    "--paper-card-background-color": rgba(0, 0, 0, 0.6)
+                    overflow: hidden
+                  card:
+                    type: custom:mini-media-player
+                    entity: media_player.bathroom_speaker
+                    icon: mdi:spotify
+                    artwork: full-cover-fit # cover
+                    hide:
+                      source: true
+                      power_state: false
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: entities
+              entities:
+                - type: custom:bar-card
+                  severity:
+                    - value: 100
+                      color: 'rgba(0, 255, 0,0.5)'
+                  title_position: inside
+                  tap_action: info
+                  columns: 1
+                  padding: 2px
+                  align: split
+                  rounding: 10px
+                  saturation: 75%
+                  height: 50px
+                  card_style:
+                    background: "rgba(0, 0, 0, 0.4)"
+                    border-radius: 10px
+                  title_style:
+                    font-size: 24px
+                    font-variant: small-caps
+                    color: '#F2F2F2'
+                    text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+                  value_style:
+                    font-size: 26px
+                    font-weight: bold
+                  entities:
+                    - sensor.mbath_temp
+                    - sensor.mbath_humidity
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: fan_button_temp
+                  variables:
+                    - entity: switch.vent_fan
+                    - name: Vent
+                    - icon: "mdi:fan"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.ensuite_light
+                    - name: Ceiling Light
+                    - icon: "mdi:lightbulb"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: light.68836842807d3a63506f # bathtub
+                    - name: Bath Lights
+                    - icon: 'mdi:wall-sconce-flat'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 20px
+############################################################
+mobile_garage:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+          - iPhone Cloud
+        title: 'Garage'
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 15px
+          border: solid 3px dimgray
+          font-weight: bold
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.garage_cam
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 5px
+            - type: entities
+              entities:
+                - type: custom:bar-card
+                  severity:
+                    - value: 100
+                      color: 'rgba(0, 255, 0,0.5)'
+                  title_position: inside
+                  tap_action: info
+                  columns: 1
+                  padding: 2px
+                  align: split
+                  rounding: 10px
+                  saturation: 75%
+                  height: 50px
+                  card_style:
+                    background: "rgba(0, 0, 0, 0.4)"
+                    border-radius: 10px
+                  title_style:
+                    font-size: 24px
+                    font-variant: small-caps
+                    color: '#F2F2F2'
+                    text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+                  value_style:
+                    font-size: 26px
+                    font-weight: bold
+                  entities:
+                    - sensor.garage_smoke_temp
+                    - sensor.dark_sky_humidity_0d
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.garage_ceiling_lights
+                    - name: Ceiling Light
+                    - icon: "mdi:lightbulb"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: switch.garage_fridge_relay
+                    - name: Refrigerator
+                    - icon: "mdi:fridge-outline"
+                - type: custom:decluttering-card
+                  template: switch_button_temp
+                  variables:
+                    - entity: cover.garage_door
+                    - name: Garage Door
+                    - icon: "mdi:garage"
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.wyzesense_77879025
+                    - name: 'Motion 1'
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.wyzesense_77879826
+                    - name: 'Motion 2'
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.garage_motion
+                    - name: 'Motion 3'
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 12px
 ############################################################
 mobile_motion:
   sequence:
@@ -3053,58 +4478,41 @@ mobile_motion:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
-        auto_close: true
+          - iPhone Cloud
+        title: 'Motion Sensors'
         style:
-          background: url("/local/images-lovelace/backgroundz/black_tex.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
-          "--app-toolbar-font-size": 2.6em
+          "--app-toolbar-font-size": 2.4em
           "--primary-text-color": rgba(255,255,255,0.75)
           border-radius: 15px
-          border: solid 3px dimgray
+          border: solid 3px DimGray
           font-weight: bold
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: vertical-stack
           cards:
-            - type: 'custom:card-modder'
-              style:
-                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
-                box-shadow: 2px 2px rgba(0,0,0,0.0)
-                height: 20px
-              card:
-                content: ' '
-                type: markdown
-            - type: 'custom:card-modder'
-              style:
-                border-radius: 12px
-                '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
-                box-shadow: 2px 2px rgba(0,0,0,0.0) 
-                padding: 0px 0px 10px 10px
-                height: 28px
-                font-family: Righteous
-              card:
-                content: '# Motion Sensors'
-                type: markdown
-            - type: 'custom:button-card'
-              color_type: blank-card
-              styles:
-                card:
-                  - height: 10px
             - type: horizontal-stack
               cards:
                 - type: 'custom:button-card'
                   color_type: blank-card
                   styles:
                     card:
-                      - width: 15px 
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.wyzesense_77878ecb
+                    - name: Porch 1
+                    - icon: 'mdi:motion-sensor'
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
                     - entity: binary_sensor.front_motion
-                    - name: Front
+                    - name: Porch 2
                     - icon: 'mdi:motion-sensor'
                 - type: custom:decluttering-card
                   template: motion_button_temp
@@ -3112,12 +4520,36 @@ mobile_motion:
                     - entity: binary_sensor.driveway_motion
                     - name: Driveway
                     - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
                     - entity: binary_sensor.back_motion
                     - name: Patio
                     - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.living_room_motion
+                    - name: Den 1
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.den_motion
+                    - name: Den 2
+                    - icon: 'mdi:motion-sensor'
                 - type: 'custom:button-card'
                   color_type: blank-card
                   styles:
@@ -3129,25 +4561,85 @@ mobile_motion:
                   color_type: blank-card
                   styles:
                     card:
-                      - width: 15px 
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.wyzesense_77879826
+                    - name: Garage 1
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.wyzesense_77879025
+                    - name: Garage 2
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.garage_motion
+                    - name: Garage 3
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.wyzesense_778797dc
+                    - name: Entry Hall
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.movement
+                    - name: Kiosk
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.wyzesense_778168e9
+                    - name: Laundry
+                    - icon: 'mdi:motion-sensor'
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.wyzesense_7787900d
+                    - name: Kitchen 1
+                    - icon: 'mdi:motion-sensor'
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.wyzesense_77878a66
+                    - name: Kitchen 2
+                    - icon: 'mdi:motion-sensor'
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
                     - entity: binary_sensor.bedroom_motion
                     - name: Master
                     - icon: 'mdi:motion-sensor'
-                - type: custom:decluttering-card
-                  template: motion_button_temp
-                  variables:
-                    - entity: binary_sensor.den_motion
-                    - name: Den
-                    - icon: 'mdi:motion-sensor'
-                - type: custom:decluttering-card
-                  template: motion_button_temp
-                  variables:
-                    - entity: binary_sensor.entry_hall_motion
-                    - name: Entry Hall
-                    - icon: 'mdi:motion-sensor'
                 - type: 'custom:button-card'
                   color_type: blank-card
                   styles:
@@ -3159,7 +4651,7 @@ mobile_motion:
                   color_type: blank-card
                   styles:
                     card:
-                      - width: 15px 
+                      - width: 15px
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
@@ -3169,14 +4661,14 @@ mobile_motion:
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
-                    - entity: binary_sensor.garage_motion
-                    - name: Garage
+                    - entity: binary_sensor.mbath_motion
+                    - name: En Suite
                     - icon: 'mdi:motion-sensor'
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
-                    - entity: binary_sensor.hall_motion
-                    - name: Hall
+                    - entity: binary_sensor.wyzesense_77802215
+                    - name: Hall Bath
                     - icon: 'mdi:motion-sensor'
                 - type: 'custom:button-card'
                   color_type: blank-card
@@ -3189,7 +4681,13 @@ mobile_motion:
                   color_type: blank-card
                   styles:
                     card:
-                      - width: 15px 
+                      - width: 15px
+                - type: custom:decluttering-card
+                  template: motion_button_temp
+                  variables:
+                    - entity: binary_sensor.hall_motion
+                    - name: Hall
+                    - icon: 'mdi:motion-sensor'
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
@@ -3202,12 +4700,6 @@ mobile_motion:
                     - entity: binary_sensor.hallway_rf_motion
                     - name: Hallway (up)
                     - icon: 'mdi:motion-sensor'
-                - type: custom:decluttering-card
-                  template: motion_button_temp
-                  variables:
-                    - entity: binary_sensor.kitchen_motion
-                    - name: Kitchen
-                    - icon: 'mdi:motion-sensor'
                 - type: 'custom:button-card'
                   color_type: blank-card
                   styles:
@@ -3219,24 +4711,24 @@ mobile_motion:
                   color_type: blank-card
                   styles:
                     card:
-                      - width: 15px 
+                      - width: 15px
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
-                    - entity: binary_sensor.living_room_motion
-                    - name: Den (low)
+                    - entity: binary_sensor.mbath_glass_break
+                    - name: Ensuite Glass
                     - icon: 'mdi:motion-sensor'
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
-                    - entity: binary_sensor.mbath_motion
-                    - name: En Suite
+                    - entity: binary_sensor.face_detected
+                    - name: Kiosk Face
                     - icon: 'mdi:motion-sensor'
                 - type: custom:decluttering-card
                   template: motion_button_temp
                   variables:
-                    - entity: binary_sensor.movement
-                    - name: Kiosk
+                    - entity: binary_sensor.wyzesense_7782a115
+                    - name: Mailbox
                     - icon: 'mdi:motion-sensor'
                 - type: 'custom:button-card'
                   color_type: blank-card
@@ -3256,26 +4748,27 @@ all_devices:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
-        title: '...All Devices...' 
+          - iPhone Cloud
+        title: 'All Devices'
         style:
-          background: url("/local/images-lovelace/mobile_backz/mobile16.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
           border-radius: 15px
           border: solid 3px lime
           "--primary-text-color": white
           "--paper-item-icon-active-color": lime
-          "--iron-icon-height": 40px
-          "--iron-icon-width": 40px
+          "--iron-icon-height": 35px
+          "--iron-icon-width": 35px
           "--iron-icon-stroke-color": black
           "--app-toolbar-font-size": 1.65em
           "--paper-toggle-button-checked-button-color": lime
           text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
-          font-size: 20px
+          font-size: 16px
           text-transform: capitalize
           font-variant: small-caps
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: entities
@@ -3285,7 +4778,7 @@ all_devices:
               card:
                 type: glance
                 show_state: false
-                columns: 3
+                columns: 2
               filter:
                 include:
                   - domain: light
@@ -3297,24 +4790,43 @@ all_devices:
                       tap_action:
                         action: toggle
                 exclude: 
-                  - entity_id: switch.cabinet_sw2
                   - entity_id: switch.kitchen_cabinet_lights
                   - entity_id: switch.kitchen_stove_light
-                  - entity_id: switch.office_monitor
-                  - entity_id: switch.cabinet_sw2
                   - entity_id: switch.kitchen_cabinet_lights
                   - entity_id: switch.kitchen_stove_light
-                  - entity_id: switch.office_monitor
-                  - entity_id: switch.living_room_lamp_sw2
-                  - entity_id: switch.living_room_lamp_switch
                   - entity_id: switch.hall_switch_2
                   - entity_id: switch.hall_switch_1
                   - entity_id: switch.front_flood_lights_switch
                   - entity_id: switch.foyer_light_switch
                   - entity_id: switch.fountain_switch
-                  - entity_id: switch.ceiling_left_sw
-                  - entity_id: switch.ceiling_right_sw
                   - entity_id: switch.hallway_switch
+                  - entity_id: switch.laundry_light
+                  - entity_id: switch.attic_lights
+                  - entity_id: switch.tv_accent_lights
+                  - entity_id: switch.back_flood_lights
+                  - entity_id: switch.bedroom_ceiling_light
+                  - entity_id: switch.ceiling_center
+                  - entity_id: switch.ceiling_left
+                  - entity_id: switch.ceiling_right
+                  - entity_id: switch.coffee_light
+                  - entity_id: switch.desk_back_light
+                  - entity_id: switch.foyer_accent_lights
+                  - entity_id: switch.foyer_light
+                  - entity_id: switch.front_flood_lights
+                  - entity_id: switch.garage_ceiling_lights
+                  - entity_id: switch.hall_light
+                  - entity_id: switch.hallway_light
+                  - entity_id: switch.living_room_ceiling_light
+                  - entity_id: switch.living_room_lamp
+                  - entity_id: switch.office_ceiling_light
+                  - entity_id: switch.patio_light
+                  - entity_id: switch.porch_light
+                  - entity_id: switch.side_door_light
+                  - entity_id: switch.guest_ceiling_light
+                  - entity_id: switch.table_light
+                  - entity_id: switch.salt_light
+                  - entity_id: switch.living_room_lamp_switch
+                  - entity_id: switch.patio_accent_lights
 ############################################################
 mobile_lights_on:
   sequence:
@@ -3328,9 +4840,10 @@ mobile_lights_on:
           - Pixel DNS
           - Pixel Cloud
           - Pixel LAN
-        title: '... Currently "ON"...' 
+          - iPhone Cloud
+        title: 'Currently "ON"'
         style:
-          background: url("/local/images-lovelace/mobile_backz/mobile16.jpg")
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
           background-repeat: no-repeat
           background-size: 100% 100%
           border-radius: 15px
@@ -3346,8 +4859,8 @@ mobile_lights_on:
           font-size: 1.375em
           text-transform: capitalize
           font-variant: small-caps
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: entities
@@ -3370,27 +4883,47 @@ mobile_lights_on:
                       tap_action:
                         action: toggle
                 exclude: 
-                  - entity_id: switch.cabinet_sw2
                   - entity_id: switch.kitchen_cabinet_lights
                   - entity_id: switch.kitchen_stove_light
-                  - entity_id: switch.office_monitor
-                  - entity_id: switch.cabinet_sw2
                   - entity_id: switch.kitchen_cabinet_lights
                   - entity_id: switch.kitchen_stove_light
-                  - entity_id: switch.office_monitor
-                  - entity_id: switch.living_room_lamp_sw2
-                  - entity_id: switch.living_room_lamp_switch
                   - entity_id: switch.hall_switch_2
                   - entity_id: switch.hall_switch_1
                   - entity_id: switch.front_flood_lights_switch
                   - entity_id: switch.foyer_light_switch
                   - entity_id: switch.fountain_switch
-                  - entity_id: switch.ceiling_left_sw
-                  - entity_id: switch.ceiling_right_sw
                   - entity_id: switch.hallway_switch
-                  - entity_id: switch.coffee_light
+                  - entity_id: switch.laundry_light
+                  - entity_id: switch.attic_lights
                   - entity_id: switch.tv_accent_lights
+                  - entity_id: switch.back_flood_lights
+                  - entity_id: switch.bedroom_ceiling_light
+                  - entity_id: switch.ceiling_center
+                  - entity_id: switch.ceiling_left
+                  - entity_id: switch.ceiling_right
+                  - entity_id: switch.coffee_light
+                  - entity_id: switch.desk_back_light
                   - entity_id: switch.foyer_accent_lights
+                  - entity_id: switch.foyer_light
+                  - entity_id: switch.front_flood_lights
+                  - entity_id: switch.garage_ceiling_lights
+                  - entity_id: switch.hall_light
+                  - entity_id: switch.hallway_light
+                  - entity_id: switch.living_room_ceiling_light
+                  - entity_id: switch.living_room_lamp
+                  - entity_id: switch.office_ceiling_light
+                  - entity_id: switch.patio_light
+                  - entity_id: switch.porch_light
+                  - entity_id: switch.side_door_light
+                  - entity_id: switch.guest_ceiling_light
+                  - entity_id: switch.table_light
+                  - entity_id: switch.salt_light
+                  - entity_id: switch.living_room_lamp_switch
+                  - entity_id: switch.cabinet_lights
+                  - entity_id: switch.washer_plug
+                  - entity_id: switch.dryer_plug
+                  - entity_id: switch.garage_fridge_relay
+                  - entity_id: switch.patio_accent_lights
 ############################################################
 system_popup:
   sequence:
@@ -3418,8 +4951,8 @@ system_popup:
           text-transform: capitalize
           font-variant: small-caps
           color: "#FFF"
-          height: 100%
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: entities
@@ -3527,9 +5060,9 @@ smoke_popup:
           border: solid 3px crimson
           font-size: 20px
           font-weight: bold
-          text-shadow: "1px 1px 2px black, 0 0 25px red, 0 0 5px firebrick"
-          height: 100%
+          text-shadow: "2px 2px 4px #000000"
           width: 100%
+          box-sizing: border-box
           margin: 0
         card:
           type: entities
@@ -3569,6 +5102,668 @@ smoke_popup:
                 - type: entity-button
                   entity: binary_sensor.office_smoke_detected
                   name: Office
+
+############################################################
+view_esphome:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: ' '
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px lime
+          "--primary-text-color": white
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 40px
+          "--iron-icon-width": 40px
+          "--iron-icon-stroke-color": black
+          "--app-toolbar-font-size": 1.65em
+          "--paper-toggle-button-checked-button-color": lime
+          text-shadow: "2px 2px 4px #000000"
+          font-size: 1.375em
+          text-transform: capitalize
+          font-variant: small-caps
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: entities
+              show_header_toggle: false
+              entities:
+                - type: 'custom:text-divider-row'
+                  text: ESPHome
+                - sensor.garage_fridge_power
+                - sensor.garage_fridge_voltage
+                - sensor.garage_fridge_wifi_signal
+                - entity: switch.garage_fridge_relay
+                  name: Garage Fridge LED
+                - entity: sensor.garage_fridge_esphome_version
+                  name: Version
+            - type: entities
+              show_header_toggle: false
+              entities:
+                - type: 'custom:text-divider-row'
+                  text: Consumption
+                - type: custom:card-modder
+                  style:
+                    background: rgba(0,0,0,0.0)
+                    border-radius: 15px
+                    overflow: hidden
+                  card:
+                    type: custom:mini-graph-card
+                    entities:
+                      - sensor.garage_fridge_power
+                    show:
+                      labels: true
+                      name: false
+                      icon: false
+                    color_thresholds:
+                      - value: 5
+                        color: "green"
+                      - value: 120
+                        color: "yellow"
+                      - value: 130
+                        color: "red"
+                    hours_to_show: 168
+                    points_per_hour: 0.25
+############################################################
+view_wyzesense:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: 'Wyze Sense Devices'
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px DimGray
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 40px
+          "--iron-icon-width": 40px
+          text-shadow: "2px 2px 4px #000000"
+          font-size: 1.375em
+          text-transform: capitalize
+          font-variant: small-caps
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: 'custom:monster-card'
+          card:
+            show_header_toggle: false
+            type: entities
+          filter:
+            include:
+              - entity_id: '*wyzesense*'
+############################################################
+view_shelly:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: ' '
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px DimGray
+          "--primary-text-color": white
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 40px
+          "--iron-icon-width": 40px
+          "--iron-icon-stroke-color": black
+          "--app-toolbar-font-size": 1.65em
+          "--paper-toggle-button-checked-button-color": lime
+          text-shadow: "2px 2px 4px #000000"
+          font-size: 1.375em
+          text-transform: capitalize
+          font-variant: small-caps
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: 'custom:monster-card'
+              card:
+                show_header_toggle: false
+                title: Shelly Devices
+                type: entities
+              filter:
+                exclude:
+                  - entity_id: '*rssi*'
+                  - entity_id: '*uptime*'
+                  - entity_id: '*firmware*'
+                  - entity_id: '*cloud*'
+                  - entity_id: '*mqtt*'
+                  - entity_id: '*view*'
+                include:
+                  - entity_id: '*shelly*'
+            - type: entities
+              show_header_toggle: false
+              entities:
+                - type: 'custom:text-divider-row'
+                  text: Hall Bathroom Consumption
+                - type: custom:card-modder
+                  style:
+                    background: rgba(0,0,0,0.0)
+                    border-radius: 15px
+                    overflow: hidden
+                  card:
+                    type: custom:mini-graph-card
+                    entities:
+                      - sensor.shelly_shsw_21_32ba73_consumption
+                    show:
+                      labels: true
+                      name: false
+                      icon: false
+                    color_thresholds:
+                      - value: 5
+                        color: "green"
+                      - value: 120
+                        color: "yellow"
+                      - value: 130
+                        color: "red"
+                    hours_to_show: 168
+                    points_per_hour: 0.25
+            - type: 'custom:monster-card'
+              card:
+                show_header_toggle: false
+                title: Shelly updates available
+                type: entities
+              filter:
+                include:
+                  - entity_id: '*firmware_update*'
+            - type: 'custom:monster-card'
+              card:
+                show_header_toggle: false
+                title: Shelly RSSI
+                type: entities
+              filter:
+                include:
+                  - entity_id: '*rssi*'
+            - type: 'custom:monster-card'
+              card:
+                show_header_toggle: false
+                title: Wyze Sense Devices
+                type: entities
+              filter:
+#                exclude:
+#                  - entity_id: '*rssi*'
+#                  - entity_id: '*uptime*'
+#                  - entity_id: '*firmware*'
+#                  - entity_id: '*cloud*'
+#                  - entity_id: '*mqtt*'
+#                  - entity_id: '*view*'
+                include:
+                  - entity_id: '*wyzesense*'
+############################################################
+view_wifi:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px DimGray
+          "--primary-text-color": white
+          "--paper-item-icon-active-color": DimGray
+          "--iron-icon-height": 40px
+          "--iron-icon-width": 40px
+          "--iron-icon-stroke-color": black
+          "--app-toolbar-font-size": 1.65em
+          "--paper-toggle-button-checked-button-color": lime
+          text-shadow: "2px 2px 4px #000000"
+          font-size: 1.375em
+          text-transform: capitalize
+          font-variant: small-caps
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: entities
+          show_header_toggle: false
+          entities:
+            - type: 'custom:text-divider-row'
+              text: Internet
+            - sensor.speedtest_upload
+            - sensor.speedtest_ping
+            - sensor.speedtest_download
+            - binary_sensor.remote_ui
+            - type: 'custom:text-divider-row'
+              text: Google WiFi
+            - sensor.google_wifi_status
+            - sensor.google_wifi_new_version
+            - sensor.google_wifi_uptime
+            - sensor.google_wifi_last_restart
+            - type: custom:dummy-entity-row
+              entity: sun.sun
+              icon: mdi:this-icon-does-not-exist
+              name: " "
+############################################################
+view_settings:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+          - iPhone Cloud
+        title: 'Home Assistant'
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px lime
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 40px
+          "--iron-icon-width": 40px
+          "--iron-icon-stroke-color": black
+          "--paper-toggle-button-checked-button-color": lime
+          text-shadow: "2px 2px 4px #000000"
+          font-size: 1.375em
+          font-weight: bold
+#          text-transform: capitalize
+#          font-variant: small-caps
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: entities
+              show_header_toggle: false
+              entities:
+                - type: 'custom:text-divider-row'
+                  text: Services
+                - script.run_config_check
+                - script.reload_automations
+                - script.reload_scripts
+                - script.restart_ha
+            - type: entities
+              show_header_toggle: false
+              entities:
+                - type: 'custom:text-divider-row'
+                  text: Update Status
+                - entity: sensor.hacs
+                  name: HACS
+                - sensor.ha_latest_version
+            - type: entities
+              show_header_toggle: false
+              entities:
+                - type: 'custom:text-divider-row'
+                  text: Presence
+                - input_boolean.people_home_boolean
+                - input_boolean.darren_home
+                - input_boolean.donna_home
+                - input_boolean.tristan_home
+            - type: 'custom:browser-player'
+############################################################
+automation_settings:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: 'Automation Settings'
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px lime
+          "--primary-text-color": white
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 40px
+          "--iron-icon-width": 40px
+          "--iron-icon-stroke-color": black
+          "--app-toolbar-font-size": 1.65em
+          "--paper-toggle-button-checked-button-color": lime
+          text-shadow: "2px 2px 4px #000000"
+          font-size: 1.375em
+          text-transform: capitalize
+          font-variant: small-caps
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: entities
+          show_header_toggle: false
+          entities:
+            - input_boolean.notifications
+            - input_boolean.voice_notifications
+  #          - entity: input_boolean.motion_tv_alert
+  #            name: Motion Alert TV
+            - input_boolean.disable_garage_notify
+            - input_boolean.disable_auto_garage
+            - input_boolean.disable_garage_auto_lights
+            - input_boolean.disable_patio_motion
+            - input_boolean.disable_cabinet_auto_lights
+            - input_boolean.driveway_motion_lights
+            - input_boolean.bedroom_lamps
+            - input_boolean.disable_auto_bedroom
+            - input_boolean.disable_auto_bathroom
+            - input_boolean.disable_auto_fans
+            - input_boolean.disable_laundry_notifications
+            - input_boolean.disable_mail_notifications
+            - input_boolean.disable_exterior_auto_lights
+            - input_boolean.disable_interior_auto_lights
+            - input_boolean.disable_alarm_lights
+            - input_boolean.alarm_disarm_switch
+############################################################
+kiosk_settings:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+        title: 'Kiosk Settings'
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px lime
+          "--primary-text-color": white
+          "--paper-item-icon-active-color": lime
+          "--iron-icon-height": 40px
+          "--iron-icon-width": 40px
+          "--iron-icon-stroke-color": black
+          "--app-toolbar-font-size": 1.65em
+          "--paper-toggle-button-checked-button-color": lime
+          text-shadow: "2px 2px 4px #000000"
+          font-size: 1.375em
+          text-transform: capitalize
+          font-variant: small-caps
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: entities
+          show_header_toggle: false
+          entities:
+            - input_boolean.auto_tablet
+            - input_boolean.auto_backgroundz
+            - input_boolean.disable_popups
+            - input_boolean.disable_inside_popups
+            - input_boolean.auto_card_backz
+            - input_boolean.auto_cameras
+            - input_boolean.auto_camera_image
+            - input_select.mobile_wallpaper
+            - input_select.wallpaper
+            - input_select.auto_camera
+            - input_select.alert_type
+            - input_boolean.donnas_screen
+############################################################
+view_inside_cameras:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+          - iPhone Cloud
+        title: ' '
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px DimGray
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.den_cam
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.kitchen_cam
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.garage_cam
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.entry_hall
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+############################################################
+view_outside_cameras:
+  sequence:
+    - service: browser_mod.command
+      data:
+        command: close-popup
+    - service: browser_mod.command
+      data:
+        command: popup
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+          - iPhone Cloud
+        auto_close: true
+        style:
+          background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          border-radius: 15px
+          border: solid 3px DimGray
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+        card:
+          type: vertical-stack
+          cards:
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 6px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.driveway_cam
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 5px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.front_door
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 5px
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+                - type: 'custom:card-modder'
+                  style:
+                    border-radius: 12px
+                    overflow: hidden
+                  card:
+                    type: 'custom:camera-card'
+                    entity: camera.patio_cam
+                - type: 'custom:button-card'
+                  color_type: blank-card
+                  styles:
+                    card:
+                      - width: 1px 
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 6px
 ############################################################
 ###               TIMERS & ALARM SCRIPTS                 ###
 ############################################################
@@ -3580,8 +5775,10 @@ fountain_timer:
     - service: switch.turn_on
       entity_id: switch.fountain
     - delay: '00:10:00'
-    - service: switch.turn_off
-      entity_id: switch.fountain
+    - service: homeassistant.turn_off
+      entity_id: 
+        - light.patio_accent_lights
+        - switch.fountain
 ############################################################
 side_light_timer:
   sequence:
@@ -3597,6 +5794,21 @@ side_light_timer:
     - service: switch.turn_off
       entity_id: switch.side_door_light
 ############################################################
+mailbox_opened:
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.50'
+    - service: tts.google_say
+      entity_id: media_player.living_room_google
+      data_template:
+        message: "You've got mail!"
+    - service: notify.notify_all
+      data_template:
+        message: > 
+          Mailbox was opened at '{{ now().strftime('%I:%M %p') }}'
+############################################################
 coffee_on:
   sequence:
     - service: switch.turn_on
@@ -3606,7 +5818,7 @@ coffee_on:
     - service: notify.darren
       data:
         title: "New Life Alert"
-        message: "Coffee Maker ON!"
+        message: "Coffee Maker is ON!"
 ############################################################
 ## Darren's wake up alarm
 darrens_wake_up:
@@ -3683,20 +5895,10 @@ donnas_wake_up:
         entity_id: light.22507506807d3a4c9e4b # donnas lamp
         brightness_pct: 35
         transition: 2
-    - delay: '00:35:00'
+    - delay: '00:40:00'
     - service: homeassistant.turn_off
       data:
         entity_id: group.bedroom_lamps
-    - service: input_boolean.turn_off
-      entity_id:
-        - input_boolean.notifications
-        - input_boolean.voice_notifications
-    - delay: '00:30:00'
-    - service: input_boolean.turn_on
-      entity_id:
-        - input_boolean.notifications
-        - input_boolean.voice_notifications
-        - input_boolean.auto_backgroundz
 ############################################################
 ###                   PRESENCE SCRIPTS                   ###
 ############################################################
@@ -3715,6 +5917,9 @@ darren_home:
     - condition: state
       entity_id: cover.garage_door
       state: closed
+    - condition: state
+      entity_id: input_boolean.disable_auto_garage
+      state: 'off'
     - service: homeassistant.turn_on
       entity_id: 
         - switch.garage_door
@@ -3742,6 +5947,7 @@ people_home:
         - input_boolean.auto_tablet
         - input_boolean.auto_backgroundz
         - input_boolean.disable_inside_popups
+        - group.inside_fans
     - service: homeassistant.turn_off
       entity_id:
         - input_boolean.disable_popups
@@ -3765,6 +5971,10 @@ people_away:
         - input_boolean.auto_cameras
         - input_boolean.disable_popups
         - input_boolean.disable_inside_popups
+        - input_boolean.disable_cabinet_auto_lights
+        - input_boolean.disable_patio_motion
+        - input_boolean.disable_garage_auto_lights
+        - group.inside_fans
     - service: homeassistant.turn_on
       entity_id:
         - input_boolean.notifications
@@ -3810,6 +6020,16 @@ reload_automations:
   sequence:
     - service: automation.reload
 ############################################################
+# Reload Scripts
+reload_scripts:
+  sequence:
+    - service: script.reload
+############################################################
+# Config Check
+run_config_check:
+  sequence:
+    - service: config_check.run
+############################################################
 ###            DOORS, MOTION, LIGHTS SCRIPTS             ###
 ############################################################
 # Outside OFF
@@ -3841,9 +6061,6 @@ garage_entry_light:
       state: 'off'
     - service: switch.turn_on
       entity_id: switch.garage_ceiling_lights
-    - delay: '00:07:00'
-    - service: switch.turn_off
-      entity_id: switch.garage_ceiling_lights
 ############################################################
 # Garage Entry Door Voice
 garage_entry_voice:
@@ -3865,9 +6082,6 @@ garage_entry_voice:
 garage_entry_door_open:
   sequence:
     - condition: state
-      entity_id: input_boolean.notifications
-      state: 'on'
-    - condition: state
       entity_id: binary_sensor.garage_entry_door_k
       state: 'on'
     - delay: '00:00:10'
@@ -3881,7 +6095,7 @@ garage_entry_door_open_loop:
       state: 'on'
     - service: mqtt.publish
       data_template:
-        {"topic":"alarmpanel/command", "payload":"{'speak':'Garage entry door open. Please close the door!'}"}
+        {"topic":"alarmpanel/command", "payload":"{'speak':'The garage entry door is open. Please close the door!'}"}
     - service: notify.darren
       data:
         title: "New Life Alert"
@@ -3891,17 +6105,17 @@ garage_entry_door_open_loop:
     - service: script.garage_entry_door_open
 ############################################################
 ## '[Motion TV on] Garage'
-garage_motion_tv:
-  sequence:
-    - condition: state
-      entity_id: input_boolean.motion_tv_alert
-      state: 'on'
-    - service: media_player.turn_on
-      entity_id: media_player.living_room_tv
-    - service: camera.play_stream
-      data:
-        entity_id: camera.garage_cam
-        media_player: media_player.living_room_tv
+#garage_motion_tv:
+#  sequence:
+#    - condition: state
+#      entity_id: input_boolean.motion_tv_alert
+#      state: 'on'
+#    - service: media_player.turn_on
+#      entity_id: media_player.living_room_tv
+#    - service: camera.play_stream
+#      data:
+#        entity_id: camera.garage_cam
+#        media_player: media_player.living_room_tv
 ############################################################
 # Garage Door notify voice
 garage_notify:
@@ -3971,7 +6185,7 @@ back_door_light:
       entity_id: sun.sun
       state: below_horizon 
     - condition: state
-      entity_id: input_boolean.disable_exterior_auto_lights
+      entity_id: input_boolean.disable_patio_motion
       state: 'off'
     - condition: state
       entity_id: switch.patio_light
@@ -4007,35 +6221,17 @@ back_door_notify:
         message: "Back door has been opened!"
 ############################################################
 ## [Motion TV on] Front door
-front_motion_tv:
-  sequence:
-    - condition: state
-      entity_id: input_boolean.motion_tv_alert
-      state: 'on'
-    - service: media_player.turn_on
-      entity_id: media_player.living_room_tv
-    - service: camera.play_stream
-      data:
-        entity_id: camera.front_door
-        media_player: media_player.living_room_tv
-############################################################
-## '[Auto Light] Front door'
-front_door_light:
-  sequence:
-    - condition: state
-      entity_id: sun.sun
-      state: below_horizon 
-    - condition: state
-      entity_id: input_boolean.disable_exterior_auto_lights
-      state: 'off'
-    - condition: state
-      entity_id: switch.porch_light
-      state: 'off'
-    - service: switch.turn_on
-      entity_id: switch.porch_light
-    - delay: '00:07:00'
-    - service: switch.turn_off
-      entity_id: switch.porch_light
+#front_motion_tv:
+#  sequence:
+#    - condition: state
+#      entity_id: input_boolean.motion_tv_alert
+#      state: 'on'
+#    - service: media_player.turn_on
+#      entity_id: media_player.living_room_tv
+#    - service: camera.play_stream
+#      data:
+#        entity_id: camera.front_door
+#        media_player: media_player.living_room_tv
 ############################################################
 ## '[Notify] Front door'
 front_door_notify:
@@ -4122,7 +6318,6 @@ patio_motion:
     - condition: state
       entity_id: input_boolean.voice_notifications
       state: 'on'
-    - delay: '00:00:04'
     - condition: state
       entity_id: binary_sensor.back_door_k
       state: 'off'
@@ -4147,7 +6342,7 @@ patio_light:
       entity_id: switch.patio_light
       state: 'off'
     - condition: state
-      entity_id: input_boolean.disable_exterior_auto_lights
+      entity_id: input_boolean.disable_patio_motion
       state: 'off'
     - service: switch.turn_on
       entity_id: switch.patio_light
@@ -4169,7 +6364,7 @@ front_notify:
       entity_id: input_boolean.voice_notifications
       state: 'on'
     - condition: state
-      entity_id: binary_sensor.front_door
+      entity_id: binary_sensor.wyzesense_7780F0B4
       state: 'off'
     - service: media_player.volume_set
       data:
