@@ -11,12 +11,12 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
   <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/logo-round-192x192.png">
 </p>
 
-### I'm currently running [Home Assistant](https://home-assistant.io) version __0.98.5__ on a RPi4B.
+### I'm currently running [Home Assistant](https://home-assistant.io) version __0.99.2__ on a RPi4B.
 
 # A Few Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
 |:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------:|
-|8                |44      |80              |69        |92           |159      |373      |31       | 
+|8                |51      |82              |73        |96           |161      |379      |33       | 
 
 ### Cameras(8):
 * [Wyze Cam v2(7)](http://amzn.to/2QqoYsf)
