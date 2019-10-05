@@ -1,0 +1,379 @@
+ # /config/packages/theme_control.yaml
+#########################################################
+frontend:
+  javascript_version: latest
+  extra_html_url:
+    - https://fonts.googleapis.com/css?family=Indie Flower|Permanent Marker|Righteous
+  themes:
+
+    Dark-N-Clear:
+      lumo-primary-color: "hsl(0, 0%, 0%)"
+      lumo-primary-text-color: "#f2f2f2"
+      lumo-header-text-color: "#d9d9d9"
+      lumo-secondary-text-color: "#d9d9d9"
+      dark-primary-color: "#4d4d4d"
+      disabled-text-color: "#5e5e6e"
+      light-primary-color: "#a2a2a9"
+      paper-card-background-color: "rgba(0,0,0,0.0)"
+      paper-grey-200: "#acacb9"
+      paper-item-icon-color: "#d6d6dc"
+      paper-listbox-background-color: "#0b0e0f"
+      primary-background-color: "#000000"
+      primary-color: "4d4d4d" # # # # # # # # # <<---- DO NOT CHANGE # # #
+      primary-text-color: "#f2f2f2"
+      secondary-text-color: "#babac4"
+      text-primary-color: "#d6d6dc"
+      secondary-background-color: "#737373"
+      sidebar-text_-_background: "#66757f"
+#      iron-icon-stroke-color: "#525260"   # # # adds outline around icons
+      ha-card-box-shadow: "3px 3px rgba(0,0,0,0.0)"
+      ha-card-border-radius: "15px"
+      paper-card-header-color: "var(--paper-item-icon-color)"
+      state-icon-unavailable-color: "rgba(255, 102, 0,0.5)"
+      paper-item-icon-active-color: "#a1f2ab" # "#e4da00"
+      paper-item-icon_-_color: "var(--primary-text-color)"
+      paper-listbox-color: "var(--primary-text-color)"
+      paper-grey-50: "var(--primary-text-color)"
+      paper-slider-active-color: "var(--light-primary-color)"
+      paper-slider-knob-color: "var(--paper-item-icon-active-color)"
+      paper-slider-knob-start-color: "var(--secondary-background-color)"
+      paper-slider-pin-color: "var(--secondary-background-color)"
+      paper-slider-secondary-color: "var(--dark-primary-color)"
+      paper-toggle-button-checked-ink-color: "var(--dark-primary-color)"
+      paper-toggle-button-checked-button-color: "var(--paper-item-icon-active-color)"
+      paper-toggle-button-unchecked-button-color: "var(--table-row-background-color)"
+      paper-toggle-button-checked-bar-color: "rgba(255, 255, 255,0.2)"
+      paper-toggle-button-unchecked-bar-color: "rgba(255, 255, 255,0.2)"
+      table-row-background-color: "#22232b"
+      table-row-alternative-background-color: "#121317"
+      sidebar-icon-color: "#838395"
+      sidebar-text-color: "#F1F1F1"
+      sidebar-selected-background-color: "var(--primary-background-color)"
+      sidebar-selected-icon-color: "#b3b3b3"
+      sidebar-selected-text-color: "var(--sidebar-selected-icon-color)"
+      divider-color: 'hsl(220, 5%, 38%)'
+      dark-divider-opacity: '0.5'
+      light-divider-opacity: '0.1'
+      shadow-elevation-2dp_-_box-shadow: 'inset 0px 0px 0px 2.5px hsl(220, 5%, 27%)'
+      shadow-elevation-16dp_-_box-shadow: 'inset 0px 0px 0px 1.5px hsl(220, 5%, 38%)'
+      paper-font-headline_-_letter-spacing: '-0.2px'
+      paper-font-headline_-_font-weight: '500'
+      paper-font-body1_-_font-weight: '500'
+      label-badge-red: 'hsla(0, 0%, 0%, 0)'
+      label-badge-border-color: "var(--paper-item-icon-active-color)"
+      label-badge-background-color: "black"
+      label-badge-text-color: "var(--paper-item-icon-active-color)"
+      primary-font-family: "Righteous"
+      paper-font-common-base_-_font-family: "var(--primary-font-family)"
+      paper-font-common-code_-_font-family: "var(--primary-font-family)"
+      paper-font-body1_-_font-family: "var(--primary-font-family)"
+      paper-font-subhead_-_font-family: "var(--primary-font-family)"
+      paper-font-headline_-_font-family: "var(--primary-font-family)"
+      paper-font-caption_-_font-family: "var(--primary-font-family)"
+      paper-font-title_-_font-family: "var(--primary-font-family)"
+      paper-spinner-color: "var(--paper-item-icon-active-color)"
+      google-red-500: "#cc0000"
+      google-blue-500: "#0033cc"
+      google-green-500:  "#13eb13"
+      google-yellow-500: "#ffff66"
+      accent-color: "var(--paper-item-icon-active-color)"
+
+    Ocean-Nightz:
+      #Color Variables
+      ocean-color: '#38ccd0'
+      red-color: '#b70000'
+      white-color: '#F2F2F2'
+      lighter-grey-color: '#d6d6dc'
+      light-grey-color: '#777777'
+      medium-grey-color: '#292929'
+      dark-grey-color: '#222222'
+      darker-grey-color: '#141414'
+      black-color: '#000000'
+      outline-color: '#009980'
+      ha-card-border-radius: '22px'
+      ha-card-box-shadow: "0px 0px rgba(0,0,0,0.0)"
+      # Main colors
+      primary-color: 'var(--ocean-color)'
+      accent-color: 'var(--ocean-color)'
+      dark-primary-color: 'var(--accent-color)'
+      light-primary-color: 'var(--accent-color)'
+      # Text colors
+      primary-text-color: 'var(--white-color)'
+      text-primary-color: 'var(--primary-text-color)'
+      secondary-text-color: 'var(--ocean-color)'
+      disabled-text-color: 'var(--light-grey-color)'
+      label-badge-border-color: 'var(--ocean-color)'
+      # Sidebar
+      sidebar-icon-color: 'rgba(56, 204, 208,0.4)'
+      sidebar-selected-background-color: 'rgba(56, 204, 208,0.2)'
+      # Background colors
+      primary-background-color: '#000000'
+      secondary-background-color: '#000000'
+      divider-color: 'rgba(0, 0, 0, .12)'
+      table-row-background-color: 'var(--medium-grey-color)'
+      table-row-alternative-background-color: 'var(--medium-grey-color)'
+      # Nav Menu
+      paper-listbox-color: 'var(--light-grey-color)'
+      paper-listbox-background-color: 'var(--darker-grey-color)'
+      paper-grey-50: 'var(--primary-text-color)'
+      paper-grey-200: 'var(--dark-grey-color)'
+      # Paper card
+      paper-card-header-color: 'var(--accent-color)'
+      paper-card-background-color: 'rgba(0, 0, 0,0.0)'
+      paper-dialog-background-color: 'var(--medium-grey-color)'
+      paper-item-icon-color: 'var(--lighter-grey-color)'
+      state-icon-unavailable-color: 'rgba(255, 102, 0,0.5)'
+      paper-item-icon-active-color: 'var(--ocean-color)'
+      paper-item-icon_-_color: 'var(--ocean-color)'
+      paper-item-selected_-_background-color: 'var(--medium-grey-color)'
+      paper-tabs-selection-bar-color: 'var(--ocean-color)'
+      # Labels
+      label-badge-red: 'var(--accent-color)'
+      label-badge-text-color: 'var(--primary-text-color)'
+      label-badge-background-color: 'var(--dark-grey-color)'
+      # Switches
+      paper-toggle-button-checked-button-color: 'var(--accent-color)'
+      paper-toggle-button-checked-bar-color: 'var(--accent-color)'
+      paper-toggle-button-checked-ink-color: 'var(--accent-color)'
+      paper-toggle-button-unchecked-button-color: 'var(--disabled-text-color)'
+      paper-toggle-button-unchecked-bar-color: 'var(--disabled-text-color)'
+      paper-toggle-button-unchecked-ink-color: 'var(--disabled-text-color)'
+      # Sliders
+      paper-slider-knob-color: 'var(--accent-color)'
+      paper-slider-knob-start-color: 'var(--accent-color)'
+      paper-slider-pin-color: 'var(--accent-color)'
+      paper-slider-active-color: 'var(--accent-color)'
+      paper-slider-container-color: 'linear-gradient(var(--primary-background-color), var(--secondary-background-color)) no-repeat'
+      paper-slider-secondary-color: 'var(--secondary-background-color)'
+      paper-slider-disabled-active-color: 'var(--disabled-text-color)'
+      paper-slider-disabled-secondary-color: 'var(--disabled-text-color)'
+      # Google colors
+      google-red-500: 'var(--red-color)'
+      google-green-500: 'var(--ocean-color)'
+      google-blue-500: "#0033cc"
+      google-yellow-500: "#ffff66"
+      paper-spinner-color: 'var(--accent-color)'
+      # Add border to icons
+#      iron-icon-stroke-color: '#009980'
+      #Changes to fix history/logbook menus
+      lumo-primary-text-color: 'var(--ocean-color)'
+      lumo-secondary-text-color: 'var(--ocean-color)'
+      lumo-primary-color: 'var(--ocean-color)'
+      lumo-primary-color-50pct: 'rgba(56, 204, 208, .5)'
+      lumo-primary-color-10pct: 'rgba(56, 204, 208, .1)'
+      #Calendar day numbers
+      lumo-body-text-color: 'var(--white-color)'
+      #Calendar/Date-Picker Background
+      lumo-base-color: 'var(--medium-grey-color)'
+      #Month/Year header
+      lumo-header-text-color: 'var(--lumo-body-text-color)'
+      #DayOfWeek Header
+      lumo-tertiary-text-color: 'var(--lumo-body-text-color)'
+      # Background of date in History/Logbook that you clcim to view date-picker
+      lumo-shade: 'var(medium-grey-color)'
+      lumo-shade-90pct: 'rgba(41, 41, 41, .9)'
+      lumo-shade-80pct: 'rgba(41, 41, 41, .8)'
+      lumo-shade-70pct: 'rgba(41, 41, 41, .7)'
+      lumo-shade-60pct: 'rgba(41, 41, 41, .6)'
+      lumo-shade-50pct: 'rgba(41, 41, 41, .5)'
+      lumo-shade-40pct: 'rgba(41, 41, 41, .4)'
+      lumo-shade-30pct: 'rgba(41, 41, 41, .3)'
+      lumo-shade-20pct: 'rgba(41, 41, 41, .2)'
+      lumo-shade-10pct: 'rgba(41, 41, 41, .1)'
+      lumo-shade-5pct: 'rgba(41, 41, 41, .05)'
+      #Removes Gradient in Calendar/Date-Picker and Drop-down lists
+      lumo-tint-5pct: 'var(--darker-grey-color)'
+      primary-font-family: "Righteous"
+      paper-font-common-base_-_font-family: "var(--primary-font-family)"
+      paper-font-common-code_-_font-family: "var(--primary-font-family)"
+      paper-font-body1_-_font-family: "var(--primary-font-family)"
+      paper-font-subhead_-_font-family: "var(--primary-font-family)"
+      paper-font-headline_-_font-family: "var(--primary-font-family)"
+      paper-font-caption_-_font-family: "var(--primary-font-family)"
+      paper-font-title_-_font-family: "var(--primary-font-family)"
+
+    Purple-Nightz:
+      #Color Variables
+      purple-color: '#a7a5e5' # '#c5a8ed'
+      red-color: '#b70000'
+      white-color: '#F2F2F2'
+      lighter-grey-color: '#d6d6dc'
+      light-grey-color: '#777777'
+      medium-grey-color: '#292929'
+      dark-grey-color: '#222222'
+      darker-grey-color: '#141414'
+      black-color: '#000000'
+      outline-color: '#2a0d40'
+      ha-card-border-radius: '22px'
+      ha-card-box-shadow: "0px 0px rgba(0,0,0,0.0)"
+      # Main colors
+      primary-color: 'var(--purple-color)'
+      accent-color: 'var(--purple-color)'
+      dark-primary-color: 'var(--accent-color)'
+      light-primary-color: 'var(--accent-color)'
+      # Text colors
+      primary-text-color: 'var(--white-color)'
+      text-primary-color: 'var(--primary-text-color)'
+      secondary-text-color: 'var(--purple-color)'
+      disabled-text-color: 'var(--light-grey-color)'
+      label-badge-border-color: 'var(--purple-color)'
+      # Sidebar
+      sidebar-icon-color: 'rgba(167, 165, 229,0.4)'
+      sidebar-selected-background-color: 'rgba(167, 165, 229,0.2)'
+      # Background colors
+      primary-background-color: '#000000'
+      secondary-background-color: '#000000'
+      divider-color: 'rgba(0, 0, 0, .12)'
+      table-row-background-color: 'var(--medium-grey-color)'
+      table-row-alternative-background-color: 'var(--medium-grey-color)'
+      # Nav Menu
+      paper-listbox-color: 'var(--light-grey-color)'
+      paper-listbox-background-color: 'var(--darker-grey-color)'
+      paper-grey-50: 'var(--primary-text-color)'
+      paper-grey-200: 'var(--dark-grey-color)'
+      # Paper card
+      paper-card-header-color: 'var(--accent-color)'
+      paper-card-background-color: 'rgba(0, 0, 0,0.0)'
+      paper-dialog-background-color: 'var(--medium-grey-color)'
+      paper-item-icon-color: 'var(--lighter-grey-color)'
+      state-icon-unavailable-color: 'rgba(255, 102, 0,0.5)'
+      paper-item-icon-active-color: 'var(--purple-color)'
+      paper-item-icon_-_color: 'var(--purple-color)'
+      paper-item-selected_-_background-color: 'var(--medium-grey-color)'
+      paper-tabs-selection-bar-color: 'var(--purple-color)'
+      # Labels
+      label-badge-red: 'var(--accent-color)'
+      label-badge-text-color: 'var(--primary-text-color)'
+      label-badge-background-color: 'var(--dark-grey-color)'
+      # Switches
+      paper-toggle-button-checked-button-color: 'var(--accent-color)'
+      paper-toggle-button-checked-bar-color: 'var(--accent-color)'
+      paper-toggle-button-checked-ink-color: 'var(--accent-color)'
+      paper-toggle-button-unchecked-button-color: 'var(--disabled-text-color)'
+      paper-toggle-button-unchecked-bar-color: 'var(--disabled-text-color)'
+      paper-toggle-button-unchecked-ink-color: 'var(--disabled-text-color)'
+      # Sliders
+      paper-slider-knob-color: 'var(--accent-color)'
+      paper-slider-knob-start-color: 'var(--accent-color)'
+      paper-slider-pin-color: 'var(--accent-color)'
+      paper-slider-active-color: 'var(--accent-color)'
+      paper-slider-container-color: 'linear-gradient(var(--primary-background-color), var(--secondary-background-color)) no-repeat'
+      paper-slider-secondary-color: 'var(--secondary-background-color)'
+      paper-slider-disabled-active-color: 'var(--disabled-text-color)'
+      paper-slider-disabled-secondary-color: 'var(--disabled-text-color)'
+      # Google colors
+      google-red-500: 'var(--red-color)'
+      google-green-500: 'var(--purple-color)'
+      google-blue-500: "#0033cc"
+      google-yellow-500: "#ffff66"
+      paper-spinner-color: 'var(--accent-color)'
+      # Add border to icons
+      iron-icon-stroke-color: 'transparent'
+      #Changes to fix history/logbook menus
+      lumo-primary-text-color: 'var(--purple-color)'
+      lumo-secondary-text-color: 'var(--purple-color)'
+      lumo-primary-color: 'var(--purple-color)'
+      lumo-primary-color-50pct: 'rgba(167, 165, 229, .5)' #197, 168, 237
+      lumo-primary-color-10pct: 'rgba(167, 165, 229, .1)' #204, 169, 234
+      #Calendar day numbers
+      lumo-body-text-color: 'var(--white-color)'
+      #Calendar/Date-Picker Background
+      lumo-base-color: 'var(--medium-grey-color)'
+      #Month/Year header
+      lumo-header-text-color: 'var(--lumo-body-text-color)'
+      #DayOfWeek Header
+      lumo-tertiary-text-color: 'var(--lumo-body-text-color)'
+      # Background of date in History/Logbook that you clcim to view date-picker
+      lumo-shade: 'var(medium-grey-color)'
+      lumo-shade-90pct: 'rgba(41, 41, 41, .9)'
+      lumo-shade-80pct: 'rgba(41, 41, 41, .8)'
+      lumo-shade-70pct: 'rgba(41, 41, 41, .7)'
+      lumo-shade-60pct: 'rgba(41, 41, 41, .6)'
+      lumo-shade-50pct: 'rgba(41, 41, 41, .5)'
+      lumo-shade-40pct: 'rgba(41, 41, 41, .4)'
+      lumo-shade-30pct: 'rgba(41, 41, 41, .3)'
+      lumo-shade-20pct: 'rgba(41, 41, 41, .2)'
+      lumo-shade-10pct: 'rgba(41, 41, 41, .1)'
+      lumo-shade-5pct: 'rgba(41, 41, 41, .05)'
+      #Removes Gradient in Calendar/Date-Picker and Drop-down lists
+      lumo-tint-5pct: 'var(--darker-grey-color)'
+      primary-font-family: "Righteous"
+      paper-font-common-base_-_font-family: "var(--primary-font-family)"
+      paper-font-common-code_-_font-family: "var(--primary-font-family)"
+      paper-font-body1_-_font-family: "var(--primary-font-family)"
+      paper-font-subhead_-_font-family: "var(--primary-font-family)"
+      paper-font-headline_-_font-family: "var(--primary-font-family)"
+      paper-font-caption_-_font-family: "var(--primary-font-family)"
+      paper-font-title_-_font-family: "var(--primary-font-family)"
+
+    Dark-Side:
+      dark-primary-color: "#63636b"
+      disabled-text-color: "#525260"
+      light-primary-color: "#a2a2a9"
+      paper-card-background-color: "rgba(0,0,0,0.0)"
+      paper-grey-200: "#acacb9"
+      paper-item-icon-color: "#c8c8d0"
+      state-icon-unavailable-color: "rgba(255, 102, 0,0.5)"
+      paper-listbox-background-color: "#0b0e0f"
+      primary-background-color: "#000000"
+      accent-color: "#00ff00"
+      primary-color: "#000000"
+      primary-text-color: "#f0f1f4"
+      secondary-text-color: "#d3d6de"
+      text-primary-color: "#e2e4e9"
+      secondary-background-color: "#464653"
+      sidebar-text_-_background: "#66757f"
+#      iron-icon-stroke-color: "#838395"
+      ha-card-border-radius: "16px"
+      ha-card-box-shadow: "2px 2px rgba(0,0,0,0.0)"
+      paper-card-header-color: "var(--paper-item-icon-color)"
+      paper-item-icon-active-color: "#00ff00"
+      paper-item-icon_-_color: "var(--primary-text-color)"
+      paper-listbox-color: "var(--primary-text-color)"
+      paper-grey-50: "var(--primary-text-color)"
+      paper-slider-active-color: 'var(--accent-color)'
+      paper-slider-knob-color: 'var(--accent-color)'
+      paper-slider-knob-start-color: 'var(--accent-color)'
+      paper-slider-pin-color: 'var(--accent-color)'
+      paper-slider-secondary-color: "var(--light-primary-color)"
+      paper-slider-container-color: 'linear-gradient(var(--primary-background-color), var(--secondary-background-color)) no-repeat'
+      paper-toggle-button-checked-ink-color: 'var(--accent-color)'
+      paper-toggle-button-checked-button-color: "Lime"
+      paper-toggle-button-unchecked-button-color: "DimGray"
+      paper-toggle-button-checked-bar-color: "var(--paper-item-icon-color)"
+      paper-toggle-button-unchecked-bar-color: "var(--paper-item-icon-color)"
+      table-row-background-color: "#4f5764"
+      table-row-alternative-background-color: "#657081"
+      sidebar-icon-color: "#838395"
+      sidebar-text-color: "#F1F1F1"
+      sidebar-selected-background-color: "var(--primary-background-color)"
+      sidebar-selected-icon-color: "#b3b3b3"
+      sidebar-selected-text-color: "var(--sidebar-selected-icon-color)"
+      divider-color: "rgba(56, 61, 71, 0.5)"
+      dark-divider-opacity: '0.3'
+      light-divider-opacity: '0.1'
+      shadow-elevation-2dp_-_box-shadow: 'inset 0px 0px 0px 2px hsla(220, 12%, 25%, 1.5)'
+      shadow-elevation-16dp_-_box-shadow: 'inset 0px 0px 0px 4px hsla(220, 12%, 25%, 0.5)'
+      paper-button: '#657081'
+      paper-font-headline_-_letter-spacing: '0.5px'
+      paper-font-headline_-_font-weight: '500'
+      paper-font-body1_-_font-weight: '500'
+      label-badge-red: 'hsla(0, 0%, 0%, 0)'
+      label-badge-border-color: 'var(--label-badge-red)'
+      label-badge-background-color: 'var(--paper-card-background-color)'
+      label-badge-text-color: 'var(--primary-text-color)'
+      primary-font-family: "Righteous" # "Comic Sans MS"
+      paper-font-common-base_-_font-family: "var(--primary-font-family)"
+      paper-font-common-code_-_font-family: "var(--primary-font-family)"
+      paper-font-body1_-_font-family: "var(--primary-font-family)"
+      paper-font-subhead_-_font-family: "var(--primary-font-family)"
+      paper-font-headline_-_font-family: "var(--primary-font-family)"
+      paper-font-caption_-_font-family: "var(--primary-font-family)"
+      paper-font-title_-_font-family: "var(--primary-font-family)"
+      accent-color: '#a1a6b2'
+      paper-spinner-color: "Gray"
+      google-red-500: "#cc0000"
+      google-blue-500: "#0033cc"
+      google-green-500:  "#13eb13"
+      google-yellow-500: "#ffff66"
+      cch-background: url("/local/images-lovelace/backgroundz/header_blksteel.jpg")
