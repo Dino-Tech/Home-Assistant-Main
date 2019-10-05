@@ -1,0 +1,53 @@
+## !includes/camera.yaml
+###############################
+#  camera:
+- platform: mjpeg
+  mjpeg_url: !secret mjpeg_url1
+  name: Kitchen Cam
+  verify_ssl: false
+- platform: mjpeg
+  mjpeg_url: !secret mjpeg_url2
+  name: Den Cam
+  verify_ssl: false
+- platform: mjpeg
+  mjpeg_url: !secret mjpeg_url3
+  name: Driveway Cam
+  verify_ssl: false
+#  - platform: generic # 3 host
+#    name: Front Door
+#    still_image_url: http://127.0.0.5:8123/api/camera_proxy/camera.live_view
+#    verify_ssl: false
+- platform: mjpeg
+  mjpeg_url: !secret mjpeg_url4
+  name: Front Door
+  verify_ssl: false
+- platform: mjpeg
+  mjpeg_url: !secret mjpeg_url5
+  name: Entry Hall
+  verify_ssl: false
+#  - platform: generic # 2 host
+#    name: Garage Cam
+#    still_image_url: https://127.0.0.5:8123/api/camera_proxy/camera.garage_cam
+#    verify_ssl: false
+- platform: mjpeg
+  mjpeg_url: !secret mjpeg_url6
+  name: Garage Cam
+  verify_ssl: false
+- platform: mjpeg
+  mjpeg_url: !secret mjpeg_url7
+  name: Patio Cam
+  verify_ssl: false
+#  - platform: generic # 1 host
+#    name: Office Cam
+#    still_image_url: https://127.0.0.5:8123/api/camera_proxy/camera.rambo_cam
+#    verify_ssl: false
+- platform: mjpeg
+  mjpeg_url: !secret mjpeg_url8
+  name: Rambo Cam
+  verify_ssl: false
+- platform: generic
+  still_image_url: 'https://icons.wxug.com/data/weather-maps/radar/united-states/new-orleans-louisiana-region-current-radar-animation.gif'
+  name: Local Radar
+- platform: generic
+  still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=MSY&brand=wui&num=6&delay=15&type=TR0&frame=0&scale=1.000&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=1&lightning=1&smooth=1&rand=25760093&lat=0&lon=0&label=you'
+  name: New Orleans Radar
