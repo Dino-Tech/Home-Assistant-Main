@@ -1,0 +1,2640 @@
+# lovelace_gen
+
+resources:
+  - url: /community_plugin/lovelace-card-tools/card-tools.js
+    type: js
+  - url: https://fonts.googleapis.com/css?family=Righteous
+    type: css
+  - url: /community_plugin/lovelace-layout-card/layout-card.js
+    type: js
+  - url: /community_plugin/compact-custom-header/compact-custom-header.js
+    type: module
+  - url: /community_plugin/lovelace-gap-card/gap-card.js
+    type: js
+  - url: /local/custom-lovelace/thermostat-card/thermostat-card.js
+    type: module
+  - url: /community_plugin/lovelace-card-modder/card-modder.js
+    type: js
+  - url: /community_plugin/lovelace-card-mod/card-mod.js
+    type: module
+  - url: /community_plugin/lovelace-slider-entity-row/slider-entity-row.js
+    type: js
+#  - url: /community_plugin/lovelace-animated-background/animated-background.js
+#    type: module
+  - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
+    type: js
+  - url: /community_plugin/surveillance-card/surveillance-card.js
+    type: module
+  - url: /community_plugin/light-entity-row/light-entity-row.js
+    type: js
+  - url: /community_plugin/lovelace-auto-entities/auto-entities.js
+    type: js
+#  - url: /community_plugin/canvas-gauge-card/canvas-gauge-card.js
+#    type: module
+  - url: /community_plugin/button-card/button-card.js
+    type: module
+  - url: /community_plugin/mini-graph-card/mini-graph-card.js
+    type: module
+  - url: /community_plugin/mini-media-player/mini-media-player.js
+    type: module
+  - url: /community_plugin/simple-weather-card/simple-weather-card-bundle.js
+    type: module
+  - url: /community_plugin/radial-menu/radial-menu.js
+    type: module
+  - url: /community_plugin/lovelace-popup-card/popup-card.js
+    type: js
+  - url: /community_plugin/bignumber-card/bignumber-card.js
+    type: js
+  - url: /local/custom-lovelace/dark-sky-weather-card.js
+    type: module
+  - url: /community_plugin/lovelace-state-switch/state-switch.js
+    type: js
+  - url: /community_plugin/lovelace-fold-entity-row/fold-entity-row.js?v=0.7.1.7
+    type: js
+  - url: /community_plugin/bar-card/bar-card.js
+    type: js
+  - url: /community_plugin/lovelace-dummy-entity-row/dummy-entity-row.js
+    type: js
+  - url: /community_plugin/lovelace-time-input-row/time-input-row.js
+    type: js
+  - url: /community_plugin/text-divider-row/text-divider-row.js
+    type: module
+  - url: /community_plugin/decluttering-card/decluttering-card.js
+    type: module
+  - url: /community_plugin/monster-card/monster-card.js
+    type: js
+#  - url: /community_plugin/gauge-card/gauge-card.js
+#    type: js
+#  - url: /community_plugin/config-template-card/config-template-card.js
+#    type: module
+  - url: /community_plugin/weather-card/weather-card.js
+    type: module
+  - url: /community_plugin/swipe-card/swipe-card.js
+    type: module
+#  - url: /community_plugin/list-card/list-card.js
+#    type: js
+  - url: /local/custom-lovelace/lovelace-countdown-dates.js?v=0.1.1.8
+    type: js
+  - url: /community_plugin/atomic_calendar/atomic_calendar.js
+    type: module
+  - url: /local/custom-lovelace/camera-card.js
+    type: module
+  - url: /local/custom-lovelace/weather-card-chart.js
+    type: module
+  - url: /community_plugin/lovelace-markdown-mod/markdown-mod.js
+    type: module
+
+cch:
+  background: url("/local/images-lovelace/backgroundz/blackSteelHeader.jpg")
+  statusbar_color: "#000"
+  all_buttons_color: rgba(255,255,255,0.4)
+  active_tab_color: '#38ccd0'
+  tab_indicator_color: '#38ccd0'
+  notify_indicator_color: '#38ccd0'
+  notify_text_color: black
+  options: clock
+  menu: overflow
+  voice: overflow
+  notifications: show
+  clock_format: 12
+  clock_am_pm: false
+  header: false
+  swipe: false
+  hide_help: true
+  hide_config: true
+  hide_unused: true
+  exceptions:
+    - conditions:
+        user: Darren
+      config:
+        header: false
+        swipe: true
+    - conditions:
+        user: Donna
+      config:
+        kiosk: true
+        disable_sidebar: true
+        swipe: false
+        swipe_prevent_default: true
+    - conditions:
+        user: Tablet
+      config:
+        kiosk: true
+        disable_sidebar: true
+        swipe: false
+        swipe_prevent_default: true
+    - conditions:
+        user: OfficePC
+      config:
+        header: true
+    - conditions:
+        user: Guest
+      config:
+        kiosk: true
+        disable_sidebar: true
+        swipe: false
+        swipe_prevent_default: true
+
+anchors:
+  darren_styles: &darrenstyles
+    style:
+      background: rgba(0,0,0,0.35)
+      border-radius: 15px
+      "--primary-text-color": "#f2f2f2"
+      font-weight: bold
+      font-size: 1.75em
+      text-transform: capitalize
+      font-variant: small-caps
+      text-shadow: "3px 3px 6px black"
+      "--paper-item-icon-color": 'var(--accent-color)'
+      "--iron-icon-height": 41px
+      "--iron-icon-width": 41px
+      "--primary-color": white
+
+  darren_mobile_styles: &darrenmobilestyles
+    style:
+      background: rgba(0,0,0,0.35)
+      border-radius: 15px
+      "--primary-text-color": "#f2f2f2"
+      "--paper-card-background-color": 'rgba(0, 0, 0,0.85)'
+      font-weight: bold
+      font-size: 1.85em
+      text-transform: capitalize
+      font-variant: small-caps
+      text-shadow: "3px 3px 6px black, 0 0 7px var(--accent-color)"
+      "--paper-item-icon-color": 'var(--accent-color)'
+      "--iron-icon-height": 41px
+      "--iron-icon-width": 41px
+
+  donna_styles: &donnastyles
+    style:
+      background: rgba(0,0,0,0.35)
+      border-radius: 15px
+      "--primary-text-color": white
+      text-transform: capitalize
+      font-variant: small-caps
+      font-weight: bold
+      font-size: 1.75em
+      text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
+      "--paper-item-icon-color": rgb(240, 26, 255)
+      "--iron-icon-stroke-color": Magenta
+
+  tablet_styles: &tabletstyles
+    style:
+      background: rgba(0,0,0,0.35)
+      border-radius: 15px
+      "--primary-text-color": "#f2f2f2"
+      font-weight: bold
+      font-size: 1.65em
+      text-transform: capitalize
+      font-variant: small-caps
+      text-shadow: "3px 3px 6px black"
+      "--paper-item-icon-color": 'var(--accent-color)'
+      "--iron-icon-height": 41px
+      "--iron-icon-width": 41px
+
+  office_menu_styles: &officemenustyles
+    style:
+      background-color: rgba(0,0,0,0.3)
+      border-radius: 12px
+      border: solid 1px rgba( 0, 0, 0,1.0)
+      box-shadow: 5px 5px 5px rgba( 100, 100, 100,0.3)
+      padding: 15px
+      text-transform: capitalize
+      font-variant: small-caps
+
+  mobile_styles: &mobilestyles
+    style:
+      background: url("/local/images-lovelace/backgroundz/blackSteel9.jpg")
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      "--app-toolbar-font-size": 1.875em
+      "--primary-text-color": rgba(255,255,255,0.75)
+      border-radius: 15px
+      border: solid 3px dimgray
+      font-weight: bold
+      width: 100%
+      box-sizing: border-box
+      margin: 0
+
+  header_text: &headertext
+    style:
+      border-radius: 12px
+      --paper-card-background-color: rgba(0, 0, 0, 0.0)
+      box-shadow: 2px 2px rgba(0,0,0,0.0)
+      padding: 0px 10px
+      height: 28px
+      font-family: Righteous
+
+  frontpage_size: &frontpagesize
+    color: auto
+#    size: 30%
+
+  light_button_style: &lightbuttonstyle
+    styles:
+      card:
+        - border-radius: 12px
+        - width: 105px
+        - height: 105px
+        - --paper-card-background-color: 'rgba(0, 0, 0, 0.8)'
+        - --ha-card-box-shadow: '0 4px 8px 0 rgba(100, 100, 100, 0.2), 0 6px 20px 0 rgba(100, 100, 100, 0.19)'
+      label:
+        - color: white
+        - font-size: 12px
+        - font-family: Righteous
+        - padding: 0px 10px
+        - justify-self: start
+      state:
+        - font-size: 12px
+        - font-family: Righteous
+        - padding: 0px 10px
+        - justify-self: start
+        - text-transform: capitalize
+        - font-weight: bold
+        - padding-left: 10px
+      grid:
+        - grid-template-areas: '"i" "n" "s" "l"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr min-content min-content
+      img_cell:
+        - align-self: start
+        - text-align: start
+        - margin-right: 60px
+      name:
+        - justify-self: start
+        - padding-left: 10px
+        - font-weight: bold
+        - font-family: Righteous
+        - font-size: 14px
+
+  light_button_state: &lightbuttonstate
+    state:
+      - value: "on"
+        styles:
+          name:
+            - color: black
+          state:
+            - color: white
+          lock:
+            - color: black
+      - value: "off"
+        styles:
+          card:
+            - opacity: 0.7
+          icon:
+            - color: white
+            - --iron-icon-stroke-color: white
+          name:
+            - color: white
+          state:
+            - color: white
+          lock:
+            - color: black
+      - value: "unavailable"
+        style:
+          - opacity: 0.2
+          - color: black
+          - --paper-item-icon-color: black
+
+  light_button_actions: &lightbuttonactions
+    tap_action:
+      action: toggle
+      haptic: light
+    hold_action:
+      action: more-info
+      haptic: success
+
+  standard_button_style: &standardbuttonstyle
+    card:
+      - border-radius: 12px
+      - width: 105px
+      - height: 105px
+      - --paper-card-background-color: 'rgba(0, 0, 0, 0.8)'
+      - box-shadow: '0 4px 8px 0 rgba(100, 100, 100, 0.2), 0 6px 20px 0 rgba(100, 100, 100, 0.19)'
+    label:
+      - color: white
+      - font-size: 12px
+      - font-family: Righteous
+      - padding: 0px 10px
+      - justify-self: start
+    state:
+      - font-size: 12px
+      - font-family: Righteous
+      - padding: 0px 10px
+      - justify-self: start
+      - text-transform: capitalize
+      - padding-left: 10px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: start
+      - text-align: start
+      - margin-right: 45px
+    name:
+      - justify-self: start
+      - padding-left: 10px
+      - font-weight: bold
+      - font-family: Righteous
+      - font-size: 14px
+      - color: white
+    icon:
+      - color: white
+
+  light_button2_style: &lightbutton2style
+    styles:
+      card:
+        - border-radius: 12px
+        - width: 90px
+        - height: 90px
+        - --paper-card-background-color: rgba(0, 0, 0, 0.8)
+      label:
+        - color: white
+        - font-size: 12px
+        - font-family: Righteous
+        - padding: 0px 10px
+        - justify-self: start
+      state:
+        - font-size: 12px
+        - font-family: Righteous
+        - padding: 0px 10px
+        - justify-self: start
+        - text-transform: capitalize
+        - font-weight: bold
+        - padding-left: 10px
+      grid:
+        - grid-template-areas: '"i" "n" "s" "l"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr min-content min-content
+      img_cell:
+        - align-self: start
+        - text-align: start
+        - margin-right: 60px
+      name:
+        - justify-self: start
+        - padding-left: 10px
+        - font-weight: bold
+        - font-family: Righteous
+        - font-size: 14px
+
+  alarm_button_style: &alarmbuttonstyle
+    card:
+      - border-radius: 15px
+      - width: 360px
+      - height: 94px
+      - --paper-card-background-color: 'rgba(0, 0, 0, 0.35)'
+    state:
+      - font-size: 16px
+      - font-family: Righteous
+      - padding: 5px 0px
+      - justify-self: center
+      - text-transform: capitalize
+      - letter-spacing: 1.5px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: center
+      - text-align: center
+    name:
+      - justify-self: center
+      - font-weight: bold
+      - font-family: Righteous
+      - font-size: 14px
+      - color: white
+    icon:
+      - color: white
+
+  alarm_button2_style: &alarmbutton2style
+    card:
+      - border-radius: 15px
+      - width: 111px
+      - height: 82px
+      - --paper-card-background-color: rgba(0, 0, 0, 0.40)
+    state:
+      - font-size: 16px
+      - font-family: Righteous
+      - padding: 5px 0px
+      - justify-self: center
+      - text-transform: capitalize
+      - font-variant: small-caps
+      - letter-spacing: 1.4px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: center
+      - text-align: center
+    name:
+      - justify-self: center
+      - font-weight: bold
+      - font-family: Righteous
+      - font-size: 14px
+      - color: white
+    icon:
+      - color: white
+
+  fan_state: &fanstate
+    state:
+      - value: "on"
+        styles:
+          name:
+            - color: 'rgba(0,0,0,0.2)'
+          state:
+            - color: white
+          icon:
+            - color: 'var(--accent-color)'
+          lock:
+            - color: black
+        spin: true
+      - value: "off"
+        styles:
+          card:
+            - opacity: 0.7
+          icon:
+            - color: white
+            - --iron-icon-stroke-color: white
+          name:
+            - color: white
+          state:
+            - color: white
+          lock:
+            - color: black
+      - value: "unavailable"
+        style:
+          - opacity: 0.2
+          - color: black
+          - --paper-item-icon-color: black
+
+  standard_button_actions: &standardbuttonactions
+    tap_action:
+      action: more-info
+      haptic: light
+
+  standard_button_actions2: &standardbuttonactions2
+    tap_action:
+      action: none
+      haptic: light
+    hold_action:
+      action: toggle
+      haptic: success
+
+  standard_button_actions3: &standardbuttonactions3
+    tap_action:
+      action: call-service
+      service: script.mobile_location
+      haptic: scccess
+
+  standard_button_actions4: &standardbuttonactions4
+    tap_action:
+      action: call-service
+      service: script.alarm_panel_popup
+#      service_data:
+#        deviceID:
+#          - this
+      haptic: scccess
+
+  show_label: &showlabel
+    show_state: false
+    show_label: true
+  show_state: &showstate
+    show_state: true
+    show_label: false
+  show_both: &showboth
+    show_state: true
+    show_label: true
+  show_none: &shownone
+    show_state: false
+    show_label: false
+    show_name: false
+
+  view_extra_styles: &viewextrastyles
+    extra_styles: >
+      @keyframes ready {
+        from {border: solid 10px lime;}
+        to {border: solid 10px black;}
+      }
+      @keyframes alarm {
+        from {border: solid 10px red;}
+        to {border: solid 10px black; background: red;}
+      }
+      @keyframes alert {
+        from {border: solid 10px yellow;}
+        to {border: solid 10px black; background: yellow;}
+      }
+
+decluttering_templates:
+  bar_card_temp:
+    card:
+      type: custom:bar-card
+      severity:
+        - value: '[[value_1]]'
+          color: '[[color_1]]'
+        - value: '[[value_2]]'
+          color: '[[color_2]]'
+        - value: 120
+          color: '[[color_3]]'
+      title_position: inside
+      columns: '[[columns]]'
+      padding: 2px
+      align: split
+      rounding: 6px
+      saturation: 85%
+      height: '[[height]]'
+      card_style:
+        background: 'rgba(0, 0, 0, 0.4)'
+        border-radius: 10px
+      title_style:
+        font-weight: bold
+        font-size: 22px
+        text-transform: capitalize
+        font-variant: small-caps
+        color: '#FFF'
+        text-shadow: "2px 2px 4px black"
+      value_style:
+        font-size: 24px
+        font-weight: bold
+        text-shadow: "2px 2px 4px black"
+      entity: '[[entity]]'
+      title: '[[title]]'
+      tap_action: '[[tap_action]]'
+      service_options:
+        domain: '[[domain]]'
+        service: '[[service]]'
+        data:
+          entity_id: '[[entity_id]]'
+
+  motion_button_temp:
+    card:
+      type: custom:button-card
+      entity: '[[entity]]'
+      name: '[[name]]'
+      icon: '[[icon]]'
+      show_last_changed: true
+      color: auto
+      size: 30%
+      <<: *lightbuttonstyle
+      <<: *showboth
+      <<: *lightbuttonstate
+      <<: *standardbuttonactions
+
+  motion_button2_temp:
+    card:
+      type: custom:button-card
+      entity: '[[entity]]'
+      name: '[[name]]'
+      icon: '[[icon]]'
+      show_last_changed: true
+      color: auto
+      size: 30%
+      <<: *lightbutton2style
+      <<: *showboth
+      <<: *lightbuttonstate
+      <<: *standardbuttonactions
+
+  fan_button_temp:
+    card:
+      type: custom:button-card
+      entity: '[[entity]]'
+      name: '[[name]]'
+      icon: '[[icon]]'
+      show_last_changed: true
+      color: auto
+      size: 30%
+      <<: *lightbuttonstyle
+      <<: *showboth
+      <<: *fanstate
+      <<: *lightbuttonactions
+
+  switch_button_temp:
+    card:
+      type: custom:button-card
+      entity: '[[entity]]'
+      name: '[[name]]'
+      icon: '[[icon]]'
+      show_last_changed: true
+      color: auto
+      size: 30%
+      <<: *lightbuttonstyle
+      <<: *showboth
+      <<: *lightbuttonstate
+      <<: *lightbuttonactions
+
+  switch_button2_temp:
+    card:
+      type: custom:button-card
+      entity: '[[entity]]'
+      name: '[[name]]'
+      icon: '[[icon]]'
+      show_last_changed: true
+      color: auto
+      size: 30%
+      <<: *lightbutton2style
+      <<: *showboth
+      <<: *lightbuttonstate
+      <<: *lightbuttonactions
+
+popup_cards:
+  sensor.zdummy_sensor_6:
+    title: Living Room Camera
+    style:
+      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=626133761&user=dinotech&pwd=doNNa2017daRRen)"
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 10px
+      border: 'solid 1px var(--accent-color)'
+      width: calc(100% - 6px)
+      height: calc(100% - 6px)
+      margin: 0
+    card:
+      type: picture
+      image: /local/images-lovelace/backgroundz/ClearPNG.png
+
+  sensor.zdummy_sensor_7:
+    title: Entry Hall Camera
+    style:
+      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=889985706&user=dinotech&pwd=doNNa2017daRRen)"
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 10px
+      border: 'solid 1px var(--accent-color)'
+      width: calc(100% - 6px)
+      height: calc(100% - 6px)
+      margin: 0
+    card:
+      type: picture
+      image: /local/images-lovelace/backgroundz/ClearPNG.png
+
+  sensor.zdummy_sensor_8:
+    title: Garage Camera
+    style:
+      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=1234567890&user=<username>&pwd=<password>)"
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 10px
+      border: 'solid 1px var(--accent-color)'
+      width: calc(100% - 6px)
+      height: calc(100% - 6px)
+      margin: 0
+    card:
+      type: picture
+      image: /local/images-lovelace/backgroundz/ClearPNG.png
+
+  sensor.zdummy_sensor_9:
+    title: Kitchen Camera
+    style:
+      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=1234567890&user=<username>&pwd=<password>)"
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 10px
+      border: 'solid 1px var(--accent-color)'
+      width: calc(100% - 6px)
+      height: calc(100% - 6px)
+      margin: 0
+    card:
+      type: picture
+      image: /local/images-lovelace/backgroundz/ClearPNG.png
+
+  sensor.zdummy_sensor_10:
+    title: Front Door Camera
+    style:
+      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=1234567890&user=<username>&pwd=<password>)"
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 10px
+      border: 'solid 1px var(--accent-color)'
+      width: calc(100% - 6px)
+      height: calc(100% - 6px)
+      margin: 0
+    card:
+      type: picture
+      image: /local/images-lovelace/backgroundz/ClearPNG.png
+
+  sensor.zdummy_sensor_11:
+    title: Patio Camera
+    style:
+      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=1234567890&user=<username>&pwd=<password>)"
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 10px
+      border: 'solid 1px var(--accent-color)'
+      width: calc(100% - 6px)
+      height: calc(100% - 6px)
+      margin: 0
+    card:
+      type: picture
+      image: /local/images-lovelace/backgroundz/ClearPNG.png
+
+  sensor.zdummy_sensor_12:
+    title: Driveway Camera
+    style:
+      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=1234567890&user=<username>&pwd=<password>)"
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 10px
+      border: 'solid 1px var(--accent-color)'
+      width: calc(100% - 6px)
+      height: calc(100% - 6px)
+      margin: 0
+    card:
+      type: picture
+      image: /local/images-lovelace/backgroundz/ClearPNG.png
+
+  sensor.zdummy_sensor_16:
+    title: Poopy Cam
+    style:
+      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=1234567890&user=<username>&pwd=<password>)"
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 10px
+      border: 'solid 1px var(--accent-color)'
+      width: calc(100% - 6px)
+      height: calc(100% - 6px)
+      margin: 0
+    card:
+      type: picture
+      image: /local/images-lovelace/backgroundz/ClearPNG.png
+
+  sensor.zdummy_sensor_13:
+    title: Regional Radar
+    style:
+      background: url('https://icons.wxug.com/data/weather-maps/radar/united-states/new-orleans-louisiana-region-current-radar-animation.gif')
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 15px
+      border: solid 3px rgb(204, 204, 204)
+      width: calc(100% - 6px)
+      height: calc(100% - 6px)
+      margin: 0
+    card:
+      type: picture
+      image: /local/images-lovelace/backgroundz/ClearPNG.png
+
+  sensor.zdummy_sensor_14:
+    title: " "  # New Orleans Radar
+    style:
+      background: url('https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=MSY&brand=wui&num=6&delay=15&type=TR0&frame=0&scale=1.000&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=1&lightning=1&smooth=1&rand=25760093&lat=0&lon=0&label=you')
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 15px
+      border: solid 3px rgb(204, 204, 204)
+      width: calc(100% - 6px)
+      height: calc(100% - 6px)
+      margin: 0
+    card:
+      type: picture
+      image: /local/images-lovelace/backgroundz/ClearPNG.png
+
+  sensor.zdummy_sensor_15:
+    title: Interactive Radar
+    style:
+      background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
+      border-radius: 15px
+      border: solid 3px rgb(5, 205, 255)
+      width: calc(100% - 6px)
+      height: calc(100% - 6px)
+      margin: 0
+      overflow: hidden
+    card:
+      type: iframe
+      url: https://embed.windy.com/embed2.html
+      aspect_ratio: 165%
+
+  alarm_control_panel.ha_alarm:
+    title: New Life Security
+    style:
+      background: url("/local/images-lovelace/backgroundz/black_steel2.jpg")
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      border-radius: 13px
+      border: solid 2px lime
+      font-size: 26px
+      "--paper-card-background-color": "rgba(0,0,0,0.0)"
+      "--primary-text-color": white
+      "--app-toolbar-font-size": 1.3em
+      "--iron-icon-height": 50px
+      "--iron-icon-width": 50px
+      "--iron-icon-stroke-color": lime
+      "--paper-item-icon-active-color": "#cc0000"
+      "--paper-item-icon-color": "rgba(0, 255, 0,0.4)"
+      text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
+      color: white
+      height: 730px
+      width: 44%
+      overflow: hidden
+    card:
+      type: vertical-stack
+      cards:
+        - type: 'custom:hui-glance-card'
+          columns: 1
+          show_state: false
+          entities:
+            - type: entity-button
+              entity: sun.sun
+              name: PANIC
+              icon: mdi:alert-decagram
+              tap_action:
+                action: call-service
+                service: script.turn_on
+                service_data:
+                  entity_id: script.triggered_flash
+        - type: 'custom:hui-alarm-panel-card'
+          style:
+            .: |
+              ha-card {
+                --mdc-theme-primary: white;
+              }
+            "#keypad mwc-button":
+              $: |
+                :host {
+                  background: transparent;
+                }
+                button {
+                  font-size: 27px !important;
+                }
+            "#keypad mwc-button:nth-of-type(12)":
+              $: |
+                button {
+                  font-size: 17px !important;
+                  --mdc-theme-primary: lime;
+                }
+          entity: alarm_control_panel.ha_alarm
+
+  sensor.sunrise:
+    title: " "
+    style:
+      background: linear-gradient(rgb(230,230,230), 30%, rgba(0,0,0,0.95))
+      border-radius: 22px
+      border: solid 3px DimGray
+      font-size: 1.6em
+      font-weight: bold
+      color: "#FFF"
+      text-shadow: "2px 2px 4px black, 0 0 12px var(--accent-color)" #38ccd0
+      width: 375px
+      height: 753px
+      padding: 4px 0px 0px 0px
+      box-sizing: border-box
+      margin: 0
+    card:
+      type: custom:card-modder
+      style:
+        background-image: url("/local/images-lovelace/backgroundz/coffee4.png")
+        background-repeat: no-repeat
+        background-size: 100% 100%
+      card:
+        type: entities
+        show_header_toggle: false
+        entities:
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: " "
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: " "
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: " "
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: " "
+          - entity: switch.coffee_maker
+          - input_boolean.cfe_on
+          - type: custom:time-input-row
+            entity: input_datetime.cfe_on
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: " "
+          - input_boolean.cfe_off
+          - input_number.cfe_off
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: " "
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: " "
+
+  sensor.sunset:
+    title: Alarm Clock
+    style:
+      background: url("/local/images-lovelace/card_backz/clocks2.jpg")
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      padding: 2px 0px 0px 0px
+      border-radius: 22px
+      border: solid 3px DimGray
+      "--paper-item-icon-color": "#535353"
+      "--paper-input-container-shared-input-style_-_font-size": .8em
+      "--paper-input-container-shared-input-style_-_width": 180px
+      "--primary-color": black
+      font-size: 19px
+      "--app-toolbar-font-size": 1.875em
+      "--primary-text-color": rgba(255,255,255,0.80)
+      text-shadow: "3px 3px 6px black"
+      color: "#FFF"
+      width: 375px
+      height: 753px
+      box-sizing: border-box
+      margin: 0
+    card:
+      type: entities
+      show_header_toggle: false
+      entities:
+        - entity: input_datetime.time_donnas_alarm
+          type: custom:time-input-row
+        - entity: input_boolean.donnas_work_alarm
+        - entity: input_datetime.time_darrens_alarm
+          type: custom:time-input-row
+        - entity: input_boolean.darrens_work_alarm
+        - type: custom:bignumber-card
+          entity: sensor.time_12_hour
+          scale: 75px
+        - type: custom:dummy-entity-row
+          entity: sun.sun
+          icon: mdi:this-icon-does-not-exist
+          name: " "
+        - type: custom:countdown-dates
+          title: 'Reminders:'
+          phrase: 'days'
+          show_age: true
+          dates:
+            - date: 04/28/2020
+              name: Donna's b'day
+            - date: 07/06/2020
+              name: Darren's b'day
+            - date: 07/07/2020
+              name: Anniversary
+            - date: 12/31/2019
+              name: New Year's
+
+  sensor.time_12_hour:
+    title: " "
+    style:
+      background: black
+      font-family: "Digital-7 Mono"
+      "--primary-text-color": rgba(255,255,255,0.2)
+      "--paper-card-background-color": black
+      font-weight: bold
+      width: 377px
+      height: 753px
+      margin: 0
+    card:
+      type: entities
+      entities:
+        - type: custom:dummy-entity-row
+          entity: sun.sun
+          icon: mdi:this-icon-does-not-exist
+          name: " "
+        - type: custom:dummy-entity-row
+          entity: sun.sun
+          icon: mdi:this-icon-does-not-exist
+          name: " "
+        - type: custom:dummy-entity-row
+          entity: sun.sun
+          icon: mdi:this-icon-does-not-exist
+          name: " "
+        - type: custom:bignumber-card
+          entity: sensor.time_12_hour
+          scale: 75px
+
+# home screen: multi-user/multi-view/access restrictions
+title: New Life Home
+views:
+  - id: 0
+    title: mobile_home_view
+    background: rgba(0,0,0,0.0)
+    icon: mdi:home
+    panel: true
+    cards:
+      - type: custom:state-switch
+        entity: user
+        default: default
+        states:
+          Darren:
+            type: custom:card-modder
+            style:
+              background-image: "url(/local/images-lovelace/mobile_backz/[[ input_select.mobile_wallpaper.state ]].jpg)"
+              background-color: rgb(0, 0, 0)
+              background-size: 100% 100%
+              padding: 4px 0px 0px 0px
+              border: solid 10px rgb(0, 0, 0)
+              "--primary-text-color": white
+              "--primary-color": white
+              display: block
+              animation: '[[ input_select.alert_type.state ]] 2s linear 2'
+            <<: *viewextrastyles
+            recurse: false
+            card:
+              type: custom:layout-card
+              layout: vertical
+              column_num: 1
+              max_width: [1440px]
+              cards:
+                - type: custom:card-modder
+                  <<: *darrenmobilestyles
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head:
+                          type: section
+                          label: Controls
+                        padding: 0px
+                        items:
+                          - type: custom:card-modder
+                            style:
+                              font-size: .59em
+                            card:
+                              type: 'custom:hui-glance-card'
+                              columns: 3
+                              show_state: false
+                              entities:
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: WiFi
+                                  icon: mdi:wifi
+                                  tap_action:
+                                    action: call-service
+                                    service: script.view_wifi
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: HA Services
+                                  icon: mdi:home-assistant
+                                  tap_action:
+                                    action: none
+                                  hold_action:
+                                    action: call-service
+                                    service: script.view_settings
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: 'Lights ON'
+                                  icon: mdi:lightbulb-on-outline
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_lights_on
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Clock
+                                  icon: mdi:alarm
+                                  tap_action:
+                                    action: call-service
+                                    service: script.alarm_clock
+#                                    service_data:
+#                                      deviceID:
+#                                        - this
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Morning
+                                  icon: mdi:weather-sunset-up
+                                  tap_action:
+                                    action: call-service
+                                    service: script.morning
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Coffee
+                                  icon: mdi:coffee
+                                  tap_action:
+                                    action: call-service
+                                    service: script.coffee_time_popup
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: HVAC
+                                  icon: mdi:air-conditioner
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_thermostat
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Events
+                                  icon: mdi:calendar-heart
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_calendar
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Scripts
+                                  icon: mdi:cursor-default-click
+                                  tap_action:
+                                    action: call-service
+                                    service: script.scene_selector
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Reload
+                                  icon: mdi:monitor-dashboard
+                                  tap_action:
+                                    action: call-service
+                                    service: script.browser_tablet # refresh
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Sleep
+                                  icon: mdi:sleep
+                                  tap_action:
+                                    action: call-service
+                                    service: script.good_night
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: 'Screen OFF'
+                                  icon: mdi:message-image
+                                  tap_action:
+                                    action: call-service
+                                    service: script.browser_blackout_button
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Shelly
+                                  icon: mdi:alpha-s-circle-outline
+                                  tap_action:
+                                    action: call-service
+                                    service: script.view_shelly
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Wyze Sense
+                                  icon: mdi:alpha-w-circle-outline
+                                  tap_action:
+                                    action: call-service
+                                    service: script.view_wyzesense
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: ESPHome
+                                  icon: mdi:alpha-e-circle-outline
+                                  tap_action:
+                                    action: call-service
+                                    service: script.view_esphome
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Kiosk
+                                  icon: mdi:settings-outline
+                                  tap_action:
+                                    action: call-service
+                                    service: script.kiosk_settings
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Automation
+                                  icon: mdi:settings-outline
+                                  tap_action:
+                                    action: call-service
+                                    service: script.automation_settings
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Power
+                                  icon: mdi:settings-outline
+                                  tap_action:
+                                    action: call-service
+                                    service: script.all_devices
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Green
+                                  icon: mdi:image-area
+                                  tap_action:
+                                    action: call-service
+                                    service: script.browser_theme_clear
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Purple
+                                  icon: mdi:image-area
+                                  tap_action:
+                                    action: call-service
+                                    service: script.browser_theme_purple
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Ocean
+                                  icon: mdi:image-area
+                                  tap_action:
+                                    action: call-service
+                                    service: script.browser_theme_ocean
+                - type: custom:card-modder
+                  <<: *darrenmobilestyles
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head:
+                          type: section
+                          label: Areas
+                        padding: 0px
+                        items:
+                          - type: custom:card-modder
+                            style:
+                              font-size: .65em
+                            card:
+                              type: 'custom:hui-glance-card'
+                              columns: 3
+                              show_state: false
+                              entities:
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Office
+                                  icon: mdi:laptop-chromebook
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_office
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Kitchen
+                                  icon: mdi:silverware-variant
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_kitchen
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Master
+                                  icon: mdi:hotel
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_master
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Den
+                                  icon: mdi:sofa
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_den
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Rambo
+                                  icon: mdi:paw
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_rambo_bed
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Guest
+                                  icon: mdi:human-male-female
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_guest
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Front
+                                  icon: mdi:doorbell-video
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_front_yard
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Garage
+                                  icon: mdi:car-multiple
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_garage
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Patio
+                                  icon: mdi:flower
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_back_yard
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Ensuite
+                                  icon: mdi:shower
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_ensuite
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Laundry
+                                  icon: mdi:washing-machine
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_laundry
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Bathroom
+                                  icon: mdi:toilet
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_bathroom
+                - type: custom:card-modder
+                  <<: *darrenmobilestyles
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head:
+                          type: section
+                          label: Security
+                        padding: 0px
+                        items:
+                          - type: custom:card-modder
+                            style:
+                              border-radius: 15px
+                              font-size: .8em
+                            card:
+                              type: 'custom:hui-glance-card'
+                              columns: 3
+                              show_state: false
+                              entities:
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Outside
+                                  icon: mdi:cctv
+                                  tap_action:
+                                    action: call-service
+                                    service: script.view_outside_cameras
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Rambo
+                                  icon: mdi:dog
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_rambo_cam
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Inside
+                                  icon: mdi:cctv
+                                  tap_action:
+                                    action: call-service
+                                    service: script.view_inside_cameras
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Access
+                                  icon: mdi:door-open
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_entrances
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Motion
+                                  icon: mdi:run-fast
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_motion
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Smoke
+                                  icon: mdi:smoke-detector
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_alarms
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: " "
+                                  icon: mdi:fake
+                                  tap_action:
+                                    action: none
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Pixel
+                                  icon: mdi:cctv
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_pixel_cam
+                - type: custom:card-modder
+                  <<: *darrenmobilestyles
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head:
+                          type: section
+                          label: Weather
+                        padding: 0px
+                        items:
+                          - type: custom:card-modder
+                            style:
+                              font-size: .75em
+                            card:
+                              type: 'custom:hui-glance-card'
+                              columns: 3
+                              show_state: false
+                              entities:
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Radar
+                                  icon: mdi:radar
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_radar
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: iFrame
+                                  icon: mdi:weather-lightning-rainy
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_iframe
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Forecast
+                                  icon: mdi:umbrella
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_forecast
+                - type: horizontal-stack
+                  cards:
+                    - type: 'custom:button-card'
+                      entity: group.person_group
+                      show_name: false
+                      icon: "mdi:home-circle"
+                      size: 125%
+                      <<: *standardbuttonactions3
+                      <<: *showboth
+                      <<: *frontpagesize
+                      styles:
+                        <<: *alarmbutton2style
+                      state:
+                        - value: "home"
+                          style:
+                            - opacity: 0.7
+                          styles:
+                            name:
+                              - color: white
+                            state:
+                              - color: 'rgba(255, 255, 255,0.85)'
+                            icon:
+                              - color: 'var(--accent-color)'
+                        - value: "not_home"
+                          icon: "mdi:map-marker"
+                          size: 116%
+                          styles:
+                            name:
+                              - color: white
+                            state:
+                              - color: white
+                            icon:
+                              - color: yellow
+                              - --iron-icon-stroke-color: gold
+                              - animation: blink 3s ease infinite
+                    - type: 'custom:button-card'
+                      entity: alarm_control_panel.ha_alarm
+                      show_name: false
+                      icon: "mdi:shield-check"
+                      size: 105%
+                      <<: *standardbuttonactions4
+                      <<: *showstate
+                      <<: *frontpagesize
+                      styles:
+                        <<: *alarmbutton2style
+                      state:
+                        - value: "disarmed"
+                          style:
+                            - opacity: 0.7
+                          styles:
+                            name:
+                              - color: white
+                            state:
+                              - color: 'rgba(255, 255, 255,0.85)'
+                            icon:
+                              - color: 'var(--accent-color)'
+                              - --iron-icon-stroke-color: 'var(--outline-color)'
+                        - value: "armed_home"
+                          icon: "mdi:alert"
+                          styles:
+                            name:
+                              - color: black
+                            state:
+                              - color: white
+                            icon:
+                              - color: red
+                              - --iron-icon-stroke-color: red
+                              - animation: blink 2s ease infinite
+                        - value: "armed_away"
+                          icon: "mdi:alert"
+                          styles:
+                            name:
+                              - color: black
+                            state:
+                              - color: white
+                            icon:
+                              - color: red
+                              - animation: blink 2s ease infinite
+                        - value: "pending"
+                          style:
+                            - opacity: 0.7
+                          icon: "mdi:clock-alert-outline"
+                          styles:
+                            name:
+                              - color: black
+                            state:
+                              - color: white
+                            icon:
+                              - color: orange
+                              - animation: blink 1s ease infinite
+                    - type: 'custom:button-card'
+                      entity: cover.garage_door
+                      show_name: false
+                      icon: "mdi:arrow-down-bold-circle"
+                      size: 125%
+                      <<: *standardbuttonactions2
+                      <<: *showboth
+                      <<: *frontpagesize
+                      styles:
+                        <<: *alarmbutton2style
+                      state:
+                        - value: "closed"
+                          style:
+                            - opacity: 0.7
+                          styles:
+                            name:
+                              - color: white
+                            state:
+                              - color: 'rgba(255, 255, 255,0.85)'
+                            icon:
+                              - color: 'var(--accent-color)'
+                        - value: "open"
+                          icon: "mdi:arrow-up-bold-circle"
+                          size: 125%
+                          styles:
+                            name:
+                              - color: white
+                            state:
+                              - color: white
+                            icon:
+                              - color: yellow
+                              - animation: blink 2s ease infinite
+                - type: custom:vertical-stack-in-card
+                  cards:
+                    - type: horizontal-stack
+                      cards:
+                        - type: custom:decluttering-card
+                          template: bar_card_temp
+                          variables:
+                            - value_1: 20
+                            - color_1: '#DC143C'
+                            - value_2: 40
+                            - color_2: '#bf9540'
+                            - color_3: 'var(--accent-color)'
+                            - columns: 1
+                            - height: 28px
+                            - entity: sensor.pixel2statusbatt
+                            - title: Pixel 2xl
+                            - tap_action: service
+                            - service_options:
+                            - domain: script
+                            - service: turn_on
+                            - entity_id: "script.mobile_low_battery"
+                        - type: custom:decluttering-card
+                          template: bar_card_temp
+                          variables:
+                            - value_1: 30
+                            - color_1: 'var(--accent-color)'
+                            - value_2: 50
+                            - color_2: '#f3f400'
+                            - color_3: '#b30000'
+                            - columns: 1
+                            - height: 28px
+                            - entity: sensor.processor_use
+                            - title: CPU
+                            - tap_action: service
+                            - service_options:
+                            - domain: script
+                            - service: turn_on
+                            - entity_id: "script.ha_status"
+                    - type: horizontal-stack
+                      cards:
+                        - type: custom:decluttering-card
+                          template: bar_card_temp
+                          variables:
+                            - value_1: 40
+                            - color_1: 'rgba(0, 0, 255,0.8)'
+                            - value_2: 50
+                            - color_2: 'var(--accent-color)'
+                            - color_3: 'var(--accent-color)'
+                            - columns: 1
+                            - height: 28px
+                            - entity: sensor.filtered_realistic_temperature
+                            - title: In
+                            - tap_action: service
+                            - service_options:
+                            - domain: script
+                            - service: turn_on
+                            - entity_id: "script.mobile_inside_temps"
+                        - type: custom:decluttering-card
+                          template: bar_card_temp
+                          variables:
+                            - value_1: 40
+                            - color_1: 'rgba(0, 0, 255,0.8)'
+                            - value_2: 50
+                            - color_2: 'var(--accent-color)'
+                            - color_3: 'var(--accent-color)'
+                            - columns: 1
+                            - height: 28px
+                            - entity: sensor.outside_avg_temperature
+                            - title: Out
+                            - tap_action: service
+                            - service_options:
+                            - domain: script
+                            - service: turn_on
+                            - entity_id: "script.mobile_humidity"
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:card-modder
+                      style:
+                        "--paper-card-background-color": 'rgba(0, 0, 0,0.0)'
+                        border-radius: 0px 0px 0px 16px
+                        font-weight: bold
+                        letter-spacing: 1px
+                        text-shadow: "2px 2px 4px black"
+                        font-size: 16px
+                        height: 46px
+                        display: block
+                      card:
+                        type: custom:bignumber-card
+                        title: SUNRISE
+                        entity: sensor.sunrise
+                        scale: 16px
+                    - type: custom:card-modder
+                      style:
+                        "--paper-card-background-color": 'rgba(0, 0, 0,0.0)'
+                        font-weight: bold
+                        letter-spacing: 2px
+                        text-shadow: "2px 2px 4px black"
+                        height: 35px
+                      card:
+                        type: custom:bignumber-card
+                        entity: sensor.time_12_hour
+                        scale: 29px
+                    - type: custom:card-modder
+                      style:
+                        "--paper-card-background-color": 'rgba(0, 0, 0,0.0)'
+                        border-radius: 0px 0px 16px 0px
+                        font-weight: bold
+                        letter-spacing: 1px
+                        text-shadow: "2px 2px 4px black"
+                        font-size: 16px
+                        height: 46px
+                      card:
+                        type: custom:bignumber-card
+                        title: SUNSET
+                        entity: sensor.sunset
+                        scale: 16px
+
+          Donna:
+            type: custom:card-modder
+            style:
+              background-image: "url(/local/images-lovelace/mobile_backz/[[ input_select.donnas_wallpaper.state ]].jpg)"
+              background-color: rgb(0, 0, 0)
+              background-size: 100% 100%
+              border: solid 10px rgb(0, 0, 0)
+              "--primary-text-color": white
+              "--primary-color": white
+              display: block
+              animation: '[[ input_select.alert_type.state ]] 2s linear 24'
+            <<: *viewextrastyles
+            recurse: false
+            card:
+              type: custom:layout-card
+              layout: vertical
+              column_num: 1
+              max_width: [750px]
+              cards:
+                - type: custom:card-modder
+                  <<: *donnastyles
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head:
+                          type: section
+                          label: Security
+                        padding: 0px
+                        items:
+                          - type: custom:card-modder
+                            style:
+                              border-radius: 15px 15px 0px 0px
+                              font-size: .8em
+                            card:
+                              type: 'custom:hui-glance-card'
+                              columns: 3
+                              show_state: false
+                              entities:
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Outside
+                                  icon: mdi:cctv
+                                  tap_action:
+                                    action: call-service
+                                    service: script.view_outside_cameras
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Rambo
+                                  icon: mdi:dog
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_rambo_cam
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Inside
+                                  icon: mdi:cctv
+                                  tap_action:
+                                    action: call-service
+                                    service: script.view_inside_cameras
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Access
+                                  icon: mdi:door-open
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_entrances
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Motion
+                                  icon: mdi:run-fast
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_motion
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Smoke
+                                  icon: mdi:smoke-detector
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_alarms
+                          - type: custom:card-modder
+                            style:
+                              border-radius: 0px 0px 15px 15px
+                              font-size: .85em
+                            card:
+                              type: 'custom:hui-glance-card'
+                              columns: 2
+                              entities:
+                                - type: entity-button
+                                  entity: cover.garage_door
+                                  name: Garage
+                                  tap_action:
+                                    action: toggle
+                                - type: entity-button
+                                  entity: group.person_group
+                                  name: Location
+                                  icon: mdi:map-marker-multiple
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_location
+                - type: custom:card-modder
+                  <<: *donnastyles
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head:
+                          type: section
+                          label: Areas
+                        padding: 0px
+                        items:
+                          - type: custom:card-modder
+                            style:
+                              font-size: .8em
+                            card:
+                              type: 'custom:hui-glance-card'
+                              columns: 3
+                              show_state: false
+                              entities:
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Office
+                                  icon: mdi:laptop-chromebook
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_office
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Kitchen
+                                  icon: mdi:silverware-variant
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_kitchen
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Master
+                                  icon: mdi:hotel
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_master
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Den
+                                  icon: mdi:sofa
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_den
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Rambo
+                                  icon: mdi:paw
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_rambo_bed
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Guest
+                                  icon: mdi:human-male-female
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_guest
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Front
+                                  icon: mdi:doorbell-video
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_front_yard
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Garage
+                                  icon: mdi:car-multiple
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_garage
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Patio
+                                  icon: mdi:flower
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_back_yard
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: 'Lights ON'
+                                  icon: mdi:lightbulb-on-outline
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_lights_on
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Clock
+                                  icon: mdi:alarm
+                                  tap_action:
+                                    action: call-service
+                                    service: script.alarm_clock
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Events
+                                  icon: mdi:calendar-heart
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_calendar
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: HVAC
+                                  icon: mdi:air-conditioner
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_thermostat
+                - type: custom:card-modder
+                  <<: *donnastyles
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head:
+                          type: section
+                          label: Weather
+                        padding: 0px
+                        items:
+                          - type: custom:card-modder
+                            style:
+                              font-size: .75em
+                            card:
+                              type: 'custom:hui-glance-card'
+                              columns: 3
+                              show_state: false
+                              entities:
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Radar
+                                  icon: mdi:radar
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_radar
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: iFrame
+                                  icon: mdi:weather-partlycloudy
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_iframe
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Forecast
+                                  icon: mdi:umbrella
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_forecast
+                - type: custom:bar-card
+                  severity:
+                    - value: 40
+                      color: 'rgba(0, 0, 255,0.8)'
+                    - value: 100
+                      color: 'rgba(134, 0, 179,0.4)'
+                  title_position: inside
+                  tap_action: info
+                  columns: 1
+                  padding: 2px
+                  align: split
+                  rounding: 10px
+                  saturation: 85%
+                  height: 40px
+                  card_style:
+                    background: "rgba(0, 0, 0, 0.4)"
+                    border-radius: 10px
+                  title_style:
+                    font-weight: bold
+                    font-size: 24px
+                    color: '#FFF'
+                    text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
+                  value_style:
+                    font-size: 26px
+                    font-weight: bold
+                  entities:
+                    - sensor.filtered_outside_temperature
+                    - sensor.filtered_realistic_temperature
+                    - sensor.bedroom_avg_temperature
+                - type: custom:bar-card
+                  severity:
+                    - value: 20
+                      color: '#DC143C'
+                    - value: 40
+                      color: '#bf9540'
+                    - value: 100
+                      color: 'rgba(64, 238, 64,0.3)'
+                  title_position: inside
+                  tap_action: none
+                  columns: 1
+                  padding: 2px
+                  align: split
+                  rounding: 10px
+                  saturation: 85%
+                  height: 36px
+                  card_style:
+                    background: "rgba(0, 0, 0, 0.4)"
+                    border-radius: 10px
+                  title_style:
+                    font-weight: bold
+                    font-size: 24px
+                    color: '#FFF'
+                    text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
+                  value_style:
+                    font-size: 26px
+                    font-weight: bold
+                  entities:
+                    - sensor.donna_s_iphone_battery_level
+
+          Tablet:
+            type: custom:card-modder
+            style:
+              background-image: "url(/local/images-lovelace/backgroundz/[[ input_select.wallpaper.state ]].jpg)"
+              background-size: 100% 100%
+              background-color: rgba(0,0,0,0.0)
+              "--paper-card-background-color": "rgba(0,0,0,0.0)"
+              "--primary-text-color": "#F2F2F2"
+              "--primary-color": "#F2F2F2"
+              border-radius: 25px
+              border: 'solid 10px [[ input_select.auto_borderz.state ]]'
+              display: block
+              animation: '[[ input_select.alert_type.state ]] 2s linear 4'
+            <<: *viewextrastyles
+            recurse: false
+            card:
+              type: custom:layout-card
+              layout: vertical
+              column_num: 2
+              max_width: [368px, 908px]
+              cards:
+                - type: custom:card-modder
+                  <<: *darrenstyles
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head:
+                          type: section
+                          label: System
+                        items:
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_21
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Screen Styles"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_18
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Automation Settings"
+                          - type: custom:dummy-entity-row
+                            entity: input_boolean.people_home_boolean
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "System Statistics"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.processor_use
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Home Assistant"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_24
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Battery Status"
+                - type: custom:card-modder
+                  <<: *darrenstyles
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head:
+                          type: section
+                          label: Cameras
+                        items:
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_6
+                            icon: mdi:none
+                            name: " "
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_6
+                            icon: mdi:cctv
+                            name: "Den Camera"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_7
+                            icon: mdi:cctv
+                            name: "Entry Hall Cam"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_8
+                            icon: mdi:cctv
+                            name: "Garage Camera"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_9
+                            icon: mdi:cctv
+                            name: "Kitchen Camera"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_10
+                            icon: mdi:cctv
+                            name: "Front Door Cam"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_11
+                            icon: mdi:cctv
+                            name: "Patio Camera"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_12
+                            icon: mdi:cctv
+                            name: "Driveway Cam"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_16
+                            icon: mdi:cctv
+                            name: "Office Camera"
+                - type: custom:card-modder
+                  <<: *darrenstyles #tabletstyles
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head:
+                          type: section
+                          label: Controls
+                        items:
+                          - type: 'custom:hui-glance-card'
+                            columns: 3
+                            show_state: false
+                            entities:
+                              - type: entity-button
+                                entity: sun.sun
+                                name: Lights
+                                icon: mdi:lightbulb
+                                tap_action:
+                                  action: call-service
+                                  service: script.lights_on_popup
+                              - type: entity-button
+                                entity: sun.sun
+                                name: Clock
+                                icon: mdi:alarm
+                                tap_action:
+                                  action: call-service
+                                  service: script.alarm_clock
+                              - type: entity-button
+                                entity: sun.sun
+                                name: Coffee
+                                icon: mdi:coffee
+                                tap_action:
+                                  action: call-service
+                                  service: script.coffee_time_popup
+                              - type: entity-button
+                                entity: sun.sun
+                                name: Master
+                                icon: mdi:hotel
+                                tap_action:
+                                  action: call-service
+                                  service: script.bedroom_controls
+                              - type: entity-button
+                                entity: sun.sun
+                                name: Den
+                                icon: mdi:sofa
+                                tap_action:
+                                  action: call-service
+                                  service: script.den_controls
+                              - type: entity-button
+                                entity: sun.sun
+                                name: Office
+                                icon: mdi:laptop-chromebook
+                                tap_action:
+                                  action: call-service
+                                  service: script.office_controls
+                              - type: entity-button
+                                entity: sun.sun
+                                name: Kitchen
+                                icon: mdi:silverware-variant
+                                tap_action:
+                                  action: call-service
+                                  service: script.kitchen_controls
+                              - type: entity-button
+                                entity: sun.sun
+                                name: Guest
+                                icon: mdi:human-male-female
+                                tap_action:
+                                  action: call-service
+                                  service: script.guest_controls
+                              - type: entity-button
+                                entity: sun.sun
+                                name: Laundry
+                                icon: mdi:washing-machine
+                                tap_action:
+                                  action: call-service
+                                  service: script.turn_on
+                                  service_data:
+                                    entity_id: script.laundry_controls
+                - type: custom:card-modder
+                  <<: *darrenstyles
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head:
+                          type: section
+                          label: Weather
+                        items:
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_29 # 17
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Forecast"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_15
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "National Radar"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_13
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Regional Radar"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_14
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Local Radar"
+                - type: custom:card-modder
+                  <<: *darrenstyles
+                  card:
+                    type: entities
+                    entities:
+                      - type: custom:fold-entity-row
+                        head:
+                          type: section
+                          label: Security
+                        items:
+                          - type: custom:dummy-entity-row
+                            entity: alarm_control_panel.ha_alarm
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Alarm Panel"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_23
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Motion Sensors"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_25
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Doors & Windows"
+                          - type: custom:dummy-entity-row
+                            entity: sensor.zdummy_sensor_26
+                            icon: mdi:arrow-right-drop-circle-outline
+                            name: "Smoke Detectors"
+                - type: 'custom:button-card'
+                  entity: alarm_control_panel.ha_alarm
+                  show_name: false
+                  icon: "mdi:shield-check"
+                  <<: *standardbuttonactions
+                  <<: *showstate
+                  <<: *frontpagesize
+                  styles:
+                    <<: *alarmbuttonstyle
+                  state:
+                    - value: "disarmed"
+                      style:
+                        - opacity: 0.7
+                      styles:
+                        name:
+                          - color: white
+                        state:
+                          - color: 'rgba(255, 255, 255,0.85)'
+                        icon:
+                          - color: limegreen
+                    - value: "armed_home"
+                      icon: "mdi:alert"
+                      styles:
+                        name:
+                          - color: black
+                        state:
+                          - color: white
+                        icon:
+                          - color: red
+                          - animation: blink 2s ease infinite
+                    - value: "armed_away"
+                      icon: "mdi:alert"
+                      styles:
+                        name:
+                          - color: black
+                        state:
+                          - color: white
+                        icon:
+                          - color: red
+                          - animation: blink 2s ease infinite
+                    - value: "pending"
+                      style:
+                        - opacity: 0.7
+                      icon: "mdi:clock-alert-outline"
+                      styles:
+                        name:
+                          - color: black
+                        state:
+                          - color: white
+                        icon:
+                          - color: orange
+                          - animation: blink 1s ease infinite
+                - type: custom:decluttering-card
+                  template: bar_card_temp
+                  variables:
+                    - value_1: 30
+                    - color_1: 'var(--accent-color)'
+                    - value_2: 50
+                    - color_2: '#f3f400'
+                    - color_3: '#b30000'
+                    - columns: 1
+                    - height: 32px
+                    - entity: sensor.processor_use
+                    - title: Processor Use
+                    - tap_action: service
+                    - service_options:
+                    - domain: script
+                    - service: turn_on
+                    - entity_id: "script.status_ha_tablet"
+                - break ##################################################
+                - type: custom:bar-card
+                  severity:
+                    - value: 100
+                      color: 'var(--accent-color)' #'rgba(0, 255, 0,0.5)'
+                  title_position: inside
+                  tap_action: info
+                  columns: 2
+                  padding: 2px
+                  align: split
+                  rounding: 10px
+                  saturation: 65%
+                  height: 50px
+                  card_style:
+                    background: "rgba(0, 0, 0, 0.4)"
+                    border-radius: 10px
+                  title_style:
+                    font-size: 24px
+                    color: '#F2F2F2'
+                    text-shadow: "2px 2px 5px black"
+                  value_style:
+                    font-size: 26px
+                    font-weight: bold
+                  entities:
+                    - sensor.filtered_realistic_temperature
+                    - sensor.filtered_outside_temperature
+                    - sensor.filtered_realistic_humidity
+                    - sensor.filtered_outside_humidity
+                - type: custom:vertical-stack-in-card
+                  cards:
+                    - type: horizontal-stack
+                      cards:
+                        - type: custom:card-modder
+                          style:
+                            background: rgba(0,0,0,0.5)
+                            border-radius: 26px 0px 0px 0px
+                            font-weight: bold
+                            letter-spacing: 2px
+                            height: 50px
+                            display: block
+                          card:
+                            type: custom:bignumber-card
+                            title: SUNRISE
+                            entity: sensor.sunrise
+                            scale: 26px
+                        - type: custom:card-modder
+                          style:
+                            background: rgba(0,0,0,0.5)
+                            border-radius: 0px
+                            font-weight: bold
+                            letter-spacing: 2px
+                            height: 50px
+                          card:
+                            type: custom:bignumber-card
+                            title: DAYLIGHT HOURS
+                            entity: sensor.daylight
+                            scale: 26px
+                        - type: custom:card-modder
+                          style:
+                            background: rgba(0,0,0,0.5)
+                            border-radius: 0px 26px 0px 0px
+                            font-weight: bold
+                            letter-spacing: 2px
+                            height: 50px
+                          card:
+                            type: custom:bignumber-card
+                            title: SUNSET
+                            entity: sensor.sunset
+                            scale: 26px
+                    - type: custom:card-modder
+                      style:
+                        background: rgba(0,0,0,0.5)
+                        border-radius: 0px
+                        font-weight: bold
+                        letter-spacing: 1px
+                        height: 28px
+                      card:
+                        type: custom:bignumber-card
+                        entity: sensor.time_12_hour_am_pm
+                        scale: 58px
+                    - type: custom:card-modder
+                      style:
+                        background: rgba(0,0,0,0.5)
+                        border-radius: 0px
+                        font-size: 2.7em
+                        height: 366px
+                        overflow: hidden
+                      card:
+                        type: "custom:atomic-calendar"
+                        title: " "
+                        titleSize: 0.1
+                        enableModeChange: true
+                        defaultMode: 2
+                        CalEventHolidayColor: 'var(--accent-color)'
+                        CalEventIcon1Filter: event, events
+                        CalEventIcon2Filter: birthday
+                        CalEventIcon1: " "
+                        CalEventIcon2: " "
+                        CalEventIcon3: " "
+                        entities:
+                        - entity: calendar.contacts
+                          type: icon2, holiday
+                        - entity: calendar.holidays_in_united_states
+                          type: holiday
+                        - entity: calendar.christian_holidays
+                          type: icon3, holiday
+                        dateSize: 110
+                        timeSize: 104
+                        firstDayOfWeek: 7
+                    - type: custom:card-modder
+                      style:
+                        border-radius: 0px 0px 26px 26px
+                        overflow: hidden
+                      card:
+                        type: custom:simple-weather-card
+                        entity: weather.dark_sky # covington_forecast #
+                        secondary_info: humidity
+                        name: "          Current conditions at home... "
+                        backdrop:
+                          day: "rgba(0,0,0,0.5)"
+                          night: "rgba(0,0,0,0.5)"
+                          text: "#FFFFFF"
+
+          OfficePC:
+            type: custom:card-modder
+            style:
+              background: url("/local/images-lovelace/backgroundz/black1.jpg")
+              background-size: 100% 100%
+              border-radius: 25px
+              border: 'solid 10px [[ input_select.auto_borderz.state ]]'
+              "--paper-card-background-color": "rgba(0,0,0,0.0)"
+              display: block
+              animation: '[[ input_select.alert_type.state ]] 2s linear 4'
+            <<: *viewextrastyles
+            recurse: false
+            card:
+              type: custom:layout-card
+              layout: vertical
+              cards:
+                - type: custom:card-modder
+                  <<: *officemenustyles
+                  card:
+                    type: picture
+                    image: /local/images-lovelace/card_backz/view.28.jpg
+                    tap_action:
+                      action: navigate
+                      navigation_path: /lovelace/28
+                - type: custom:card-modder
+                  <<: *officemenustyles
+                  card:
+                    type: picture
+                    image: /local/images-lovelace/card_backz/view.31.jpg
+                    tap_action:
+                      action: navigate
+                      navigation_path: /lovelace/31
+                - break
+                - type: custom:card-modder
+                  <<: *officemenustyles
+                  card:
+                    type: picture
+                    image: /local/images-lovelace/card_backz/view.35.jpg
+                    tap_action:
+                      action: navigate
+                      navigation_path: /lovelace/35
+                - type: custom:card-modder
+                  <<: *officemenustyles
+                  card:
+                    type: picture
+                    image: /local/images-lovelace/card_backz/view.34.jpg
+                    tap_action:
+                      action: navigate
+                      navigation_path: /lovelace/34
+                - break
+                - type: custom:card-modder
+                  <<: *officemenustyles
+                  card:
+                    type: picture
+                    image: /local/images-lovelace/card_backz/view.36.jpg
+                    tap_action:
+                      action: navigate
+                      navigation_path: /lovelace/36
+                - type: custom:card-modder
+                  <<: *officemenustyles
+                  card:
+                    type: picture
+                    image: /local/images-lovelace/card_backz/view.37.jpg
+                    tap_action:
+                      action: navigate
+                      navigation_path: /lovelace/37
+                - break
+                - type: custom:card-modder
+                  <<: *officemenustyles
+                  card:
+                    type: picture
+                    image: /local/images-lovelace/card_backz/view.29.jpg
+                    tap_action:
+                      action: navigate
+                      navigation_path: /lovelace/29
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:gap-card
+                    - type: custom:gap-card
+                    - type: custom:card-modder
+                      style:
+                        background-color: rgba(0,0,0,0.0)
+                        border-radius: 90px
+                        box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.0)
+                      card:
+                        type: picture
+                        image: /local/icons/round/round_home.png
+                        tap_action:
+                          action: navigate
+                          navigation_path: /lovelace/0
+                    - type: custom:gap-card
+                    - type: custom:gap-card
+
+          Guest:
+            type: custom:card-modder
+            style:
+              background-image: url("/local/images-lovelace/mobile_backz/welcome2.jpg")
+              background-color: rgb(0, 0, 0)
+              background-size: 100% 100%
+              border: solid 10px rgb(0, 0, 0)
+              "--primary-text-color": white
+              "--primary-color": white
+              display: block
+              animation: '[[ input_select.alert_type.state ]] 2s linear 24'
+            <<: *viewextrastyles
+            recurse: false
+            card:
+              type: custom:layout-card
+              layout: vertical
+              column_num: 1
+              max_width: [750px]
+              cards:
+                - type: custom:dummy-entity-row
+                  entity: sensor.zdummy_sensor_21
+                  icon: mdi:fake
+                  name: " "
+                - type: custom:dummy-entity-row
+                  entity: sensor.zdummy_sensor_21
+                  icon: mdi:fake
+                  name: " "
+                - type: custom:dummy-entity-row
+                  entity: sensor.zdummy_sensor_21
+                  icon: mdi:fake
+                  name: " "
+                - type: custom:dummy-entity-row
+                  entity: sensor.zdummy_sensor_21
+                  icon: mdi:fake
+                  name: " "
+                - type: custom:card-modder
+                  style:
+                    background: rgba(0,0,0,0.0)
+                    border-radius: 15px
+                    "--primary-text-color": white
+                    font-weight: bold
+                    font-size: 1.75em
+                    text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px Chartreuse"
+                    "--paper-item-icon-color": white
+                  card:
+                    type: 'custom:radial-menu'
+                    default_open: false
+                    default_dismiss: false
+                    icon: 'mdi:home'
+                    name: 'Controls'
+                    items:
+                      - entity: light.guest_room_lamp
+                        icon: 'mdi:lamp'
+                        name: Lamp
+                        tap_action:
+                          action: toggle
+                      - entity: switch.guest_ceiling_fan
+                        icon: 'mdi:fan'
+                        name: Fan
+                        tap_action:
+                          action: toggle
+                      - entity: light.guest_ceiling_light
+                        icon: 'mdi:ceiling-light'
+                        name: Ceiling
+                        tap_action:
+                          action: toggle
+                      - entity: switch.kitchen_cabinet_lights
+                        icon: 'mdi:wall-sconce-flat'
+                        name: Kitchen
+                        tap_action:
+                          action: toggle
+                      - entity: switch.air_machine
+                        icon: 'mdi:weather-windy'
+                        name: Kitchen
+                        tap_action:
+                          action: toggle
+                      - entity: switch.spare_room_outlet
+                        icon: 'mdi:power-socket-us'
+                        name: Kitchen
+                        tap_action:
+                          action: toggle
+                - type: custom:dummy-entity-row
+                  entity: sensor.zdummy_sensor_21
+                  icon: mdi:fake
+                  name: " "
+                - type: custom:bar-card
+                  severity:
+                    - value: 40
+                      color: 'rgba(0, 0, 255,0.8)'
+                    - value: 100
+                      color: 'rgba(0, 102, 204,0.65)'
+                  title_position: inside
+                  tap_action: info
+                  columns: 1
+                  padding: 2px
+                  align: split
+                  rounding: 6px
+                  saturation: 85%
+                  height: 35px
+                  card_style:
+                    background: "rgba(0, 0, 0, 0.3)"
+                    border-radius: 6px
+                  title_style:
+                    font-weight: bold
+                    font-size: 24px
+                    color: '#F2F2F2'
+                    text-shadow: "1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray"
+                  value_style:
+                    font-size: 26px
+                    font-weight: bold
+                  entities:
+                    - sensor.guest_avg_temperature
+                    - sensor.filtered_realistic_temperature
+                    - sensor.filtered_outside_temperature
+
+          default:
+            type: markdown
+            content: >
+              ## Unknown user
+
+# tablet_camera_screen
+  - id: 1
+    title: random_cameras_view
+    background: black
+    icon: mdi:numeric-1-box
+    panel: true
+    cards:
+      - type: custom:card-modder
+        style:
+          background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=[[ input_select.auto_camera.state ]]&user=dinotech&pwd=doNNa2017daRRen)"
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          display: block
+        recurse: false
+        card:
+          type: custom:layout-card
+          layout: vertical
+          cards:
+            - type: custom:card-modder
+              style:
+                background-color: rgba(0,0,0,0.0)
+                height: 755px
+              card:
+                type: entities
+                entities: []
