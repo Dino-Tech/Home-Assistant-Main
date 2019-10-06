@@ -1198,7 +1198,7 @@ views:
                                   icon: mdi:image-area
                                   tap_action:
                                     action: call-service
-                                    service: script.browser_theme_clear
+                                    service: script.browser_theme_green
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Purple
