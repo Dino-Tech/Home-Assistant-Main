@@ -132,6 +132,16 @@ browser_theme_purple:
           - Pixel Fully
           - iPhone Cloud
     - service: browser_mod.lovelace_reload
+browser_theme_green:
+  sequence:
+    - service: browser_mod.set_theme
+      data:
+        deviceID:
+          - Pixel DNS
+          - Pixel Cloud
+          - Pixel LAN
+          - Pixel Fully
+        theme: Green-Nightz
 browser_donna:
   sequence:
     - service: browser_mod.navigate
