@@ -61,6 +61,18 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 *(14 total - used for alarm, automations & tablet 'ON' & 'OFF' screens)*
 
 # Screenshots
+
+### Mobile Screens
+
+#### Pixel 2 XL Mobile Login *(running Fully Kiosk Browser)* 
+#### **New Mobile Design** with accent colors inspired by Android 10's new colors
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/main1.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu1.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu2.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu3.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu4.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu5.jpg" />
+
 ### Main Kiosk Screen *(restricted access)*
 Main panel has auto-changing background images, sleep and wake functions that are controlled via motion, time of day/night,  voice activated and presence detection. The drop downs selection keeps the screen less cluttered until needed to select popups to view so backgrounds are more visible when not in use....
 
@@ -68,14 +80,6 @@ The end result is like having 30 different views that can be accessed via *_one_
 
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/30.png" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/32.png" />
-
-### Mobile Screens
-
-#### Pixel 2 XL Mobile Login *(running Fully Kiosk Browser)* 
-#### **New Mobile Design** with accent colors inspired by Android 10's new colors
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/mobile10.06.3.jpg" />
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/7.21_update3.jpg" />
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/7.21_update2.jpg" />
 
 #### iPhone 6 Mobile Login *(restricted views access)*
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/iPhone.jpg" />
