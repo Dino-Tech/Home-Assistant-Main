@@ -1,17 +1,31 @@
-# Home-Assistant-Main
-### Home Assistant Config Files (YAMLs). These are my Home Assistant configuration files.
-
-Message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-may-24-new-mobile-popups-lovelace-screens/84271) if you have any questions or recommendations in regards to my repository! 
-
-If I've helped you, and you really want to, you can <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>, but don't feel obliged - I'm not doing this for free coffee, but I do get tired :stuck_out_tongue_winking_eye: 
-
 <p align="center">
   <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/logo-round-192x192.png">
   <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif">
   <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/logo-round-192x192.png">
 </p>
+<h1 align="center">
+  My Home Assistant Configuration
+</h1>
+<h4 align="center">Be sure to :star: my repo so you can keep up to date on the daily progress!.</h4>
+<div align="center">
+  <h4 align="center">
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr"/></a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master"><img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=plasticr"/></a>
+  </h4>
+</div>
+<p><font size="3">
+This Repo is designed for Smart Home inspiration.  The configuration, devices and layout should help inspire your journey into the IOT world.  This is a working configuration of <strong>my Smart Home</strong>.  All of the code is free to use and contribute to. This readme is based on the great documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a>
 
-### I'm currently running [Home Assistant](https://home-assistant.io) version __0.99.3__ on a RPi4B.
+![Screenshot of Home Assistant Header](https://i.imgur.com/vjDH1LJ.png)
+<hr>
+
+### Home Assistant Config Files (YAMLs). These are my Home Assistant configuration files.
+
+Message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180) if you have any questions or recommendations in regards to my repository! 
+
+If I've helped you, and you really want to, you can <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>, but don't feel obliged - I'm not doing this for free coffee, but I do get tired :stuck_out_tongue_winking_eye: 
+
+### I'm currently running [Home Assistant](https://home-assistant.io) version __0.100.2__ on a RPi4B.
 
 # A Few Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
