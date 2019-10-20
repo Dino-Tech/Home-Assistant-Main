@@ -16,7 +16,7 @@
 <p><font size="3">
 This Repo is designed for Smart Home inspiration.  The configuration, devices and layout should help inspire your journey into the IOT world.  This is a working configuration of <strong>my Smart Home</strong>.  All of the code is free to use and contribute to. This readme is based on the great documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a>
 
-![Screenshot of Home Assistant Header](https://i.imgur.com/vjDH1LJ.png)
+![Screenshot of Home Assistant Header](https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed.jpg)
 <hr>
 
 ### Home Assistant Config Files (YAMLs). These are my Home Assistant configuration files.
@@ -78,22 +78,23 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 
 ### Mobile Screens
 
-#### Pixel 2 XL Mobile Login *(running Fully Kiosk Browser)* 
-#### **New Mobile Design** with accent colors inspired by Android 10's new colors
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/main1.jpg" />
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu1.jpg" />
+#### My Mobile Login *(Pixel 2 XL running Fully Kiosk Browser)* 
+#### **Themes inspired** from Android 10's new accent colors
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/main1.1.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu1.1.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu8.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu2.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu3.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu4.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu5.jpg" />
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu6.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu6.1.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu7.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu9.jpg" />
 
 ### Main Kiosk Screen *(restricted access)*
-Main panel has auto-changing background images, sleep and wake functions that are controlled via motion, time of day/night,  voice activated and presence detection. The drop downs selection keeps the screen less cluttered until needed to select popups to view so backgrounds are more visible when not in use....
+Main panel has auto-changing background images, sleep and wake functions that are controlled via motion, time of day/night,  voice activated and presence detection. The drop down selection keeps the screen less cluttered until needed for selecting popups to view so backgrounds are more visible when kiosk is idle....
 
-The end result is like having 30 different views that can be accessed via *_one_* main screen... with one path, `/lovelace/0` without having to navigate to another view and that was my goal! *(see aditional picture 'Pop-up' gallery link below)*
+The result is like having 30 different views that can be accessed via *_one_* main screen... with one path, `/lovelace/0` without having to navigate to another view and that was my goal! *(see aditional picture 'Pop-up' gallery link below)*
 
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/30.png" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/32.png" />
@@ -109,4 +110,3 @@ The end result is like having 30 different views that can be accessed via *_one_
 
 ### Pop-up Images Gallery
 * [Tablet Pop-ups](https://imgur.com/a/tbY9HW2)
-* Mobile Pop-ups
