@@ -14,7 +14,7 @@
   </h4>
 </div>
 <p><font size="3">
-This Repo is designed for Smart Home inspiration.  The configuration, devices and layout should help inspire your journey into the IOT world.  This is a working configuration of <strong>my Smart Home</strong>.  All of the code is free to use and contribute to. This readme is based on the great documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a>
+This Repo is designed for Smart Home inspiration.  The configuration, devices and layout should help inspire your journey into the IOT world.  This is a working configuration of <strong>my Smart Home</strong>.  All of the code is free to use and contribute to. This readme is inspired from the great documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a>
 
 ![Screenshot of Home Assistant Header](https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed.jpg)
 <hr>
