@@ -1,7 +1,5 @@
 <p align="center">
-  <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/logo-round-192x192.png">
   <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif">
-  <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/logo-round-192x192.png">
 </p>
 <h1 align="center">
   My Home Assistant Configuration
@@ -16,14 +14,17 @@
 <p><font size="3">
 This Repo is designed for Smart Home inspiration.  The configuration, devices and layout should help inspire your journey into the IOT world.  This is a working configuration of <strong>my Smart Home</strong>.  All of the code is free to use and contribute to. This readme is inspired from the great documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a>
 
-![Screenshot of Home Assistant Header](https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed.jpg)
+![Screenshot of Home Assistant Header](https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed2.jpg)
 <hr>
+<div align="center">
+  <h4 align="center">
+    <a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br>
+  </h4>
+</div>
 
-### Home Assistant Config Files (YAMLs). These are my Home Assistant configuration files.
+You can message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180) if you have any questions or recommendations in regards to my repository! 
 
-Message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180) if you have any questions or recommendations in regards to my repository! 
-
-If I've helped you, and you really want to, you can <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>, but don't feel obliged - I'm not doing this for free coffee, but I do get tired :stuck_out_tongue_winking_eye: 
+If you would like to show your support, you can <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a> - I'm not doing this for free coffee, but I do get tired :stuck_out_tongue_winking_eye: 
 
 ### I'm currently running [Home Assistant](https://home-assistant.io) version __0.100.2__ on a RPi4B.
 
@@ -50,11 +51,10 @@ If I've helped you, and you really want to, you can <link href="https://fonts.go
 * [Person](https://www.home-assistant.io/components/person/)
 * [Life360](https://www.home-assistant.io/components/life360/) *(for GPS and battery statuses & HA iOS App)*
 
-### Google Homes & Assistant Powered Devices(14) 
+### Google Homes & Assistant Powered Devices(15) 
 * Google Hub (1)
 * Google Home (2)
 * Google Home Mini (6) 
-#### Google Assisted speakers
 * Zolo mini (1) 
 * Insignia (2) 
 * Insignia portable (1) 
