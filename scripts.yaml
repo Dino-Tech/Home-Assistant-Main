@@ -737,6 +737,69 @@ home_assistant_screen: ## HA SCREENSAVER
           - OfficeTab LAN
           - Kiosk
 ############################################################
+mobile_lovelace_lock:
+  sequence:
+    - service: browser_mod.close_popup
+    - service: browser_mod.popup
+      data:
+        deviceID:
+          - Pixel Fully
+          - iPhone Cloud
+        title: ''
+        style:
+          background: black
+          font-family: "Digital-7 Mono"
+          --primary-text-color: black
+          --paper-card-background-color: black
+          font-weight: bold
+          width: 377px
+          height: 753px
+          margin: 0
+        card:
+          type: custom:card-modder
+          style:
+            --restriction-regular-lock-color: rgba(255,255,255,0.4)
+            --restriction-lock-margin-left: 92px
+            --restriction-lock-icon-height: 174px
+            --restriction-lock-icon-width: 174px
+          card:
+            type: 'custom:restriction-card'
+            restrictions:
+              confirm:
+                text: 'Delete phone memory?'
+              pin:
+                code: 1234
+            card:
+              type: 'custom:hui-entities-card'
+              entities:
+                - type: custom:dummy-entity-row
+                  entity: sun.sun
+                  icon: mdi:this-icon-does-not-exist
+                  name: " "
+                - type: custom:dummy-entity-row
+                  entity: sun.sun
+                  icon: mdi:this-icon-does-not-exist
+                  name: " "
+                - type: custom:dummy-entity-row
+                  entity: sun.sun
+                  icon: mdi:this-icon-does-not-exist
+                  name: " "
+                - type: custom:card-modder
+                  style:
+                    height: 30px
+                    --primary-text-color: rgba(255,255,255,0.2)
+                  card:
+                    type: custom:bignumber-card
+                    entity: sensor.time_12_hour
+                    scale: 75px
+                - type: custom:card-modder
+                  style:
+                    --primary-text-color: rgba(255,255,255,0.2)
+                  card:
+                    type: custom:bignumber-card
+                    entity: sensor.date
+                    scale: 23px
+############################################################
 border_red:
   sequence:
     - service: input_select.select_option
