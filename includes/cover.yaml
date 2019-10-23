@@ -20,3 +20,23 @@
         {% else %}
           mdi:garage
         {% endif %}
+
+- platform: template
+  covers:
+    door:
+      friendly_name: "Lovelace Lock"
+      value_template: "{{ is_state('input_boolean.lovelace_lock', 'on') }}"
+      open_cover:
+        service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.lovelace_lock
+      close_cover:
+        service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.lovelace_lock
+      icon_template: >-
+        {% if is_state('input_boolean.lovelace_lock', 'on') %}
+          mdi:television-clean
+        {% else %}
+          mdi:television-off
+        {% endif %}
