@@ -366,6 +366,26 @@
     minutes: '/30'
   action:
     - service: script.browser_tablet
+- alias: '[Browser] lovelace lock ON'
+  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.lovelace_lock
+      to: 'off'
+  action:
+    - service: script.mobile_lovelace_lock
+
+- alias: '[Browser] lovelace lock OFF'
+  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.lovelace_lock
+      to: 'on'
+  action:
+    - service: browser_mod.close_popup
+######################################################
 #########################################################
 - alias: '[Browser] popup_front_door'
   hide_entity: true
