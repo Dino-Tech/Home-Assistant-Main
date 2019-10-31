@@ -6,91 +6,6 @@ frontend:
     - https://fonts.googleapis.com/css?family=Indie Flower|Permanent Marker|Righteous
   themes:
 
-    Dark-N-Clear:
-      lumo-primary-color: "hsl(0, 0%, 0%)"
-      lumo-primary-text-color: "#f2f2f2"
-      lumo-header-text-color: "#d9d9d9"
-      lumo-secondary-text-color: "#d9d9d9"
-      dark-primary-color: "#4d4d4d"
-      disabled-text-color: "#5e5e6e"
-      light-primary-color: "#a2a2a9"
-      paper-card-background-color: "rgba(0,0,0,0.0)"
-      paper-grey-200: "#acacb9"
-      paper-item-icon-color: "#d6d6dc"
-      paper-listbox-background-color: "#0b0e0f"
-      primary-background-color: "#000000"
-      primary-color: "4d4d4d" # # # # # # # # # <<---- DO NOT CHANGE # # #
-      primary-text-color: "#f2f2f2"
-      secondary-text-color: "#babac4"
-      text-primary-color: "#d6d6dc"
-      secondary-background-color: "#737373"
-      sidebar-text_-_background: "#66757f"
-#      iron-icon-stroke-color: "#525260"   # # # adds outline around icons
-      ha-card-box-shadow: "3px 3px rgba(0,0,0,0.0)"
-      ha-card-border-radius: "15px"
-      paper-card-header-color: "var(--paper-item-icon-color)"
-      state-icon-unavailable-color: "rgba(255, 102, 0,0.5)"
-      paper-item-icon-active-color: "#66ff66" # "#e4da00"
-      paper-item-icon_-_color: "var(--primary-text-color)"
-      paper-listbox-color: "var(--primary-text-color)"
-      paper-grey-50: "var(--primary-text-color)"
-      paper-slider-active-color: "var(--light-primary-color)"
-      paper-slider-knob-color: "var(--paper-item-icon-active-color)"
-      paper-slider-knob-start-color: "var(--secondary-background-color)"
-      paper-slider-pin-color: "var(--secondary-background-color)"
-      paper-slider-secondary-color: "var(--dark-primary-color)"
-      paper-toggle-button-checked-ink-color: "var(--dark-primary-color)"
-      paper-toggle-button-checked-button-color: "var(--paper-item-icon-active-color)"
-      paper-toggle-button-unchecked-button-color: "var(--table-row-background-color)"
-      paper-toggle-button-checked-bar-color: "rgba(255, 255, 255,0.2)"
-      paper-toggle-button-unchecked-bar-color: "rgba(255, 255, 255,0.2)"
-      table-row-background-color: "#22232b"
-      table-row-alternative-background-color: "#121317"
-      sidebar-icon-color: "#838395"
-      sidebar-text-color: "#F1F1F1"
-      sidebar-selected-background-color: "var(--primary-background-color)"
-      sidebar-selected-icon-color: "#b3b3b3"
-      sidebar-selected-text-color: "var(--sidebar-selected-icon-color)"
-      divider-color: 'hsl(220, 5%, 38%)'
-      dark-divider-opacity: '0.5'
-      light-divider-opacity: '0.1'
-      shadow-elevation-2dp_-_box-shadow: 'inset 0px 0px 0px 2.5px hsl(220, 5%, 27%)'
-      shadow-elevation-16dp_-_box-shadow: 'inset 0px 0px 0px 1.5px hsl(220, 5%, 38%)'
-      paper-font-headline_-_letter-spacing: '-0.2px'
-      paper-font-headline_-_font-weight: '500'
-      paper-font-body1_-_font-weight: '500'
-      label-badge-red: 'hsla(0, 0%, 0%, 0)'
-      label-badge-border-color: "var(--paper-item-icon-active-color)"
-      label-badge-background-color: "black"
-      label-badge-text-color: "var(--paper-item-icon-active-color)"
-      primary-font-family: "Righteous"
-      paper-font-common-base_-_font-family: "var(--primary-font-family)"
-      paper-font-common-code_-_font-family: "var(--primary-font-family)"
-      paper-font-body1_-_font-family: "var(--primary-font-family)"
-      paper-font-subhead_-_font-family: "var(--primary-font-family)"
-      paper-font-headline_-_font-family: "var(--primary-font-family)"
-      paper-font-caption_-_font-family: "var(--primary-font-family)"
-      paper-font-title_-_font-family: "var(--primary-font-family)"
-      paper-spinner-color: "var(--paper-item-icon-active-color)"
-      google-red-500: "#cc0000"
-      google-blue-500: "#0033cc"
-      google-green-500:  "#13eb13"
-      google-yellow-500: "#ffff66"
-      accent-color: "var(--paper-item-icon-active-color)"
-      #Restriction lock colors
-      restriction-regular-lock-color: 'gray'
-      restriction-success-lock-color: 'lime'
-      restriction-blocked-lock-color: 'red'
-      restriction-invalid--color: 'red'
-      restriction-lock-margin-left: 0px
-      restriction-lock-row-margin-left: 24px
-      restriction-lock-icon-height: 24px
-      restriction-lock-icon-width: 24px
-      #CCH header
-      cch-background: url("/local/images-lovelace/backgroundz/header_blksteel.jpg")
-      # Entities page fix
-      card-background-color: "var(--paper-card-background-color)"
-
     Ocean-Nightz:
       # Color Variables
       ocean-color: '#27bdd6'
@@ -571,3 +486,89 @@ frontend:
       cch-background: url("/local/images-lovelace/backgroundz/header_blksteel.jpg")
       # Entities page fix
       card-background-color: "var(--paper-card-background-color)"
+      
+     Dark-N-Clear:
+      lumo-primary-color: "hsl(0, 0%, 0%)"
+      lumo-primary-text-color: "#f2f2f2"
+      lumo-header-text-color: "#d9d9d9"
+      lumo-secondary-text-color: "#d9d9d9"
+      dark-primary-color: "#4d4d4d"
+      disabled-text-color: "#5e5e6e"
+      light-primary-color: "#a2a2a9"
+      paper-card-background-color: "rgba(0,0,0,0.0)"
+      paper-grey-200: "#acacb9"
+      paper-item-icon-color: "#d6d6dc"
+      paper-listbox-background-color: "#0b0e0f"
+      primary-background-color: "#000000"
+      primary-color: "4d4d4d" # # # # # # # # # <<---- DO NOT CHANGE # # #
+      primary-text-color: "#f2f2f2"
+      secondary-text-color: "#babac4"
+      text-primary-color: "#d6d6dc"
+      secondary-background-color: "#737373"
+      sidebar-text_-_background: "#66757f"
+#      iron-icon-stroke-color: "#525260"   # # # adds outline around icons
+      ha-card-box-shadow: "3px 3px rgba(0,0,0,0.0)"
+      ha-card-border-radius: "15px"
+      paper-card-header-color: "var(--paper-item-icon-color)"
+      state-icon-unavailable-color: "rgba(255, 102, 0,0.5)"
+      paper-item-icon-active-color: "#66ff66" # "#e4da00"
+      paper-item-icon_-_color: "var(--primary-text-color)"
+      paper-listbox-color: "var(--primary-text-color)"
+      paper-grey-50: "var(--primary-text-color)"
+      paper-slider-active-color: "var(--light-primary-color)"
+      paper-slider-knob-color: "var(--paper-item-icon-active-color)"
+      paper-slider-knob-start-color: "var(--secondary-background-color)"
+      paper-slider-pin-color: "var(--secondary-background-color)"
+      paper-slider-secondary-color: "var(--dark-primary-color)"
+      paper-toggle-button-checked-ink-color: "var(--dark-primary-color)"
+      paper-toggle-button-checked-button-color: "var(--paper-item-icon-active-color)"
+      paper-toggle-button-unchecked-button-color: "var(--table-row-background-color)"
+      paper-toggle-button-checked-bar-color: "rgba(255, 255, 255,0.2)"
+      paper-toggle-button-unchecked-bar-color: "rgba(255, 255, 255,0.2)"
+      table-row-background-color: "#22232b"
+      table-row-alternative-background-color: "#121317"
+      sidebar-icon-color: "#838395"
+      sidebar-text-color: "#F1F1F1"
+      sidebar-selected-background-color: "var(--primary-background-color)"
+      sidebar-selected-icon-color: "#b3b3b3"
+      sidebar-selected-text-color: "var(--sidebar-selected-icon-color)"
+      divider-color: 'hsl(220, 5%, 38%)'
+      dark-divider-opacity: '0.5'
+      light-divider-opacity: '0.1'
+      shadow-elevation-2dp_-_box-shadow: 'inset 0px 0px 0px 2.5px hsl(220, 5%, 27%)'
+      shadow-elevation-16dp_-_box-shadow: 'inset 0px 0px 0px 1.5px hsl(220, 5%, 38%)'
+      paper-font-headline_-_letter-spacing: '-0.2px'
+      paper-font-headline_-_font-weight: '500'
+      paper-font-body1_-_font-weight: '500'
+      label-badge-red: 'hsla(0, 0%, 0%, 0)'
+      label-badge-border-color: "var(--paper-item-icon-active-color)"
+      label-badge-background-color: "black"
+      label-badge-text-color: "var(--paper-item-icon-active-color)"
+      primary-font-family: "Righteous"
+      paper-font-common-base_-_font-family: "var(--primary-font-family)"
+      paper-font-common-code_-_font-family: "var(--primary-font-family)"
+      paper-font-body1_-_font-family: "var(--primary-font-family)"
+      paper-font-subhead_-_font-family: "var(--primary-font-family)"
+      paper-font-headline_-_font-family: "var(--primary-font-family)"
+      paper-font-caption_-_font-family: "var(--primary-font-family)"
+      paper-font-title_-_font-family: "var(--primary-font-family)"
+      paper-spinner-color: "var(--paper-item-icon-active-color)"
+      google-red-500: "#cc0000"
+      google-blue-500: "#0033cc"
+      google-green-500:  "#13eb13"
+      google-yellow-500: "#ffff66"
+      accent-color: "var(--paper-item-icon-active-color)"
+      #Restriction lock colors
+      restriction-regular-lock-color: 'gray'
+      restriction-success-lock-color: 'lime'
+      restriction-blocked-lock-color: 'red'
+      restriction-invalid--color: 'red'
+      restriction-lock-margin-left: 0px
+      restriction-lock-row-margin-left: 24px
+      restriction-lock-icon-height: 24px
+      restriction-lock-icon-width: 24px
+      #CCH header
+      cch-background: url("/local/images-lovelace/backgroundz/header_blksteel.jpg")
+      # Entities page fix
+      card-background-color: "var(--paper-card-background-color)"
+      
