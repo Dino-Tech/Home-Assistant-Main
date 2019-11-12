@@ -2410,101 +2410,99 @@ views:
                     - sensor.filtered_outside_temperature
                     - sensor.filtered_realistic_humidity
                     - sensor.filtered_outside_humidity
-                - type: custom:vertical-stack-in-card
-                  cards:
-                    - type: horizontal-stack
-                      cards:
-                        - type: custom:card-modder
-                          style:
-                            background: rgba(0,0,0,0.5)
-                            border-radius: 26px 0px 0px 0px
-                            font-weight: bold
-                            letter-spacing: 2px
-                            height: 50px
-                            display: block
-                          card:
-                            type: custom:bignumber-card
-                            title: SUNRISE
-                            entity: sensor.sunrise
-                            scale: 26px
-                        - type: custom:card-modder
-                          style:
-                            background: rgba(0,0,0,0.5)
-                            border-radius: 0px
-                            font-weight: bold
-                            letter-spacing: 2px
-                            height: 50px
-                          card:
-                            type: custom:bignumber-card
-                            title: DAYLIGHT HOURS
-                            entity: sensor.daylight
-                            scale: 26px
-                        - type: custom:card-modder
-                          style:
-                            background: rgba(0,0,0,0.5)
-                            border-radius: 0px 26px 0px 0px
-                            font-weight: bold
-                            letter-spacing: 2px
-                            height: 50px
-                          card:
-                            type: custom:bignumber-card
-                            title: SUNSET
-                            entity: sensor.sunset
-                            scale: 26px
-                    - type: custom:card-modder
-                      style:
-                        background: rgba(0,0,0,0.5)
-                        border-radius: 0px
-                        font-weight: bold
-                        letter-spacing: 1px
-                        height: 28px
-                      card:
-                        type: custom:bignumber-card
-                        entity: sensor.time_12_hour_am_pm
-                        scale: 58px
-                    - type: custom:card-modder
-                      style:
-                        background: rgba(0,0,0,0.5)
-                        border-radius: 0px
-                        font-size: 2.7em
-                        height: 366px
-                        overflow: hidden
-                      card:
-                        type: "custom:atomic-calendar"
-                        title: " "
-                        titleSize: 0.1
-                        enableModeChange: true
-                        defaultMode: 2
-                        CalEventHolidayColor: 'var(--accent-color)'
-                        CalEventIcon1Filter: event, events
-                        CalEventIcon2Filter: birthday
-                        CalEventIcon1: " "
-                        CalEventIcon2: " "
-                        CalEventIcon3: " "
-                        entities:
-                        - entity: calendar.contacts
-                          type: icon2, holiday
-                        - entity: calendar.holidays_in_united_states
-                          type: holiday
-                        - entity: calendar.christian_holidays
-                          type: icon3, holiday
-                        dateSize: 110
-                        timeSize: 104
-                        firstDayOfWeek: 7
-                    - type: custom:card-modder
-                      style:
-                        border-radius: 0px 0px 26px 26px
-                        background: rgba(0,0,0,0.5)
-                        overflow: hidden
-                      card:
-                        type: custom:simple-weather-card
-                        entity: weather.dark_sky
-                        secondary_info: humidity
-                        name: "Current conditions at home... "
-                        backdrop:
-                          day: "rgba(0,0,0,0.5)"
-                          night: "rgba(0,0,0,0.5)"
-                          text: "#FFFFFF"
+                - type: custom:card-modder
+                  style:
+                    background: rgba(0,0,0,0.5)
+                  card:
+                    type: custom:vertical-stack-in-card
+                    cards:
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:card-modder
+                            style:
+                              border-radius: 26px 0px 0px 0px
+                              font-weight: bold
+                              letter-spacing: 2px
+                              height: 50px
+                              display: block
+                            card:
+                              type: custom:bignumber-card
+                              title: SUNRISE
+                              entity: sensor.sunrise
+                              scale: 26px
+                          - type: custom:card-modder
+                            style:
+                              border-radius: 0px
+                              font-weight: bold
+                              letter-spacing: 2px
+                              height: 50px
+                            card:
+                              type: custom:bignumber-card
+                              title: DAYLIGHT HOURS
+                              entity: sensor.daylight
+                              scale: 26px
+                          - type: custom:card-modder
+                            style:
+                              border-radius: 0px 26px 0px 0px
+                              font-weight: bold
+                              letter-spacing: 2px
+                              height: 50px
+                            card:
+                              type: custom:bignumber-card
+                              title: SUNSET
+                              entity: sensor.sunset
+                              scale: 26px
+                      - type: custom:card-modder
+                        style:
+                          border-radius: 0px
+                          font-weight: bold
+                          letter-spacing: 1px
+                          height: 28px
+                        card:
+                          type: custom:bignumber-card
+                          entity: sensor.time_12_hour_am_pm
+                          scale: 58px
+                      - type: custom:card-modder
+                        style:
+                          border-radius: 0px
+                          font-size: 2.7em
+                          height: 366px
+                          overflow: hidden
+                        card:
+                          type: "custom:atomic-calendar"
+                          title: " "
+                          titleSize: 0.1
+                          enableModeChange: true
+                          defaultMode: 2
+                          CalEventHolidayColor: 'var(--accent-color)'
+                          CalEventIcon1Filter: event, events
+                          CalEventIcon2Filter: birthday
+                          CalEventIcon1: " "
+                          CalEventIcon2: " "
+                          CalEventIcon3: " "
+                          entities:
+                          - entity: calendar.contacts
+                            type: icon2, holiday
+                          - entity: calendar.holidays_in_united_states
+                            type: holiday
+                          - entity: calendar.christian_holidays
+                            type: icon3, holiday
+                          dateSize: 110
+                          timeSize: 104
+                          firstDayOfWeek: 7
+                      - type: custom:card-modder
+                        style:
+                          border-radius: 0px 0px 26px 26px
+                          overflow: hidden
+                        card:
+                          type: custom:simple-weather-card
+                          entity: weather.dark_sky
+                          secondary_info: humidity
+                          name: "Current conditions at home... "
+                          backdrop:
+                            day: "rgba(0,0,0,0.5)"
+                            night: "rgba(0,0,0,0.5)"
+                            text: "#FFFFFF"
 
           OfficePC:
             type: custom:card-modder
