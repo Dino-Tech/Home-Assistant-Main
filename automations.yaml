@@ -951,7 +951,7 @@
       data:
         entity_id: light.porch_light
 ###########################################################
-##  Hall Bath Auto Lights
+##  Hall Bath Automations Lights and vent
 - alias: '[Auto] Hall Bath Night Light'
   hide_entity: true
   initial_state: 'on'
@@ -968,7 +968,7 @@
   action:
     - service_template: "homeassistant.turn_{{- trigger.to_state.state -}}"
       data:
-        entity_id: light.shelly_shsw_21_32ba73_1
+        entity_id: light.bathroom_ceiling
 
 - alias: '[Auto] Hall Bath Light'
   hide_entity: true
@@ -989,7 +989,46 @@
   action:
     - service_template: "homeassistant.turn_{{- trigger.to_state.state -}}"
       data:
-        entity_id: light.shelly_shsw_1_5549cb
+        entity_id: light.bathroom_mirror
+
+## Turn off vent after 5 mins
+- alias: '[Auto] Hall Bath Vent auto off'
+  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: switch.bathroom_vent
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 5
+  action:
+    - service: homeassistant.turn_off
+      entity_id: switch.bathroom_vent
+
+## Turn on vent when humid
+- alias: "Turn on vent"
+  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.bathroom_humidity
+    above: '75'
+  action:
+    service: homeassistant.turn_on
+    entity_id: switch.bathroom_vent
+
+## Turn off vent when humidity lowers
+- alias: "Turn off vent"
+  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.bathroom_humidity
+    below: '74'
+  action:
+    service: homeassistant.turn_off
+    entity_id: switch.bathroom_vent
 ###########################################################
 #  [Notify] Motion Office Light ON/OFF
 - alias: '[Notify] Motion Office'
