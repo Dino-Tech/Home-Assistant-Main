@@ -2,15 +2,15 @@
 
 resources:
   - url: /community_plugin/lovelace-card-tools/card-tools.js
-    type: js
+    type: module
   - url: https://fonts.googleapis.com/css?family=Righteous
     type: css
   - url: /community_plugin/lovelace-layout-card/layout-card.js
-    type: js
+    type: module
   - url: /community_plugin/compact-custom-header/compact-custom-header.js
     type: module
   - url: /community_plugin/lovelace-gap-card/gap-card.js
-    type: js
+    type: module
   - url: /local/custom-lovelace/thermostat-card/thermostat-card.js
     type: module
   - url: /community_plugin/lovelace-card-modder/card-modder.js
@@ -18,7 +18,7 @@ resources:
   - url: /community_plugin/lovelace-card-mod/card-mod.js
     type: module
   - url: /community_plugin/lovelace-slider-entity-row/slider-entity-row.js
-    type: js
+    type: module
 #  - url: /community_plugin/lovelace-animated-background/animated-background.js
 #    type: module
   - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
@@ -28,7 +28,7 @@ resources:
   - url: /community_plugin/light-entity-row/light-entity-row.js
     type: js
   - url: /community_plugin/lovelace-auto-entities/auto-entities.js
-    type: js
+    type: module
 #  - url: /community_plugin/canvas-gauge-card/canvas-gauge-card.js
 #    type: module
   - url: /community_plugin/button-card/button-card.js
@@ -43,18 +43,22 @@ resources:
     type: module
   - url: /community_plugin/lovelace-popup-card/popup-card.js
     type: js
+#  - url: /local/custom-lovelace/comm_new/lovelace-popup-card/popup-card.js
+#    type: js
   - url: /community_plugin/bignumber-card/bignumber-card.js
     type: js
   - url: /local/custom-lovelace/dark-sky-weather-card.js
     type: module
+  - url: /community_plugin/restriction-card/restriction-card.js
+    type: module
   - url: /community_plugin/lovelace-state-switch/state-switch.js
     type: js
-  - url: /community_plugin/lovelace-fold-entity-row/fold-entity-row.js?v=0.7.1.7
-    type: js
+  - url: /community_plugin/lovelace-fold-entity-row/fold-entity-row.js #?v=0.7.1.7
+    type: module
   - url: /community_plugin/bar-card/bar-card.js
     type: js
   - url: /community_plugin/lovelace-dummy-entity-row/dummy-entity-row.js
-    type: js
+    type: module
   - url: /community_plugin/lovelace-time-input-row/time-input-row.js
     type: js
   - url: /community_plugin/text-divider-row/text-divider-row.js
@@ -63,16 +67,12 @@ resources:
     type: module
   - url: /community_plugin/monster-card/monster-card.js
     type: js
-#  - url: /community_plugin/gauge-card/gauge-card.js
-#    type: js
 #  - url: /community_plugin/config-template-card/config-template-card.js
 #    type: module
   - url: /community_plugin/weather-card/weather-card.js
     type: module
   - url: /community_plugin/swipe-card/swipe-card.js
     type: module
-#  - url: /community_plugin/list-card/list-card.js
-#    type: js
   - url: /local/custom-lovelace/lovelace-countdown-dates.js?v=0.1.1.8
     type: js
   - url: /community_plugin/atomic_calendar/atomic_calendar.js
@@ -83,6 +83,8 @@ resources:
     type: module
   - url: /community_plugin/lovelace-markdown-mod/markdown-mod.js
     type: module
+  - url: /local/custom-lovelace/favicon-counter.js
+    type: js
 
 cch:
   background: url("/local/images-lovelace/backgroundz/blackSteelHeader.jpg")
@@ -1058,19 +1060,19 @@ views:
               "--primary-text-color": white
               "--primary-color": white
               display: block
-              animation: '[[ input_select.alert_type.state ]] 2s linear 2'
+              animation: '[[ input_select.alert_type.state ]] 2s linear 4'
             <<: *viewextrastyles
             recurse: false
             card:
               type: custom:layout-card
               layout: vertical
               column_num: 1
-              max_width: [1440px]
+              max_width: [377px]
               cards:
                 - type: custom:card-modder
                   <<: *darrenmobilestyles
                   card:
-                    type: entities
+                    type: "custom:hui-entities-card"
                     entities:
                       - type: custom:fold-entity-row
                         head:
@@ -1098,7 +1100,8 @@ views:
                                   name: HA Services
                                   icon: mdi:home-assistant
                                   tap_action:
-                                    action: none
+                                    action: call-service
+                                    service: script.view_settings
                                   hold_action:
                                     action: call-service
                                     service: script.view_settings
@@ -1116,9 +1119,6 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.alarm_clock
-#                                    service_data:
-#                                      deviceID:
-#                                        - this
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Morning
@@ -1149,11 +1149,11 @@ views:
                                     service: script.mobile_calendar
                                 - type: entity-button
                                   entity: sun.sun
-                                  name: Scripts
-                                  icon: mdi:cursor-default-click
+                                  name: Radio
+                                  icon: mdi:music
                                   tap_action:
                                     action: call-service
-                                    service: script.scene_selector
+                                    service: script.mobile_radio
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Reload
@@ -1161,6 +1161,8 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.browser_tablet # refresh
+                                    service_data:
+                                      deviceID: this
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Sleep
@@ -1175,6 +1177,8 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.browser_blackout_button
+                                    service_data:
+                                      deviceID: this
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Shelly
@@ -1241,7 +1245,7 @@ views:
                 - type: custom:card-modder
                   <<: *darrenmobilestyles
                   card:
-                    type: entities
+                    type: "custom:hui-entities-card"
                     entities:
                       - type: custom:fold-entity-row
                         head:
@@ -1264,6 +1268,8 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_office
+                                    service_data:
+                                      deviceID: this
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Kitchen
@@ -1278,6 +1284,8 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_master
+                                    service_data:
+                                      deviceID: this
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Den
@@ -1302,7 +1310,7 @@ views:
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Front
-                                  icon: mdi:doorbell-video
+                                  icon: mdi:home-group
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_front_yard
@@ -1313,6 +1321,8 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_garage
+                                    service_data:
+                                      deviceID: this
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Patio
@@ -1327,6 +1337,8 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_ensuite
+                                    service_data:
+                                      deviceID: this
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Laundry
@@ -1341,10 +1353,33 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_bathroom
+                                    service_data:
+                                      deviceID: this
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Driveway
+                                  icon: mdi:car-traction-control
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_driveway
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Hallways
+                                  icon: mdi:home-variant-outline
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_hallways
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Porch
+                                  icon: mdi:doorbell-video
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_front_porch
                 - type: custom:card-modder
                   <<: *darrenmobilestyles
                   card:
-                    type: entities
+                    type: "custom:hui-entities-card"
                     entities:
                       - type: custom:fold-entity-row
                         head:
@@ -1354,7 +1389,6 @@ views:
                         items:
                           - type: custom:card-modder
                             style:
-                              border-radius: 15px
                               font-size: .8em
                             card:
                               type: 'custom:hui-glance-card'
@@ -1384,7 +1418,7 @@ views:
                                     service: script.view_inside_cameras
                                 - type: entity-button
                                   entity: sun.sun
-                                  name: Access
+                                  name: Doors
                                   icon: mdi:door-open
                                   tap_action:
                                     action: call-service
@@ -1396,6 +1430,8 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_motion
+                                    service_data:
+                                      deviceID: this
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Smoke
@@ -1405,10 +1441,11 @@ views:
                                     service: script.mobile_alarms
                                 - type: entity-button
                                   entity: sun.sun
-                                  name: " "
-                                  icon: mdi:fake
+                                  name: Windows
+                                  icon: mdi:window-open
                                   tap_action:
-                                    action: none
+                                    action: call-service
+                                    service: script.mobile_windows
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Pixel
@@ -1416,10 +1453,17 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_pixel_cam
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Water
+                                  icon: mdi:water-outline
+                                  tap_action:
+                                    action: call-service
+                                    service: script.mobile_leaks
                 - type: custom:card-modder
                   <<: *darrenmobilestyles
                   card:
-                    type: entities
+                    type: "custom:hui-entities-card"
                     entities:
                       - type: custom:fold-entity-row
                         head:
@@ -1430,154 +1474,178 @@ views:
                           - type: custom:card-modder
                             style:
                               font-size: .75em
+                              border-radius: 22px 22px 0px 0px
                             card:
                               type: 'custom:hui-glance-card'
                               columns: 3
                               show_state: false
                               entities:
-                                - type: entity-button
-                                  entity: sun.sun
+                                - entity: sun.sun
                                   name: Radar
                                   icon: mdi:radar
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_radar
-                                - type: entity-button
-                                  entity: sun.sun
+                                - entity: sun.sun
                                   name: iFrame
                                   icon: mdi:weather-lightning-rainy
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_iframe
-                                - type: entity-button
-                                  entity: sun.sun
+                                - entity: sun.sun
                                   name: Forecast
                                   icon: mdi:umbrella
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_forecast
+                          - type: custom:card-modder
+                            style:
+                              font-size: .75em
+                              border-radius: 0px 0px 22px 22px
+                            card:
+                              type: 'custom:hui-glance-card'
+                              columns: 1
+                              entities:
+#                                - type: entity-button
+                                - entity: sensor.weatheralerts
+                                  name: Weather Alerts
                 - type: horizontal-stack
                   cards:
-                    - type: 'custom:button-card'
-                      entity: group.person_group
-                      show_name: false
-                      icon: "mdi:home-circle"
-                      size: 125%
-                      <<: *standardbuttonactions3
-                      <<: *showboth
-                      <<: *frontpagesize
-                      styles:
-                        <<: *alarmbutton2style
-                      state:
-                        - value: "home"
-                          style:
-                            - opacity: 0.7
-                          styles:
-                            name:
-                              - color: white
-                            state:
-                              - color: 'rgba(255, 255, 255,0.85)'
-                            icon:
-                              - color: 'var(--accent-color)'
-                        - value: "not_home"
-                          icon: "mdi:map-marker"
-                          size: 116%
-                          styles:
-                            name:
-                              - color: white
-                            state:
-                              - color: white
-                            icon:
-                              - color: yellow
-                              - --iron-icon-stroke-color: gold
-                              - animation: blink 3s ease infinite
-                    - type: 'custom:button-card'
-                      entity: alarm_control_panel.ha_alarm
-                      show_name: false
-                      icon: "mdi:shield-check"
-                      size: 105%
-                      <<: *standardbuttonactions4
-                      <<: *showstate
-                      <<: *frontpagesize
-                      styles:
-                        <<: *alarmbutton2style
-                      state:
-                        - value: "disarmed"
-                          style:
-                            - opacity: 0.7
-                          styles:
-                            name:
-                              - color: white
-                            state:
-                              - color: 'rgba(255, 255, 255,0.85)'
-                            icon:
-                              - color: 'var(--accent-color)'
-                              - --iron-icon-stroke-color: 'var(--outline-color)'
-                        - value: "armed_home"
-                          icon: "mdi:alert"
-                          styles:
-                            name:
-                              - color: black
-                            state:
-                              - color: white
-                            icon:
-                              - color: red
-                              - --iron-icon-stroke-color: red
-                              - animation: blink 2s ease infinite
-                        - value: "armed_away"
-                          icon: "mdi:alert"
-                          styles:
-                            name:
-                              - color: black
-                            state:
-                              - color: white
-                            icon:
-                              - color: red
-                              - animation: blink 2s ease infinite
-                        - value: "pending"
-                          style:
-                            - opacity: 0.7
-                          icon: "mdi:clock-alert-outline"
-                          styles:
-                            name:
-                              - color: black
-                            state:
-                              - color: white
-                            icon:
-                              - color: orange
-                              - animation: blink 1s ease infinite
-                    - type: 'custom:button-card'
-                      entity: cover.garage_door
-                      show_name: false
-                      icon: "mdi:arrow-down-bold-circle"
-                      size: 125%
-                      <<: *standardbuttonactions2
-                      <<: *showboth
-                      <<: *frontpagesize
-                      styles:
-                        <<: *alarmbutton2style
-                      state:
-                        - value: "closed"
-                          style:
-                            - opacity: 0.7
-                          styles:
-                            name:
-                              - color: white
-                            state:
-                              - color: 'rgba(255, 255, 255,0.85)'
-                            icon:
-                              - color: 'var(--accent-color)'
-                        - value: "open"
-                          icon: "mdi:arrow-up-bold-circle"
-                          size: 125%
-                          styles:
-                            name:
-                              - color: white
-                            state:
-                              - color: white
-                            icon:
-                              - color: yellow
-                              - animation: blink 2s ease infinite
+                    - type: 'custom:restriction-card'
+                      restrictions:
+                        confirm:
+                          text: 'Are you sure you want to unlock location map?'
+                      card:
+                        type: 'custom:button-card'
+                        entity: group.person_group
+                        show_name: false
+                        icon: "mdi:home-circle"
+                        size: 125%
+                        <<: *standardbuttonactions3
+                        <<: *showboth
+                        <<: *frontpagesize
+                        styles:
+                          <<: *alarmbutton2style
+                        state:
+                          - value: "home"
+                            style:
+                              - opacity: 0.7
+                            styles:
+                              name:
+                                - color: white
+                              state:
+                                - color: 'rgba(255, 255, 255,0.85)'
+                              icon:
+                                - color: 'var(--accent-color)'
+                          - value: "not_home"
+                            icon: "mdi:map-marker"
+                            size: 116%
+                            styles:
+                              name:
+                                - color: white
+                              state:
+                                - color: white
+                              icon:
+                                - color: yellow
+                                - --iron-icon-stroke-color: gold
+                                - animation: blink 2s ease infinite
+                    - type: 'custom:restriction-card'
+                      restrictions:
+                        confirm:
+                          text: 'Are you sure you want to unlock alarm panel?'
+                      card:
+                        type: 'custom:button-card'
+                        entity: alarm_control_panel.ha_alarm
+                        show_name: false
+                        icon: "mdi:shield-check"
+                        size: 105%
+                        <<: *standardbuttonactions4
+                        <<: *showstate
+                        <<: *frontpagesize
+                        styles:
+                          <<: *alarmbutton2style
+                        state:
+                          - value: "disarmed"
+                            style:
+                              - opacity: 0.7
+                            styles:
+                              name:
+                                - color: white
+                              state:
+                                - color: 'rgba(255, 255, 255,0.85)'
+                              icon:
+                                - color: 'var(--accent-color)'
+                                - --iron-icon-stroke-color: 'rgba(0, 0, 0,0.0)'
+                          - value: "armed_home"
+                            icon: "mdi:alert"
+                            styles:
+                              name:
+                                - color: black
+                              state:
+                                - color: white
+                              icon:
+                                - color: red
+                                - --iron-icon-stroke-color: red
+                                - animation: blink 2s ease infinite
+                          - value: "armed_away"
+                            icon: "mdi:alert"
+                            styles:
+                              name:
+                                - color: black
+                              state:
+                                - color: white
+                              icon:
+                                - color: red
+                                - animation: blink 2s ease infinite
+                          - value: "pending"
+                            style:
+                              - opacity: 0.7
+                            icon: "mdi:clock-alert-outline"
+                            styles:
+                              name:
+                                - color: black
+                              state:
+                                - color: white
+                              icon:
+                                - color: orange
+                                - animation: blink 1s ease infinite
+                    - type: 'custom:restriction-card'
+                      restrictions:
+                        confirm:
+                          text: 'Are you sure you want to unlock garage door switch?'
+                      card:
+                        type: 'custom:button-card'
+                        entity: cover.garage_door
+                        show_name: false
+                        icon: "mdi:arrow-down-bold-circle"
+                        size: 125%
+                        <<: *standardbuttonactions2
+                        <<: *showboth
+                        <<: *frontpagesize
+                        styles:
+                          <<: *alarmbutton2style
+                        state:
+                          - value: "closed"
+                            style:
+                              - opacity: 0.7
+                            styles:
+                              name:
+                                - color: white
+                              state:
+                                - color: 'rgba(255, 255, 255,0.85)'
+                              icon:
+                                - color: 'var(--accent-color)'
+                          - value: "open"
+                            icon: "mdi:arrow-up-bold-circle"
+                            size: 125%
+                            styles:
+                              name:
+                                - color: white
+                              state:
+                                - color: white
+                              icon:
+                                - color: yellow
+                                - animation: blink 2s ease infinite
                 - type: custom:vertical-stack-in-card
                   cards:
                     - type: horizontal-stack
@@ -1589,7 +1657,7 @@ views:
                             - color_1: '#DC143C'
                             - value_2: 40
                             - color_2: '#bf9540'
-                            - color_3: 'var(--accent-color)'
+                            - color_3: 'var(--sidebar-icon-color)'
                             - columns: 1
                             - height: 28px
                             - entity: sensor.pixel2statusbatt
@@ -1603,7 +1671,7 @@ views:
                           template: bar_card_temp
                           variables:
                             - value_1: 30
-                            - color_1: 'var(--accent-color)'
+                            - color_1: 'var(--sidebar-icon-color)'
                             - value_2: 50
                             - color_2: '#f3f400'
                             - color_3: '#b30000'
@@ -1615,7 +1683,7 @@ views:
                             - service_options:
                             - domain: script
                             - service: turn_on
-                            - entity_id: "script.ha_status"
+                            - entity_id: "script.mobile_ha_stats"
                     - type: horizontal-stack
                       cards:
                         - type: custom:decluttering-card
@@ -1624,8 +1692,8 @@ views:
                             - value_1: 40
                             - color_1: 'rgba(0, 0, 255,0.8)'
                             - value_2: 50
-                            - color_2: 'var(--accent-color)'
-                            - color_3: 'var(--accent-color)'
+                            - color_2: 'var(--sidebar-icon-color)'
+                            - color_3: 'var(--sidebar-icon-color)'
                             - columns: 1
                             - height: 28px
                             - entity: sensor.filtered_realistic_temperature
@@ -1641,8 +1709,8 @@ views:
                             - value_1: 40
                             - color_1: 'rgba(0, 0, 255,0.8)'
                             - value_2: 50
-                            - color_2: 'var(--accent-color)'
-                            - color_3: 'var(--accent-color)'
+                            - color_2: 'var(--sidebar-icon-color)'
+                            - color_3: 'var(--sidebar-icon-color)'
                             - columns: 1
                             - height: 28px
                             - entity: sensor.outside_avg_temperature
@@ -1712,7 +1780,7 @@ views:
               type: custom:layout-card
               layout: vertical
               column_num: 1
-              max_width: [750px]
+              max_width: [375px]
               cards:
                 - type: custom:card-modder
                   <<: *donnastyles
@@ -1920,6 +1988,7 @@ views:
                           - type: custom:card-modder
                             style:
                               font-size: .75em
+                              border-radius: 22px 22px 0px 0px
                             card:
                               type: 'custom:hui-glance-card'
                               columns: 3
@@ -1935,7 +2004,7 @@ views:
                                 - type: entity-button
                                   entity: sun.sun
                                   name: iFrame
-                                  icon: mdi:weather-partlycloudy
+                                  icon: mdi:weather-lightning-rainy
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_iframe
@@ -1946,13 +2015,25 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_forecast
+                          - type: custom:card-modder
+                            style:
+                              font-size: .75em
+                              border-radius: 0px 0px 22px 22px
+                            card:
+                              type: 'custom:hui-glance-card'
+                              columns: 1
+                              entities:
+                                - type: entity-button
+                                  entity: sensor.weatheralerts
+                                  name: Weather Alerts
                 - type: custom:bar-card
                   severity:
                     - value: 40
                       color: 'rgba(0, 0, 255,0.8)'
                     - value: 100
-                      color: 'rgba(134, 0, 179,0.4)'
+                      color: 'var(--accent-color)'
                   title_position: inside
+                  decimal: '0'
                   tap_action: info
                   columns: 1
                   padding: 2px
@@ -1967,7 +2048,7 @@ views:
                     font-weight: bold
                     font-size: 24px
                     color: '#FFF'
-                    text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
+                    text-shadow: "2px 2px 4px black, 0 0 8px var(--accent-color)"
                   value_style:
                     font-size: 26px
                     font-weight: bold
@@ -1982,8 +2063,9 @@ views:
                     - value: 40
                       color: '#bf9540'
                     - value: 100
-                      color: 'rgba(64, 238, 64,0.3)'
+                      color: 'var(--accent-color)'
                   title_position: inside
+                  decimal: '0'
                   tap_action: none
                   columns: 1
                   padding: 2px
@@ -1998,7 +2080,7 @@ views:
                     font-weight: bold
                     font-size: 24px
                     color: '#FFF'
-                    text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
+                    text-shadow: "2px 2px 4px black, 0 0 8px var(--accent-color)"
                   value_style:
                     font-size: 26px
                     font-weight: bold
@@ -2011,13 +2093,10 @@ views:
               background-image: "url(/local/images-lovelace/backgroundz/[[ input_select.wallpaper.state ]].jpg)"
               background-size: 100% 100%
               background-color: rgba(0,0,0,0.0)
-              "--paper-card-background-color": "rgba(0,0,0,0.0)"
-              "--primary-text-color": "#F2F2F2"
-              "--primary-color": "#F2F2F2"
               border-radius: 25px
-              border: 'solid 10px [[ input_select.auto_borderz.state ]]'
+              border: 'solid 6px [[ input_select.auto_borderz.state ]]'
               display: block
-              animation: '[[ input_select.alert_type.state ]] 2s linear 4'
+              animation: '[[ input_select.alert_type.state ]] 2s linear 3'
             <<: *viewextrastyles
             recurse: false
             card:
@@ -2027,7 +2106,7 @@ views:
               max_width: [368px, 908px]
               cards:
                 - type: custom:card-modder
-                  <<: *darrenstyles
+                  <<: *tabletstyles
                   card:
                     type: entities
                     entities:
@@ -2057,7 +2136,7 @@ views:
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Battery Status"
                 - type: custom:card-modder
-                  <<: *darrenstyles
+                  <<: *tabletstyles
                   card:
                     type: entities
                     entities:
@@ -2103,7 +2182,7 @@ views:
                             icon: mdi:cctv
                             name: "Office Camera"
                 - type: custom:card-modder
-                  <<: *darrenstyles #tabletstyles
+                  <<: *tabletstyles
                   card:
                     type: entities
                     entities:
@@ -2182,7 +2261,7 @@ views:
                                   service_data:
                                     entity_id: script.laundry_controls
                 - type: custom:card-modder
-                  <<: *darrenstyles
+                  <<: *tabletstyles
                   card:
                     type: entities
                     entities:
@@ -2192,7 +2271,7 @@ views:
                           label: Weather
                         items:
                           - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_29 # 17
+                            entity: sensor.zdummy_sensor_29
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Forecast"
                           - type: custom:dummy-entity-row
@@ -2208,7 +2287,7 @@ views:
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Local Radar"
                 - type: custom:card-modder
-                  <<: *darrenstyles
+                  <<: *tabletstyles
                   card:
                     type: entities
                     entities:
@@ -2289,7 +2368,7 @@ views:
                   template: bar_card_temp
                   variables:
                     - value_1: 30
-                    - color_1: 'var(--accent-color)'
+                    - color_1: 'var(--sidebar-icon-color)'
                     - value_2: 50
                     - color_2: '#f3f400'
                     - color_3: '#b30000'
@@ -2306,8 +2385,9 @@ views:
                 - type: custom:bar-card
                   severity:
                     - value: 100
-                      color: 'var(--accent-color)' #'rgba(0, 255, 0,0.5)'
+                      color: 'var(--sidebar-icon-color)'
                   title_position: inside
+                  decimal: '0'
                   tap_action: info
                   columns: 2
                   padding: 2px
@@ -2414,12 +2494,13 @@ views:
                     - type: custom:card-modder
                       style:
                         border-radius: 0px 0px 26px 26px
+                        background: rgba(0,0,0,0.5)
                         overflow: hidden
                       card:
                         type: custom:simple-weather-card
-                        entity: weather.dark_sky # covington_forecast #
+                        entity: weather.dark_sky
                         secondary_info: humidity
-                        name: "          Current conditions at home... "
+                        name: "Current conditions at home... "
                         backdrop:
                           day: "rgba(0,0,0,0.5)"
                           night: "rgba(0,0,0,0.5)"
@@ -2428,7 +2509,7 @@ views:
           OfficePC:
             type: custom:card-modder
             style:
-              background: url("/local/images-lovelace/backgroundz/black1.jpg")
+              background: url("/local/images-lovelace/backgroundz/black2.jpg")
               background-size: 100% 100%
               border-radius: 25px
               border: 'solid 10px [[ input_select.auto_borderz.state ]]'
@@ -2500,23 +2581,6 @@ views:
                     tap_action:
                       action: navigate
                       navigation_path: /lovelace/29
-                - type: horizontal-stack
-                  cards:
-                    - type: custom:gap-card
-                    - type: custom:gap-card
-                    - type: custom:card-modder
-                      style:
-                        background-color: rgba(0,0,0,0.0)
-                        border-radius: 90px
-                        box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.0)
-                      card:
-                        type: picture
-                        image: /local/icons/round/round_home.png
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/0
-                    - type: custom:gap-card
-                    - type: custom:gap-card
 
           Guest:
             type: custom:card-modder
