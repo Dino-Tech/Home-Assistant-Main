@@ -646,7 +646,7 @@ popup_cards:
   sensor.zdummy_sensor_6:
     title: Living Room Camera
     style:
-      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=626133761&user=dinotech&pwd=doNNa2017daRRen)"
+      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=1234567890&user=<username>&pwd=<password>)"
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 10px
@@ -661,7 +661,7 @@ popup_cards:
   sensor.zdummy_sensor_7:
     title: Entry Hall Camera
     style:
-      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=889985706&user=dinotech&pwd=doNNa2017daRRen)"
+      background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=1234567890&user=<username>&pwd=<password>)"
       background-repeat: no-repeat
       background-size: 100% 100%
       border-radius: 10px
