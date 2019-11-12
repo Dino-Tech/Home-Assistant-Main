@@ -10,6 +10,16 @@
   headers:
     content-type: application/x-www-form-urlencoded
 
+- platform: rest
+  name: "Bathroom Mirror Light"
+  scan_interval: 5
+  resource: http://192.168.1.126/relay/0
+  body_on: 'turn=on'
+  body_off: 'turn=off'
+  is_on_template: '{{ value_json.ison == true}}'
+  headers:
+    content-type: application/x-www-form-urlencoded
+
 - platform: mqtt
   name: "Bedroom Ceiling Fan"
   command_topic: "cmnd/sonoffKLD-034/power"
@@ -809,6 +819,30 @@
   command_topic: "cmnd/sonoff58/power"
   state_topic: "stat/sonoff58/POWER"
   availability_topic: "tele/sonoff58/LWT"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: false
+
+- platform: mqtt
+  name: "Bathroom Vent"
+  command_topic: "cmnd/sonoff61/power"
+  state_topic: "stat/sonoff61/POWER"
+  availability_topic: "tele/sonoff61/LWT"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: false
+
+- platform: mqtt
+  name: "Bathroom Ceiling"
+  command_topic: "cmnd/sonoff62/power"
+  state_topic: "stat/sonoff62/POWER"
+  availability_topic: "tele/sonoff62/LWT"
   qos: 1
   payload_available: "Online"
   payload_not_available: "Offline"
