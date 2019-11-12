@@ -240,6 +240,14 @@
   name: Patio Accent Lights
   entity_id: switch.patio_accent_lights
 
+- platform: switch
+  name: Bathroom Ceiling
+  entity_id: switch.bathroom_ceiling
+
+- platform: switch
+  name: Bathroom Mirror
+  entity_id: switch.bathroom_mirror_light
+
 - platform: group
   name: Office Lamps
   entities:
@@ -253,6 +261,12 @@
     - light.22507506807d3a4cab3f # darrens lamp
     - light.22507506807d3a4c9e4b # donnas lamp
 
+- platform: group
+  name: Bathroom Lights
+  entities:
+    - light.bathroom_ceiling
+    - light.bathroom_mirror
+ 
 #############################################################
 #- platform: mqtt
 #  name: "Driveway Lights LED"
