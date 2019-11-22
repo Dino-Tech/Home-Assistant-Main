@@ -19,8 +19,6 @@ resources:
     type: module
   - url: /community_plugin/lovelace-slider-entity-row/slider-entity-row.js
     type: module
-#  - url: /community_plugin/lovelace-animated-background/animated-background.js
-#    type: module
   - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
     type: js
   - url: /community_plugin/surveillance-card/surveillance-card.js
@@ -29,8 +27,6 @@ resources:
     type: js
   - url: /community_plugin/lovelace-auto-entities/auto-entities.js
     type: module
-#  - url: /community_plugin/canvas-gauge-card/canvas-gauge-card.js
-#    type: module
   - url: /community_plugin/button-card/button-card.js
     type: module
   - url: /community_plugin/mini-graph-card/mini-graph-card.js
@@ -43,8 +39,6 @@ resources:
     type: module
   - url: /community_plugin/lovelace-popup-card/popup-card.js
     type: js
-#  - url: /local/custom-lovelace/comm_new/lovelace-popup-card/popup-card.js
-#    type: js
   - url: /community_plugin/bignumber-card/bignumber-card.js
     type: js
   - url: /local/custom-lovelace/dark-sky-weather-card.js
@@ -65,10 +59,6 @@ resources:
     type: module
   - url: /community_plugin/decluttering-card/decluttering-card.js
     type: module
-  - url: /community_plugin/monster-card/monster-card.js
-    type: js
-#  - url: /community_plugin/config-template-card/config-template-card.js
-#    type: module
   - url: /community_plugin/weather-card/weather-card.js
     type: module
   - url: /community_plugin/swipe-card/swipe-card.js
@@ -90,9 +80,9 @@ cch:
   background: url("/local/images-lovelace/backgroundz/blackSteelHeader.jpg")
   statusbar_color: "#000"
   all_buttons_color: rgba(255,255,255,0.4)
-  active_tab_color: '#38ccd0'
-  tab_indicator_color: '#38ccd0'
-  notify_indicator_color: '#38ccd0'
+  active_tab_color: 'var(--accent-color)'
+  tab_indicator_color: 'var(--accent-color)'
+  notify_indicator_color: 'var(--accent-color)'
   notify_text_color: black
   options: clock
   menu: overflow
@@ -497,9 +487,6 @@ anchors:
     tap_action:
       action: call-service
       service: script.alarm_panel_popup
-#      service_data:
-#        deviceID:
-#          - this
       haptic: scccess
 
   show_label: &showlabel
@@ -1083,6 +1070,7 @@ views:
                           - type: custom:card-modder
                             style:
                               font-size: .59em
+                              border-radius: 22px 22px 0px 0px
                             card:
                               type: 'custom:hui-glance-card'
                               columns: 3
@@ -1160,7 +1148,7 @@ views:
                                   icon: mdi:monitor-dashboard
                                   tap_action:
                                     action: call-service
-                                    service: script.browser_tablet # refresh
+                                    service: script.browser_tablet
                                     service_data:
                                       deviceID: this
                                 - type: entity-button
@@ -1221,6 +1209,15 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.all_devices
+                          - type: custom:card-modder
+                            style:
+                              font-size: .59em
+                              border-radius: 0px 0px 22px 22px
+                            card:
+                              type: 'custom:hui-glance-card'
+                              columns: 4
+                              show_state: false
+                              entities:
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Green
@@ -1242,6 +1239,13 @@ views:
                                   tap_action:
                                     action: call-service
                                     service: script.browser_theme_ocean
+                                - type: entity-button
+                                  entity: sun.sun
+                                  name: Grey
+                                  icon: mdi:image-area
+                                  tap_action:
+                                    action: call-service
+                                    service: script.browser_theme_grey
                 - type: custom:card-modder
                   <<: *darrenmobilestyles
                   card:
@@ -1395,36 +1399,31 @@ views:
                               columns: 3
                               show_state: false
                               entities:
-                                - type: entity-button
-                                  entity: sun.sun
+                                - entity: sun.sun
                                   name: Outside
                                   icon: mdi:cctv
                                   tap_action:
                                     action: call-service
                                     service: script.view_outside_cameras
-                                - type: entity-button
-                                  entity: sun.sun
+                                - entity: sun.sun
                                   name: Rambo
                                   icon: mdi:dog
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_rambo_cam
-                                - type: entity-button
-                                  entity: sun.sun
+                                - entity: sun.sun
                                   name: Inside
                                   icon: mdi:cctv
                                   tap_action:
                                     action: call-service
                                     service: script.view_inside_cameras
-                                - type: entity-button
-                                  entity: sun.sun
+                                - entity: sun.sun
                                   name: Doors
                                   icon: mdi:door-open
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_entrances
-                                - type: entity-button
-                                  entity: sun.sun
+                                - entity: sun.sun
                                   name: Motion
                                   icon: mdi:run-fast
                                   tap_action:
@@ -1432,29 +1431,25 @@ views:
                                     service: script.mobile_motion
                                     service_data:
                                       deviceID: this
-                                - type: entity-button
-                                  entity: sun.sun
+                                - entity: sun.sun
                                   name: Smoke
                                   icon: mdi:smoke-detector
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_alarms
-                                - type: entity-button
-                                  entity: sun.sun
+                                - entity: sun.sun
                                   name: Windows
                                   icon: mdi:window-open
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_windows
-                                - type: entity-button
-                                  entity: sun.sun
+                                - entity: sun.sun
                                   name: Pixel
                                   icon: mdi:cctv
                                   tap_action:
                                     action: call-service
                                     service: script.mobile_pixel_cam
-                                - type: entity-button
-                                  entity: sun.sun
+                                - entity: sun.sun
                                   name: Water
                                   icon: mdi:water-outline
                                   tap_action:
@@ -1506,7 +1501,6 @@ views:
                               type: 'custom:hui-glance-card'
                               columns: 1
                               entities:
-#                                - type: entity-button
                                 - entity: sensor.weatheralerts
                                   name: Weather Alerts
                 - type: horizontal-stack
@@ -2124,17 +2118,32 @@ views:
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Automation Settings"
                           - type: custom:dummy-entity-row
-                            entity: input_boolean.people_home_boolean
+                            entity: sun.sun
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "System Statistics"
+                            tap_action:
+                              action: call-service
+                              service: script.turn_on
+                              service_data:
+                                entity_id: script.system_popup
                           - type: custom:dummy-entity-row
-                            entity: sensor.processor_use
+                            entity: sun.sun
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Home Assistant"
+                            tap_action:
+                              action: call-service
+                              service: script.turn_on
+                              service_data:
+                                entity_id: script.status_ha_tablet
                           - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_24
+                            entity: sun.sun
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Battery Status"
+                            tap_action:
+                              action: call-service
+                              service: script.turn_on
+                              service_data:
+                                entity_id: script.low_battery_popup
                 - type: custom:card-modder
                   <<: *tabletstyles
                   card:
@@ -2180,7 +2189,7 @@ views:
                           - type: custom:dummy-entity-row
                             entity: sensor.zdummy_sensor_16
                             icon: mdi:cctv
-                            name: "Office Camera"
+                            name: "Rambo Camera"
                 - type: custom:card-modder
                   <<: *tabletstyles
                   card:
@@ -2271,9 +2280,14 @@ views:
                           label: Weather
                         items:
                           - type: custom:dummy-entity-row
-                            entity: sensor.zdummy_sensor_29
+                            entity: sun.sun
                             icon: mdi:arrow-right-drop-circle-outline
                             name: "Forecast"
+                            tap_action:
+                              action: call-service
+                              service: script.turn_on
+                              service_data:
+                                entity_id: script.forecast_popup
                           - type: custom:dummy-entity-row
                             entity: sensor.zdummy_sensor_15
                             icon: mdi:arrow-right-drop-circle-outline
