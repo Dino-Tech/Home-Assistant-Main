@@ -86,15 +86,10 @@ cch:
   notify_text_color: black
   options: clock
   menu: overflow
-  voice: overflow
   notifications: show
   clock_format: 12
   clock_am_pm: false
   header: false
-  swipe: false
-  hide_help: true
-  hide_config: true
-  hide_unused: true
   exceptions:
     - conditions:
         user: Darren
