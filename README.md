@@ -26,7 +26,7 @@ You can message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) o
 
 If you would like to show your support, you can <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a> - I'm not doing this for free coffee, but I do get tired :stuck_out_tongue_winking_eye: 
 
-### I'm currently running [Home Assistant](https://home-assistant.io) version __0.102.0__ on a RPi4B.
+### I'm currently running [Home Assistant](https://home-assistant.io) version __0.102.1__ on a RPi4B.
 
 # A Few Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
@@ -80,7 +80,7 @@ If you would like to show your support, you can <link href="https://fonts.google
 
 #### My Mobile Login *(Pixel 2 XL running Fully Kiosk Browser)* 
 #### **Themes inspired** from Android 10's new accent colors
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/main1.2.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/main1.3.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu1.1.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu8.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu2.1.jpg" />
