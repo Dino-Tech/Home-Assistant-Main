@@ -253,6 +253,6 @@ logbook: !include includes/logbook.yaml
 notify: !include includes/notify.yaml
 script: !include scripts.yaml
 sensor: !include includes/sensor.yaml
-shelly: !include includes/shelly.yaml
+#   shelly: !include includes/shelly.yaml
 switch: !include includes/switch.yaml
 
