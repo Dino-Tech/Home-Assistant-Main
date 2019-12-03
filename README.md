@@ -4,7 +4,7 @@
 <h1 align="center">
   My Home Assistant Configuration
 </h1>
-<h4 align="center">Be sure to :star: my repo so you can keep up to date on the daily progress!.</h4>
+<h4 align="center">Be sure to :star: my repo so you can keep up to date on the daily progress!</h4>
 <div align="center">
   <h4 align="center">
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr"/></a>
