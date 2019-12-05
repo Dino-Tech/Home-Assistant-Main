@@ -1,5 +1,6 @@
-## konnected#  /config/includes/konnected.yaml
-##############################################
+---
+# # konnected#  /config/includes/konnected.yaml
+# #############################################
 access_token: !secret konnected_access_token
 api_host: !secret konnected_api_host
 devices:
