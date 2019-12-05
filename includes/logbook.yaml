@@ -1,5 +1,6 @@
-## logbook# /config/includes/logbook.yaml
-############################################################
+---
+# # logbook# /config/includes/logbook.yaml
+# ###########################################################
 include:
   domains:
     - automation
