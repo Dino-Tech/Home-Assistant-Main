@@ -53,8 +53,6 @@ rules:
     check-multi-line-strings: false
   key-duplicates:
     level: error
-  key-ordering:
-    level: error
   line-length:
     level: warning
     max: 120
