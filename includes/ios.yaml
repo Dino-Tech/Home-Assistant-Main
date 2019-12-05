@@ -18,4 +18,3 @@ push:
           behavior: 'textInput'
           textInputButtonTitle: 'Send TTS'
           textInputPlaceholder: 'Who goes there?'
- 
