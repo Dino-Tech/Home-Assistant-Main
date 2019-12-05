@@ -1,5 +1,6 @@
-## history# /config/includes/history.yaml
-############################################################
+---
+# # history# /config/includes/history.yaml
+# ###########################################################
 exclude:
   domains:
     - camera
