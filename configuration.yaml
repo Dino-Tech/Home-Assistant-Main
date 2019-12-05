@@ -96,17 +96,16 @@ lovelace:
 
 remote_homeassistant:
   instances:
-  - host: 192.168.1.131
-    port: 8123
-    secure: false
-    access_token: !secret remote_access_token
-    entity_prefix: "remote_"
-  - host: 192.168.1.130
-    port: 8123
-    secure: false
-    access_token: !secret remote2_access_token
-    entity_prefix: "remote2_"
-
+    - host: 192.168.1.131
+      port: 8123
+      secure: false
+      access_token: !secret remote_access_token
+      entity_prefix: "remote_"
+    - host: 192.168.1.130
+      port: 8123
+      secure: false
+      access_token: !secret remote2_access_token
+      entity_prefix: "remote2_"
 
 conversation:
 
@@ -124,8 +123,8 @@ logger:
 
 system_health:
 
-- platform: wyzesense
-  device: auto
+platform: wyzesense
+device: auto
 
 life360:
   driving_speed: 18
