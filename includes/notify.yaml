@@ -11,8 +11,7 @@
 - platform: pushbullet
   name: Darren
   api_key: !secret pushbullet_api
-  
-# html5
+
 - platform: html5
   name: Darren Pixel 2XL
   vapid_pub_key: !secret vapid_pub_key
