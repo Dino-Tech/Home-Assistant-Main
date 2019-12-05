@@ -352,3 +352,8 @@
       value_template: '{{ states.binary_sensor.wyzesense_77878a66.attributes.battery_level < 15 }}'
       friendly_name: 'Kitchen motion 2 battery is low'
 
+- platform: template
+  sensors:
+    weather_alert_detected:
+      value_template: "{{ is_state('sensor.weatheralerts', 'No alerts') }}"
+      friendly_name: 'Weather alerts active'
