@@ -1,5 +1,6 @@
-## scripts# /config/scripts.yaml
-################################################
+---
+# scripts# /config/scripts.yaml
+# ###############################################
 radio_player:
   sequence:
     - service: media_player.volume_set
@@ -95,7 +96,7 @@ good_night:
       continue_on_timeout: 'true'
     - service: browser_mod.close_popup
     - service: browser_mod.blackout
-################################################
+# ###############################################
 # Morning
 morning:
   sequence:
@@ -114,9 +115,9 @@ morning:
       entity_id:
         - input_boolean.notifications
     - service: browser_mod.no_blackout
-####################################################
-###       POPUPS, CAMERAS, BROWSER SCRIPTS       ###
-####################################################
+# ###################################################
+# ##       POPUPS, CAMERAS, BROWSER SCRIPTS       ###
+# ###################################################
 browser_blackout_button:
   sequence:
     - service: browser_mod.blackout
@@ -262,7 +263,7 @@ browser_random_cameras:
     - service: input_boolean.turn_on
       entity_id:
         - input_boolean.auto_cameras
-#####################################################
+# ####################################################
 browser_popup_1:
   sequence:
     - condition: state
@@ -493,9 +494,9 @@ browser_popup_8:
         option: stop
     - delay: '00:01:00'
     - service: browser_mod.close_popup
-############################################################
-#######         FULL SCREEN CAMERA VIEWS            ########
-############################################################
+# ###########################################################
+# ######         FULL SCREEN CAMERA VIEWS            ########
+# ###########################################################
 driveway_screen:
   sequence:
     - service: browser_mod.navigate
@@ -511,7 +512,7 @@ driveway_screen:
       data:
         entity_id: input_select.auto_camera
         option: '894154842'
-############################################################
+# ###########################################################
 garage_screen:
   sequence:
     - service: browser_mod.navigate
@@ -527,7 +528,7 @@ garage_screen:
       data:
         entity_id: input_select.auto_camera
         option: '1303952849'
-############################################################
+# ###########################################################
 front_door_screen:
   sequence:
     - service: browser_mod.navigate
@@ -543,7 +544,7 @@ front_door_screen:
       data:
         entity_id: input_select.auto_camera
         option: '1302564213'
-############################################################
+# ###########################################################
 patio_screen:
   sequence:
     - service: browser_mod.navigate
@@ -559,7 +560,7 @@ patio_screen:
       data:
         entity_id: input_select.auto_camera
         option: '209914028'
-############################################################
+# ###########################################################
 den_screen:
   sequence:
     - service: browser_mod.navigate
@@ -575,7 +576,7 @@ den_screen:
       data:
         entity_id: input_select.auto_camera
         option: '1263565836'
-############################################################
+# ###########################################################
 kitchen_screen:
   sequence:
     - service: browser_mod.navigate
@@ -591,7 +592,7 @@ kitchen_screen:
       data:
         entity_id: input_select.auto_camera
         option: '889985706'
-############################################################
+# ###########################################################
 entry_hall_screen:
   sequence:
     - service: browser_mod.navigate
@@ -607,9 +608,9 @@ entry_hall_screen:
       data:
         entity_id: input_select.auto_camera
         option: '626133761'
-############################################################
-#######         WALLPAPER & BORDER COLOR SETS        #######
-############################################################
+# ###########################################################
+# ######         WALLPAPER & BORDER COLOR SETS        #######
+# ###########################################################
 morning_screen:
   sequence:
     - service: input_select.select_option
@@ -619,7 +620,7 @@ morning_screen:
     - service: input_boolean.turn_on
       entity_id:
         - input_boolean.auto_tablet
-############################################################
+# ###########################################################
 night_screen: ## at sunset
   sequence:
     - service: input_select.select_option
@@ -630,7 +631,7 @@ night_screen: ## at sunset
       data:
         entity_id: input_select.auto_borderz
         option: Black
-############################################################
+# ###########################################################
 purple_screen:
   sequence:
     - service: input_select.select_option
@@ -641,7 +642,7 @@ purple_screen:
       data:
         entity_id: input_select.auto_borderz
         option: Purple
-############################################################
+# ###########################################################
 red_fire_screen:
   sequence:
     - service: input_select.select_option
@@ -652,7 +653,7 @@ red_fire_screen:
       data:
         entity_id: input_select.auto_borderz
         option: Red
-############################################################
+# ###########################################################
 blue_fire_screen:
   sequence:
     - service: input_select.select_option
@@ -663,7 +664,7 @@ blue_fire_screen:
       data:
         entity_id: input_select.auto_borderz
         option: DarkBlue
-############################################################
+# ###########################################################
 green_screen:
   sequence:
     - service: input_select.select_option
@@ -674,7 +675,7 @@ green_screen:
       data:
         entity_id: input_select.auto_borderz
         option: Chartreuse
-############################################################
+# ###########################################################
 star_screen:
   sequence:
     - service: input_select.select_option
@@ -685,7 +686,7 @@ star_screen:
       data:
         entity_id: input_select.auto_borderz
         option: Black
-############################################################
+# ###########################################################
 space_screen:
   sequence:
     - service: input_select.select_option
@@ -696,7 +697,7 @@ space_screen:
       data:
         entity_id: input_select.auto_borderz
         option: Black
-############################################################
+# ###########################################################
 aqua_screen:
   sequence:
     - service: input_select.select_option
@@ -707,7 +708,7 @@ aqua_screen:
       data:
         entity_id: input_select.auto_borderz
         option: Lime
-############################################################
+# ###########################################################
 sleep_tablet: ## CLOCK SCREENSAVER
   sequence:
     - service: browser_mod.close_popup
@@ -736,7 +737,7 @@ sleep_tablet: ## CLOCK SCREENSAVER
           type: custom:bignumber-card
           entity: sensor.time_12_hour
           scale: 290px
-############################################################
+# ###########################################################
 off_screen: ## BLACKOUT SCREEN
   sequence:
     - service: browser_mod.close_popup
@@ -746,7 +747,7 @@ off_screen: ## BLACKOUT SCREEN
           - OfficePC
           - OfficeTab LAN
           - Kiosk
-############################################################
+# ###########################################################
 wake_tablet: ## NORMAL VIEW
   sequence:
     - service: browser_mod.close_popup
@@ -756,7 +757,7 @@ wake_tablet: ## NORMAL VIEW
           - OfficePC
           - OfficeTab LAN
           - Kiosk
-############################################################
+# ###########################################################
 mobile_lovelace_lock:
   sequence:
     - service: browser_mod.close_popup
@@ -819,7 +820,7 @@ mobile_lovelace_lock:
                     type: custom:bignumber-card
                     entity: sensor.date
                     scale: 23px
-############################################################
+# ###########################################################
 home_assistant_screen: ## HA SCREENSAVER
   sequence:
     - service: browser_mod.navigate
@@ -829,35 +830,35 @@ home_assistant_screen: ## HA SCREENSAVER
           - OfficePC
           - OfficeTab LAN
           - Kiosk
-############################################################
+# ###########################################################
 border_red:
   sequence:
     - service: input_select.select_option
       data:
         entity_id: input_select.auto_borderz
         option: Red
-############################################################
+# ###########################################################
 border_lime:
   sequence:
     - service: input_select.select_option
       data:
         entity_id: input_select.auto_borderz
         option: Lime
-############################################################
+# ###########################################################
 border_yellow:
   sequence:
     - service: input_select.select_option
       data:
         entity_id: input_select.auto_borderz
         option: Yellow
-############################################################
+# ###########################################################
 border_blue:
   sequence:
     - service: input_select.select_option
       data:
         entity_id: input_select.auto_borderz
         option: Blue
-############################################################
+# ###########################################################
 mobile_radio:
   sequence:
     - service: browser_mod.close_popup
@@ -948,7 +949,7 @@ mobile_radio:
                     tap_action:
                       action: call-service
                       service: script.radio_player
-############################################################
+# ###########################################################
 style_selector:
   sequence:
     - service: browser_mod.close_popup
@@ -990,7 +991,7 @@ style_selector:
             - input_select.backgroundz
             - type: divider
             - input_select.button_animation_1
-############################################################
+# ###########################################################
 mobile_location:
   sequence:
     - service: browser_mod.close_popup
@@ -1024,7 +1025,7 @@ mobile_location:
             - zone.home
             - zone.donnas_work
           aspect_ratio: 9x16
-############################################################
+# ###########################################################
 mobile_thermostat:
   sequence:
     - service: browser_mod.close_popup
@@ -1094,7 +1095,7 @@ mobile_thermostat:
                 - sensor.filtered_outside_temperature
                 - sensor.filtered_realistic_humidity
                 - sensor.filtered_outside_humidity
-############################################################
+# ###########################################################
 alarm_clock:
   sequence:
     - service: browser_mod.close_popup
@@ -1150,7 +1151,7 @@ alarm_clock:
                   name: Anniversary
                 - date: 12/31/2019
                   name: New Year's
-############################################################
+# ###########################################################
 kitchen_controls:
   sequence:
     - service: browser_mod.close_popup
@@ -1234,7 +1235,7 @@ kitchen_controls:
               tap_action:
                 action: toggle
           show_state: false
-############################################################
+# ###########################################################
 office_controls:
   sequence:
     - service: browser_mod.close_popup
@@ -1339,7 +1340,7 @@ office_controls:
               tap_action:
                 action: toggle
           show_state: false
-############################################################
+# ###########################################################
 den_controls:
   sequence:
     - service: browser_mod.close_popup
@@ -1418,7 +1419,7 @@ den_controls:
               tap_action:
                 action: toggle
           show_state: false
-############################################################
+# ###########################################################
 bedroom_controls:
   sequence:
     - service: browser_mod.close_popup
@@ -1503,7 +1504,7 @@ bedroom_controls:
               tap_action:
                 action: toggle
           show_state: false
-############################################################
+# ###########################################################
 laundry_controls:
   sequence:
     - service: browser_mod.close_popup
@@ -1551,7 +1552,7 @@ laundry_controls:
             - sensor.dryer_amps
             - sensor.dryer_energy_today
             - sensor.dryer_energy_yesterday
-############################################################
+# ###########################################################
 mobile_low_battery:
   sequence:
     - service: browser_mod.close_popup
@@ -1617,7 +1618,7 @@ mobile_low_battery:
             unique: false
           sort:
             method: name
-############################################################
+# ###########################################################
 low_battery_popup:
   sequence:
     - service: browser_mod.close_popup
@@ -1678,7 +1679,7 @@ low_battery_popup:
             exclude:
               - entity_id: sensor.donna_s_iphone_battery_state
               - entity_id: sensor.office_battery_smoke
-############################################################
+# ###########################################################
 arrived_home_popup:
   sequence:
     - service: browser_mod.close_popup
@@ -1750,7 +1751,7 @@ arrived_home_popup:
                     service: homeassistant.toggle
                     service_data:
                       entity_id: group.exterior_lighting
-############################################################
+# ###########################################################
 status_ha_tablet:
   sequence:
     - service: browser_mod.close_popup
@@ -1793,7 +1794,7 @@ status_ha_tablet:
             - sensor.ha_latest_version
             - entity: sensor.hacs
               name: HACS
-############################################################
+# ###########################################################
 mobile_radar:
   sequence:
     - service: browser_mod.close_popup
@@ -1888,86 +1889,7 @@ mobile_radar:
                   styles:
                     card:
                       - width: 2px
-
-############################################################
-#mobile_radar_nws:
-#  sequence:
-#    - service: browser_mod.command
-#      data:
-#        command: close-popup
-#    - service: browser_mod.command
-#      data:
-#        command: popup
-#        deviceID:
-#          - Pixel DNS
-#          - Pixel Cloud
-#          - Pixel LAN
-#          - iPhone Cloud
-#        auto_close: true
-#        style:
-#          background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
-#          background-repeat: no-repeat
-#          background-size: 100% 100%
-#          "--app-toolbar-font-size": 1.875em
-#          "--primary-text-color": rgba(255,255,255,0.75)
-#          border-radius: 15px
-#          border: solid 2px dimgray
-#          font-weight: bold
-#          width: 100%
-#          box-sizing: border-box
-#          margin: 0
-#        card:
-#          type: vertical-stack
-#          cards:
-#            - type: 'custom:button-card'
-#              color_type: blank-card
-#             styles:
-#                card:
-#                  - height: 2px
-#            - type: horizontal-stack
-#              cards:
-#                - type: 'custom:button-card'
-#                  color_type: blank-card
-#                  styles:
-#                    card:
-#                      - width: 2px
-#                - type: 'custom:card-modder'
-#                  style:
-#                    border-radius: 12px
-#                    overflow: hidden
-#                  card:
-#                    type: 'custom:camera-card'
-#                    entity: camera.long_range
-#                - type: 'custom:button-card'
-#                  color_type: blank-card
-#                  styles:
-#                    card:
-#                      - width: 2px
-#            - type: horizontal-stack
-#              cards:
-#                - type: 'custom:button-card'
-#                  color_type: blank-card
-#                  styles:
-#                    card:
-#                      - width: 2px
-#                - type: 'custom:card-modder'
-#                 style:
-#                   border-radius: 12px
-#                    overflow: hidden
-#                 card:
-#                   type: 'custom:camera-card'
-#                    entity: camera.short_range
-#                - type: 'custom:button-card'
-#                  color_type: blank-card
-#                  styles:
-#                    card:
-#                      - width: 2px
-#            - type: 'custom:button-card'
-#             color_type: blank-card
-#              styles:
-#               card:
-#                 - height: 7px
-############################################################
+# ###########################################################
 mobile_humidity:
   sequence:
     - service: browser_mod.close_popup
@@ -2032,7 +1954,7 @@ mobile_humidity:
             unique: false
           sort:
             method: name
-############################################################
+# ###########################################################
 mobile_inside_temps:
   sequence:
     - service: browser_mod.close_popup
@@ -2096,7 +2018,7 @@ mobile_inside_temps:
             unique: false
           sort:
             method: name
-############################################################
+# ###########################################################
 mobile_calendar:
   sequence:
     - service: browser_mod.close_popup
@@ -2168,7 +2090,7 @@ mobile_calendar:
               entity: sun.sun
               icon: mdi:this-icon-does-not-exist
               name: " "
-############################################################
+# ###########################################################
 mobile_ha_stats:
   sequence:
     - service: browser_mod.close_popup
@@ -2243,8 +2165,7 @@ mobile_ha_stats:
                 - sensor.uptime
                 - sensor.memory_use_percent
                 - sensor.memory_free
-#                - sensor.rpi_power_status
-############################################################
+# ###########################################################
 stale_snapshot_popup:
   sequence:
     - service: browser_mod.close_popup
@@ -2271,7 +2192,7 @@ stale_snapshot_popup:
             ## Snapshots are stale! Please visit the "Hass.io Google Drive Backup" add-on
             status page for details.
           title: Stale Snapshots!
-############################################################
+# ###########################################################
 calendar_popup:
   sequence:
     - service: browser_mod.close_popup
@@ -2330,7 +2251,7 @@ calendar_popup:
                   name: Anniversary
                 - date: 12/31/2019
                   name: New Year
-############################################################
+# ###########################################################
 alarm_panel_popup:
   sequence:
     - service: browser_mod.close_popup
@@ -2401,7 +2322,7 @@ alarm_panel_popup:
                       --mdc-theme-primary: lime;
                     }
               entity: alarm_control_panel.ha_alarm
-############################################################
+# ###########################################################
 mobile_iframe:
   sequence:
     - service: browser_mod.close_popup
@@ -2427,7 +2348,7 @@ mobile_iframe:
           type: iframe
           url: https://embed.windy.com/embed2.html
           aspect_ratio: 185%
-############################################################
+# ###########################################################
 regional_radar_popup:
   sequence:
     - service: browser_mod.close_popup
@@ -2451,7 +2372,7 @@ regional_radar_popup:
         card:
           type: picture
           image: /local/images-lovelace/backgroundz/ClearPNG.png
-############################################################
+# ###########################################################
 local_radar_popup:
   sequence:
     - service: browser_mod.close_popup
@@ -2474,7 +2395,7 @@ local_radar_popup:
         card:
           type: picture
           image: /local/images-lovelace/backgroundz/ClearPNG.png
-############################################################
+# ###########################################################
 mobile_forecast:
   sequence:
     - service: browser_mod.close_popup
@@ -2537,7 +2458,7 @@ mobile_forecast:
             - type: 'custom:weather-card-chart'
               title: Weekly
               weather: weather.dark_sky
-############################################################
+# ###########################################################
 forecast_popup:
   sequence:
     - service: browser_mod.close_popup
@@ -2600,7 +2521,7 @@ forecast_popup:
           entity_pop_4: sensor.dark_sky_precip_probability_4d
           entity_pop_5: sensor.dark_sky_precip_probability_5d
           entity_current_text: sensor.dark_sky_current_text
-############################################################
+# ###########################################################
 lights_on_popup:
   sequence:
     - service: browser_mod.close_popup
@@ -2645,7 +2566,7 @@ lights_on_popup:
               - entity_id: switch.spare_room_outlet
               - entity_id: switch.guest_ceiling_fan
               - entity_id: switch.office_monitor
-#              - entity_id: switch.siren_2
+              - entity_id: switch.siren_2
               - entity_id: switch.shelly_shsw_21_32ba73_2
               - entity_id: switch.radio_wtemp_humid
               - entity_id: switch.printer
@@ -2669,7 +2590,7 @@ lights_on_popup:
             exclude:
               - state: "off"
               - state: "unavailable"
-############################################################
+# ###########################################################
 mobile_laundry:
   sequence:
     - service: browser_mod.close_popup
@@ -2814,7 +2735,7 @@ mobile_laundry:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_alarms:
   sequence:
     - service: browser_mod.close_popup
@@ -2955,7 +2876,7 @@ mobile_alarms:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_leaks:
   sequence:
     - service: browser_mod.close_popup
@@ -3032,7 +2953,7 @@ mobile_leaks:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_pixel_cam:
   sequence:
     - service: browser_mod.close_popup
@@ -3042,7 +2963,7 @@ mobile_pixel_cam:
         large: true
         deviceID:
           - Pixel Fully
-############################################################
+# ###########################################################
 weather_alert:
   sequence:
     - service: browser_mod.close_popup
@@ -3050,7 +2971,7 @@ weather_alert:
       data:
         entity_id: sensor.weatheralerts
         large: true
-############################################################
+# ###########################################################
 mobile_rambo_cam:
   sequence:
     - service: browser_mod.close_popup
@@ -3061,7 +2982,7 @@ mobile_rambo_cam:
         deviceID:
           - Pixel Fully
           - iPhone Cloud
-############################################################
+# ###########################################################
 mobile_rambo_bed:
   sequence:
     - service: browser_mod.close_popup
@@ -3170,7 +3091,7 @@ mobile_rambo_bed:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_entrances:
   sequence:
     - service: browser_mod.close_popup
@@ -3264,7 +3185,7 @@ mobile_entrances:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_windows:
   sequence:
     - service: browser_mod.close_popup
@@ -3405,7 +3326,7 @@ mobile_windows:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_hallways:
   sequence:
     - service: browser_mod.close_popup
@@ -3544,7 +3465,7 @@ mobile_hallways:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_driveway:
   sequence:
     - service: browser_mod.close_popup
@@ -3687,7 +3608,7 @@ mobile_driveway:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_front_yard:
   sequence:
     - service: browser_mod.close_popup
@@ -3817,7 +3738,7 @@ mobile_front_yard:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_front_porch:
   sequence:
     - service: browser_mod.close_popup
@@ -3958,7 +3879,7 @@ mobile_front_porch:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_back_yard:
   sequence:
     - service: browser_mod.close_popup
@@ -4133,7 +4054,7 @@ mobile_back_yard:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_kitchen:
   sequence:
     - service: browser_mod.close_popup
@@ -4307,7 +4228,7 @@ mobile_kitchen:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_den:
   sequence:
     - service: browser_mod.close_popup
@@ -4483,7 +4404,7 @@ mobile_den:
                   entity: light.fireplace_lights
                   name: hide_state
                   full_row: true
-############################################################
+# ###########################################################
 mobile_guest:
   sequence:
     - service: browser_mod.close_popup
@@ -4633,7 +4554,7 @@ mobile_guest:
               styles:
                 card:
                   - height: 10px
-############################################################
+# ###########################################################
 mobile_office:
   sequence:
     - service: browser_mod.close_popup
@@ -4811,7 +4732,7 @@ mobile_office:
                   entity: light.office_lamps
                   name: hide_state
                   full_row: true
-############################################################
+# ###########################################################
 mobile_master:
   sequence:
     - service: browser_mod.close_popup
@@ -4989,7 +4910,7 @@ mobile_master:
                   entity: light.bedroom_lamps
                   name: hide_state
                   full_row: true
-############################################################
+# ###########################################################
 mobile_ensuite:
   sequence:
     - service: browser_mod.close_popup
@@ -5128,7 +5049,7 @@ mobile_ensuite:
                   styles:
                     card:
                       - width: 15px
-############################################################
+# ###########################################################
 mobile_bathroom:
   sequence:
     - service: browser_mod.close_popup
@@ -5266,7 +5187,7 @@ mobile_bathroom:
                   styles:
                     card:
                       - width: 15px
-############################################################
+# ###########################################################
 mobile_garage:
   sequence:
     - service: browser_mod.close_popup
@@ -5430,7 +5351,7 @@ mobile_garage:
                   styles:
                     card:
                       - width: 15px
-############################################################
+# ###########################################################
 mobile_motion:
   sequence:
     - service: browser_mod.close_popup
@@ -5694,7 +5615,7 @@ mobile_motion:
                   styles:
                     card:
                       - width: 15px
-############################################################
+# ###########################################################
 all_devices:
   sequence:
     - service: browser_mod.close_popup
@@ -5778,7 +5699,7 @@ all_devices:
               - entity_id: switch.salt_light
               - entity_id: switch.living_room_lamp_switch
               - entity_id: switch.patio_accent_lights
-############################################################
+# ###########################################################
 mobile_lights_on:
   sequence:
     - service: browser_mod.close_popup
@@ -5873,7 +5794,7 @@ mobile_lights_on:
               - entity_id: light.officetab_lan
               - entity_id: light.officepc
               - entity_id: light.iphone_cloud
-############################################################
+# ###########################################################
 system_popup:
   sequence:
     - service: browser_mod.close_popup
@@ -5978,7 +5899,7 @@ system_popup:
             - sensor.google_wifi_new_version
             - sensor.google_wifi_uptime
             - sensor.google_wifi_last_restart
-############################################################
+# ###########################################################
 smoke_popup:
   sequence:
     - service: browser_mod.close_popup
@@ -6048,7 +5969,7 @@ smoke_popup:
                   entity: binary_sensor.office_smoke_detected
                   name: Office
 
-############################################################
+# ###########################################################
 view_esphome:
   sequence:
     - service: browser_mod.close_popup
@@ -6117,7 +6038,7 @@ view_esphome:
                         color: "red"
                     hours_to_show: 168
                     points_per_hour: 0.25
-############################################################
+# ###########################################################
 view_wyzesense:
   sequence:
     - service: browser_mod.close_popup
@@ -6157,7 +6078,7 @@ view_wyzesense:
           unique: true
           sort:
             method: name
-############################################################
+# ###########################################################
 view_shelly:
   sequence:
     - service: browser_mod.close_popup
@@ -6246,7 +6167,7 @@ view_shelly:
               filter:
                 include:
                   - entity_id: '*rssi*'
-############################################################
+# ###########################################################
 view_wifi:
   sequence:
     - service: browser_mod.close_popup
@@ -6292,7 +6213,7 @@ view_wifi:
             - sensor.google_wifi_new_version
             - sensor.google_wifi_uptime
             - sensor.google_wifi_last_restart
-############################################################
+# ###########################################################
 view_settings:
   sequence:
     - service: browser_mod.close_popup
@@ -6436,7 +6357,7 @@ view_settings:
                     - sensor.remote2_uptime
                     - sensor.remote2_memory_use_percent
                     - sensor.remote2_memory_free
-############################################################
+# ###########################################################
 automation_settings:
   sequence:
     - service: browser_mod.close_popup
@@ -6489,7 +6410,7 @@ automation_settings:
             - input_boolean.disable_interior_auto_lights
             - input_boolean.disable_alarm_lights
             - input_boolean.alarm_disarm_switch
-############################################################
+# ###########################################################
 kiosk_settings:
   sequence:
     - service: browser_mod.close_popup
@@ -6534,7 +6455,7 @@ kiosk_settings:
             - input_select.auto_camera
             - input_select.alert_type
             - input_boolean.donnas_screen
-############################################################
+# ###########################################################
 view_inside_cameras:
   sequence:
     - service: browser_mod.close_popup
@@ -6633,7 +6554,7 @@ view_inside_cameras:
                   styles:
                     card:
                       - width: 1px
-############################################################
+# ###########################################################
 view_outside_cameras:
   sequence:
     - service: browser_mod.close_popup
@@ -6733,9 +6654,9 @@ view_outside_cameras:
               styles:
                 card:
                   - height: 86px
-############################################################
-###               TIMERS & ALARM SCRIPTS                 ###
-############################################################
+# ###########################################################
+# ##               TIMERS & ALARM SCRIPTS                 ###
+# ###########################################################
 fountain_timer:
   sequence:
     - condition: state
@@ -6748,7 +6669,7 @@ fountain_timer:
       entity_id:
         - light.patio_accent_lights
         - switch.fountain
-############################################################
+# ###########################################################
 side_light_timer:
   sequence:
     - condition: state
@@ -6762,7 +6683,7 @@ side_light_timer:
     - delay: '02:00:00'
     - service: switch.turn_off
       entity_id: switch.side_door_light
-############################################################
+# ###########################################################
 mailbox_opened:
   sequence:
     - service: media_player.volume_set
@@ -6777,7 +6698,7 @@ mailbox_opened:
       data_template:
         message: >
           Mailbox was opened at '{{ now().strftime('%I:%M %p') }}'
-############################################################
+# ###########################################################
 coffee_on:
   sequence:
     - service: switch.turn_on
@@ -6788,8 +6709,8 @@ coffee_on:
       data:
         title: "New Life Alert"
         message: "Coffee Maker is ON!"
-############################################################
-## Darren's wake up alarm
+# ###########################################################
+# # Darren's wake up alarm
 darrens_wake_up:
   sequence:
     - condition: state
@@ -6824,7 +6745,7 @@ darrens_wake_up:
     - service: switch.turn_off
       entity_id:
         - switch.air_cleaner
-############################################################
+# ###########################################################
 # Donna's wake up alarm
 donnas_wake_up:
   sequence:
@@ -6874,9 +6795,9 @@ donnas_wake_up:
       entity_id: 
         - group.bedroom_lamps
         - light.68836842807d3a63506f # bathtub
-############################################################
-###                   PRESENCE SCRIPTS                   ###
-############################################################
+# ###########################################################
+# ##                   PRESENCE SCRIPTS                   ###
+# ###########################################################
 # Darren Home
 darren_home:
   sequence:
@@ -6900,7 +6821,7 @@ darren_home:
     - delay: '00:02:00'
     - service: homeassistant.turn_on
       entity_id: input_boolean.disable_auto_garage
-############################################################
+# ###########################################################
 # Darren Away
 darren_away:
   sequence:
@@ -6914,7 +6835,7 @@ darren_away:
         - switch.office_monitor
         - switch.living_room_fan
         - input_boolean.disable_auto_garage
-############################################################
+# ###########################################################
 # People Home
 people_home:
   sequence:
@@ -6941,7 +6862,7 @@ people_home:
       state: below_horizon
     - service: homeassistant.turn_on
       entity_id: group.exterior_lighting
-############################################################
+# ###########################################################
 # People Away
 people_away:
   sequence:
@@ -6972,7 +6893,7 @@ people_away:
       data:
         title: "New Life Alert"
         message: "Jesus Freakz Gone!"
-############################################################
+# ###########################################################
 # Auto Notifications
 notifications_auto_on:
   sequence:
@@ -6997,43 +6918,43 @@ notifications_auto_on:
       data_template:
         message: "Notifications turned on"
     - service: script.off_screen
-############################################################
+# ###########################################################
 # Restart HASS
 restart_ha:
   sequence:
     - service: homeassistant.restart
-############################################################
+# ###########################################################
 # Reload Automations
 reload_automations:
   sequence:
     - service: automation.reload
-############################################################
+# ###########################################################
 # Reload Scripts
 reload_scripts:
   sequence:
     - service: script.reload
-############################################################
+# ###########################################################
 # Config Check
 run_config_check:
   sequence:
     - service: config_check.run
-############################################################
-###            DOORS, MOTION, LIGHTS SCRIPTS             ###
-############################################################
+# ###########################################################
+# ##            DOORS, MOTION, LIGHTS SCRIPTS             ###
+# ###########################################################
 # Outside OFF
 outside_all_off:
   sequence:
     - service: homeassistant.turn_off
       entity_id:
         - group.exterior_lighting
-############################################################
+# ###########################################################
 # Outside Lights ON
 outside_lights_on:
   sequence:
     - service: homeassistant.turn_on
       entity_id:
         - group.exterior_lighting
-############################################################
+# ###########################################################
 # Outside Lights ON when coming home after dark
 outside_lights_after_dark:
   sequence:
@@ -7045,7 +6966,7 @@ outside_lights_after_dark:
     - delay: '00:05:00'
     - service: homeassistant.turn_off
       entity_id: group.front_yard
-############################################################
+# ###########################################################
 # Garage Entry Light
 garage_entry_light:
   sequence:
@@ -7060,7 +6981,7 @@ garage_entry_light:
       state: 'off'
     - service: switch.turn_on
       entity_id: switch.garage_ceiling_lights
-############################################################
+# ###########################################################
 # Garage Entry Door Voice
 garage_entry_voice:
   sequence:
@@ -7076,7 +6997,7 @@ garage_entry_voice:
         entity_id: media_player.living_room_google
       data_template:
         message: "The garage entry door has been opened!"
-############################################################
+# ###########################################################
 # Garage Entry Door Notify
 garage_entry_door_open:
   sequence:
@@ -7085,7 +7006,7 @@ garage_entry_door_open:
       state: 'on'
     - delay: '00:00:10'
     - service: script.garage_entry_door_open_loop
-############################################################
+# ###########################################################
 # Garage Entry Door Open Loop
 garage_entry_door_open_loop:
   sequence:
@@ -7102,7 +7023,7 @@ garage_entry_door_open_loop:
     - delay:
         milliseconds: 100
     - service: script.garage_entry_door_open
-############################################################
+# ###########################################################
 # Garage Door notify voice
 garage_notify:
   sequence:
@@ -7118,7 +7039,7 @@ garage_notify:
         entity_id: media_player.living_room_google
       data_template:
         message: "You have a visitor in the garage"
-############################################################
+# ###########################################################
 # Side Door Voice
 side_door_voice:
   sequence:
@@ -7134,7 +7055,7 @@ side_door_voice:
         entity_id: media_player.living_room_google
       data_template:
         message: "The side door has been opened!"
-############################################################
+# ###########################################################
 # Side Door Open
 side_door_open:
   sequence:
@@ -7146,7 +7067,7 @@ side_door_open:
       state: 'on'
     - delay: '00:00:10'
     - service: script.side_door_open_loop
-############################################################
+# ###########################################################
 # Side Door Open Loop
 side_door_open_loop:
   sequence:
@@ -7163,8 +7084,8 @@ side_door_open_loop:
     - delay:
         milliseconds: 100
     - service: script.side_door_open
-############################################################
-## '[Auto Light] Back door'
+# ###########################################################
+# '[Auto Light] Back door'
 back_door_light:
   sequence:
     - condition: state
@@ -7181,8 +7102,8 @@ back_door_light:
     - delay: '00:08:00'
     - service: switch.turn_off
       entity_id: switch.patio_light
-############################################################
-## '[Notify] Back door'
+# ###########################################################
+# '[Notify] Back door'
 back_door_notify:
   sequence:
     - condition: state
@@ -7205,9 +7126,9 @@ back_door_notify:
         entity_id: media_player.living_room_google
       data_template:
         message: "Back door has been opened!"
-############################################################
-## [Motion TV on] Front door
-#front_motion_tv:
+# ###########################################################
+# [Motion TV on] Front door
+# front_motion_tv:
 #  sequence:
 #    - condition: state
 #      entity_id: input_boolean.motion_tv_alert
@@ -7218,8 +7139,8 @@ back_door_notify:
 #      data:
 #        entity_id: camera.front_door
 #        media_player: media_player.living_room_tv
-############################################################
-## '[Notify] Front door'
+# ###########################################################
+# '[Notify] Front door'
 front_door_notify:
   sequence:
     - condition: state
@@ -7251,7 +7172,7 @@ front_door_notify:
       data:
         entity_id: media_player.living_room_google
         volume_level: '0.35'
-############################################################
+# ###########################################################
 #  Motion ON driveway NOTIFY
 driveway_notify:
   sequence:
@@ -7275,8 +7196,8 @@ driveway_notify:
         entity_id: media_player.living_room_google
       data_template:
         message: "You have a visitor at the side door"
-############################################################
-## '[Auto On] Driveway Light'
+# ###########################################################
+# '[Auto On] Driveway Light'
 driveway_light:
   sequence:
     - condition: state
@@ -7290,7 +7211,7 @@ driveway_light:
     - delay: '00:07:00'
     - service: homeassistant.turn_off
       entity_id: group.front_yard
-############################################################
+# ###########################################################
 #  Motion ON patio NOTIFY
 patio_motion:
   sequence:
@@ -7317,7 +7238,7 @@ patio_motion:
         entity_id: media_player.living_room_google
       data_template:
         message: "You have a visitor on the patio"
-############################################################
+# ###########################################################
 #  Motion ON patio Light
 patio_light:
   sequence:
@@ -7335,7 +7256,7 @@ patio_light:
     - delay: '00:10:00'
     - service: switch.turn_off
       entity_id: switch.patio_light
-############################################################
+# ###########################################################
 #  Motion ON porch NOTIFY
 front_notify:
   sequence:
@@ -7362,8 +7283,8 @@ front_notify:
         entity_id: media_player.foyer_speaker
       data_template:
         message: "You have a visitor at the front door"
-############################################################
-## 'Motion ON porch light'
+# ###########################################################
+# 'Motion ON porch light'
 front_light:
   sequence:
     - condition: state
@@ -7380,7 +7301,7 @@ front_light:
     - delay: '00:10:00'
     - service: switch.turn_off
       entity_id: switch.porch_light
-############################################################
+# ###########################################################
 # Motion Office
 motion_office:
   sequence:
@@ -7400,8 +7321,8 @@ motion_office:
     - delay: '00:00:45'
     - service: switch.turn_off
       entity_id: switch.office_ceiling_light
-############################################################
-## '[Notify] Water Heater Leak'
+# ###########################################################
+# '[Notify] Water Heater Leak'
 water_heater_leak:
   sequence:
     - service: media_player.volume_set
@@ -7431,8 +7352,8 @@ water_heater_leak:
       data:
         entity_id: media_player.inside_group
         volume_level: '0.30'
-############################################################
-## '[Notify] Water Heater Leak LOOP'
+# ###########################################################
+# '[Notify] Water Heater Leak LOOP'
 water_heater_leak_loop:
   sequence:
     - delay: '00:01:00'
@@ -7440,8 +7361,8 @@ water_heater_leak_loop:
       entity_id: binary_sensor.water_heater
       state: 'on'
     - service: script.water_heater_leak
-############################################################
-## '[Notify] Washing Machine Leak'
+# ###########################################################
+# '[Notify] Washing Machine Leak'
 washer_leak:
   sequence:
     - service: media_player.volume_set
@@ -7471,8 +7392,8 @@ washer_leak:
       data:
         entity_id: media_player.inside_group
         volume_level: '0.30'
-############################################################
-## '[Notify] Washer Leak LOOP'
+# ###########################################################
+# '[Notify] Washer Leak LOOP'
 washer_leak_loop:
   sequence:
     - delay: '00:01:00'
@@ -7480,9 +7401,9 @@ washer_leak_loop:
       entity_id: binary_sensor.washer_leak
       state: 'on'
     - service: script.washer_leak
-############################################################
-###                    NEST  SCRIPTS                     ###
-############################################################
+# ###########################################################
+# ##                    NEST  SCRIPTS                     ###
+# ###########################################################
 # Nest Set Away
 nest_set_away:
   sequence:
@@ -7495,9 +7416,9 @@ nest_set_home:
     - service: nest.set_away_mode
       data:
         away_mode: home
-############################################################
-###                    ALARM SCRIPTS                     ###
-############################################################
+# ###########################################################
+# ##                    ALARM SCRIPTS                     ###
+# ###########################################################
 # Arm/Disarm New Life Alarm
 alarm_arm:
   sequence:
@@ -7527,16 +7448,16 @@ alarm_disarm:
     - service: script.disarm_not_triggered
     - service: input_boolean.turn_off
       entity_id: input_boolean.alarm_disarm_switch
-############################################################
+# ###########################################################
 # [Alarm] Disarmed Lights Off
 siren_lights_disarm:
   sequence:
     - condition: state
       entity_id: switch.siren_2
       state: 'on'
-#    - service: switch.turn_off
-#      data:
-#        entity_id: switch.siren_2
+    - service: switch.turn_off
+      data:
+        entity_id: switch.siren_2
     - service: homeassistant.turn_off
       data:
         entity_id: group.alarm_triggered_lights
@@ -7551,8 +7472,8 @@ siren_lights_disarm:
       data:
         title: "New Life Security"
         message: "Disarmed Lights and Siren"
-############################################################
-#- alias: '[Alarm] Disarmed Off'
+# ###########################################################
+# - alias: '[Alarm] Disarmed Off'
 disarm_not_triggered:
   sequence:
     - condition: state
@@ -7573,7 +7494,7 @@ disarm_not_triggered:
         entity_id: media_player.kitchen_mini
       data_template:
         message: "Alarm disarmed! Welcome home!"
-############################################################
+# ###########################################################
 #  Alarm Lights Flasher
 light_flash:
   sequence:
@@ -7589,7 +7510,7 @@ light_flash:
     - delay:
         milliseconds: 100
     - service: script.light_loop
-## Light Loop
+# # Light Loop
 light_loop:
   sequence:
     - condition: state
@@ -7601,8 +7522,8 @@ light_loop:
       entity_id: alarm_control_panel.ha_alarm
       state: 'triggered'
     - service: script.light_flash
-############################################################
-#- alias: '[Alarm] Trigger Alarm Home Mode'
+# ###########################################################
+# - alias: '[Alarm] Trigger Alarm Home Mode'
 home_mode_trigger:
   sequence:
     - service: alarm_control_panel.alarm_trigger
@@ -7625,8 +7546,8 @@ home_mode_trigger:
         message: '{{ trigger.to_state.attributes.friendly_name }} opened'
       data:
         title: 'ALARM TRIGGERED Home Mode'
-############################################################
-#- alias: '[Alarm] Trigger Alarm Away Mode'
+# ###########################################################
+# - alias: '[Alarm] Trigger Alarm Away Mode'
 away_mode_trigger:
   sequence:
     - service: alarm_control_panel.alarm_trigger
@@ -7641,16 +7562,16 @@ away_mode_trigger:
         message: '{{ trigger.to_state.attributes.friendly_name }} opened'
       data:
         title: 'ALARM TRIGGERED Away Mode'
-############################################################
-#- alias: '[Alarm] Triggered Flash'
+# ###########################################################
+# - alias: '[Alarm] Triggered Flash'
 triggered_flash:
   sequence:
     - service: homeassistant.turn_on
       data:
         entity_id: group.alarm_triggered_lights
-#    - service: switch.turn_on
-#      data:
-#        entity_id: switch.siren_2
+    - service: switch.turn_on
+      data:
+        entity_id: switch.siren_2
     - service: script.light_flash
     - service: media_player.volume_set
       data:
@@ -7672,8 +7593,8 @@ triggered_flash:
     - service: mqtt.publish
       data_template:
         {"topic":"alarmpanel/command", "payload":"{'speak':'Alarm triggered! Nine one one has been notified!'}"}
-############################################################
-#- alias: '[Alarm] System Arming'
+# ###########################################################
+# - alias: '[Alarm] System Arming'
 system_arming:
   sequence:
     - service: mqtt.publish
@@ -7693,8 +7614,8 @@ system_arming:
       data:
         entity_id: input_select.alert_type
         option: stop
-############################################################
-#- alias: '[Alarm] Away Mode Armed'
+# ###########################################################
+# - alias: '[Alarm] Away Mode Armed'
 away_mode_armed:
   sequence:
     - service: input_select.select_option
@@ -7719,8 +7640,8 @@ away_mode_armed:
       data:
         title: "New Life Security"
         message: "Away Mode ON"
-############################################################
-#- alias: '[Alarm] Home Mode Armed'
+# ###########################################################
+# - alias: '[Alarm] Home Mode Armed'
 home_mode_armed:
   sequence:
     - service: input_select.select_option
