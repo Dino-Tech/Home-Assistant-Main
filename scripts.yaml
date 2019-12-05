@@ -15,18 +15,18 @@ radio_player:
     - service: media_player.play_media
       data_template:
        entity_id: >
-        {% if is_state("input_select.output_radio", "Inside") %} media_player.inside_group
-        {% elif is_state("input_select.output_radio", "Patio") %} media_player.patio_speaker
-        {% elif is_state("input_select.output_radio", "Office") %} media_player.office_group
-        {% endif %}
+          {% if is_state("input_select.output_radio", "Inside") %} media_player.inside_group
+          {% elif is_state("input_select.output_radio", "Patio") %} media_player.patio_speaker
+          {% elif is_state("input_select.output_radio", "Office") %} media_player.office_group
+          {% endif %}
        media_content_id: >
-        {% if is_state("input_select.radio_station", "KLove") %} https://maestro.emfcdn.com/stream_for/sk001/tunein
-        {% elif is_state("input_select.radio_station", "Hits") %} http://tunein4.streamguys1.com/chrhtfree1?
-        {% elif is_state("input_select.radio_station", "The Blast") %} http://blender.theblast.fm.fast-serv.com/128
-        {% elif is_state("input_select.radio_station", "God's DJ's") %} http://www.godsdjsradio.com:8080/stream
-        {% elif is_state("input_select.radio_station", "Rock") %} http://listen.christianrock.net/stream/9/
-        {% elif is_state("input_select.radio_station", "Heavy") %} http://listen.christianrock.net/stream/3/?sid=3
-        {% endif %}
+          {% if is_state("input_select.radio_station", "KLove") %} https://maestro.emfcdn.com/stream_for/sk001/tunein
+          {% elif is_state("input_select.radio_station", "Hits") %} http://tunein4.streamguys1.com/chrhtfree1?
+          {% elif is_state("input_select.radio_station", "The Blast") %} http://blender.theblast.fm.fast-serv.com/128
+          {% elif is_state("input_select.radio_station", "God's DJ's") %} http://www.godsdjsradio.com:8080/stream
+          {% elif is_state("input_select.radio_station", "Rock") %} http://listen.christianrock.net/stream/9/
+          {% elif is_state("input_select.radio_station", "Heavy") %} http://listen.christianrock.net/stream/3/?sid=3
+          {% endif %}
        media_content_type: 'music'
 
 radio_klove:
@@ -242,7 +242,7 @@ browser_disable_cch:
   sequence:
     - service: input_boolean.turn_on
       data:
-       entity_id: input_boolean.disable_cch
+        entity_id: input_boolean.disable_cch
     - service: browser_mod.navigate
       data:
         navigation_path: /lovelace/0?clear_cch_cache
@@ -948,7 +948,7 @@ mobile_radio:
               card:
                 type: "custom:hui-entities-card"
                 entities:
-                - input_select.radio_station
+                  - input_select.radio_station
             - type: custom:card-modder
               style:
                 font-size: 2.1em
@@ -2154,8 +2154,8 @@ mobile_ha_stats:
               name: HACS
             - type: custom:bar-card
               severity:
-              - value: 100
-                color: 'var(--sidebar-icon-color)'
+                - value: 100
+                  color: 'var(--sidebar-icon-color)'
               title_position: inside
               tap_action: info
               columns: 1
