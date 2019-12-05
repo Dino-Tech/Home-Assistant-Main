@@ -1,0 +1,21 @@
+# package: speedtest.yaml
+homeassistant:
+  customize:
+    sensor.speedtest_download:
+      friendly_name: "Download Speed"
+      icon: mdi:download
+    sensor.speedtest_upload:
+      friendly_name: "Upload Speed"
+      icon: mdi:upload
+    sensor.speedtest_ping:
+      friendly_name: "Ping"
+      icon: mdi:timer
+
+speedtestdotnet:
+  sever_id: 2410
+  scan_interval:
+    days: 1
+  monitored_conditions:
+    - ping
+    - download
+    - upload
