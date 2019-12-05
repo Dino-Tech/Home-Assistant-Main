@@ -1,5 +1,6 @@
-## switch# /config/includes/switch.yaml
-################################################
+---
+# # switch# /config/includes/switch.yaml
+# ###############################################
 - platform: rest
   name: "Kitchen Sink Light"
   scan_interval: 5
