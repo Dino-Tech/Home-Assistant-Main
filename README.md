@@ -7,6 +7,7 @@
 <h4 align="center">Be sure to :star: my repo so you can keep up to date on the daily progress!</h4>
 <div align="center">
   <h4 align="center">
+    <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master"/></a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr"/></a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master"><img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=plasticr"/></a>
   </h4>
