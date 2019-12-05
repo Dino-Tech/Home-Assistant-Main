@@ -48,7 +48,7 @@ resources:
     type: module
   - url: /community_plugin/lovelace-state-switch/state-switch.js
     type: js
-  - url: /community_plugin/lovelace-fold-entity-row/fold-entity-row.js #?v=0.7.1.7
+  - url: /community_plugin/lovelace-fold-entity-row/fold-entity-row.js
     type: module
   - url: /community_plugin/bar-card/bar-card.js
     type: js
@@ -216,7 +216,6 @@ anchors:
 
   frontpage_size: &frontpagesize
     color: auto
-#    size: 30%
 
   light_button_style: &lightbuttonstyle
     styles:
@@ -957,7 +956,7 @@ popup_cards:
             - date: 12/31/2019
               name: New Year's
 
-# Lock screen popup
+  # Lock screen popup
   sensor.time_12_hour:
     title: ''
     style:
@@ -1089,7 +1088,7 @@ popup_cards:
           card:
             type: "custom:hui-entities-card"
             entities:
-            - input_select.radio_station
+              - input_select.radio_station
         - type: custom:card-modder
           style:
             font-size: 2.1em
@@ -1225,11 +1224,11 @@ views:
                                     service: script.mobile_calendar
                                 - type: entity-button
                                   entity: sun.sun
-                                  name: Floorplan # Radio
-                                  icon: mdi:floor-plan # music
+                                  name: Floorplan
+                                  icon: mdi:floor-plan
                                   tap_action:
                                     action: call-service
-                                    service: script.mobile_floorplan # mobile_radio
+                                    service: script.mobile_floorplan
                                 - type: entity-button
                                   entity: sun.sun
                                   name: Reload
@@ -2537,7 +2536,7 @@ views:
                     - domain: script
                     - service: turn_on
                     - entity_id: "script.status_ha_tablet"
-                - break # #################################################
+                - break
                 - type: custom:bar-card
                   severity:
                     - value: 100
