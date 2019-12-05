@@ -1,13 +1,11 @@
-## notify#  /config/includes/notify.yaml
-########################################################
+---
+# # notify#  /config/includes/notify.yaml
+# #######################################################
 - name: notify_all
   platform: group
   services:
     - service: ios_donnas_iphone
     - service: darren
-#    - service: darren_pixel_2xl_dinopixel2xl
-#    - service: html_notify_desk
-#    - service: html_notify_tablet
 
 # pushbullet
 - platform: pushbullet
