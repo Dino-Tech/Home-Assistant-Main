@@ -1,6 +1,7 @@
-##      /config/includes/cover.yaml
-#####################################################
-##  cover:
+---
+# #      /config/includes/cover.yaml
+# ####################################################
+# #  cover:
 - platform: template
   covers:
     garage_door:
