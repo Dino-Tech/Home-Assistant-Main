@@ -407,7 +407,7 @@
   state_topic: "tele/SNF-Washer/SENSOR"
   value_template: "{{value_json['ENERGY'].Power }}"
   qos: 2
-  unit_of_measurement : "W"
+  unit_of_measurement: "W"
   icon: mdi:flash-outline
   availability_topic: "tele/SNF-Washer/LWT"
   payload_available: "Online"
@@ -418,7 +418,7 @@
   state_topic: "tele/SNF-Washer/SENSOR"
   value_template: "{{value_json['ENERGY'].Voltage }}"
   qos: 2
-  unit_of_measurement : "V"
+  unit_of_measurement: "V"
   icon: mdi:flash-circle
   availability_topic: "tele/SNF-Washer/LWT"
   payload_available: "Online"
@@ -429,7 +429,7 @@
   state_topic: "tele/SNF-Washer/SENSOR"
   value_template: "{{value_json['ENERGY'].Current }}"
   qos: 2
-  unit_of_measurement : "A"
+  unit_of_measurement: "A"
   icon: mdi:flash
   availability_topic: "tele/SNF-Washer/LWT"
   payload_available: "Online"
@@ -441,7 +441,7 @@
   state_topic: "tele/SNF-Washer/SENSOR"
   value_template: "{{value_json['ENERGY'].Today }}"
   qos: 2
-  unit_of_measurement : "kWh"
+  unit_of_measurement: "kWh"
   availability_topic: "tele/SNF-Washer/LWT"
   payload_available: "Online"
   payload_not_available: "Offline"
@@ -452,7 +452,7 @@
   state_topic: "tele/SNF-Washer/SENSOR"
   value_template: "{{value_json['ENERGY'].Yesterday }}"
   qos: 2
-  unit_of_measurement : "kWh"
+  unit_of_measurement: "kWh"
   availability_topic: "tele/SNF-Washer/LWT"
   payload_available: "Online"
   payload_not_available: "Offline"
@@ -478,7 +478,7 @@
   state_topic: "tele/SNF-Dryer/SENSOR"
   value_template: "{{value_json['ENERGY'].Power }}"
   qos: 2
-  unit_of_measurement : "W"
+  unit_of_measurement: "W"
   icon: mdi:flash-outline
   availability_topic: "tele/SNF-Dryer/LWT"
   payload_available: "Online"
@@ -489,7 +489,7 @@
   state_topic: "tele/SNF-Dryer/SENSOR"
   value_template: "{{value_json['ENERGY'].Voltage }}"
   qos: 2
-  unit_of_measurement : "V"
+  unit_of_measurement: "V"
   icon: mdi:flash-circle
   availability_topic: "tele/SNF-Dryer/LWT"
   payload_available: "Online"
@@ -500,7 +500,7 @@
   state_topic: "tele/SNF-Dryer/SENSOR"
   value_template: "{{value_json['ENERGY'].Current }}"
   qos: 2
-  unit_of_measurement : "A"
+  unit_of_measurement: "A"
   icon: mdi:flash
   availability_topic: "tele/SNF-Dryer/LWT"
   payload_available: "Online"
@@ -512,7 +512,7 @@
   state_topic: "tele/SNF-Dryer/SENSOR"
   value_template: "{{value_json['ENERGY'].Today }}"
   qos: 2
-  unit_of_measurement : "kWh"
+  unit_of_measurement: "kWh"
   availability_topic: "tele/SNF-Dryer/LWT"
   payload_available: "Online"
   payload_not_available: "Offline"
@@ -523,7 +523,7 @@
   state_topic: "tele/SNF-Dryer/SENSOR"
   value_template: "{{value_json['ENERGY'].Yesterday }}"
   qos: 2
-  unit_of_measurement : "kWh"
+  unit_of_measurement: "kWh"
   availability_topic: "tele/SNF-Dryer/LWT"
   payload_available: "Online"
   payload_not_available: "Offline"
