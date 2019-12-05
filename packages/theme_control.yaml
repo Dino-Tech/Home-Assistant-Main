@@ -484,8 +484,8 @@ frontend:
       cch-background: url("/local/images-lovelace/backgroundz/header_blksteel.jpg")
       # Entities page fix
       card-background-color: "var(--paper-card-background-color)"
- 
-     Dark-N-Clear:
+
+    Dark-N-Clear:
       lumo-primary-color: "hsl(0, 0%, 0%)"
       lumo-primary-text-color: "#f2f2f2"
       lumo-header-text-color: "#d9d9d9"
@@ -553,7 +553,7 @@ frontend:
       paper-spinner-color: "var(--paper-item-icon-active-color)"
       google-red-500: "#cc0000"
       google-blue-500: "#0033cc"
-      google-green-500:  "#13eb13"
+      google-green-500: "#13eb13"
       google-yellow-500: "#ffff66"
       accent-color: "var(--paper-item-icon-active-color)"
       # Restriction lock colors
@@ -569,7 +569,7 @@ frontend:
       cch-background: url("/local/images-lovelace/backgroundz/header_blksteel.jpg")
       # Entities page fix
       card-background-color: "var(--paper-card-background-color)"
-      
+
     Grey-Nightz:
       background: url("/local/images-lovelace/black_steel2.jpg")
       # Color Variables
