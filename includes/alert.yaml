@@ -1,5 +1,6 @@
+---
 # /config/includes/alert.yaml
-####################################################
+# ###################################################
 # alert:
 garage_door:
   name: Garage has been open for {{ relative_time(states.binary_sensor.wyzesense_7780f0c5.last_changed) }}
