@@ -1,5 +1,6 @@
-## ios#  /config/includes/ios.yaml
-###########################################
+---
+# # ios#  /config/includes/ios.yaml
+# ##########################################
 push:
   categories:
     - name: cameras
@@ -7,7 +8,7 @@ push:
       actions:
         - identifier: 'TRIGGER_ALARM'
           title: 'Trigger Alarm'
-          destructive: 'true' 
+          destructive: 'true'
         - identifier: 'FRONT_LIGHTS'
           title: 'Turn on Front Lights'
         - identifier: 'BACK_LIGHTS'
@@ -17,3 +18,4 @@ push:
           behavior: 'textInput'
           textInputButtonTitle: 'Send TTS'
           textInputPlaceholder: 'Who goes there?'
+ 
