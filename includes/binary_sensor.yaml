@@ -1,5 +1,6 @@
-## binary sensor#  /config/includes/binary_sensor.yaml
-#######################################################
+---
+# # binary sensor#  /config/includes/binary_sensor.yaml
+# ######################################################
 - platform: wyzesense
   device: "/dev/hidraw0"
 
@@ -65,28 +66,6 @@
   payload_not_available: "Offline"
   device_class: moisture
 
-#- platform: mqtt
-#  name: "Garage Door"
-#  state_topic: "RFBridge/sensor1"
-#  availability_topic: "tele/RF_Bridge/LWT"
-#  qos: 1
-#  payload_on: "Open"
-#  payload_off: "Closed"
-#  payload_available: "Online"
-#  payload_not_available: "Offline"
-#  device_class: garage_door
-
-#- platform: mqtt
-#  name: "Front Door"
-#  state_topic: "RFBridge/sensor2"
-#  availability_topic: "tele/RF_Bridge/LWT"
-#  qos: 1
-#  payload_on: "Open"
-#  payload_off: "Closed"
-#  payload_available: "Online"
-#  payload_not_available: "Offline"
-#  device_class: door
-
 - platform: mqtt
   name: "Front Motion"
   state_topic: "RFBridge/motion1"
@@ -108,17 +87,6 @@
   payload_available: "Online"
   payload_not_available: "Offline"
   device_class: motion
-
-#- platform: mqtt
-#  name: "Entry Hall Motion"
-#  state_topic: "RFBridge/motion3"
-#  availability_topic: "tele/RF_Bridge/LWT"
-#  qos: 1
-#  payload_on: "ON"
-#  payload_off: "OFF"
-#  payload_available: "Online"
-#  payload_not_available: "Offline"
-#  device_class: motion
 
 - platform: mqtt
   name: "Back Motion"
@@ -186,17 +154,6 @@
   payload_not_available: "Offline"
   device_class: motion
 
-#- platform: mqtt
-#  name: "Kitchen Motion"
-#  state_topic: "Kitchen/PIR/state"
-#  availability_topic: "tele/sonoff38/LWT"
-#  qos: 1
-#  payload_on: "1"
-#  payload_off: "0"
-#  payload_available: "Online"
-#  payload_not_available: "Offline"
-#  device_class: motion
-
 - platform: mqtt
   name: "Hall Motion"
   state_topic: "Hall/PIR/state"
@@ -244,7 +201,7 @@
   payload_off: '{"value":false}'
   device_class: motion
 
-## alert tmeplate sensors
+# alert tmeplate sensors
 - platform: template
   sensors:
     office_smoke_battery_low:
@@ -394,4 +351,3 @@
     kitchen_motion_2_battery_low:
       value_template: '{{ states.binary_sensor.wyzesense_77878a66.attributes.battery_level < 15 }}'
       friendly_name: 'Kitchen motion 2 battery is low'
-
