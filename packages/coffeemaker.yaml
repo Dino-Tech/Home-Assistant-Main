@@ -1,5 +1,6 @@
- # /config/packages/coffeemaker.yaml
- # credits to Thomas Loven for coffee package
+---
+# /config/packages/coffeemaker.yaml
+# credits to Thomas Loven for coffee package
 #########################################################
 homeassistant:
   customize:
