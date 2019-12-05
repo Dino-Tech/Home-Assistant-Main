@@ -1,3 +1,4 @@
+---
 alarm_control_panel.ha_alarm:
   friendly_name: New Life Security
   icon: mdi:christianity-outline
