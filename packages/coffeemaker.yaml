@@ -43,9 +43,9 @@ input_number:
     step: 5
 input_boolean:
   cfe_on:
-    initial: off
+    initial: false
   cfe_off:
-    initial: on
+    initial: true
 
 script:
   cfe_off:
