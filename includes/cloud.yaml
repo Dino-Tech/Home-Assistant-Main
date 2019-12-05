@@ -151,7 +151,7 @@ google_actions:
       name: "Garage Door"
       room: "Garage"
       aliases:
-       - "Garage"
+        - "Garage"
     input_boolean.browser_refresh:
       name: "Reload Lovelace"
       room: "Virtual Switches"
