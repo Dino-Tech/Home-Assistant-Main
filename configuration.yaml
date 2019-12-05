@@ -10,8 +10,8 @@ homeassistant:
   time_zone: America/Chicago
   packages: !include_dir_named packages
   customize: !include customize.yaml
-  customize_domain: {}
-  customize_glob: {}
+  customize_domain: { }
+  customize_glob: { }
 
 config:
 
@@ -163,14 +163,14 @@ person:
     user_id: !secret user_id_darren
     device_trackers:
       - device_tracker.darren
-      - device_tracker.b4_f1_da_b7_29_f7 # darren
+      - device_tracker.b4_f1_da_b7_29_f7
       - device_tracker.life360_darren_wilson
   - name: Donna
     id: donna2012
     user_id: !secret user_id_donna
     device_trackers:
       - device_tracker.donna
-      - device_tracker.78_9f_70_ba_e0_3f # donna
+      - device_tracker.78_9f_70_ba_e0_3f
       - device_tracker.life360_donna_wilson
   - name: Tristan
     id: tristan2019
