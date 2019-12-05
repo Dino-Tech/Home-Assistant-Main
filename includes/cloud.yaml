@@ -1,5 +1,6 @@
-##        /config/includes/cloud.yaml
-#####################################################
+---
+# #        /config/includes/cloud.yaml
+# ####################################################
 google_actions:
   filter:
     include_entities:
@@ -151,12 +152,6 @@ google_actions:
       room: "Garage"
       aliases:
        - "Garage"
-#    switch.garage_door:
-#      name: "Garage Door Switch"
-#      room: "Virtual Switches"
-#    binary_sensor.wyzesense_7780f0c5:
-#      name: "Garage Sensor"
-#      room: "Security"
     input_boolean.browser_refresh:
       name: "Reload Lovelace"
       room: "Virtual Switches"
