@@ -1,11 +1,6 @@
+---
 #  /config/includes/input_boolean.yaml
-#######################################################
-weather:
-owm_weather:
-disable_cch:
-  name: Disable Header
-  initial: off
-  icon: mdi:file-undo
+# ######################################################
 donnas_screen:
   name: Donna's Screen
   initial: off
