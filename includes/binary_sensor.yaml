@@ -351,3 +351,4 @@
     kitchen_motion_2_battery_low:
       value_template: '{{ states.binary_sensor.wyzesense_77878a66.attributes.battery_level < 15 }}'
       friendly_name: 'Kitchen motion 2 battery is low'
+
