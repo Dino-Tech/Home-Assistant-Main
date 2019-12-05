@@ -634,7 +634,6 @@
   payload_available: "Online"
   payload_not_available: "Offline"
 
-
 - platform: mqtt
   name: "KLD Temp"
   state_topic: "tele/sonoff32/SENSOR"
