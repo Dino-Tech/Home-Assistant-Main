@@ -1,151 +1,151 @@
 ---
 #  /config/includes/input_boolean.yaml
 # ######################################################
+lovelace_lock:
+  initial: true
 donnas_screen:
   name: Donna's Screen
-  initial: off
+  initial: false
 motion_tv_alert:
   name: Motion TV Alert
-  initial: off
+  initial: false
   icon: mdi:television
 darrens_work_alarm:
   name: Darren Work Tomorrow
-  initial: off
+  initial: false
   icon: mdi:alarm
 donnas_work_alarm:
   name: Donna Work Tomorrow
-  initial: on
+  initial: true
   icon: mdi:alarm
 auto_card_backz:
   name: Auto Card Backz
-  initial: off
+  initial: false
   icon: mdi:image
 auto_backgroundz:
   name: Auto Backgrounds
-  initial: on
+  initial: true
   icon: mdi:image-area
 auto_tablet:
   name: Auto Tablet
-  initial: on
+  initial: true
   icon: mdi:television-off
 auto_cameras:
   name: Auto Cameras
-  initial: off
+  initial: false
   icon: mdi:cctv
 auto_camera_image:
   name: Auto Camera Image
-  initial: off
+  initial: false
   icon: mdi:cctv
 browser_refresh:
   name: Browser Refresh
-  initial: off
+  initial: false
   icon: fas:sync-alt
 browser_home:
   name: Browser Home
-  initial: off
+  initial: false
   icon: mdi:home
 driveway_motion_lights:
   name: Driveway Motion Lights
-  initial: on
+  initial: true
   icon: mdi:run-fast
 disable_auto_bathroom:
   name: Disable Auto Bathroom
-  initial: off
+  initial: false
   icon: mdi:toilet
 disable_cabinet_auto_lights:
   name: Disable Cabinet Auto Lights
-  initial: off
+  initial: false
   icon: mdi:lightbulb-outline
 disable_patio_motion:
   name: Disable Patio Motion
-  initial: off
+  initial: false
   icon: mdi:lightbulb-outline
 disable_garage_auto_lights:
   name: Disable Garage Auto Lights
-  initial: off
+  initial: false
   icon: mdi:lightbulb-outline
 disable_auto_garage:
   name: Disable Auto Garage
-  initial: off
+  initial: false
   icon: mdi:garage-alert
 disable_auto_fans:
   name: Disable Auto Fans
-  initial: off
+  initial: false
   icon: mdi:fan
 disable_popups:
   name: Disable Popups
-  initial: off
+  initial: false
   icon: mdi:television-off
 disable_inside_popups:
   name: Disable Inside Popups
-  initial: on
+  initial: true
   icon: mdi:television-off
 disable_laundry_notifications:
   name: Disable Laundry Notifications
-  initial: off
+  initial: false
   icon: mdi:message-bulleted
 bedroom_lamps:
   name: Bedroom Lamps
-  initial: off
+  initial: false
   icon: mdi:floor-lamp
 alarm_arm_away_switch:
   name: Alarm Away
-  initial: off
+  initial: false
   icon: mdi:bell
 alarm_arm_home_switch:
   name: Alarm Home
-  initial: off
+  initial: false
   icon: mdi:bell
 alarm_disarm_switch:
   name: Alarm Disarm
-  initial: off
+  initial: false
   icon: mdi:bell-off
 disable_door_chime:
   name: Disable Door Chime
-  initial: on
+  initial: true
   icon: mdi:bell-off
 people_home_boolean:
   name: Jesus Freaks
-  initial: on
+  initial: true
   icon: mdi:account-multiple
 darren_home:
   name: Darren
-#  initial: on
 donna_home:
   name: Donna
-#  initial: on
 tristan_home:
   name: Tristan
-  initial: off
+  initial: false
 notifications:
   name: Notifications
-  initial: on
+  initial: true
   icon: mdi:message-text-outline
 voice_notifications:
   name: Voice Notifications
-  initial: off
+  initial: false
   icon: mdi:voice
 disable_alarm_lights:
   name: Disable Alarm Lights
-  initial: off
+  initial: false
   icon: mdi:alarm-off
 disable_garage_notify:
   name: Disable Garage Notify
-  initial: off
+  initial: false
   icon: mdi:message-bulleted-off
 disable_interior_auto_lights:
   name: Disable Interior Lights
-  initial: off
+  initial: false
   icon: mdi:lightbulb-outline
 disable_exterior_auto_lights:
   name: Disable Exterior Lights
-  initial: off
+  initial: false
   icon: mdi:lightbulb-outline
 disable_auto_bedroom:
   name: Disable Auto Bedroom
-  initial: on
+  initial: true
   icon: mdi:lightbulb-outline
 disable_mail_notifications:
   name: Disable Mail Notifications
-  initial: off
+  initial: false
   icon: mdi:message-bulleted-off
