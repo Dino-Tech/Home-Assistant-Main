@@ -1,5 +1,6 @@
-## weather#includes /config/packages/weather.yaml
-#################################################################
+---
+# # weather#includes /config/packages/weather.yaml
+# ################################################################
 homeassistant:
   customize:
     sensor.moon:
@@ -38,7 +39,7 @@ group:
       - sensor.dark_sky_summary
       - sensor.dark_sky_minutely_summary
       - sensor.dark_sky_hourly_summary
-      - sensor.dark_sky_daily_summary 
+      - sensor.dark_sky_daily_summary
   weather_forecast:
     name: Weather Forecast
     control: hidden
