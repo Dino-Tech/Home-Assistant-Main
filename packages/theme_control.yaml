@@ -23,7 +23,7 @@ frontend:
       # Entities page fix
       card-background-color: "var(--paper-card-background-color)"
       # Main colors
-      primary-color: 'var(--ocean-color)'
+      primary-color: '#27bdd6'
       accent-color: 'var(--ocean-color)'
       accent-color-light: 'rgba(39 ,189, 214,0.7)'
       accent-color-lighter: 'rgba(39 ,189, 214,0.3)'
@@ -31,7 +31,7 @@ frontend:
       light-primary-color: 'var(--accent-color)'
       # Text colors
       primary-text-color: 'var(--white-color)'
-      text-primary-color: 'var(--primary-text-color)'
+      text-primary-color: '#F2F2F2'
       secondary-text-color: 'var(--ocean-color)'
       disabled-text-color: 'var(--light-grey-color)'
       label-badge-border-color: 'var(--ocean-color)'
@@ -142,7 +142,7 @@ frontend:
 
     Purple-Nightz:
       # Color Variables
-      purple-color: '#b5a9fb' # '#a7a5e5'
+      purple-color: '#b5a9fb'
       red-color: '#b70000'
       white-color: '#F2F2F2'
       lighter-grey-color: '#d6d6dc'
@@ -157,7 +157,7 @@ frontend:
       # Entities page fix
       card-background-color: "var(--paper-card-background-color)"
       # Main colors
-      primary-color: 'var(--purple-color)'
+      primary-color: '#b5a9fb'
       accent-color: 'var(--purple-color)'
       accent-color-light: 'rgba(181 ,169, 251,0.7)'
       accent-color-lighter: 'rgba(181 ,169, 251,0.3)'
@@ -165,7 +165,7 @@ frontend:
       light-primary-color: 'var(--accent-color)'
       # Text colors
       primary-text-color: 'var(--white-color)'
-      text-primary-color: 'var(--primary-text-color)'
+      text-primary-color: '#F2F2F2'
       secondary-text-color: 'var(--purple-color)'
       disabled-text-color: 'var(--light-grey-color)'
       label-badge-border-color: 'var(--purple-color)'
@@ -278,7 +278,7 @@ frontend:
 
     Green-Nightz:
       # Color Variables
-      green-color: '#84c08a'  # '#a1f2ab'
+      green-color: '#84c08a'
       red-color: '#b70000'
       white-color: '#F2F2F2'
       lighter-grey-color: '#d6d6dc'
@@ -293,7 +293,7 @@ frontend:
       # Entities page fix
       card-background-color: "var(--paper-card-background-color)"
       # Main colors
-      primary-color: 'var(--green-color)'
+      primary-color: '#84c08a'
       accent-color: 'var(--green-color)'
       accent-color-light: 'rgba(132, 192, 138,0.7)'
       accent-color-lighter: 'rgba(132, 192, 138,0.3)'
@@ -301,7 +301,7 @@ frontend:
       light-primary-color: 'var(--accent-color)'
       # Text colors
       primary-text-color: 'var(--white-color)'
-      text-primary-color: 'var(--primary-text-color)'
+      text-primary-color: '#F2F2F2'
       secondary-text-color: 'var(--green-color)'
       disabled-text-color: 'var(--light-grey-color)'
       label-badge-border-color: 'var(--green-color)'
