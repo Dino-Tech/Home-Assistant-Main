@@ -22,12 +22,8 @@ rules:
     max-spaces-before: 0
     min-spaces-after: 1
     max-spaces-after: 1
-  comments:
-    level: warning
-    require-starting-space: true
-    min-spaces-from-content: 2
-  comments-indentation:
-    level: warning
+  comments: disable
+  comments-indentation: disable
   document-end:
     level: error
     present: false
