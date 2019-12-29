@@ -77,7 +77,7 @@ If you would like to show your support, you can <link href="https://fonts.google
 * [Sonoff PIR Motion Sensors](http://amzn.to/2ExNXVA)
 * [IR Pyroelectric Infrared PIR Motion Sensors](http://amzn.to/2YUfGI9)
 * [Wyzesense Motion & Contact sensors(camera kit)](https://amzn.to/2ZzJo6s)
-*(24 sensors total - used for alarm, automations & tablet 'ON' & 'OFF' functions)*
+* (24 sensors total - used for alarm, automations & tablet 'ON' & 'OFF' functions)
 
 # Screenshots
 
