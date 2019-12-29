@@ -37,11 +37,12 @@ If you would like to show your support, you can <link href="https://fonts.google
 |8                |56      |89              |76        |104          |174      |391      |36       | 
 
 ### Cameras(8):
-* [Wyze Cam v2(7)](http://amzn.to/2QqoYsf)
-* [Wyze Pan Cam(1)](http://amzn.to/2QqoYsf)
+* [Wyze Cam v2(7)](https://amzn.to/368p8LI)
+* [Wyze Pan Cam(1)](https://amzn.to/2MEaPH5)
+* [Wyze Cam Outdoor Mounts(3 pack)](https://amzn.to/366oIW9)
 
 ### Thermostat:
-* [Google Nest Thermostat E](http://amzn.to/2Qpyqfe)
+* [Google Nest Thermostat](https://amzn.to/2MSE2hV)
 
 ### Power Supply(4):
 * [3 Prong UPS](http://amzn.to/2W0GKbD)
@@ -75,7 +76,8 @@ If you would like to show your support, you can <link href="https://fonts.google
 * [Sonoff RF Bridge](http://amzn.to/2QlTfIL) - running tasmota
 * [Sonoff PIR Motion Sensors](http://amzn.to/2ExNXVA)
 * [IR Pyroelectric Infrared PIR Motion Sensors](http://amzn.to/2YUfGI9)
-*(14 total - used for alarm, automations & tablet 'ON' & 'OFF' screens)*
+* [Wyzesense Motion & Contact sensors(camera kit)](https://amzn.to/2ZzJo6s)
+*(24 sensors total - used for alarm, automations & tablet 'ON' & 'OFF' functions)*
 
 # Screenshots
 
