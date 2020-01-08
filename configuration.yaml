@@ -123,9 +123,6 @@ logger:
 
 system_health:
 
-platform: wyzesense
-device: auto
-
 life360:
   driving_speed: 18
   interval_seconds: 10
