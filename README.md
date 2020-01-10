@@ -42,11 +42,11 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 * [Wyze Cam Outdoor Mounts(3 pack)](https://amzn.to/366oIW9)
 
 ### Thermostat:
-* [Google Nest Thermostat](https://amzn.to/2MSE2hV)
+* [Google Nest Thermostat](https://amzn.to/37QDaCn)
 
 ### Power Supply(4):
-* [3 Prong UPS](http://amzn.to/2W0GKbD)
-* [2 Prong UPS](http://amzn.to/2W6W5Yf)
+* [3 Prong UPS](https://amzn.to/35IZEna)
+* [2 Prong UPS](https://amzn.to/2FFdf4A)
 
 ### Device Trackers:
 * [NMAP](https://www.home-assistant.io/components/nmap_tracker/)
@@ -56,9 +56,9 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 * [Life360](https://www.home-assistant.io/components/life360/) *(for GPS and battery statuses & HA iOS App)*
 
 ### Google Homes & Assistant Powered Devices(15) 
-* Google Hub (1)
-* Google Home (2)
-* Google Home Mini (6) 
+* [Google Hub](https://amzn.to/2Rb1acO)  (1)
+* [Google Home](https://amzn.to/2FFHt7A) (2)
+* [Google Home Mini](https://amzn.to/2tJbkJA) (6) 
 * Zolo mini (1) 
 * Insignia (2) 
 * Insignia portable (1) 
@@ -67,15 +67,18 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 
 *(used for voice controlled Lovelace screen commands/device control)*
 
+* [Google WiFi 3 Point Mesh System](https://amzn.to/35Hsd4k) 
+*(currently supporting 119 devices)*
+
 ### Tablets:
 * Insignia 10.1"(2) - (currently 1 wall mounted & 1 in office for screen designing)
 * Android 7"(1) - wall mounted alarm panel keypad
 
 ### Security:
 * [Konnected alarm](http://amzn.to/2YIlunM) - 18 zone system
-* [Sonoff RF Bridge](http://amzn.to/2QlTfIL) - running tasmota
-* [Sonoff PIR Motion Sensors](http://amzn.to/2ExNXVA)
-* [IR Pyroelectric Infrared PIR Motion Sensors](http://amzn.to/2YUfGI9)
+* [Sonoff RF Bridge](https://amzn.to/2QHLHlt) - running tasmota
+* [Sonoff PIR Motion Sensors](https://amzn.to/2QEsjFL)
+* [IR Pyroelectric Infrared PIR Motion Sensors](https://amzn.to/2NglV5o)
 * [Wyzesense Motion & Contact sensors(camera kit)](https://amzn.to/2ZzJo6s)
 * (24 sensors total - used for alarm, automations & tablet 'ON' & 'OFF' functions)
 
@@ -87,6 +90,9 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 #### **Themes inspired** from Android 10's new accent colors
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/main1.3.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu1.1.2.jpg" />
+
+#### **A total of 8 *'click-to-change'* theme colors, fully integrated with all popups, screens and custom cards...**
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu_1.1.3.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu8.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu2.1.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu3.jpg" />
