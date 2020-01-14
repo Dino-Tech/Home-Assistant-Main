@@ -27,9 +27,9 @@ This Repo is designed for Smart Home inspiration.  The configuration, devices an
 
 You can message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180) if you have any questions or recommendations in regards to my repository! 
 
-If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me on GitHub](https://github.com/sponsors/Dino-Tech) or <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a> :pray: I'm not doing this for free coffee, but I do get tired :stuck_out_tongue_winking_eye: 
+If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me on GitHub](https://github.com/sponsors/Dino-Tech) or <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a> :pray: <br> I'm not doing this for free :coffee:, but I do get tired :stuck_out_tongue_winking_eye: 
 
-### I'm currently running [Home Assistant](https://home-assistant.io) version __0.103.5__ on a RPi4B.
+### I'm currently running [Home Assistant](https://home-assistant.io) version __0.103.6__ on a RPi4B.
 
 # A Few Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
@@ -96,11 +96,12 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu8.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu2.1.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu3.jpg" />
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu4.1.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu_1.1.4.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu5.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu6.2.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu7.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu9.1.jpg" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu4.1.jpg" />
 
 ### Main Kiosk Screen *(restricted access)*
 Main panel has auto-changing background images, sleep and wake functions that are controlled via motion, time of day/night,  voice activated and presence detection. The drop down selection keeps the screen less cluttered until needed for selecting popups to view so backgrounds are more visible when kiosk is idle....
