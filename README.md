@@ -37,7 +37,7 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 |8                |51      |86              |76        |106          |163      |319      |36       | 
 
 ### Cameras(8):
-* [Wyze Cam v2(7)](https://amzn.to/368p8LI)
+* [Wyze Cam v2(8)](https://amzn.to/368p8LI)
 * [Wyze Pan Cam(1)](https://amzn.to/2MEaPH5)
 * [Wyze Cam Outdoor Mounts(3 pack)](https://amzn.to/366oIW9)
 
