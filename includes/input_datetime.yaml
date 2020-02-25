@@ -1,0 +1,27 @@
+---
+# input_datetime:
+time:
+  name: Time
+  has_date: false
+  has_time: true
+  initial: "01:31:00"
+time_donnas_alarm:
+  name: Donna's Alarm Time
+  has_date: false
+  has_time: true
+  initial: "05:42:00"
+time_darrens_alarm:
+  name: Darren's Alarm Time
+  has_date: false
+  has_time: true
+  initial: "05:45:00"
+date:
+  name: Date
+  has_date: true
+  has_time: false
+  initial: "2019-04-17"
+datetime:
+  name: Date and Time
+  has_date: true
+  has_time: true
+  initial: "2019-04-17 01:31:00"
