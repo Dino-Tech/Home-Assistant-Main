@@ -91,15 +91,15 @@ bedroom_lamps:
   initial: false
   icon: mdi:floor-lamp
 alarm_arm_away_switch:
-  name: Alarm Away
+  name: Secure Mode Away
   initial: false
   icon: mdi:bell
 alarm_arm_home_switch:
-  name: Alarm Home
+  name: Secure Mode Home
   initial: false
   icon: mdi:bell
 alarm_disarm_switch:
-  name: Alarm Disarm
+  name: Secure Mode Disarm
   initial: false
   icon: mdi:bell-off
 disable_door_chime:
@@ -108,7 +108,6 @@ disable_door_chime:
   icon: mdi:bell-off
 people_home_boolean:
   name: Jesus Freaks
-  initial: true
   icon: mdi:account-multiple
 darren_home:
   name: Darren
@@ -119,7 +118,6 @@ tristan_home:
   initial: false
 notifications:
   name: Notifications
-  initial: true
   icon: mdi:message-text-outline
 voice_notifications:
   name: Voice Notifications
@@ -149,3 +147,64 @@ disable_mail_notifications:
   name: Disable Mail Notifications
   initial: false
   icon: mdi:message-bulleted-off
+# dummy input_booleans used for global popups
+mobile_office:
+mobile_kitchen:
+mobile_ensuite:
+mobile_den:
+mobile_master:
+mobile_rambo:
+mobile_guest:
+mobile_front:
+mobile_garage:
+mobile_patio:
+mobile_laundry:
+mobile_bathroom:
+mobile_music:
+mobile_thermostat:
+mobile_radar:
+mobile_iframe:
+mobile_forecast:
+mobile_calander:
+mobile_floorplan:
+mobile_alarms:
+mobile_leaks:
+mobile_pixel_cam:
+mobile_rambo_cam:
+mobile_entrances:
+mobile_windows:
+mobile_hallways:
+mobile_driveway:
+mobile_front_porch:
+mobile_motion:
+mobile_all_devices:
+mobile_lights_on:
+mobile_esphome:
+mobile_wyzesense:
+mobile_shelly:
+mobile_wifi:
+mobile_settings:
+mobile_automations:
+mobile_kiosk:
+mobile_inside_cams:
+mobile_outside_cams:
+ha_stats:
+kitchen_controls:
+office_controls:
+den_controls:
+bedroom_controls:
+laundry_controls:
+calendar_popup:
+camera_den:
+camera_entryhall:
+camera_garage:
+camera_kitchen:
+camera_frontdoor:
+camera_patio:
+camera_driveway:
+camera_rambo:
+camera_hallway:
+radar_regional:
+radar_local:
+radar_interactive:
+spotify:
