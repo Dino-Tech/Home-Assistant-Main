@@ -7,9 +7,9 @@
     - !secret nmap_host_p3
   home_interval: 05
   exclude:
-   - !secret hass_ip
-   - !secret hass_ip2
-   - !secret hass_ip3
+    - !secret hass_ip
+    - !secret hass_ip2
+    - !secret hass_ip3
   interval_seconds: 30
   consider_home: 180
   new_device_defaults:
