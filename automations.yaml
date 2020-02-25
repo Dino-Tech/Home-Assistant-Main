@@ -1,0 +1,1639 @@
+---
+#   /config/automations.yaml
+# ############################################################
+#                                                            #
+#  THE MAJORITY OF MY AUTOMATIONS ARE FOR TRIGGERS AND THE   #
+#  ACTIONS HAVE MOSTLY BEEN MOVED TO SCRIPTS WHERE FEASIBLE  #
+#                                                            #
+# ############################################################
+# #                                                          #
+# #              MISCELLANEOUS   AUTOMATIONS                 #
+# #                                                          #
+# #############################################################
+# # make Sonoffs report on start up & alarm state to disarmed
+- alias: "Sonoff report state on start-up"
+  initial_state: 'on'
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/sonoffs/backlog"
+        payload: "status 2;power1 ;power2 ;power3 ;power4 ;power5 "
+
+- alias: Life360 Overdue Update
+  trigger:
+    platform: event
+    event_type: life360_update_overdue
+  action:
+    service: notify.notify_all
+    data_template:
+      title: Life360 update overdue
+      message: >
+        Update for {{
+          state_attr(trigger.event.data.entity_id, 'friendly_name') or
+          trigger.event.data.entity_id
+        }} is overdue.
+
+- alias: Life360 Update Restored
+  trigger:
+    platform: event
+    event_type: life360_update_restored
+  action:
+    service: notify.notify_all
+    data_template:
+      title: Life360 update restored
+      message: >
+        Update for {{
+          state_attr(trigger.event.data.entity_id, 'friendly_name') or
+          trigger.event.data.entity_id
+        }} restored after {{ trigger.event.data.wait }}.
+
+- alias: Create a notification when something is added to HACS
+  trigger:
+    platform: event
+    event_type: hacs/repository
+    event_data:
+      action: registration
+  condition:
+    condition: template
+    value_template: "{{ trigger.event.data.repository is defined }}"
+  action:
+    service: persistent_notification.create
+    data_template:
+      title: New repository in HACS
+      message: >-
+        {% set repo = trigger.event.data.repository %}
+        {% set id = trigger.event.data.repository_id %}
+        [{{ repo }}](/hacs/repository/{{ id }})
+        was just added to HACS.
+# ##########################################################
+# #  Darren's alarm
+- alias: 'Darrens wake up alarm'
+  initial_state: 'on'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.time_darrens_alarm.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  action:
+    - service: script.darrens_wake_up
+# ##########################################################
+# #  Donna's alarm
+- alias: 'Donnas wake up alarm'
+  initial_state: 'on'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.time_donnas_alarm.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.workday_sensor
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.donnas_work_alarm
+      state: 'on'
+  action:
+    - service: script.donnas_wake_up
+# #####################################################
+- alias: '[Notify] Smoke Detected'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.garage_smoke_detected
+        - binary_sensor.laundry_smoke_detected
+        - binary_sensor.office_smoke_detected
+        - binary_sensor.guest_smoke_detected
+        - binary_sensor.bedroom_smoke_detected
+      to: 'on'
+  action:
+    - service: script.smoke_popup
+    - service: homeassistant.turn_off
+      entity_id:
+        - switch.dryer_plug
+# ##########################################################
+- alias: '[Notify] Water Heater Leak'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.water_heater
+      to: 'on'
+  action:
+    - service: script.water_heater_leak
+# ##########################################################
+- alias: '[Notify] Washing Machine Leak'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.washer_leak
+      to: 'on'
+  action:
+    - service: homeassistant.turn_off
+      entity_id:
+        - switch.washer_plug
+    - service: script.washer_leak
+# ########################################################
+- alias: '[Notify] mailbox'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_7782a115
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.disable_mail_notifications
+      state: 'off'
+  action:
+    - service: script.mailbox_opened
+# ########################################################
+- alias: '[Notify] Garage Fridge OFF'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: switch.garage_fridge_relay
+      to: 'off'
+      for:
+        minutes: 2
+  action:
+    - service: notify.mobile_app_pixel_2_xl
+      data_template:
+        message: >
+          Garage fridge turned off at '{{ now().strftime('%I:%M %p') }}'
+    - delay: '00:15:00'
+    - service: homeassistant.turn_on
+      entity_id: switch.garage_fridge_relay
+    - service: notify.mobile_app_pixel_2_xl
+      data_template:
+        message: >
+          Garage fridge turned back on at '{{ now().strftime('%I:%M %p') }}'
+# ##########################################################
+#                   TEMPLATE SENSOR UPDATE                 #
+- alias: 'Update Template Sensors'
+  initial_state: true
+  trigger:
+      platform: time_pattern
+      minutes: '/59'
+  action:
+    - service: homeassistant.update_entity
+      entity_id:
+        - sensor.tracker_count
+        - sensor.lights_count
+        - sensor.binary_sensor_count
+        - sensor.switch_count
+        - sensor.automation_count
+        - sensor.script_count
+        - sensor.sensor_count
+        - sensor.alert_count
+# ############################################################
+# #                                                         ##
+# #           SCREENS, TABLET & POPUP AUTOMATIONS           ##
+# #                                                         ##
+# ############################################################
+- alias: '[Tablet] background morning'
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '06:00:00'
+  action:
+    - service: input_select.set_options
+      entity_id: input_select.wallpaper
+      data_template:
+        options: ["christian4", "coffee1_1", "coffee1_2", "coffee1_3", "coffee1_4", "coffee1_5", "coffee1_6", "coffee1_7"]
+# #####################################################
+- alias: '[Tablet] background noon'
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '12:00:00'
+  action:
+    - service: input_select.set_options
+      entity_id: input_select.wallpaper
+      data_template:
+        options: ["christian1", "wallpaper2", "christian2", "wallpaper3", "christian3", "wallpaper4", "christian4", "christian5", "christian6", "christian7"]
+# #####################################################
+- alias: '[Tablet] background evening'
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '18:00:00'
+  action:
+    - service: input_select.set_options
+      entity_id: input_select.wallpaper
+      data_template:
+        options: ["wallpaper15", "eye1", "christian2", "wallpaper12", "ufo1", "christian5", "welcome4", "christian1", "wallpaper5"]
+# #####################################################
+- alias: '[Tablet] background night'
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '20:00:00'
+  action:
+    - service: input_select.set_options
+      entity_id: input_select.wallpaper
+      data_template:
+        options: ["christian4", "black_tex", "moonFull", "christian3", "landscape", "moonBlue", "blackSteel", "christian2", "superMoon", "moonLake"]
+# #####################################################
+- alias: '[Tablet] background select'
+  initial_state: 'on'
+  trigger:
+    platform: time_pattern
+    minutes: '/9'
+  condition:
+    - condition: state
+      entity_id: input_boolean.auto_backgroundz
+      state: 'on'
+  action:
+    - service: input_select.select_next
+      entity_id: input_select.wallpaper
+# #####################################################
+- alias: '[Mobile] background select'
+  initial_state: 'on'
+  trigger:
+    platform: time_pattern
+    minutes: '/3'
+  action:
+    - service: input_select.select_next
+      entity_id:
+        - input_select.mobile_wallpaper
+        - input_select.donnas_wallpaper
+        - input_select.rambo_pics
+# #####################################################
+- alias: '[Tablet] motion_ON'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.hall_motion, binary_sensor.hallway_motion
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: light.hallway_night_light
+      state: 'off'
+    - condition: time
+      after: '05:30:00'
+      before: '23:00:00'
+    - condition: state
+      entity_id: input_boolean.auto_tablet
+      state: 'on'
+  action:
+    - service: script.wake_tablet
+# #####################################################
+- alias: '[Tablet] motion_OFF_night'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: light.hallway_night_light # or can be motion sensor(s)
+      to: 'off'
+      for:
+        minutes: 6
+  condition:
+    - condition: time
+      after: '21:30:01'
+      before: '05:30:00'
+    - condition: state
+      entity_id: input_boolean.auto_tablet
+      state: 'on'
+  action:
+    - service: script.off_screen  # BLACKOUT SCREEN
+######################################################
+- alias: '[Tablet] motion_OFF_day'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: light.hallway_night_light
+      to: 'off'
+      for:
+        minutes: 6
+  condition:
+    - condition: time
+      after: '05:30:01'
+      before: '21:30:00'
+    - condition: state
+      entity_id: input_boolean.auto_tablet
+      state: 'on'
+  action:
+    - service: script.sleep_tablet # CLOCK SCREENSAVER
+# #####################################################
+- alias: '[Tablet] camera background select'
+  initial_state: 'on'
+  trigger:
+    platform: time_pattern
+    seconds: '/45'
+  condition:
+    - condition: state
+      entity_id: input_boolean.auto_cameras
+      state: 'on'
+  action:
+    - service: input_select.select_next
+      entity_id: input_select.auto_camera
+# #####################################################
+- alias: '[Tablet] camera image select'
+  initial_state: 'on'
+  trigger:
+    platform: time_pattern
+    minutes: '/1'
+  condition:
+    - condition: state
+      entity_id: input_boolean.auto_camera_image
+      state: 'on'
+  action:
+    - service: input_select.select_next
+      entity_id: input_select.auto_select_camera
+# #####################################################
+- alias: '[Browser] lovelace lock ON'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.lovelace_lock
+      to: 'off'
+  action:
+    - service: script.mobile_lovelace_lock
+
+- alias: '[Browser] lovelace lock OFF'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.lovelace_lock
+      to: 'on'
+  action:
+    - service: browser_mod.close_popup
+# #####################################################
+- alias: '[Browser] switch_browser_home'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.browser_home
+      to: 'on'
+  action:
+    - service: script.browser_home
+# #####################################################
+- alias: '[Browser] switch_donnas_screen'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.donnas_screen
+      to: 'on'
+  action:
+    - service: script.browser_donna
+# #####################################################
+- alias: '[Browser] switch_browser_refresh'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.browser_refresh
+      to: 'on'
+  action:
+    - service: script.browser_refresh
+#########################################################
+- alias: '[Browser] popup_front_door'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_77878ecb, binary_sensor.wyzesense_77933be2, binary_sensor.front_motion
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: script.browser_popup_1
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.wyzesense_77933be2
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.wyzesense_77878ecb
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.front_motion
+      state: 'on'
+  action:
+    - service: script.browser_popup_1
+    - service: script.front_notify
+    - delay: '00:02:00'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.foyer_speaker
+        volume_level: '0.40'
+# ########################################################
+- alias: '[Browser] popup_patio'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.back_motion
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: script.browser_popup_6
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.disable_patio_motion
+      state: 'off'
+  action:
+    - service: script.browser_popup_6
+    - service: script.patio_motion
+    - service: script.patio_light
+    - delay: '00:02:10'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.40'
+# ########################################################
+- alias: '[Browser] popup_driveway'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.driveway_motion
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: script.browser_popup_7
+      state: 'off'
+  action:
+    - service: script.browser_popup_7
+    - service: script.driveway_notify
+    - service: script.driveway_light
+    - delay: '00:02:00'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.40'
+# ########################################################
+- alias: '[Browser] popup_garage'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_7780f0c5, binary_sensor.wyzesense_77879025, binary_sensor.wyzesense_77879826, binary_sensor.garage_motion
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: script.browser_popup_3
+      state: 'off'
+  action:
+    - service: script.browser_popup_3
+    - service: script.garage_notify # google TTS
+    - delay: '00:02:00'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.40'
+# ########################################################
+- alias: '[Browser] popup_entry_hall'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_778797dc, binary_sensor.side_door_k, binary_sensor.garage_entry_door_k
+      from: 'off'
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.disable_inside_popups
+      state: 'off'
+  action:
+    - service: script.browser_popup_2
+# ########################################################
+- alias: '[Browser] popup_den'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.hall_motion, binary_sensor.wyzesense_7780f0b4
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.disable_inside_popups
+      state: 'off'
+  action:
+    - service: script.browser_popup_4
+# ########################################################
+- alias: '[Browser] popup_kitchen'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.kitchen_motion
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.disable_inside_popups
+      state: 'off'
+  action:
+    - service: script.browser_popup_5
+# ########################################################
+- alias: '[Browser] test_popup_office'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_7793f9df
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.disable_inside_popups
+      state: 'off'
+  action:
+    - service: script.browser_popup_8
+# ########################################################
+- alias: '[Browser] popup_Low Battery'
+  initial_state: true
+  trigger:
+    - platform: numeric_state
+      entity_id:
+        - sensor.pixel2statusbatt
+        - sensor.donna_iphone_battery_level
+        - sensor.garage_smoke_battery
+        - sensor.laundry_room_battery
+        - sensor.laundry_smoke_battery
+        - sensor.office_smoke_battery
+        - sensor.outside_ht_battery
+        - sensor.spare_room_battery
+        - sensor.porch_ht_battery
+        - sensor.guest_smoke_battery
+        - sensor.bedroom_smoke_battery
+        - sensor.shelly_shht_1_22c698_battery_attr
+        - sensor.shelly_shht_1_5a8b2e_battery_attr
+        - sensor.frontdoorbatt
+        - sensor.garagedoorbatt
+        - sensor.laundrymotionbatt
+        - sensor.entryhallmotionbatt
+        - sensor.hallbathmotionbatt
+        - sensor.porchmotionbatt
+        - sensor.porchmotion2batt
+        - sensor.garagemotion1batt
+        - sensor.garagemotion2batt
+        - sensor.garagemotion3batt
+        - sensor.mailboxsensorbatt
+        - sensor.officemotion2batt
+        - sensor.officemotion1batt
+      below: 20
+  action:
+    - service: script.low_battery_popup
+    - service: script.mobile_low_battery
+# ########################################################
+- alias: '[Auto] card background select'
+  initial_state: 'on'
+  trigger:
+    platform: time_pattern
+    seconds: '/59'
+  condition:
+    - condition: state
+      entity_id: input_boolean.auto_card_backz
+      state: 'on'
+  action:
+    - service: input_select.select_next
+      entity_id: input_select.auto_cardz
+# ###########################################################
+# #                                                         #
+# #                 PRESENCE  AUTOMATIONS                   #
+# #                                                         #
+# ###########################################################
+# # Turn on fans when hot
+- alias: "Turn on Fans"
+  initial_state: 'on'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.realistic_temperature
+    above: '78'
+  condition:
+    - condition: state
+      entity_id: input_boolean.disable_auto_fans
+      state: 'off'
+  action:
+    service: homeassistant.turn_on
+    entity_id: group.inside_fans
+# ############################################################
+# # Turn off fans when cool & no one home
+- alias: "Turn off Fans"
+  initial_state: 'on'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.realistic_temperature
+    below: '78'
+  condition:
+    - condition: state
+      entity_id: group.person_group
+      state: 'not_home'
+  action:
+    service: homeassistant.turn_off
+    entity_id: group.inside_fans
+# ########################################################
+# # Darren AWAY
+- alias: '[Presence] Darren Away'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: group.darren_presence
+      to: 'not_home'
+  action:
+    - service: script.darren_away
+# ########################################################
+# # Darren HOME
+- alias: '[Presence] Darren Home'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: person.darren
+      to: 'home'
+  action:
+    - service: script.darren_home
+    - service: script.outside_lights_after_dark
+# ##########################################################
+# # Donna AWAY
+- alias: '[Presence] Donna Away'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: group.donna_presence
+      to: 'not_home'
+  condition:
+    - condition: state
+      entity_id: input_boolean.donna_home
+      state: 'on'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.donna_home
+# ##########################################################
+# # Donna HOME
+- alias: '[Presence] Donna Home'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: person.donna
+      to: 'home'
+  condition:
+    - condition: state
+      entity_id: input_boolean.donna_home
+      state: 'off'
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.donna_home
+    - service: script.outside_lights_after_dark
+# ##########################################################
+# # Tristan AWAY/HOME
+- alias: '[Presence] Tristan Away'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: group.tristan_presence
+      to: 'not_home'
+      for:
+        minutes: 07
+  condition:
+    - condition: state
+      entity_id: input_boolean.tristan_home
+      state: 'on'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.tristan_home
+    - service: notify.mobile_app_pixel_2_xl
+      data:
+        title: "New Life Alert"
+        message: "Tristan has left."
+# ##########################################################
+- alias: '[Presence] Tristan Home'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: group.tristan_presence
+      to: 'home'
+  condition:
+    - condition: state
+      entity_id: input_boolean.tristan_home
+      state: 'off'
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.tristan_home
+    - service: notify.mobile_app_pixel_2_xl
+      data:
+        title: "New Life Alert"
+        message: "Tristan is at the house."
+    - service: script.outside_lights_after_dark
+# ##########################################################
+- alias: '[Presence] People Away Group'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: group.person_group
+      to: 'not_home'
+  action:
+    - service: script.alarm_arm
+    - service: script.people_away
+    - service: script.off_screen
+    - service: script.nest_set_away
+# ##########################################################
+- alias: '[Presence] People Home Group'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: group.person_group
+      to: 'home'
+  action:
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.ha_alarm
+      data:
+        code: !secret alarm_code
+    - service: script.people_home
+    - service: script.wake_tablet
+    - service: script.nest_set_home
+# ##############################################################
+# #                                                           ##
+# #            Door Auto Lights/Notification/Timers           ##
+# #                                                           ##
+# ##############################################################
+# Bedroom Lamp switch OFF-ON for 2 nightstand lamps
+- alias: '[Switch] Bedroom Lamps'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.bedroom_lamps
+  action:
+    - service_template: "homeassistant.turn_{{- trigger.to_state.state -}}"
+      data:
+        entity_id: group.bedroom_lamps
+# ##########################################################
+# #  needed if coffee is started by GH via voice routine
+# #  or manually turned on
+- alias: '[Notify] Coffee Maker ON'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: switch.coffee_maker
+      to: 'on'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.coffee_light
+    - service: notify.mobile_app_pixel_2_xl
+      data:
+        title: "New Life Alert"
+        message: "Coffee Maker is ON!"
+# ##########################################################
+- alias: '[TIMER] Fountain'
+  initial_state: 'on'
+  trigger:
+    - platform: time
+      at: '20:00'
+  action:
+    - service: script.fountain_timer
+    - service: homeassistant.turn_on
+      entity_id: light.patio_accent_lights
+# ##########################################################
+# #  Side Door Light on After Sunset
+- alias: '[SUNSET] Side Light ON'
+  initial_state: 'on'
+  trigger:
+    - platform: sun
+      event: 'sunset'
+      offset: "-00:10:00"
+  action:
+    - service: script.side_light_timer
+# #####################################################
+- alias: '[Auto On] Bedroom Auto Lamps'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.bedroom_motion
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.disable_auto_bedroom
+      state: 'off'
+    - condition: time
+      after: '15:30:00'
+      before: '21:30:00'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: light.donnas_light
+# ##########################################################
+# #  Cabinet Auto Lights Switch
+- alias: '[Switch] Cabinet Lights'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: switch.cabinet_lights
+  action:
+    - service_template: "homeassistant.turn_{{- trigger.to_state.state -}}"
+      data:
+        entity_id: light.cabinet_lights
+# ##########################################################
+# #  Cabinet Motion Auto Lights
+- alias: '[Auto] Cabinet Light ON'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_7787900d, binary_sensor.wyzesense_77878a66
+      to: 'on'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: light.cabinet_lights
+
+- alias: '[Auto] Cabinet Light OFF 1'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_7787900d
+      from: 'on'
+      to: 'off'
+      for:
+        minutes: 10
+  condition:
+    - condition: state
+      entity_id: input_boolean.disable_cabinet_auto_lights
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.wyzesense_77878a66
+      state: 'off'
+    - condition: state
+      entity_id: group.person_group
+      state: 'home'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: light.cabinet_lights
+
+- alias: '[Auto] Cabinet Light OFF 2'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_77878a66
+      from: 'on'
+      to: 'off'
+      for:
+        minutes: 10
+  condition:
+    - condition: state
+      entity_id: input_boolean.disable_cabinet_auto_lights
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.wyzesense_7787900d
+      state: 'off'
+    - condition: state
+      entity_id: group.person_group
+      state: 'home'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: light.cabinet_lights
+# ##########################################################
+# #  Entry Hall Auto Light
+- alias: '[Auto] Entry Hall Light'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_778797dc
+  action:
+    - service_template: "homeassistant.turn_{{- trigger.to_state.state -}}"
+      data:
+        entity_id: light.entry_hall_lights
+# ##########################################################
+# #  Laundry Auto Light
+- alias: '[Auto] Laundry Light'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_778168e9
+  action:
+    - service_template: "homeassistant.turn_{{- trigger.to_state.state -}}"
+      data:
+        entity_id: light.laundry_light
+# ##########################################################
+# #  Porch Auto Light
+- alias: '[Auto] Porch Light'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_77878ecb
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+    - condition: state
+      entity_id: input_boolean.disable_exterior_auto_lights
+      state: 'off'
+  action:
+    - service_template: "homeassistant.turn_{{- trigger.to_state.state -}}"
+      data:
+        entity_id: light.porch_light
+# ##########################################################
+# #  Hall Bath Automations Lights and vent
+- alias: '[Auto] Hall Bath Night Light'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_77802215
+  condition:
+    - condition: time
+      after: '22:30:00'
+      before: '06:00:00'
+    - condition: state
+      entity_id: input_boolean.disable_auto_bathroom
+      state: 'off'
+  action:
+    - service_template: "homeassistant.turn_{{- trigger.to_state.state -}}"
+      data:
+        entity_id: light.bathroom_ceiling
+
+- alias: '[Auto] Hall Bath Light'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_77802215
+  condition:
+#    - condition: state
+#      entity_id: sun.sun
+#      state: below_horizon
+    - condition: time
+      before: '22:29:59'
+      after: '06:00:01'
+    - condition: state
+      entity_id: input_boolean.disable_auto_bathroom
+      state: 'off'
+  action:
+    - service_template: "homeassistant.turn_{{- trigger.to_state.state -}}"
+      data:
+        entity_id: light.bathroom_mirror
+
+# # Turn off vent after 5 mins
+- alias: '[Auto] Hall Bath Vent auto off'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: switch.bathroom_vent
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 5
+  action:
+    - service: homeassistant.turn_off
+      entity_id: switch.bathroom_vent
+
+# # Turn on vent when humid
+- alias: "Turn on vent"
+  initial_state: 'on'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.bathroom_humidity
+    above: '78'
+  action:
+    service: homeassistant.turn_on
+    entity_id: switch.bathroom_vent
+# # Turn off vent when humidity lowers
+- alias: "Turn off vent"
+  initial_state: 'on'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.bathroom_humidity
+    below: '77'
+  action:
+    service: homeassistant.turn_off
+    entity_id: switch.bathroom_vent
+# ##########################################################
+#  [Notify] Motion Office Light ON/OFF
+- alias: '[Notify] Motion Office'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_7793f9df
+      from: 'off'
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.darren_home
+      state: 'off'
+  action:
+    - service: script.motion_office
+
+- alias: '[Notify] Motion Office'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_7793f9df
+  condition:
+    - condition: state
+      entity_id: input_boolean.darren_home
+      state: 'off'
+  action:
+    - service_template: "homeassistant.turn_{{- trigger.to_state.state -}}"
+      data:
+        entity_id: light.office_lamps
+# ####################################################
+- alias: '[Notify/Light] Back Door'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.back_door_k
+      to: 'on'
+  action:
+    - service: script.back_door_light
+    - service: script.back_door_notify
+    - delay: '00:02:00'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.40'
+# #####################################################
+- alias: '[Notify] Side door'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.side_door_k
+      to: 'on'
+  action:
+    - service: script.side_door_voice
+    - service: script.side_door_open
+    - delay: '00:02:00'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.40'
+# #####################################################
+- alias: '[Notify/Light] Front door'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_7780f0b4
+      to: 'on'
+  action:
+    - service: script.front_door_notify
+    - delay: '00:02:00'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.foyer_speaker
+        volume_level: '0.40'
+# #####################################################
+- alias: '[Notify/Light] Garage Entry door'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.garage_entry_door_k
+      to: 'on'
+  action:
+    - service: script.garage_entry_light
+    - service: script.garage_entry_voice
+    - service: script.garage_entry_door_open
+    - delay: '00:02:00'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.40'
+# ##########################################################
+# #  Garage Auto Lights
+- alias: '[Auto] Garage Light ON'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_77879826, binary_sensor.wyzesense_77879025, binary_sensor.wyzesense_7793ff81
+      to: 'on'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: light.garage_ceiling_lights
+
+- alias: '[Auto] Garage Light OFF 1'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_77879826
+      from: 'on'
+      to: 'off'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.wyzesense_77879025
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.wyzesense_7793ff81
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.disable_garage_auto_lights
+      state: 'off'
+    - condition: state
+      entity_id: cover.garage_door
+      state: 'closed'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: light.garage_ceiling_lights
+    - service: script.browser_close_popup
+
+- alias: '[Auto] Garage Light OFF 2'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_77879025
+      from: 'on'
+      to: 'off'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.wyzesense_77879826
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.wyzesense_7793ff81
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.disable_garage_auto_lights
+      state: 'off'
+    - condition: state
+      entity_id: cover.garage_door
+      state: 'closed'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: light.garage_ceiling_lights
+    - service: script.browser_close_popup
+
+- alias: '[Auto] Garage Light OFF 3'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_7793ff81
+      from: 'on'
+      to: 'off'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.wyzesense_77879826
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.wyzesense_77879025
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.disable_garage_auto_lights
+      state: 'off'
+    - condition: state
+      entity_id: cover.garage_door
+      state: 'closed'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: light.garage_ceiling_lights
+    - service: script.browser_close_popup
+# ####################################################
+- alias: '[Notify] Auto Notifications ON'
+  initial_state: 'on'
+  trigger:
+    - platform: time
+      at: '23:00:00'
+  action:
+    - service: script.notifications_auto_on
+# ############################################################
+# #                                                         ##
+# #             Washer  &   Dryer  Automations              ##
+# #                                                         ##
+# ############################################################
+- alias: 'Washer State - Start'
+  initial_state: 'on'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.washer_watts
+      above: 5
+      for:
+        seconds: 4
+  condition:
+    - condition: template
+      value_template: "{{ states.sensor.washer_state.state != 'Washing' }}"
+  action:
+    - service: mqtt.publish
+      data:
+        topic: hass/state/washer
+        payload: 'Washing'
+        retain: 'true'
+- alias: 'Washer State - Idle'
+  initial_state: 'on'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.washer_watts
+      below: 5
+      for:
+        minutes: 5
+  action:
+    - service: mqtt.publish
+      data:
+        topic: hass/state/washer
+        payload: 'Idle'
+        retain: 'true'
+- alias: 'Washer Finished'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: sensor.washer_state
+      from: 'Washing'
+      to: 'Idle'
+  condition:
+    - condition: state
+      entity_id: input_boolean.disable_laundry_notifications
+      state: 'off'
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.50'
+    - service: tts.google_say
+      entity_id: media_player.living_room_google
+      data_template:
+        message: "Donna or Darren.. Clothes ready..  The washing machine has finished!"
+    - service: notify.notify_all
+      data:
+        message: "Washing machine finished"
+# - alias: 'Dryer State - Door'
+#   trigger:
+#     platform: numeric_state
+#     entity_id: sensor.dryer_watts
+#     above: 7
+#     below: 20
+#     for:
+#       seconds: 2
+#   action:
+#     - service: mqtt.publish
+#       data:
+#         topic: hass/state/dryer
+#         payload: 'Door Open'
+#         retain: 'true'
+- alias: 'Dryer State - Drying'
+  initial_state: 'on'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.dryer_watts
+      above: 50
+      for:
+        seconds: 2
+  action:
+    - service: mqtt.publish
+      data:
+        topic: hass/state/dryer
+        payload: 'Drying'
+        retain: 'true'
+- alias: 'Dryer State - Idle'
+  initial_state: 'on'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.dryer_watts
+      below: 6
+      for:
+        seconds: 2
+  action:
+    - service: mqtt.publish
+      data:
+        topic: hass/state/dryer
+        payload: 'Idle'
+        retain: 'true'
+- alias: 'Dryer Finished'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: sensor.dryer_state
+      from: 'Drying'
+      to: 'Idle'
+  condition:
+    - condition: state
+      entity_id: input_boolean.disable_laundry_notifications
+      state: 'off'
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: '0.50'
+    - service: tts.google_say
+      entity_id: media_player.living_room_google
+      data_template:
+        message: "Donna or Darren.. Clothes ready..  The dryer has finished!"
+    - service: notify.notify_all
+      data:
+        message: "Dryer has stopped"
+# ############################################################
+# #                                                         ##
+# #                   ALARM   AUTOMATIONS                   ##
+# #                                                         ##
+# ############################################################
+- alias: '[AlarmPanel] MQTT Weather'
+  trigger:
+    platform: time_pattern
+    minutes: '/30'
+  action:
+    service: mqtt.publish
+    data:
+      payload_template: "{'weather':{{states.weather.dark_sky.attributes}}}"
+      retain: true
+      topic: alarmpanel/command
+
+- alias: '[AlarmPanel] MQTT Sun'
+  trigger:
+    platform: time_pattern
+    minutes: '/30'
+  action:
+    service: mqtt.publish
+    data:
+      payload_template: "{'sun':'{{states('sun.sun')}}'}"
+      retain: true
+      topic: alarmpanel/command
+
+- alias: '[Alarm] Trigger Alarm Home Mode'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: group.all_windows
+      to: 'on'
+    - platform: state
+      entity_id:
+        - binary_sensor.side_door_k
+        - binary_sensor.back_door_k
+        - binary_sensor.wyzesense_7780f0b4
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: armed_home
+  action:
+    - service: script.home_mode_trigger
+# #####################################################
+- alias: '[Alarm] Trigger Alarm Away Mode'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: group.all_windows
+      to: 'on'
+    - platform: state
+      entity_id:
+        - binary_sensor.living_room_motion
+        - binary_sensor.bedroom_motion
+        - binary_sensor.wyzesense_7793f9df
+      to: 'on'
+    - platform: state
+      entity_id:
+        - binary_sensor.side_door_k
+        - binary_sensor.back_door_k
+        - binary_sensor.wyzesense_7780f0b4
+        - binary_sensor.garage_entry_door_k
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: armed_away
+  action:
+    - service: script.away_mode_trigger
+# #####################################################
+#   alarm light flash on
+- alias: '[Alarm] Triggered Flash'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: triggered
+  action:
+    - service: script.alarm_panel_popup
+    - service: script.triggered_flash
+# #####################################################
+#   alarm disarm
+- alias: '[Alarm] Disarmed Off'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: disarmed
+  action:
+    - service: script.alarm_disarm
+# ####################################################
+- alias: '[Alarm] System Arming'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: pending
+  action:
+    - service: script.system_arming
+# ####################################################
+- alias: '[Alarm] Away Mode Armed'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: armed_away
+  action:
+    - service: script.away_mode_armed
+# #####################################################
+- alias: '[Alarm] Home Mode Armed'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: armed_home
+  action:
+    - service: script.home_mode_armed
+# #####################################################
+- alias: '[Alarm] Remote Disarm'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.alarm_disarm_switch
+      to: 'on'
+  action:
+    - service: script.alarm_disarm
+# #####################################################
+- alias: '[Alarm] Remote Arm Away'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.alarm_arm_away_switch
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: disarmed
+    - condition: state
+      entity_id: input_boolean.people_home_boolean
+      state: 'off'
+  action:
+    - service: script.alarm_arm
+# #####################################################
+- alias: '[Alarm] Remote Arm Home'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.alarm_arm_home_switch
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: disarmed
+  action:
+    - service: script.alarm_arm_home
+# #####################################################
+- alias: '[Alarm] Auto Night Arm'
+  initial_state: 'on'
+  trigger:
+    - platform: time
+      at: '23:59:00'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: disarmed
+  action:
+    - service: script.alarm_arm_home
+# ####################################################
+- alias: '[Alarm] Disarm in the morning'
+  initial_state: 'on'
+  trigger:
+    - platform: time
+      at: '06:15:00'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.workday_sensor
+      state: 'on'
+    - condition: state
+      entity_id: group.person_group
+      state: home
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: armed_home
+  action:
+    - service: script.alarm_disarm
+# ####################################################
+- alias: 'Weekly Dropbox backup'
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '2:00:00'
+  condition:
+    - condition: time
+      weekday:
+        - mon
+  action:
+    - service: hassio.snapshot_full
+      data_template:
+        name: Automated Backup {{ now().strftime('%Y-%m-%d') }}
+    - delay: '01:00:00'
+    - service: hassio.addon_stdin
+      data_template:
+        addon: "7be23ff5_dropbox_sync"
+        input: {"command":"upload"}
+    - delay: '00:05:00'
+    - service: notify.mobile_app_pixel_2_xl
+      data:
+        message: "Check DropBox Upload"
+# ##########################################################
+- alias: 'snapshots_went_stale'
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.snapshots_stale
+      from: 'False'
+      to: 'True'
+  action:
+    - service: notify.mobile_app_pixel_2_xl
+      data:
+        title: 'Snapshots are Stale'
+        message: 'Please visit the Hass.io Google Drive Backup add-on status page for details.'
+    - service: script.stale_snapshot_popup
+# ##########################################################
+# # Android
+- alias: Notify apps when the garage door opens
+  trigger:
+    platform: state
+    entity_id: binary_sensor.wyzesense_7780f0c5
+    to: 'on'
+    for:
+      minutes: 2
+  condition:
+    condition: state
+    entity_id: group.person_group
+    state: 'not_home'
+  action:
+    service: notify.mobile_app_pixel_2_xl
+    data:
+      message: "The garage has been left open"
+      data:
+        color: 'red'
+        actions:
+          - action: "close_garage" # The key you are sending for the event
+            title: "Close Garage Door" # The button title
+
+- alias: Close the garage when notification action is tapped
+  trigger:
+    platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: close_garage
+  action:
+    service: cover.close_cover
+    entity_id: cover.garage_door
+
+
+- alias: Test TTS
+  trigger:
+    platform: state
+    entity_id: light.desk_light
+    to: 'off'
+  action:
+    service: notify.mobile_app_pixel_2_xl
+    data:
+      message: "Test TTS"
+      data:
+        color: 'red' #'#2DF56D'
+        actions:
+          - action: "TTS_MESSAGE" # The key you are sending for the event
+            title: "Test TTS" # The button title
+- alias: '[Android] notification TTS button'
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: TTS_MESSAGE
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.office_google
+        volume_level: '0.20'
+    - service: tts.google_say
+      entity_id: media_player.office_google
+      data_template:
+        message: '{{ trigger.event.data["textInput"] }}'
+# # IOS AUTOMATIONS
+- alias: '[IOS] Camera Motion Front'
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.wyzesense_77878ecb
+    from: 'off'
+    to: 'on'
+  action:
+    service: notify.mobile_app_donna_s_iphone
+    data:
+      title: ALERT
+      message: Someone is at the Front Door
+      data:
+        attachment:
+          content-type: jpeg
+        push:
+          category: camera
+        entity_id: camera.front_door
+- alias: '[IOS] trigger the alarm'
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: ios.notification_action_fired
+    event_data:
+      actionName: TRIGGER_ALARM
+  action:
+    service: script.home_mode_trigger
+- alias: '[IOS] turn on front lights'
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: ios.notification_action_fired
+    event_data:
+      actionName: FRONT_LIGHTS
+  action:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.backyard
+- alias: '[IOS] turn on backyard lights'
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: ios.notification_action_fired
+    event_data:
+      actionName: BACK_LIGHTS
+  action:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.backyard
+- alias: '[IOS] notification TTS button'
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: ios.notification_action_fired
+    event_data:
+      actionName: TTS_MESSAGE
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.foyer_speaker
+        volume_level: '0.80'
+    - service: tts.google_say
+      entity_id: media_player.foyer_speaker
+      data_template:
+        message: '{{ trigger.event.data["textInput"] }}'
