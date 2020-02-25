@@ -5,15 +5,290 @@
 - platform: !secret light_platform
   username: !secret light_username
   password: !secret light_password
-#  name: "Fireplace light"
-#  state_topic: "Fireplace/light/status"
-#  command_topic: "Fireplace/light/switch"
-#  brightness_state_topic: 'Fireplace/light/brightness'
-#  brightness_command_topic: 'Fireplace/light/brightness/set'
-#  qos: 0
-#  payload_on: "ON"
-#  payload_off: "OFF"
-#  optimistic: false
+
+- platform: mqtt
+  name: "Bathtub Light"
+  command_topic: "cmnd/tasmota13/POWER"
+  state_topic: "tele/tasmota13/STATE"
+  state_value_template: "{{value_json.POWER}}"
+  availability_topic: "tele/tasmota13/LWT"
+  brightness_command_topic: "cmnd/tasmota13/Dimmer"
+  brightness_state_topic: "tele/tasmota13/STATE"
+  brightness_scale: 100
+  on_command_type: "brightness"
+  brightness_value_template: "{{value_json.Dimmer}}"
+  white_value_state_topic: "tele/tasmota13/STATE"
+  white_value_command_topic: "cmnd/tasmota13/white"
+  white_value_scale: 100
+  white_value_template: "{{ value_json.Channel[3] }}"
+  rgb_command_topic: "cmnd/tasmota13/Color2"
+  rgb_state_topic: "tele/tasmota13/STATE"
+  rgb_value_template: "{{value_json.Color.split(',')[0:3]|join(',')}}"
+  effect_command_topic: "cmnd/tasmota13/Scheme"
+  effect_state_topic: "tele/tasmota13/STATE"
+  effect_value_template: "{{value_json.Scheme}}"
+  effect_list:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  qos: 1
+  retain: false
+
+- platform: mqtt
+  name: "Donnas Light"
+  command_topic: "cmnd/tasmota14/POWER"
+  state_topic: "tele/tasmota14/STATE"
+  state_value_template: "{{value_json.POWER}}"
+  availability_topic: "tele/tasmota14/LWT"
+  brightness_command_topic: "cmnd/tasmota14/Dimmer"
+  brightness_state_topic: "tele/tasmota14/STATE"
+  brightness_scale: 100
+  on_command_type: "brightness"
+  brightness_value_template: "{{value_json.Dimmer}}"
+  white_value_state_topic: "tele/tasmota14/STATE"
+  white_value_command_topic: "cmnd/tasmota14/white"
+  white_value_scale: 100
+  white_value_template: "{{ value_json.Channel[3] }}"
+  rgb_command_topic: "cmnd/tasmota14/Color2"
+  rgb_state_topic: "tele/tasmota14/STATE"
+  rgb_value_template: "{{value_json.Color.split(',')[0:3]|join(',')}}"
+  effect_command_topic: "cmnd/tasmota14/Scheme"
+  effect_state_topic: "tele/tasmota14/STATE"
+  effect_value_template: "{{value_json.Scheme}}"
+  effect_list:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  qos: 1
+  retain: false
+
+- platform: mqtt
+  name: "Darrens Light"
+  command_topic: "cmnd/tasmota12/POWER"
+  state_topic: "tele/tasmota12/STATE"
+  state_value_template: "{{value_json.POWER}}"
+  availability_topic: "tele/tasmota12/LWT"
+  brightness_command_topic: "cmnd/tasmota12/Dimmer"
+  brightness_state_topic: "tele/tasmota12/STATE"
+  brightness_scale: 100
+  on_command_type: "brightness"
+  brightness_value_template: "{{value_json.Dimmer}}"
+  white_value_state_topic: "tele/tasmota12/STATE"
+  white_value_command_topic: "cmnd/tasmota12/white"
+  white_value_scale: 100
+  white_value_template: "{{ value_json.Channel[3] }}"
+  rgb_command_topic: "cmnd/tasmota12/Color2"
+  rgb_state_topic: "tele/tasmota12/STATE"
+  rgb_value_template: "{{value_json.Color.split(',')[0:3]|join(',')}}"
+  effect_command_topic: "cmnd/tasmota12/Scheme"
+  effect_state_topic: "tele/tasmota12/STATE"
+  effect_value_template: "{{value_json.Scheme}}"
+  effect_list:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  qos: 1
+  retain: false
+
+- platform: mqtt
+  name: "OfficeDimmer"
+  state_topic: "stat/OfficeDimmer/POWER"
+  command_topic: "cmnd/OfficeDimmer/POWER"
+  availability_topic: "tele/OfficeDimmer/LWT"
+  brightness_state_topic: "stat/OfficeDimmer/RESULT"
+  brightness_command_topic: "cmnd/OfficeDimmer/Dimmer"
+  brightness_scale: 100
+  brightness_value_template: "{{ value_json.Dimmer }}"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  retain: false
+
+- platform: mqtt
+  name: "Office 4 Light"
+  command_topic: "cmnd/sonoff74/POWER"
+  state_topic: "tele/sonoff74/STATE"
+  state_value_template: "{{value_json.POWER}}"
+  availability_topic: "tele/sonoff74/LWT"
+  brightness_command_topic: "cmnd/sonoff74/Dimmer"
+  brightness_state_topic: "tele/sonoff74/STATE"
+  brightness_scale: 100
+  on_command_type: "brightness"
+  brightness_value_template: "{{value_json.Dimmer}}"
+  color_temp_command_topic: "cmnd/sonoff74/CT"
+  color_temp_state_topic: "tele/sonoff74/STATE"
+  color_temp_value_template: "{{value_json.CT}}"
+  rgb_command_topic: "cmnd/sonoff74/Color2"
+  rgb_state_topic: "tele/sonoff74/STATE"
+  rgb_value_template: "{{value_json.Color.split(',')[0:3]|join(',')}}"
+  effect_command_topic: "cmnd/sonoff74/Scheme"
+  effect_state_topic: "tele/sonoff74/STATE"
+  effect_value_template: "{{value_json.Scheme}}"
+  effect_list:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  qos: 1
+  retain: false
+
+- platform: mqtt
+  name: "Office 3 Light"
+  command_topic: "cmnd/sonoff73/POWER"
+  state_topic: "tele/sonoff73/STATE"
+  state_value_template: "{{value_json.POWER}}"
+  availability_topic: "tele/sonoff73/LWT"
+  brightness_command_topic: "cmnd/sonoff73/Dimmer"
+  brightness_state_topic: "tele/sonoff73/STATE"
+  brightness_scale: 100
+  on_command_type: "brightness"
+  brightness_value_template: "{{value_json.Dimmer}}"
+  color_temp_command_topic: "cmnd/sonoff73/CT"
+  color_temp_state_topic: "tele/sonoff73/STATE"
+  color_temp_value_template: "{{value_json.CT}}"
+  rgb_command_topic: "cmnd/sonoff73/Color2"
+  rgb_state_topic: "tele/sonoff73/STATE"
+  rgb_value_template: "{{value_json.Color.split(',')[0:3]|join(',')}}"
+  effect_command_topic: "cmnd/sonoff73/Scheme"
+  effect_state_topic: "tele/sonoff73/STATE"
+  effect_value_template: "{{value_json.Scheme}}"
+  effect_list:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  qos: 1
+  retain: false
+
+- platform: mqtt
+  name: "Office 2 Light"
+  command_topic: "cmnd/sonoff72/POWER"
+  state_topic: "tele/sonoff72/STATE"
+  state_value_template: "{{value_json.POWER}}"
+  availability_topic: "tele/sonoff72/LWT"
+  brightness_command_topic: "cmnd/sonoff72/Dimmer"
+  brightness_state_topic: "tele/sonoff72/STATE"
+  brightness_scale: 100
+  on_command_type: "brightness"
+  brightness_value_template: "{{value_json.Dimmer}}"
+  color_temp_command_topic: "cmnd/sonoff72/CT"
+  color_temp_state_topic: "tele/sonoff72/STATE"
+  color_temp_value_template: "{{value_json.CT}}"
+  rgb_command_topic: "cmnd/sonoff72/Color2"
+  rgb_state_topic: "tele/sonoff72/STATE"
+  rgb_value_template: "{{value_json.Color.split(',')[0:3]|join(',')}}"
+  effect_command_topic: "cmnd/sonoff72/Scheme"
+  effect_state_topic: "tele/sonoff72/STATE"
+  effect_value_template: "{{value_json.Scheme}}"
+  effect_list:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  qos: 1
+  retain: false
+
+- platform: mqtt
+  name: "Office 1 Light"
+  command_topic: "cmnd/sonoff71/POWER"
+  state_topic: "tele/sonoff71/STATE"
+  state_value_template: "{{value_json.POWER}}"
+  availability_topic: "tele/sonoff71/LWT"
+  brightness_command_topic: "cmnd/sonoff71/Dimmer"
+  brightness_state_topic: "tele/sonoff71/STATE"
+  brightness_scale: 100
+  on_command_type: "brightness"
+  brightness_value_template: "{{value_json.Dimmer}}"
+  color_temp_command_topic: "cmnd/sonoff71/CT"
+  color_temp_state_topic: "tele/sonoff71/STATE"
+  color_temp_value_template: "{{value_json.CT}}"
+  rgb_command_topic: "cmnd/sonoff71/Color2"
+  rgb_state_topic: "tele/sonoff71/STATE"
+  rgb_value_template: "{{value_json.Color.split(',')[0:3]|join(',')}}"
+  effect_command_topic: "cmnd/sonoff71/Scheme"
+  effect_state_topic: "tele/sonoff71/STATE"
+  effect_value_template: "{{value_json.Scheme}}"
+  effect_list:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  qos: 1
+  retain: false
+
+- platform: mqtt
+  name: "Reading Light"
+  command_topic: "cmnd/sonoff70/POWER"
+  state_topic: "tele/sonoff70/STATE"
+  state_value_template: "{{value_json.POWER}}"
+  availability_topic: "tele/sonoff70/LWT"
+  brightness_command_topic: "cmnd/sonoff70/Dimmer"
+  brightness_state_topic: "tele/sonoff70/STATE"
+  brightness_scale: 100
+  on_command_type: "brightness"
+  brightness_value_template: "{{value_json.Dimmer}}"
+  white_value_state_topic: "tele/sonoff70/STATE"
+  white_value_command_topic: "cmnd/sonoff70/White"
+  white_value_scale: 100
+  white_value_template: "{{ value_json.Channel[3] }}"
+  rgb_command_topic: "cmnd/sonoff70/Color2"
+  rgb_state_topic: "tele/sonoff70/STATE"
+  rgb_value_template: "{{value_json.Color.split(',')[0:3]|join(',')}}"
+  effect_command_topic: "cmnd/sonoff70/Scheme"
+  effect_state_topic: "tele/sonoff70/STATE"
+  effect_value_template: "{{value_json.Scheme}}"
+  effect_list:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  qos: 1
+  retain: false
 
 - platform: mqtt
   name: "Corner Light"
@@ -28,6 +303,24 @@
   brightness_command_topic: "cmnd/sonoff20/DIMMER"
   brightness_scale: 100
   color_temp_command_topic: "cmnd/sonoff20/CT"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: false
+
+- platform: mqtt
+  name: "Desk Light"
+  command_topic: "cmnd/tasmota11/POWER"
+  state_topic: "stat/tasmota11/POWER"
+  rgb_state_topic: "stat/tasmota11/color"
+  rgb_command_topic: "cmnd/tasmota11/color"
+  brightness_state_topic: "stat/tasmota11/dimmer"
+  brightness_command_topic: "cmnd/tasmota11/dimmer"
+  brightness_scale: 100
+  color_temp_state_topic: "stat/tasmota11/CT"
+  color_temp_command_topic: "cmnd/tasmota11/CT"
   qos: 1
   payload_available: "Online"
   payload_not_available: "Offline"
@@ -93,6 +386,21 @@
   brightness_state_topic: "stat/sonoff39/dimmer"
   brightness_value_template: "{{ value_json.brightness }}"
   brightness_command_topic: "cmnd/sonoff39/dimmer"
+  qos: 1
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: false
+
+- platform: mqtt
+  name: "Den Nite Light 5"
+  command_topic: "cmnd/sonoff80/power2"
+  state_topic: "stat/sonoff80/POWER2"
+  availability_topic: "tele/sonoff80/LWT"
+  brightness_state_topic: "stat/sonoff80/dimmer"
+  brightness_value_template: "{{ value_json.brightness }}"
+  brightness_command_topic: "cmnd/sonoff80/dimmer"
   qos: 1
   payload_available: "Online"
   payload_not_available: "Offline"
@@ -209,10 +517,6 @@
   entity_id: switch.living_room_lamp
 
 - platform: switch
-  name: Office Ceiling Light
-  entity_id: switch.office_ceiling_light
-
-- platform: switch
   name: Patio Light
   entity_id: switch.patio_light
 
@@ -256,18 +560,31 @@
   name: Bathroom Mirror
   entity_id: switch.bathroom_mirror_light
 
+- platform: switch
+  name: Ensuite Ceiling Light
+  entity_id: switch.ensuite_ceiling
+
+- platform: group
+  name: Office Ceiling
+  entities:
+    - light.office_1_light
+    - light.office_2_light
+    - light.office_3_light
+    - light.office_4_light
+    - light.officedimmer
+
 - platform: group
   name: Office Lamps
   entities:
     - light.corner_light
     - light.bed_light
-    - light.22507506807d3a4c9f35 # office desk light
+    - light.desk_light
 
 - platform: group
   name: Bedroom Lamps
   entities:
-    - light.22507506807d3a4cab3f # darrens lamp
-    - light.22507506807d3a4c9e4b # donnas lamp
+    - light.darrens_light
+    - light.donnas_light
 
 - platform: group
   name: Bathroom Lights
@@ -286,33 +603,3 @@
   payload_on: "ON"
   payload_off: "OFF"
   retain: false
-#############################################################
-#- platform: mqtt
-#  name: "Driveway Lights LED"
-#  command_topic: "cmnd/sonoff07/power2"
-#  state_topic: "stat/sonoff07/POWER2"
-#  availability_topic: "tele/sonoff07/LWT"
-#  brightness_state_topic: "stat/sonoff07/dimmer"
-#  brightness_value_template: "{{ value_json.brightness }}"
-#  brightness_command_topic: "cmnd/sonoff07/dimmer"
-#  qos: 1
-#  payload_available: "Online"
-#  payload_not_available: "Offline"
-#  payload_on: "ON"
-#  payload_off: "OFF"
-#  retain: false
-
-#- platform: mqtt
-#  name: "Bed Light"
-#  command_topic: "cmnd/sonoff21/power"
-#  state_topic: "stat/sonoff21/POWER"
-#  rgb_state_topic: "stat/sonoff21/color"
-#  rgb_command_topic: "cmnd/sonoff21/color"
-#  brightness_state_topic: "stat/sonoff21/dimmer"
-#  brightness_command_topic: "cmnd/sonoff21/dimmer"
-#  color_temp_state_topic: "stat/sonoff21/CT"
-#  color_temp_command_topic: "cmnd/sonoff21/CT"
-#  qos: 1
-#  payload_on: "ON"
-#  payload_off: "OFF"
-#  retain: true
