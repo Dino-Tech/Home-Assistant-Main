@@ -31,30 +31,6 @@ panel_iframe:
 hacs:
   token: !secret hacs_github_access_token
 
-browser_mod:
-  devices:
-    b8aaadb3-e68ea920:
-      name: OfficePC
-    8cbac5dd-062b044f:
-      name: OfficeTab LAN
-      camera: true
-    0ac1b283-1a747210:
-      name: OfficeTab Cloud
-    c24cca85-af3b9088:
-      name: Kiosk
-    f59cee22-ba136e06:
-      name: Pixel LAN
-    bcd1ca7c-85b2d4da:
-      name: Pixel DNS
-    41aa9a6f-34c805e0:
-      name: Pixel Cloud
-    0bb0d449-a8e944da:
-      name: Pixel VPN
-    d75a5595-2777b7c8:
-      name: Pixel Fully
-    a7f0fc12-e87bc650:
-      name: iPhone Cloud
-
 updater:
 
 recorder:
@@ -81,11 +57,11 @@ recorder:
       - sensor.date_time_iso
       - sensor.daylight
 
-stream:
-
 discovery:
   ignore:
     - igd
+
+mobile_app:
 
 config_check:
 
@@ -101,11 +77,6 @@ remote_homeassistant:
       secure: false
       access_token: !secret remote_access_token
       entity_prefix: "remote_"
-    - host: 192.168.1.130
-      port: 8123
-      secure: false
-      access_token: !secret remote2_access_token
-      entity_prefix: "remote2_"
 
 conversation:
 
@@ -135,6 +106,18 @@ life360:
   warning_threshold: 2
   error_threshold: 3
 
+spotify:
+  client_id: !secret spotify_client_id
+  client_secret: !secret spotify_client_secret
+
+spotcast:
+  username: !secret spotify_username
+  password: !secret spotify_password
+
+sonoff:
+  username: !secret sonoff_username
+  password: !secret sonoff_password
+
 tuya:
   username: !secret TUYA_USERNAME
   password: !secret TUYA_PASSWORD
@@ -148,32 +131,12 @@ google:
   client_id: !secret google_client_id
   client_secret: !secret google_client_secret
 
-zone 2:
+zone:
   name: !secret zone2_name
   latitude: !secret zone2_latitude
   longitude: !secret zone2_longitude
   radius: 240
-
-person:
-  - name: Darren
-    id: darren2017
-    user_id: !secret user_id_darren
-    device_trackers:
-      - device_tracker.darren
-      - device_tracker.b4_f1_da_b7_29_f7
-      - device_tracker.life360_darren_wilson
-  - name: Donna
-    id: donna2012
-    user_id: !secret user_id_donna
-    device_trackers:
-      - device_tracker.donna
-      - device_tracker.78_9f_70_ba_e0_3f
-      - device_tracker.life360_donna_wilson
-  - name: Tristan
-    id: tristan2019
-    device_trackers:
-      - device_tracker.tristan
-      - device_tracker.44_91_60_d9_8f_a2
+  icon: mdi:office-building
 
 tts:
   - platform: google_translate
@@ -187,7 +150,7 @@ alarm_control_panel:
     name: "HA Alarm"
     code: !secret alarm_code
     pending_time: 30
-    delay_time: 20
+    delay_time: 0
     trigger_time: 1800
     disarm_after_trigger: false
     disarmed:
@@ -201,9 +164,29 @@ alarm_control_panel:
       pending_time: 0
       delay_time: 0
 
+rest_command:
+  assistant_broadcast:
+    url: http://192.168.1.134:3000/assistant
+    method: POST
+    content_type: 'application/json'
+    payload: '{"command":"{{ command }}", "user":"Darren", "broadcast":true}'
+
+  assistant_converse:
+    url: http://192.168.1.134:3000/assistant
+    method: POST
+    content_type: 'application/json'
+    payload: '{"command":"{{ command }}", "user":"Darren", "converse":true}'
+
+  assistant_relay:
+    url: http://192.168.1.134:3000/assistant
+    method: POST
+    content_type: 'application/json'
+    payload: '{"command":"{{ command }}", "user":"Darren"}'
+
 alert: !include includes/alert.yaml
 automation: !include automations.yaml
 binary_sensor: !include includes/binary_sensor.yaml
+browser_mod: !include includes/browser_mod.yaml
 camera: !include includes/camera.yaml
 cloud: !include includes/cloud.yaml
 cover: !include includes/cover.yaml
@@ -218,7 +201,8 @@ konnected: !include includes/konnected.yaml
 light: !include includes/light.yaml
 logbook: !include includes/logbook.yaml
 notify: !include includes/notify.yaml
-scene: !include includes/scenes.yaml
+person: !include includes/person.yaml
+scene: !include scenes.yaml
 script: !include scripts.yaml
 sensor: !include includes/sensor.yaml
 # shelly: !include includes/shelly.yaml
