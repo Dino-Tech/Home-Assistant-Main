@@ -1,0 +1,20 @@
+---
+#  device_tracker:
+- platform: nmap_tracker
+  hosts:
+    - !secret nmap_host_p1
+    - !secret nmap_host_p2
+    - !secret nmap_host_p3
+  home_interval: 05
+  exclude:
+   - !secret hass_ip
+   - !secret hass_ip2
+   - !secret hass_ip3
+  interval_seconds: 30
+  consider_home: 180
+  new_device_defaults:
+    track_new_devices: true
+- platform: ping
+  hosts:
+    darren: !secret nmap_host_p1
+    donna: !secret nmap_host_p2
