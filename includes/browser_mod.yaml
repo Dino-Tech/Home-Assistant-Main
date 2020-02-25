@@ -1,0 +1,28 @@
+---
+#  browser_mod:
+devices:
+  b8aaadb3-e68ea920:
+    name: OfficePC
+  8cbac5dd-062b044f:
+    name: OfficeTab LAN
+    camera: true
+  0ac1b283-1a747210:
+    name: OfficeTab Cloud
+  fd68105a-90201f9b:
+    name: Kiosk
+  f59cee22-ba136e06:
+    name: Pixel LAN
+  bcd1ca7c-85b2d4da:
+    name: Pixel DNS
+  41aa9a6f-34c805e0:
+    name: Pixel Cloud
+  0bb0d449-a8e944da:
+    name: Pixel VPN
+  <REDACTED>:
+    name: Pixel Fully
+  d0dcba7b-0da5e40c:
+    name: Pixel App
+  d106f695-c56e2826:
+    name: Pixel App Cloud
+  11dd1ea7-f0bd9392:
+    name: iPhone Cloud
