@@ -5,6 +5,7 @@
   platform: group
   services:
     - service: ios_donnas_iphone
+    - service: mobile_app_pixel_2_xl
     - service: darren
 
 # pushbullet
