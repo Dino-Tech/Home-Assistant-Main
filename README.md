@@ -37,16 +37,16 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 |8                |51      |86              |76        |106          |163      |319      |36       | 
 
 ### Cameras(8):
-* [Wyze Cam v2(8)](https://amzn.to/368p8LI)
-* [Wyze Pan Cam(1)](https://amzn.to/2MEaPH5)
-* [Wyze Cam Outdoor Mounts(3 pack)](https://amzn.to/366oIW9)
+* [Wyze Cam v2(8)](https://amzn.to/37YiBmY)
+* [Wyze Pan Cam(1)](https://amzn.to/32pzF4r)
+* [Wyze Cam Outdoor Mounts(3 pack)](https://amzn.to/2uqpqA3)
 
 ### Thermostat:
-* [Google Nest Thermostat](https://amzn.to/37QDaCn)
+* [Google Nest Thermostat](https://amzn.to/3c5xzLn)
 
 ### Power Supply(4):
-* [3 Prong UPS](https://amzn.to/35IZEna)
-* [2 Prong UPS](https://amzn.to/2FFdf4A)
+* [3 Prong UPS](https://amzn.to/2TbixLs)
+* [2 Prong UPS](https://amzn.to/38XIWD8)
 
 ### Device Trackers:
 * [NMAP](https://www.home-assistant.io/components/nmap_tracker/)
@@ -56,9 +56,9 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 * [Life360](https://www.home-assistant.io/components/life360/) *(for GPS and battery statuses & HA iOS App)*
 
 ### Google Homes & Assistant Powered Devices(15) 
-* [Google Hub](https://amzn.to/2Rb1acO)  (1)
-* [Google Home](https://amzn.to/2FFHt7A) (2)
-* [Google Home Mini](https://amzn.to/2tJbkJA) (6) 
+* [Google Hub](https://amzn.to/2ut1b4r)  (1)
+* [Google Home](https://amzn.to/2Tfozuj) (2)
+* Google Home Mini (6) 
 * Zolo mini (1) 
 * Insignia (2) 
 * Insignia portable (1) 
@@ -67,7 +67,7 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 
 *(used for voice controlled Lovelace screen commands/device control)*
 
-* [Google WiFi 3 Point Mesh System](https://amzn.to/35Hsd4k) 
+* [Google WiFi 3 Point Mesh System](https://amzn.to/2PlSVKI) 
 *(currently supporting 119 devices)*
 
 ### Tablets:
@@ -75,11 +75,11 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 * Android 7"(1) - wall mounted alarm panel keypad
 
 ### Security:
-* [Konnected alarm](http://amzn.to/2YIlunM) - 18 zone system
-* [Sonoff RF Bridge](https://amzn.to/2QHLHlt) - running tasmota
-* [Sonoff PIR Motion Sensors](https://amzn.to/2QEsjFL)
-* [IR Pyroelectric Infrared PIR Motion Sensors](https://amzn.to/2NglV5o)
-* [Wyzesense Motion & Contact sensors(camera kit)](https://amzn.to/2ZzJo6s)
+* [Konnected alarm](https://amzn.to/3c6k12c) - 18 zone system
+* [Sonoff RF Bridge](https://amzn.to/2VkO68o) - running tasmota
+* [Sonoff PIR Motion Sensors](https://amzn.to/37XHAXN)
+* [IR Pyroelectric Infrared PIR Motion Sensors](https://amzn.to/3c4SBd1)
+* [Wyzesense Motion & Contact sensors(camera kit)](https://amzn.to/3a1ONr1)
 * (24 sensors total - used for alarm, automations & tablet 'ON' & 'OFF' functions)
 
 # Screenshots
