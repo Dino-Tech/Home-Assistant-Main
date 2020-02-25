@@ -170,8 +170,8 @@
 - alias: 'Update Template Sensors'
   initial_state: true
   trigger:
-      platform: time_pattern
-      minutes: '/59'
+    platform: time_pattern
+    minutes: '/59'
   action:
     - service: homeassistant.update_entity
       entity_id:
@@ -1539,7 +1539,6 @@
   action:
     service: cover.close_cover
     entity_id: cover.garage_door
-
 
 - alias: Test TTS
   trigger:
