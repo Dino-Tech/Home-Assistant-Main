@@ -18,15 +18,16 @@ person_group:
 darren_presence:
   name: Darren Presence
   entities:
-    - device_tracker.b4_f1_da_b7_29_f7 # darren
+    - device_tracker.darren_nmap
     - device_tracker.darren
     - device_tracker.pixel_2_xl
+    - device_tracker.hasskit_pixel_2_xl
     - device_tracker.life360_darren_wilson
 
 donna_presence:
   name: Donna Presence
   entities:
-    - device_tracker.78_9f_70_ba_e0_3f # donna
+    - device_tracker.donna_nmap
     - device_tracker.donna
     - device_tracker.donna_s_iphone
     - device_tracker.life360_donna_wilson
@@ -40,15 +41,15 @@ tristan_presence:
 # light groups
 bedroom_lamps:
   entities:
-    - light.22507506807d3a4cab3f # darrens lamp
-    - light.22507506807d3a4c9e4b # donnas lamp
+    - light.darrens_light
+    - light.donnas_light
     - light.salt_light
 
 bedroom_lights:
   entities:
     - switch.bedroom_ceiling_light
-    - light.22507506807d3a4cab3f # darrens lamp
-    - light.22507506807d3a4c9e4b # donnas lamp
+    - light.darrens_light
+    - light.donnas_light
     - light.salt_light
 
 front_yard:
@@ -93,26 +94,13 @@ guest_lights:
 
 office_lights:
   entities:
-    - switch.office_ceiling_light
-    - light.22507506807d3a4c9f35 # office desk light
-    - switch.desk_back_light
+    - light.office_ceiling
+    - light.officedimmer
+    - light.office_lamps
     - light.corner_light
     - light.bed_light
-
-office_lamps_switch:
-  entities:
-    - light.22507506807d3a4c9f35 # office desk light
-    - light.corner_light
-    - light.bed_light
-
-christmas_lights:
-  name: Christmas Lights
-  entities:
-    - switch.subwoofer
-    - switch.office_work_bench
-    - light.foyer_accent_lights
-    - light.patio_accent_lights
-    - light.side_display
+    - light.reading_light
+    - light.desk_back_light
 
 living_room_lights:
   name: Living Room Lights
@@ -126,37 +114,39 @@ lights:
   name: Lights
   entities:
     - light.fireplace_lights
+    - light.office_ceiling
+    - light.officedimmer
+    - light.office_lamps
     - light.corner_light
     - light.bed_light
+    - light.reading_light
+    - light.desk_back_light
     - light.hallway_night_light
     - light.hallway_night_light
-    - light.kitchen_night_light
+    - light.den_night_light_5
     - light.hall_night_light
     - light.den_night_light
     - light.mbath_night_light
     - light.salt_light
+    - light.sink_light
     - switch.foyer_accent_lights
     - switch.living_room_lamp
     - switch.living_room_ceiling_light
     - switch.tv_accent_lights
     - switch.foyer_light
     - switch.hallway_switch
-    - light.22507506807d3a4c9f35 # office_desk_light
-    - light.22507506807d3a4c9e4b # donnas lamp
-    - light.22507506807d3a4cab3f # darrens lamp
+    - light.desk_light
+    - light.donnas_light
+    - light.darrens_light
+    - light.bathtub_light
     - switch.bedroom_ceiling_light
-    - switch.office_ceiling_light
-    - switch.office_lamps
     - switch.guest_ceiling_light
     - switch.spare_room_lamp
-    - switch.office_desk_lamp
-    - switch.desk_back_light
     - switch.coffee_light
     - switch.ceiling_right
     - switch.ceiling_left
     - switch.ceiling_center
     - switch.table_light
-    - switch.kitchen_sink_light
     - light.cabinet_lights
     - switch.kitchen_cabinet_lights
     - switch.kitchen_stove_light
@@ -184,7 +174,6 @@ night_switches:
     - switch.test_kld
     - switch.printer
     - switch.office_sound
-    - switch.office_video
     - switch.spare_room_outlet
     - switch.coffee_maker
     - switch.fountain
@@ -199,7 +188,7 @@ night_switches:
 # alarm groups
 alarm_lights:
   entities:
-    - switch.office_ceiling_light
+    - light.office_ceiling
     - switch.ceiling_center
     - switch.bedroom_ceiling_light
     - switch.living_room_ceiling_light
@@ -210,7 +199,7 @@ alarm_lights:
 
 alarm_triggered_lights:
   entities:
-    - switch.office_ceiling_light
+    - light.officedimmer
     - switch.ceiling_center
     - switch.bedroom_ceiling_light
     - switch.living_room_ceiling_light
@@ -221,6 +210,7 @@ alarm_triggered_lights:
     - switch.table_light
     - switch.front_flood_lights
     - switch.back_flood_lights
+    - light.office_lamps
 
 all_doors_away:
   name: Door Sensors
@@ -236,6 +226,7 @@ all_doors_home:
     - binary_sensor.wyzesense_7780f0b4
     - binary_sensor.back_door_k
     - binary_sensor.side_door_k
+    - binary_sensor.wyzesense_7780f0c5
 
 all_windows:
   name: Window Sensors
@@ -269,17 +260,11 @@ motion:
     - binary_sensor.mbath_glass_break
     - binary_sensor.mbath_motion
     - binary_sensor.movement
-    - binary_sensor.office_motion
+    - binary_sensor.wyzesense_77933ddc # Office Motion 1
+    - binary_sensor.wyzesense_7793f9df # Office Motion
     - binary_sensor.wyzesense_77802215 # Hall Bath Motion
     - binary_sensor.wyzesense_778168e9 # Laundry
     - binary_sensor.wyzesense_7787900d # kitchen 1
     - binary_sensor.wyzesense_77878a66 # kitchen 2
     - binary_sensor.wyzesense_77878ecb # porch
     - binary_sensor.wyzesense_778797dc # entry hall
-# media_player groups
-office_notify:
-  name: Office Media Group
-  entities:
-    - media_player.pixel_fully
-    - media_player.office_mini
-    - media_player.office_google
