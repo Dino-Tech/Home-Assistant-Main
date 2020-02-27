@@ -15,7 +15,7 @@
   </h4>
 </div>
 <p><font size="3">
-This Repo is designed for Smart Home inspiration.  The configuration, devices and layout should help inspire your journey into the IOT world.  This is a working configuration of <strong>my Smart Home</strong>.  All of the code is free to use and contribute to. This readme is inspired from the great documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a>
+This Repo is designed for Smart Home inspiration.  The configuration, devices and layout should help inspire your journey into the IoT world.  This is a working configuration of <strong>my Smart Home</strong>.  All of the code is free to use and contribute to. This readme is inspired from the great documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a>
 
 ![Screenshot of Home Assistant Header](https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed2.jpg)
 <hr>
@@ -81,6 +81,14 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 * [IR Pyroelectric Infrared PIR Motion Sensors](https://amzn.to/3c4SBd1)
 * [Wyzesense Motion & Contact sensors(camera kit)](https://amzn.to/3a1ONr1)
 * (24 sensors total - used for alarm, automations & tablet 'ON' & 'OFF' functions)
+
+<p align="center">
+<a target="_blank" href="https://www.amazon.com/ref=as_li_ss_tl?ie=UTF8&linkCode=sl2&tag=affordabl010e-20&linkId=edc037bbc9ecc01ca3aecb57a85081ec&language=en_US">Find your next Home Automation device on Amazon using my affiliate link</a>
+<br />
+<a href="https://www.affordableautomating.com/affiliate-disclosure">
+Affiliate Disclosure
+</a>
+</p>
 
 # Screenshots
 
