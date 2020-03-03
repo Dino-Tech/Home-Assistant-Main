@@ -29,12 +29,12 @@ You can message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) o
 
 If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me on GitHub](https://github.com/sponsors/Dino-Tech) or <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a> :pray: <br> I'm not doing this for free :coffee:, but I do get tired :stuck_out_tongue_winking_eye: 
 
-### I'm currently running [Home Assistant](https://home-assistant.io) version __0.105.5__ on a RPi4B.
+### I'm currently running [Home Assistant](https://home-assistant.io) version __0.106.3__ on a RPi4B.
 
 # A Few Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
 |:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------:|
-|8                |51      |86              |76        |106          |163      |319      |36       | 
+|8                |62      |109             |83        |109          |146      |352      |38       | 
 
 ### Cameras(8):
 * [Wyze Cam v2(8)](https://amzn.to/37YiBmY)
@@ -71,7 +71,8 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 *(currently supporting 119 devices)*
 
 ### Tablets:
-* Insignia 10.1"(2) - (currently 1 wall mounted & 1 in office for screen designing)
+* [Vankyo MatrixPad Z4 10 inch Tablet, Android](https://amzn.to/39iRdBN) - Main Kiosk running TinyCam webserver for Wyze cams
+* Insignia 10.1"(2) - (wall mounted & 1 in office and 1 in Ensuite bathroom)
 * Android 7"(1) - wall mounted alarm panel keypad
 
 ### Security:
@@ -116,7 +117,7 @@ Main panel has auto-changing background images, sleep and wake functions that ar
 
 The result is like having 30 different views that can be accessed via *_one_* main screen... with one path, `/lovelace/0` without having to navigate to another view and that was my goal! *(see aditional picture 'Pop-up' gallery link below)*
 
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/30.png" />
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu9.2.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/32.png" />
 
 #### iPhone 6 Mobile Login *(restricted views access)*
