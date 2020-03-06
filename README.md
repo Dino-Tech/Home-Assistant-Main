@@ -29,7 +29,7 @@ You can message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) o
 
 If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me on GitHub](https://github.com/sponsors/Dino-Tech) or <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a> :pray: <br> I'm not doing this for free :coffee:, but I do get tired :stuck_out_tongue_winking_eye: 
 
-### I'm currently running [Home Assistant](https://home-assistant.io) version __0.106.4__ on a RPi4B.
+### I'm currently running [Home Assistant](https://home-assistant.io) version __0.106.5__ on a RPi4B.
 
 # A Few Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
@@ -75,13 +75,17 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 * Insignia 10.1"(2) - (wall mounted & 1 in office and 1 in Ensuite bathroom)
 * Android 7"(1) - wall mounted alarm panel keypad
 
-### Security:
+### Security & Safety:
 * [Konnected alarm](https://amzn.to/3c6k12c) - 18 zone system
 * [Sonoff RF Bridge](https://amzn.to/2VkO68o) - running tasmota
 * [Sonoff PIR Motion Sensors](https://amzn.to/37XHAXN)
 * [IR Pyroelectric Infrared PIR Motion Sensors](https://amzn.to/3c4SBd1)
 * [Wyzesense Motion & Contact sensors(camera kit)](https://amzn.to/3a1ONr1)
-* (24 sensors total - used for alarm, automations & tablet 'ON' & 'OFF' functions)
+* (24 motion sensors total - for alarm, automations & tablet 'ON' & 'OFF' functions)
+* [First Alert ZCOMBO 2-in-1 Smoke Detector & Carbon Monoxide Alarm](https://amzn.to/2wDgo3G)
+* [Smartthings Intgration](https://www.home-assistant.io/integrations/smartthings/) + [Konnected Intgration](https://www.home-assistant.io/integrations/konnected/)
+* 24/7 Protection by [Noonlight](https://www.noonlight.com/) monitoring services for smoke, CO and alarm.
+* [Smartthings v3 HUB](https://amzn.to/2Ingn6v) - (currently used for Zwave)
 
 <p align="center">
 <a target="_blank" href="https://www.amazon.com/ref=as_li_ss_tl?ie=UTF8&linkCode=sl2&tag=affordabl010e-20&linkId=edc037bbc9ecc01ca3aecb57a85081ec&language=en_US">Find your next Home Automation device on Amazon using my affiliate link</a>
