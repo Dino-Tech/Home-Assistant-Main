@@ -27,20 +27,20 @@ This Repo is designed for Smart Home inspiration.  The configuration, devices an
 <table align="center" border="0">
 <tr><td colspan="4">
 
-You can message me via [Discord #Frontend channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180) if you have any questions or recommendations in regards to my repository! 
-
-If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me on GitHub](https://github.com/sponsors/Dino-Tech) or <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a><br>
-
 ### I'm currently running [Home Assistant](https://home-assistant.io) version __0.106.5__ on a RPi4B.
 
-## Tracked Stats On my Setup:
+You can message me via [Discord #Frontend channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180) if you have any questions or recommendations in regards to my repository! 
+
+### Tracked Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
 |:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------:|
 |8                |62      |109             |83        |109          |146      |352      |38       | 
 
+If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me on GitHub](https://github.com/sponsors/Dino-Tech) or <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a><br>
+
 <tr><td colspan="4">
 
-#### Wyze Products and Accessories <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://raw.githubusercontent.com/CCOSTAN/Home-AssistantConfig/master/config/www/custom_ui/floorplan/images/branding/up_arrow.png" width="22" ></a>
+#### Wyze Products and Accessories <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -60,11 +60,11 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 </td><td align="center"><a href="https://www.amazon.com/dp/B07DW8G22H/ref=as_li_ss_il?coliid=I2FROQ6QRPI3TL&colid=1J0HMQVGS9EQT&psc=1&ref_=lv_ov_lig_dp_it&linkCode=li1&tag=affordabl010e-20&linkId=a024074afd59e9fbecba99c927f9737f&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07DW8G22H&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07DW8G22H" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
 <tr><td colspan="4">
 
-The Wyze cameras are running through a [Vankyo MatrixPad Z4 10 inch Tablet, Android](https://amzn.to/39iRdBN) on a TinyCam webserver, which is also my Main Kiosk. Then added to Home Assistant's [MJPEG IP Camera](https://www.home-assistant.io/integrations/mjpeg/) integration for display through [Lovelace](https://www.home-assistant.io/lovelace/) frontend.
+The Wyze cameras are running on a [tinyCam PRO](https://play.google.com/store/apps/details?id=com.alexvas.dvr.pro&hl=en_US) webserver through a [Vankyo MatrixPad Z4 10 inch Tablet, Android](https://amzn.to/39iRdBN), which is also my Main Kiosk. Then added to Home Assistant's [MJPEG IP Camera](https://www.home-assistant.io/integrations/mjpeg/) integration for display through [Lovelace](https://www.home-assistant.io/lovelace/) frontend.
 
 <tr><td colspan="4">
 
-#### Nest Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://raw.githubusercontent.com/CCOSTAN/Home-AssistantConfig/master/config/www/custom_ui/floorplan/images/branding/up_arrow.png" width="22" ></a>
+#### Nest Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -84,11 +84,31 @@ The Wyze cameras are running through a [Vankyo MatrixPad Z4 10 inch Tablet, Andr
 </td><td align="center"><a href="https://www.amazon.com/Samsung-SmartThings-Generation-GP-U999SJVLGDA-Automation/dp/B07FJGGWJL/ref=as_li_ss_il?ascsub&cv_ct_cx=smartthings+hub&cv_ct_id=amzn1.osa.0b7a89ed-905c-493d-9c60-dbb29c80e93b.ATVPDKIKX0DER.en_US&cv_ct_pg=search&cv_ct_wn=osp-search&keywords=smartthings+hub&pd_rd_i=B07FJGGWJL&pd_rd_r=0882fb08-d6f8-4f32-8455-0651faa78674&pd_rd_w=p6sXK&pd_rd_wg=CU8DN&pf_rd_p=eb3e5cda-5ec9-4d94-919d-310a5d641b8b&pf_rd_r=V6FEE0RDY7DMMYSXMJFR&qid=1583824231&s=electronics&linkCode=li1&tag=affordabl010e-20&linkId=2257abfe333af7d87992429b78344c2d&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07FJGGWJL&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07FJGGWJL" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
 <tr><td colspan="4">
 
-The Nest thermostats and Protects basically run themselves. The sensors are tracked and the 'away' and 'home' modes are set with scripts via Home Assistant's [Person](https://www.home-assistant.io/components/person/) integration for occupancy verification.
+The Nest thermostats and Protects basically run themselves. The sensors are tracked and the ***'away'*** and ***'home'*** modes are set with scripts via Home Assistant's [Person](https://www.home-assistant.io/components/person/) integration for occupancy verification.
 
-### Power Supply(4):
-* [3 Prong UPS](https://amzn.to/2TbixLs)
-* [2 Prong UPS](https://amzn.to/38XIWD8)
+<tr><td colspan="4">
+
+#### Networking and Battery Backups <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
+</td></tr>
+<tr><td align="center">
+
+[Google WiFi 3 Point Mesh System](https://amzn.to/2PlSVKI)
+</td><td align="center">
+
+[Netgear 16-Port](https://amzn.to/3aGQH0E)
+</td><td align="center">
+
+[600VA UPS](https://amzn.to/335JG7b)
+</td><td align="center">
+
+[425VA UPS](https://amzn.to/2Q4dHit)</td></tr>
+<tr><td align="center"><a href="https://www.amazon.com/Google-WiFi-system-3-Pack-replacement/dp/B01MAW2294/ref=as_li_ss_il?keywords=google+wifi&qid=1578682492&s=electronics&sr=1-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFaNVlLQ09DR1JTRTUmZW5jcnlwdGVkSWQ9QTAzMDg2NzUzVlpGU1dSTkFBUDdVJmVuY3J5cHRlZEFkSWQ9QTA1NDk0MjMyVjZQTks0RTY0M0tPJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==&linkCode=li1&tag=affordabl010e-20&linkId=06f04e4d6586cb23295fc0ed8dc616ce&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01MAW2294&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B01MAW2294" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/NETGEAR-Ethernet-Unmanaged-Lifetime-Protection/dp/B01AX8XHRQ/ref=as_li_ss_il?ie=UTF8&qid=1519509807&sr=8-3&keywords=16+port+gigabit+switch&th=1&linkCode=li1&tag=affordabl010e-20&linkId=82fb52e0668fed16970592562dba3e1d&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01AX8XHRQ&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B01AX8XHRQ" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/dp/B01FWAZEIU/ref=as_li_ss_il?ie=UTF8&linkCode=li1&tag=affordabl010e-20&linkId=c39afada3609470427262fe218a5349d&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01FWAZEIU&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B01FWAZEIU" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/APC-Battery-Protector-Uninterruptible-BE425M/dp/B01HDC236Q/ref=as_li_ss_il?ie=UTF8&linkCode=li1&tag=affordabl010e-20&linkId=c70e33c6a51aacf01614e908cd6b299b&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01HDC236Q&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B01HDC236Q" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+<tr><td colspan="4">
+
+This area will definitely get an upgrade as the need arises. I have as many devices hardwired as possible and the Google WiFi mesh points maintain the other 126 WiFi clients. Speedtests come in around average of 434 Mpbs. I haven't had any issues so far to push me to switch.
 
 ### Device Trackers:
 * [NMAP](https://www.home-assistant.io/components/nmap_tracker/)
@@ -105,14 +125,11 @@ The Nest thermostats and Protects basically run themselves. The sensors are trac
 * Insignia (2) 
 * Insignia portable (1) 
 * Google Chromecast (3rd Generation) (1)
-* Google Chromecast Ultra (1)
-
-* [Google WiFi 3 Point Mesh System](https://amzn.to/2PlSVKI) 
-*(currently supporting 119 devices)*
+* [Google Chromecast Ultra](https://amzn.to/2vUyKwV)
 
 ### Tablets:
 * [Vankyo MatrixPad Z4 10 inch Tablet, Android](https://amzn.to/39iRdBN) - Main Kiosk running TinyCam webserver for Wyze cams
-* Insignia 10.1"(2) - (wall mounted & 1 in office and 1 in Ensuite bathroom)
+* [Insignia 10.1"(2)](https://amzn.to/2W2CuHs) - (wall mounted & 1 in office and 1 in Ensuite bathroom)
 * Android 7"(1) - wall mounted alarm panel keypad
 
 ### Security & Safety:
@@ -123,14 +140,6 @@ The Nest thermostats and Protects basically run themselves. The sensors are trac
 * (24 motion sensors total - for alarm, automations & tablet 'ON' & 'OFF' functions)
 * [Smartthings Intgration](https://www.home-assistant.io/integrations/smartthings/) + [Konnected Intgration](https://www.home-assistant.io/integrations/konnected/)
 * 24/7 Protection by [Noonlight](https://www.noonlight.com/) monitoring services for smoke, CO and alarm.
-
-<p align="center">
-<a target="_blank" href="https://www.amazon.com/ref=as_li_ss_tl?ie=UTF8&linkCode=sl2&tag=affordabl010e-20&linkId=edc037bbc9ecc01ca3aecb57a85081ec&language=en_US">Find your next Home Automation device on Amazon using my affiliate link</a>
-<br />
-<a href="https://www.affordableautomating.com/affiliate-disclosure">
-Affiliate Disclosure
-</a>
-</p>
 
 # Screenshots
 
@@ -156,7 +165,7 @@ Affiliate Disclosure
 ### Main Kiosk Screen *(Fully Kiosk Browser)*
 Main panel has auto-changing background images, sleep and wake functions that are controlled via motion, time of day/night,  voice activated and presence detection. The display is minimal to keep the screen less cluttered so backgrounds are more visible when kiosk is idle. The background image behind the calendar section also displays the cover artwork when Spotify is playing...
 
-The result is like having 30 different views that can be accessed via *_one_* main screen... with one path, `/lovelace/0` without having to navigate to another view and that was my goal! *(see additional picture 'Pop-up' gallery link below)*
+The result is like having 30 different views that can be accessed via *_one_* main screen... with one path, `/lovelace/0` without having to navigate to another view and that was my goal! *(see additional [Tablet Pop-ups](https://imgur.com/a/tbY9HW2) gallery)*
 
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu9.2.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/32.png" />
@@ -170,5 +179,10 @@ The result is like having 30 different views that can be accessed via *_one_* ma
 ### Desktop Login *(desk menu with all areas access)*
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/Desk%20Menu.jpg" />
 
-### Pop-up Images Gallery
-* [Tablet Pop-ups](https://imgur.com/a/tbY9HW2)
+<p align="center">
+<a target="_blank" href="https://www.amazon.com/ref=as_li_ss_tl?ie=UTF8&linkCode=sl2&tag=affordabl010e-20&linkId=edc037bbc9ecc01ca3aecb57a85081ec&language=en_US">Find your next Home Automation device on Amazon using my affiliate link</a>
+<br />
+<a href="https://www.affordableautomating.com/affiliate-disclosure">
+Affiliate Disclosure
+</a>
+</p>
