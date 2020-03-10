@@ -24,17 +24,43 @@ This Repo is designed for Smart Home inspiration.  The configuration, devices an
     <a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br>
   </h4>
 </div>
+<table align="center" border="0">
+<tr><td colspan="4">
 
 You can message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180) if you have any questions or recommendations in regards to my repository! 
 
-If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me on GitHub](https://github.com/sponsors/Dino-Tech) or <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a> :pray: <br> I'm not doing this for free :coffee:, but I do get tired :stuck_out_tongue_winking_eye: 
+If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me on GitHub](https://github.com/sponsors/Dino-Tech) or <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a><br>
 
 ### I'm currently running [Home Assistant](https://home-assistant.io) version __0.106.5__ on a RPi4B.
 
-# A Few Stats On my Setup:
+## Tracked Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
 |:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------:|
 |8                |62      |109             |83        |109          |146      |352      |38       | 
+
+<tr><td colspan="4">
+
+#### Nest Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://raw.githubusercontent.com/CCOSTAN/Home-AssistantConfig/master/config/www/custom_ui/floorplan/images/branding/up_arrow.png" width="22" ></a>
+</td></tr>
+<tr><td align="center">
+
+[Nest Protects](https://amzn.to/2wKsJmm)
+</td><td align="center">
+
+[Nest Thermostats](https://amzn.to/2TVTw7v)
+</td><td align="center">
+
+[First Alert ZCOMBO 2-in-1](https://amzn.to/2VZ9JLv)
+</td><td align="center">
+
+[SmartThings Hub](https://amzn.to/3375O0E)</td></tr>
+<tr><td align="center"><a href="https://www.amazon.com/Nest-Protect-smoke-carbon-monoxide/dp/B00XV1RCRY/ref=as_li_ss_il?s=hi&ie=UTF8&qid=1493663203&sr=1-1&keywords=nest+protect&th=1&linkCode=li1&tag=affordabl010e-20&linkId=066dd1ecbf9bbb3a485123d3a4919095&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00XV1RCRY&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B00XV1RCRY" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/Nest-T3007ES-Thermostat-Temperature-Generation/dp/B0131RG6VK/ref=as_li_ss_il?crid=ZSLA595O4ZIU&keywords=nest+thermostat&qid=1583823746&s=hi&sprefix=nest+thermosta,tools,291&sr=1-4&linkCode=li1&tag=affordabl010e-20&linkId=a636835e145d8c96fea8253e13b8343b&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0131RG6VK&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B0131RG6VK" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/dp/B00KMHXFAI/ref=as_li_ss_il?coliid=I1MG0NHLDL0KIT&colid=1J0HMQVGS9EQT&psc=1&ref_=lv_ov_lig_dp_it&linkCode=li1&tag=affordabl010e-20&linkId=492054c2cb35deaa0ed6d9600a81f573&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00KMHXFAI&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B00KMHXFAI" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/Samsung-SmartThings-Generation-GP-U999SJVLGDA-Automation/dp/B07FJGGWJL/ref=as_li_ss_il?ascsub&cv_ct_cx=smartthings+hub&cv_ct_id=amzn1.osa.0b7a89ed-905c-493d-9c60-dbb29c80e93b.ATVPDKIKX0DER.en_US&cv_ct_pg=search&cv_ct_wn=osp-search&keywords=smartthings+hub&pd_rd_i=B07FJGGWJL&pd_rd_r=0882fb08-d6f8-4f32-8455-0651faa78674&pd_rd_w=p6sXK&pd_rd_wg=CU8DN&pf_rd_p=eb3e5cda-5ec9-4d94-919d-310a5d641b8b&pf_rd_r=V6FEE0RDY7DMMYSXMJFR&qid=1583824231&s=electronics&linkCode=li1&tag=affordabl010e-20&linkId=2257abfe333af7d87992429b78344c2d&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07FJGGWJL&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07FJGGWJL" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+<tr><td colspan="4">
+
+The Nest thermostats and Protects basically run themselves. The sensors are tracked and the 'away' and 'home' modes are set with scripts via Home Assistant's [Person](https://www.home-assistant.io/components/person/) integration for occupancy verification.
 
 ### Cameras(8):
 * [Wyze Cam v2(8)](https://amzn.to/37YiBmY)
@@ -53,7 +79,7 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 * [Bluetooth Tracker](https://www.home-assistant.io/components/bluetooth_tracker/)
 * [Ping (ICMP)](https://www.home-assistant.io/components/ping/)
 * [Person](https://www.home-assistant.io/components/person/)
-* [Life360](https://www.home-assistant.io/components/life360/) *(for GPS and battery statuses & HA iOS App)*
+* [Life360](https://www.home-assistant.io/components/life360/)
 
 ### Google Homes & Assistant Powered Devices(15) 
 * [Google Hub](https://amzn.to/2ut1b4r)  (1)
@@ -64,8 +90,6 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 * Insignia portable (1) 
 * Google Chromecast (3rd Generation) (1)
 * Google Chromecast Ultra (1)
-
-*(used for voice controlled Lovelace screen commands/device control)*
 
 * [Google WiFi 3 Point Mesh System](https://amzn.to/2PlSVKI) 
 *(currently supporting 119 devices)*
@@ -104,7 +128,7 @@ Affiliate Disclosure
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/main1.3.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu1.1.2.jpg" />
 
-#### **A total of 8 *'click-to-change'* theme colors, fully integrated with all popups, screens and custom cards...**
+#### **A total of 12 *'click-to-change'* theme colors, fully integrated with all popups, screens and custom cards...**
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu_1.1.3.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu8.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu2.1.jpg" />
@@ -116,18 +140,18 @@ Affiliate Disclosure
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu9.1.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu4.1.jpg" />
 
-### Main Kiosk Screen *(restricted access)*
-Main panel has auto-changing background images, sleep and wake functions that are controlled via motion, time of day/night,  voice activated and presence detection. The drop down selection keeps the screen less cluttered until needed for selecting popups to view so backgrounds are more visible when kiosk is idle....
+### Main Kiosk Screen *(Fully Kiosk Browser)*
+Main panel has auto-changing background images, sleep and wake functions that are controlled via motion, time of day/night,  voice activated and presence detection. The display is minimal to keep the screen less cluttered so backgrounds are more visible when kiosk is idle. The background image behind the calendar section also displays the cover artwork when Spotify is playing...
 
-The result is like having 30 different views that can be accessed via *_one_* main screen... with one path, `/lovelace/0` without having to navigate to another view and that was my goal! *(see aditional picture 'Pop-up' gallery link below)*
+The result is like having 30 different views that can be accessed via *_one_* main screen... with one path, `/lovelace/0` without having to navigate to another view and that was my goal! *(see additional picture 'Pop-up' gallery link below)*
 
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu9.2.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/32.png" />
 
-#### iPhone 6 Mobile Login *(restricted views access)*
+#### iPhone 6 Mobile Login *(kiosk mode only)*
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/iPhone.jpg" />
 
-#### Guest Access Mobile Login *(restricted access)*
+#### Guest Access Mobile Login *(kiosk mode only)*
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/mobile_screens1.jpg" />
 
 ### Desktop Login *(desk menu with all areas access)*
