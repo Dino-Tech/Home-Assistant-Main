@@ -27,7 +27,7 @@ This Repo is designed for Smart Home inspiration.  The configuration, devices an
 <table align="center" border="0">
 <tr><td colspan="4">
 
-You can message me via [Discord #Lovelace channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180) if you have any questions or recommendations in regards to my repository! 
+You can message me via [Discord #Frontend channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180) if you have any questions or recommendations in regards to my repository! 
 
 If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me on GitHub](https://github.com/sponsors/Dino-Tech) or <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a><br>
 
@@ -37,6 +37,30 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
 |:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------:|
 |8                |62      |109             |83        |109          |146      |352      |38       | 
+
+<tr><td colspan="4">
+
+#### Wyze Products and Accessories <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://raw.githubusercontent.com/CCOSTAN/Home-AssistantConfig/master/config/www/custom_ui/floorplan/images/branding/up_arrow.png" width="22" ></a>
+</td></tr>
+<tr><td align="center">
+
+[Wyze Cam v2(8)](https://amzn.to/37YiBmY)
+</td><td align="center">
+
+[Wyze Cam Pan(1)](https://amzn.to/32pzF4r)
+</td><td align="center">
+
+[Wyzesense Sensors](https://amzn.to/3a1ONr1)
+</td><td align="center">
+
+[Outdoor Mounts](https://amzn.to/2uqpqA3)</td></tr>
+<tr><td align="center"><a href="https://www.amazon.com/Wyze-Indoor-Wireless-Detection-Assistant/dp/B076H3SRXG/ref=as_li_ss_il?crid=3DE9GM2BWGKBW&keywords=wyze+cam+v2&pd_rd_i=B076H3SRXG&pd_rd_r=4b19599e-bf14-431d-a44a-f5b8ed2c50aa&pd_rd_w=EtL74&pd_rd_wg=4d6GI&pf_rd_p=a7bfb983-e674-4caa-917b-596cc469ad1f&pf_rd_r=CF0V7SM8R1YSPVR62JNG&qid=1577601281&sprefix=wyze,aps,182&tag=&linkCode=li1&tag=affordabl010e-20&linkId=5f2bbb0ab33c371d4061d4c26532139c&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B076H3SRXG&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B076H3SRXG" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/Wyze-1080p-Indoor-Camera-Vision/dp/B07DGR98VQ/ref=as_li_ss_il?crid=3TL0GP8YJ14V3&keywords=wyze+cam+pan&qid=1577601469&s=electronics&sprefix=wyze+cam,electronics,326&sr=1-3&tag=&linkCode=li1&tag=affordabl010e-20&linkId=1ca4c1a1b19b10318766050eb5dc8754&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07DGR98VQ&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07DGR98VQ" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/Wyze-1080P-Indoor-Camera-Starter/dp/B07R3H3N97/ref=as_li_ss_il?keywords=wyzesense&qid=1577602189&s=electronics&sr=1-3&linkCode=li1&tag=affordabl010e-20&linkId=0d7d226e2546a078dcb1b4936ce3c5d3&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07R3H3N97&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07R3H3N97" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/dp/B07DW8G22H/ref=as_li_ss_il?coliid=I2FROQ6QRPI3TL&colid=1J0HMQVGS9EQT&psc=1&ref_=lv_ov_lig_dp_it&linkCode=li1&tag=affordabl010e-20&linkId=a024074afd59e9fbecba99c927f9737f&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07DW8G22H&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07DW8G22H" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+<tr><td colspan="4">
+
+The Wyze cameras are running through a [Vankyo MatrixPad Z4 10 inch Tablet, Android](https://amzn.to/39iRdBN) on a TinyCam webserver, which is also my Main Kiosk. Then added to Home Assistant's [MJPEG IP Camera](https://www.home-assistant.io/integrations/mjpeg/) integration for display through [Lovelace](https://www.home-assistant.io/lovelace/) frontend.
 
 <tr><td colspan="4">
 
@@ -61,14 +85,6 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me o
 <tr><td colspan="4">
 
 The Nest thermostats and Protects basically run themselves. The sensors are tracked and the 'away' and 'home' modes are set with scripts via Home Assistant's [Person](https://www.home-assistant.io/components/person/) integration for occupancy verification.
-
-### Cameras(8):
-* [Wyze Cam v2(8)](https://amzn.to/37YiBmY)
-* [Wyze Pan Cam(1)](https://amzn.to/32pzF4r)
-* [Wyze Cam Outdoor Mounts(3 pack)](https://amzn.to/2uqpqA3)
-
-### Thermostat:
-* [Google Nest Thermostat](https://amzn.to/3c5xzLn)
 
 ### Power Supply(4):
 * [3 Prong UPS](https://amzn.to/2TbixLs)
@@ -104,12 +120,9 @@ The Nest thermostats and Protects basically run themselves. The sensors are trac
 * [Sonoff RF Bridge](https://amzn.to/2VkO68o) - running tasmota
 * [Sonoff PIR Motion Sensors](https://amzn.to/37XHAXN)
 * [IR Pyroelectric Infrared PIR Motion Sensors](https://amzn.to/3c4SBd1)
-* [Wyzesense Motion & Contact sensors(camera kit)](https://amzn.to/3a1ONr1)
 * (24 motion sensors total - for alarm, automations & tablet 'ON' & 'OFF' functions)
-* [First Alert ZCOMBO 2-in-1 Smoke Detector & Carbon Monoxide Alarm](https://amzn.to/2wDgo3G)
 * [Smartthings Intgration](https://www.home-assistant.io/integrations/smartthings/) + [Konnected Intgration](https://www.home-assistant.io/integrations/konnected/)
 * 24/7 Protection by [Noonlight](https://www.noonlight.com/) monitoring services for smoke, CO and alarm.
-* [Smartthings v3 HUB](https://amzn.to/2Ingn6v) - (currently used for Zwave)
 
 <p align="center">
 <a target="_blank" href="https://www.amazon.com/ref=as_li_ss_tl?ie=UTF8&linkCode=sl2&tag=affordabl010e-20&linkId=edc037bbc9ecc01ca3aecb57a85081ec&language=en_US">Find your next Home Automation device on Amazon using my affiliate link</a>
