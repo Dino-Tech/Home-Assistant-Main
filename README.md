@@ -4,7 +4,7 @@
 <h1 align="center">
   My Home Assistant Configuration
 </h1>
-<h4 align="center">Be sure to :star: my repo so you can keep up to date on the daily progress!</h4>
+<h4 align="center">Be sure to :star: my repo so you can keep current on the frequent progress!</h4>
 <div align="center">
   <h4 align="center">
     <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master"/></a>
@@ -27,20 +27,60 @@ This Repo is designed for Smart Home inspiration.  The configuration, devices an
 <table align="center" border="0">
 <tr><td colspan="4">
 
-### I'm currently running [Home Assistant](https://home-assistant.io) version __0.106.5__ on a RPi4B.
+<h2 align="center">
+Currently operating <a href="https://home-assistant.io">Home Assistant </a> version 0.106.5 on a <a href="https://amzn.to/39JfIZc">RPi4B </a>
+</h2>
 
-You can message me via [Discord #Frontend channel](https://discord.gg/aYTW2Z9) or the [HomeAssistant forums](https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180) if you have any questions or recommendations in regards to my repository! 
+<div align="center"><a name="menu"></a>
+  <h4>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main">
+      Code
+    </a>
+    <span> | </span>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main#wyze-products-and-accessories-">
+      Devices
+    </a>
+    <span> | </span>
+    <a href="https://twitter.com/DarrenW96969730">
+      Follow Me on Twitter
+    </a>
+    <span> | </span>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main#screenshots">
+      Screenshots
+    </a>
+    <span> | </span>
+    <a href="https://www.youtube.com/channel/UCrSoN-g4sH1ADQq3A9f-Gzw?view_as=subscriber">
+      Youtube
+    </a>
+  </h4>
+</div>
 
-### Tracked Stats On my Setup:
-| Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Alerts  |
-|:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------:|
-|8                |62      |109             |83        |109          |146      |352      |38       | 
+</td></tr>
+<tr><td colspan="4">
 
-If you would like to show your support, you can :heart:&nbsp;&nbsp;[Sponsor me on GitHub](https://github.com/sponsors/Dino-Tech) or <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a><br>
+<p align="center">
+  You can message me via <a href="https://discord.gg/aYTW2Z9">Discord #Frontend </a> channel or my <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180">HomeAssistant forums </a> if you have any questions or recommendations in regards to my repository! 
+<a>
+</p>
 
 <tr><td colspan="4">
 
-#### Wyze Products and Accessories <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
+<p align="center">
+If you would like to show your support, you can :heart:&nbsp;&nbsp;<a href="https://github.com/sponsors/Dino-Tech">Sponsor me on GitHub </a> or <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/9lTxIVgZ3"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a><br>
+<a>
+</p>
+
+</td></tr>
+<tr><td colspan="4">
+
+#### Tracked Stats On my Setup:
+| Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors |     Alerts    |
+|:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------------:|
+|8                |62      |109             |83        |109          |146      |352      |  38           | 
+
+<tr><td colspan="4">
+
+#### Wyze Products and Accessories <a name="wyze" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -88,7 +128,7 @@ The Nest thermostats and Protects basically run themselves. The sensors are trac
 
 <tr><td colspan="4">
 
-#### Networking and Battery Backups <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
+#### Networking and Battery Backups <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -110,27 +150,38 @@ The Nest thermostats and Protects basically run themselves. The sensors are trac
 
 This area will definitely get an upgrade as the need arises. I have as many devices hardwired as possible and the Google WiFi mesh points maintain the other 126 WiFi clients. Speedtests come in around average of 434 Mpbs. I haven't had any issues so far to push me to switch.
 
+<tr><td colspan="4">
+
+#### Displays and Google Assisted Devices <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
+</td></tr>
+<tr><td align="center">
+
+[MatrixPad Z4](https://amzn.to/39iRdBN)
+</td><td align="center">
+
+[Insignia 10.1"](https://amzn.to/2W2CuHs)
+</td><td align="center">
+
+[Google Hub](https://amzn.to/2ut1b4r)
+</td><td align="center">
+
+[Google Home](https://amzn.to/2Tfozuj)</td></tr>
+<tr><td align="center"><a href="https://www.amazon.com/dp/B07TBM1SVR/ref=as_li_ss_il?coliid=I2TN43NC9NB8YO&colid=1J0HMQVGS9EQT&psc=1&ref_=lv_ov_lig_dp_it&linkCode=li1&tag=affordabl010e-20&linkId=0e538d552e6ea0aa0d24bd5fcff6362f&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07TBM1SVR&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07TBM1SVR" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/INSIGNIA-Windows-Tablet-Screeen-Keyboard/dp/B078JXMK5D/ref=as_li_ss_il?crid=1AUHP0OWQOQ6Z&keywords=insignia+10.1+tablet&qid=1583863339&sprefix=Insignia+10.1,aps,342&sr=8-4&linkCode=li1&tag=affordabl010e-20&linkId=a4379485a0c3f734149dcd0be384686e&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B078JXMK5D&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B078JXMK5D" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/New-Google-Home-Hub-Controller/dp/B07XB3FK2N/ref=as_li_ss_il?keywords=google+hub&qid=1578681746&s=electronics&sr=1-3&linkCode=li1&tag=affordabl010e-20&linkId=ea38a018444a455c8d47438e9396f18a&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07XB3FK2N&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07XB3FK2N" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/Google-Smart-Speaker-Assistant-White/dp/B07THDWHH3/ref=as_li_ss_il?crid=3CCWCYH2N3OMR&keywords=google+home+smart+speaker+with+google+assistant&qid=1578682084&s=electronics&sprefix=Google+Home+Smart+Speaker,electronics,304&sr=1-3&linkCode=li1&tag=affordabl010e-20&linkId=a30d87131ba8366e36ca3a823dfcf1ed&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07THDWHH3&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07THDWHH3" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+<tr><td colspan="4">
+
+A total of 14 Google Assisted speakers do a nice job of filling the house with sound and 2 [Google Chromecasts](https://amzn.to/2vUyKwV) on the main televisions. Audio is usually played via [Spotcast](https://github.com/fondberg/spotcast) component and controlled with a fullscreen popup of [Mini-media-player](https://github.com/kalkih/mini-media-player). The popup background displays the cover artwork while Spotify player is in use, while at the same time the kiosk main calendar displays the same images. I just recently started using the [Assistant Relay](https://greghesp.github.io/assistant-relay/) component and I am liking it a lot!!! Will update with new ways I use it in the future updates.
+
+The kiosk automations and scripts will be linked here.
+
 ### Device Trackers:
 * [NMAP](https://www.home-assistant.io/components/nmap_tracker/)
 * [Bluetooth Tracker](https://www.home-assistant.io/components/bluetooth_tracker/)
 * [Ping (ICMP)](https://www.home-assistant.io/components/ping/)
 * [Person](https://www.home-assistant.io/components/person/)
 * [Life360](https://www.home-assistant.io/components/life360/)
-
-### Google Homes & Assistant Powered Devices(15) 
-* [Google Hub](https://amzn.to/2ut1b4r)  (1)
-* [Google Home](https://amzn.to/2Tfozuj) (2)
-* Google Home Mini (6) 
-* Zolo mini (1) 
-* Insignia (2) 
-* Insignia portable (1) 
-* Google Chromecast (3rd Generation) (1)
-* [Google Chromecast Ultra](https://amzn.to/2vUyKwV)
-
-### Tablets:
-* [Vankyo MatrixPad Z4 10 inch Tablet, Android](https://amzn.to/39iRdBN) - Main Kiosk running TinyCam webserver for Wyze cams
-* [Insignia 10.1"(2)](https://amzn.to/2W2CuHs) - (wall mounted & 1 in office and 1 in Ensuite bathroom)
-* Android 7"(1) - wall mounted alarm panel keypad
 
 ### Security & Safety:
 * [Konnected alarm](https://amzn.to/3c6k12c) - 18 zone system
@@ -162,10 +213,16 @@ This area will definitely get an upgrade as the need arises. I have as many devi
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu9.1.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu4.1.jpg" />
 
-### Main Kiosk Screen *(Fully Kiosk Browser)*
+<tr><td colspan="4">
+
+### Main Kiosk Screen *(Fully Kiosk Browser)*<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
+
 Main panel has auto-changing background images, sleep and wake functions that are controlled via motion, time of day/night,  voice activated and presence detection. The display is minimal to keep the screen less cluttered so backgrounds are more visible when kiosk is idle. The background image behind the calendar section also displays the cover artwork when Spotify is playing...
 
 The result is like having 30 different views that can be accessed via *_one_* main screen... with one path, `/lovelace/0` without having to navigate to another view and that was my goal! *(see additional [Tablet Pop-ups](https://imgur.com/a/tbY9HW2) gallery)*
+
+</td></tr>
+<tr><td colspan="4">
 
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu9.2.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/32.png" />
