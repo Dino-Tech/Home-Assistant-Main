@@ -1,21 +1,19 @@
-<p align="center">
-  <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif">
-</p>
+<p align="center"><img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif"></p>
 <h1 align="center">
   My Home Assistant Configuration
 </h1>
 <h4 align="center">Be sure to :star: my repo so you can keep current on the frequent progress!</h4>
-<div align="center">
-  <h4 align="center">
-    <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master"/></a>
-    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr"/></a>
-    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plasticr"/></a>
-<a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-RebeccaPurple?style=plasticr"/></a>
-<a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master"><img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=plasticr"/></a>
+<h4 align="center">
+  <a href="https://img.shields.io/badge/Home%20Assistant-0.106.6-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-0.106.6-blue.svg?style=plasticr"/> </a>
+  <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master"/> </a>
+  <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr"/> </a>
+  <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plasticr" /> </a>
+  <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-RebeccaPurple?style=plasticr"/> </a>
+  <a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master"><img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=plasticr"/> </a>
   </h4>
 </div>
-<p><font size="3">
-This Repo is designed for Smart Home inspiration.  The configuration, devices and layout should help inspire your journey into the IoT world.  This is a working configuration of <strong>my Smart Home</strong>.  All of the code is free to use and contribute to. This readme is inspired from the great documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a>
+<p align="center"><font size="3">
+This Repo is designed for Smart Home and Lovelace UI inspiration.   The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world.  This is a working configuration of <strong>my Smart Home</strong> and <strong>my Lovelace designs</strong>.  All of the code is free to use and contribute to. <br>This readme was inspired from the awesome documentation and efforts of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></p>
 
 ![Screenshot of Home Assistant Header](https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed2.jpg)
 <hr>
@@ -28,7 +26,7 @@ This Repo is designed for Smart Home inspiration.  The configuration, devices an
 <tr><td colspan="4">
 
 <h2 align="center">
-Currently operating <a href="https://home-assistant.io">Home Assistant </a> version 0.106.5 on a <a href="https://amzn.to/39JfIZc">RPi4B </a>
+Currently operating <a href="https://home-assistant.io">Home Assistant </a> version 0.106.6 on a <a href="https://amzn.to/39JfIZc">RPi4B </a>
 </h2>
 
 <div align="center"><a name="menu"></a>
@@ -80,7 +78,7 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;<a href="http
 
 <tr><td colspan="4">
 
-#### Wyze Products and Accessories <a name="wyze" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
+#### Wyze Products and Accessories <a name="wyze" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="26" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -104,7 +102,7 @@ The Wyze cameras are running on a [tinyCam PRO](https://play.google.com/store/ap
 
 <tr><td colspan="4">
 
-#### Nest Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
+#### Nest Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="26" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -114,7 +112,7 @@ The Wyze cameras are running on a [tinyCam PRO](https://play.google.com/store/ap
 [Nest Thermostats](https://amzn.to/2TVTw7v)
 </td><td align="center">
 
-[First Alert ZCOMBO 2-in-1](https://amzn.to/2VZ9JLv)
+[First Alert ZCOMBO](https://amzn.to/2VZ9JLv)
 </td><td align="center">
 
 [SmartThings Hub](https://amzn.to/3375O0E)</td></tr>
@@ -128,11 +126,11 @@ The Nest thermostats and Protects basically run themselves. The sensors are trac
 
 <tr><td colspan="4">
 
-#### Networking and Battery Backups <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
+#### Networking and Battery Backups <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="26" ></a>
 </td></tr>
 <tr><td align="center">
 
-[Google WiFi 3 Point Mesh System](https://amzn.to/2PlSVKI)
+[Google WiFi](https://amzn.to/2PlSVKI)
 </td><td align="center">
 
 [Netgear 16-Port](https://amzn.to/3aGQH0E)
@@ -152,7 +150,7 @@ This area will definitely get an upgrade as the need arises. I have as many devi
 
 <tr><td colspan="4">
 
-#### Displays and Google Assisted Devices <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
+#### Displays and Google Assisted Devices <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="26" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -176,21 +174,38 @@ A total of 14 Google Assisted speakers do a nice job of filling the house with s
 
 The kiosk automations and scripts will be linked here.
 
-### Device Trackers:
+<tr><td colspan="4">
+
+#### Konnected Alarm <a name="alarm" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="26" ></a>
+</td></tr>
+<tr><td align="center">
+
+[Konnected alarm](https://amzn.to/3c6k12c)
+</td><td align="center">
+
+[Sonoff RF Bridge](https://amzn.to/2VkO68o)
+</td><td align="center">
+
+[Sonoff PIR Motion](https://amzn.to/37XHAXN)
+</td><td align="center">
+
+[PIR Motion Sensors](https://amzn.to/3c4SBd1)</td></tr>
+<tr><td align="center"><a href="https://www.amazon.com/Konnected-Alarm-Panel-System-Conversion/dp/B07P6DBV8F/ref=as_li_ss_il?keywords=konnected+alarm&qid=1558851250&s=gateway&sr=8-9&linkCode=li1&tag=affordabl010e-20&linkId=d808a9cfd426ee702b9594c2788087c4&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07P6DBV8F&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07P6DBV8F" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/SONOFF-Bridge-Wireless-Controllers-Automation/dp/B07CWTT8R1/ref=as_li_ss_il?keywords=sonoff+rf+bridge&qid=1558851458&s=gateway&sr=8-1-spons&psc=1&linkCode=li1&tag=affordabl010e-20&linkId=118a452d2cc3489970810720dee63246&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07CWTT8R1&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07CWTT8R1" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/Sonoff-Wireless-Infrared-Detector-Security/dp/B07CVXGQ64/ref=as_li_ss_il?keywords=rf+pir+motion&qid=1558851759&s=gateway&sr=8-2-spons&psc=1&linkCode=li1&tag=affordabl010e-20&linkId=b04771e35d2d7a34b55b697165ff8e2a&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07CVXGQ64&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07CVXGQ64" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</td><td align="center"><a href="https://www.amazon.com/dp/B07GJDJV63/ref=as_li_ss_il?coliid=I1NEBYIV0BQWFO&colid=1J0HMQVGS9EQT&psc=0&ref_=lv_ov_lig_dp_it&linkCode=li1&tag=affordabl010e-20&linkId=9c64049d02997a62d7b8299a99104ae2&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07GJDJV63&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07GJDJV63" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+<tr><td colspan="4">
+
+Our house is protected by an 18 zone Konnected alarm system and HA's [Manual MQTT Alarm](https://www.home-assistant.io/integrations/manual_mqtt/). Using 24 motion, 5 door sensors and a glass break detector in combination with voice and text notifications through Home Assistant to provide the alerts needed. I recently added another layer of security with 24/7 Protection by [Noonlight](https://www.noonlight.com/) monitoring services for smoke, CO and alarm, for the extra piece of mind if we are unresponsive to our mobile phones at the time of an unfortunate event. This was accomplished via [Smartthings Intgration](https://www.home-assistant.io/integrations/smartthings/) + [Konnected Intgration](https://www.home-assistant.io/integrations/konnected/) which gives me an additional sensor and switch that triggers [Noonlight's](https://www.noonlight.com/) dispatch to use in my automations.
+
+The alarm automations and scripts will be linked here.
+
+### Presence Detection:
 * [NMAP](https://www.home-assistant.io/components/nmap_tracker/)
 * [Bluetooth Tracker](https://www.home-assistant.io/components/bluetooth_tracker/)
 * [Ping (ICMP)](https://www.home-assistant.io/components/ping/)
 * [Person](https://www.home-assistant.io/components/person/)
 * [Life360](https://www.home-assistant.io/components/life360/)
-
-### Security & Safety:
-* [Konnected alarm](https://amzn.to/3c6k12c) - 18 zone system
-* [Sonoff RF Bridge](https://amzn.to/2VkO68o) - running tasmota
-* [Sonoff PIR Motion Sensors](https://amzn.to/37XHAXN)
-* [IR Pyroelectric Infrared PIR Motion Sensors](https://amzn.to/3c4SBd1)
-* (24 motion sensors total - for alarm, automations & tablet 'ON' & 'OFF' functions)
-* [Smartthings Intgration](https://www.home-assistant.io/integrations/smartthings/) + [Konnected Intgration](https://www.home-assistant.io/integrations/konnected/)
-* 24/7 Protection by [Noonlight](https://www.noonlight.com/) monitoring services for smoke, CO and alarm.
 
 # Screenshots
 
@@ -237,7 +252,7 @@ The result is like having 30 different views that can be accessed via *_one_* ma
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/Desk%20Menu.jpg" />
 
 <p align="center">
-<a target="_blank" href="https://www.amazon.com/ref=as_li_ss_tl?ie=UTF8&linkCode=sl2&tag=affordabl010e-20&linkId=edc037bbc9ecc01ca3aecb57a85081ec&language=en_US">Find your next Home Automation device on Amazon using my affiliate link</a>
+<a target="_blank" href="https://www.amazon.com/ref=as_li_ss_tl?ie=UTF8&linkCode=sl2&tag=affordabl010e-20&linkId=edc037bbc9ecc01ca3aecb57a85081ec&language=en_US">Find your next Home Automation device on Amazon!!!</a>
 <br />
 <a href="https://www.affordableautomating.com/affiliate-disclosure">
 Affiliate Disclosure
