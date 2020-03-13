@@ -8,7 +8,7 @@
     </h1>
 </section>
 
-<h4 align="center">Be sure to :star: my repo so you can keep current on the frequent progress!</h4>
+<h3 align="center">Be sure to :star: my repo so you can keep current on the frequent progress!</h3>
 <h4 align="center">
   <a href="https://img.shields.io/badge/Home%20Assistant-0.106.6-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-0.106.6-blue.svg?style=plasticr"/> </a>
   <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master"/> </a>
@@ -22,7 +22,7 @@
 <p align="center">
   <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-OliveDrab?style=plasticr"/> </a>
   <a href="https://www.twitter.com/DarrenW96969730"><img src="https://img.shields.io/twitter/follow/DarrenW96969730"/> </a>
-  <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20Discord-Frontend-GoldenRod?style=plasticr"/> </a>
+  <a href="https://discord.gg/aYTW2Z9"><img src="https://img.shields.io/badge/HA%20Discord-Frontend-GoldenRod?style=plasticr"/> </a>
   </p>
 </div>
 
