@@ -282,10 +282,10 @@ Person</a><br>
 Life360</a><br>
 </details>
 
-# Screenshots
-
+</td></tr>
 <tr><td colspan="4">
 
+# Screenshots
 ### Mobile Screens and popups<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 
 </td></tr>
