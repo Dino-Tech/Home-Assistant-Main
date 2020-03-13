@@ -8,10 +8,16 @@
   <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master"/> </a>
   <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr"/> </a>
   <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plasticr" /> </a>
-  <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-RebeccaPurple?style=plasticr"/> </a>
+  <a href="https://github.com/Dino-Tech/Home-Assistant-Main/graphs/commit-activity"><img src="https://img.shields.io/badge/Maintained%3F-Yes-brightgreen.svg?style=plasticr" /> </a>
   <a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master"><img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=plasticr"/> </a>
   </h4>
 </div>
+
+<p align="center">
+  <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-RebeccaPurple?style=plasticr"/> </a>
+  <a href="https://www.twitter.com/DarrenW96969730"><img src="https://img.shields.io/twitter/follow/DarrenW96969730"/> </a>
+  </p>
+
 <p align="center"><font size="3">
 This Repo is designed for Smart Home and Lovelace UI inspiration.   The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world.  This is a working configuration of <strong>my Smart Home</strong> and <strong>my Lovelace designs</strong>.  All of the code is free to use and contribute to. <br>This readme was inspired from the awesome documentation and efforts of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></p>
 
@@ -76,9 +82,14 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;<a href="http
 |:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------------:|
 |8                |62      |109             |83        |109          |146      |352      |  38           | 
 
+<details>
+<summary>Automation code for tracking will be linked here.</summary><p align="center">
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Automation </a><br>
+</details>
 <tr><td colspan="4">
 
-#### Wyze Products and Accessories <a name="wyze" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="26" ></a>
+#### Wyze Products and Accessories <a name="wyze" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -100,9 +111,19 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;<a href="http
 
 The Wyze cameras are running on a [tinyCam PRO](https://play.google.com/store/apps/details?id=com.alexvas.dvr.pro&hl=en_US) webserver through a [Vankyo MatrixPad Z4 10 inch Tablet, Android](https://amzn.to/39iRdBN), which is also my Main Kiosk. Then added to Home Assistant's [MJPEG IP Camera](https://www.home-assistant.io/integrations/mjpeg/) integration for display through [Lovelace](https://www.home-assistant.io/lovelace/) frontend.
 
+<details>
+<summary>Automations, scripts and popup code will be linked here.</summary><p align="center">
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Automation</a><br>
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Scripts</a><br>
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Popups</a><br>
+</details>
+
 <tr><td colspan="4">
 
-#### Nest Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="26" ></a>
+#### Nest Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -124,9 +145,19 @@ The Wyze cameras are running on a [tinyCam PRO](https://play.google.com/store/ap
 
 The Nest thermostats and Protects basically run themselves. The sensors are tracked and the ***'away'*** and ***'home'*** modes are set with scripts via Home Assistant's [Person](https://www.home-assistant.io/components/person/) integration for occupancy verification.
 
+<details>
+<summary>Automations, scripts and popup code will be linked here.</summary><p align="center">
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Automation</a><br>
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Scripts</a><br>
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Popups</a><br>
+</details>
+
 <tr><td colspan="4">
 
-#### Networking and Battery Backups <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="26" ></a>
+#### Networking and Battery Backups <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -148,9 +179,19 @@ The Nest thermostats and Protects basically run themselves. The sensors are trac
 
 This area will definitely get an upgrade as the need arises. I have as many devices hardwired as possible and the Google WiFi mesh points maintain the other 126 WiFi clients. Speedtests come in around average of 434 Mpbs. I haven't had any issues so far to push me to switch.
 
+<details>
+<summary>Automations, scripts and popup code will be linked here.</summary><p align="center">
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Automation</a><br>
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Scripts</a><br>
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Popups</a><br>
+</details>
+
 <tr><td colspan="4">
 
-#### Displays and Google Assisted Devices <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="26" ></a>
+#### Displays and Google Assisted Devices <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -172,11 +213,19 @@ This area will definitely get an upgrade as the need arises. I have as many devi
 
 A total of 14 Google Assisted speakers do a nice job of filling the house with sound and 2 [Google Chromecasts](https://amzn.to/2vUyKwV) on the main televisions. Audio is usually played via [Spotcast](https://github.com/fondberg/spotcast) component and controlled with a fullscreen popup of [Mini-media-player](https://github.com/kalkih/mini-media-player). The popup background displays the cover artwork while Spotify player is in use, while at the same time the kiosk main calendar displays the same images. I just recently started using the [Assistant Relay](https://greghesp.github.io/assistant-relay/) component and I am liking it a lot!!! Will update with new ways I use it in the future updates.
 
-The kiosk automations and scripts will be linked here.
+<details>
+<summary>Automations, scripts and popup code will be linked here.</summary><p align="center">
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Automation</a><br>
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Scripts</a><br>
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Popups</a><br>
+</details>
 
 <tr><td colspan="4">
 
-#### Konnected Alarm <a name="alarm" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="26" ></a>
+#### Konnected Alarm <a name="alarm" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -198,7 +247,15 @@ The kiosk automations and scripts will be linked here.
 
 Our house is protected by an 18 zone Konnected alarm system and HA's [Manual MQTT Alarm](https://www.home-assistant.io/integrations/manual_mqtt/). Using 24 motion, 5 door sensors and a glass break detector in combination with voice and text notifications through Home Assistant to provide the alerts needed. I recently added another layer of security with 24/7 Protection by [Noonlight](https://www.noonlight.com/) monitoring services for smoke, CO and alarm, for the extra piece of mind if we are unresponsive to our mobile phones at the time of an unfortunate event. This was accomplished via [Smartthings Intgration](https://www.home-assistant.io/integrations/smartthings/) + [Konnected Intgration](https://www.home-assistant.io/integrations/konnected/) which gives me an additional sensor and switch that triggers [Noonlight's](https://www.noonlight.com/) dispatch to use in my automations.
 
-The alarm automations and scripts will be linked here.
+<details>
+<summary>Automations, scripts and popup code will be linked here.</summary><p align="center">
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Automation</a><br>
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Scripts</a><br>
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Popups</a><br>
+</details>
 
 ### Presence Detection:
 * [NMAP](https://www.home-assistant.io/components/nmap_tracker/)
@@ -209,14 +266,39 @@ The alarm automations and scripts will be linked here.
 
 # Screenshots
 
+<tr><td colspan="4">
+
+### Mobile Screens and popups<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+
+</td></tr>
+<tr><td colspan="4">
+
 ### Mobile Screens
 
-#### My Mobile Login *(Pixel 2 XL running Fully Kiosk Browser)* 
-#### **Themes inspired** from Android 10's new accent colors
+#### My Mobile home screen *(Pixel 2 XL running Fully Kiosk Browser)* 
+
+<details>
+  <summary><strong>3 Themes inspired</strong> from Android 10's new accent colors will be linked here.</summary><p align="center">
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Android Themes</a><br>
+</details>
+
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/main1.3.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu1.1.2.jpg" />
 
-#### **A total of 12 *'click-to-change'* theme colors, fully integrated with all popups, screens and custom cards...**
+<tr><td colspan="4">
+
+#### **A total of 12 *'click-to-change'* theme colors, fully integrated with all popups, screens and custom cards...**<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+
+</td></tr>
+<tr><td colspan="4">
+
+<details>
+  <summary><strong>Themes</strong> will be linked here.</summary><p align="center">
+<a href=https://github.com/Dino-Tech/Home-Assistant-Main>
+Themes</a><br>
+</details>
+
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu_1.1.3.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu8.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu2.1.jpg" />
@@ -230,14 +312,14 @@ The alarm automations and scripts will be linked here.
 
 <tr><td colspan="4">
 
-### Main Kiosk Screen *(Fully Kiosk Browser)*<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/up_arrow.png" width="22" ></a>
+### Main Kiosk Screen *(Fully Kiosk Browser)*<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+
+</td></tr>
+<tr><td colspan="4">
 
 Main panel has auto-changing background images, sleep and wake functions that are controlled via motion, time of day/night,  voice activated and presence detection. The display is minimal to keep the screen less cluttered so backgrounds are more visible when kiosk is idle. The background image behind the calendar section also displays the cover artwork when Spotify is playing...
 
 The result is like having 30 different views that can be accessed via *_one_* main screen... with one path, `/lovelace/0` without having to navigate to another view and that was my goal! *(see additional [Tablet Pop-ups](https://imgur.com/a/tbY9HW2) gallery)*
-
-</td></tr>
-<tr><td colspan="4">
 
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu9.2.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/32.png" />
@@ -248,8 +330,18 @@ The result is like having 30 different views that can be accessed via *_one_* ma
 #### Guest Access Mobile Login *(kiosk mode only)*
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/mobile_screens1.jpg" />
 
-### Desktop Login *(desk menu with all areas access)*
+<tr><td colspan="4">
+
+### Desktop Login *(desk menu with all areas access)*<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+
+</td></tr>
+<tr><td colspan="4">
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/Desk%20Menu.jpg" />
+
+</td></tr>
+<tr><td colspan="4">
+
+<p align="center"><br><a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="center" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="90" ></a></p>
 
 <p align="center">
 <a target="_blank" href="https://www.amazon.com/ref=as_li_ss_tl?ie=UTF8&linkCode=sl2&tag=affordabl010e-20&linkId=edc037bbc9ecc01ca3aecb57a85081ec&language=en_US">Find your next Home Automation device on Amazon!!!</a>
