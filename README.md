@@ -1,7 +1,13 @@
-<p align="center"><img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif"></p>
-<h1 align="center">
-  My Home Assistant Configuration
-</h1>
+<section>
+    <h1 align="center">
+      Dino Tech's Smart Home
+      <br>
+      <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif" alt="Dino Tech's Smart Home" width="240"></a>
+      <br>
+      Home Assistant Configuration and Lovelace Designs
+    </h1>
+</section>
+
 <h4 align="center">Be sure to :star: my repo so you can keep current on the frequent progress!</h4>
 <h4 align="center">
   <a href="https://img.shields.io/badge/Home%20Assistant-0.106.6-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-0.106.6-blue.svg?style=plasticr"/> </a>
@@ -14,15 +20,20 @@
 </div>
 
 <p align="center">
-  <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-RebeccaPurple?style=plasticr"/> </a>
+  <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-OliveDrab?style=plasticr"/> </a>
   <a href="https://www.twitter.com/DarrenW96969730"><img src="https://img.shields.io/twitter/follow/DarrenW96969730"/> </a>
+  <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20Discord-Frontend-GoldenRod?style=plasticr"/> </a>
   </p>
+</div>
 
-<p align="center"><font size="3">
-This Repo is designed for Smart Home and Lovelace UI inspiration.   The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world.  This is a working configuration of <strong>my Smart Home</strong> and <strong>my Lovelace designs</strong>.  All of the code is free to use and contribute to. <br>This readme was inspired from the awesome documentation and efforts of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></p>
+<h4 align="justify">
+This Repo is designed for Smart Home and Lovelace UI inspiration.   The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world.  This is a working configuration of <strong>my Smart Home</strong> and <strong>my Lovelace designs</strong>.  All of the code is free to use and contribute to.</h4> 
+<h6 align="center"><em>
+  This readme was inspired from the awesome documentation and efforts of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></em></h6>
 
 ![Screenshot of Home Assistant Header](https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed2.jpg)
-<hr>
+<hr />
+
 <div align="center">
   <h4 align="center">
     <a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br>
@@ -257,12 +268,19 @@ Scripts</a><br>
 Popups</a><br>
 </details>
 
-### Presence Detection:
-* [NMAP](https://www.home-assistant.io/components/nmap_tracker/)
-* [Bluetooth Tracker](https://www.home-assistant.io/components/bluetooth_tracker/)
-* [Ping (ICMP)](https://www.home-assistant.io/components/ping/)
-* [Person](https://www.home-assistant.io/components/person/)
-* [Life360](https://www.home-assistant.io/components/life360/)
+<details>
+<summary>Presence Detection currently being used.</summary><p align="center">
+<a href=https://www.home-assistant.io/components/nmap_tracker/>
+NMAP</a><br>
+<a href=https://www.home-assistant.io/components/bluetooth_tracker/>
+Bluetooth Tracker</a><br>
+<a href=https://www.home-assistant.io/components/ping/>
+Ping (ICMP)</a><br>
+<a href=https://www.home-assistant.io/components/person/>
+Person</a><br>
+<a href=https://www.home-assistant.io/components/life360/>
+Life360</a><br>
+</details>
 
 # Screenshots
 
