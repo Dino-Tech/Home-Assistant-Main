@@ -27,7 +27,8 @@
 </div>
 
 <h4 align="justify">
-This Repo is designed for Smart Home and Lovelace UI inspiration.   The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world.  This is a working configuration of <strong>my Smart Home</strong> and <strong>my Lovelace designs</strong>.  All of the code is free to use and contribute to.</h4> 
+    This Repo is designed for Smart Home and Lovelace UI inspiration.   The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world.  This is a working configuration of <strong>my Smart Home</strong> and <strong>my Lovelace designs</strong>.  All of the code is free to use and contribute to.
+</h4> 
 <h6 align="center"><em>
   This readme was inspired from the awesome documentation and efforts of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></em></h6>
 
@@ -39,15 +40,11 @@ This Repo is designed for Smart Home and Lovelace UI inspiration.   The configur
     <a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br>
   </h4>
 </div>
-<table align="center" border="0">
-<tr><td colspan="4">
 
-<h2 align="center">
-Currently operating <a href="https://home-assistant.io">Home Assistant </a> version 0.106.6 on a <a href="https://amzn.to/39JfIZc">RPi4B </a>
-</h2>
+<h2 align="center">Currently operating <a href="https://home-assistant.io">Home Assistant </a> version 0.106.6 on a <a href="https://amzn.to/39JfIZc">RPi4B </a></h2>
 
-<div align="center"><a name="menu"></a>
-  <h4>
+<p align="center"><a name="menu"></a>
+  <h4 align="center">
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main">
       Code
     </a>
@@ -68,16 +65,14 @@ Currently operating <a href="https://home-assistant.io">Home Assistant </a> vers
       Youtube
     </a>
   </h4>
-</div>
-
-</td></tr>
-<tr><td colspan="4">
+</p>
 
 <p align="center">
   You can message me via <a href="https://discord.gg/aYTW2Z9">Discord #Frontend </a> channel or my <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180">HomeAssistant forums </a> if you have any questions or recommendations in regards to my repository! 
 <a>
 </p>
 
+<table align="center" border="0">
 <tr><td colspan="4">
 
 <p align="center">
