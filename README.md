@@ -32,9 +32,12 @@
 <h6 align="center"><em>
   This readme was inspired from the awesome documentation and efforts of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></em></h6>
 
-<p align="center"><a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed2.jpg" alt="Dino Tech's Smart Home" width="210"><hr></p>
-
+ <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed2.jpg" alt="Dino Tech's Smart Home">
+ <hr>
+ 
 <h5 align="center"><a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br></h5>
+
+<p align="center"><a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.1.jpg" alt="Tablet Screen"></p>
 
 <h2 align="center">Currently operating <a href="https://home-assistant.io">Home Assistant </a> version 0.106.6 on a <a href="https://amzn.to/39JfIZc">RPi4B </a></h2>
 
@@ -65,7 +68,7 @@
     </a>
   </h4>
 </p>
-
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.1.jpg" alt="Tablet Screen">
 <p align="center">
   You can message me via <a href="https://discord.gg/aYTW2Z9">Discord #Frontend </a> channel or my <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180">HomeAssistant forums </a> if you have any questions or recommendations in regards to my repository! 
 </p>
