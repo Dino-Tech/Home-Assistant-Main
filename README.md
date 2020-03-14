@@ -96,7 +96,7 @@ Automation </a><br>
 </details>
 <tr><td colspan="4">
 
-#### Wyze Products and Accessories <a name="wyze" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### <a name="wyze"></a>Wyze Products and Accessories<a href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
