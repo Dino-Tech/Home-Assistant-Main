@@ -38,9 +38,9 @@
 <h5 align="center"><a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br></h5>
 
 <p align="center"><a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.1.jpg" alt="Tablet Screen"></p>
-
-<h2 align="center">Currently operating <a href="https://home-assistant.io">Home Assistant </a> version 0.106.6 on a <a href="https://amzn.to/39JfIZc">RPi4B </a></h2>
-
+<div>
+  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 0.106.6 on a <a href="https://amzn.to/39JfIZc">RPi4B </a></h2>
+</div>
 <p align="center"><a name="menu"></a>
   <h4 align="center">
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main">
@@ -96,7 +96,7 @@ Automation </a><br>
 </details>
 <tr><td colspan="4">
 
-#### Wyze Products and Accessories <a name="wyze" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Wyze Products and Accessories <a name="wyze" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -130,7 +130,7 @@ Popups</a><br>
 
 <tr><td colspan="4">
 
-#### Nest Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Nest Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -164,7 +164,7 @@ Popups</a><br>
 
 <tr><td colspan="4">
 
-#### Networking and Battery Backups <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Networking and Battery Backups <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -198,7 +198,7 @@ Popups</a><br>
 
 <tr><td colspan="4">
 
-#### Displays and Google Assisted Devices <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Displays and Google Assisted Devices <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -232,7 +232,7 @@ Popups</a><br>
 
 <tr><td colspan="4">
 
-#### Konnected Alarm <a name="alarm" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Konnected Alarm <a name="alarm" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -252,7 +252,7 @@ Popups</a><br>
 </td><td align="center"><a href="https://www.amazon.com/dp/B07GJDJV63/ref=as_li_ss_il?coliid=I1NEBYIV0BQWFO&colid=1J0HMQVGS9EQT&psc=0&ref_=lv_ov_lig_dp_it&linkCode=li1&tag=affordabl010e-20&linkId=9c64049d02997a62d7b8299a99104ae2&language=en_US" target="_blank"><img border="0" src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07GJDJV63&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=affordabl010e-20&language=en_US&l=li1&o=1&a=B07GJDJV63" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
 <tr><td colspan="4">
 
-Our house is protected by an 18 zone Konnected alarm system and HA's [Manual MQTT Alarm](https://www.home-assistant.io/integrations/manual_mqtt/). Using 24 motion, 5 door sensors and a glass break detector in combination with voice and text notifications through Home Assistant to provide the alerts needed. I recently added another layer of security with 24/7 Protection by [Noonlight](https://www.noonlight.com/) monitoring services for smoke, CO and alarm, for the extra piece of mind if we are unresponsive to our mobile phones at the time of an unfortunate event. This was accomplished via [Smartthings Intgration](https://www.home-assistant.io/integrations/smartthings/) + [Konnected Intgration](https://www.home-assistant.io/integrations/konnected/) which gives me an additional sensor and switch that triggers [Noonlight's](https://www.noonlight.com/) dispatch to use in my automations.
+Our home is protected by an 18 zone Konnected alarm system and HA's [Manual MQTT Alarm](https://www.home-assistant.io/integrations/manual_mqtt/). Using 24 motion, 5 door sensors and a glass break detector in combination with voice and text notifications through Home Assistant to provide the alerts needed. I recently added another layer of security with 24/7 Protection by [Noonlight](https://www.noonlight.com/) monitoring services for smoke, CO and alarm, for the extra piece of mind if we are unresponsive to our mobile phones at the time of an unfortunate event. This was accomplished via [Smartthings Intgration](https://www.home-assistant.io/integrations/smartthings/) + [Konnected Intgration](https://www.home-assistant.io/integrations/konnected/) which gives me an additional sensor and switch that triggers [Noonlight's](https://www.noonlight.com/) dispatch to use in my automations.
 
 <details>
 <summary>Automations, scripts and popup code will be linked here.</summary><p align="center">
@@ -282,7 +282,7 @@ Life360</a><br>
 <tr><td colspan="4">
 
 # Screenshots
-### Mobile Screens and popups<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+### Mobile Screens and popups<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 
 </td></tr>
 <tr><td colspan="4">
@@ -302,7 +302,7 @@ Android Themes</a><br>
 
 <tr><td colspan="4">
 
-#### **A total of 12 *'click-to-change'* theme colors, fully integrated with all popups, screens and custom cards...**<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### **A total of 12 *'click-to-change'* theme colors, fully integrated with all popups, screens and custom cards...**<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 
 </td></tr>
 <tr><td colspan="4">
@@ -326,7 +326,7 @@ Themes</a><br>
 
 <tr><td colspan="4">
 
-### Main Kiosk Screen *(Fully Kiosk Browser)*<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+### Main Kiosk Screen *(Fully Kiosk Browser)*<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 
 </td></tr>
 <tr><td colspan="4">
@@ -346,7 +346,7 @@ The result is like having 30 different views that can be accessed via *_one_* ma
 
 <tr><td colspan="4">
 
-### Desktop Login *(desk menu with all areas access)*<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+### Desktop Login *(desk menu with all areas access)*<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 
 </td></tr>
 <tr><td colspan="4">
@@ -355,7 +355,7 @@ The result is like having 30 different views that can be accessed via *_one_* ma
 </td></tr>
 <tr><td colspan="4">
 
-<p align="center"><br><a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#--my-home-assistant-configuration"><img align="center" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="90" ></a></p>
+<p align="center"><br><a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="center" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="90" ></a></p>
 
 <p align="center">
 <a target="_blank" href="https://www.amazon.com/ref=as_li_ss_tl?ie=UTF8&linkCode=sl2&tag=affordabl010e-20&linkId=edc037bbc9ecc01ca3aecb57a85081ec&language=en_US">Find your next Home Automation device on Amazon!!!</a>
