@@ -2,7 +2,7 @@
     <h1 align="center">
       Dino Tech's Smart Home
       <br>
-      <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif" alt="Dino Tech's Smart Home" width="240"></a>
+      <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif" alt="Dino Tech's Smart Home" width="210"></a>
       <br>
       Home Assistant Configuration and Lovelace Designs
     </h1>
@@ -32,14 +32,9 @@
 <h6 align="center"><em>
   This readme was inspired from the awesome documentation and efforts of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></em></h6>
 
-![Screenshot of Home Assistant Header](https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed2.jpg)
-<hr />
+<p align="center"><a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed2.jpg" alt="Dino Tech's Smart Home" width="210"><hr></p>
 
-<div align="center">
-  <h4 align="center">
-    <a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br>
-  </h4>
-</div>
+<h5 align="center"><a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br></h5>
 
 <h2 align="center">Currently operating <a href="https://home-assistant.io">Home Assistant </a> version 0.106.6 on a <a href="https://amzn.to/39JfIZc">RPi4B </a></h2>
 
@@ -53,12 +48,16 @@
       Devices
     </a>
     <span> | </span>
-    <a href="https://twitter.com/DarrenW96969730">
-      Follow Me on Twitter
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main#mobile-screens">
+      Mobile Screens
     </a>
     <span> | </span>
-    <a href="https://github.com/Dino-Tech/Home-Assistant-Main#screenshots">
-      Screenshots
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main#main-kiosk-screen-fully-kiosk-browser">
+      Tablet Screens
+    </a>
+    <span> | </span>
+    <a href="https://twitter.com/DarrenW96969730">
+      Twitter
     </a>
     <span> | </span>
     <a href="https://www.youtube.com/channel/UCrSoN-g4sH1ADQq3A9f-Gzw?view_as=subscriber">
@@ -69,7 +68,6 @@
 
 <p align="center">
   You can message me via <a href="https://discord.gg/aYTW2Z9">Discord #Frontend </a> channel or my <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180">HomeAssistant forums </a> if you have any questions or recommendations in regards to my repository! 
-<a>
 </p>
 
 <table align="center" border="0">
