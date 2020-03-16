@@ -1,36 +1,30 @@
-<section>
-    <h1 align="center">
-      Dino Tech's Smart Home
-      <br>
-      <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/LoadingScreen.gif" alt="Dino Tech's Smart Home" width="220"></a>
-      <br>
-      Home Assistant Configuration and Lovelace Designs
-    </h1>
-</section>
-
-<h3 align="center">Be sure to :star: my repo so you can keep current on the frequent progress!</h3>
-<h4 align="center">
-  <a href="https://img.shields.io/badge/Home%20Assistant-0.106.6-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-0.106.6-blue.svg?style=plasticr"/> </a>
-  <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master"/> </a>
-  <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr"/> </a>
-  <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plasticr" /> </a>
-  <a href="https://github.com/Dino-Tech/Home-Assistant-Main/graphs/commit-activity"><img src="https://img.shields.io/badge/Maintained%3F-Yes-brightgreen.svg?style=plasticr" /> </a>
-  <a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master"><img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=plasticr"/> </a>
-  </h4>
+<div>
+<h1 align="center">
+  Dino Tech's Smart Home
+  <br>
+  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/LoadingScreen.gif" alt="Dino Tech's Smart Home" width="220"></a>
+</h1>
 </div>
-
-<p align="center">
-  <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-OliveDrab?style=plasticr"/> </a>
-  <a href="https://www.twitter.com/DarrenW96969730"><img src="https://img.shields.io/twitter/follow/DarrenW96969730"/> </a>
-  <a href="https://discord.gg/aYTW2Z9"><img src="https://img.shields.io/badge/HA%20Discord-Frontend-GoldenRod?style=plasticr"/> </a>
+<div align="center">
+  <h3 align="center">My Home Assistant Configuration and Lovelace Designs<br>Be sure to :star: my repo so you can keep current on the frequent progress!</h3>
+  <p align="center">
+    <a href="https://img.shields.io/badge/Home%20Assistant-0.106.6-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-0.106.6-blue.svg?style=plasticr"/>  </a>
+    <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master"/>  </a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr"/>  </a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plasticr" />  </a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/graphs/commit-activity"><img src="https://img.shields.io/badge/Maintained%3F-Yes-brightgreen.svg?style=plasticr" />  </a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master"><img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=plasticr"/>  </a>
+<br>
+  <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-OliveDrab?style=plasticr"/>  </a>
+  <a href="https://www.twitter.com/DarrenW96969730"><img src="https://img.shields.io/twitter/follow/DarrenW96969730"/>  </a>
+  <a href="https://discord.gg/aYTW2Z9"><img src="https://img.shields.io/badge/HA%20Discord-Frontend-GoldenRod?style=plasticr"/>  </a>
   </p>
 </div>
-
-<h4 align="justify">
-    This Repo is designed for Smart Home and Lovelace UI inspiration.   The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world.  This is a working configuration of <strong>my Smart Home</strong> and <strong>my Lovelace designs</strong>.  All of the code is free to use and contribute to.
-</h4> 
-<h6 align="center"><em>
-  This readme was inspired from the awesome documentation and efforts of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></em></h6>
+<p align="justify"><strong>
+    This Repo is designed for Smart Home and Lovelace UI inspiration.   The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world.  This is a working configuration of <em>my Smart Home</em> and <em>my Lovelace designs</em>.  All of the code is free to use and contribute to.</strong>
+</p> 
+<p align="center"><em><sub>
+  This readme was inspired from the awesome documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></em></sub></p>
 
  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed2.jpg" alt="Dino Tech's Smart Home">
  <hr>
