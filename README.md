@@ -2,7 +2,7 @@
     <h1 align="center">
       Dino Tech's Smart Home
       <br>
-      <img src="https://github.com/home-assistant/home-assistant-assets/blob/master/loading-screen.gif" alt="Dino Tech's Smart Home" width="210"></a>
+      <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/LoadingScreen.gif" alt="Dino Tech's Smart Home" width="220"></a>
       <br>
       Home Assistant Configuration and Lovelace Designs
     </h1>
