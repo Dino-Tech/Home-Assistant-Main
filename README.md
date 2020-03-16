@@ -2,6 +2,8 @@
 <h1 align="center">
   Dino Tech's Smart Home
   <br>
+  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/powered-by.png" alt="Powered by HA" width="290"></a>
+  <br>
   <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/LoadingScreen.gif" alt="Dino Tech's Smart Home" width="220"></a>
 </h1>
 </div>
@@ -26,7 +28,7 @@
 <p align="center"><em><sub>
   This readme was inspired from the awesome documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></em></sub></p>
 
- <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/HAbrewed2.jpg" alt="Dino Tech's Smart Home">
+ <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.0.png" alt="Dino Tech's Smart Home">
  <hr>
  
 <h5 align="center"><a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br></h5>
@@ -90,7 +92,7 @@ Automation </a><br>
 </details>
 <tr><td colspan="4">
 
-#### <a name="wyze"></a>Wyze Products and Accessories<a href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### <a name="wyze"></a>Wyze Products and Accessories<a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -124,7 +126,7 @@ Popups</a><br>
 
 <tr><td colspan="4">
 
-#### Nest Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Nest Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -158,7 +160,7 @@ Popups</a><br>
 
 <tr><td colspan="4">
 
-#### Networking and Battery Backups <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Networking and Battery Backups <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -192,7 +194,7 @@ Popups</a><br>
 
 <tr><td colspan="4">
 
-#### Displays and Google Assisted Devices <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Displays and Google Assisted Devices <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -226,7 +228,7 @@ Popups</a><br>
 
 <tr><td colspan="4">
 
-#### Konnected Alarm <a name="alarm" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Konnected Alarm <a name="alarm" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -276,7 +278,7 @@ Life360</a><br>
 <tr><td colspan="4">
 
 # Screenshots
-### Mobile Screens and popups<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+### Mobile Screens and popups<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 
 </td></tr>
 <tr><td colspan="4">
@@ -296,7 +298,7 @@ Android Themes</a><br>
 
 <tr><td colspan="4">
 
-#### **A total of 12 *'click-to-change'* theme colors, fully integrated with all popups, screens and custom cards...**<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### **A total of 12 *'click-to-change'* theme colors, fully integrated with all popups, screens and custom cards...**<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 
 </td></tr>
 <tr><td colspan="4">
@@ -318,9 +320,14 @@ Themes</a><br>
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu9.1.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu4.1.jpg" />
 
+#### iPhone 6 Mobile Login *(kiosk mode only)*
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/iPhone.jpg" />
+
+#### Guest Access Mobile Login *(kiosk mode only)*
+<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/mobile_screens1.jpg" />
 <tr><td colspan="4">
 
-### Main Kiosk Screen *(Fully Kiosk Browser)*<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+### Main Kiosk Screen *(Fully Kiosk Browser)*<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 
 </td></tr>
 <tr><td colspan="4">
@@ -332,15 +339,9 @@ The result is like having 30 different views that can be accessed via *_one_* ma
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/menu9.2.jpg" />
 <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/32.png" />
 
-#### iPhone 6 Mobile Login *(kiosk mode only)*
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/iPhone.jpg" />
-
-#### Guest Access Mobile Login *(kiosk mode only)*
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/mobile_screens1.jpg" />
-
 <tr><td colspan="4">
 
-### Desktop Login *(desk menu with all areas access)*<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+### Desktop Login *(desk menu with all areas access)*<a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home----"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 
 </td></tr>
 <tr><td colspan="4">
@@ -349,7 +350,7 @@ The result is like having 30 different views that can be accessed via *_one_* ma
 </td></tr>
 <tr><td colspan="4">
 
-<p align="center"><br><a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main#------dino-techs-smart-home------------------------home-assistant-configuration-and-lovelace-designs----"><img align="center" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="90" ></a></p>
+<p align="center"><br><a name="kiosk" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home----"><img align="center" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="90" ></a></p>
 
 <p align="center">
 <a target="_blank" href="https://www.amazon.com/ref=as_li_ss_tl?ie=UTF8&linkCode=sl2&tag=affordabl010e-20&linkId=edc037bbc9ecc01ca3aecb57a85081ec&language=en_US">Find your next Home Automation device on Amazon!!!</a>
