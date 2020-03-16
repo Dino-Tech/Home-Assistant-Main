@@ -26,10 +26,10 @@
     This Repo is designed for Smart Home and Lovelace UI inspiration.   The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world.  This is a working configuration of <em>my Smart Home</em> and <em>my Lovelace designs</em>.  All of the code is free to use and contribute to.</strong>
 </p> 
 <p align="center"><em><sub>
-  This readme was inspired from the awesome documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></em></sub></p>
-
- <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.0.png" alt="Dino Tech's Smart Home">
- <hr>
+  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.0.jpg" alt="Dino Tech's Smart Home">
+  This readme was inspired from the awesome documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></em></sub>
+</p>
+<hr>
  
 <h5 align="center"><a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br></h5>
 
