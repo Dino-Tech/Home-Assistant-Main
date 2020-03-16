@@ -4,7 +4,7 @@
   <br>
   <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/LoadingScreen.gif" alt="Dino Tech's Smart Home" width="220"></a>
   <br>
-  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/powered-by.png" alt="Powered by HA" width="250"></a>
+  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/powered-by.png" alt="Powered by HA" width="200"></a>
 </h1>
 </div>
 <div align="center">
@@ -23,28 +23,19 @@
   </p>
 </div>
 <p align="justify"><strong>
-    This Repo is designed for Smart Home and Lovelace UI inspiration.   The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world.  This is a working configuration of <em>my Smart Home</em> and <em>my Lovelace designs</em>.  All of the code is free to use and contribute to.</strong>
-</p> 
-<p align="center"><em><sub>
-  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.0.jpg" alt="Dino Tech's Smart Home">
-  This readme was inspired from the awesome documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></em></sub>
+    This Repo is designed for Smart Home and Lovelace UI inspiration.   The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world.  This is a working configuration of <em>my Smart Home</em> and <em>my Lovelace designs</em>.  All of the code is free to use and contribute to.</strong><br>
 </p>
-<hr>
- 
-<h5 align="center"><a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br></h5>
-
-<p align="center"><a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.1.jpg" alt="Tablet Screen"></p>
-<div>
-  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 0.106.6 on a <a href="https://amzn.to/39JfIZc">RPi4B </a></h2>
-</div>
-<p align="center"><a name="menu"></a>
-  <h4 align="center">
-    <a href="https://github.com/Dino-Tech/Home-Assistant-Main">
+<p align="center"><a name="menu"></a><strong>
+   <a href="https://github.com/Dino-Tech/Home-Assistant-Main">
       Code
     </a>
     <span> | </span>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main#wyze-products-and-accessories-">
       Devices
+    </a>
+    <span> | </span>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#tracked-stats-on-my-setup">
+      Stats
     </a>
     <span> | </span>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main#mobile-screens">
@@ -55,6 +46,10 @@
       Tablet Screens
     </a>
     <span> | </span>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/wiki#lovelace-tips--tricks-wiki">
+      Lovelace Tips & Tricks
+    </a>
+    <span> | </span>
     <a href="https://twitter.com/DarrenW96969730">
       Twitter
     </a>
@@ -62,11 +57,47 @@
     <a href="https://www.youtube.com/channel/UCrSoN-g4sH1ADQq3A9f-Gzw?view_as=subscriber">
       Youtube
     </a>
-  </h4>
+  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.0.jpg" alt="Dino Tech's Smart Home"><sub>
+  This readme was inspired from the awesome documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></strong></sub>
 </p>
-<img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.1.jpg" alt="Tablet Screen">
-<p align="center">
-  You can message me via <a href="https://discord.gg/aYTW2Z9">Discord #Frontend </a> channel or my <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180">HomeAssistant forums </a> if you have any questions or recommendations in regards to my repository! 
+<hr>
+ 
+<h5 align="center"><a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br></h5>
+
+<p align="center"><a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.1.jpg" alt="Tablet Screen"></p>
+<div>
+  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 0.106.6 on a <a href="https://amzn.to/39JfIZc">RPi4B </a></h2>
+</div>
+<p align="center"><a name="menu2"></a><strong>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#wyze-products-and-accessories">
+      Cameras
+    </a>
+    <span> | </span>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#konnected-alarm-">
+      Alarm
+    </a>
+    <span> | </span>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#networking-and-battery-backups-">
+      Networking
+    </a>
+    <span> | </span>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#displays-and-google-assisted-devices-">
+      Displays
+    </a>
+    <span> | </span>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#displays-and-google-assisted-devices-">
+      Google Assistant
+    </a>
+    <span> | </span>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#nest-products-first-alert-and-smartthings-">
+      Nest
+    </a>
+    <span> | </span>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home--------">
+      Switches & Plugs
+   </a></strong>
+   <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.1.jpg" alt="Tablet Screen">
+   You can message me via <a href="https://discord.gg/aYTW2Z9">Discord #Frontend </a> channel or my <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-and-themes-updated-oct-18/143180">HomeAssistant forums </a> if you have any questions or recommendations in regards to my repository! 
 </p>
 
 <table align="center" border="0">
