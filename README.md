@@ -2,7 +2,7 @@
 <h1 align="center">
   Dino Tech's Smart Home
   <br>
-  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/LoadingScreen.gif" alt="Dino Tech's Smart Home" width="220"></a>
+  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/LoadingScreen2.gif" alt="Dino Tech's Smart Home" width="230"></a>
   <br>
   <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/powered-by.png" alt="Powered by HA" width="200"></a>
 </h1>
@@ -30,11 +30,11 @@
       Code
     </a>
     <span> | </span>
-    <a href="https://github.com/Dino-Tech/Home-Assistant-Main#wyze-products-and-accessories-">
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main#wyze-products-and-accessories">
       Devices
     </a>
     <span> | </span>
-    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#tracked-stats-on-my-setup">
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main#tracked-stats-on-my-setup">
       Stats
     </a>
     <span> | </span>
