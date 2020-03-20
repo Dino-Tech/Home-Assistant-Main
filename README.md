@@ -10,7 +10,7 @@
 <div align="center">
   <h3 align="center">My Home Assistant Configuration and Lovelace Designs<br>Be sure to :star: my repo so you can keep current on the frequent progress!</h3>
   <p align="center">
-    <a href="https://img.shields.io/badge/Home%20Assistant-0.107.1-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-0.106.6-blue.svg?style=plasticr"/>  </a>
+    <a href="https://img.shields.io/badge/Home%20Assistant-0.107.1-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-0.101.1-blue.svg?style=plasticr"/>  </a>
     <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master"/>  </a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr"/>  </a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plasticr" />  </a>
