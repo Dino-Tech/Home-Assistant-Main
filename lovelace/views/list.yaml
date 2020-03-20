@@ -62,7 +62,7 @@ cards:
             text: RPi Stats
           - type: custom:bar-card
             severity:
-            - value: 100
+              value: 100
               color: '#40bf40'
             title_position: inside
             tap_action: info
@@ -101,7 +101,7 @@ cards:
             name: 'WiFi Signal'
           - type: custom:bar-card
             severity:
-            - value: 100
+              value: 100
               color: 'var(--sidebar-icon-color)'
             title_position: inside
             tap_action: info
@@ -136,7 +136,7 @@ cards:
             text: HA Remote Instance2 Stats
           - type: custom:bar-card
             severity:
-            - value: 100
+              value: 100
               color: 'var(--sidebar-icon-color)'
             title_position: inside
             tap_action: info
