@@ -917,8 +917,6 @@ button_cards:
                   icon:
                     - color: yellow
                     - animation: blink 2s ease infinite
-
-
 bar_cards:
   type: custom:vertical-stack-in-card
   cards:
