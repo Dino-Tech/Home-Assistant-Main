@@ -1,0 +1,116 @@
+---
+id: media2
+title: Media 2
+path: media2
+background: rgba(0,0,0,0.8)
+panel: true
+cards:
+  - entity: media_player.spotify_dinotech
+    type: custom:mini-media-player
+    artwork: cover
+    source: icon
+    scale: 1.3
+    hide:
+      icon: true
+      name: true
+      power: true
+    shortcuts:
+      columns: 4 # Max buttons per row
+      buttons:
+        # Start predefined playlist
+        - name: Crowder
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:track:0ezeXzG4Qi5GJGu9E3W4VY
+        - name: Toby
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.office_group
+            uri: spotify:playlist:4EU5Jm7pli4XHI3g3d9v5p
+        - name: Lauren
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:playlist:37i9dQZF1DX6a5YzZWJZO3
+        - name: Waymaker
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:track:4tkmm0pdXEZvHscuHWnkqy
+        - name: '4King&Country'
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:playlist:37i9dQZF1DX0a1TXCP9Sog
+        - name: MercyMe
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:album:4BDftZAnppbkKAA4O4APzn
+        - name: DannyGokey
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:playlist:37i9dQZF1DZ06evO3ws0Pm
+        - name: BethelMusic
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:playlist:37i9dQZF1DX0Hs9sfQ48jI
+        - name: Skillet
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:playlist:37i9dQZF1DZ06evO2qgZOg
+        - name: JeremyCamp
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:playlist:37i9dQZF1DZ06evO3fyCkg
+        - name: Messengers
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:artist:5WcisvYoq6332gCUX039Jd
+        - name: Rescue
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:track:7r9kOxiNDnkAg5QKqtyjVk
+        - name: Run Devil
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:album:1LWwPxmpj8fm1g9cCmQnFB
+        - name: Ghost
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:track:5wseRg7M7sf0AzFm3ca32l
+        - name: Day I Die
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:playlist:5IUKt0gtTYTxbmT9GQ9CDV
+        - name: Hallelujah
+          type: service
+          id: spotcast.start
+          data:
+            entity_id: media_player.inside_group
+            uri: spotify:track:0YxrPdW9NpNFtqh7Fw0rva

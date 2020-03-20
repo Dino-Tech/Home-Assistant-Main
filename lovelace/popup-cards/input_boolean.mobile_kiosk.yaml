@@ -1,0 +1,39 @@
+---
+ # input_boolean.mobile_kiosk
+title: 'Kiosk Settings'
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  border-radius: 22px
+  border: solid 2px dimgray
+  "--primary-text-color": white
+  "--iron-icon-height": 40px
+  "--iron-icon-width": 40px
+  "--iron-icon-stroke-color": black
+  "--app-toolbar-font-size": 1.65em
+  text-shadow: "2px 2px 4px #000000"
+  font-size: 1.375em
+  text-transform: capitalize
+  font-variant: small-caps
+  width: 100%
+  height: 100%
+  box-sizing: border-box
+  margin: 0
+card:
+  type: entities
+  show_header_toggle: false
+  entities:
+    - input_boolean.auto_tablet
+    - input_boolean.auto_backgroundz
+    - input_boolean.disable_popups
+    - input_boolean.disable_inside_popups
+    - input_boolean.auto_card_backz
+    - input_boolean.auto_cameras
+    - input_boolean.auto_camera_image
+    - input_select.mobile_wallpaper
+    - input_select.wallpaper
+    - input_select.auto_camera
+    - input_select.alert_type
+    - input_boolean.donnas_screen

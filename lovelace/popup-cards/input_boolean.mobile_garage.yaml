@@ -1,0 +1,159 @@
+---
+# input_boolean.mobile_garage.yaml
+title: 'Garage'
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  "--app-toolbar-font-size": 1.875em
+  "--primary-text-color": rgba(255,255,255,0.75)
+  border-radius: 22px
+  border: solid 2px dimgray
+  font-weight: bold
+  width: 100%
+  height: 753px
+  box-sizing: border-box
+  margin: 0
+card:
+  type: vertical-stack
+  cards:
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 5px
+        - type: 'custom:card-modder'
+          style:
+            border-radius: 12px
+            overflow: hidden
+          card:
+            type: 'custom:camera-card'
+            entity: camera.garage_cam
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 5px
+    - type: entities
+      entities:
+        - type: custom:bar-card
+          severity:
+            - value: 100
+              color: 'var(--sidebar-icon-color)'
+          title_position: inside
+          tap_action: info
+          decimal: '0'
+          columns: 1
+          padding: 2px
+          align: split
+          rounding: 10px
+          saturation: 65%
+          height: 38px
+          card_style:
+            background: "rgba(0, 0, 0, 0.4)"
+            border-radius: 10px
+          title_style:
+            font-size: 24px
+            font-variant: small-caps
+            color: '#F2F2F2'
+            text-shadow: "2px 2px 4px black"
+          value_style:
+            font-size: 26px
+            font-weight: bold
+            text-shadow: "2px 2px 4px black"
+          entities:
+            - sensor.garage_smoke_temp
+            - sensor.dark_sky_humidity_0d
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: switch_button_temp
+          variables:
+            - entity: switch.garage_ceiling_lights
+            - name: Ceiling Light
+            - icon: "mdi:lightbulb"
+        - type: custom:decluttering-card
+          template: switch_button_temp
+          variables:
+            - entity: switch.garage_fridge_relay
+            - name: Refrigerator
+            - icon: "mdi:fridge-outline"
+        - type: custom:decluttering-card
+          template: switch_button_temp
+          variables:
+            - entity: cover.garage_door
+            - name: Garage Door
+            - icon: "mdi:garage"
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: motion_button_temp
+          variables:
+            - entity: binary_sensor.wyzesense_77879025
+            - name: 'Motion 1'
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp
+          variables:
+            - entity: binary_sensor.wyzesense_77879826
+            - name: 'Motion 2'
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp
+          variables:
+            - entity: binary_sensor.garage_motion
+            - name: 'Motion 3'
+            - icon: 'mdi:motion-sensor'
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+    - type: 'custom:button-card'
+      color_type: blank-card
+      styles:
+        card:
+          - height: 8px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: 'custom:card-modder'
+          style:
+            border-radius: 6px
+            "--paper-card-background-color": rgba(0, 0, 0, 0.6)
+            overflow: hidden
+          card:
+            type: custom:mini-media-player
+            entity: media_player.garage_mini
+            icon: mdi:spotify
+            artwork: full-cover-fit
+            hide:
+              source: true
+              power_state: false
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px

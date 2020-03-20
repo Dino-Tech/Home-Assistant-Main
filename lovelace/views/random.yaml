@@ -1,0 +1,20 @@
+---
+id: random
+title: Random Cameras
+path: random
+background: black
+icon: mdi:cctv
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:card-modder
+        style:
+          background-color: rgba(0,0,0,0.0)
+          height: 100%
+          width: 100%
+          display: block
+        recurse: false
+        card:
+          type: 'custom:camera-card'
+          entity: camera.driveway_cam

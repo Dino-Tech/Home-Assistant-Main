@@ -1,0 +1,23 @@
+---
+ #  input_boolean.mobile_thermostat.yaml
+title: ""
+style:
+  position: fixed
+  z-index: 999
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  display: block
+  align-items: center
+  justify-content: center
+  background: rgba(0, 0, 0, 0.8)
+  flex-direction: column
+  margin: 0
+  "--iron-icon-fill-color": 'var(--accent-color)'
+card:
+  type: custom:thermostat-popup-card
+  entity: climate.living_room
+  settings:
+    openButton: More Info
+    closeButton: Close

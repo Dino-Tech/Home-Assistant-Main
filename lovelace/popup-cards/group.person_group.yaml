@@ -1,0 +1,27 @@
+---
+ #  group.person_group.yaml
+title: Location...
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  "--app-toolbar-font-size": 1.875em
+  "--primary-text-color": rgba(255,255,255,0.80)
+  "--ha-card-border-radius": 0px
+  font-weight: bold
+  text-shadow: "2px 2px 4px #000000"
+  border-radius: 22px
+  border: solid 2px dimgray
+  box-sizing: border-box
+  width: 100%
+  margin: 0
+card:
+  type: map
+  default_zoom: 18
+  entities:
+    - entity: device_tracker.life360_darren_wilson
+    - entity: device_tracker.life360_donna_wilson
+    - zone.home
+    - zone.donnas_work
+  aspect_ratio: 9x16

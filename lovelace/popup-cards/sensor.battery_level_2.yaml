@@ -1,0 +1,60 @@
+---
+ #  input_boolean.mobile_battery.yaml
+title: "Battery Levels "
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  "--app-toolbar-font-size": 1.875em
+  "--primary-text-color": rgba(255,255,255,0.75)
+  border-radius: 22px
+  border: solid 2px dimgray
+  font-weight: bold
+  width: 100%
+  box-sizing: border-box
+  margin: 0
+  text-shadow: "2px 2px 4px black"
+card:
+  type: custom:auto-entities
+  card:
+    type: custom:bar-card
+    severity:
+      - value: 25
+        color: '#DC143C'
+      - value: 50
+        color: 'var(--sidebar-icon-color)'
+      - value: 120
+        color: 'var(--sidebar-icon-color)'
+    title_position: inside
+    tap_action: none
+    columns: 1
+    padding: 2px
+    align: split
+    show_icon: true
+    rounding: 4px
+    saturation: 65%
+    height: 29px
+    card_style:
+      background: "rgba(0, 0, 0, 0.7)"
+      border-radius: 5px
+    title_style:
+      font-weight: bold
+      font-size: 19px
+      color: '#FFF'
+      text-shadow: "2px 2px 4px black"
+    value_style:
+      font-size: 24px
+      font-weight: bold
+      text-shadow: "2px 2px 4px black"
+  filter:
+    include:
+      - entity_id: "sensor.*batt*"
+    exclude:
+      - entity_id: sensor.donna_s_iphone_battery_state
+      - entity_id: sensor.iphone6statusbatt
+      - entity_id: sensor.spare_room_battery
+      - entity_id: "*remote*"
+      - entity_id: "*shelly*"
+  sort:
+    method: name

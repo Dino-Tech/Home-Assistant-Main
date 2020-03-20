@@ -1,0 +1,87 @@
+---
+ #  input_boolean.mobile_entrances.yaml
+title: ' '
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  "--primary-text-color": rgba(255,255,255,0.75)
+  border-radius: 22px
+  border: solid 2px dimgray
+  font-weight: bold
+  width: 100%
+  height: 753px
+  box-sizing: border-box
+  margin: 0
+card:
+  type: vertical-stack
+  cards:
+    - type: 'custom:button-card'
+      color_type: blank-card
+      styles:
+        card:
+          - height: 40px
+    - type: 'custom:card-modder'
+      style:
+        border-radius: 12px
+        '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+        padding: 0px 0px 10px 10px
+        height: 28px
+        font-family: Righteous
+      card:
+        content: '# Doors'
+        type: markdown
+    - type: 'custom:button-card'
+      color_type: blank-card
+      styles:
+        card:
+          - height: 20px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.wyzesense_7780f0b4
+            - name: Front Door
+            - icon: "mdi:door"
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.side_door
+            - name: Side Door
+            - icon: "mdi:door"
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.back_door
+            - name: Back Door
+            - icon: "mdi:door"
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.garage_entry_door
+            - name: Garage Entry
+            - icon: "mdi:door"
+    - type: 'custom:button-card'
+      color_type: blank-card
+      styles:
+        card:
+          - height: 10px

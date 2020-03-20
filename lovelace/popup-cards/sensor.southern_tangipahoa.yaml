@@ -1,0 +1,50 @@
+---
+# sensor.southern_tangipahoa.yaml
+title: ' '
+style:
+  background: url("/local/images-lovelace/backgroundz/BlackStainless5.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  "--app-toolbar-font-size": 1.875em
+  "--primary-text-color": rgba(255,255,255,0.75)
+  border-radius: 22px
+  border: 'solid 3px #b30000'
+  font-weight: bold
+  width: calc(100% - 6px)
+  height: calc(100% - 6px)
+  box-sizing: border-box
+  margin: 0
+card:
+  type: 'custom:vertical-stack-in-card'
+  cards:
+    - type: 'custom:list-card'
+      entity: sensor.southern_tangipahoa
+      feed_attribute: alerts
+      columns:
+        - title: " "
+          field: event
+          style:
+            - text-align: center
+            - font-weight: bold
+            - font-size: 28px
+            - text-shadow: "0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)"
+            - letter-spacing: 3px
+    - type: 'custom:list-card'
+      entity: sensor.southern_tangipahoa
+      feed_attribute: alerts
+      columns:
+        - title: " "
+          field: description
+          style:
+            - font-size: 1.2em
+    - type: 'custom:list-card'
+      entity: sensor.southern_tangipahoa
+      feed_attribute: alerts
+      columns:
+        - title: Ends
+          field: ends
+          style:
+            - text-align: center
+            - font-weight: bold
+            - font-size: 16px

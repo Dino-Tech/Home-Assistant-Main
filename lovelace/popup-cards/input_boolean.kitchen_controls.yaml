@@ -1,0 +1,76 @@
+---
+ #  input_boolean.kitchen_controls.yaml
+title: " "
+style:
+  background: url("/local/images-lovelace/card_backz/Kit9.png")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  border-radius: 15px
+  border: solid 3px rgb(19, 235, 19)
+  "--primary-text-color": "#F2F2F2"
+  "--paper-item-icon-color": rgb(19, 235, 19)
+  "--paper-item-icon-active-color": rgb(255, 255, 0)
+  "--iron-icon-height": 45px
+  "--iron-icon-width": 45px
+  "--app-toolbar-font-size": 1.3em
+  padding: 4px 0px 0px 0px
+  text-shadow: "1px 1px 2px green, 0 0 25px lime, 0 0 5px chartreuse"
+  font-size: 24px
+  text-transform: capitalize
+  font-variant: small-caps
+  width: calc(100% - 10px)
+  height: 100%
+  box-sizing: border-box
+  margin: 0
+card:
+  type: glance
+  entities:
+    - type: entity-button
+      entity: binary_sensor.wyzesense_77878a66
+      name: Motion
+    - type: entity-button
+      entity: light.kitchen_ceiling_center
+      name: Island
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.kitchen_ceiling_left
+      name: Left
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.kitchen_ceiling_right
+      name: Right
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.sink_light
+      name: Sink
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.cabinet_lights
+      name: Cabinets
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.table_light
+      name: Table
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.radio_wtemp_humid
+      name: Radio
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.coffee_light
+      name: Coffee
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.coffee_maker
+      name: Coffee Maker
+      tap_action:
+        action: toggle
+  show_state: false

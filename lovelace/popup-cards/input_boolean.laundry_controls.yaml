@@ -1,0 +1,44 @@
+---
+ #  input_boolean.laundry_controls.yaml
+title: ' '
+style:
+  background: dimGray
+  background-image: url("/local/images-lovelace/card_backz/Washer9.png")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  border-radius: 15px
+  border: solid 3px DodgerBlue
+  "--primary-text-color": "#F2F2F2"
+  "--paper-item-icon-color": black
+  "--paper-item-icon-active-color": lime
+  "--iron-icon-height": 45px
+  "--iron-icon-width": 45px
+  "--app-toolbar-font-size": 1.3em
+  text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue
+  font-size: 22px
+  font-stretch: ultra-expanded
+  text-transform: capitalize
+  font-variant: small-caps
+  width: calc(100% - 10px)
+  height: 100%
+  opacity: .77
+  box-sizing: border-box
+  margin: 0
+card:
+  type: vertical-stack
+  cards:
+    - type: entities
+      entities:
+        - sensor.washer_state
+        - sensor.washer_voltage
+        - sensor.washer_watts
+        - sensor.washer_amps
+        - sensor.washer_energy_today
+        - sensor.washer_energy_yesterday
+        - sensor.washer_signal
+        - sensor.dryer_state
+        - sensor.dryer_voltage
+        - sensor.dryer_watts
+        - sensor.dryer_amps
+        - sensor.dryer_energy_today
+        - sensor.dryer_energy_yesterday

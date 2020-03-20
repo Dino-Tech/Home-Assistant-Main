@@ -1,0 +1,97 @@
+---
+ #  input_boolean.office_controls
+title: " "
+style:
+  background: url("/local/images-lovelace/card_backz/Office9.png")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  border-radius: 15px
+  border: solid 3px rgb(128, 128, 128)
+  "--primary-text-color": "#F2F2F2"
+  "--paper-item-icon-color": rgb(128, 128, 128)
+  "--paper-item-icon-active-color": lime
+  "--iron-icon-height": 45px
+  "--iron-icon-width": 45px
+  "--app-toolbar-font-size": 1.3em
+  font-size: 24px
+  text-transform: capitalize
+  font-variant: small-caps
+  width: 1280px
+  height: 800px
+  box-sizing: border-box
+  margin: 0
+card:
+  type: glance
+  entities:
+    - type: entity-button
+      entity: binary_sensor.wyzesense_7793f9df
+      name: Motion
+    - type: entity-button
+      entity: sensor.office_temp_avg
+      name: Temp
+    - type: entity-button
+      entity: light.office_ceiling
+      name: Ceiling
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.office_ceiling_fan
+      name: Fan
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.desk_light
+      name: Desk
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.office_lamps
+      name: All Lamps
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.corner_light
+      name: Right
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.bed_light
+      name: Left
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.desk_back_light
+      name: Accent
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.office_work_bench
+      name: Bench
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.office_sound
+      name: Audio
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.office_video
+      name: Video
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.office_monitor
+      name: Monitor
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.air_cleaner
+      name: Purifier
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.printer
+      name: Printer
+      tap_action:
+        action: toggle
+  show_state: false

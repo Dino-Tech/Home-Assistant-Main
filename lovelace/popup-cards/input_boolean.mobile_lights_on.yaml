@@ -1,0 +1,56 @@
+---
+ # input_boolean.mobile_lights_on
+title: 'Currently "ON"'
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  border-radius: 22px
+  border: solid 2px dimgray
+  "--primary-text-color": white
+  "--iron-icon-height": 40px
+  "--iron-icon-width": 40px
+  "--app-toolbar-font-size": 1.65em
+  text-shadow: "3px 3px 6px black"
+  font-size: 16px
+  text-transform: capitalize
+  font-variant: small-caps
+  width: 100%
+  box-sizing: border-box
+  margin: 0
+card:
+  type: custom:auto-entities
+  show_empty: true
+  card:
+    type: glance
+    show_state: false
+    columns: 2
+  filter:
+    include:
+      - domain: light
+        state: "on"
+        options:
+          tap_action:
+            action: toggle
+      - domain: switch
+        state: "on"
+        options:
+          tap_action:
+            action: toggle
+    exclude:
+      - entity_id: 'switch.*switch*'
+      - entity_id: 'switch.*light*'
+      - entity_id: switch.ceiling_center
+      - entity_id: switch.ceiling_left
+      - entity_id: switch.ceiling_right
+      - entity_id: switch.living_room_lamp
+      - entity_id: switch.washer_plug
+      - entity_id: switch.dryer_plug
+      - entity_id: switch.garage_fridge_relay
+      - entity_id: light.pixel_lan
+      - entity_id: light.pixel_fully
+      - entity_id: light.officetab_lan
+      - entity_id: light.officepc
+      - entity_id: light.iphone_cloud
+      - entity_id: light.remote_980bdd8f_0894cd16

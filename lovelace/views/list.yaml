@@ -1,0 +1,271 @@
+---
+id: list
+title: List
+path: list
+icon: mdi:view-list
+background: center / cover no-repeat url("/local/images-lovelace/backgroundz/black_steel1.jpg") fixed
+cards:
+  - type: 'custom:list-card'
+    entity: sensor.st_tammany
+    title: St. Tammany Weather Alert
+    feed_attribute: alerts
+    columns:
+      - title: Description
+        field: description
+      - title: Event
+        field: event
+  - type: vertical-stack
+    cards:
+      - type: 'custom:restriction-card'
+        duration: 10
+        restrictions:
+          confirm:
+            text: 'Are you sure you want to?'
+        card:
+          type: 'custom:auto-entities'
+          card:
+            show_header_toggle: false
+            title: Shelly Devices
+            type: entities
+          filter:
+            exclude:
+              - entity_id: '*rssi*'
+              - entity_id: '*uptime*'
+              - entity_id: '*firmware*'
+              - entity_id: '*cloud*'
+              - entity_id: '*mqtt*'
+              - entity_id: '*view*'
+            include:
+              - entity_id: '*shelly*'
+      - type: 'custom:auto-entities'
+        card:
+          show_header_toggle: false
+          title: Shelly updates available
+          type: entities
+        filter:
+          include:
+            - entity_id: '*firmware_update*'
+      - type: 'custom:auto-entities'
+        card:
+          show_header_toggle: false
+          title: Shelly RSSI
+          type: entities
+        filter:
+          include:
+            - entity_id: '*rssi*'
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - type: 'custom:text-divider-row'
+            text: RPi Stats
+          - type: custom:bar-card
+            severity:
+            - value: 100
+              color: '#40bf40'
+            title_position: inside
+            tap_action: info
+            columns: 1
+            padding: 2px
+            align: split
+            rounding: 6px
+            saturation: 85%
+            height: 30px
+            card_style:
+              background: 'rgba(0, 0, 0, 0.4)'
+              border-radius: 10px
+            title_style:
+              font-weight: bold
+              font-size: 16px
+              color: '#FFF'
+              text-shadow: '1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen'
+            value_style:
+              font-size: 18px
+              font-weight: bold
+            entities:
+              - sensor.processor_use
+              - sensor.disk_use_percent
+              - sensor.disk_free
+              - sensor.uptime
+              - sensor.memory_use_percent
+              - sensor.memory_free
+              - sensor.load_1m
+              - sensor.last_boot
+          - type: 'custom:text-divider-row'
+            text: HA Remote Instance Stats
+          - entity: switch.remote_test_remote_1
+            name: 'Test Light'
+            icon: mdi:wall-sconce-variant
+          - entity: sensor.remote_test_signal
+            name: 'WiFi Signal'
+          - type: custom:bar-card
+            severity:
+            - value: 100
+              color: 'var(--sidebar-icon-color)'
+            title_position: inside
+            tap_action: info
+            columns: 1
+            padding: 2px
+            align: split
+            rounding: 3px
+            saturation: 65%
+            height: 28px
+            card_style:
+              background: 'rgba(0, 0, 0, 0.4)'
+              border-radius: 10px
+            title_style:
+              font-weight: bold
+              font-size: 20px
+              color: 'rgba(255,255,255,0.8)'
+              text-shadow: '1px 1px 2px black, 0 0 25px var(--sidebar-icon-color)'
+            value_style:
+              font-size: 20px
+              font-weight: bold
+              color: 'rgba(255,255,255,0.8)'
+              text-shadow: '1px 1px 2px black, 0 0 25px var(--sidebar-icon-color)'
+            entities:
+              - sensor.remote_processor_use
+              - sensor.remote_load_1m
+              - sensor.remote_disk_use_percent
+              - sensor.remote_disk_free
+              - sensor.remote_uptime
+              - sensor.remote_memory_use_percent
+              - sensor.remote_memory_free
+          - type: 'custom:text-divider-row'
+            text: HA Remote Instance2 Stats
+          - type: custom:bar-card
+            severity:
+            - value: 100
+              color: 'var(--sidebar-icon-color)'
+            title_position: inside
+            tap_action: info
+            columns: 1
+            padding: 2px
+            align: split
+            rounding: 3px
+            saturation: 65%
+            height: 28px
+            card_style:
+              background: 'rgba(0, 0, 0, 0.4)'
+              border-radius: 10px
+            title_style:
+              font-weight: bold
+              font-size: 20px
+              color: 'rgba(255,255,255,0.8)'
+              text-shadow: '1px 1px 2px black, 0 0 25px var(--sidebar-icon-color)'
+            value_style:
+              font-size: 20px
+              font-weight: bold
+              color: 'rgba(255,255,255,0.8)'
+              text-shadow: '1px 1px 2px black, 0 0 25px var(--sidebar-icon-color)'
+            entities:
+              - sensor.remote2_processor_use
+              - sensor.remote2_load_1m
+              - sensor.remote2_disk_use_percent
+              - sensor.remote2_disk_free
+              - sensor.remote2_uptime
+              - sensor.remote2_memory_use_percent
+              - sensor.remote2_memory_free
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - type: 'custom:text-divider-row'
+            text: Internet
+          - sensor.speedtest_upload
+          - sensor.speedtest_ping
+          - sensor.speedtest_download
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - type: 'custom:text-divider-row'
+            text: ESPHome
+          - sensor.garage_fridge_power
+          - sensor.garage_fridge_voltage
+          - sensor.garage_fridge_wifi_signal
+          - entity: switch.garage_fridge_relay
+            name: Garage Fridge LED
+          - entity: sensor.garage_fridge_esphome_version
+            name: Version
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - type: 'custom:text-divider-row'
+            text: Garage Fridge Consumption
+          - type: custom:card-modder
+            style:
+              background: rgba(0,0,0,0.0)
+              border-radius: 15px
+              overflow: hidden
+            card:
+              type: custom:mini-graph-card
+              entities:
+                - sensor.garage_fridge_power
+              show:
+                labels: true
+                name: false
+                icon: false
+              color_thresholds:
+                - value: 5
+                  color: "green"
+                - value: 120
+                  color: 'var(--accent-color)'
+                - value: 130
+                  color: 'var(--accent-color)'
+              hours_to_show: 168
+              points_per_hour: 0.25
+      - type: 'custom:weather-card-chart'
+        title: Hourly
+        mode: hourly
+        weather: weather.dark_sky
+      - type: 'custom:weather-card-chart'
+        title: Weekly
+        weather: weather.dark_sky
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Batteries
+      show_header_toggle: false
+    filter:
+      include:
+        - attributes:
+            device_class: "battery"
+          options:
+            style: |
+              {% if state_attr(config.entity, 'unit_of_measurement') == "%" %}
+              :host {
+                --paper-item-icon-color:
+                  {% if states(config.entity)|float < 25 %}
+                    red
+                  {% elif states(config.entity)|float < 40 %}
+                    yellow
+                  {% else %}
+                    var(--accent-color)
+                  {% endif %};
+              }
+              {% endif %}
+    sort:
+      method: state
+      reverse: true
+    unique: true
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Phones
+      show_header_toggle: false
+    filter:
+      include:
+        - device: /iPhone/
+  - type: 'custom:logbook-card'
+    title: "Donna's iPhone history"
+    show:
+      end_date: false
+      start_date: false
+    entity: device_tracker.donna_s_iphone
+    max_items: 10
+    desc: true
+    state_map:
+      - label: Home
+        value: 'home'
+      - label: Away
+        value: 'not_home'

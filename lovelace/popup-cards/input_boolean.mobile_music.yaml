@@ -1,0 +1,86 @@
+---
+# input_boolean.mobile_music.yaml
+title: " "
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  "--app-toolbar-font-size": 1.875em
+  "--primary-text-color": rgba(255,255,255,0.80)
+  "--iron-icon-height": 48px
+  "--iron-icon-width": 48px
+  text-transform: capitalize
+  font-variant: small-caps
+  font-weight: bold
+  text-shadow: "2px 2px 4px #000000"
+  font_size: 2em
+  border-radius: 15px
+  border: solid 3px dimgray
+  box-sizing: border-box
+  width: 341px
+  height: 752px
+  margin: 0
+card:
+  type: vertical-stack
+  cards:
+    - type: 'custom:text-divider-row'
+      text: Destination
+    - type: horizontal-stack
+      cards:
+        - type: picture
+          show_state: false
+          show_name: false
+          image: /local/icons/media/inside.png
+          tap_action:
+            action: call-service
+            service: input_select.select_option
+            service_data:
+              entity_id: input_select.output_radio
+              option: Inside
+        - type: picture
+          show_state: false
+          show_name: false
+          image: /local/icons/media/patio.png
+          tap_action:
+            action: call-service
+            service: input_select.select_option
+            service_data:
+              entity_id: input_select.output_radio
+              option: Patio
+        - type: picture
+          show_state: false
+          show_name: false
+          image: /local/icons/media/office.png
+          tap_action:
+            action: call-service
+            service: input_select.select_option
+            service_data:
+              entity_id: input_select.output_radio
+              option: Office
+    - type: 'custom:text-divider-row'
+      text: Channels
+    - type: custom:card-modder
+      style:
+        font-size: 2em
+      card:
+        type: "custom:hui-entities-card"
+        entities:
+        - input_select.radio_station
+    - type: custom:card-modder
+      style:
+        font-size: 2.1em
+        border-radius: 0px 0px 22px 22px
+        "--iron-icon-height": 48px
+        "--iron-icon-width": 48px
+      card:
+        type: 'custom:hui-glance-card'
+        columns: 1
+        show_state: false
+        entities:
+          - type: entity-button
+            entity: sun.sun
+            name: PLAY
+            icon: mdi:play-box-outline
+            tap_action:
+              action: call-service
+              service: script.radio_player

@@ -1,0 +1,1052 @@
+---
+anchors:
+  darren_mobile_styles: &darrenmobilestyles
+    style:
+      background: rgba(0,0,0,0.35)
+      border-radius: 15px
+      box-shadow: 0 10px 6px -6px rgba(0,0,0,0.73)
+      "--primary-text-color": "#fbfbfb"
+      "--paper-card-background-color": 'rgba(0, 0, 0,0.85)'
+      font-weight: bold
+      font-size: 1.85em
+      text-transform: capitalize
+      font-variant: small-caps
+      text-shadow: "2px 2px 0 #444444, 2px -2px 0 #444444, -2px 2px 0 #444444, -2px -2px 0 #444444, 2px 0px 0 #444444, 0px 2px 0 #444444, -2px 0px 0 #444444, 0px -2px 0 #444444"  #  "0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)"   #"3px 3px 6px black, 0 0 7px var(--accent-color)"
+      "--paper-item-icon-color": 'var(--accent-color)'
+      "--iron-icon-height": 41px
+      "--iron-icon-width": 41px
+
+  donna_styles: &donnastyles
+    style:
+      background: rgba(0,0,0,0.35)
+      border-radius: 15px
+      "--primary-text-color": white
+      text-transform: capitalize
+      font-variant: small-caps
+      font-weight: bold
+      font-size: 1.75em
+      text-shadow: "2px 2px 4px black, 0 0 8px var(--accent-color)"
+      "--paper-item-icon-color": 'var(--accent-color)'
+      "--iron-icon-stroke-color": 'var(--accent-color)'
+      "--iron-icon-height": 38px
+      "--iron-icon-width": 38px
+
+  tablet_styles: &tabletstyles
+    style:
+      background: rgba(0,0,0,0.35)
+      border-radius: 15px
+      "--primary-text-color": "#f2f2f2"
+      font-weight: bold
+      font-size: 1.75em
+      text-transform: capitalize
+      font-variant: small-caps
+      text-shadow: "3px 3px 6px black"
+      "--paper-item-icon-color": 'var(--accent-color)'
+      "--iron-icon-height": 41px
+      "--iron-icon-width": 41px
+      "--primary-color": white
+
+  office_menu_styles: &officemenustyles
+    style:
+      background-color: rgba(0,0,0,0.3)
+      border-radius: 12px
+      border: solid 1px rgba( 0, 0, 0,1.0)
+      box-shadow: 5px 5px 5px rgba( 100, 100, 100,0.3)
+      padding: 15px
+      text-transform: capitalize
+      font-variant: small-caps
+
+  header_text: &headertext
+    style:
+      border-radius: 12px
+      --paper-card-background-color: rgba(0, 0, 0, 0.0)
+      box-shadow: 2px 2px rgba(0,0,0,0.0)
+      padding: 0px 10px
+      height: 28px
+      font-family: Righteous
+
+  frontpage_size: &frontpagesize
+    color: auto
+
+  light_button_style: &lightbuttonstyle
+    styles:
+      card:
+        - border-radius: 12px
+        - width: 105px
+        - height: 105px
+        - --paper-card-background-color: 'rgba(0, 0, 0, 0.8)'
+        - box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.35), 0 3px 10px 0 rgba(255, 255, 255, 0.34)
+      label:
+        - color: white
+        - font-size: 12px
+        - font-family: Righteous
+        - padding: 0px 10px
+        - justify-self: start
+      state:
+        - font-size: 12px
+        - font-family: Righteous
+        - padding: 0px 10px
+        - justify-self: start
+        - text-transform: capitalize
+        - font-weight: bold
+        - padding-left: 10px
+      grid:
+        - grid-template-areas: '"i" "n" "s" "l"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr min-content min-content
+      img_cell:
+        - align-self: start
+        - text-align: start
+        - margin-right: 60px
+      name:
+        - justify-self: start
+        - padding-left: 10px
+        - font-weight: bold
+        - font-family: Righteous
+        - font-size: 14px
+
+  light_button_state: &lightbuttonstate
+    state:
+      - value: "on"
+        styles:
+          card:
+            - box-shadow: '0px 0px 4px 2px var(--sidebar-icon-color)'
+          name:
+            - color: 'var(--sidebar-icon-color)'
+          state:
+            - color: white
+          lock:
+            - color: black
+      - value: "off"
+        styles:
+          card:
+            - opacity: 0.7
+            - box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.35), 0 3px 10px 0 rgba(255, 255, 255, 0.34)
+          icon:
+            - color: white
+          name:
+            - color: white
+          state:
+            - color: white
+          lock:
+            - color: black
+      - value: "unavailable"
+        style:
+          - opacity: 0.2
+          - color: black
+          - --paper-item-icon-color: black
+
+  light_button_actions: &lightbuttonactions
+    tap_action:
+      action: toggle
+      haptic: light
+    hold_action:
+      action: more-info
+      haptic: success
+
+  standard_button_style: &standardbuttonstyle
+    card:
+      - border-radius: 12px
+      - width: 105px
+      - height: 105px
+      - --paper-card-background-color: 'rgba(0, 0, 0, 0.8)'
+
+    label:
+      - color: white
+      - font-size: 12px
+      - font-family: Righteous
+      - padding: 0px 10px
+      - justify-self: start
+    state:
+      - font-size: 12px
+      - font-family: Righteous
+      - padding: 0px 10px
+      - justify-self: start
+      - text-transform: capitalize
+      - padding-left: 10px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: start
+      - text-align: start
+      - margin-right: 45px
+    name:
+      - justify-self: start
+      - padding-left: 10px
+      - font-weight: bold
+      - font-family: Righteous
+      - font-size: 14px
+      - color: white
+    icon:
+      - color: white
+
+  light_button2_style: &lightbutton2style
+    styles:
+      card:
+        - border-radius: 12px
+        - width: 90px
+        - height: 90px
+        - --paper-card-background-color: rgba(0, 0, 0, 0.8)
+      label:
+        - color: white
+        - font-size: 12px
+        - font-family: Righteous
+        - padding: 0px 10px
+        - justify-self: start
+      state:
+        - font-size: 12px
+        - font-family: Righteous
+        - padding: 0px 10px
+        - justify-self: start
+        - text-transform: capitalize
+        - font-weight: bold
+        - padding-left: 10px
+      grid:
+        - grid-template-areas: '"i" "n" "s" "l"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr min-content min-content
+      img_cell:
+        - align-self: start
+        - text-align: start
+        - margin-right: 60px
+      name:
+        - justify-self: start
+        - padding-left: 10px
+        - font-weight: bold
+        - font-family: Righteous
+        - font-size: 14px
+
+  light_button3_style: &lightbutton3style
+    styles:
+      card:
+        - border-radius: 12px
+        - width: 160px
+        - height: 160px
+        - --paper-card-background-color: rgba(0, 0, 0, 0.8)
+      label:
+        - color: white
+        - font-size: 18px
+        - font-family: Righteous
+        - padding: 0px 10px
+        - justify-self: start
+      state:
+        - font-size: 20px
+        - font-family: Righteous
+        - padding: 0px 10px
+        - justify-self: start
+        - text-transform: capitalize
+        - padding-left: 10px
+      grid:
+        - grid-template-areas: '"i" "n" "s" "l"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr min-content min-content
+      img_cell:
+        - align-self: start
+        - text-align: start
+        - margin-right: 60px
+      name:
+        - justify-self: start
+        - padding-left: 10px
+        - font-family: Righteous
+        - font-size: 22px
+
+  alarm_button_style: &alarmbuttonstyle
+    card:
+      - border-radius: 15px
+      - width: 360px
+      - height: 94px
+      - --paper-card-background-color: 'rgba(0, 0, 0, 0.35)'
+    state:
+      - font-size: 16px
+      - font-family: Righteous
+      - padding: 5px 0px
+      - justify-self: center
+      - text-transform: capitalize
+      - letter-spacing: 1.5px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: center
+      - text-align: center
+    name:
+      - justify-self: center
+      - font-weight: bold
+      - font-family: Righteous
+      - font-size: 14px
+      - color: white
+    icon:
+      - color: white
+
+  alarm_button2_style: &alarmbutton2style
+    card:
+      - border-radius: 15px
+      - width: 111px
+      - height: 82px
+      - --paper-card-background-color: rgba(0, 0, 0, 0.40)
+    state:
+      - font-size: 18px
+      - font-family: Righteous
+      - padding: 5px 0px
+      - justify-self: center
+      - text-transform: capitalize
+      - font-variant: small-caps
+      - letter-spacing: 1.4px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: center
+      - text-align: center
+    name:
+      - justify-self: center
+      - font-weight: bold
+      - font-family: Righteous
+      - font-size: 16px
+      - color: white
+    icon:
+      - color: white
+
+  fan_state: &fanstate
+    state:
+      - value: "on"
+        styles:
+          card:
+            - box-shadow: '0px 0px 4px 2px var(--sidebar-icon-color)'
+          name:
+            - color: 'var(--sidebar-icon-color)'
+          state:
+            - color: white
+          icon:
+            - color: 'var(--accent-color)'
+          lock:
+            - color: black
+        spin: true
+      - value: "off"
+        styles:
+          card:
+            - opacity: 0.7
+            - box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.35), 0 3px 10px 0 rgba(255, 255, 255, 0.34)
+          icon:
+            - color: white
+            - --iron-icon-stroke-color: white
+          name:
+            - color: white
+          state:
+            - color: white
+          lock:
+            - color: black
+      - value: "unavailable"
+        style:
+          - opacity: 0.2
+          - color: black
+          - --paper-item-icon-color: black
+
+  standard_button_actions: &standardbuttonactions
+    tap_action:
+      action: more-info
+      haptic: light
+
+  standard_button_actions2: &standardbuttonactions2
+    tap_action:
+      action: toggle
+      haptic: success
+
+  standard_button_actions4: &standardbuttonactions4
+    tap_action:
+      action: call-service
+      service: script.alarm_panel_popup
+      haptic: success
+
+  show_label: &showlabel
+    show_state: false
+    show_label: true
+  show_state: &showstate
+    show_state: true
+    show_label: false
+  show_both: &showboth
+    show_state: true
+    show_label: true
+  show_none: &shownone
+    show_state: false
+    show_label: false
+    show_name: false
+
+controls_fold:
+  type: custom:card-modder
+  <<: *darrenmobilestyles
+  card:
+    type: "custom:hui-entities-card"
+    entities:
+      - type: custom:fold-entity-row
+        head:
+          type: section
+          label: Controls
+        padding: 0px
+        items:
+          - type: custom:card-modder
+            style:
+              font-size: .59em
+              border-radius: 22px 22px 0px 0px
+              margin-bottom: 0px
+              padding-bottom: 0px
+              height: 521px
+            card:
+              type: 'custom:hui-glance-card'
+              columns: 3
+              show_state: false
+              entities:
+                - type: entity-button
+                  entity: sun.sun
+                  name: WiFi
+                  icon: mdi:wifi
+                  tap_action:
+                    action: call-service
+                    service: script.view_wifi
+                - type: entity-button
+                  entity: sun.sun
+                  name: HA Services
+                  icon: mdi:home-assistant
+                  tap_action:
+                    action: call-service
+                    service: script.view_settings
+                - type: entity-button
+                  entity: input_boolean.mobile_lights_on
+                  name: 'Lights ON'
+                  icon: mdi:lightbulb-on-outline
+                - type: entity-button
+                  entity: sensor.sunset
+                  name: Clock
+                  icon: mdi:alarm
+                - type: entity-button
+                  entity: sun.sun
+                  name: Morning
+                  icon: mdi:weather-sunset-up
+                  tap_action:
+                    action: call-service
+                    service: script.morning
+                - type: entity-button
+                  entity: sensor.sunrise
+                  name: Coffee
+                  icon: mdi:coffee
+                - type: entity-button
+                  entity: input_boolean.mobile_thermostat
+                  name: HVAC
+                  icon: mdi:air-conditioner
+                - type: entity-button
+                  entity: input_boolean.mobile_calander
+                  name: C-Virus #Events
+ #                  icon: mdi:calendar-heart
+                - type: entity-button
+                  entity: input_boolean.mobile_floorplan
+                  name: Floorplan
+                  icon: mdi:floor-plan
+                - type: entity-button
+                  entity: sun.sun
+                  name: Reload
+                  icon: mdi:monitor-dashboard
+                  tap_action:
+                    action: call-service
+                    service: script.browser_tablet
+                - type: entity-button
+                  entity: sun.sun
+                  name: Sleep
+                  icon: mdi:sleep
+                  tap_action:
+                    action: call-service
+                    service: script.good_night
+                - type: entity-button
+                  entity: sun.sun
+                  name: 'Screen OFF'
+                  icon: mdi:message-image
+                  tap_action:
+                    action: call-service
+                    service: script.browser_blackout_button
+                - type: entity-button
+                  entity: sun.sun
+                  name: Shelly
+                  icon: mdi:alpha-s-circle-outline
+                  tap_action:
+                    action: call-service
+                    service: script.view_shelly
+                - type: entity-button
+                  entity: sun.sun
+                  name: Wyze Sense
+                  icon: mdi:alpha-w-circle-outline
+                  tap_action:
+                    action: call-service
+                    service: script.view_wyzesense
+                - type: entity-button
+                  entity: sun.sun
+                  name: ESPHome
+                  icon: mdi:alpha-e-circle-outline
+                  tap_action:
+                    action: call-service
+                    service: script.view_esphome
+                - type: entity-button
+                  entity: input_boolean.mobile_kiosk
+                  name: Kiosk
+                  icon: mdi:settings-outline
+                - type: entity-button
+                  entity: sun.sun
+                  name: Automation
+                  icon: mdi:settings-outline
+                  tap_action:
+                    action: call-service
+                    service: script.automation_settings
+                - type: entity-button
+                  entity: sun.sun
+                  name: Power
+                  icon: mdi:settings-outline
+                  tap_action:
+                    action: call-service
+                    service: script.all_devices
+          - type: custom:card-modder
+            style:
+              font-size: .59em
+              border-radius: 0px 0px 22px 22px
+              margin-top: 0px
+              padding-top: 0px
+              height: 220px #95px
+            card:
+              type: 'custom:hui-glance-card'
+              columns: 4
+              show_state: false
+              show_name: false
+              entities:
+                - type: entity-button
+                  entity: script.browser_theme_green
+                  tap_action:
+                    action: call-service
+                    service: script.browser_theme_green
+                - type: entity-button
+                  entity: script.browser_theme_purple
+                  tap_action:
+                    action: call-service
+                    service: script.browser_theme_purple
+                - type: entity-button
+                  entity: script.browser_theme_ocean
+                  tap_action:
+                    action: call-service
+                    service: script.browser_theme_ocean
+                - type: entity-button
+                  entity: script.browser_theme_grey
+                  tap_action:
+                    action: call-service
+                    service: script.browser_theme_grey
+                - type: entity-button
+                  entity: script.browser_theme_magenta
+                  tap_action:
+                    action: call-service
+                    service: script.browser_theme_magenta
+                - type: entity-button
+                  entity: script.browser_theme_lime
+                  tap_action:
+                    action: call-service
+                    service: script.browser_theme_lime
+                - type: entity-button
+                  entity: script.browser_theme_pink
+                  tap_action:
+                    action: call-service
+                    service: script.browser_theme_pink
+                - type: entity-button
+                  entity: script.browser_theme_blue
+                  tap_action:
+                    action: call-service
+                    service: script.browser_theme_blue
+                - type: entity-button
+                  entity: script.browser_theme_geaux
+                  tap_action:
+                    action: call-service
+                    service: script.browser_theme_geaux
+                - type: entity-button
+                  entity: script.browser_theme_red
+                  tap_action:
+                    action: call-service
+                    service: script.browser_theme_red
+                - type: entity-button
+                  entity: script.browser_theme_orange
+                  tap_action:
+                    action: call-service
+                    service: script.browser_theme_orange
+                - type: entity-button
+                  entity: script.browser_theme_yellow
+                  tap_action:
+                    action: call-service
+                    service: script.browser_theme_yellow
+areas_fold:
+  type: custom:card-modder
+  <<: *darrenmobilestyles
+  card:
+    type: "custom:hui-entities-card"
+    entities:
+      - type: custom:fold-entity-row
+        head:
+          type: section
+          label: Areas
+        padding: 0px
+        items:
+          - type: custom:card-modder
+            style:
+              font-size: .65em
+            card:
+              type: 'custom:hui-glance-card'
+              columns: 3
+              show_state: false
+              entities:
+                - type: entity-button
+                  entity: input_boolean.mobile_office
+                  name: Office
+                  icon: mdi:laptop-chromebook
+                - type: entity-button
+                  entity: input_boolean.mobile_kitchen
+                  name: Kitchen
+                  icon: mdi:silverware-variant
+                - type: entity-button
+                  entity: input_boolean.mobile_master
+                  name: Master
+                  icon: mdi:hotel
+                - type: entity-button
+                  entity: input_boolean.mobile_den
+                  name: Den
+                  icon: mdi:sofa
+                - type: entity-button
+                  entity: input_boolean.mobile_rambo
+                  name: Rambo
+                  icon: mdi:paw
+                - type: entity-button
+                  entity: input_boolean.mobile_guest
+                  name: Guest
+                  icon: mdi:human-male-female
+                - type: entity-button
+                  entity: input_boolean.mobile_front
+                  name: Front
+                  icon: mdi:home-group
+                - type: entity-button
+                  entity: input_boolean.mobile_garage
+                  name: Garage
+                  icon: mdi:car-multiple
+                - type: entity-button
+                  entity: input_boolean.mobile_patio
+                  name: Patio
+                  icon: mdi:flower
+                - type: entity-button
+                  entity: input_boolean.mobile_ensuite
+                  name: Ensuite
+                  icon: mdi:shower
+                - type: entity-button
+                  entity: input_boolean.mobile_laundry
+                  name: Laundry
+                  icon: mdi:washing-machine
+                - type: entity-button
+                  entity: input_boolean.mobile_bathroom
+                  name: Bathroom
+                  icon: mdi:toilet
+                - type: entity-button
+                  entity: input_boolean.mobile_driveway
+                  name: Driveway
+                  icon: mdi:car-traction-control
+                - type: entity-button
+                  entity: input_boolean.mobile_hallways
+                  name: Hallways
+                  icon: mdi:home-variant-outline
+                - type: entity-button
+                  entity: input_boolean.mobile_front_porch
+                  name: Porch
+                  icon: mdi:doorbell-video
+
+security_fold:
+  type: custom:card-modder
+  <<: *darrenmobilestyles
+  card:
+    type: "custom:hui-entities-card"
+    entities:
+      - type: custom:fold-entity-row
+        head:
+          type: section
+          label: Security
+        padding: 0px
+        items:
+          - type: custom:card-modder
+            style:
+              font-size: .8em
+            card:
+              type: 'custom:hui-glance-card'
+              columns: 3
+              show_state: false
+              entities:
+                - entity: sun.sun
+                  name: Outside
+                  icon: mdi:cctv
+                  tap_action:
+                    action: call-service
+                    service: script.view_outside_cameras
+                - entity: sun.sun
+                  name: Rambo
+                  icon: mdi:dog
+                  tap_action:
+                    action: call-service
+                    service: script.mobile_rambo_cam
+                - entity: sun.sun
+                  name: Inside
+                  icon: mdi:cctv
+                  tap_action:
+                    action: call-service
+                    service: script.view_inside_cameras
+                - entity: input_boolean.mobile_entrances
+                  name: Doors
+                  icon: mdi:door-open
+                - entity: input_boolean.mobile_motion
+                  name: Motion
+                  icon: mdi:run-fast
+                - entity: input_boolean.mobile_alarms
+                  name: Smoke
+                  icon: mdi:smoke-detector
+                - entity: input_boolean.mobile_windows
+                  name: Windows
+                  icon: mdi:window-open
+                - entity: sun.sun
+                  name: Pixel
+                  icon: mdi:cctv
+                  tap_action:
+                    action: call-service
+                    service: script.mobile_pixel_cam
+                - entity: input_boolean.mobile_leaks
+                  name: Water
+                  icon: mdi:water-outline
+
+weather_fold:
+  type: custom:card-modder
+  <<: *darrenmobilestyles
+  card:
+    type: "custom:hui-entities-card"
+    entities:
+      - type: custom:fold-entity-row
+        head:
+          type: section
+          label: Weather
+        padding: 0px
+        items:
+          - type: custom:card-modder
+            style:
+              font-size: .75em
+              border-radius: 22px 22px 0px 0px
+            card:
+              type: 'custom:hui-glance-card'
+              columns: 3
+              show_state: false
+              entities:
+                - entity: input_boolean.mobile_radar
+                  name: Radar
+                  icon: mdi:radar
+                - entity: input_boolean.mobile_iframe
+                  name: iFrame
+                  icon: mdi:weather-lightning-rainy
+                - entity: input_boolean.mobile_forecast
+                  name: Forecast
+                  icon: mdi:umbrella
+          - type: custom:card-modder
+            style:
+              font-size: 16px
+              background-color: rgba(0,0,0,0.85)
+              font-family: Righteous
+            card:
+              type: custom:air-visual-card
+              air_pollution_level: sensor.u_s_air_pollution_level
+              air_quality_index: sensor.u_s_air_quality_index
+              main_pollutant: sensor.u_s_main_pollutant
+#              hide_title: true
+              temp: weather.dark_sky
+              city: 'Madisonville'
+          - type: custom:card-modder
+            style:
+              font-size: .75em
+              border-radius: 0px 0px 22px 22px
+            card:
+              type: 'custom:hui-glance-card'
+              columns: 2
+              entities:
+                - entity: sensor.st_tammany
+                - entity: sensor.southern_tangipahoa
+                  name: Tangipahoa
+
+button_cards:
+  type: vertical-stack
+  cards:
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:restriction-card'
+          restrictions:
+            confirm:
+              text: 'Are you sure you want to unlock location map?'
+          card:
+            type: 'custom:button-card'
+            entity: group.person_group
+            show_name: false
+            icon: "mdi:home-circle"
+            size: 125%
+            <<: *standardbuttonactions
+            <<: *showboth
+            <<: *frontpagesize
+            styles:
+              <<: *alarmbutton2style
+            state:
+              - value: "home"
+                style:
+                  - opacity: 0.7
+                styles:
+                  name:
+                    - color: white
+                  state:
+                    - color: 'rgba(255, 255, 255,0.85)'
+                  icon:
+                    - color: 'var(--accent-color)'
+              - value: "not_home"
+                icon: "mdi:map-marker"
+                size: 116%
+                styles:
+                  name:
+                    - color: white
+                  state:
+                    - color: white
+                  icon:
+                    - color: yellow
+                    - --iron-icon-stroke-color: gold
+                    - animation: blink 2s ease infinite
+        - type: 'custom:restriction-card'
+          restrictions:
+            confirm:
+              text: 'Are you sure you want to unlock alarm panel?'
+          card:
+            type: 'custom:button-card'
+            entity: alarm_control_panel.ha_alarm
+            show_name: false
+            icon: "mdi:shield-check"
+            size: 105%
+            <<: *standardbuttonactions
+            <<: *showstate
+            <<: *frontpagesize
+            styles:
+              <<: *alarmbutton2style
+            state:
+              - value: "disarmed"
+                style:
+                  - opacity: 0.7
+                styles:
+                  name:
+                    - color: white
+                  state:
+                    - color: 'rgba(255, 255, 255,0.85)'
+                  icon:
+                    - color: 'var(--accent-color)'
+                    - --iron-icon-stroke-color: 'rgba(0, 0, 0,0.0)'
+              - value: "armed_home"
+                icon: "mdi:alert"
+                styles:
+                  name:
+                    - color: black
+                  state:
+                    - color: white
+                  icon:
+                    - color: red
+                    - --iron-icon-stroke-color: red
+                    - animation: blink 2s ease infinite
+              - value: "armed_away"
+                icon: "mdi:alert"
+                styles:
+                  name:
+                    - color: black
+                  state:
+                    - color: white
+                  icon:
+                    - color: red
+                    - animation: blink 2s ease infinite
+              - value: "pending"
+                style:
+                  - opacity: 0.7
+                icon: "mdi:clock-alert-outline"
+                styles:
+                  name:
+                    - color: black
+                  state:
+                    - color: white
+                  icon:
+                    - color: orange
+                    - animation: blink 1s ease infinite
+        - type: 'custom:restriction-card'
+          restrictions:
+            confirm:
+              text: 'Are you sure you want to unlock garage door switch?'
+          card:
+            type: 'custom:button-card'
+            entity: cover.garage_door
+            show_name: false
+            icon: "mdi:arrow-down-bold-circle"
+            size: 125%
+            <<: *standardbuttonactions2
+            <<: *showboth
+            <<: *frontpagesize
+            styles:
+              <<: *alarmbutton2style
+            state:
+              - value: "closed"
+                style:
+                  - opacity: 0.7
+                styles:
+                  name:
+                    - color: white
+                  state:
+                    - color: 'rgba(255, 255, 255,0.85)'
+                  icon:
+                    - color: 'var(--accent-color)'
+              - value: "open"
+                icon: "mdi:arrow-up-bold-circle"
+                size: 125%
+                styles:
+                  name:
+                    - color: white
+                  state:
+                    - color: white
+                  icon:
+                    - color: yellow
+                    - animation: blink 2s ease infinite
+
+
+bar_cards:
+  type: custom:vertical-stack-in-card
+  cards:
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: bar_card_temp
+          variables:
+            - value_1: 20
+            - color_1: '#DC143C'
+            - value_2: 40
+            - color_2: '#bf9540'
+            - color_3: 'var(--sidebar-icon-color)'
+            - columns: 1
+            - height: 28px
+            - entity: sensor.battery_level_2 #sensor.pixel2statusbatt
+            - title: Pixel 2xl
+            - tap_action: info
+        - type: custom:decluttering-card
+          template: bar_card_temp
+          variables:
+            - value_1: 30
+            - color_1: 'var(--sidebar-icon-color)'
+            - value_2: 50
+            - color_2: '#f3f400'
+            - color_3: '#b30000'
+            - columns: 1
+            - height: 28px
+            - entity: sensor.processor_use
+            - title: CPU
+            - tap_action: info
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: bar_card_temp
+          variables:
+            - value_1: 40
+            - color_1: 'rgba(0, 0, 255,0.8)'
+            - value_2: 50
+            - color_2: 'var(--sidebar-icon-color)'
+            - color_3: 'var(--sidebar-icon-color)'
+            - columns: 1
+            - height: 28px
+            - entity: sensor.filtered_realistic_temperature
+            - title: In
+            - tap_action: info
+        - type: custom:decluttering-card
+          template: bar_card_temp
+          variables:
+            - value_1: 40
+            - color_1: 'rgba(0, 0, 255,0.8)'
+            - value_2: 50
+            - color_2: 'var(--sidebar-icon-color)'
+            - color_3: 'var(--sidebar-icon-color)'
+            - columns: 1
+            - height: 28px
+            - entity: sensor.outside_avg_temperature
+            - title: Out
+            - tap_action: info
+
+time_row:
+  type: horizontal-stack
+  cards:
+    - type: custom:card-modder
+      style:
+        "--paper-card-background-color": 'rgba(0, 0, 0,0.0)'
+        border-radius: 0px 0px 0px 16px
+        font-weight: bold
+        letter-spacing: 1px
+        text-shadow: "2px 2px 4px black"
+        font-size: .8em
+        height: 46px
+        display: block
+      card:
+        type: custom:bignumber-card
+        title: SUNRISE
+        entity: sensor.sunrise
+        scale: 16px
+    - type: custom:card-modder
+      style:
+        "--paper-card-background-color": 'rgba(0, 0, 0,0.0)'
+        font-weight: bold
+        letter-spacing: 2px
+        text-shadow: "0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)"
+        height: 35px
+      card:
+        type: custom:bignumber-card
+        entity: sensor.time_12_hour
+        scale: 27px
+    - type: 'custom:button-card'
+      color_type: blank-card
+      styles:
+        card:
+          - width: 5px
+    - type: custom:card-modder
+      style:
+        "--paper-card-background-color": 'rgba(0, 0, 0,0.0)'
+        border-radius: 0px 0px 16px 0px
+        font-weight: bold
+        letter-spacing: 1px
+        text-shadow: "2px 2px 4px black"
+        font-size: .8em
+        height: 46px
+      card:
+        type: custom:bignumber-card
+        title: SUNSET
+        entity: sensor.sunset
+        scale: 16px
+
+card1:
+  type: custom:card-modder
+  style:
+    background: rgba(0,0,0,0.35)
+    border-radius: 15px
+    box-shadow: 0 10px 6px -6px rgba(0,0,0,0.73)
+    "--primary-text-color": "#fbfbfb"
+    "--paper-card-background-color": 'rgba(0, 0, 0,0.85)'
+    font-weight: bold
+    font-size: 1.85em
+    text-transform: capitalize
+    font-variant: small-caps
+    text-shadow: "2px 2px 0 #444444, 2px -2px 0 #444444, -2px 2px 0 #444444, -2px -2px 0 #444444, 2px 0px 0 #444444, 0px 2px 0 #444444, -2px 0px 0 #444444, 0px -2px 0 #444444"
+    "--paper-item-icon-color": 'var(--accent-color)'
+    "--iron-icon-height": 41px
+    "--iron-icon-width": 41px
+  card:
+    type: entities
+    entities:
+      - light.bed_light
+      - light.corner_light
+      - light.desk_light

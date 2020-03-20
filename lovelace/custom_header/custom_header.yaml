@@ -1,0 +1,62 @@
+---
+ #  custom_header
+background: 'var(--sidebar-selected-background-color)'
+active_tab_color: 'var(--accent-color)'
+tab_indicator_color: 'var(--accent-color)'
+notification_dot_color: 'var(--accent-color)'
+all-tabs-color: 'var(--sidebar-icon-color)'
+kiosk_mode: true
+hide_header: true
+disable_sidebar: true
+exceptions:
+  - conditions:
+      user: Darren
+      device_id: d75a5595-2777b7c8
+    config:
+      kiosk_mode: false
+      hide_header: true
+      disable_sidebar: false
+  - conditions:
+      user: Darren
+      device_id: d0dcba7b-0da5e40c
+    config:
+      default_tab: test
+      kiosk_mode: false
+      hide_header: true
+      disable_sidebar: false
+  - conditions:
+      user: Darren
+      device_id: d106f695-c56e2826
+    config:
+      default_tab: test
+      kiosk_mode: false
+      hide_header: true
+      disable_sidebar: false
+  - conditions:
+      user: AlarmPanel
+    config:
+      kiosk_mode: true
+  - conditions:
+      user: Donna
+    config:
+      kiosk_mode: true
+  - conditions:
+      user: Tablet
+    config:
+      kiosk_mode: true
+  - conditions:
+      user: OfficePC
+    config:
+      options_css: 'padding: 0 10px 0 15px;'
+      compact_mode: true
+      kiosk_mode: false
+      hide_header: false
+      disable_sidebar: false
+      hide_help: true
+      voice_hide: true
+      button_text:
+        options: '{{ time }}<br>{{ date }}'
+  - conditions:
+      user: Guest
+    config:
+      kiosk_mode: true

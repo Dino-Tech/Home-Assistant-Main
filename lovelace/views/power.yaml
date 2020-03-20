@@ -1,0 +1,98 @@
+---
+id: power
+title: Power
+path: power
+icon: mdi:power
+panel: true
+cards:
+  - type: custom:card-modder
+    style:
+      background-color: rgb(0, 0, 0)
+      background: center / cover no-repeat url("/local/images-lovelace/backgroundz/black_dotz.jpg") fixed
+      background-size: 100% 100%
+      border-radius: 15px
+      border: solid 10px rgb(0, 0, 0)
+      display: block
+      overflow: hidden
+      animation: '[[ input_select.alert_type.state ]] 2s linear 24'
+    extra_styles: >
+      @keyframes ready {
+        from {border: solid 6px lime;}
+        to {border: solid 6px black;}
+      }
+      @keyframes alarm {
+        from {border: solid 6px red;}
+        to {border: solid 6px black; background: red;}
+      }
+      @keyframes alert {
+        from {border: solid 6px yellow;}
+        to {border: solid 6px black; background: yellow;}
+      }
+    recurse: false
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:card-modder
+          style:
+            "--paper-card-background-color": rgba(0,0,0,0.0)
+            border-radius: 0px 0px 20px 20px
+            border: solid 2px rgb(5, 205, 255)
+          card:
+            type: entities
+            entities:
+              - type: custom:auto-entities
+                show_empty: true
+                card:
+                  type: glance
+                  show_state: false
+                  columns: 5
+                filter:
+                  include:
+                    - domain: light
+                      options:
+                        tap_action:
+                          action: toggle
+                    - domain: switch
+                      options:
+                        tap_action:
+                          action: toggle
+                  exclude:
+                    - entity_id: switch.kitchen_cabinet_lights
+                    - entity_id: switch.kitchen_stove_light
+                    - entity_id: switch.kitchen_cabinet_lights
+                    - entity_id: switch.kitchen_stove_light
+                    - entity_id: switch.hall_switch_2
+                    - entity_id: switch.hall_switch_1
+                    - entity_id: switch.front_flood_lights_switch
+                    - entity_id: switch.foyer_light_switch
+                    - entity_id: switch.fountain_switch
+                    - entity_id: switch.hallway_switch
+                    - entity_id: switch.laundry_light
+                    - entity_id: switch.attic_lights
+                    - entity_id: switch.tv_accent_lights
+                    - entity_id: switch.back_flood_lights
+                    - entity_id: switch.bedroom_ceiling_light
+                    - entity_id: switch.ceiling_center
+                    - entity_id: switch.ceiling_left
+                    - entity_id: switch.ceiling_right
+                    - entity_id: switch.coffee_light
+                    - entity_id: switch.desk_back_light
+                    - entity_id: switch.foyer_accent_lights
+                    - entity_id: switch.foyer_light
+                    - entity_id: switch.front_flood_lights
+                    - entity_id: switch.garage_ceiling_lights
+                    - entity_id: switch.hall_light
+                    - entity_id: switch.hallway_light
+                    - entity_id: switch.living_room_ceiling_light
+                    - entity_id: switch.living_room_lamp
+                    - entity_id: switch.office_ceiling_light
+                    - entity_id: switch.patio_light
+                    - entity_id: switch.porch_light
+                    - entity_id: switch.side_door_light
+                    - entity_id: switch.guest_ceiling_light
+                    - entity_id: switch.table_light
+                    - entity_id: switch.salt_light
+                    - entity_id: switch.living_room_lamp_switch
+                sort:
+                  method: name
+                unique: true

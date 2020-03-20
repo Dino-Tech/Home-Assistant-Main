@@ -1,0 +1,60 @@
+---
+# alarm_control_panel.ha_alarm.yaml
+title: New Life Security
+style:
+  background: url("/local/images-lovelace/backgroundz/black_steel2.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  border-radius: 13px
+  border: solid 2px lime
+  font-size: 26px
+  "--paper-card-background-color": "rgba(0,0,0,0.0)"
+  "--primary-text-color": white
+  "--app-toolbar-font-size": 1.3em
+  "--iron-icon-height": 50px
+  "--iron-icon-width": 50px
+  "--iron-icon-stroke-color": lime
+  "--paper-item-icon-active-color": "#cc0000"
+  "--paper-item-icon-color": "rgba(0, 255, 0,0.4)"
+  text-shadow: "1px 1px 2px black, 0 0 25px lime, 0 0 5px chartreuse"
+  color: white
+  height: calc(100% - 10px)
+  width: calc(100% - 10px)
+  margin: 0
+card:
+  type: vertical-stack
+  cards:
+    - type: 'custom:hui-glance-card'
+      columns: 1
+      show_state: false
+      entities:
+        - type: entity-button
+          entity: sun.sun
+          name: PANIC
+          icon: mdi:alert-decagram
+          tap_action:
+            action: call-service
+            service: script.turn_on
+            service_data:
+              entity_id: script.triggered_flash
+    - type: 'custom:hui-alarm-panel-card'
+      style:
+        .: |
+          ha-card {
+            --mdc-theme-primary: white;
+          }
+        "#keypad mwc-button":
+          $: |
+            :host {
+              background: transparent;
+            }
+            button {
+              font-size: 27px !important;
+            }
+        "#keypad mwc-button:nth-of-type(12)":
+          $: |
+            button {
+              font-size: 17px !important;
+              --mdc-theme-primary: lime;
+            }
+      entity: alarm_control_panel.ha_alarm

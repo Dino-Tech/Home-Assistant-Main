@@ -1,0 +1,96 @@
+---
+ # input_boolean.ha_stats
+title: SYSTEM STATISTICS
+style:
+  background-image: url("/local/images-lovelace/backgroundz/ledlite.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  border-radius: 20px
+  border: solid 8px blue
+  "--primary-text-color": white
+  font-size: 1.7em
+  font-weight: bold
+  text-transform: capitalize
+  font-variant: small-caps
+  color: "#FFF"
+  width: calc(100% - 10px)
+  height: 100%
+  box-sizing: border-box
+  margin: 0
+card:
+  type: entities
+  show_header_toggle: false
+  entities:
+    - type: custom:vertical-stack-in-card
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: custom:bar-card
+              title: CPU
+              title_position: inside
+              hue: 240
+              align: split
+              height: 80px
+              rounding: 8px
+              padding-left: 2px
+              padding-right: 8px
+              entity: sensor.processor_use
+              card_style:
+                background: rgba(0, 0, 204,0.35)
+                box-shadow: none
+                border-radius: 10px
+              title_style:
+                font-size: 30px
+              value_style:
+                font-size: 30px
+            - type: custom:bar-card
+              title: RAM
+              title_position: inside
+              hue: 240
+              align: split
+              height: 80px
+              rounding: 8px
+              padding-left: 2px
+              padding-right: 8px
+              entity: sensor.memory_use_percent
+              card_style:
+                background: rgba(0, 0, 204,0.45)
+                box-shadow: none
+                border-radius: 10px
+              title_style:
+                font-size: 30px
+              value_style:
+                font-size: 30px
+            - type: custom:bar-card
+              title: Disk
+              title_position: inside
+              hue: 240
+              align: split
+              height: 80px
+              rounding: 8px
+              padding-left: 2px
+              padding-right: 8px
+              entity: sensor.disk_free
+              card_style:
+                background: rgba(0, 0, 204,0.35)
+                box-shadow: none
+                border-radius: 10px
+              title_style:
+                font-size: 30px
+              value_style:
+                font-size: 30px
+    - sensor.speedtest_download
+    - sensor.last_boot
+    - sensor.uptime
+    - sensor.ha_latest_version
+    - binary_sensor.remote_ui
+    - type: section
+      label: " "
+    - type: section
+      label: Google WiFi
+    - type: section
+      label: " "
+    - sensor.google_wifi_status
+    - sensor.google_wifi_new_version
+    - sensor.google_wifi_uptime
+    - sensor.google_wifi_last_restart

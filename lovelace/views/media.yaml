@@ -1,0 +1,8 @@
+---
+id: media
+title: Media
+path: media
+background: rgba(0,0,0,0.8)
+cards:
+  - type: 'custom:spotify-card'
+    client_id: 3cbb0f8325d74ffd8ab7870d6ef866ac

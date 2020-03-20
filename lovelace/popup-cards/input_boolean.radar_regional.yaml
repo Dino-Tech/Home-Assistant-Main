@@ -1,0 +1,15 @@
+---
+# input_boolean.radar_regional.yaml
+title: Regional Radar
+style:
+  background: url('https://s.w-x.co/staticmaps/wu/wu/wxtype1200_cur/usmsy/animate.png')
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  border-radius: 15px
+  border: solid 3px rgb(204, 204, 204)
+  width: calc(100% - 6px)
+  height: calc(100% - 6px)
+  margin: 0
+card:
+  type: picture
+  image: /local/images-lovelace/backgroundz/ClearPNG.png

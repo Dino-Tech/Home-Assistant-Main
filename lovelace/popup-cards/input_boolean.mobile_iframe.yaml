@@ -1,0 +1,19 @@
+---
+ #  input_boolean.mobile_iframe
+title: Interactive Map
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  border-radius: 22px
+  border: solid 2px dimgray
+  width: 100%
+  height: 753px
+  box-sizing: border-box
+  margin: 0
+  overflow: hidden
+card:
+  type: iframe
+  url: https://embed.windy.com/embed2.html
+  aspect_ratio: 185%

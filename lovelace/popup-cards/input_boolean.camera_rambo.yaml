@@ -1,0 +1,13 @@
+---
+# input_boolean.camera_rambo.yaml
+title: Outside cameras
+style:
+  background: black
+  border-radius: 10px
+  border: 'solid 1px var(--accent-color)'
+  width: calc(100% - 10px)
+  height: calc(100% - 6px)
+  margin: 0
+card:
+  type: 'custom:camera-card'
+  entity: camera.outside_cameras

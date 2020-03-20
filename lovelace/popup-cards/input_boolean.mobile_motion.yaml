@@ -1,0 +1,259 @@
+---
+ #  input_boolean.mobile_motion.yaml
+title: 'Motion Sensors'
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  "--app-toolbar-font-size": 2.4em
+  "--primary-text-color": rgba(255,255,255,0.75)
+  border-radius: 22px
+  border: solid 2px dimgray
+  font-weight: bold
+  width: 100%
+  box-sizing: border-box
+  margin: 0
+card:
+  type: vertical-stack
+  cards:
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.wyzesense_77878ecb
+            - name: Porch 1
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.front_motion
+            - name: Porch 2
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.driveway_motion
+            - name: Driveway
+            - icon: 'mdi:motion-sensor'
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.back_motion
+            - name: Patio
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.living_room_motion
+            - name: Den 1
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.den_motion
+            - name: Den 2
+            - icon: 'mdi:motion-sensor'
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.wyzesense_77879826
+            - name: Garage 1
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.wyzesense_77879025
+            - name: Garage 2
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.garage_motion
+            - name: Garage 3
+            - icon: 'mdi:motion-sensor'
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.wyzesense_778797dc
+            - name: Entry Hall
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.movement
+            - name: Kiosk
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.wyzesense_778168e9
+            - name: Laundry
+            - icon: 'mdi:motion-sensor'
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.wyzesense_7787900d
+            - name: Kitchen 1
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.wyzesense_77878a66
+            - name: Kitchen 2
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.bedroom_motion
+            - name: Master
+            - icon: 'mdi:motion-sensor'
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.wyzesense_7793f9df
+            - name: Office
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.mbath_motion
+            - name: En Suite
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.wyzesense_77802215
+            - name: Hall Bath
+            - icon: 'mdi:motion-sensor'
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.hall_motion
+            - name: Hall
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.hallway_motion
+            - name: Hallway
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.hallway_rf_motion
+            - name: Hallway (up)
+            - icon: 'mdi:motion-sensor'
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.mbath_glass_break
+            - name: Ensuite Glass
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.face_detected
+            - name: Kiosk Face
+            - icon: 'mdi:motion-sensor'
+        - type: custom:decluttering-card
+          template: motion_button_temp1
+          variables:
+            - entity: binary_sensor.wyzesense_7782a115
+            - name: Mailbox
+            - icon: 'mdi:motion-sensor'
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px

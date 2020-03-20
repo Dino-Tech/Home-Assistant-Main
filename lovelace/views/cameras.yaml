@@ -1,0 +1,26 @@
+---
+id: cameras
+title: Cameras
+path: cameras
+background: black
+icon: mdi:camcorder
+panel: true
+cards:
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:more-info-card
+            title: ' '
+            entity: camera.driveway_cam
+          - type: custom:more-info-card
+            title: ' '
+            entity: camera.front_door
+      - type: horizontal-stack
+        cards:
+          - type: custom:more-info-card
+            title: ' '
+            entity: camera.patio_cam
+          - type: custom:more-info-card
+            title: ' '
+            entity: camera.garage_cam

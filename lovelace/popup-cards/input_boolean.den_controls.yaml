@@ -1,0 +1,71 @@
+---
+ #  input_boolean.den_controls.yaml
+title: " "
+style:
+  background: url("/local/images-lovelace/card_backz/Den9.png")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  border-radius: 15px
+  border: solid 3px rgb(0, 13, 255)
+  "--primary-text-color": "#F2F2F2"
+  "--paper-item-icon-color": rgb(0, 13, 255)
+  "--paper-item-icon-active-color": lime
+  "--iron-icon-height": 45px
+  "--iron-icon-width": 45px
+  "--app-toolbar-font-size": 1.3em
+  padding: 14px 0px 0px 0px
+  font-size: 24px
+  text-transform: capitalize
+  font-variant: small-caps
+  width: calc(100% - 10px)
+  height: 100%
+  box-sizing: border-box
+  margin: 0
+card:
+  type: glance
+  entities:
+    - type: entity-button
+      entity: binary_sensor.living_room_motion
+      name: Motion
+    - type: entity-button
+      entity: binary_sensor.wyzesense_7780f0b4
+      name: Front Door
+    - type: entity-button
+      entity: binary_sensor.den_windows
+      name: Windows
+    - type: entity-button
+      entity: switch.living_room_ceiling_light
+      name: Ceiling
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.living_room_ceiling_fan
+      name: Fan
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.living_room_lamp
+      name: Lamp
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.fireplace_lights
+      name: Fireplace
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.tv_accent_lights
+      name: TV Accent
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.foyer_light
+      name: Foyer
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.foyer_accent_lights
+      name: Foyer Accent
+      tap_action:
+        action: toggle
+  show_state: false

@@ -1,0 +1,55 @@
+---
+ #  input_boolean.mobile_forecast.yaml
+title: " "
+style:
+  background: linear-gradient(rgba(150,150,150,1), 20%, rgba(0,0,0,0.95))
+  font-size: 1.25em
+  "--primary-text-color": white
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  border-radius: 22px
+  border: solid 2px dimgray
+  text-transform: capitalize
+  font-variant: small-caps
+  width: 100%
+  box-sizing: border-box
+  margin: 0
+  overflow: hidden
+card:
+  type: custom:swipe-card
+  cards:
+    - type: custom:card-modder
+      style:
+        background-image: "url(/local/images-lovelace/WIII_tranz/[[ input_select.auto_cardz.state ]].png)"
+        background-repeat: no-repeat
+        background-size: 100% 100%
+        height: 753px
+        overflow: hidden
+      card:
+        type: entities
+        entities:
+          - type: custom:weather-card
+            entity: weather.dark_sky
+          - entity: sensor.dark_sky_hourly_summary
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: " "
+          - entity: sensor.dark_sky_daily_summary
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: " "
+    - type: entities
+      entities:
+        - type: custom:weather-card
+          entity: weather.remote_home
+        - type: custom:weather-card
+          entity: weather.covington_forecast
+    - type: 'custom:weather-card-chart'
+      title: Hourly
+      mode: hourly
+      weather: weather.dark_sky
+    - type: 'custom:weather-card-chart'
+      title: Weekly
+      weather: weather.dark_sky

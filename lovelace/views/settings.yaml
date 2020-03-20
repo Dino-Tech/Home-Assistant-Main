@@ -1,0 +1,73 @@
+---
+id: settings
+title: Settings
+path: settings
+icon: mdi:settings
+cards:
+  - type: entities
+    show_header_toggle: false
+    entities:
+      - type: 'custom:text-divider-row'
+        text: Automations
+      - input_boolean.notifications
+      - input_boolean.voice_notifications
+      - input_boolean.disable_garage_notify
+      - input_boolean.disable_auto_garage
+      - input_boolean.disable_garage_auto_lights
+      - input_boolean.driveway_motion_lights
+      - input_boolean.bedroom_lamps
+      - input_boolean.disable_auto_bedroom
+      - input_boolean.disable_auto_bathroom
+      - input_boolean.disable_auto_fans
+      - input_boolean.disable_laundry_notifications
+      - input_boolean.disable_mail_notifications
+      - input_boolean.disable_exterior_auto_lights
+      - input_boolean.disable_alarm_lights
+      - input_boolean.alarm_disarm_switch
+  - type: entities
+    show_header_toggle: false
+    entities:
+      - type: 'custom:text-divider-row'
+        text: Presence
+      - input_boolean.people_home_boolean
+      - input_boolean.darren_home
+      - input_boolean.donna_home
+      - input_boolean.tristan_home
+  - type: entities
+    show_header_toggle: false
+    entities:
+      - type: 'custom:text-divider-row'
+        text: Kiosk
+      - input_boolean.auto_tablet
+      - input_boolean.auto_backgroundz
+      - input_boolean.disable_popups
+      - input_boolean.disable_inside_popups
+      - input_boolean.auto_card_backz
+      - input_boolean.auto_cameras
+      - input_boolean.auto_camera_image
+      - input_select.mobile_wallpaper
+      - input_select.wallpaper
+      - input_boolean.donnas_screen
+      - input_select.auto_camera
+      - input_select.alert_type
+  - type: entities
+    show_header_toggle: false
+    entities:
+      - type: 'custom:text-divider-row'
+        text: Scripts
+      - script.good_night
+      - script.morning
+      - script.outside_all_off
+      - script.outside_lights_on
+      - script.restart_ha
+      - script.reload_automations
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: 'custom:text-divider-row'
+        text: Update Status
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - entity: sensor.hacs
+            name: HACS
+  - type: 'custom:browser-player'

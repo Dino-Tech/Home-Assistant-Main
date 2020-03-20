@@ -1,0 +1,89 @@
+---
+#
+title: 'Theme Accent Colors'
+style:
+  background: url("/local/images-lovelace/backgroundz/BlackStainless5.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  "--app-toolbar-font-size": 1.875em
+  "--primary-text-color": rgba(255,255,255,0.75)
+  border-radius: 45px
+  box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.31), 0 3px 10px 0 rgba(255, 255, 255, 0.30)
+  border: 'solid 40px var(--accent-color)'
+  font-weight: bold
+  width: 50%
+  height: 50%
+  box-sizing: border-box
+  margin: 0
+card:
+  type: custom:card-modder
+  style:
+    margin-top: 0px
+    padding-top: 0px
+  card:
+    type: 'custom:hui-glance-card'
+    columns: 4
+    show_state: false
+    show_name: false
+    entities:
+      - type: entity-button
+        entity: script.browser_theme_green
+        tap_action:
+          action: call-service
+          service: script.browser_theme_green
+      - type: entity-button
+        entity: script.browser_theme_purple
+        tap_action:
+          action: call-service
+          service: script.browser_theme_purple
+      - type: entity-button
+        entity: script.browser_theme_ocean
+        tap_action:
+          action: call-service
+          service: script.browser_theme_ocean
+      - type: entity-button
+        entity: script.browser_theme_grey
+        tap_action:
+          action: call-service
+          service: script.browser_theme_grey
+      - type: entity-button
+        entity: script.browser_theme_magenta
+        tap_action:
+          action: call-service
+          service: script.browser_theme_magenta
+      - type: entity-button
+        entity: script.browser_theme_lime
+        tap_action:
+          action: call-service
+          service: script.browser_theme_lime
+      - type: entity-button
+        entity: script.browser_theme_pink
+        tap_action:
+          action: call-service
+          service: script.browser_theme_pink
+      - type: entity-button
+        entity: script.browser_theme_blue
+        tap_action:
+          action: call-service
+          service: script.browser_theme_blue
+      - type: entity-button
+        entity: script.browser_theme_geaux
+        tap_action:
+          action: call-service
+          service: script.browser_theme_geaux
+      - type: entity-button
+        entity: script.browser_theme_orange
+        tap_action:
+          action: call-service
+          service: script.browser_theme_orange
+      - type: entity-button
+        entity: script.browser_theme_red
+        tap_action:
+          action: call-service
+          service: script.browser_theme_red
+      - type: entity-button
+        entity: script.browser_theme_yellow
+        tap_action:
+          action: call-service
+          service: script.browser_theme_yellow

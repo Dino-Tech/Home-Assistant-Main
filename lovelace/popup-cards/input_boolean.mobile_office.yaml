@@ -1,0 +1,284 @@
+---
+# input_boolean.mobile_office.yaml
+title: 'Office'
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  "--app-toolbar-font-size": 1.875em
+  "--primary-text-color": rgba(255,255,255,0.75)
+  border-radius: 22px
+  border: solid 2px dimgray
+  font-weight: bold
+  width: 100%
+#  height: 100% #753px
+  box-sizing: border-box
+  margin: 0
+card:
+  type: vertical-stack
+  cards:
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 5px
+        - type: 'custom:card-modder'
+          style:
+            border-radius: 12px
+            overflow: hidden
+          card:
+            type: 'picture-entity'
+            entity: group.office_lights
+            state_image:
+              "on": /local/images-lovelace/card_backz/Office-Room.jpg
+              "off": /local/images-lovelace/card_backz/Office-RoomOff.jpg
+            aspect_ratio: 16x9
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 5px
+    - type: entities
+      entities:
+        - type: custom:bar-card
+          severity:
+            - value: 100
+              color: 'var(--sidebar-icon-color)'
+          title_position: inside
+          decimal: '0'
+          tap_action: info
+          columns: 1
+          padding: 2px
+          align: split
+          rounding: 8px
+          saturation: 65%
+          height: 38px
+          card_style:
+            background: "rgba(0, 0, 0, 0.4)"
+            border-radius: 10px
+          title_style:
+            font-size: 22px
+            font-variant: small-caps
+            color: '#F2F2F2'
+            text-shadow: "2px 2px 4px black"
+          value_style:
+            font-size: 23px
+            font-weight: bold
+            text-shadow: "2px 2px 4px black"
+          entities:
+            - sensor.office_temp_avg
+            - sensor.office_humidity_avg
+    - type: conditional
+      conditions:
+        - entity: media_player.office_google
+          state: "playing"
+      card:
+        type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 15px
+                - height: 100px
+          - type: 'custom:card-modder'
+            style:
+              "--ha-card-border-radius": 10px
+              "--paper-card-background-color": rgba(0, 0, 0, 0.6)
+              overflow: hidden
+            card:
+              type: custom:mini-media-player
+              entity: media_player.office_google
+              icon: mdi:spotify
+              artwork: cover
+              hide:
+                name: true
+                source: true
+                volume: true
+                icon: true
+                power: true
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 15px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: fan_button_temp
+          variables:
+            - entity: switch.office_ceiling_fan
+            - name: Ceiling Fan
+            - icon: "mdi:fan"
+        - type: custom:decluttering-card
+          template: switch_button_temp
+          variables:
+            - entity: switch.air_cleaner
+            - name: Air Purifier
+            - icon: "mdi:weather-windy"
+        - type: custom:decluttering-card
+          template: switch_button3_temp
+          variables:
+            - entity: light.office_lamps
+            - name: Lamps
+            - icon: 'mdi:lamp'
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+        - type: custom:decluttering-card
+          template: switch_button_temp
+          variables:
+            - entity: switch.office_monitor
+            - name: Monitor
+            - icon: "mdi:monitor"
+        - type: custom:decluttering-card
+          template: switch_button_temp
+          variables:
+            - entity: switch.printer
+            - name: Printer
+            - icon: "mdi:printer"
+        - type: custom:decluttering-card
+          template: motion_button_temp
+          variables:
+            - entity: binary_sensor.wyzesense_7793f9df
+            - name: Motion
+            - icon: 'mdi:motion-sensor'
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 15px
+    - type: 'custom:button-card'
+      color_type: blank-card
+      styles:
+        card:
+          - height: 5px
+    - type: "custom:hui-entities-card"
+      entities:
+        - type: custom:fold-entity-row
+          head: light.office_ceiling
+#            type: section
+#            label: Lights
+          padding: 0px
+          items:
+            - type: custom:card-modder
+              style:
+                background: url("/local/images-lovelace/backgroundz/BlackStainless5.jpg") #--paper-card-background-color: rgba(100,100,100,0.4)
+                font-size: 1.3em
+              card:
+                type: entities
+                entities:
+                  - type: 'custom:text-divider-row'
+                    text: Office Ceiling
+                  - type: 'custom:rgb-light-card'
+                    entity: light.office_ceiling
+                    justify: around
+                    size: 32px
+                    colors:
+                      - type: script
+                        entity_id: script.office_dim
+                        icon_color: 'linear-gradient(25deg, dimgrey, #333333)'
+                      - rgb_color:
+                          - 255
+                          - 127
+                          - 255
+                        brightness: 255
+                        transition: 10
+                      - rgb_color:
+                          - 0
+                          - 127
+                          - 255
+                        brightness: 255
+                        transition: 5
+                      - rgb_color:
+                          - 255
+                          - 0
+                          - 0
+                        brightness: 255
+                        transition: 5
+                      - rgb_color:
+                          - 0
+                          - 255
+                          - 0
+                        brightness: 255
+                        transition: 5
+                      - type: script
+                        entity_id: script.office_bright
+                        icon_color: 'linear-gradient(25deg, white, #66ffff)'
+                  - type: custom:slider-entity-row
+                    entity: light.officedimmer
+                    name: hide_state
+                    full_row: true
+                  - type: 'custom:text-divider-row'
+                    text: Office Lamps
+                  - type: 'custom:rgb-light-card'
+                    entity: light.office_lamps
+                    justify: around
+                    size: 32px
+                    colors:
+                      - type: script
+                        entity_id: script.office_lamps_dim
+                        icon_color: 'linear-gradient(25deg, dimgrey, #333333)'
+                      - rgb_color:
+                          - 255
+                          - 127
+                          - 255
+                        brightness: 255
+                        transition: 10
+                      - rgb_color:
+                          - 0
+                          - 127
+                          - 255
+                        brightness: 255
+                        transition: 5
+                      - rgb_color:
+                          - 255
+                          - 0
+                          - 0
+                        brightness: 255
+                        transition: 5
+                      - rgb_color:
+                          - 0
+                          - 255
+                          - 0
+                        brightness: 255
+                        transition: 5
+                      - type: script
+                        entity_id: script.office_lamps_bright
+                        icon_color: 'linear-gradient(25deg, white, #66ffff)'
+                  - type: custom:slider-entity-row
+                    entity: light.office_lamps
+                    name: hide_state
+                    full_row: true
+                  - type: 'custom:text-divider-row'
+                    text: Office Fan Timer
+                  - switch.office_ceiling_fan
+                  - type: custom:slider-entity-row
+                    entity: input_number.office_fan_hours
+                    name: hide_state
+                    full_row: true
+                  - type: custom:slider-entity-row
+                    entity: input_number.office_fan_minutes
+                    name: hide_state
+                    full_row: true
+                  - type: custom:slider-entity-row
+                    entity: input_number.office_fan_seconds
+                    name: hide_state
+                    full_row: true

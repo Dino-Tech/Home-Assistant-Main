@@ -1,0 +1,44 @@
+---
+# sensor.sunset.yaml
+title: Alarm Clock
+style:
+  background: url("/local/images-lovelace/card_backz/clocks2.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 2px 0px 0px 0px
+  border-radius: 22px
+  border: solid 3px DimGray
+  "--paper-item-icon-color": "#535353"
+  "--primary-color": rgba(245, 245, 245,0.5)
+  font-size: 1.35em
+  "--app-toolbar-font-size": 1.875em
+  "--primary-text-color": rgba(245, 245, 245,0.70)
+  text-shadow: "0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)"
+  width: 375px
+  height: 753px
+  box-sizing: border-box
+  margin: 0
+card:
+  type: entities
+  show_header_toggle: false
+  entities:
+    - input_datetime.time_donnas_alarm
+    - input_boolean.donnas_work_alarm
+    - input_datetime.time_darrens_alarm
+    - input_boolean.darrens_work_alarm
+    - type: custom:bignumber-card
+      entity: sensor.time_12_hour
+      scale: 85px
+    - type: custom:countdown-dates
+      title: 'Reminders:'
+      phrase: 'days'
+      show_age: true
+      dates:
+        - date: 04/28/2020
+          name: Donna's b'day
+        - date: 07/06/2020
+          name: Darren's b'day
+        - date: 07/07/2020
+          name: Anniversary
+        - date: 12/31/2020
+          name: New Year's

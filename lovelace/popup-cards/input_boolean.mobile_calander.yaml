@@ -1,0 +1,166 @@
+---
+ #  input_boolean.mobile_calander.yaml
+title: ' '
+style:
+  background: url("/local/images-lovelace/mobile_backz/mobileCV.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  border-radius: 22px
+  border: 'solid 4px #ffce69'
+  font-size: 22px
+  text-transform: capitalize
+  font-variant: small-caps
+  "--primary-text-color": white
+  width: calc(100% - 6px)
+  height: calc(100% - 6px)
+  box-sizing: border-box
+  opacity: 0.85
+  margin: 0
+card:
+  type: entities
+  entities:
+    - type: custom:dummy-entity-row
+      entity: sun.sun
+      icon: mdi:this-icon-does-not-exist
+      name: " "
+    - type: custom:dummy-entity-row
+      entity: sun.sun
+      icon: mdi:this-icon-does-not-exist
+      name: " "
+    - type: custom:dummy-entity-row
+      entity: sun.sun
+      icon: mdi:this-icon-does-not-exist
+      name: " "
+    - type: custom:dummy-entity-row
+      entity: sun.sun
+      icon: mdi:this-icon-does-not-exist
+      name: " "
+    - type: custom:card-modder
+      style:
+        font-size: 1em
+        border-radius: 22px
+        background: rgba(0,0,0,0.0)
+        "--primary-text-color": "#fbfbfb"
+        "--paper-card-background-color": 'rgba(0, 0, 0,0.85)'
+        margin-top: 0px
+        padding-top: 0px
+        font-weight: bold
+        text-transform: capitalize
+        font-variant: small-caps
+        text-shadow: "2px 2px 0 #444444, 2px -2px 0 #444444, -2px 2px 0 #444444, -2px -2px 0 #444444, 2px 0px 0 #444444, 0px 2px 0 #444444, -2px 0px 0 #444444, 0px -2px 0 #444444"  #  "0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)"   #"3px 3px 6px black, 0 0 7px var(--accent-color)"
+        "--paper-item-icon-color": white
+        "--iron-icon-height": 50px
+        "--iron-icon-width": 50px
+      card:
+        type: custom:swipe-card
+        cards:
+          - type: 'custom:vertical-stack-in-card'
+            cards:
+              - type: 'custom:card-modder'
+                style:
+                  border-radius: 12px
+                  '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                  height: 50px
+                  font-family: Righteous
+                  text-align: center
+                  letter-spacing: 1.4px
+                  font-size: 1.5em
+                  font-weight: bold
+                  text-transform: capitalize
+                  font-variant: small-caps
+                  text-shadow: "2px 2px 0 #444444, 2px -2px 0 #444444, -2px 2px 0 #444444, -2px -2px 0 #444444, 2px 0px 0 #444444, 0px 2px 0 #444444, -2px 0px 0 #444444, 0px -2px 0 #444444"  #  "0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)"   #"3px 3px 6px black, 0 0 7px var(--accent-color)"
+                  "--paper-item-icon-color": white
+                  "--iron-icon-height": 50px
+                  "--iron-icon-width": 50px
+                card:
+                  content: '# Worldwide'
+                  type: markdown
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - height: 40px
+              - type: 'custom:hui-glance-card'
+                show_icon: true
+                show_name: true
+                show_state: true
+                columns: 2
+                entities:
+                  - entity: sensor.worldwide_confirmed
+                    icon: 'mdi:emoticon-neutral-outline'
+                    name: Confirmed
+                  - entity: sensor.worldwide_current
+                    icon: 'mdi:emoticon-frown-outline'
+                    name: Current
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - height: 30px
+              - type: 'custom:hui-glance-card'
+                show_icon: true
+                show_name: true
+                show_state: true
+                columns: 2
+                entities:
+                  - entity: sensor.worldwide_recovered
+                    icon: 'mdi:emoticon-happy-outline'
+                    name: Recovered
+                  - entity: sensor.worldwide_deaths
+                    icon: 'mdi:emoticon-dead-outline'
+                    name: Deaths
+          - type: 'custom:vertical-stack-in-card'
+            cards:
+              - type: 'custom:card-modder'
+                style:
+                  '--paper-card-background-color': 'rgba(0, 0, 0, 0.0)'
+                  height: 50px
+                  font-family: Righteous
+                  text-align: center
+                  letter-spacing: 1.4px
+                  font-size: 1.1em
+                  font-weight: bold
+                  text-transform: capitalize
+                  font-variant: small-caps
+                  text-shadow: "2px 2px 0 #444444, 2px -2px 0 #444444, -2px 2px 0 #444444, -2px -2px 0 #444444, 2px 0px 0 #444444, 0px 2px 0 #444444, -2px 0px 0 #444444, 0px -2px 0 #444444"  #  "0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)"   #"3px 3px 6px black, 0 0 7px var(--accent-color)"
+                  "--paper-item-icon-color": white
+                  "--iron-icon-height": 50px
+                  "--iron-icon-width": 50px
+                card:
+                  content: '# United States'
+                  type: markdown
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - height: 40px
+              - type: 'custom:hui-glance-card'
+                show_icon: true
+                show_name: true
+                show_state: true
+                columns: 2
+                entities:
+                  - entity: sensor.us_confirmed
+                    icon: 'mdi:emoticon-neutral-outline'
+                    name: Confirmed
+                  - entity: sensor.us_current
+                    icon: 'mdi:emoticon-frown-outline'
+                    name: Current
+              - type: 'custom:button-card'
+                color_type: blank-card
+                styles:
+                  card:
+                    - height: 30px
+              - type: 'custom:hui-glance-card'
+                show_icon: true
+                show_name: true
+                show_state: true
+                columns: 2
+                entities:
+                  - entity: sensor.us_recovered
+                    icon: 'mdi:emoticon-happy-outline'
+                    name: Recovered
+                  - entity: sensor.us_deaths
+                    icon: 'mdi:emoticon-dead-outline'
+                    name: Deaths

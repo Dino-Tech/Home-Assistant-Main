@@ -1,0 +1,66 @@
+---
+id: floorplan
+title: Floorplan
+path: floorplan
+background: rgba(0,0,0,0.0)
+icon: 'mdi:floor-plan'
+cards:
+  - config:
+      image: /local/floorplan/examples/simple/simple.svg?v=1.1.14
+      log_level: error
+      rules:
+        - action:
+            service: homeassistant.toggle
+          element: light.garage_ceiling_lights
+          entity: light.garage_ceiling_lights
+          image_template: '/local/floorplan/examples/simple/light_${entity.state}.svg'
+          more_info: false
+        - action:
+            service: homeassistant.toggle
+          class_template: 'background-${entity.state}'
+          element: light.garage_ceiling_lights.background
+          entity: light.garage_ceiling_lights
+        - action:
+            service: homeassistant.toggle
+          element: light.garage_ceiling_lights.text
+          entity: light.garage_ceiling_lights
+          text_template: '${entity.state}'
+        - action:
+            service: homeassistant.toggle
+          entity: switch.living_room_ceiling_fan
+          more_info: false
+        - entity: switch.living_room_ceiling_fan
+          more_info: false
+          propagate: false
+          states:
+            - class: 'spinning'
+              state: 'on'
+        - action:
+            service: homeassistant.toggle
+          class_template: 'background-${entity.state}'
+          element: switch.living_room_ceiling_fan.background
+          entity: switch.living_room_ceiling_fan
+        - action:
+            service: homeassistant.toggle
+          element: switch.living_room_ceiling_fan.text
+          entity: switch.living_room_ceiling_fan
+          text_template: '${entity.state}'
+        - entity: camera.driveway_cam
+          image_refresh_interval: 5
+          image_template: '${entity.attributes.entity_picture}'
+        - entities:
+            - binary_sensor.bedroom_motion
+            - binary_sensor.living_room_motion
+            - binary_sensor.wyzesense_77879826
+          state_transitions:
+            - duration: 5
+              from_state: 'on'
+              to_state: 'off'
+          states:
+            - class: 'binary-sensor-off'
+              state: 'off'
+            - class: 'binary-sensor-on'
+              state: 'on'
+      stylesheet: /local/floorplan/examples/simple/simple.css?v=1.1.14
+    title: New Life Floorplan
+    type: 'custom:floorplan-card'

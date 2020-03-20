@@ -1,0 +1,15 @@
+---
+ # input_boolean.radar_interactive.yaml
+title: Interactive Radar
+style:
+  background: linear-gradient(rgba(230,230,230,0.95), 30%, rgba(0,0,0,0.9))
+  border-radius: 15px
+  border: solid 3px rgb(5, 205, 255)
+  width: calc(100% - 6px)
+  height: calc(100% - 6px)
+  margin: 0
+  overflow: hidden
+card:
+  type: iframe
+  url: https://embed.windy.com/embed2.html
+  aspect_ratio: 165%

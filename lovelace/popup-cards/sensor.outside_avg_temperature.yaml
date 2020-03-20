@@ -1,0 +1,57 @@
+---
+ #  sensor.outside_avg_temperature.yam
+title: "Humidity"
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  "--app-toolbar-font-size": 1.875em
+  "--primary-text-color": rgba(255,255,255,0.75)
+  text-shadow: "2px 2px 4px black"
+  border-radius: 22px
+  border: solid 2px dimgray
+  font-weight: bold
+  width: 100%
+  box-sizing: border-box
+  margin: 0
+card:
+  type: custom:auto-entities
+  card:
+    type: custom:bar-card
+    severity:
+      - value: 40
+        color: '#A0522D'
+      - value: 80
+        color: 'var(--sidebar-icon-color)'
+      - value: 100
+        color: 'var(--sidebar-icon-color)'
+    title_position: inside
+    decimal: '0'
+    columns: 1
+    padding: 2px
+    align: split
+    rounding: 4px
+    saturation: 75%
+    height: 29px
+    card_style:
+      background: "rgba(0, 0, 0, 0.3)"
+      border-radius: 10px
+    title_style:
+      font-size: 20px
+      font-weight: bold
+      color: '#FFF'
+      text-shadow: "2px 2px 4px black"
+    value_style:
+      font-size: 24px
+      font-weight: bold
+      color: '#FFF'
+      text-shadow: "2px 2px 4px black"
+  filter:
+    include:
+      - entity_id: "sensor.*humidity*"
+      - entity_id: sensor.dark_sky_humidity
+    exclude:
+      - entity_id: "*.dark_sky*"
+      - entity_id: "*remote*"
+      - entity_id: "*shelly*"

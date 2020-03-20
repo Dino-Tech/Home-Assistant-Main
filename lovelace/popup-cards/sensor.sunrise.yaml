@@ -1,0 +1,63 @@
+---
+# coffee maker
+# sensor.sunrise.yaml
+title: " "
+style:
+  background: linear-gradient(rgb(230,230,230), 30%, rgba(0,0,0,0.95))
+  border-radius: 22px
+  border: solid 3px DimGray
+  font-size: 1.7em
+  font-weight: bold
+  "--paper-slider-knob-color": '#F2F2F2'
+  "--paper-slider-knob-start-color": '#f5f5f5'
+  "--paper-slider-pin-color": '#f5f5f5'
+  "--paper-slider-active-color": '#F2F2F2'
+  "--primary-color": rgba(245, 245, 245,0.45)
+  "--primary-text-color": rgba(245, 245, 245,0.6)
+  text-shadow: "0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)"
+  width: 375px
+  height: 753px
+  padding: 4px 0px 0px 0px
+  box-sizing: border-box
+  margin: 0
+card:
+  type: custom:card-modder
+  style:
+    background-image: url("/local/images-lovelace/backgroundz/coffee44444.png")
+    background-repeat: no-repeat
+    background-size: 100% 100%
+    "--primary-color": rgba(245, 245, 245,0.4)
+  card:
+    type: entities
+    show_header_toggle: false
+    entities:
+      - type: custom:dummy-entity-row
+        entity: sun.sun
+        icon: mdi:this-icon-does-not-exist
+        name: " "
+      - type: custom:dummy-entity-row
+        entity: sun.sun
+        icon: mdi:this-icon-does-not-exist
+        name: " "
+      - type: custom:dummy-entity-row
+        entity: sun.sun
+        icon: mdi:this-icon-does-not-exist
+        name: " "
+      - type: custom:dummy-entity-row
+        entity: sun.sun
+        icon: mdi:this-icon-does-not-exist
+        name: " "
+      - type: custom:dummy-entity-row
+        entity: sun.sun
+        icon: mdi:this-icon-does-not-exist
+        name: " "
+      - switch.coffee_maker
+      - input_boolean.cfe_on
+      - entity: input_datetime.cfe_on
+        name: "Start Time"
+      - input_boolean.cfe_off
+      - entity: input_number.cfe_off
+        name: "Timer"
+      - type: custom:bignumber-card
+        entity: sensor.time_12_hour
+        scale: 62px

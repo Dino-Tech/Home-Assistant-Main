@@ -1,0 +1,69 @@
+---
+ #  sensor.processor_use.yaml
+title: ' '
+style:
+  background: url("/local/images-lovelace/backgroundz/black_dotz2.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  border-radius: 22px
+  border: solid 2px dimgray
+  "--primary-text-color": white
+  "--paper-item-icon-color": 'var(--sidebar-icon-color)'
+  "--iron-icon-stroke-color": black
+  "--iron-icon-height": 30px
+  "--iron-icon-width": 30px
+  font-size: 1.6em
+  font-weight: bold
+  color: "#FFF"
+  text-shadow: '1px 1px 2px black, 0 0 8px var(--sidebar-icon-color)'
+  width: 100%
+  height: 753px
+  box-sizing: border-box
+  margin: 0
+card:
+  type: entities
+  show_header_toggle: false
+  entities:
+    - sensor.automation_count
+    - sensor.binary_sensor_count
+    - sensor.lights_count
+    - sensor.script_count
+    - sensor.sensor_count
+    - sensor.switch_count
+    - sensor.tracker_count
+    - sensor.alert_count
+    - sensor.ha_latest_version
+    - entity: sensor.hacs
+      name: HACS
+    - type: custom:bar-card
+      severity:
+      - value: 100
+        color: 'var(--sidebar-icon-color)'
+      title_position: inside
+      tap_action: info
+      columns: 1
+      padding: 2px
+      align: split
+      rounding: 3px
+      saturation: 65%
+      height: 28px
+      card_style:
+        background: 'rgba(0, 0, 0, 0.4)'
+        border-radius: 10px
+      title_style:
+        font-weight: bold
+        font-size: 20px
+        color: '#FFF'
+        text-shadow: '1px 1px 2px black, 0 0 25px var(--sidebar-icon-color)'
+      value_style:
+        font-size: 20px
+        font-weight: bold
+        text-shadow: '1px 1px 2px black, 0 0 25px var(--sidebar-icon-color)'
+      entities:
+        - sensor.processor_use
+        - sensor.disk_use_percent
+#        - sensor.disk_free
+        - sensor.uptime
+        - sensor.memory_use_percent
+#        - sensor.memory_free

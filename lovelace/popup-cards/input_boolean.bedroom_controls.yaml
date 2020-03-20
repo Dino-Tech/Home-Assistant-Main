@@ -1,0 +1,77 @@
+---
+ #  input_boolean.bedroom_controls.yaml
+title: " "
+style:
+  background: url("/local/images-lovelace/card_backz/Bdrm9.png")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  border-radius: 15px
+  border: solid 3px rgb(240, 26, 255)
+  "--primary-text-color": "#F2F2F2"
+  "--paper-item-icon-color": rgb(240, 26, 255)
+  "--paper-item-icon-active-color": lime
+  "--iron-icon-height": 45px
+  "--iron-icon-width": 45px
+  "--app-toolbar-font-size": 1.3em
+  text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
+  font-size: 23px
+  text-transform: capitalize
+  font-variant: small-caps
+  width: 1280px
+  height: 800px
+  box-sizing: border-box
+  margin: 0
+card:
+  type: glance
+  entities:
+    - type: entity-button
+      entity: sensor.bedroom_humidity
+      name: Humidity
+      tap_action:
+        action: more-info
+    - type: entity-button
+      entity: light.salt_light
+      name: Salt Light
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: binary_sensor.bedroom_motion
+      name: Motion
+    - type: entity-button
+      entity: switch.bedroom_ceiling_light
+      name: Ceiling
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.bedroom_ceiling_fan
+      name: Fan
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.donnas_light
+      name: Donna's
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.darrens_light
+      name: Darren's
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: input_boolean.bedroom_lamps
+      icon: mdi:floor-lamp
+      name: Lamps
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: switch.air_machine
+      icon: mdi:weather-windy
+      name: Purifier
+      tap_action:
+        action: toggle
+    - type: entity-button
+      entity: light.hallway_night_light
+      name: Night
+      tap_action:
+        action: toggle
+  show_state: false

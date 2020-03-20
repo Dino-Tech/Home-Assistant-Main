@@ -1,0 +1,177 @@
+---
+ #  input_boolean.spotify
+title: " "
+style:
+  background: black
+  border-radius: 15px
+  --primary-text-color: black
+  width: calc(100% - 8px)
+  height: calc(100% - 8px)
+  box-sizing: border-box
+  margin: 0
+card:
+  type: custom:mod-card
+  style: |
+    ha-card {
+      position: relative;
+    }
+    ha-card::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      opacity: .30;
+      background: url('{{ state_attr('media_player.spotify_dinotech', 'entity_picture') }}') center / cover;
+    }
+    .card-content {
+      padding: 8px;
+    }
+    .card-content > div {
+      margin: 0 !important;
+    }
+  card:
+    type: vertical-stack
+    cards:
+      - type: 'custom:card-modder'
+        style:
+          border: 'solid 3px var(--accent-color)'
+        recurse: false
+        card:
+          type: custom:vertical-stack-in-card
+          cards:
+            - type: custom:card-modder
+              style:
+                border-radius: 22px 22px 0px 0px
+                font-size: 22px
+                overflow: hidden
+              card:
+                type: custom:simple-weather-card
+                entity: weather.dark_sky
+                secondary_info: humidity
+                name: "Current conditions at home."
+                backdrop:
+                  day: "rgba(0,0,0,0.5)"
+                  night: "rgba(0,0,0,0.5)"
+                  text: "#FFFFFF"
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 300px
+            - type: custom:mini-media-player
+              entity: media_player.spotify_dinotech
+              artwork: none
+              source: icon
+              volume_stateless: true
+              scale: 1.7
+              hide:
+                name: true
+                icon: true
+                power: true
+              shortcuts:
+                columns: 6
+                buttons:
+#                  - name: Crowder
+#                    type: service
+#                    id: spotcast.start
+#                    data:
+#                      entity_id: media_player.inside_group
+#                      uri: spotify:track:0ezeXzG4Qi5GJGu9E3W4VY
+                  - name: Toby
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.office_group
+                      uri: spotify:playlist:4EU5Jm7pli4XHI3g3d9v5p
+                  - name: Lauren
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.inside_group
+                      uri: spotify:playlist:37i9dQZF1DX6a5YzZWJZO3
+                  - name: Waymaker
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.inside_group
+                      uri: spotify:track:4tkmm0pdXEZvHscuHWnkqy
+                  - name: King&Country
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.inside_group
+                      uri: spotify:playlist:37i9dQZF1DX0a1TXCP9Sog
+                  - name: MercyMe
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.inside_group
+                      uri: spotify:album:4BDftZAnppbkKAA4O4APzn
+                  - name: DannyGokey
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.inside_group
+                      uri: spotify:playlist:37i9dQZF1DZ06evO3ws0Pm
+                  - name: BethelMusic
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.inside_group
+                      uri: spotify:playlist:37i9dQZF1DX0Hs9sfQ48jI
+                  - name: Skillet
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.inside_group
+                      uri: spotify:playlist:37i9dQZF1DZ06evO2qgZOg
+                  - name: Jeremy
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.inside_group
+                      uri: spotify:playlist:37i9dQZF1DZ06evO3fyCkg
+                  - name: Messengers
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.inside_group
+                      uri: spotify:artist:5WcisvYoq6332gCUX039Jd
+                  - name: Rescue
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.office_google
+                      uri: spotify:track:7r9kOxiNDnkAg5QKqtyjVk
+                  - name: Run Devil
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.inside_group
+                      uri: spotify:album:1LWwPxmpj8fm1g9cCmQnFB
+                  - name: Day I Die
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.inside_group
+                      uri: spotify:playlist:5IUKt0gtTYTxbmT9GQ9CDV
+                  - name: Hallelujah
+                    type: service
+                    id: spotcast.start
+                    data:
+                      entity_id: media_player.inside_group
+                      uri: spotify:track:0YxrPdW9NpNFtqh7Fw0rva
+                  - name: K-Love
+                    type: service
+                    id: script.klove_radio
+                  - name: God's Dj's
+                    type: service
+                    id: script.gods_djs
+                  - name: The Blast
+                    type: service
+                    id: script.klove_radio
+                  - name: Hits Radio
+                    type: service
+                    id: script.hits_radio
+# klove  spotify:playlist:0ozMLsu4s1h7ZawEm7Wy4L

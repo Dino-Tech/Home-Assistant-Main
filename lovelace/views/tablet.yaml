@@ -1,0 +1,456 @@
+---
+id: tablet
+title: Tablet
+path: tablet
+background-color: black
+icon: mdi:tablet-ipad
+panel: true
+cards:
+  - type: custom:card-modder
+    style:
+      background-image: url("/local/images-lovelace/backgroundz/d_tablet.jpg")
+      background-color: rgba(0, 0, 0,0.0)
+      background-size: 100% 100%
+      padding: 4px 0px 0px 0px
+      border-radius: 25px
+      border: 'solid 10px [[ input_select.auto_borderz.state ]]'
+      display: block
+      animation: '[[ input_select.alert_type.state ]] 2s linear 24'
+    extra_styles: >
+      @keyframes ready {
+        from {border: solid 6px lime;}
+        to {border: solid 6px black;}
+      }
+      @keyframes alarm {
+        from {border: solid 6px red;}
+        to {border: solid 6px black; background: red;}
+      }
+      @keyframes alert {
+        from {border: solid 6px yellow;}
+        to {border: solid 6px black; background: yellow;}
+      }
+    recurse: false
+    card:
+      type: custom:layout-card
+      layout: vertical
+      column_num: 3
+      max_width: [392px, 687px, 200px]
+      cards:
+        - type: custom:vertical-stack-in-card
+          cards:
+            - type: custom:card-modder
+              style:
+                background: rgba(0,0,0,0.6)
+                border-radius: 12px 12px 0px 0px
+                overflow: hidden
+                font-weight: bold
+                letter-spacing: 4px
+                height: 40px
+              card:
+                type: custom:bignumber-card
+                entity: sensor.time_12_hour
+                scale: 42px
+            - type: custom:card-modder
+              style:
+                background: rgba(0,0,0,0.6)
+                border-radius: 0px
+                font-size: 1.89em
+                height: 280px
+                overflow: hidden
+              card:
+                type: "custom:atomic-calendar"
+                title: " "
+                titleSize: 0.1
+                enableModeChange: true
+                defaultMode: 2
+                CalEventHolidayColor: Fuchsia
+                CalEventIcon1Filter: event, events
+                CalEventIcon2Filter: birthday
+                CalEventIcon1: " "
+                CalEventIcon2: " "
+                CalEventIcon3: " "
+                entities:
+                  - entity: calendar.contacts
+                    type: icon2, holiday
+                  - entity: calendar.holidays_in_united_states
+                    type: holiday
+                  - entity: calendar.christian_holidays
+                    type: icon3, holiday
+                dateSize: 104
+                timeSize: 104
+                firstDayOfWeek: 7
+            - type: custom:card-modder
+              style:
+                border-radius: 0px 0px 12px 12px
+                box-shadow: '3px 3px rgba([[ input_select.auto_shadowz.state ]])'
+                overflow: hidden
+              card:
+                type: custom:simple-weather-card
+                entity: weather.dark_sky
+                secondary_info: humidity
+                name: " "
+                backdrop:
+                  day: "rgba(0,0,0,0.6)"
+                  night: "rgba(0,0,0,0.6)"
+                  text: "#FFFFFF"
+        - type: horizontal-stack
+          cards:
+            - type: custom:card-modder
+              style:
+                border-radius: '[[ input_select.auto_cornerz.state ]]'
+                border: 'solid 1.5px [[ input_select.auto_borderz.state ]]'
+                box-shadow: '3px 3px rgba([[ input_select.auto_shadowz.state ]])'
+              card:
+                type: picture-entity
+                entity: input_boolean.donna_home
+                show_state: false
+                show_name: false
+                image: /local/images-lovelace/Donna1new.jpg
+            - type: custom:card-modder
+              style:
+                background: rgba(0,0,0,0.3)
+                border-radius: '[[ input_select.auto_cornerz.state ]]'
+                box-shadow: '3px 3px rgba([[ input_select.auto_shadowz.state ]])'
+                overflow: hidden
+                border: 'solid 1.5px [[ input_select.auto_borderz.state ]]'
+                padding: 2px
+              card:
+                type: picture-entity
+                entity: input_boolean.people_home_boolean
+                show_state: false
+                show_name: false
+                image: /local/images-lovelace/card_backz/system4.png
+            - type: custom:card-modder
+              style:
+                border-radius: '[[ input_select.auto_cornerz.state ]]'
+                border: 'solid 1.5px [[ input_select.auto_borderz.state ]]'
+                box-shadow: '3px 3px rgba([[ input_select.auto_shadowz.state ]])'
+              card:
+                type: picture-entity
+                entity: input_boolean.darren_home
+                show_state: false
+                show_name: false
+                image: /local/images-lovelace/Darren3.JPG
+        - type: custom:bar-card
+          severity:
+            - value: 25
+              color: '#DC143C'
+            - value: 100
+              color: 'rgba(134, 0, 179,0.4)'
+          title_position: inside
+          tap_action: none
+          columns: 1
+          padding: 2px
+          align: split
+          rounding: 10px
+          saturation: 85%
+          height: 40px
+          card_style:
+            background: "rgba(0, 0, 0, 0.4)"
+            border-radius: 10px
+          title_style:
+            font-weight: bold
+            font-size: 22px
+            color: '#FFF'
+            text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
+          value_style:
+            font-size: 26px
+            font-weight: bold
+          entities:
+            - sensor.donna_s_iphone_battery_level
+            - sensor.pixel2statusbatt
+        - type: custom:decluttering-card
+          template: bar_card_temp
+          variables:
+            - value_1: 40
+            - color_1: 'rgba(134, 0, 179,0.4)'
+            - value_2: 70
+            - color_2: '#f3f400'
+            - color_3: '#b30000'
+            - columns: 1
+            - height: 40px
+            - entity: sensor.processor_use
+            - title: Processor Use
+            - tap_action: service
+            - service_options:
+            - domain: script
+            - service: turn_on
+            - entity_id: "script.status_ha_tablet"
+        - break # #################################################
+        - type: horizontal-stack
+          cards:
+            - type: custom:card-modder
+              style:
+                background: rgba(0,0,0,0.6)
+                border-radius: '[[ input_select.auto_cornerz.state ]]'
+                box-shadow: '3px 3px rgba([[ input_select.auto_shadowz.state ]])'
+                overflow: hidden
+              card:
+                type: custom:mini-graph-card
+                entities:
+                  - sensor.filtered_realistic_humidity
+                name: Inside Humidity
+                height: 94
+                show:
+                  icon: false
+                line_color: "Fuchsia"
+                line_width: 4.5
+                font_size: 100
+            - type: custom:card-modder
+              style:
+                background: rgba(0,0,0,0.6)
+                border-radius: '[[ input_select.auto_cornerz.state ]]'
+                overflow: hidden
+              card:
+                type: custom:mini-graph-card
+                entities:
+                  - sensor.filtered_realistic_temperature
+                name: Inside Temp
+                height: 94
+                show:
+                  icon: false
+                line_color: "Fuchsia"
+                line_width: 4.5
+                font_size: 100
+        - type: horizontal-stack
+          cards:
+            - type: custom:card-modder
+              style:
+                background: rgba(0,0,0,0.7)
+                border-radius: 15px
+                font-weight: bold
+                font-size: 1.75em
+                text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
+                "--paper-item-icon-color": Fuchsia
+                "--iron-icon-stroke-color": Magenta
+              card:
+                type: entities
+                entities:
+                  - type: custom:fold-entity-row
+                    head:
+                      type: section
+                      label: Weather
+                    items:
+                      - type: custom:dummy-entity-row
+                        entity: sensor.zdummy_sensor_17
+                        icon: mdi:none
+                        name: " "
+                      - type: custom:dummy-entity-row
+                        entity: sensor.zdummy_sensor_17
+                        icon: mdi:arrow-right-drop-circle-outline
+                        name: "Current Forecast"
+                      - type: custom:dummy-entity-row
+                        entity: sensor.zdummy_sensor_15
+                        icon: mdi:arrow-right-drop-circle-outline
+                        name: "National Radar"
+                      - type: custom:dummy-entity-row
+                        entity: sensor.zdummy_sensor_13
+                        icon: mdi:arrow-right-drop-circle-outline
+                        name: "Regional Radar"
+                      - type: custom:dummy-entity-row
+                        entity: sensor.zdummy_sensor_14
+                        icon: mdi:arrow-right-drop-circle-outline
+                        name: "Local Radar"
+            - type: custom:card-modder
+              style:
+                background: rgba(0,0,0,0.7)
+                border-radius: 15px
+                font-weight: bold
+                font-size: 1.75em
+                text-shadow: "1px 1px 2px black, 0 0 25px Magenta, 0 0 5px Fuchsia"
+                "--paper-item-icon-color": Fuchsia
+                "--iron-icon-stroke-color": Magenta
+              card:
+                type: entities
+                entities:
+                  - type: custom:fold-entity-row
+                    head:
+                      type: section
+                      label: Cameras
+                    items:
+                      - type: custom:dummy-entity-row
+                        entity:
+                        icon: mdi:cctv
+                        name: "Den Camera"
+                      - type: custom:dummy-entity-row
+                        entity: sensor.zdummy_sensor_7
+                        icon: mdi:cctv
+                        name: "Entry Hall Cam"
+                      - type: custom:dummy-entity-row
+                        entity: sensor.zdummy_sensor_8
+                        icon: mdi:cctv
+                        name: "Garage Camera"
+                      - type: custom:dummy-entity-row
+                        entity: sensor.zdummy_sensor_9
+                        icon: mdi:cctv
+                        name: "Kitchen Camera"
+                      - type: custom:dummy-entity-row
+                        entity: sensor.zdummy_sensor_10
+                        icon: mdi:cctv
+                        name: "Front Door Cam"
+                      - type: custom:dummy-entity-row
+                        entity: sensor.zdummy_sensor_11
+                        icon: mdi:cctv
+                        name: "Patio Camera"
+                      - type: custom:dummy-entity-row
+                        entity: sensor.zdummy_sensor_12
+                        icon: mdi:cctv
+                        name: "Driveway Cam"
+                      - type: custom:dummy-entity-row
+                        entity: sensor.zdummy_sensor_16
+                        icon: mdi:cctv
+                        name: "Office Camera"
+        - type: custom:card-modder
+          style:
+            background-image: "url(http://192.168.1.250:8083/axis-cgi/mjpg/video.cgi?cameraId=[[ input_select.auto_camera.state ]]&user=dinotech&pwd=doNNa2017daRRen)" #"url(/local/backgroundz/[[ input_select.backgroundz.state ]].jpg)"
+            background-repeat: no-repeat
+            background-size: 100% 100%
+            border: 'solid 1px [[ input_select.auto_borderz.state ]]'
+            border-radius: '[[ input_select.auto_cornerz.state ]]'
+            box-shadow: '3px 3px rgba([[ input_select.auto_shadowz.state ]])'
+            height: 450px
+            overflow: hidden
+          card:
+            type: picture
+            image: /local/images-lovelace/backgroundz/ClearPNG.png
+        - break # ###################################################
+        - type: custom:card-modder
+          style:
+            padding: 2px 0px 0px 0px
+            background: rgba(0,0,0,0.6)
+            border-radius: 15px
+            height: 10px
+          card:
+            type: picture-entity
+            entity: sensor.zdummy_sensor_18
+            show_state: false
+            show_name: false
+            state_image:
+              "unknown": /local/icons/gray/9settings1.png
+        - type: custom:card-modder
+          style:
+            background: rgba(0,0,0,0.6)
+            border-radius: 15px
+            height: 10px
+          card:
+            type: picture-entity
+            entity: sensor.zdummy_sensor_19
+            show_state: false
+            show_name: false
+            state_image:
+              "unknown": /local/icons/gray/1lights.png
+        - type: custom:card-modder
+          style:
+            background: rgba(0,0,0,0.6)
+            border-radius: 15px
+            height: 10px
+          card:
+            type: picture-entity
+            entity: sensor.zdummy_sensor_20
+            show_state: false
+            show_name: false
+            state_image:
+              "unknown": /local/icons/gray/1security.png
+        - type: custom:card-modder
+          style:
+            padding: 4px 0px 0px 0px
+            background: rgba(0,0,0,0.6)
+            border-radius: 15px
+            height: 10px
+          card:
+            type: picture-entity
+            entity: sensor.zdummy_sensor_2
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.den_controls
+            show_state: false
+            show_name: false
+            state_image:
+              "unknown": /local/icons/gray/1den.png
+        - type: custom:card-modder
+          style:
+            padding: 2px 0px 0px 0px
+            background: rgba(0,0,0,0.6)
+            border-radius: 15px
+            height: 10px
+          card:
+            type: picture-entity
+            entity: sensor.zdummy_sensor_4
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.kitchen_controls
+            show_state: false
+            show_name: false
+            state_image:
+              "unknown": /local/icons/gray/1kit.png
+        - type: custom:card-modder
+          style:
+            padding: 3px 0px 0px 0px
+            background: rgba(0,0,0,0.6)
+            border-radius: 15px
+            height: 10px
+          card:
+            type: picture-entity
+            entity: sensor.zdummy_sensor_3
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.office_controls
+            show_state: false
+            show_name: false
+            state_image:
+              "unknown": /local/icons/gray/1office.png
+        - type: custom:card-modder
+          style:
+            padding: 2px 0px 0px 0px
+            background: rgba(0,0,0,0.6)
+            border-radius: 15px
+            height: 10px
+          card:
+            type: picture-entity
+            entity: sensor.zdummy_sensor_5
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.laundry_controls
+            show_state: false
+            show_name: false
+            state_image:
+              "unknown": /local/icons/gray/1laundry.png
+        - type: custom:card-modder
+          style:
+            padding: 3px 0px 0px 0px
+            background: rgba(0,0,0,0.6)
+            border-radius: 15px
+            height: 10px
+          card:
+            type: picture-entity
+            entity: sun.sun
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.bedroom_controls
+            show_state: false
+            show_name: false
+            state_image:
+              "unknown": /local/icons/gray/1bed.png
+        - type: custom:card-modder
+          style:
+            padding: 3px 0px 0px 0px
+            background: rgba(0,0,0,0.6)
+            border-radius: 15px
+            height: 10px
+          card:
+            type: picture-entity
+            entity: sensor.zdummy_sensor_21
+            show_state: false
+            show_name: false
+            state_image:
+              "unknown": /local/icons/gray/1style.png
