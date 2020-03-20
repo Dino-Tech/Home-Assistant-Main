@@ -1,0 +1,328 @@
+---
+# /config/includes/alert.yaml
+####################################################
+# alert:
+garage_door:
+  name: ⚠️ Garage 🚗 has been open for {{ relative_time(states.binary_sensor.wyzesense_7780f0c5.last_changed) }}
+  done_message: Garage is closed
+  entity_id: binary_sensor.wyzesense_7780f0c5
+  state: 'on'
+  repeat:
+    - 15
+    - 30
+    - 60
+    - 120
+  can_acknowledge: true
+  skip_first: true
+  notifiers:
+    - notify_all
+
+noonlight_alarm:
+  name: ⚠️Noonlight Dispatch🚑 👮‍♀ ⚠️!!
+  entity_id: sensor.noonlight_alarm
+  state: 'on'
+  repeat: 1
+  can_acknowledge: true
+  skip_first: false
+  message: '⚠️️ Noonlight🚑 👮‍♀ has been notified!!!⚠️ 3971'
+  done_message: Dispatch has been handled.
+  notifiers:
+    - notify_all
+
+garage_smoke:
+  name: ⚠️Garage Smoke Detected🚒🔥!!!
+  entity_id: binary_sensor.garage_smoke_detected
+  state: 'on'
+  repeat: 1
+  can_acknowledge: true
+  skip_first: false
+  message: '⚠️Garage Smoke Detected🚒🔥!!! Dial 911'
+  done_message: Garage smoke is CLEAR.
+  notifiers:
+    - notify_all
+
+laundry_smoke:
+  name: ⚠️Laundry Smoke Detected🚒🔥!!!
+  entity_id: binary_sensor.laundry_smoke_detected
+  state: 'on'
+  repeat: 1
+  can_acknowledge: true
+  skip_first: false
+  message: '⚠️Laundry Smoke Detected🚒🔥!!! Dial 911'
+  done_message: Laundry smoke is CLEAR.
+  notifiers:
+    - notify_all
+
+weather_alert:
+  name: ⚠️Weather Alert⚠️ !!!
+  entity_id: binary_sensor.weather_alert_detected
+  state: 'on'
+  repeat:
+    - 5
+    - 1440
+  can_acknowledge: true
+  skip_first: false
+  message: '⚠️⚡️🌀Weather Alert Detected!!!⚡️🌀⚠️'
+  notifiers:
+    - notify_all
+
+office_smoke:
+  name: ⚠️Office Smoke Detected🚒🔥!!!
+  entity_id: binary_sensor.office_smoke_detected
+  state: 'on'
+  repeat: 1
+  can_acknowledge: true
+  skip_first: false
+  message: '⚠️Office Smoke Detected🚒🔥!!! Dial 911'
+  done_message: Office smoke is CLEAR.
+  notifiers:
+    - notify_all
+
+guest_smoke:
+  name: ⚠️Guest Smoke Detected🚒🔥!!!
+  entity_id: binary_sensor.guest_smoke_detected
+  state: 'on'
+  repeat: 1
+  can_acknowledge: true
+  skip_first: false
+  message: '⚠️Office Smoke Detected🚒🔥!!! Dial 911'
+  done_message: Guest smoke is CLEAR.
+  notifiers:
+    - notify_all
+
+bedroom_smoke:
+  name: ⚠️Bedroom Smoke Detected🚒🔥!!!
+  entity_id: binary_sensor.bedroom_smoke_detected
+  state: 'on'
+  repeat: 1
+  can_acknowledge: true
+  skip_first: false
+  message: '⚠️Bedroom Smoke Detected🚒🔥!!! Dial 911'
+  done_message: Bedroom smoke is CLEAR.
+  notifiers:
+    - notify_all
+
+water_heater_leak:
+  name: ⚠️Water heater is leaking🚱!!!
+  done_message: Water heater area is dry.
+  entity_id: binary_sensor.water_heater
+  state: 'on'
+  repeat: 3
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - notify_all
+
+washer_leak:
+  name: ⚠️Washing machine is leaking🚱!!!
+  done_message: Washing machine area is dry.
+  entity_id: binary_sensor.washer_leak
+  state: 'on'
+  repeat: 3
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - notify_all
+
+office_smoke_battery:
+  name: Office Smoke Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.office_smoke_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+guest_smoke_battery:
+  name: Guest Smoke Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.guest_smoke_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+bedroom_smoke_battery:
+  name: Bedroom Smoke Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.bedroom_smoke_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+laundry_smoke_battery:
+  name: Laundry Smoke Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.laundry_smoke_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+garage_smoke_battery:
+  name: Garage Smoke Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.garage_smoke_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+patio_ht_battery:
+  name: Patio HT Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.patio_ht_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+porch_ht_battery:
+  name: Porch HT Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.porch_ht_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+guest_ht_battery:
+  name: Guest HT Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.guest_ht_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+laundry_ht_battery:
+  name: Laundry HT Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.laundry_ht_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+bathroom_ht_battery:
+  name: Bathroom HT Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.bathroom_ht_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+ensuite_ht_battery:
+  name: Ensuite HT Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.ensuite_ht_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+mailbox_sensor_battery:
+  name: Mailbox Sensor Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.mailbox_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+front_door_battery:
+  name: Front Door Battery  🔋 is ⛔  Low
+  entity_id: binary_sensor.front_door_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+garage_door_battery:
+  name: Garage Door Battery🔋 is ⛔  Low
+  entity_id: binary_sensor.garage_door_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+laundry_motion_battery:
+  name: Laundry Motion Battery🔋 is ⛔Low
+  entity_id: binary_sensor.laundry_motion_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+entry_hall_motion_battery:
+  name: Entry Hall Motion Battery🔋 is ⛔Low
+  entity_id: binary_sensor.entry_hall_motion_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+hall_bath_motion_battery:
+  name: Hall Bath Motion Battery🔋 is ⛔Low
+  entity_id: binary_sensor.hall_bath_motion_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+porch_motion_battery:
+  name: Porch Motion Battery🔋 is ⛔Low
+  entity_id: binary_sensor.porch_motion_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+porch_motion_2_battery:
+  name: Porch Motion 2 Battery🔋 is ⛔Low
+  entity_id: binary_sensor.porch_motion_2_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+garage_motion_1_battery:
+  name: Garage Motion 1 Battery🔋 is ⛔Low
+  entity_id: binary_sensor.garage_motion_1_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+garage_motion_2_battery:
+  name: Garage Motion 2 Battery🔋 is ⛔Low
+  entity_id: binary_sensor.garage_motion_2_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+garage_motion_3_battery:
+  name: Garage Motion 3 Battery🔋 is ⛔Low
+  entity_id: binary_sensor.garage_motion_3_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+kitchen_motion_1_battery:
+  name: Kitchen Motion 1 Battery🔋 is ⛔Low
+  entity_id: binary_sensor.kitchen_motion_1_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+kitchen_motion_2_battery:
+  name: Kitchen Motion 2 Battery🔋 is ⛔Low
+  entity_id: binary_sensor.kitchen_motion_2_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+office_motion_1_battery:
+  name: Office Motion 1 Battery🔋 is ⛔Low
+  entity_id: binary_sensor.office_motion_1_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+office_motion_2_battery:
+  name: Office Motion 2 Battery🔋 is ⛔Low
+  entity_id: binary_sensor.office_motion_2_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+hacs_update_available:
+  name: HACS🆕⤴️ update(s) available
+  entity_id: binary_sensor.hacs_update_available
+  repeat: 600
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+pixel_2_xl_battery:
+  name: Pixel 2 XL Battery🔋 is ⛔Low
+  entity_id: binary_sensor.pixel_2_xl_battery_low
+  repeat: 15
+  notifiers:
+    - mobile_app_pixel_2_xl
+
+iphone_6_battery:
+  name: iPhone 6 Battery🔋 is ⛔Low
+  entity_id: binary_sensor.iphone_6_battery_low
+  repeat: 15
+  notifiers:
+    - ios_donnas_iphone
