@@ -21,6 +21,9 @@
       data:
         topic: "cmnd/sonoffs/backlog"
         payload: "status 2;power1 ;power2 ;power3 ;power4 ;power5 "
+    - service: frontend.set_theme
+      data:
+        name: Blue-Nightz
 
 - alias: Life360 Overdue Update
   trigger:
@@ -192,45 +195,53 @@
   initial_state: 'on'
   trigger:
     platform: time
-    at: '06:00:00'
+    at: '06:30:00'
   action:
     - service: input_select.set_options
       entity_id: input_select.wallpaper
       data_template:
-        options: ["christian4", "coffee1_1", "coffee1_2", "coffee1_3", "coffee1_4", "coffee1_5", "coffee1_6", "coffee1_7"]
+        options: ["christian4", "coffee1_1", "coffee1_2", "wallpaper7c", "coffee1_3", "coffee1_4", "coffee1_5", "coffee1_6", "coffee1_7"]
+    - service_template: >
+        script.{{["browser_theme_red", "browser_theme_orange", "browser_theme_yellow", "browser_theme_geaux", "browser_theme_magenta", "browser_theme_lime", "browser_theme_pink", "browser_theme_blue", "browser_theme_grey", "browser_theme_green", "browser_theme_purple", "browser_theme_ocean"] | random }}
 # #####################################################
-- alias: '[Tablet] background noon'
+- alias: '[Tablet] background midday'
   initial_state: 'on'
   trigger:
     platform: time
-    at: '12:00:00'
+    at: '10:00:00'
   action:
     - service: input_select.set_options
       entity_id: input_select.wallpaper
       data_template:
-        options: ["christian1", "wallpaper2", "christian2", "wallpaper3", "christian3", "wallpaper4", "christian4", "christian5", "christian6", "christian7"]
+        options: ["christian1", "wallpaper2", "wallpaper7c", "christian2", "wallpaper3", "christian3", "wallpaper4", "christian4", "christian5", "christian6", "christian7"]
+    - service_template: >
+        script.{{["browser_theme_red", "browser_theme_orange", "browser_theme_yellow", "browser_theme_geaux", "browser_theme_magenta", "browser_theme_lime", "browser_theme_pink", "browser_theme_blue", "browser_theme_grey", "browser_theme_green", "browser_theme_purple", "browser_theme_ocean"] | random }}
 # #####################################################
 - alias: '[Tablet] background evening'
   initial_state: 'on'
   trigger:
     platform: time
-    at: '18:00:00'
+    at: '16:00:00'
   action:
     - service: input_select.set_options
       entity_id: input_select.wallpaper
       data_template:
-        options: ["wallpaper15", "eye1", "christian2", "wallpaper12", "ufo1", "christian5", "welcome4", "christian1", "wallpaper5"]
+        options: ["wallpaper15", "wallpaper7c", "eye1", "christian2", "wallpaper12", "ufo1", "christian5", "welcome4", "christian1", "wallpaper5"]
+    - service_template: >
+        script.{{["browser_theme_red", "browser_theme_orange", "browser_theme_yellow", "browser_theme_geaux", "browser_theme_magenta", "browser_theme_lime", "browser_theme_pink", "browser_theme_blue", "browser_theme_grey", "browser_theme_green", "browser_theme_purple", "browser_theme_ocean"] | random }}
 # #####################################################
 - alias: '[Tablet] background night'
   initial_state: 'on'
   trigger:
     platform: time
-    at: '20:00:00'
+    at: '19:00:00'
   action:
     - service: input_select.set_options
       entity_id: input_select.wallpaper
       data_template:
-        options: ["christian4", "black_tex", "moonFull", "christian3", "landscape", "moonBlue", "blackSteel", "christian2", "superMoon", "moonLake"]
+        options: ["christian4", "black_tex", "moonFull", "christian3", "wallpaper7c", "landscape", "moon2Blue", "blackSteel", "christian2", "superMoon", "moonLake"]
+    - service_template: >
+        script.{{["browser_theme_red", "browser_theme_orange", "browser_theme_yellow", "browser_theme_geaux", "browser_theme_magenta", "browser_theme_lime", "browser_theme_pink", "browser_theme_blue", "browser_theme_grey", "browser_theme_green", "browser_theme_purple", "browser_theme_ocean"] | random }}
 # #####################################################
 - alias: '[Tablet] background select'
   initial_state: 'on'
@@ -244,6 +255,8 @@
   action:
     - service: input_select.select_next
       entity_id: input_select.wallpaper
+    - service_template: >
+        script.{{["browser_theme_red", "browser_theme_orange", "browser_theme_yellow", "browser_theme_geaux", "browser_theme_magenta", "browser_theme_lime", "browser_theme_pink", "browser_theme_blue", "browser_theme_grey", "browser_theme_green", "browser_theme_purple", "browser_theme_ocean"] | random }}
 # #####################################################
 - alias: '[Mobile] background select'
   initial_state: 'on'
@@ -477,7 +490,7 @@
   initial_state: 'on'
   trigger:
     - platform: state
-      entity_id: binary_sensor.wyzesense_778797dc, binary_sensor.side_door_k, binary_sensor.garage_entry_door_k
+      entity_id: binary_sensor.wyzesense_778797dc, binary_sensor.side_door, binary_sensor.garage_entry_door
       from: 'off'
       to: 'on'
   condition:
@@ -561,6 +574,46 @@
   action:
     - service: script.low_battery_popup
     - service: script.mobile_low_battery
+
+- alias: Battery Alert
+  trigger:
+    - platform: time
+      at: '10:00:00'
+    - platform: time
+      at: '18:00:00'
+  condition:
+    - condition: template
+      value_template: >
+          {%- set threshold = 25 -%}
+          {% macro battery_level() %}
+          {% set domains = ['light', 'switch', 'sensor', 'lock', 'binary_sensor'] %}
+          {% for domain in domains -%}
+          {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
+          {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
+          {{ item.name }}{% endif -%}
+          {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
+          {{ item.name }}{% endif -%}
+          {% endfor %}
+          {%- endfor %}
+          {% endmacro %}
+          {{ battery_level() |trim != "" }}
+  action:
+    - service: notify.mobile_app_pixel_2_xl
+      data_template:
+        message: >
+             {% macro battery_level() %}
+             {%- set threshold = 25 -%}
+             {% set domains = ['light', 'switch', 'sensor', 'lock', 'binary_sensor'] %}
+             {% for domain in domains -%}
+             {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
+             {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
+             {{ item.name }} ({{ item.attributes['battery_level'] }}){%- if not loop.last %}, {% endif -%}{% endif -%}
+             {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
+             {{ item.name }} ({{ item.state }}) 🔋⛔ {% if not loop.last %}, {%- endif %} {% endif -%}
+             {% endfor %}
+             {%- endfor %}
+             {% endmacro %}
+             {{ battery_level()}}
 # ########################################################
 - alias: '[Auto] card background select'
   initial_state: 'on'
@@ -614,7 +667,7 @@
   initial_state: 'on'
   trigger:
     - platform: state
-      entity_id: group.darren_presence
+      entity_id: person.darren
       to: 'not_home'
   action:
     - service: script.darren_away
@@ -732,6 +785,17 @@
 # #            Door Auto Lights/Notification/Timers           ##
 # #                                                           ##
 # ##############################################################
+# office fan delay off
+- alias: '[Timer] office fan off'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: switch.office_ceiling_fan
+      to: 'on'
+  action:
+    - delay: "{{ states('input_number.office_fan_hours') | int }}:{{ states('input_number.office_fan_minutes') | int }}:{{ states('input_number.office_fan_seconds') | int }}"
+    - service: switch.turn_off
+      entity_id: switch.office_ceiling_fan
 # Bedroom Lamp switch OFF-ON for 2 nightstand lamps
 - alias: '[Switch] Bedroom Lamps'
   initial_state: 'on'
@@ -1010,7 +1074,7 @@
   initial_state: 'on'
   trigger:
     - platform: state
-      entity_id: binary_sensor.back_door_k
+      entity_id: binary_sensor.back_door
       to: 'on'
   action:
     - service: script.back_door_light
@@ -1025,7 +1089,7 @@
   initial_state: 'on'
   trigger:
     - platform: state
-      entity_id: binary_sensor.side_door_k
+      entity_id: binary_sensor.side_door
       to: 'on'
   action:
     - service: script.side_door_voice
@@ -1054,7 +1118,7 @@
   initial_state: 'on'
   trigger:
     - platform: state
-      entity_id: binary_sensor.garage_entry_door_k
+      entity_id: binary_sensor.garage_entry_door
       to: 'on'
   action:
     - service: script.garage_entry_light
@@ -1217,7 +1281,7 @@
         message: "Donna or Darren.. Clothes ready..  The washing machine has finished!"
     - service: notify.notify_all
       data:
-        message: "Washing machine finished"
+        message: "Washing 👕👗👖 finished"
 # - alias: 'Dryer State - Door'
 #   trigger:
 #     platform: numeric_state
@@ -1260,7 +1324,7 @@
         topic: hass/state/dryer
         payload: 'Idle'
         retain: 'true'
-- alias: 'Dryer Finished'
+- alias: 'Drying 👕👗👖 Finished'
   initial_state: 'on'
   trigger:
     - platform: state
@@ -1288,27 +1352,61 @@
 # #                   ALARM   AUTOMATIONS                   ##
 # #                                                         ##
 # ############################################################
-- alias: '[AlarmPanel] MQTT Weather'
+- alias: '[AlarmPanel] clear cache'
   trigger:
     platform: time_pattern
-    minutes: '/30'
+    minutes: '/59'
   action:
     service: mqtt.publish
-    data:
-      payload_template: "{'weather':{{states.weather.dark_sky.attributes}}}"
-      retain: true
-      topic: alarmpanel/command
+    data_template:
+      {"topic":"wallpanel/mywallpanel/command", "payload":"{'clearCache':true, 'relaunch':true}"}
 
-- alias: '[AlarmPanel] MQTT Sun'
+- alias: '[AlarmPanel] screen bright'
+  initial_state: 'on'
   trigger:
-    platform: time_pattern
-    minutes: '/30'
+    - platform: state
+      entity_id: binary_sensor.wyzesense_778797dc
+      to: 'on'
   action:
     service: mqtt.publish
-    data:
-      payload_template: "{'sun':'{{states('sun.sun')}}'}"
-      retain: true
-      topic: alarmpanel/command
+    data_template:
+      {"topic":"wallpanel/mywallpanel/command", "payload":"{'brightness':255}"}
+
+- alias: '[AlarmPanel] screen dim'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_778797dc
+      from: 'on'
+      to: 'off'
+      for:
+        minutes: 5
+  action:
+    service: mqtt.publish
+    data_template:
+      {"topic":"wallpanel/mywallpanel/command", "payload":"{'brightness':1}"}
+
+# - alias: '[AlarmPanel] MQTT Weather'
+#   trigger:
+#     platform: time_pattern
+#     minutes: '/30'
+#   action:
+#     service: mqtt.publish
+#     data:
+#       payload_template: "{'weather':{{states.weather.dark_sky.attributes}}}"
+#       retain: true
+#       topic: wallpanel/mywallpanel
+
+# - alias: '[AlarmPanel] MQTT Sun'
+#   trigger:
+#     platform: time_pattern
+#     minutes: '/30'
+#   action:
+#     service: mqtt.publish
+#     data:
+#       payload_template: "{'sun':'{{states('sun.sun')}}'}"
+#       retain: true
+#       topic: wallpanel/mywallpanel
 
 - alias: '[Alarm] Trigger Alarm Home Mode'
   initial_state: 'on'
@@ -1318,8 +1416,8 @@
       to: 'on'
     - platform: state
       entity_id:
-        - binary_sensor.side_door_k
-        - binary_sensor.back_door_k
+        - binary_sensor.side_door
+        - binary_sensor.back_door
         - binary_sensor.wyzesense_7780f0b4
       to: 'on'
   condition:
@@ -1343,10 +1441,10 @@
       to: 'on'
     - platform: state
       entity_id:
-        - binary_sensor.side_door_k
-        - binary_sensor.back_door_k
+        - binary_sensor.side_door
+        - binary_sensor.back_door
         - binary_sensor.wyzesense_7780f0b4
-        - binary_sensor.garage_entry_door_k
+        - binary_sensor.garage_entry_door
       to: 'on'
   condition:
     - condition: state
@@ -1492,7 +1590,7 @@
     - delay: '00:05:00'
     - service: notify.mobile_app_pixel_2_xl
       data:
-        message: "Check DropBox Upload"
+        message: "Check ✅ DropBox Upload💻"
 # ##########################################################
 - alias: 'snapshots_went_stale'
   initial_state: true
@@ -1505,7 +1603,7 @@
     - service: notify.mobile_app_pixel_2_xl
       data:
         title: 'Snapshots are Stale'
-        message: 'Please visit the Hass.io Google Drive Backup add-on status page for details.'
+        message: 'Please visit💻 the Hass.io Google Drive Backup add-on status page for details.'
     - service: script.stale_snapshot_popup
 # ##########################################################
 # # Android
@@ -1636,3 +1734,4 @@
       entity_id: media_player.foyer_speaker
       data_template:
         message: '{{ trigger.event.data["textInput"] }}'
+
