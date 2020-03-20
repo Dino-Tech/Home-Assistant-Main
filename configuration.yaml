@@ -69,14 +69,21 @@ lovelace_gen:
 
 lovelace:
   mode: yaml
+  resources: !include lovelace/resources/resources.yaml
 
-remote_homeassistant:
-  instances:
-    - host: 192.168.1.131
-      port: 8123
-      secure: false
-      access_token: !secret remote_access_token
-      entity_prefix: "remote_"
+ # remote_homeassistant:
+ #   instances:
+ #     - host: 192.168.1.131
+ #       port: 8123
+ #       secure: false
+ #       access_token: !secret remote_access_token
+ #       entity_prefix: "remote_"
+ #
+ #     - host: 192.168.1.130
+ #       port: 8123
+ #       secure: false
+ #       access_token: !secret remote2_access_token
+ #       entity_prefix: "remote2_"
 
 conversation:
 
@@ -195,6 +202,7 @@ group: !include groups.yaml
 history: !include includes/history.yaml
 input_boolean: !include includes/input_boolean.yaml
 input_datetime: !include includes/input_datetime.yaml
+input_number: !include includes/input_number.yaml
 input_select: !include includes/input_select.yaml
 ios: !include includes/ios.yaml
 konnected: !include includes/konnected.yaml
@@ -205,5 +213,5 @@ person: !include includes/person.yaml
 scene: !include scenes.yaml
 script: !include scripts.yaml
 sensor: !include includes/sensor.yaml
-# shelly: !include includes/shelly.yaml
+ # shelly: !include includes/shelly.yaml
 switch: !include includes/switch.yaml
