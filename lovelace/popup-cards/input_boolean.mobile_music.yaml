@@ -65,7 +65,7 @@ card:
       card:
         type: "custom:hui-entities-card"
         entities:
-        - input_select.radio_station
+          - input_select.radio_station
     - type: custom:card-modder
       style:
         font-size: 2.1em
