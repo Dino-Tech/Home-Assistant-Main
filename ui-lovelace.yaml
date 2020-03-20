@@ -1937,6 +1937,4 @@ views:
   - !include lovelace/views/floorplan.yaml
   - !include lovelace/views/test.yaml
   - !include lovelace/views/testing.yaml
-  - !include lovelace/views/media.yaml
-  - !include lovelace/views/media2.yaml
   - !include lovelace/views/panel.yaml
