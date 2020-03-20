@@ -1,6 +1,6 @@
 <div>
 <h1 align="center">
-  Dino Tech's Smart Home
+  :computer:Dino Tech's Smart Home:house_with_garden:
   <br>
   <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/LoadingScreen2.gif" alt="Dino Tech's Smart Home" width="230"></a>
   <br>
@@ -113,7 +113,7 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;<a href="http
 </td></tr>
 <tr><td colspan="4">
 
-#### Tracked Stats On my Setup:
+#### Tracked:bar_chart:Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors |     Alerts    |
 |:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------------:|
 |8                |62      |109             |83        |109          |146      |352      |  38           | 
@@ -125,7 +125,7 @@ Automation </a><br>
 </details>
 <tr><td colspan="4">
 
-#### <a name="wyze"></a>Wyze Products and Accessories<a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home--------"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### <a name="wyze"></a>Wyze:movie_camera:Cams and Accessories<a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home--------"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -159,7 +159,7 @@ Popups</a><br>
 
 <tr><td colspan="4">
 
-#### Nest Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home--------"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Nest:tophat:Products, First Alert and Smartthings <a name="nest" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home--------"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -193,7 +193,7 @@ Popups</a><br>
 
 <tr><td colspan="4">
 
-#### Networking and Battery Backups <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home--------"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Networking:globe_with_meridians:and Battery:battery:Backups <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home--------"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -227,7 +227,7 @@ Popups</a><br>
 
 <tr><td colspan="4">
 
-#### Displays and Google Assisted Devices <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home--------"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Displays:tv:and Google Assisted:speaker:Devices <a name="network" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home--------"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
@@ -261,7 +261,7 @@ Popups</a><br>
 
 <tr><td colspan="4">
 
-#### Konnected Alarm <a name="alarm" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home--------"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
+#### Konnected:cop:Alarm:busts_in_silhouette: <a name="alarm" href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#--dino-techs-smart-home--------"><img align="right" border="0" src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/upArrow.png" width="60" ></a>
 </td></tr>
 <tr><td align="center">
 
