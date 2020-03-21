@@ -71,9 +71,9 @@ klove_radio:
         volume_level: '0.35'
     - service: media_player.play_media
       data:
-       entity_id: media_player.inside_group
-       media_content_id: https://maestro.emfcdn.com/stream_for/sk001/tunein
-       media_content_type: 'music'
+        entity_id: media_player.inside_group
+        media_content_id: https://maestro.emfcdn.com/stream_for/sk001/tunein
+        media_content_type: 'music'
 gods_djs:
   sequence:
     - service: media_player.volume_set
@@ -82,9 +82,9 @@ gods_djs:
         volume_level: '0.35'
     - service: media_player.play_media
       data:
-       entity_id: media_player.inside_group
-       media_content_id: http://www.godsdjsradio.com:8080/stream
-       media_content_type: 'music'
+        entity_id: media_player.inside_group
+        media_content_id: http://www.godsdjsradio.com:8080/stream
+        media_content_type: 'music'
 hits_radio:
   sequence:
     - service: media_player.volume_set
@@ -93,9 +93,9 @@ hits_radio:
         volume_level: '0.35'
     - service: media_player.play_media
       data:
-       entity_id: media_player.inside_group
-       media_content_id: http://tunein4.streamguys1.com/chrhtfree1?
-       media_content_type: 'music'
+        entity_id: media_player.inside_group
+        media_content_id: http://tunein4.streamguys1.com/chrhtfree1?
+        media_content_type: 'music'
 the_blast:
   sequence:
     - service: media_player.volume_set
@@ -104,9 +104,9 @@ the_blast:
         volume_level: '0.35'
     - service: media_player.play_media
       data:
-       entity_id: media_player.inside_group
-       media_content_id: http://blender.theblast.fm.fast-serv.com/128
-       media_content_type: 'music'
+        entity_id: media_player.inside_group
+        media_content_id: http://blender.theblast.fm.fast-serv.com/128
+        media_content_type: 'music'
 
 radio_player:
   sequence:
@@ -369,7 +369,6 @@ browser_theme_magenta:
       data_template:
         options: ["mobile14", "mobile11", "mobile18", "mobile7", "mobile8", "mobile9", "mobile10", "mobile3", "mobile13", "mobile1", "mobile15", "mobile16", "mobile5"]
 
-
 browser_theme_geaux:
   sequence:
     - service: frontend.set_theme
@@ -385,7 +384,6 @@ browser_theme_geaux:
       entity_id: input_select.mobile_wallpaper
       data_template:
         options: ["mobile14", "mobile11", "mobile18", "mobile7", "mobile8", "mobile9", "mobile10", "mobile3", "mobile13", "mobile1", "mobile15", "mobile16", "mobile5"]
-
 
 browser_theme_red:
   sequence:
@@ -403,7 +401,6 @@ browser_theme_red:
       data_template:
         options: ["mobile14", "mobile11", "mobile18", "mobile7", "mobile8", "mobile9", "mobile10", "mobile3", "mobile13", "mobile1", "mobile15", "mobile16", "mobile5"]
 
-
 browser_theme_orange:
   sequence:
     - service: frontend.set_theme
@@ -419,7 +416,6 @@ browser_theme_orange:
       entity_id: input_select.mobile_wallpaper
       data_template:
         options: ["mobile14", "mobile11", "mobile18", "mobile7", "mobile8", "mobile9", "mobile10", "mobile3", "mobile13", "mobile1", "mobile15", "mobile16", "mobile5"]
-
 
 browser_theme_yellow:
   sequence:
@@ -491,7 +487,7 @@ browser_disable_cch:
   sequence:
     - service: input_boolean.turn_on
       data:
-       entity_id: input_boolean.disable_cch
+        entity_id: input_boolean.disable_cch
     - service: browser_mod.navigate
       data:
         navigation_path: /lovelace/home?clear_ch_cache
@@ -3226,7 +3222,7 @@ front_notify:
     - service: notify.notify_all
       data:
         title: "New Life Alert"
-        message: "⚠️Porch Motion Detected!⚠️️" 
+        message: "⚠️Porch Motion Detected!⚠️️"
     - condition: state
       entity_id: input_boolean.voice_notifications
       state: 'on'
