@@ -6,49 +6,65 @@
   mjpeg_url: !secret mjpeg_url1
   name: Kitchen Cam
   verify_ssl: false
+
 - platform: mjpeg
   mjpeg_url: !secret mjpeg_url2
   name: Den Cam
   verify_ssl: false
+
 - platform: mjpeg
   mjpeg_url: !secret mjpeg_url3
   name: Driveway Cam
   verify_ssl: false
-#  - platform: generic # 3 host
-#    name: Front Door
-#    still_image_url: http://127.0.0.5:8123/api/camera_proxy/camera.live_view
-#    verify_ssl: false
+
 - platform: mjpeg
   mjpeg_url: !secret mjpeg_url4
   name: Front Door
   verify_ssl: false
+
 - platform: mjpeg
   mjpeg_url: !secret mjpeg_url5
   name: Entry Hall
   verify_ssl: false
-#  - platform: generic # 2 host
-#    name: Garage Cam
-#    still_image_url: https://127.0.0.5:8123/api/camera_proxy/camera.garage_cam
-#    verify_ssl: false
+
 - platform: mjpeg
   mjpeg_url: !secret mjpeg_url6
   name: Garage Cam
   verify_ssl: false
+
 - platform: mjpeg
   mjpeg_url: !secret mjpeg_url7
   name: Patio Cam
   verify_ssl: false
-#  - platform: generic # 1 host
-#    name: Office Cam
-#    still_image_url: https://127.0.0.5:8123/api/camera_proxy/camera.rambo_cam
-#    verify_ssl: false
+
 - platform: mjpeg
   mjpeg_url: !secret mjpeg_url8
   name: Rambo Cam
   verify_ssl: false
+
+- platform: mjpeg
+  mjpeg_url: !secret mjpeg_url9
+  name: Hallway Cam
+  verify_ssl: false
+
 - platform: generic
-  still_image_url: 'https://icons.wxug.com/data/weather-maps/radar/united-states/new-orleans-louisiana-region-current-radar-animation.gif'
+  still_image_url: 'https://s.w-x.co/staticmaps/wu/wu/wxtype1200_cur/usmsy/animate.png'
   name: Local Radar
+
 - platform: generic
-  still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=MSY&brand=wui&num=6&delay=15&type=TR0&frame=0&scale=1.000&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=1&lightning=1&smooth=1&rand=25760093&lat=0&lon=0&label=you'
+  still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?num=6&type=NTP&mapx=400&mapy=240&brand=wui&delay=15&frame=0&scale=0.75&transx=0&transy=0&severe=1&smooth=0&centerx=400&centery=240&station=LIX&rainsnow=1&lightning=0&noclutter=1&showlabels=1&showstorms=0&rand=26408586'
   name: New Orleans Radar
+
+- platform: combined
+  base_address: http://192.168.1.134:8123
+  name: Outside Cameras
+  entities:
+    - camera.driveway_cam
+    - camera.front_door
+    - camera.garage_cam
+    - camera.patio_cam
+
+- platform: mjpeg
+  mjpeg_url: http://192.168.1.250:2971/camera/stream
+  name: Keypad Camera
+
