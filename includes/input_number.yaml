@@ -1,0 +1,25 @@
+---
+ #  input_number.yaml
+office_fan_hours:
+  name: hours
+  icon: mdi:clock-start
+  initial: 1
+  min: 0
+  max: 23
+  step: 1
+
+office_fan_minutes:
+  name: minutes
+  icon: mdi:clock-start
+  initial: 3
+  min: 0
+  max: 59
+  step: 1
+
+office_fan_seconds:
+  name: seconds
+  icon: mdi:clock-start
+  initial: 30
+  min: 0
+  max: 50
+  step: 10
