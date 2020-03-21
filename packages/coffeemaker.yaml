@@ -1,6 +1,6 @@
 ---
 # /config/packages/coffeemaker.yaml
-# credits to Thomas Loven for coffee package
+# credit and thanks to Thomas Loven for coffee package
 #########################################################
 homeassistant:
   customize:
@@ -11,10 +11,10 @@ homeassistant:
 
     input_datetime.cfe_on:
       <<: *common
-      friendly_name: Time
+      friendly_name: Start Time
     input_number.cfe_off:
       <<: *common
-      friendly_name: Timer (mins)
+      friendly_name: Timer
     input_boolean.cfe_on:
       <<: *common
       friendly_name: Morning Coffee
@@ -43,9 +43,9 @@ input_number:
     step: 5
 input_boolean:
   cfe_on:
-    initial: false
+    initial: off
   cfe_off:
-    initial: true
+    initial: on
 
 script:
   cfe_off:
@@ -56,7 +56,7 @@ script:
           entity_id: *cfe_switch
       - service: notify.darren
         data_template:
-          message: "Coffee maker has turned off. The ({{ states('input_number.cfe_off') | int }} minute timer has expired)"
+          message: "Coffee☕️ maker has turned off. The ({{ states('input_number.cfe_off') | int }} minute timer⏳ has expired)"
       - service: script.browser_close_popup
 
   coffee_time_popup:
@@ -130,7 +130,7 @@ script:
 
 automation:
   - alias: Coffee - Timer On
-    initial_state: true
+    initial_state: True
     trigger:
       - platform: template
         value_template: >
@@ -146,12 +146,12 @@ automation:
       - service: homeassistant.turn_on
         data:
           entity_id: *cfe_switch
-      - service: notify.darren
+      - service: notify.mobile_app_pixel_2_xl
         data_template:
-          message: "Coffee maker is on and will turn off in ({{ states('input_number.cfe_off') | int }} minutes)"
+          message: "Coffee☕️ maker is on and will turn off in ({{ states('input_number.cfe_off') | int }} minutes)"
 
   - alias: Coffee - Auto Off
-    initial_state: true
+    initial_state: True
     trigger:
       - platform: state
         entity_id: *cfe_switch
