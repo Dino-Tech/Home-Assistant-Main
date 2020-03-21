@@ -103,6 +103,7 @@ frontend:
       paper-font-headline_-_font-family: "var(--primary-font-family)"
       paper-font-caption_-_font-family: "var(--primary-font-family)"
       paper-font-title_-_font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: "var(--primary-font-family)"
       # Restriction lock colors
       restriction-regular-lock-color: 'rgba(39 ,189, 214,0.85)'
       restriction-success-lock-color: 'lime'
@@ -228,6 +229,7 @@ frontend:
       paper-font-headline_-_font-family: "var(--primary-font-family)"
       paper-font-caption_-_font-family: "var(--primary-font-family)"
       paper-font-title_-_font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: "var(--primary-font-family)"
       # Restriction lock colors
       restriction-regular-lock-color: 'rgba(181 ,169, 251,0.85)'
       restriction-success-lock-color: 'lime'
@@ -355,6 +357,7 @@ frontend:
       paper-font-headline_-_font-family: "var(--primary-font-family)"
       paper-font-caption_-_font-family: "var(--primary-font-family)"
       paper-font-title_-_font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: "var(--primary-font-family)"
       # Restriction lock colors
       restriction-regular-lock-color: 'rgba(132, 192, 138,0.85)'
       restriction-success-lock-color: 'lime'
@@ -482,6 +485,7 @@ frontend:
       paper-font-headline_-_font-family: "var(--primary-font-family)"
       paper-font-caption_-_font-family: "var(--primary-font-family)"
       paper-font-title_-_font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: "var(--primary-font-family)"
       # Restriction lock colors
       restriction-regular-lock-color: 'rgba(112, 110, 119,0.85)'
       restriction-success-lock-color: 'lime'
@@ -609,6 +613,7 @@ frontend:
       paper-font-headline_-_font-family: "var(--primary-font-family)"
       paper-font-caption_-_font-family: "var(--primary-font-family)"
       paper-font-title_-_font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: "var(--primary-font-family)"
       # Restriction lock colors
       restriction-regular-lock-color: 'rgba(3, 169, 244,0.85)'
       restriction-success-lock-color: 'lime'
@@ -734,6 +739,7 @@ frontend:
       paper-font-headline_-_font-family: "var(--primary-font-family)"
       paper-font-caption_-_font-family: "var(--primary-font-family)"
       paper-font-title_-_font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: "var(--primary-font-family)"
       # Restriction lock colors
       restriction-regular-lock-color: 'rgba(229, 0, 125,0.85)'
       restriction-success-lock-color: 'lime'
@@ -859,6 +865,7 @@ frontend:
       paper-font-headline_-_font-family: "var(--primary-font-family)"
       paper-font-caption_-_font-family: "var(--primary-font-family)"
       paper-font-title_-_font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: "var(--primary-font-family)"
       # Restriction lock colors
       restriction-regular-lock-color: 'rgba(95, 224, 31,0.85)'
       restriction-success-lock-color: 'lime'
@@ -984,6 +991,7 @@ frontend:
       paper-font-headline_-_font-family: "var(--primary-font-family)"
       paper-font-caption_-_font-family: "var(--primary-font-family)"
       paper-font-title_-_font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: "var(--primary-font-family)"
       # Restriction lock colors
       restriction-regular-lock-color: 'rgba(223, 32, 223,0.85)'
       restriction-success-lock-color: 'lime'
@@ -1109,6 +1117,7 @@ frontend:
       paper-font-headline_-_font-family: "var(--primary-font-family)"
       paper-font-caption_-_font-family: "var(--primary-font-family)"
       paper-font-title_-_font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: "var(--primary-font-family)"
       # Restriction lock colors
       restriction-regular-lock-color: 'rgba(251, 129, 34,0.85)'
       restriction-success-lock-color: 'lime'
@@ -1235,6 +1244,7 @@ frontend:
       paper-font-headline_-_font-family: "var(--primary-font-family)"
       paper-font-caption_-_font-family: "var(--primary-font-family)"
       paper-font-title_-_font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: "var(--primary-font-family)"
       # Restriction lock colors
       restriction-regular-lock-color: 'rgba(216, 28, 35,0.85)'
       restriction-success-lock-color: 'lime'
@@ -1361,6 +1371,7 @@ frontend:
       paper-font-headline_-_font-family: "var(--primary-font-family)"
       paper-font-caption_-_font-family: "var(--primary-font-family)"
       paper-font-title_-_font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: "var(--primary-font-family)"
       # Restriction lock colors
       restriction-regular-lock-color: 'rgba(37, 155, 154,0.85)'
       restriction-success-lock-color: 'lime'
@@ -1486,6 +1497,7 @@ frontend:
       paper-font-headline_-_font-family: "var(--primary-font-family)"
       paper-font-caption_-_font-family: "var(--primary-font-family)"
       paper-font-title_-_font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: "var(--primary-font-family)"
       # Restriction lock colors
       restriction-regular-lock-color: 'rgba(253, 217, 53,0.85)'
       restriction-success-lock-color: 'lime'
