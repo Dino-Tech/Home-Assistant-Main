@@ -453,7 +453,6 @@
   payload_off: "OFF"
   retain: false
 
-
 - platform: mqtt
   name: "Patio Fan"
   command_topic: "cmnd/sonoffT204/power1"
@@ -489,7 +488,6 @@
   payload_on: "ON"
   payload_off: "OFF"
   retain: false
-
 
 - platform: mqtt
   name: "Office Work Bench"
