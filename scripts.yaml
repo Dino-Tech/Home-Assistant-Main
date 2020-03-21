@@ -120,20 +120,20 @@ radio_player:
         volume_level: '0.45'
     - service: media_player.play_media
       data_template:
-       entity_id: >
-        {% if is_state("input_select.output_radio", "Inside") %} media_player.inside_group
-        {% elif is_state("input_select.output_radio", "Patio") %} media_player.patio_speaker
-        {% elif is_state("input_select.output_radio", "Office") %} media_player.office_group
-        {% endif %}
-       media_content_id: >
-        {% if is_state("input_select.radio_station", "KLove") %} https://maestro.emfcdn.com/stream_for/sk001/tunein
-        {% elif is_state("input_select.radio_station", "Hits") %} http://tunein4.streamguys1.com/chrhtfree1?
-        {% elif is_state("input_select.radio_station", "The Blast") %} http://blender.theblast.fm.fast-serv.com/128
-        {% elif is_state("input_select.radio_station", "God's DJ's") %} http://www.godsdjsradio.com:8080/stream
-        {% elif is_state("input_select.radio_station", "Rock") %} http://listen.christianrock.net/stream/9/
-        {% elif is_state("input_select.radio_station", "Heavy") %} http://listen.christianrock.net/stream/3/?sid=3
-        {% endif %}
-       media_content_type: 'music'
+        entity_id: >
+         {% if is_state("input_select.output_radio", "Inside") %} media_player.inside_group
+         {% elif is_state("input_select.output_radio", "Patio") %} media_player.patio_speaker
+         {% elif is_state("input_select.output_radio", "Office") %} media_player.office_group
+         {% endif %}
+        media_content_id: >
+         {% if is_state("input_select.radio_station", "KLove") %} https://maestro.emfcdn.com/stream_for/sk001/tunein
+         {% elif is_state("input_select.radio_station", "Hits") %} http://tunein4.streamguys1.com/chrhtfree1?
+         {% elif is_state("input_select.radio_station", "The Blast") %} http://blender.theblast.fm.fast-serv.com/128
+         {% elif is_state("input_select.radio_station", "God's DJ's") %} http://www.godsdjsradio.com:8080/stream
+         {% elif is_state("input_select.radio_station", "Rock") %} http://listen.christianrock.net/stream/9/
+         {% elif is_state("input_select.radio_station", "Heavy") %} http://listen.christianrock.net/stream/3/?sid=3
+         {% endif %}
+        media_content_type: 'music'
 
 radio_klove:
   sequence:
