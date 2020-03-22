@@ -2,7 +2,7 @@
 <h1 align="center">
   <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/header2.jpg" alt="Dino Tech's Smart Home" width="85%">
   <br>
-  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/LoadingScreen2.gif" alt="Dino Tech's Smart Home" width="230"></a>
+  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/LoadingScreen3.gif" alt="Dino Tech's Smart Home" width="230"></a>
   <br>
   <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/powered-by.png" alt="Powered by HA" width="200"></a>
 </h1>
