@@ -68,7 +68,7 @@
 
 <p align="center"><a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.1.jpg" alt="Tablet Screen"></p>
 <div>
-  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 0.107.1 on a <a href="https://amzn.to/39JfIZc">RPi4B </a></h2>
+  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 0.107.7 on a <a href="https://amzn.to/39JfIZc">RPi4B </a></h2>
 </div>
 <p align="center"><a name="menu2"></a><strong>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#wyzemovie_cameracams-and-accessories">
@@ -116,7 +116,7 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;<a href="http
 #### Tracked:bar_chart:Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors |     Alerts    |
 |:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------------:|
-|8                |62      |109             |83        |109          |146      |352      |  38           | 
+|10               |68      |109             |77        |114          |174      |374      |  39           | 
 
 <details>
 <summary>Automation code and sensors for tracking.</summary><p align="center">
