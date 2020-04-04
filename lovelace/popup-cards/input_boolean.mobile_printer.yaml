@@ -1,0 +1,64 @@
+---
+#
+anchors:
+  entity_button_mobile: &entitybuttonmobile
+    style: |
+      :host {
+        border-radius: 10px;
+        box-shadow: 0px 0px 4px 2px var(--accent-color-lighter);
+        --paper-card-background-color: rgba(0, 0, 0,0.38);
+        font-size: 1.1em;
+        --iron-icon-height: 43px;
+        --iron-icon-width: 43px;
+      }
+
+title: ' '
+style:
+  background: url("/local/images-lovelace/backgroundz/printerBack2.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  "--primary-text-color": rgba(255,255,255,0.7)
+  border-radius: 22px
+  border: '2px solid var(--accent-color)'
+  font-weight: bold
+  height: calc(100% - 10px)
+  width: calc(100% - 10px)
+  box-sizing: border-box
+  margin: 0
+card:
+  type: custom:vertical-stack-in-card
+  cards:
+    - type: 'custom:button-card'
+      color_type: blank-card
+      styles:
+        card:
+          - height: 146px
+    - type: glance
+      columns: 3
+      entities:
+        - type: button
+          entity: sensor.hl_l2380dw_black_toner_remaining
+          <<: *entitybuttonmobile
+          name: Toner
+        - type: button
+          entity: sensor.hl_l2380dw_drum_remaining_life
+          <<: *entitybuttonmobile
+          name: Drum Life
+        - type: button
+          entity: sensor.hl_l2380dw_page_counter
+          <<: *entitybuttonmobile
+          name: Counter
+        - type: button
+          entity: sensor.hl_l2380dw_uptime
+          <<: *entitybuttonmobile
+          name: Uptime
+        - type: button
+          entity: sensor.hl_l2380dw_status
+          <<: *entitybuttonmobile
+          name: Status
+        - type: button
+          entity: switch.printer
+          <<: *entitybuttonmobile
+          name: Power
+          tap_action:
+            action: toggle

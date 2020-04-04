@@ -1,0 +1,377 @@
+---
+anchors:
+  entity_button_mobile2: &entitybuttonmobile2
+    style: |
+      ha-card {
+        border-radius: 22px;
+        box-shadow: 0px 0px var(--accent-color-lighter);
+        --paper-card-background-color: #000;
+      }
+
+  entity_button_mobile: &entitybuttonmobile
+    style: |
+      :host {
+        border-radius: 22px;
+        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+        --paper-card-background-color: #000;
+        font-size: .95em;
+      }
+
+ # input_boolean.mobile_kiosk
+title: ' '
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 8px 0px 0px 0px
+  border-radius: 22px
+  border: 'solid 3px var(--accent-color-lighter)'
+  "--primary-text-color": rgba(255,255,255,0.80)
+  "--iron-icon-height": 35px
+  "--iron-icon-width": 35px
+  text-shadow: "2px 2px 4px #000000"
+  font-size: 1.1em
+  text-transform: capitalize
+  font-variant: small-caps
+  width: calc(100% - 10px)
+  height: calc(100% - 6px)
+  box-sizing: border-box
+  margin: 0
+card:
+  type: custom:mod-card
+  style: |
+    ha-card {
+      font-size: .65em;
+      --paper-card-background-color: rgba(0, 0, 0,0.85);
+      padding: 2px 15px 2px 10px;
+    )
+  card:
+    type: vertical-stack
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: button
+            style: |
+              ha-card {
+                border-radius: 22px;
+                height: 20px;
+                box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                --paper-card-background-color: #000;
+                font-size: 2.95em;
+                letter-spacing: 6.5px;
+              }
+            entity: switch.den_tv
+            name: 'POWER'
+            icon: mdi:fake
+            tap_action:
+              action: toggle
+          - type: button
+            style: |
+              ha-card {
+                border-radius: 22px;
+                height: 20px;
+                box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                --paper-card-background-color: #000;
+                font-size: 2.95em;
+                letter-spacing: 6.5px;
+              }
+            entity: sun.sun
+            name: 'TOGGLE'
+            icon: mdi:fake
+            tap_action:
+              action: call-service
+              service: script.tv_power_toggle
+      - type: 'custom:button-card'
+        color_type: blank-card
+        styles:
+          card:
+            - height: 15px
+      - type: horizontal-stack
+        cards:
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: ' '
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile2
+            name: ' '
+            icon: mdi:numeric-1
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_1
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile2
+            name: ' '
+            icon: mdi:numeric-2
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_2
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile2
+            name: ' '
+            icon: mdi:numeric-3
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_3
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: ' '
+      - type: horizontal-stack
+        cards:
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: ' '
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile2
+            name: ' '
+            icon: mdi:numeric-4
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_4
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile2
+            name: ' '
+            icon: mdi:numeric-5
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_5
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile2
+            name: ' '
+            icon: mdi:numeric-6
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_6
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: ' '
+      - type: horizontal-stack
+        cards:
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: ' '
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile2
+            name: ' '
+            icon: mdi:numeric-7
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_7
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile2
+            name: ' '
+            icon: mdi:numeric-8
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_8
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile2
+            name: ' '
+            icon: mdi:numeric-9
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_9
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: ' '
+      - type: horizontal-stack
+        cards:
+          - type: button
+            style: |
+              ha-card {
+                font-size: .69em;
+                --paper-card-background-color: rgba(0, 0, 0,0.0);
+              }
+            entity: sun.sun
+            name: 'BACK'
+            icon: mdi:fake
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_return
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: ' '
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile2
+            name: ' '
+            icon: mdi:numeric-0
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_0
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: ' '
+          - type: button
+            style: |
+              ha-card {
+                font-size: .69em;
+                --paper-card-background-color: rgba(0, 0, 0,0.0);
+              }
+            entity: sun.sun
+            name: 'SOURCE'
+            icon: mdi:fake
+            tap_action:
+              action: call-service
+              service: script.tv_source
+      - type: horizontal-stack
+        cards:
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:volume-plus
+            tap_action:
+              action: call-service
+              service: script.tv_volume_up
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:television-box
+            tap_action:
+              action: call-service
+              service: script.tv_source_tv
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:plus
+            tap_action:
+              action: call-service
+              service: script.tv_channel_up
+      - type: horizontal-stack
+        cards:
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:volume-off
+            tap_action:
+              action: call-service
+              service: script.tv_volume_mute
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:video-input-hdmi
+            tap_action:
+              action: call-service
+              service: script.tv_source_hdmi1
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:reply-all-outline
+            tap_action:
+              action: call-service
+              service: script.tv_channel_previous
+      - type: horizontal-stack
+        cards:
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:volume-minus
+            tap_action:
+              action: call-service
+              service: script.tv_volume_down
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:cast
+            tap_action:
+              action: call-service
+              service: script.tv_source_hdmi2
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:minus
+            tap_action:
+              action: call-service
+              service: script.tv_channel_down
+      - type: 'custom:button-card'
+        color_type: blank-card
+        styles:
+          card:
+            - height: 5px
+      - type: horizontal-stack
+        cards:
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: ' '
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:arrow-up-bold
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_up
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: ' '
+      - type: horizontal-stack
+        cards:
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:arrow-left-bold
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_left
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:circle-medium
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_enter
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:arrow-right-bold
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_right
+      - type: horizontal-stack
+        cards:
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: ' '
+          - type: button
+            entity: sun.sun
+            <<: *entitybuttonmobile
+            name: ' '
+            icon: mdi:arrow-down-bold
+            tap_action:
+              action: call-service
+              service: script.tv_navigate_down
+          - type: custom:dummy-entity-row
+            entity: sun.sun
+            icon: mdi:this-icon-does-not-exist
+            name: ' '
