@@ -4,7 +4,7 @@ anchors:
     style: |
       :host {
         border-radius: 22px;
-        -webkit-box-shadow: 5px 5px 5px 0px #1a1a1a, inset 4px 4px 15px 0px #1a1a1a, 5px 5px 15px 5px rgba(0,0,0,0); 
+        -webkit-box-shadow: 5px 5px 5px 0px #1a1a1a, inset 4px 4px 15px 0px #1a1a1a, 5px 5px 15px 5px rgba(0,0,0,0);
         box-shadow: 5px 5px 5px 0px #1a1a1a, inset 4px 4px 15px 0px #1a1a1a, 5px 5px 15px 5px rgba(0,0,0,0);
         --paper-card-background-color: rgba(0,0,0,0.36);
         --paper-item-icon-active-color: var(--sidebar-icon-color);
