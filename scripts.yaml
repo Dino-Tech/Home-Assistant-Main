@@ -3610,3 +3610,208 @@ home_mode_armed:
     - service: mqtt.publish
       data_template:
         {"topic":"wallpanel/mywallpanel/command", "payload":"{'speak':'Alarm is ON!'}"}
+
+# ##################################
+# #     TV REMOTE
+# ##################################
+# POWER KEYS
+tv_power_toggle:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_POWER
+        media_content_type: "send_key"
+# CHANNEL KEYS
+tv_channel_down:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_CHDOWN
+        media_content_type: "send_key"
+tv_channel_up:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_CHUP
+        media_content_type: "send_key"
+tv_channel_previous:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_PRECH
+        media_content_type: "send_key"
+# VOLUME KEYS
+tv_volume_down:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_VOLDOWN
+        media_content_type: "send_key"
+tv_volume_up:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_VOLUP
+        media_content_type: "send_key"
+tv_volume_mute:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_MUTE
+        media_content_type: "send_key"
+# SOURCE KEYS
+tv_source_hdmi1:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_HDMI
+        media_content_type: "send_key"
+tv_source_hdmi2:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_SOURCE+KEY_LEFT+KEY_LEFT+KEY_RIGHT+KEY_RIGHT+KEY_ENTER
+        media_content_type: "send_key"
+tv_source_select:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_SOURCE+KEY_RIGHT+KEY_ENTER
+        media_content_type: "send_key"
+tv_source:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_SOURCE
+        media_content_type: "send_key"
+tv_source_tv:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_SOURCE+KEY_LEFT+KEY_LEFT+KEY_ENTER
+        media_content_type: "send_key"
+# NAVIGATION KEYS
+tv_navigate_up:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_UP
+        media_content_type: "send_key"
+tv_navigate_down:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_DOWN
+        media_content_type: "send_key"
+tv_navigate_left:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_LEFT
+        media_content_type: "send_key"
+tv_navigate_right:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_RIGHT
+        media_content_type: "send_key"
+tv_navigate_return:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_RETURN
+        media_content_type: "send_key"
+tv_navigate_enter:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_ENTER
+        media_content_type: "send_key"
+tv_navigate_1:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_1
+        media_content_type: "send_key"
+tv_navigate_2:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_2
+        media_content_type: "send_key"
+tv_navigate_3:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_3
+        media_content_type: "send_key"
+tv_navigate_4:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_4
+        media_content_type: "send_key"
+tv_navigate_5:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_5
+        media_content_type: "send_key"
+tv_navigate_6:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_6
+        media_content_type: "send_key"
+tv_navigate_7:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_7
+        media_content_type: "send_key"
+tv_navigate_8:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_8
+        media_content_type: "send_key"
+tv_navigate_9:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_9
+        media_content_type: "send_key"
+tv_navigate_0:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_id: KEY_0
+        media_content_type: "send_key"
