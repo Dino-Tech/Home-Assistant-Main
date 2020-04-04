@@ -1,0 +1,63 @@
+---
+ # input_boolean.mobile_esphome.yaml
+title: ' '
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  border-radius: 22px
+  border: solid 2px dimgray
+  "--iron-icon-height": 40px
+  "--iron-icon-width": 40px
+  "--app-toolbar-font-size": 1.65em
+  text-shadow: "2px 2px 4px #000000"
+  font-size: 1.375em
+  text-transform: capitalize
+  font-variant: small-caps
+  width: 100%
+  height: 753px
+  box-sizing: border-box
+  margin: 0
+card:
+  type: vertical-stack
+  cards:
+    - type: entities
+      show_header_toggle: false
+      entities:
+        - type: 'custom:text-divider-row'
+          text: ESPHome
+        - sensor.garage_fridge_power
+        - sensor.garage_fridge_voltage
+        - sensor.garage_fridge_wifi_signal
+        - entity: switch.garage_fridge_relay
+          name: Garage Fridge LED
+        - entity: sensor.garage_fridge_esphome_version
+          name: Version
+    - type: entities
+      show_header_toggle: false
+      entities:
+        - type: 'custom:text-divider-row'
+          text: Consumption
+        - type: custom:card-modder
+          style:
+            background: rgba(0,0,0,0.0)
+            border-radius: 15px
+            overflow: hidden
+          card:
+            type: custom:mini-graph-card
+            entities:
+              - sensor.garage_fridge_power
+            show:
+              labels: true
+              name: false
+              icon: false
+            color_thresholds:
+              - value: 5
+                color: "green"
+              - value: 120
+                color: "yellow"
+              - value: 130
+                color: "red"
+            hours_to_show: 168
+            points_per_hour: 0.25

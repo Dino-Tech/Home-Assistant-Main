@@ -1,0 +1,137 @@
+---
+ # input_boolean.mobile_ha_services.yaml
+title: 'Home Assistant'
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  border-radius: 22px
+  border: 'solid 2px var(--sidebar-icon-color)'
+  "--app-toolbar-font-size": 1.875em
+  "--primary-text-color": rgba(255,255,255,0.75)
+  "--paper-item-icon-color": 'var(--sidebar-icon-color)'
+  "--iron-icon-height": 40px
+  "--iron-icon-width": 40px
+  "--iron-icon-stroke-color": rgba(255,255,255,0.75)
+  text-shadow: '3px 3px 4px black, 0 0 8px var(--sidebar-icon-color)'
+  font-size: 1.375em
+  font-weight: bold
+  width: 100%
+  box-sizing: border-box
+  margin: 0
+card:
+  type: custom:swipe-card
+  cards:
+    - type: vertical-stack
+      cards:
+        - type: entities
+          show_header_toggle: false
+          entities:
+            - type: 'custom:text-divider-row'
+              text: Services
+            - script.run_config_check
+            - script.reload_automations
+            - script.reload_scripts
+            - script.restart_ha
+        - type: entities
+          show_header_toggle: false
+          entities:
+            - type: 'custom:text-divider-row'
+              text: Update Status
+            - entity: sensor.hacs
+              name: HACS
+            - sensor.ha_latest_version
+        - type: custom:dummy-entity-row
+          entity: sun.sun
+          icon: mdi:this-icon-does-not-exist
+          name: " "
+        - type: entities
+          show_header_toggle: false
+          entities:
+            - type: 'custom:text-divider-row'
+              text: Presence
+            - input_boolean.people_home_boolean
+            - input_boolean.darren_home
+            - input_boolean.donna_home
+            - input_boolean.tristan_home
+        - type: 'custom:browser-player'
+    - type: entities
+      title: 'HA  Remote  Instance  Stats'
+      show_header_toggle: false
+      entities:
+        - entity: switch.remote_test_remote_1
+          name: 'Test Light'
+          icon: mdi:wall-sconce-variant
+        - entity: sensor.remote_test_signal
+          name: 'WiFi Signal'
+        - type: custom:bar-card
+          severity:
+            - value: 100
+              color: 'var(--sidebar-icon-color)'
+          title_position: inside
+          tap_action: info
+          columns: 1
+          padding: 2px
+          align: split
+          rounding: 3px
+          saturation: 65%
+          height: 28px
+          card_style:
+            background: 'rgba(0, 0, 0, 0.4)'
+            border-radius: 10px
+          title_style:
+            font-weight: bold
+            font-size: 20px
+            color: 'rgba(255,255,255,0.8)'
+            text-shadow: '1px 1px 2px black, 0 0 25px var(--sidebar-icon-color)'
+          value_style:
+            font-size: 20px
+            font-weight: bold
+            color: 'rgba(255,255,255,0.8)'
+            text-shadow: '1px 1px 2px black, 0 0 25px var(--sidebar-icon-color)'
+          entities:
+            - sensor.remote_processor_use
+            - sensor.remote_load_1m
+            - sensor.remote_disk_use_percent
+            - sensor.remote_disk_free
+            - sensor.remote_uptime
+            - sensor.remote_memory_use_percent
+            - sensor.remote_memory_free
+    - type: entities
+      title: 'HA  Remote  Instance 2  Stats'
+      show_header_toggle: false
+      entities:
+        - type: custom:bar-card
+          severity:
+            - value: 100
+              color: 'var(--sidebar-icon-color)'
+          title_position: inside
+          tap_action: info
+          columns: 1
+          padding: 2px
+          align: split
+          rounding: 3px
+          saturation: 65%
+          height: 28px
+          card_style:
+            background: 'rgba(0, 0, 0, 0.4)'
+            border-radius: 10px
+          title_style:
+            font-weight: bold
+            font-size: 20px
+            color: 'rgba(255,255,255,0.8)'
+            text-shadow: '1px 1px 2px black, 0 0 25px var(--sidebar-icon-color)'
+          value_style:
+            font-size: 20px
+            font-weight: bold
+            color: 'rgba(255,255,255,0.8)'
+            text-shadow: '1px 1px 2px black, 0 0 25px var(--sidebar-icon-color)'
+          entities:
+            - sensor.remote2_processor_use
+            - sensor.remote2_load_1m
+            - sensor.remote2_disk_use_percent
+            - sensor.remote2_disk_free
+            - sensor.remote2_uptime
+            - sensor.remote2_memory_use_percent
+            - sensor.remote2_memory_free
