@@ -1,0 +1,94 @@
+---
+ # input_boolean.mobile_outside_cams.yaml
+title: 'Outside Cameras...'
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  border-radius: 22px
+  border: solid 2px dimgray
+  width: calc(100% - 6px)
+  height: calc(100% - 6px)
+  box-sizing: border-box
+  margin: 0
+card:
+  type: vertical-stack
+  cards:
+    - type: 'custom:button-card'
+      color_type: blank-card
+      styles:
+        card:
+          - height: 6px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+        - type: 'custom:card-modder'
+          style:
+            border-radius: 12px
+            overflow: hidden
+          card:
+            type: 'custom:camera-card'
+            entity: camera.driveway_cam
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+    - type: 'custom:button-card'
+      color_type: blank-card
+      styles:
+        card:
+          - height: 5px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+        - type: 'custom:card-modder'
+          style:
+            border-radius: 12px
+            overflow: hidden
+          card:
+            type: 'custom:camera-card'
+            entity: camera.front_door
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+    - type: 'custom:button-card'
+      color_type: blank-card
+      styles:
+        card:
+          - height: 5px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+        - type: 'custom:card-modder'
+          style:
+            border-radius: 12px
+            overflow: hidden
+          card:
+            type: 'custom:camera-card'
+            entity: camera.patio_cam
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+    - type: 'custom:button-card'
+      color_type: blank-card
+      styles:
+        card:
+          - height: 86px

@@ -1,0 +1,111 @@
+---
+ # input_boolean.mobile_inside_cams.yaml
+title: 'Inside Cameras...'
+style:
+  background: url("/local/images-lovelace/backgroundz/blackSteel40197.jpg")
+  background-repeat: no-repeat
+  background-size: 100% 100%
+  padding: 4px 0px 0px 0px
+  border-radius: 22px
+  border: solid 2px dimgray
+  width: 100%
+  box-sizing: border-box
+  margin: 0
+card:
+  type: vertical-stack
+  cards:
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+        - type: 'custom:card-modder'
+          style:
+            border-radius: 12px
+            overflow: hidden
+          card:
+            type: 'custom:camera-card'
+            entity: camera.den_cam
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+        - type: 'custom:card-modder'
+          style:
+            border-radius: 12px
+            overflow: hidden
+          card:
+            type: 'custom:camera-card'
+            entity: camera.kitchen_cam
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+        - type: 'custom:card-modder'
+          style:
+            border-radius: 12px
+            overflow: hidden
+          card:
+            type: 'custom:camera-card'
+            entity: camera.garage_cam
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+        - type: 'custom:card-modder'
+          style:
+            border-radius: 12px
+            overflow: hidden
+          card:
+            type: 'custom:camera-card'
+            entity: camera.entry_hall
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
+        - type: 'custom:card-modder'
+          style:
+            border-radius: 12px
+            overflow: hidden
+          card:
+            type: 'custom:camera-card'
+            entity: camera.hallway_cam
+        - type: 'custom:button-card'
+          color_type: blank-card
+          styles:
+            card:
+              - width: 1px
