@@ -10,7 +10,7 @@
 <div align="center">
   <h3 align="center">My Home Assistant Configuration and Lovelace Designs<br>Be sure to :star: my repo so you can keep current on the frequent progress!</h3>
   <p align="center">
-    <a href="https://img.shields.io/badge/Home%20Assistant-0.108.3-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-0.108.3-blue.svg?style=plasticr"/>  </a>
+    <a href="https://img.shields.io/badge/Home%20Assistant-0.108.6-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-0.108.6-blue.svg?style=plasticr"/>  </a>
     <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master"/>  </a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr"/>  </a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plasticr" />  </a>
@@ -116,7 +116,7 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;<a href="http
 #### Tracked:bar_chart:Stats On my Setup:
 | Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors |     Alerts    |
 |:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------------:|
-|10               |68      |109             |77        |114          |174      |374      |  39           | 
+|10               |70      |109             |64        |116          |175      |375      |  40           | 
 
 <details>
 <summary>Automation code and sensors for tracking.</summary><p align="center">
