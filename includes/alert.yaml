@@ -222,6 +222,13 @@ garage_door_battery:
   notifiers:
     - mobile_app_pixel_2_xl
 
+bathroom_door_battery:
+  name: Bathroom Door🔋 is ⛔  Low
+  entity_id: binary_sensor.bathroom_door_battery_low
+  repeat: 30
+  notifiers:
+    - mobile_app_pixel_2_xl
+
 laundry_motion_battery:
   name: Laundry Motion🔋 is ⛔Low
   entity_id: binary_sensor.laundry_motion_battery_low
