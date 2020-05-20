@@ -314,6 +314,12 @@
 
 - platform: template
   sensors:
+    bathroom_door_battery_low:
+      value_template: '{{ states.binary_sensor.wyzesense_7792f73a.attributes.battery_level < 35 }}'
+      friendly_name: 'Bathroom door sensor battery is low'
+
+- platform: template
+  sensors:
     laundry_motion_battery_low:
       value_template: '{{ states.binary_sensor.wyzesense_778168e9.attributes.battery_level < 35 }}'
       friendly_name: 'Laundry motion battery is low'
