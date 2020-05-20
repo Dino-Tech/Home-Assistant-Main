@@ -269,6 +269,12 @@
       unit_of_measurement: '%'
       device_class: battery
 
+    bathroomdoorbatt:
+      friendly_name: Bathroom Door Sensor
+      value_template: '{% if states.binary_sensor.wyzesense_7792f73a %} {{ states.binary_sensor.wyzesense_7792f73a.attributes.battery_level |int }} {% else %} Unknown {% endif %}'
+      unit_of_measurement: '%'
+      device_class: battery
+
     laundrymotionbatt:
       friendly_name: Laundry Motion Sensor
       value_template: '{% if states.binary_sensor.wyzesense_778168e9 %} {{ states.binary_sensor.wyzesense_778168e9.attributes.battery_level |int }} {% else %} Unknown {% endif %}'
