@@ -974,6 +974,7 @@
   trigger:
     - platform: state
       entity_id: binary_sensor.wyzesense_77802215
+      to: 'on'
   condition:
     - condition: time
       after: '22:30:00'
@@ -982,19 +983,16 @@
       entity_id: input_boolean.disable_auto_bathroom
       state: 'off'
   action:
-    - service_template: "homeassistant.turn_{{- trigger.to_state.state -}}"
-      data:
-        entity_id: light.bathroom_ceiling
+    - service: homeassistant.turn_on
+      entity_id: light.bathroom_ceiling
 
-- alias: '[Auto] Hall Bath Light'
+- alias: '[Auto] Hall Bath Mirror Light'
   initial_state: 'on'
   trigger:
     - platform: state
       entity_id: binary_sensor.wyzesense_77802215
+      to: 'on'
   condition:
-#    - condition: state
-#      entity_id: sun.sun
-#      state: below_horizon
     - condition: time
       before: '22:29:59'
       after: '06:00:01'
@@ -1002,10 +1000,22 @@
       entity_id: input_boolean.disable_auto_bathroom
       state: 'off'
   action:
-    - service_template: "homeassistant.turn_{{- trigger.to_state.state -}}"
-      data:
-        entity_id: light.bathroom_mirror
+    - service: homeassistant.turn_on
+      entity_id: light.bathroom_mirror
 
+- alias: '[Auto] Hall Bath Lights OFF'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wyzesense_77802215 # motion
+      to: 'off'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.wyzesense_7792f73a # door
+      state: 'off'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: light.bathroom_lights
 # # Turn off vent after 5 mins
 - alias: '[Auto] Hall Bath Vent auto off'
   initial_state: 'on'
