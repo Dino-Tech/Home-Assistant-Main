@@ -876,51 +876,21 @@
   initial_state: 'on'
   trigger:
     - platform: state
-      entity_id: binary_sensor.wyzesense_7787900d, binary_sensor.wyzesense_77878a66
+      entity_id: group.kitchen_motion
       to: 'on'
   action:
     - service: homeassistant.turn_on
       entity_id: light.cabinet_lights
 
-- alias: '[Auto] Cabinet Light OFF 1'
+- alias: '[Auto] Cabinet Auto Lights'
   initial_state: 'on'
   trigger:
     - platform: state
-      entity_id: binary_sensor.wyzesense_7787900d
-      from: 'on'
+      entity_id: group.kitchen_motion
       to: 'off'
       for:
         minutes: 10
   condition:
-    - condition: state
-      entity_id: input_boolean.disable_cabinet_auto_lights
-      state: 'off'
-    - condition: state
-      entity_id: binary_sensor.wyzesense_77878a66
-      state: 'off'
-    - condition: state
-      entity_id: group.person_group
-      state: 'home'
-  action:
-    - service: homeassistant.turn_off
-      entity_id: light.cabinet_lights
-
-- alias: '[Auto] Cabinet Light OFF 2'
-  initial_state: 'on'
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.wyzesense_77878a66
-      from: 'on'
-      to: 'off'
-      for:
-        minutes: 10
-  condition:
-    - condition: state
-      entity_id: input_boolean.disable_cabinet_auto_lights
-      state: 'off'
-    - condition: state
-      entity_id: binary_sensor.wyzesense_7787900d
-      state: 'off'
     - condition: state
       entity_id: group.person_group
       state: 'home'
@@ -973,7 +943,7 @@
   initial_state: 'on'
   trigger:
     - platform: state
-      entity_id: binary_sensor.wyzesense_77802215
+      entity_id: binary_sensor.wyzesense_77802215 # motion
       to: 'on'
   condition:
     - condition: time
@@ -990,7 +960,7 @@
   initial_state: 'on'
   trigger:
     - platform: state
-      entity_id: binary_sensor.wyzesense_77802215
+      entity_id: binary_sensor.wyzesense_77802215 # motion
       to: 'on'
   condition:
     - condition: time
@@ -1012,7 +982,7 @@
   condition:
     - condition: state
       entity_id: binary_sensor.wyzesense_7792f73a # door
-      state: 'off'
+      state: 'on'
   action:
     - service: homeassistant.turn_off
       entity_id: light.bathroom_lights
