@@ -8,6 +8,8 @@ homeassistant:
   elevation: !secret home_elevation
   unit_system: imperial
   time_zone: America/Chicago
+  external_url: !secret external_url
+  internal_url: !secret internal_url
   packages: !include_dir_named packages
   customize: !include customize.yaml
   customize_domain: { }
@@ -15,8 +17,10 @@ homeassistant:
 
 config:
 
+default_config:
+
 http:
-  base_url: !secret base_url
+#  base_url: !secret base_url
 
 ssdp:
 
@@ -35,8 +39,8 @@ updater:
 
 recorder:
   db_url: !secret db_url
-  purge_interval: 1
-  purge_keep_days: 4
+  auto_purge: true
+  purge_keep_days: 3
   exclude:
     domains:
       - automation
@@ -58,8 +62,6 @@ recorder:
       - sensor.daylight
 
 discovery:
-  ignore:
-    - igd
 
 mobile_app:
 
@@ -117,18 +119,20 @@ spotify:
   client_id: !secret spotify_client_id
   client_secret: !secret spotify_client_secret
 
-spotcast:
-  username: !secret spotify_username
-  password: !secret spotify_password
+#spotcast:
+#  username: !secret spotify_username
+#  password: !secret spotify_password
 
-sonoff:
-  username: !secret sonoff_username
-  password: !secret sonoff_password
+upnp:
 
-tuya:
-  username: !secret TUYA_USERNAME
-  password: !secret TUYA_PASSWORD
-  country_code: 1
+#sonoff:
+#  username: !secret sonoff_username
+#  password: !secret sonoff_password
+
+#tuya:
+#  username: !secret TUYA_USERNAME
+#  password: !secret TUYA_PASSWORD
+#  country_code: 1
 
 nest:
   client_id: !secret nest_client_id
@@ -149,6 +153,13 @@ tts:
   - platform: google_translate
     base_url: http://192.168.1.134:8123
     service_name: google_say
+    time_memory: 36000
+
+noonlight:
+  id: !secret noonlight_id
+  secret: !secret noonlight_secret
+  api_endpoint: https://api.noonlight.com/platform/v1
+  token_endpoint: https://noonlight.konnected.io/ha/token
 
 alarm_control_panel:
   - platform: manual_mqtt
@@ -173,22 +184,30 @@ alarm_control_panel:
 
 rest_command:
   assistant_broadcast:
-    url: http://192.168.1.134:3000/assistant
+    url: !secret assistant_broadcast_url
     method: POST
     content_type: 'application/json'
     payload: '{"command":"{{ command }}", "user":"Darren", "broadcast":true}'
 
   assistant_converse:
-    url: http://192.168.1.134:3000/assistant
+    url: !secret assistant_broadcast_url
     method: POST
     content_type: 'application/json'
     payload: '{"command":"{{ command }}", "user":"Darren", "converse":true}'
 
   assistant_relay:
-    url: http://192.168.1.134:3000/assistant
+    url: !secret assistant_broadcast_url
     method: POST
     content_type: 'application/json'
     payload: '{"command":"{{ command }}", "user":"Darren"}'
+
+samsungtv_smart:
+  - host: 192.168.1.135
+#    name: Family TV
+#    api_key: !secret smartthings_token
+#    device_id: !secret tv_device_id
+    app_list: '{"Internet": "org.tizen.browser", "YouTube": "111299001912", "Spotify": "3201606009684"}'
+    source_list: '{"TV": "KEY_SOURCE+KEY_LEFT+KEY_LEFT+KEY_ENTER", "HDMI": "KEY_HDMI", "CHROMECAST": "KEY_SOURCE+KEY_LEFT+KEY_LEFT+KEY_RIGHT+KEY_RIGHT+KEY_ENTER"}'
 
 alert: !include includes/alert.yaml
 automation: !include automations.yaml
