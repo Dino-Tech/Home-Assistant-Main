@@ -68,7 +68,7 @@
 
 <p align="center"><a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.1.jpg" alt="Tablet Screen"></p>
 <div>
-  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 2021.2.1 on a <a href="https://amzn.to/39JfIZc">RPi4B </a></h2>
+  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 2022.2.9 on a <a href="https://www.home-assistant.io/blue/">Home Assistant Blue </a></h2>
 </div>
 <p align="center"><a name="menu2"></a><strong>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#wyzemovie_cameracams-and-accessories">
