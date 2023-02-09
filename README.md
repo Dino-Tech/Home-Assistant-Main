@@ -10,7 +10,7 @@
 <div align="center">
   <h3 align="center">My Home Assistant Configuration and Lovelace Designs<br>Be sure to :star: my repo so you can keep current on the frequent progress!</h3>
   <p align="center">
-    <a href="https://img.shields.io/badge/Home%20Assistant-2022.9.5-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-2022.9.5-blue.svg?style=plasticr"/>  </a>
+    <a href="https://img.shields.io/badge/Home%20Assistant-2023.2.3-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-2023.2.3-blue.svg?style=plasticr"/>  </a>
     <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master"/>  </a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr"/>  </a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plasticr" />  </a>
@@ -68,7 +68,7 @@
 
 <p align="center"><a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.1.jpg" alt="Tablet Screen"></p>
 <div>
-  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 2022.9.5 on a <a href="https://www.home-assistant.io/blue/">Home Assistant Blue </a></h2>
+  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 2023.2.3 on a <a href="https://www.home-assistant.io/blue/">Home Assistant Blue </a></h2>
 </div>
 <p align="center"><a name="menu2"></a><strong>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#wyzemovie_cameracams-and-accessories">
@@ -114,9 +114,9 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;<a href="http
 <tr><td colspan="4">
 
 #### Tracked:bar_chart:Stats On my Setup:
-| Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors |     Alerts    |
-|:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------------:|
-|10               |68      |110             |63        |117          |175      |372      |  41           | 
+| Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors |     Alerts    | Fans |
+|:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------------:|:-------------:
+|39               |81      |135             |162        |159          |197      |576      |  27           |5          
 
 <details>
 <summary>Automation code and sensors for tracking.</summary><p align="center">
