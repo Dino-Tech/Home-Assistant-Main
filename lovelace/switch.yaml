@@ -526,9 +526,6 @@ views:
                           box-sizing: border-box;
                           margin: 0;
                         }
-                        div.swiper-button-next {
-                                color: white;
-                        }
                     card:
                       type: custom:swipe-card
                       style: null
