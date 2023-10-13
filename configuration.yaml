@@ -7,43 +7,50 @@ homeassistant:
   longitude: !secret home_longitude
   elevation: !secret home_elevation
   unit_system: imperial
-  time_zone: America/Chicago
-  external_url: !secret external_url
-  internal_url: !secret internal_url
+  currency: USD
+  time_zone: "America/Chicago"
+  country: US
+  #  external_url: !secret external_url
+  #  internal_url: !secret internal_url
   packages: !include_dir_named packages
   customize: !include customize.yaml
-  customize_domain: { }
-  customize_glob: { }
+  customize_domain:
+    camera:
+      hide_attributes:
+        - all
 
 config:
 
 default_config:
 
+frontend:
+  extra_module_url:
+    - /hacsfiles/lovelace-card-mod/card-mod.js
+  themes: !include includes/themes.yaml
+
 http:
-#  base_url: !secret base_url
+#  ssl_certificate: /ssl/fullchain.pem
+#  ssl_key: /ssl/privkey.pem
 
 ssdp:
 
 zeroconf:
 
-panel_iframe:
-  ide:
-    title: IDE
-    icon: mdi:access-point-network
-    url: !secret ide_url
+usb:
 
-hacs:
-  token: !secret hacs_github_access_token
+#hacs:
+#  token: !secret hacs_github_access_token
 
-updater:
+bluetooth:
 
 recorder:
   db_url: !secret db_url
   auto_purge: true
-  purge_keep_days: 3
+  purge_keep_days: 7
   exclude:
     domains:
       - automation
+      - lock
       - weblink
       - updater
       - camera
@@ -60,12 +67,23 @@ recorder:
       - sensor.date_time
       - sensor.date_time_iso
       - sensor.daylight
+  include:
+    entities:
+      - climate.den
+      - group.person_group
+      - group.people_home_tracker
+      - group.darren_presence
+      - group.donna_presence
+      - sensor.hvac_mode
+      - group.garage_motion
+      - group.porch_motion
+      - group.laundry_motion
+      - group.kitchen_motion
+      - group.entryhall_motion
 
-discovery:
+#discovery:
 
 mobile_app:
-
-config_check:
 
 lovelace_gen:
 
@@ -73,19 +91,14 @@ lovelace:
   mode: yaml
   resources: !include lovelace/resources/resources.yaml
 
- # remote_homeassistant:
- #   instances:
- #     - host: 192.168.1.131
- #       port: 8123
- #       secure: false
- #       access_token: !secret remote_access_token
- #       entity_prefix: "remote_"
- #
- #     - host: 192.168.1.130
- #       port: 8123
- #       secure: false
- #       access_token: !secret remote2_access_token
- #       entity_prefix: "remote2_"
+  # remote_homeassistant:
+  #   instances:
+  #     - host: 192.168.1.204
+  #       port: 8124
+  #       secure: false
+  #       access_token: !secret remote_access_token
+  #       entity_prefix: "ha2_"
+  #
 
 conversation:
 
@@ -94,64 +107,91 @@ map:
 sun:
 
 logger:
-  default: error
+  default: critical
   logs:
-    homeassistant.components.mqtt: info
+    homeassistant.components.mqtt: warning
     homeassistant.components.camera: critical
     homeassistant.components.device_tracker: critical
-    homeassistant.components: info
+    homeassistant.components: warning
+    homeassistant.components.mobile_app.notify: info
+    aiohttp: error
 
 system_health:
 
-life360:
-  driving_speed: 18
-  interval_seconds: 10
-  max_gps_accuracy: 150
-  max_update_wait:
-    minutes: 45
-  show_as_state:
-    - driving
-    - moving
-  warning_threshold: 2
-  error_threshold: 3
+downloader:
+  download_dir: downloads
 
-spotify:
-  client_id: !secret spotify_client_id
-  client_secret: !secret spotify_client_secret
+#spotify:
+#  client_id: !secret spotify_client_id
+#  client_secret: !secret spotify_client_secret
 
-#spotcast:
+spotcast:
+  sp_dc: !secret sp_dc
+  sp_key: !secret sp_key
+  country: US
 #  username: !secret spotify_username
 #  password: !secret spotify_password
 
-upnp:
+#nest:
+#  client_id: !secret nest_client_id
+#  client_secret: !secret nest_client_secret
+#  project_id: !secret nest_project_id
 
-#sonoff:
-#  username: !secret sonoff_username
-#  password: !secret sonoff_password
+#google:
+#  client_id: !secret google_client_id
+#  client_secret: !secret google_client_secret
 
-#tuya:
-#  username: !secret TUYA_USERNAME
-#  password: !secret TUYA_PASSWORD
-#  country_code: 1
-
-nest:
-  client_id: !secret nest_client_id
-  client_secret: !secret nest_client_secret
-
-google:
-  client_id: !secret google_client_id
-  client_secret: !secret google_client_secret
+media_player:
+  - platform: universal
+    name: Currently Playing
+    children:
+      - media_player.office_google
+      - media_player.office_group
+      - media_player.office_pc
+      - media_player.living_room_google
+      - media_player.living_room_tv
+      - media_player.patio_speaker
+      - media_player.family_tv
+      - media_player.tv_sound
+      - media_player.tv_speakers
+      - media_player.right_tv_speaker
+      - media_player.left_tv_speaker
+      #      - media_player.kitchen_mini
+      - media_player.kitchen_table_display
+      - media_player.sink_display
+      - media_player.inside_group
+      - media_player.garage_mini
+      - media_player.family_tv
+      - media_player.ensuite_speaker
+      - media_player.ensuite_group
+      - media_player.ensuite_display
+      - media_player.den_mini
+      - media_player.den_group
+      - media_player.deb_tv
+      #      - media_player.darren_s_speaker
+      - media_player.bedroom_tv
+      - media_player.bedroom_speaker
+      - media_player.bathroom_speaker
+      - media_player.all_speakers_group
+      - media_player.guest_clock
+      - media_player.kitchen_speakers
 
 zone:
-  name: !secret zone2_name
-  latitude: !secret zone2_latitude
-  longitude: !secret zone2_longitude
-  radius: 240
-  icon: mdi:office-building
+  - name: !secret zone2_name
+    latitude: !secret zone2_latitude
+    longitude: !secret zone2_longitude
+    radius: 240
+    icon: mdi:office-building
+
+  - name: !secret home_name
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    radius: 40
+    icon: mdi:home-assistant
 
 tts:
   - platform: google_translate
-    base_url: http://192.168.1.134:8123
+    #    base_url: http://192.168.1.134:8123
     service_name: google_say
     time_memory: 36000
 
@@ -161,76 +201,63 @@ noonlight:
   api_endpoint: https://api.noonlight.com/platform/v1
   token_endpoint: https://noonlight.konnected.io/ha/token
 
-alarm_control_panel:
-  - platform: manual_mqtt
-    state_topic: home/alarm
-    command_topic: home/alarm/set
-    name: "HA Alarm"
-    code: !secret alarm_code
-    pending_time: 30
-    delay_time: 0
-    trigger_time: 1800
-    disarm_after_trigger: false
-    disarmed:
-      trigger_time: 0
-    armed_home:
-      pending_time: 0
-      delay_time: 0
-    triggered:
-      pending_time: 0
-    armed_away:
-      pending_time: 0
-      delay_time: 0
+#media_player:
+#  - platform: androidtv
+#    name: Android TV
+#    host: 192.168.0.135
+#    adb_server_ip: 127.0.0.1
+#    adb_server_port: 5037
 
 rest_command:
   assistant_broadcast:
     url: !secret assistant_broadcast_url
     method: POST
-    content_type: 'application/json'
+    content_type: "application/json"
     payload: '{"command":"{{ command }}", "user":"Darren", "broadcast":true}'
 
   assistant_converse:
     url: !secret assistant_broadcast_url
     method: POST
-    content_type: 'application/json'
+    content_type: "application/json"
     payload: '{"command":"{{ command }}", "user":"Darren", "converse":true}'
 
   assistant_relay:
     url: !secret assistant_broadcast_url
     method: POST
-    content_type: 'application/json'
+    content_type: "application/json"
     payload: '{"command":"{{ command }}", "user":"Darren"}'
 
 samsungtv_smart:
   - host: 192.168.1.135
-#    name: Family TV
-#    api_key: !secret smartthings_token
-#    device_id: !secret tv_device_id
+    #    name: Family TV
+    #    api_key: !secret smartthings_token
+    #    device_id: !secret tv_device_id
     app_list: '{"Internet": "org.tizen.browser", "YouTube": "111299001912", "Spotify": "3201606009684"}'
     source_list: '{"TV": "KEY_SOURCE+KEY_LEFT+KEY_LEFT+KEY_ENTER", "HDMI": "KEY_HDMI", "CHROMECAST": "KEY_SOURCE+KEY_LEFT+KEY_LEFT+KEY_RIGHT+KEY_RIGHT+KEY_ENTER"}'
 
 alert: !include includes/alert.yaml
 automation: !include automations.yaml
 binary_sensor: !include includes/binary_sensor.yaml
-browser_mod: !include includes/browser_mod.yaml
+# browser_mod: !include includes/browser_mod.yaml
 camera: !include includes/camera.yaml
 cloud: !include includes/cloud.yaml
 cover: !include includes/cover.yaml
 device_tracker: !include includes/device_tracker.yaml
+fan: !include includes/fan.yaml
 group: !include groups.yaml
-history: !include includes/history.yaml
+history: #!include includes/history.yaml
 input_boolean: !include includes/input_boolean.yaml
 input_datetime: !include includes/input_datetime.yaml
 input_number: !include includes/input_number.yaml
 input_select: !include includes/input_select.yaml
-ios: !include includes/ios.yaml
+# ios: !include includes/ios.yaml
 konnected: !include includes/konnected.yaml
 light: !include includes/light.yaml
 logbook: !include includes/logbook.yaml
+mqtt: !include includes/mqtt.yaml
 notify: !include includes/notify.yaml
 person: !include includes/person.yaml
 scene: !include scenes.yaml
 script: !include scripts.yaml
 sensor: !include includes/sensor.yaml
- # shelly: !include includes/shelly.yaml
 switch: !include includes/switch.yaml
