@@ -1,232 +1,241 @@
 ---
 # # groups# /config/groups.yaml
 # ############################################
+camera_reboot:
+  name: Reboot Cameras
+  entities:
+    - switch.drive_garage_cam_power
+    - switch.den_power_strip
+    - switch.ha2_porch_outlets
+
+den_nitelite_plugs:
+  name: NiteLite Plugs
+  icon: mdi:power-socket-us
+  entities:
+    - switch.night_light_1_plug
+    - switch.night_light_2_plug
+    - switch.night_light_3_plug
+    - switch.night_light_4_plug
+    - switch.night_light_5_plug
+    - switch.night_light_6_plug
 
 # presence groups
 people_home_tracker:
+  name: House Occupancy
+  icon: mdi:home-account
   entities:
     - input_boolean.darren_home
     - input_boolean.donna_home
-    - input_boolean.tristan_home
+#    - input_boolean.tristan_home
 
 person_group:
+  name: Person Group
+  icon: mdi:account-multiple
   entities:
     - person.darren
     - person.donna
-    - person.tristan
+#    - person.tristan
 
 darren_presence:
   name: Darren Presence
   entities:
-    - device_tracker.darren_nmap
     - device_tracker.darren
+    #    - device_tracker.darren_wilson
+    #    - device_tracker.darren_nmap_tracker
     - device_tracker.pixel_2_xl
-    - device_tracker.hasskit_pixel_2_xl
-    - device_tracker.life360_darren_wilson
+    - device_tracker.pixel_2_xl_bt
 
 donna_presence:
   name: Donna Presence
   entities:
-    - device_tracker.donna_nmap
     - device_tracker.donna
-    - device_tracker.donna_s_iphone
-    - device_tracker.life360_donna_wilson
+    #    - device_tracker.donna_wilson
+    #    - device_tracker.donna_nmap_tracker
+    - device_tracker.pixel_5
+    - device_tracker.pixel_5_bt
 
-tristan_presence:
-  name: Tristan Presence
-  entities:
-    - device_tracker.tristan
-    - device_tracker.44_91_60_d9_8f_a2
+#tristan_presence:
+#  name: Tristan Presence
+#  entities:
+#    - device_tracker.tristan
+#    - device_tracker.44_91_60_d9_8f_a2
 
 # light groups
 bedroom_lamps:
   entities:
     - light.darrens_light
     - light.donnas_light
-    - light.salt_light
+#    - light.salt_light
 
 bedroom_lights:
+  name: All Bedroom Lights
+  icon: mdi:lightbulb-group
   entities:
-    - switch.bedroom_ceiling_light
+    - light.bedroom_ceiling_lights
     - light.darrens_light
     - light.donnas_light
+    - light.mood_lights
+#    - light.salt_light
+
+bedroom_devices:
+  entities:
+    - light.bedroom_ceiling_lights
+    - light.darrens_light
+    - light.donnas_light
+    - light.mood_lights
+    - light.bedroom_ceiling_fan
+    - light.nightstand_lights
     - light.salt_light
+
+ensuite_lights:
+  entities:
+    - light.jacuzzi_light
+    - light.ensuite_ceiling_light
 
 front_yard:
   entities:
-    - switch.front_flood_lights
-    - switch.porch_light
-    - switch.side_door_light
+    - light.front_flood_lights
+    - light.ha2_porch_light
+    - light.side_door_light
 
 backyard:
   entities:
-    - switch.patio_light
-    - switch.back_flood_lights
+    - light.patio_ceiling_light
+    - light.back_flood_lights
     - switch.patio_fan
     - switch.fountain
-    - light.patio_accent_lights
-    - switch.patio_box_fan
+    - light.patio_accent_lights_switch
+#    - fan.patio_box_fan
 
 exterior_lighting:
   entities:
     - light.front_flood_lights
-    - light.porch_light
+    - light.ha2_front_flood_lights_foyer_switch
+    - light.ha2_porch_light
     - light.side_door_light
-    - light.patio_light
+    - light.patio_ceiling_light
     - light.back_flood_lights
-    - light.patio_accent_lights
+    - light.patio_accent_lights_switch
 
 kitchen_lights:
   name: Kitchen Lights
   entities:
-    - switch.ceiling_right
-    - switch.ceiling_left
-    - switch.ceiling_center
-    - switch.table_light
+    - light.table_light
     - light.cabinet_lights
-    - switch.coffee_light
-    - switch.kitchen_sink_light
+    - light.coffee_light
+    - light.sink_light
 
 guest_lights:
   entities:
-    - light.guest_ceiling_light
-    - switch.spare_room_outlet
+    - light.guest_ceiling_lights
+#    - light.ha2_guest_led
 
 office_lights:
   entities:
-    - light.office_ceiling
-    - light.officedimmer
-    - light.office_lamps
+    - light.office_ceiling_lights
+    - light.office_floor_lights
     - light.corner_light
     - light.bed_light
     - light.reading_light
-    - light.desk_back_light
+    - light.ha2_desk_back_light
 
-living_room_lights:
-  name: Living Room Lights
+den_lights:
+  name: Den Lights
   entities:
-    - switch.living_room_ceiling_light
-    - switch.living_room_lamp
-    - light.fireplace_lights
-    - switch.tv_accent_lights
+    - light.den_ceiling_light
+    - light.ha2_sofa_lamp
+    - light.tv_ambient_lights
 
 lights:
   name: Lights
   entities:
-    - light.fireplace_lights
-    - light.office_ceiling
-    - light.officedimmer
-    - light.office_lamps
-    - light.corner_light
-    - light.bed_light
-    - light.reading_light
-    - light.desk_back_light
-    - light.hallway_night_light
-    - light.hallway_night_light
-    - light.den_night_light_5
-    - light.hall_night_light
-    - light.den_night_light
-    - light.mbath_night_light
-    - light.salt_light
-    - light.sink_light
-    - switch.foyer_accent_lights
-    - switch.living_room_lamp
-    - switch.living_room_ceiling_light
-    - switch.tv_accent_lights
-    - switch.foyer_light
-    - switch.hallway_switch
-    - light.desk_light
-    - light.donnas_light
-    - light.darrens_light
-    - light.bathtub_light
-    - switch.bedroom_ceiling_light
-    - switch.guest_ceiling_light
-    - switch.spare_room_lamp
-    - switch.coffee_light
-    - switch.ceiling_right
-    - switch.ceiling_left
-    - switch.ceiling_center
-    - switch.table_light
+    - light.office_floor_lights
+    - light.kitchen_ceiling_lights
+    - light.table_light
     - light.cabinet_lights
-    - switch.kitchen_cabinet_lights
-    - switch.kitchen_stove_light
-    - switch.garage_ceiling_lights
-    - switch.attic_lights
-    - switch.hall_light
-    - switch.side_door_light
-    - switch.porch_light
-    - switch.front_flood_lights
-    - switch.back_flood_lights
-    - switch.patio_light
+    - light.bedroom_lights
+    - light.den_ceiling_light
+    - light.garage_ceiling_lights
+    - light.office_ceiling_lights
+    - light.ha2_foyer_lights
+    - light.tv_ambient_lights
+    - light.bathroom_lights
+    #    - light.ha2_desk_back_light
+    - light.ha2_sofa_lamp
+    - light.outside_lights
+    - light.hallway_light
+    - light.ensuite_lights
+    - light.guest_ceiling_lights
+    - light.attic_lights
+    - light.entry_hall_lights
+    - light.bathroom_ceiling_light
+    - light.den_nite_lites
+    - light.fireplace_lights
+    - light.foyer_lights
+    - light.ha2_guest_led
+    - light.sink_light
+    - light.laundry_light
+    - light.salt_light
 
 inside_fans:
   entities:
-    - switch.office_ceiling_fan
-    - switch.living_room_ceiling_fan
-    - switch.guest_ceiling_fan
-    - switch.living_room_fan
-    - switch.bedroom_ceiling_fan
+    - fan.office_fan
+    - fan.den_ceiling_fan
+    - fan.ha2_guest_ceiling_fan
+    - fan.hallway_fan
+    - fan.bedroom_fan
 
 night_switches:
   entities:
     - switch.subwoofer
-    - switch.hallway_night_plug
-    - switch.test_kld
-    - switch.printer
-    - switch.office_sound
-    - switch.spare_room_outlet
+    - switch.ha2_work_bench
+    - switch.ha2_printer
     - switch.coffee_maker
     - switch.fountain
     - switch.patio_fan
-    - switch.patio_box_fan
-    - switch.hallway_night_plug
-    - switch.kitchen_night_plug
-    - switch.hall_night_plug
-    - switch.den_night_plug
-    - switch.mbath_night_plug
+#    - fan.patio_box_fan
 
 # alarm groups
 alarm_lights:
   entities:
-    - light.office_ceiling
-    - switch.ceiling_center
-    - switch.bedroom_ceiling_light
-    - switch.living_room_ceiling_light
-    - switch.garage_ceiling_lights
-    - switch.patio_light
-    - switch.porch_light
-    - switch.side_door_light
+    - light.office_ceiling_lights
+    - light.kitchen_ceiling_lights
+    - light.bedroom_ceiling_lights
+    - light.den_ceiling_light
+    - light.garage_ceiling_lights
+    - light.patio_ceiling_light
+    - light.ha2_porch_light
+    - light.side_door_light
 
 alarm_triggered_lights:
   entities:
-    - light.officedimmer
-    - switch.ceiling_center
-    - switch.bedroom_ceiling_light
-    - switch.living_room_ceiling_light
-    - switch.garage_ceiling_lights
-    - switch.patio_light
-    - switch.porch_light
-    - switch.side_door_light
-    - switch.table_light
-    - switch.front_flood_lights
-    - switch.back_flood_lights
-    - light.office_lamps
+    - light.kitchen_ceiling_lights
+    - light.bedroom_ceiling_lights
+    - light.den_ceiling_light
+    - light.garage_ceiling_lights
+    - light.patio_ceiling_light
+    - light.ha2_porch_light
+    - light.side_door_light
+    - light.table_light
+    - light.front_flood_lights
+    - light.back_flood_lights
+    - light.office_floor_lights
+    - light.office_ceiling_lights
 
 all_doors_away:
   name: Door Sensors
   entities:
-    - binary_sensor.wyzesense_7780f0b4
-    - binary_sensor.back_door_k
-    - binary_sensor.side_door_k
-    - binary_sensor.garage_entry_door_k
+    - binary_sensor.front_door
+    - binary_sensor.back_door
+    - binary_sensor.side_door
+    - binary_sensor.garage_entry_door
 
 all_doors_home:
   name: All Doors Home
   entities:
-    - binary_sensor.wyzesense_7780f0b4
-    - binary_sensor.back_door_k
-    - binary_sensor.side_door_k
-    - binary_sensor.wyzesense_7780f0c5
+    - binary_sensor.front_door
+    - binary_sensor.back_door
+    - binary_sensor.side_door
 
 all_windows:
   name: Window Sensors
@@ -235,10 +244,78 @@ all_windows:
     - binary_sensor.garage_windows
     - binary_sensor.mbdrm_windows
     - binary_sensor.office_windows
-    - binary_sensor.kitchen_bay_windows
-    - binary_sensor.kitchen_sink_windows
+    #    - binary_sensor.kitchen_bay_windows
+    #    - binary_sensor.kitchen_sink_windows
     - binary_sensor.mbdrm_windows
-    - binary_sensor.tristans_window
+    #    - binary_sensor.tristans_window
+
+ensuite_motion:
+  name: Ensuite Motion
+  entities:
+    - binary_sensor.ensuite_ceiling_motion
+
+bathroom_motion:
+  name: Bathroom Motion
+  entities:
+    - binary_sensor.bathroom_motion_occupancy
+    - binary_sensor.hall_bathroom_motion
+
+entry_hall_motion:
+  name: Entry Hall Motion
+  entities:
+    - binary_sensor.entry_hall_motion
+
+office_motion:
+  all: true
+  name: Office Motion
+  entities: binary_sensor.hallway_rf_motion
+
+porch_motion:
+  name: Front Porch Motion
+  all: true
+  entities:
+    - binary_sensor.front_motion
+
+entryhall_motion:
+  name: Entry Hall Motion
+  entities:
+    - binary_sensor.entry_hall_motion
+    - binary_sensor.side_door
+    - binary_sensor.garage_entry_door
+
+garage_motion:
+  name: Garage Motion
+  entities:
+    - binary_sensor.garage_motion_sensor_motion
+    - binary_sensor.garage_motion
+
+kitchen_motion:
+  name: Kitchen Motion
+  entities:
+    - binary_sensor.kitchen_motion
+    - binary_sensor.kitchen_motion_2 # kitchen 2
+    - binary_sensor.kitchen_motion_3
+
+laundry_motion:
+  name: Laundry Motion
+  entities:
+    #    - binary_sensor.laundry_room_motion
+    - binary_sensor.laundry_ceiling_motion
+
+inside_motion:
+  name: Inside Motion Detectors
+  entities:
+    - binary_sensor.bedroom_motion
+    - binary_sensor.den_motion
+    - binary_sensor.ensuite_ceiling_motion
+    - binary_sensor.hall_motion
+    - binary_sensor.hallway_motion
+    - binary_sensor.hallway_rf_motion
+    - binary_sensor.den_main_motion
+    #    - binary_sensor.laundry_room_motion # Laundry
+    - binary_sensor.entry_hall_motion # Entry Hall
+    - binary_sensor.kitchen_motion_2 # Kitchen Motion 2
+    - binary_sensor.hall_bathroom_motion
 
 motion:
   name: Motion Detectors
@@ -246,25 +323,41 @@ motion:
     - binary_sensor.back_motion
     - binary_sensor.bedroom_motion
     - binary_sensor.den_motion
-    - binary_sensor.living_room_motion
+    - binary_sensor.den_main_motion
     - binary_sensor.driveway_motion
-    - binary_sensor.face_detected
     - binary_sensor.front_motion
     - binary_sensor.garage_motion
-    - binary_sensor.wyzesense_77879826 # garage 1
-    - binary_sensor.wyzesense_77879025 # garage 2
-    - binary_sensor.wyzesense_7782a115 # Mailbox
+    - binary_sensor.garage_motion_sensor_motion # garage 2
     - binary_sensor.hall_motion
     - binary_sensor.hallway_motion
     - binary_sensor.hallway_rf_motion
-    - binary_sensor.mbath_glass_break
-    - binary_sensor.mbath_motion
-    - binary_sensor.movement
-    - binary_sensor.wyzesense_77933ddc # Office Motion 1
-    - binary_sensor.wyzesense_7793f9df # Office Motion
-    - binary_sensor.wyzesense_77802215 # Hall Bath Motion
-    - binary_sensor.wyzesense_778168e9 # Laundry
-    - binary_sensor.wyzesense_7787900d # kitchen 1
-    - binary_sensor.wyzesense_77878a66 # kitchen 2
-    - binary_sensor.wyzesense_77878ecb # porch
-    - binary_sensor.wyzesense_778797dc # entry hall
+    #    - binary_sensor.laundry_room_motion # Laundry
+    - binary_sensor.kitchen_motion_2 # kitchen 2
+    - binary_sensor.entry_hall_motion # entry hall
+    - binary_sensor.hall_bathroom_motion
+
+tablet_icons:
+  name: Tablet Icon Color
+  entities:
+    - input_boolean.camera_den
+    - input_boolean.camera_outside_cams
+    - input_boolean.camera_hallway
+    - input_boolean.camera_entryhall
+    - input_boolean.camera_kitchen
+    - input_boolean.camera_patio
+    - input_boolean.camera_driveway
+    - input_boolean.camera_frontdoor
+    - input_boolean.camera_garage
+    - input_boolean.office_controls
+    - input_boolean.kitchen_controls
+    - input_boolean.bedroom_controls
+    - input_boolean.den_controls
+    - input_boolean.ensuite_controls
+    - input_boolean.lights_on
+    - input_boolean.theme_select
+    - input_boolean.forecast
+    - input_boolean.mobile_kiosk
+    - input_boolean.radar_interactive
+    - input_boolean.radar_regional
+    - input_boolean.radar_local
+    - input_boolean.spotify
