@@ -1,9 +1,9 @@
 ---
- #  input_number.yaml
+#  input_number.yaml
 office_fan_hours:
   name: hours
   icon: mdi:clock-start
-  initial: 1
+  initial: 6
   min: 0
   max: 23
   step: 1
@@ -11,7 +11,7 @@ office_fan_hours:
 office_fan_minutes:
   name: minutes
   icon: mdi:clock-start
-  initial: 3
+  initial: 30
   min: 0
   max: 59
   step: 1
@@ -23,3 +23,10 @@ office_fan_seconds:
   min: 0
   max: 50
   step: 10
+
+lightalarm_duration:
+  name: Alarm Duration
+  unit_of_measurement: min
+  min: 0
+  max: 60
+  step: 1

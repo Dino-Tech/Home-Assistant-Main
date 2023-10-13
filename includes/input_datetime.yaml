@@ -9,12 +9,12 @@ time_donnas_alarm:
   name: Donna's Alarm Time
   has_date: false
   has_time: true
-  initial: "05:42:00"
+  initial: "05:30:00"
 time_darrens_alarm:
   name: Darren's Alarm Time
   has_date: false
   has_time: true
-  initial: "05:45:00"
+  initial: "06:00:00"
 date:
   name: Date
   has_date: true
@@ -25,3 +25,7 @@ datetime:
   has_date: true
   has_time: true
   initial: "2019-04-17 01:31:00"
+lightalarm_time:
+  name: Alarm Time
+  has_date: false
+  has_time: true
