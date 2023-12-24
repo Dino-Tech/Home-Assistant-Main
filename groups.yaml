@@ -1,166 +1,61 @@
 ---
 # # groups# /config/groups.yaml
 # ############################################
-camera_reboot:
-  name: Reboot Cameras
-  entities:
-    - switch.drive_garage_cam_power
-    - switch.den_power_strip
-    - switch.ha2_porch_outlets
 
-den_nitelite_plugs:
-  name: NiteLite Plugs
-  icon: mdi:power-socket-us
-  entities:
-    - switch.night_light_1_plug
-    - switch.night_light_2_plug
-    - switch.night_light_3_plug
-    - switch.night_light_4_plug
-    - switch.night_light_5_plug
-    - switch.night_light_6_plug
+#camera_reboot:
+#  name: Reboot Cameras
+#  entities:
+#    - switch.drive_garage_cam_power
+#    - switch.den_power_strip
+#    - switch.porch_outlets
 
 # presence groups
-people_home_tracker:
-  name: House Occupancy
-  icon: mdi:home-account
-  entities:
-    - input_boolean.darren_home
-    - input_boolean.donna_home
-#    - input_boolean.tristan_home
-
 person_group:
   name: Person Group
   icon: mdi:account-multiple
   entities:
     - person.darren
     - person.donna
-#    - person.tristan
 
 darren_presence:
   name: Darren Presence
   entities:
     - device_tracker.darren
-    #    - device_tracker.darren_wilson
-    #    - device_tracker.darren_nmap_tracker
-    - device_tracker.pixel_2_xl
-    - device_tracker.pixel_2_xl_bt
+    - device_tracker.pixel_8_pro
+    - binary_sensor.darren
 
 donna_presence:
   name: Donna Presence
   entities:
     - device_tracker.donna
-    #    - device_tracker.donna_wilson
-    #    - device_tracker.donna_nmap_tracker
     - device_tracker.pixel_5
-    - device_tracker.pixel_5_bt
+    - binary_sensor.donna
 
-#tristan_presence:
-#  name: Tristan Presence
-#  entities:
-#    - device_tracker.tristan
-#    - device_tracker.44_91_60_d9_8f_a2
-
-# light groups
-bedroom_lamps:
+people_presence:
+  name: House Occupancy
   entities:
-    - light.darrens_light
-    - light.donnas_light
-#    - light.salt_light
+    - group.darren_presence
+    - group.donna_presence
 
-bedroom_lights:
-  name: All Bedroom Lights
-  icon: mdi:lightbulb-group
+everyone_awake:
+  name: Everyone awake
   entities:
-    - light.bedroom_ceiling_lights
-    - light.darrens_light
-    - light.donnas_light
-    - light.mood_lights
-#    - light.salt_light
-
-bedroom_devices:
-  entities:
-    - light.bedroom_ceiling_lights
-    - light.darrens_light
-    - light.donnas_light
-    - light.mood_lights
-    - light.bedroom_ceiling_fan
-    - light.nightstand_lights
-    - light.salt_light
-
-ensuite_lights:
-  entities:
-    - light.jacuzzi_light
-    - light.ensuite_ceiling_light
-
-front_yard:
-  entities:
-    - light.front_flood_lights
-    - light.ha2_porch_light
-    - light.side_door_light
-
-backyard:
-  entities:
-    - light.patio_ceiling_light
-    - light.back_flood_lights
-    - switch.patio_fan
-    - switch.fountain
-    - light.patio_accent_lights_switch
-#    - fan.patio_box_fan
-
-exterior_lighting:
-  entities:
-    - light.front_flood_lights
-    - light.ha2_front_flood_lights_foyer_switch
-    - light.ha2_porch_light
-    - light.side_door_light
-    - light.patio_ceiling_light
-    - light.back_flood_lights
-    - light.patio_accent_lights_switch
-
-kitchen_lights:
-  name: Kitchen Lights
-  entities:
-    - light.table_light
-    - light.cabinet_lights
-    - light.coffee_light
-    - light.sink_light
-
-guest_lights:
-  entities:
-    - light.guest_ceiling_lights
-#    - light.ha2_guest_led
-
-office_lights:
-  entities:
-    - light.office_ceiling_lights
-    - light.office_floor_lights
-    - light.corner_light
-    - light.bed_light
-    - light.reading_light
-    - light.ha2_desk_back_light
-
-den_lights:
-  name: Den Lights
-  entities:
-    - light.den_ceiling_light
-    - light.ha2_sofa_lamp
-    - light.tv_ambient_lights
+    - input_boolean.donna_is_awake
+    - input_boolean.darren_is_awake
 
 lights:
   name: Lights
   entities:
     - light.office_floor_lights
-    - light.kitchen_ceiling_lights
+    - light.kitchen_ceiling_lights_2
     - light.table_light
     - light.cabinet_lights
     - light.bedroom_lights
     - light.den_ceiling_light
     - light.garage_ceiling_lights
     - light.office_ceiling_lights
-    - light.ha2_foyer_lights
     - light.tv_ambient_lights
     - light.bathroom_lights
-    #    - light.ha2_desk_back_light
     - light.ha2_sofa_lamp
     - light.outside_lights
     - light.hallway_light
@@ -172,169 +67,30 @@ lights:
     - light.den_nite_lites
     - light.fireplace_lights
     - light.foyer_lights
-    - light.ha2_guest_led
     - light.sink_light
-    - light.laundry_light
     - light.salt_light
 
-inside_fans:
-  entities:
-    - fan.office_fan
-    - fan.den_ceiling_fan
-    - fan.ha2_guest_ceiling_fan
-    - fan.hallway_fan
-    - fan.bedroom_fan
-
-night_switches:
-  entities:
-    - switch.subwoofer
-    - switch.ha2_work_bench
-    - switch.ha2_printer
-    - switch.coffee_maker
-    - switch.fountain
-    - switch.patio_fan
-#    - fan.patio_box_fan
-
 # alarm groups
-alarm_lights:
-  entities:
-    - light.office_ceiling_lights
-    - light.kitchen_ceiling_lights
-    - light.bedroom_ceiling_lights
-    - light.den_ceiling_light
-    - light.garage_ceiling_lights
-    - light.patio_ceiling_light
-    - light.ha2_porch_light
-    - light.side_door_light
-
-alarm_triggered_lights:
-  entities:
-    - light.kitchen_ceiling_lights
-    - light.bedroom_ceiling_lights
-    - light.den_ceiling_light
-    - light.garage_ceiling_lights
-    - light.patio_ceiling_light
-    - light.ha2_porch_light
-    - light.side_door_light
-    - light.table_light
-    - light.front_flood_lights
-    - light.back_flood_lights
-    - light.office_floor_lights
-    - light.office_ceiling_lights
-
-all_doors_away:
-  name: Door Sensors
+monitored_contacts:
+  name: Monitored Contacts
+  icon: mdi:shield-lock
   entities:
     - binary_sensor.front_door
     - binary_sensor.back_door
     - binary_sensor.side_door
     - binary_sensor.garage_entry_door
-
-all_doors_home:
-  name: All Doors Home
-  entities:
-    - binary_sensor.front_door
-    - binary_sensor.back_door
-    - binary_sensor.side_door
-
-all_windows:
-  name: Window Sensors
-  entities:
-    - binary_sensor.den_windows
-    - binary_sensor.garage_windows
-    - binary_sensor.mbdrm_windows
-    - binary_sensor.office_windows
-    #    - binary_sensor.kitchen_bay_windows
-    #    - binary_sensor.kitchen_sink_windows
-    - binary_sensor.mbdrm_windows
-    #    - binary_sensor.tristans_window
-
-ensuite_motion:
-  name: Ensuite Motion
-  entities:
-    - binary_sensor.ensuite_ceiling_motion
-
-bathroom_motion:
-  name: Bathroom Motion
-  entities:
-    - binary_sensor.bathroom_motion_occupancy
-    - binary_sensor.hall_bathroom_motion
-
-entry_hall_motion:
-  name: Entry Hall Motion
-  entities:
-    - binary_sensor.entry_hall_motion
-
-office_motion:
-  all: true
-  name: Office Motion
-  entities: binary_sensor.hallway_rf_motion
-
-porch_motion:
-  name: Front Porch Motion
-  all: true
-  entities:
-    - binary_sensor.front_motion
-
-entryhall_motion:
-  name: Entry Hall Motion
-  entities:
-    - binary_sensor.entry_hall_motion
-    - binary_sensor.side_door
-    - binary_sensor.garage_entry_door
-
-garage_motion:
-  name: Garage Motion
-  entities:
-    - binary_sensor.garage_motion_sensor_motion
-    - binary_sensor.garage_motion
-
-kitchen_motion:
-  name: Kitchen Motion
-  entities:
-    - binary_sensor.kitchen_motion
-    - binary_sensor.kitchen_motion_2 # kitchen 2
-    - binary_sensor.kitchen_motion_3
-
-laundry_motion:
-  name: Laundry Motion
-  entities:
-    #    - binary_sensor.laundry_room_motion
-    - binary_sensor.laundry_ceiling_motion
-
-inside_motion:
-  name: Inside Motion Detectors
-  entities:
-    - binary_sensor.bedroom_motion
-    - binary_sensor.den_motion
-    - binary_sensor.ensuite_ceiling_motion
-    - binary_sensor.hall_motion
-    - binary_sensor.hallway_motion
-    - binary_sensor.hallway_rf_motion
-    - binary_sensor.den_main_motion
-    #    - binary_sensor.laundry_room_motion # Laundry
-    - binary_sensor.entry_hall_motion # Entry Hall
-    - binary_sensor.kitchen_motion_2 # Kitchen Motion 2
-    - binary_sensor.hall_bathroom_motion
-
-motion:
-  name: Motion Detectors
-  entities:
-    - binary_sensor.back_motion
-    - binary_sensor.bedroom_motion
-    - binary_sensor.den_motion
+    - binary_sensor.bathroom_motion
+    - binary_sensor.bedroom_motion_sensors
     - binary_sensor.den_main_motion
     - binary_sensor.driveway_motion
+    - binary_sensor.ensuite_ceiling_motion
+    - binary_sensor.entryway_motion
     - binary_sensor.front_motion
-    - binary_sensor.garage_motion
-    - binary_sensor.garage_motion_sensor_motion # garage 2
-    - binary_sensor.hall_motion
-    - binary_sensor.hallway_motion
-    - binary_sensor.hallway_rf_motion
-    #    - binary_sensor.laundry_room_motion # Laundry
-    - binary_sensor.kitchen_motion_2 # kitchen 2
-    - binary_sensor.entry_hall_motion # entry hall
-    - binary_sensor.hall_bathroom_motion
+    - binary_sensor.garage_motion_sensors
+    - binary_sensor.guest_motion
+    - binary_sensor.kitchen_motion_sensors
+    - binary_sensor.laundry_ceiling_motion
+    - binary_sensor.night_6_motion
 
 tablet_icons:
   name: Tablet Icon Color
