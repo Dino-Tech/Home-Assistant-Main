@@ -24,9 +24,9 @@ config:
 default_config:
 
 frontend:
+  themes: !include includes/themes.yaml
   extra_module_url:
     - /hacsfiles/lovelace-card-mod/card-mod.js
-  themes: !include includes/themes.yaml
 
 http:
 #  ssl_certificate: /ssl/fullchain.pem
@@ -71,17 +71,17 @@ recorder:
     entities:
       - climate.den
       - group.person_group
-      - group.people_home_tracker
       - group.darren_presence
       - group.donna_presence
+      - group.people_presence
       - sensor.hvac_mode
-      - group.garage_motion
-      - group.porch_motion
-      - group.laundry_motion
-      - group.kitchen_motion
-      - group.entryhall_motion
+      - binary_sensor.kitchen_motion_sensors
+      - binary_sensor.donna
+      - binary_sensor.darren
 
 #discovery:
+
+battery_notes:
 
 mobile_app:
 
@@ -90,15 +90,6 @@ lovelace_gen:
 lovelace:
   mode: yaml
   resources: !include lovelace/resources/resources.yaml
-
-  # remote_homeassistant:
-  #   instances:
-  #     - host: 192.168.1.204
-  #       port: 8124
-  #       secure: false
-  #       access_token: !secret remote_access_token
-  #       entity_prefix: "ha2_"
-  #
 
 conversation:
 
@@ -132,15 +123,6 @@ spotcast:
 #  username: !secret spotify_username
 #  password: !secret spotify_password
 
-#nest:
-#  client_id: !secret nest_client_id
-#  client_secret: !secret nest_client_secret
-#  project_id: !secret nest_project_id
-
-#google:
-#  client_id: !secret google_client_id
-#  client_secret: !secret google_client_secret
-
 media_player:
   - platform: universal
     name: Currently Playing
@@ -156,7 +138,6 @@ media_player:
       - media_player.tv_speakers
       - media_player.right_tv_speaker
       - media_player.left_tv_speaker
-      #      - media_player.kitchen_mini
       - media_player.kitchen_table_display
       - media_player.sink_display
       - media_player.inside_group
@@ -168,7 +149,6 @@ media_player:
       - media_player.den_mini
       - media_player.den_group
       - media_player.deb_tv
-      #      - media_player.darren_s_speaker
       - media_player.bedroom_tv
       - media_player.bedroom_speaker
       - media_player.bathroom_speaker
@@ -186,7 +166,7 @@ zone:
   - name: !secret home_name
     latitude: !secret home_latitude
     longitude: !secret home_longitude
-    radius: 40
+    radius: 100
     icon: mdi:home-assistant
 
 tts:
@@ -200,32 +180,6 @@ noonlight:
   secret: !secret noonlight_secret
   api_endpoint: https://api.noonlight.com/platform/v1
   token_endpoint: https://noonlight.konnected.io/ha/token
-
-#media_player:
-#  - platform: androidtv
-#    name: Android TV
-#    host: 192.168.0.135
-#    adb_server_ip: 127.0.0.1
-#    adb_server_port: 5037
-
-rest_command:
-  assistant_broadcast:
-    url: !secret assistant_broadcast_url
-    method: POST
-    content_type: "application/json"
-    payload: '{"command":"{{ command }}", "user":"Darren", "broadcast":true}'
-
-  assistant_converse:
-    url: !secret assistant_broadcast_url
-    method: POST
-    content_type: "application/json"
-    payload: '{"command":"{{ command }}", "user":"Darren", "converse":true}'
-
-  assistant_relay:
-    url: !secret assistant_broadcast_url
-    method: POST
-    content_type: "application/json"
-    payload: '{"command":"{{ command }}", "user":"Darren"}'
 
 samsungtv_smart:
   - host: 192.168.1.135
