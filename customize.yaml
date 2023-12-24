@@ -1,7 +1,6 @@
----
-alarm_control_panel.ha_alarm:
+alarm_control_panel.alarm:
   friendly_name: New Life Security
-  icon: mdi:christianity-outline
+  icon: mdi:cross-outline
 binary_sensor.garage_smoke_detected:
   friendly_name: Garage Smoke Detected
   icon: mdi:smoke-detector
@@ -35,7 +34,7 @@ binary_sensor.kitchen_nest_protect_online:
   icon: mdi:wifi
 binary_sensor.hallway_nest_protect_online:
   icon: mdi:wifi
-binary_sensor.wyzesense_7780f0b4:
+binary_sensor.front_door:
   friendly_name: Front Door
   device_class: door
 binary_sensor.front_motion:
@@ -50,7 +49,7 @@ binary_sensor.entry_hall_motion:
 binary_sensor.hallway_motion:
   friendly_name: Hallway Motion
   device_class: motion
-binary_sensor.wyzesense_7793f9df:
+binary_sensor.office_motion_motion:
   friendly_name: Office Motion
   device_class: motion
 binary_sensor.driveway_motion:
@@ -65,8 +64,8 @@ binary_sensor.bathroom_motion:
 binary_sensor.mbath_motion:
   friendly_name: Master Bath Motion
   device_class: motion
-binary_sensor.kitchen_motion:
-  friendly_name: Kitchen Motion
+binary_sensor.kitchen_motion_sensors:
+  friendly_name: Kitchen Motion Sensors
   device_class: motion
 binary_sensor.hall_motion:
   friendly_name: Hall Motion
@@ -98,7 +97,7 @@ binary_sensor.tristans_window:
 binary_sensor.mbath_window:
   friendly_name: Tristan's Window
   device_class: window
-binary_sensor.living_room_motion:
+binary_sensor.den_main_motion:
   friendly_name: Living Room Motion
   device_class: motion
 binary_sensor.mbath_glass_break:
@@ -119,49 +118,49 @@ binary_sensor.mbdrm_windows:
 binary_sensor.office_windows:
   friendly_name: Office Windows
   device_class: window
-device_tracker.life360_darren_wilson:
+device_tracker.darren_wilson:
   friendly_name: Darren
-  entity_picture: /local/images-lovelace/Darren3.JPG
+  entity_picture: /local/images-lovelace/Darren1.png
 person.darren:
-  entity_picture: /local/images-lovelace/Darren3.JPG
-device_tracker.life360_donna_wilson:
+  entity_picture: /local/images-lovelace/Darren1.png
+device_tracker.donna_wilson:
   friendly_name: Donna
-  entity_picture: /local/images-lovelace/Donna1new.jpg
+  entity_picture: /local/images-lovelace/Donna2new.png
 person.donna:
-  entity_picture: /local/images-lovelace/Donna1new.jpg
+  entity_picture: /local/images-lovelace/Donna2new.png
 device_tracker.darren_nmap:
   friendly_name: Darren
-  entity_picture: /local/images-lovelace/Darren3.JPG
+  entity_picture: /local/images-lovelace/Darren1.png
 device_tracker.darren:
-  entity_picture: /local/images-lovelace/Darren3.JPG
-device_tracker.pixel_2_xl:
-  entity_picture: /local/images-lovelace/Darren3.JPG
+  entity_picture: /local/images-lovelace/Darren1.png
+device_tracker.pixel_8_pro:
+  entity_picture: /local/images-lovelace/Darren1.png
 device_tracker.google_maps_105311213674095510695:
   friendly_name: Darren
-  entity_picture: /local/images-lovelace/Darren3.JPG
+  entity_picture: /local/images-lovelace/Darren1.png
 device_tracker.google_maps_117348287487191396666:
   friendly_name: Donna
-  entity_picture: /local/images-lovelace/Donna1new.jpg
+  entity_picture: /local/images-lovelace/Donna2new.png
 device_tracker.donna_nmap:
   friendly_name: Donna
-  entity_picture: /local/images-lovelace/Donna1new.jpg
+  entity_picture: /local/images-lovelace/Donna2new.png
 device_tracker.donnas_iphone:
-  entity_picture: /local/images-lovelace/Donna1new.jpg
+  entity_picture: /local/images-lovelace/Donna2new.png
 device_tracker.donna_s_iphone:
-  entity_picture: /local/images-lovelace/Donna1new.jpg
+  entity_picture: /local/images-lovelace/Donna2new.png
 device_tracker.donna:
-  entity_picture: /local/images-lovelace/Donna1new.jpg
+  entity_picture: /local/images-lovelace/Donna2new.png
 device_tracker.44_91_60_d9_8f_a2:
   friendly_name: Tristan
   entity_picture: /local/images-lovelace/TristanJPG.1.jpg
 input_boolean.darren_home:
   friendly_name: Darren
   initial: true
-  entity_picture: /local/images-lovelace/Darren3.JPG
+  entity_picture: /local/images-lovelace/Darren1.png
 input_boolean.donna_home:
   friendly_name: Donna
   initial: true
-  entity_picture: /local/images-lovelace/Donna1new.jpg
+  entity_picture: /local/images-lovelace/Donna2new.png
 input_boolean.tristan_home:
   friendly_name: Tristan
   initial: true
@@ -170,24 +169,9 @@ input_boolean.people_home_boolean:
   friendly_name: Jesus Freaks
   initial: true
   entity_picture: /local/images-lovelace/crossPNG.png
-input_boolean.bedroom_lamps:
-  friendly_name: Bedroom Lamps
-  initial: false
-  icon: mdi:lamp
-group.exterior_lighting:
-  friendly_name: Outside Lights
-  icon: mdi:lightbulb
-group.front_yard:
-  friendly_name: Front Yard
-  icon: mdi:flash-outline
-group.backyard:
-  friendly_name: Backyard
-  icon: mdi:flash-outline
 group.all_windows:
   friendly_name: Window
   icon: mdi:window-open
-light.fireplace_lights:
-  icon: mdi:fire
 light.corner_light:
   icon: mdi:floor-lamp
 light.bed_light:
@@ -201,9 +185,6 @@ light.donnas_light:
 light.22507506807d3a4c9f35:
   icon: mdi:desk-lamp
   friendly_name: Office Desk Light
-switch.bedroom_lamps_switch:
-  friendly_name: Bedroom Lamps
-  icon: mdi:lamp
 script.good_night:
   friendly_name: Good Night
   icon: mdi:sleep
@@ -236,12 +217,12 @@ sensor.radio_temp:
 sensor.radio_humidity:
   friendly_name: Kitchen Humidity
   entity_picture: /local/icons/humid2_icon.png
-sensor.living_room_thermostat_temperature:
+sensor.den_temperature:
   friendly_name: Den Temperature
 sensor.living_room_thermostat_target:
   friendly_name: HVAC Target
   icon: mdi:bullseye
-sensor.living_room_thermostat_humidity:
+sensor.den_humidity:
   entity_picture: /local/icons/humid2_icon.png
   friendly_name: Den Humidity
 sensor.living_room_thermostat_hvac_state:
@@ -286,7 +267,7 @@ sensor.date:
   icon: mdi:gradient
 sensor.alarm_panel_battery_level:
   friendly_name: Alarm Kiosk
-switch.foyer_accent_lights:
+light.foyer_accent_lights:
   friendly name: Foyer Accent Lights
   icon: mdi:wall-sconce-flat
 switch.subwoofer:
@@ -295,10 +276,10 @@ switch.subwoofer:
 switch.driveway_lights:
   friendly name: Driveway Lights
   icon: mdi:lightbulb
-switch.guest_ceiling_light:
-  friendly_name: Guest Ceiling Light
-  icon: mdi:lightbulb
-switch.guest_ceiling_fan:
+light.guest_ceiling_lights:
+  friendly_name: Guest Ceiling Lights
+  icon: mdi:light-recessed
+fan.ha2_guest_ceiling_fan:
   friendly_name: Guest Ceiling Fan
   icon: mdi:fan
 switch.spare_room_outlet:
@@ -313,25 +294,21 @@ switch.siren:
 switch.kitchen_sink_light:
   friendly name: Kitchen Sink Light
   icon: mdi:lightbulb
-switch.tv_accent_lights:
-  icon: mdi:wall-sconce-flat
-switch.hallway_light:
+light.hallway_light:
   icon: mdi:lightbulb
 switch.air_cleaner:
   icon: mdi:weather-windy
 switch.air_machine:
   icon: mdi:weather-windy
-switch.printer:
+switch.ha2_printer:
   icon: mdi:printer
 switch.office_ceiling_light:
   icon: mdi:lightbulb
-switch.office_ceiling_fan:
+light.office_ceiling_fan:
   icon: mdi:fan
 switch.office_lamps:
   icon: mdi:lamp
-switch.desk_back_light:
-  icon: mdi:white-balance-iridescent
-switch.office_monitor:
+switch.ha2_office_monitor:
   icon: mdi:monitor
 switch.office_sound:
   friendly_name: Office Audio
@@ -341,21 +318,21 @@ switch.office_desk_lamp:
   icon: mdi:record-rec
 switch.office_video:
   icon: mdi:video-input-component
-switch.office_work_bench:
+switch.ha2_work_bench:
   friendly_name: Work Bench
   icon: mdi:power-socket-us
 switch.radio_wtemp_humid:
   friendly_name: Radio
   icon: mdi:music
-switch.garage_ceiling_lights:
+light.garage_ceiling_lights:
   icon: mdi:lightbulb
-switch.attic_lights:
+light.attic_lights:
   icon: mdi:lightbulb
 switch.garage_door:
   icon: mdi:gesture-tap
 switch.ceiling_center:
   icon: mdi:lightbulb
-switch.table_light:
+light.table_light:
   icon: mdi:ceiling-light
 switch.ceiling_left:
   icon: mdi:lightbulb
@@ -365,39 +342,39 @@ light.cabinet_lights:
   friendly_name: Cabinet Lights
   icon: mdi:wall-sconce-flat
 switch.coffee_maker:
-  icon: mdi:coffee
-switch.coffee_light:
+  icon: mdi:coffee-maker
+light.coffee_light:
   icon: mdi:wall-sconce-flat
 switch.kitchen_cabinet_lights:
   icon: mdi:lightbulb
 switch.kitchen_stove_light:
   icon: mdi:lightbulb
-switch.living_room_fan:
+fan.hallway_fan:
   friendly_name: Hallway Fan
   icon: mdi:fan
 switch.fountain:
   icon: mdi:fountain
-switch.back_flood_lights:
+light.back_flood_lights:
   icon: mdi:lightbulb
-switch.patio_light:
+light.patio_ceiling_light:
   icon: mdi:lightbulb
 switch.patio_fan:
   icon: mdi:fan
 switch.hall_light:
   friendly name: Entry Hall Light
   icon: mdi:lightbulb
-switch.side_door_light:
+light.side_door_light:
   friendly name: Side Light
   icon: mdi:lightbulb
-switch.porch_light:
+light.ha2_porch_light:
   icon: mdi:lightbulb
 switch.front_flood_lights:
   icon: mdi:lightbulb
-switch.foyer_light:
+switch.ha2_foyer_light:
   icon: mdi:lightbulb
 switch.living_room_ceiling_light:
   icon: mdi:lightbulb
-switch.living_room_ceiling_fan:
+fan.den_ceiling_fan:
   friendly_name: Den Ceiling Fan
   icon: mdi:fan
 switch.living_room_lamp:
@@ -405,21 +382,19 @@ switch.living_room_lamp:
 switch.donnas_lamp:
   friendly_name: Donna's Lamp
   icon: mdi:lamp
-switch.bedroom_ceiling_light:
+light.bedroom_ceiling_lights:
   icon: mdi:lightbulb
 switch.bedroom_lights:
   icon: mdi:lightbulb
 switch.bedroom_fan:
   icon: mdi:fan
-switch.bedroom_ceiling_fan:
+light.bedroom_ceiling_fan:
   icon: mdi:fan
-switch.bedroom_lamps:
-  icon: mdi:lamp
 media_player.living_room_tv:
   icon: mdi:cast
 media_player.bedroom_tv:
   icon: mdi:cast
-media_player.kitchen_display:
+media_player.kitchen_speakers:
   icon: mdi:google-home
 media_player.office_google:
   icon: mdi:google-home
@@ -427,7 +402,7 @@ media_player.darrens_speaker:
   icon: mdi:google-home
 media_player.office_desk:
   icon: mdi:google-home
-media_player.living_room_google:
+media_player.tv_speakers:
   icon: mdi:google-home
 media_player.bathroom_speaker:
   icon: mdi:google-home
@@ -507,11 +482,14 @@ sensor.dark_sky_humidity:
 sensor.dark_sky_moon_phase_0d:
   friendly_name: Moon Phase
 sensor.speedtest_download:
-  icon: mdi:speedometer
+  friendly_name: Download Speed
+  icon: mdi:download
 sensor.speedtest_upload:
-  icon: mdi:speedometer
+  friendly_name: Upload Speed
+  icon: mdi:upload
 sensor.speedtest_ping:
-  icon: mdi:clock-fast
+  friendly_name: Ping
+  icon: mdi:timer
 sensor.memory_free:
   icon: mdi:chip
 sensor.last_boot:
@@ -602,6 +580,8 @@ sensor.sensor_count:
   icon: mdi:label
 sensor.switch_count:
   icon: mdi:label
+sensor.fan_count:
+  icon: mdi:label
 input_number.cfe_off:
   friendly_name: Timer
   icon: mdi:timetable
@@ -627,11 +607,7 @@ sensor.outside_avg_temperature:
 sensor.bedroom_avg_temperature:
   friendly_name: Bedroom Temperature
   icon: mdi:thermometer
-light.coffee_light:
-  icon: mdi:wall-sconce-flat
-light.tv_accent_lights:
-  icon: mdi:wall-sconce-flat
-light.foyer_accent_lights:
+light.tv_ambient_lights:
   icon: mdi:wall-sconce-flat
 cover.garage_door:
   device_class: garage
@@ -645,7 +621,7 @@ script.outside_lights_on:
 sensor.spare_room_battery:
   friendly_name: Guest HT Battery
 light.salt_light:
-  icon: mdi:wall-sconce-variant
+  icon: mdi:wall-sconce-round-variant
 sensor.shelly_shsw_21_32ba73_watt:
   friendly_name: Hall Bath Power
   icon: mdi:flash
@@ -662,20 +638,12 @@ sensor.garage_smoke_temp:
   friendly_name: Garage Temperature
 sensor.dark_sky_humidity_0d:
   friendly_name: Garage Humidity
-group.bedroom_lights:
-  friendly_name: Bedroom Lights
 sensor.kitchen_temp:
   friendly_name: Kitchen Temperature
-group.office_lights:
-  friendly_name: Office Lights
 sensor.office_humidity_avg:
   friendly_name: Office Humidity
 sensor.alert_count:
   icon: mdi:label
-group.guest_lights:
-  friendly_name: Guest Room Lights
-light.desk_back_light:
-  icon: mdi:wall-sconce-variant
 light.guest_room_lamp:
   icon: mdi:lamp
 light.living_room_lamp:
@@ -684,25 +652,23 @@ light.office_lamps:
   icon: mdi:lamp
 input_boolean.donnas_screen:
   icon: mdi:heart-multiple-outline
-switch.laundry_light:
-  icon: 'mdi: lightbulb'
+light.laundry_light:
+  icon: mdi:lightbulb
 script.run_config_check:
   friendly_name: Config Check
   icon: mdi:check-network-outline
-binary_sensor.wyzesense_778168e9:
+binary_sensor.laundry_room_motion:
   friendly_name: Laundry Motion
 binary_sensor.wyzesense_7780f0c5:
   friendly_name: Garage Sensor
   icon: mdi:garage
-binary_sensor.wyzesense_778797dc:
-  friendly_name: Entry Hall Motion
 binary_sensor.wyzesense_77878ecb:
   friendly_name: Porch Motion
-binary_sensor.wyzesense_77802215:
+binary_sensor.hall_bath_motion:
   friendly_name: Hall Bath Motion
 binary_sensor.wyzesense_77879826:
   friendly_name: Garage Motion 1
-binary_sensor.wyzesense_77879025:
+binary_sensor.garage_motion_sensor_motion:
   friendly_name: Garage Motion 2
 sensor.zdummy_sensor_35:
   icon: mdi:fake
@@ -716,25 +682,23 @@ script.morning:
   icon: mdi:weather-sunset-up
 light.living_room_ceiling_light:
   friendly_name: Den Ceiling Light
-light.bedroom_lamps:
+light.nightstand_lights:
   icon: mdi:lamp
-light.table_light:
-  icon: mdi:ceiling-light
 switch.garage_door_4ch:
   friendly_name: Sonoff Garage 4ch
 binary_sensor.wyzesense_7787900d:
   friendly_name: Kitchen Motion 1
 binary_sensor.wyzesense_77878a66:
   friendly_name: Kitchen Motion 2
-light.den_lamp:
+light.ha2_sofa_lamp:
   icon: mdi:floor-lamp
-switch.patio_box_fan:
+fan.patio_box_fan:
   icon: mdi:fan
 switch.washer_plug:
   icon: mdi:washing-machine
 switch.dryer_plug:
   icon: mdi:tumble-dryer
-light.bathtub_light:
+light.jacuzzi_light:
   icon: mdi:wall-sconce-flat
 script.reload_scripts:
   friendly_name: Reload Scripts
@@ -824,4 +788,27 @@ sensor.remote_memory_use_percent:
   friendly_name: RAM
 input_boolean.mobile_calander:
   entity_picture: /local/icons/tubes2.png
-
+input_datetime.time_donnas_alarm:
+  friendly_name: Donna
+switch.noonlight_switch:
+  friendly_name: Emergency Dispatch
+device_tracker.c6_7d_8f_bc_98_6f:
+  friendly_name: Ashley's iPhone
+  icon: mdi:cellphone
+sensor.hvac_mode:
+  icon: mdi:air-conditioner
+sensor.ac_runtime_today_cool:
+  friendly_name: A/C Runtime Today
+  icon: mdi:snowflake-variant
+sensor.ac_runtime_yesterday_cool:
+  friendly_name: A/C Runtime Yesterday
+  icon: mdi:snowflake-variant
+sensor.ac_runtime_today_heat:
+  friendly_name: Heater Runtime Today
+  icon: mdi:radiator
+sensor.ac_runtime_yesterday_heat:
+  friendly_name: Heater Runtime Yesterday
+  icon: mdi:radiator
+sensor.ac_runtime_weekly_heat:
+  friendly_name: Heater Runtime Weekly
+  icon: mdi:radiator
