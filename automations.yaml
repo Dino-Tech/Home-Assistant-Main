@@ -38,6 +38,8 @@
     - platform: event
       event_type: lovelace_updated
   action:
+    - service: lovelace.reload_resources
+    - delay: 6
     - choose:
         - conditions:
             - condition: state
@@ -59,8 +61,6 @@
             - service: button.press
               target:
                 entity_id: button.main_kiosk_load_start_url
-    - delay: 2
-    - service: lovelace.reload_resources
 
   mode: single
 - id: "17055555555545"
