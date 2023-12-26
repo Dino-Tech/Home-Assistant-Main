@@ -1,6 +1,5 @@
 - id: "1701111117565"
   alias: Report state on start-up
-  description: ""
   trigger:
     - platform: homeassistant
       event: start
@@ -33,9 +32,39 @@
         topic: shellies/command
         payload: announce
   initial_state: true
+- id: "1705577229915545"
+  alias: Reload kiosk when lovelace is updated
+  trigger:
+    - platform: event
+      event_type: lovelace_updated
+  action:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: switch.main_kiosk_screen
+              state: "off"
+          sequence:
+            - service: switch.turn_on
+              entity_id: switch.main_kiosk_screen
+            - delay: 2
+            - service: button.press
+              target:
+                entity_id: button.main_kiosk_load_start_url
+        - conditions:
+            - condition: state
+              entity_id: switch.main_kiosk_screen
+              state: "on"
+          sequence:
+            - delay: 2
+            - service: button.press
+              target:
+                entity_id: button.main_kiosk_load_start_url
+    - delay: 2
+    - service: lovelace.reload_resources
+
+  mode: single
 - id: "17055555555545"
   alias: Create a notification when something is added to HACS
-  description: ""
   initial_state: true
   trigger:
     platform: event
@@ -54,7 +83,6 @@
         %} [{{ repo }}](/hacs/repository/{{ id }}) was just added to HACS."
 - id: "17066666666675"
   alias: Cuckoo Clock
-  description: ""
   trigger:
     - platform: time_pattern
       hours: "*"
@@ -88,8 +116,6 @@
         - binary_sensor.nest_protect_kitchen_smoke_status
       to: "on"
       for:
-        hours: 0
-        minutes: 0
         seconds: 5
   action:
     - service: noonlight.create_alarm
@@ -1214,11 +1240,11 @@
   trigger:
     - platform: state
       entity_id:
-        - binary_sensor.bedroom_door
+        - input_boolean.darren_is_awake
       to: "on"
     - platform: state
       entity_id:
-        - light.night_light_1
+        - input_boolean.donna_is_awake
       to: "on"
   condition:
     - condition: state
@@ -1307,11 +1333,10 @@
       entity_id:
         - light.desk_light
       to: "off"
-      for:
-        hours: 0
-        minutes: 0
-        seconds: 0
-      from: "on"
+  condition:
+    - condition: state
+      entity_id: person.darren
+      state: not_home
   action:
     - service: notify.mobile_app_pixel_8_pro
       data:
@@ -1322,7 +1347,7 @@
             - action: turn_on
               title: Turn light on
 - id: "17016181474697534"
-  alias: Turn light on when notification action is tapped
+  alias: Turn desk light on when notification action is tapped
   trigger:
     platform: event
     event_type: mobile_app_notification_action
@@ -1339,9 +1364,7 @@
         - climate.den
       to: "off"
       for:
-        hours: 0
         minutes: 1
-        seconds: 0
   action:
     - service: notify.notify_all
       data:
@@ -1364,7 +1387,6 @@
       entity_id: climate.den
 - id: "17016499927893058"
   alias: Update notifications
-  description: ""
   use_blueprint:
     path: mdegat01/update_notifications.yaml
     input:
@@ -1391,7 +1413,6 @@
       mobile_app_device_2: fcffc10d5913eb61a8616787b322450e
 - id: "17016506815125772"
   alias: UPS Power OFF
-  description: ""
   trigger:
     - type: voltage
       platform: device
@@ -1408,7 +1429,6 @@
   mode: single
 - id: "17016506828368235"
   alias: UPS Online and fully charged
-  description: ""
   trigger:
     - type: battery_level
       platform: device
@@ -1475,7 +1495,6 @@
         title: GARAGE IS OPEN
 - id: "17016545649719910"
   alias: Donna left work turn on AC
-  description: ""
   trigger:
     - platform: zone
       entity_id: person.donna
@@ -1485,6 +1504,9 @@
     - condition: numeric_state
       entity_id: sensor.patio_temperature_2
       above: 76
+    - condition: state
+      entity_id: group.person_group
+      state: not_home
   action:
     - service: climate.set_temperature
       data:
@@ -1496,7 +1518,6 @@
   mode: single
 - id: "17016646577672587"
   alias: Bedroom Fan Low
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1506,17 +1527,13 @@
   action:
     - service: script.bedroom_fan_low
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 1
-        milliseconds: 0
+        seconds: 3
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.bedroom_fan_low
   mode: single
 - id: "17016646861505822"
   alias: Bedroom Fan Medium
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1526,17 +1543,13 @@
   action:
     - service: script.bedroom_fan_medium
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 1
-        milliseconds: 0
+        seconds: 3
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.bedroom_fan_medium
   mode: single
 - id: "17016654686576228"
   alias: Bedroom Fan High
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1546,17 +1559,13 @@
   action:
     - service: script.bedroom_fan_high
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 1
-        milliseconds: 0
+        seconds: 3
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.bedroom_fan_high
   mode: single
 - id: "17016646786640111"
   alias: Bedroom Fan Max
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1566,17 +1575,13 @@
   action:
     - service: script.bedroom_fan_max
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 1
-        milliseconds: 0
+        seconds: 3
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.bedroom_fan_max
   mode: single
 - id: "1701664617767258723"
   alias: Office Fan Low
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1586,17 +1591,13 @@
   action:
     - service: script.office_fan_low
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 1
-        milliseconds: 0
+        seconds: 3
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.office_fan_low
   mode: single
 - id: "1701664628650582276"
   alias: Office Fan Medium
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1606,17 +1607,13 @@
   action:
     - service: script.office_fan_medium
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 1
-        milliseconds: 0
+        seconds: 3
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.office_fan_medium
   mode: single
 - id: "1701664868657622838"
   alias: Office Fan High
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1626,17 +1623,13 @@
   action:
     - service: script.office_fan_high
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 1
-        milliseconds: 0
+        seconds: 3
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.office_fan_high
   mode: single
 - id: "17016464686640111334"
   alias: Office Fan Max
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1646,17 +1639,13 @@
   action:
     - service: script.office_fan_max
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 1
-        milliseconds: 0
+        seconds: 3
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.office_fan_max
   mode: single
 - id: "17016703383649836"
   alias: TV Ambient lights ON when TV is on
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1669,7 +1658,6 @@
   mode: single
 - id: "17016780383725624"
   alias: TV Ambient lights OFF when TV off
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1682,7 +1670,6 @@
   mode: single
 - id: "17016473051966192"
   alias: Doorbell
-  description: ""
   trigger:
     - platform: device
       device_id: 011d22447a45c26939459e4d099889cb
@@ -1703,7 +1690,6 @@
         title: Someone is at Front door
 - id: "17016739887151444"
   alias: Reboot Kiosk
-  description: ""
   trigger:
     - platform: device
       type: turned_off
@@ -1720,20 +1706,21 @@
       before: "23:59:01"
   action:
     - delay:
-        hours: 0
         minutes: 1
-        seconds: 0
-        milliseconds: 0
+    - service: switch.turn_on
+      target:
+        entity_id: switch.main_kiosk_screen
+    - delay: 3
     - service: light.turn_on
       target:
         entity_id: light.ac9b7f58_cfbfe785_screen
+    - delay: 3
     - service: fully_kiosk.start_application
       target:
         entity_id: media_player.ac9b7f58_cfbfe785
   mode: single
 - id: "17016817804741351"
   alias: Foyer Lights ON
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1746,7 +1733,6 @@
   mode: single
 - id: "17016821780511872"
   alias: Foyer Lights OFF
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1759,7 +1745,6 @@
   mode: single
 - id: "17016482488751674"
   alias: Theme change for Island video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1770,7 +1755,6 @@
   mode: single
 - id: "17016852488856489"
   alias: Theme change for waves video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1781,7 +1765,6 @@
   mode: single
 - id: "17019682488958358"
   alias: Theme change for space video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1792,7 +1775,6 @@
   mode: single
 - id: "17016824889058894"
   alias: Theme change for nightClouds video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1803,7 +1785,6 @@
   mode: single
 - id: "17016842489168384"
   alias: Theme change for greenNeon video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1814,7 +1795,6 @@
   mode: single
 - id: "17016282489302842"
   alias: Theme change for moonRising video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1825,7 +1805,6 @@
   mode: single
 - id: "17016824849385397"
   alias: Theme change for berry video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1847,7 +1826,6 @@
   mode: single
 - id: "17016582489708685"
   alias: Theme change for inferno video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1858,7 +1836,6 @@
   mode: single
 - id: "17016682490776105"
   alias: Theme change for fireworks video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1869,7 +1846,6 @@
   mode: single
 - id: "17016282491409399"
   alias: Theme change for fullMoon video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1880,7 +1856,6 @@
   mode: single
 - id: "17016827494516919"
   alias: Theme change for Fire video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1891,7 +1866,6 @@
   mode: single
 - id: "17016825351619303"
   alias: Theme change for darkskyMoon video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1902,7 +1876,6 @@
   mode: single
 - id: "17016282536189205"
   alias: Theme change for spookyMoon video
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1913,7 +1886,6 @@
   mode: single
 - id: "17017683173367800"
   alias: Theme change for beachyWaves
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1924,7 +1896,6 @@
   mode: single
 - id: "17016883173615818"
   alias: Theme change for cloudyMoon
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1935,7 +1906,6 @@
   mode: single
 - id: "17016913772131149"
   alias: Guest door closed
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -1948,23 +1918,6 @@
     - service: light.turn_off
       target:
         entity_id: light.guest_ceiling_lights
-  mode: single
-- id: "17016913721811386"
-  alias: Guest door opened
-  description: ""
-  trigger:
-    - platform: state
-      entity_id:
-        - binary_sensor.guest_door
-      to: "on"
-  condition:
-    - condition: numeric_state
-      entity_id: sensor.guest_room_temperature
-      above: 75
-  action:
-    - service: fan.turn_on
-      target:
-        entity_id: fan.ha2_guest_ceiling_fan
   mode: single
 - id: "17016936409052665"
   alias: Download NOAA latest.jpg
@@ -2036,37 +1989,8 @@
       target:
         entity_id: input_select.mobilelayout
   mode: single
-- id: "1751700357391859"
-  alias: "[LIGHTS] Remote Outside Light"
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 870faf297a5c7e619241538a48867d79
-      domain: bthome
-      type: button
-      subtype: press
-  action:
-    - service: light.toggle
-      target:
-        entity_id: light.outside_lights
-  mode: single
-- id: "1761700362394080"
-  alias: "[LIGHTS] Turn off ALL lights from Remote"
-  description: turn off ALL lights from Blk BT Remote
-  trigger:
-    - platform: device
-      device_id: 870faf297a5c7e619241538a48867d79
-      domain: bthome
-      type: button
-      subtype: double_press
-  action:
-    - service: homeassistant.turn_off
-      target:
-        entity_id: light.every_light
-  mode: single
 - id: "1771701134411609"
   alias: outside Christmas lights ON at dark
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -2084,7 +2008,6 @@
   mode: single
 - id: "17081207628341"
   alias: Bathroom motion low battery
-  description: ""
   trigger:
     - type: battery_level
       platform: device
@@ -2100,7 +2023,6 @@
   mode: single
 - id: "17091227643669"
   alias: "[AUTO] Bathroom vent when door opened"
-  description: ""
   trigger:
     - type: opened
       platform: device
@@ -2112,32 +2034,13 @@
       target:
         entity_id: switch.bathroom_vent
     - delay:
-        hours: 0
         minutes: 3
-        seconds: 0
-        milliseconds: 0
     - service: switch.turn_off
       target:
         entity_id: switch.bathroom_vent
   mode: restart
-- id: "170101310997003"
-  alias: "[LIGHTS] toggle subwoofer"
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 870faf297a5c7e619241538a48867d79
-      domain: bthome
-      type: button
-      subtype: long_press
-  action:
-    - service: light.toggle
-      target:
-        entity_id:
-          - light.inside_christmas_lights
-  mode: single
 - id: "170112684169772"
   alias: Sports sensor update
-  description: ""
   trigger:
     - platform: time_pattern
       seconds: "30"
@@ -2156,7 +2059,6 @@
   mode: single
 - id: "170122912923254"
   alias: "[SWITCH] Kitchen 3-way"
-  description: ""
   trigger:
     - platform: device
       type: changed_states
@@ -2173,7 +2075,6 @@
   mode: single
 - id: "170132997235605"
   alias: Kitchen 2 motion pic
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -2189,10 +2090,7 @@
       target:
         entity_id: button.wyze_cam_kitchen_cam_2_update_snapshot
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 3
-        milliseconds: 0
+        seconds: 4
     - service: notify.mobile_app_pixel_8_pro
       data:
         message: Kitchen Motion at {{ states('sensor.time_12_hour_am_pm') }}
@@ -2201,11 +2099,17 @@
           image:
             /api/camera_proxy/camera.wyze_cam_kitchen_cam_2_snapshot?token={{ state_attr('camera.wyze_cam_kitchen_cam_2_snapshot','access_token')
             }}
-          tag: hallway-motion
+          persistent: true
+          color: red
+          channel: Cameras
+          tag: Motion
+          actions:
+            - action: URI
+              title: Click to Open Cameras
+              uri: /lovelace/cameras
   mode: single
 - id: "170143000782411"
   alias: Kitchen 1 motion pic
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -2221,10 +2125,7 @@
       target:
         entity_id: button.wyze_cam_kitchen_cam_update_snapshot
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 3
-        milliseconds: 0
+        seconds: 4
     - service: notify.mobile_app_pixel_8_pro
       data:
         message: Kitchen Motion at {{ states('sensor.time_12_hour_am_pm') }}
@@ -2233,7 +2134,10 @@
           image:
             /api/camera_proxy/camera.wyze_cam_kitchen_cam_snapshot?token={{ state_attr('camera.wyze_cam_kitchen_cam_snapshot','access_token')
             }}
-          tag: hallway-motion
+          persistent: true
+          color: red
+          channel: Cameras
+          tag: Motion
           actions:
             - action: URI
               title: Click to Open Cameras
@@ -2241,7 +2145,6 @@
   mode: single
 - id: "170153002392645"
   alias: Front Door Last motion pic
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -2274,13 +2177,10 @@
         entity_id: media_player.tv_speakers
         message: Motion at front door
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 3
-        milliseconds: 0
+        seconds: 4
     - service: notify.notify_all
       data:
-        message: ⚠️Front Motion!⚠️️ {{ states('sensor.time_12_hour_am_pm') }}
+        message: ⚠️Porch Motion!⚠️️ {{ states('sensor.time_12_hour_am_pm') }}
         data:
           notification_icon: mdi:cctv
           image:
@@ -2288,7 +2188,7 @@
             state_attr('camera.wyze_cam_front_door_cam_snapshot','access_token') }}
           persistent: true
           color: red
-          channel: Motion
+          channel: Cameras
           tag: Motion
           actions:
             - action: URI
@@ -2304,7 +2204,6 @@
   max_exceeded: silent
 - id: "170163035746544"
   alias: Notify of Camera channel importance
-  description: ""
   trigger: []
   action:
     - service: notify.mobile_app_pixel_8_pro
@@ -2342,13 +2241,10 @@
         entity_id: media_player.tv_speakers
         message: Motion at side door
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 3
-        milliseconds: 0
+        seconds: 4
     - service: notify.notify_all
       data:
-        message: ⚠️Driveway Motion!⚠️️{{ states('sensor.time_12_hour_am_pm') }}
+        message: ⚠️Side Door Motion!⚠️️{{ states('sensor.time_12_hour_am_pm') }}
         data:
           notification_icon: mdi:cctv
           image:
@@ -2357,7 +2253,7 @@
             }}
           persistent: true
           color: red
-          channel: Motion
+          channel: Cameras
           tag: Motion
           actions:
             - action: URI
@@ -2400,13 +2296,10 @@
         entity_id: media_player.tv_speakers
         message: Motion on patio
     - delay:
-        hours: 0
-        minutes: 0
-        seconds: 3
-        milliseconds: 0
+        seconds: 4
     - service: notify.notify_all
       data:
-        message: ⚠️Porch Motion!⚠️️{{ states('sensor.time_12_hour_am_pm') }}
+        message: ⚠️Patio Motion!⚠️️{{ states('sensor.time_12_hour_am_pm') }}
         data:
           notification_icon: mdi:cctv
           image:
@@ -2414,7 +2307,7 @@
             }}
           persistent: true
           color: red
-          channel: Motion
+          channel: Cameras
           tag: Motion
           actions:
             - action: URI
@@ -2430,7 +2323,6 @@
   max_exceeded: silent
 - id: "170193047329426"
   alias: Garage Last motion pic
-  description: ""
   trigger:
     - platform: state
       entity_id:
@@ -2456,6 +2348,8 @@
         cache: true
         entity_id: media_player.tv_speakers
         message: Motion in the garage
+    - delay:
+        seconds: 4
     - service: notify.notify_all
       data:
         message: ⚠️Garage Motion!⚠️️ {{ states('sensor.time_12_hour_am_pm') }}
@@ -2466,7 +2360,7 @@
             }}
           persistent: true
           color: red
-          channel: Motion
+          channel: Cameras
           tag: Motion
           actions:
             - action: URI
@@ -2482,7 +2376,6 @@
   max_exceeded: silent
 - id: "170203097871969"
   alias: "[Motion] Side Motion Lights after Dark"
-  description: ""
   trigger:
     - platform: state
       entity_id: binary_sensor.driveway_motion
@@ -2512,7 +2405,6 @@
   max_exceeded: silent
 - id: "170213097939844"
   alias: "[Motion] Patio Motion Lights after Dark"
-  description: ""
   trigger:
     - platform: state
       entity_id: binary_sensor.back_motion
@@ -2542,7 +2434,6 @@
   max_exceeded: silent
 - id: "170223138270251"
   alias: "[Motion] Garage Motion Lights"
-  description: ""
   trigger:
     - platform: state
       entity_id: binary_sensor.garage_motion_sensors
@@ -2566,7 +2457,7 @@
   mode: restart
   max_exceeded: silent
 - id: "170233166895065"
-  alias: Darren's Alarm based on Pixel 8 pro next alarm
+  alias: Darren's Alarm Pixel 8 pro next alarm
   trigger:
     - platform: template
       value_template:
@@ -2584,8 +2475,7 @@
       data: {}
   mode: single
 - id: "1703172027074"
-  alias: Donna's Alarm based on Pixel 5 next alarm
-  description: ""
+  alias: Donna's Alarm Pixel 5 next alarm
   trigger:
     - platform: template
       value_template:
@@ -2604,7 +2494,6 @@
   mode: single
 - id: "170243184400922"
   alias: "[Motion] Guest Motion Lights"
-  description: ""
   trigger:
     - platform: state
       entity_id: binary_sensor.guest_motion
@@ -2625,25 +2514,23 @@
         entity_id: binary_sensor.guest_motion
         from: "on"
         to: "off"
-    - delay: 600
+    - delay: 300
     - service: light.turn_off
       entity_id: light.guest_ceiling_lights
   mode: restart
   max_exceeded: silent
-- id: "170253187944685"
-  alias: pixel alarm test
-  description: ""
-  trigger:
-    - platform: time
-      at: sensor.pixel_8_pro_next_alarm
-  action:
-    - service: light.turn_off
-      target:
-        entity_id: light.bed_light
-      data: {}
+#- id: "170253187944685"
+#  alias: pixel alarm test
+#  trigger:
+#    - platform: time
+#      at: sensor.pixel_8_pro_next_alarm
+#  action:
+#    - service: light.turn_off
+#      target:
+#        entity_id: light.bed_light
+#      data: {}
 - id: "1703196844652"
   alias: "[Motion] Hall Bathroom Lights"
-  description: ""
   trigger:
     - platform: state
       entity_id: binary_sensor.bathroom_motion
@@ -2685,7 +2572,6 @@
   max_exceeded: silent
 - id: "170263206754260"
   alias: "[Motion] Bedroom Motion Lights"
-  description: ""
   trigger:
     - platform: state
       entity_id: binary_sensor.bedroom_motion
@@ -2754,7 +2640,6 @@
   max_exceeded: silent
 - id: "170273218670383"
   alias: Front Door TTS
-  description: ""
   trigger:
     - platform: state
       entity_id: binary_sensor.front_door
@@ -2783,7 +2668,6 @@
   mode: queued
 - id: "170283218843560"
   alias: Back Door TTS
-  description: ""
   trigger:
     - platform: state
       entity_id: binary_sensor.back_door
@@ -2812,7 +2696,6 @@
   mode: queued
 - id: "170293219333914"
   alias: Side Door TTS
-  description: ""
   trigger:
     - platform: state
       entity_id: binary_sensor.side_door
@@ -2871,7 +2754,6 @@
   mode: single
 - id: "170323250576301"
   alias: Garage Door TTS
-  description: ""
   trigger:
     - platform: state
       entity_id: binary_sensor.garage_door_sensor_zb
@@ -2899,25 +2781,9 @@
           \ \"⚠️Garage Door\U0001F6AAclosed at {{ states('sensor.time_12_hour_am_pm')
           }}\"\n{% else %} {% endif %}\n"
   mode: queued
-- id: "1703332505763014567"
-  alias: Guest room fan
-  description: ""
-  trigger:
-    - platform: numeric_state
-      entity_id: sensor.guest_room_temperature
-      above: 76
-    - platform: numeric_state
-      entity_id: sensor.guest_room_temperature
-      below: 74
-  action:
-    - service_template:
-        "{% if states('sensor.guest_room_temperature')|float > 76 %}\n
-        \ switch.turn_on\n{% elif states('sensor.guest_room_temperature')|float < 74
-        %}\n  switch.turn_off\n{% endif %}\n"
-      entity_id: fan.ha2_guest_ceiling_fan
+
 - id: "170343250676301455712"
   alias: "Donna is awake"
-  description: ""
   mode: single
   trigger:
     - platform: state
@@ -2931,17 +2797,20 @@
       before: "11:00:00"
       after: "05:00:00"
   action:
+    - wait_for_trigger:
+        platform: state
+        entity_id: binary_sensor.bedroom_door
+        to: "on"
     - service: input_boolean.turn_on
       target:
         entity_id: input_boolean.donna_is_awake
 - id: "17034325444301455712"
   alias: "Darren is awake"
-  description: ""
   mode: single
   trigger:
     - platform: state
       entity_id:
-        - light.office_floor_lights
+        - light.office_lights
       to: "on"
       for:
         minutes: 3
@@ -2953,3 +2822,88 @@
     - service: input_boolean.turn_on
       target:
         entity_id: input_boolean.darren_is_awake
+- id: "1703432544430144455712"
+  alias: "Everyone is awake"
+  mode: single
+  trigger:
+    - platform: state
+      entity_id:
+        - group.everyone_awake
+      to: "on"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.everyone_is_awake
+    - service: media_player.volume_set
+      target:
+        entity_id: media_player.living_room_google
+      data:
+        volume_level: 0.6
+- id: "17033325057263014567"
+  alias: Guest room auto fan
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.guest_room_temperature
+      above: 76
+    - platform: numeric_state
+      entity_id: sensor.guest_room_temperature
+      below: 75
+  action:
+    service_template: >
+      {% if states('sensor.guest_room_temperature')|float > 76 %}
+        switch.turn_on
+      {% elif states('sensor.guest_room_temperature')|float < 75 %}
+        switch.turn_off
+      {% endif %}
+    entity_id: fan.ha2_guest_ceiling_fan
+- id: "17033325058863014567"
+  alias: Office auto fan
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.office_temperature_2
+      above: 76
+    - platform: numeric_state
+      entity_id: sensor.office_temperature_2
+      below: 75
+  action:
+    service_template: >
+      {% if states('sensor.office_temperature_2')|float > 76 %}
+        switch.turn_on
+      {% elif states('sensor.office_temperature_2')|float < 75 %}
+        switch.turn_off
+      {% endif %}
+    entity_id: fan.office_fan
+- id: "17033399058863014567"
+  alias: Den auto fan
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.den_temperature
+      above: 76
+    - platform: numeric_state
+      entity_id: sensor.den_temperature
+      below: 75
+  action:
+    service_template: >
+      {% if states('sensor.den_temperature')|float > 76 %}
+        switch.turn_on
+      {% elif states('sensor.den_temperature')|float < 75 %}
+        switch.turn_off
+      {% endif %}
+    entity_id: fan.den_ceiling_fan
+- id: "17033673058863014567"
+  alias: Bedroom auto fan
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.bedroom_temperature_2
+      above: 75
+    - platform: numeric_state
+      entity_id: sensor.bedroom_temperature_2
+      below: 74
+  action:
+    service_template: >
+      {% if states('sensor.bedroom_temperature_2')|float > 75 %}
+        switch.turn_on
+      {% elif states('sensor.bedroom_temperature_2')|float < 74 %}
+        switch.turn_off
+      {% endif %}
+    entity_id: fan.bedroom_fan
