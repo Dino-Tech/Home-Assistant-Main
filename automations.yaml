@@ -37,6 +37,10 @@
   trigger:
     - platform: event
       event_type: lovelace_updated
+  condition:
+    - condition: state
+      entity_id: input_boolean.kiosk_auto_refresh
+      state: "on"
   action:
     - service: lovelace.reload_resources
     - delay: 6
@@ -61,7 +65,6 @@
             - service: button.press
               target:
                 entity_id: button.main_kiosk_load_start_url
-
   mode: single
 - id: "17055555555545"
   alias: Create a notification when something is added to HACS
