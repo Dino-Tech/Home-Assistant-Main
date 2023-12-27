@@ -114,9 +114,9 @@ If you would like to show your support, you can :heart:&nbsp;&nbsp;<a href="http
 <tr><td colspan="4">
 
 #### Tracked:bar_chart:Stats On my Setup:
-| Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors |     Areas    | Fans |
-|:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------------:|:-------------:
-|109               |92      |173             |258        |341          |191      |990      |  21           |7          
+| Tracked Devices | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors |     Areas    | Fans |      Media Players    |
+|:---------------:|:------:|:--------------:|:--------:|:-----------:|:-------:|:-------:|:-------------:|:-------------:|:-----------:|
+|109               |92      |173             |258        |341          |191      |990      |  21           |7              |     56    |     
 
 <details>
 <summary>Automation code and sensors for tracking.</summary><p align="center">
