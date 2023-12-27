@@ -152,8 +152,12 @@
       data_template:
         entity_id: media_player.living_room_google
         media_content_id: >-
-          {% if now().strftime("%M")|int == 30 %}
-          media-source://media_source/local/gf-hour-30.mp3 {% else %}
+          {% if now().strftime("%M")|int == 15 %}
+          media-source://media_source/local/gf-hour-15.mp3
+          {% elif now().strftime("%M")|int == 30 %}
+          media-source://media_source/local/gf-hour-30.mp3
+          {% elif now().strftime("%M")|int == 45 %}
+          media-source://media_source/local/gf-hour-45.mp3 {% else %}
           media-source://media_source/local/gf-hour-{{now().strftime("%I")}}.mp3
           {% endif %}
         media_content_type: music
@@ -1004,7 +1008,7 @@
       entity_id: media_player.tv_speakers
       data_template:
         message: Donna or Darren.. Clothes ready..  The washing machine has finished!
-    - service: notify.notify_all
+    - service: notify.pixels_and_den_tv
       data_template:
         message:
           "Washing\U0001F455\U0001F457\U0001F456finished {{ states('sensor.time_12_hour_am_pm')
@@ -1060,7 +1064,7 @@
       entity_id: media_player.tv_speakers
       data_template:
         message: Donna or Darren.. Clothes ready..  The dryer has finished!
-    - service: notify.notify_all
+    - service: notify.pixels_and_den_tv
       data_template:
         message:
           "Drying\U0001F455\U0001F457\U0001F456Finished {{ states('sensor.time_12_hour_am_pm')
@@ -1198,7 +1202,7 @@
               continue_on_error: true
               entity_id:
                 - light.alarm_triggered_lights
-            - service: notify.notify_all
+            - service: notify.pixels_and_den_tv
               data_template:
                 message: "Alarm canceled at {{ states('sensor.time_12_hour_am_pm') }}"
 - id: "1701613174749753434567"
@@ -2040,7 +2044,7 @@
       domain: sensor
       below: 35
   action:
-    - service: notify.notify_all
+    - service: notify.mobile_app_pixel_8_pro
       data:
         message: Bathroom motion battery is below 35%
         title: BATTERY LOW
@@ -2604,12 +2608,7 @@
   alias: "[Motion] Bedroom Motion Lights"
   trigger:
     - platform: state
-      entity_id: binary_sensor.bedroom_motion
-      from: "off"
-      to: "on"
-      enabled: true
-    - platform: state
-      entity_id: binary_sensor.bedroom_zb_motion
+      entity_id: binary_sensor.bedroom_motion_sensors
       from: "off"
       to: "on"
       enabled: true
@@ -2640,6 +2639,9 @@
                 brightness_pct: 45
               target:
                 entity_id: light.nightstand_lights
+            - service: switch.turn_on
+              continue_on_error: true
+              entity_id: switch.ensuite_kiosk_screen
         - conditions:
             - condition: time
               after: "18:30:01"
@@ -2655,6 +2657,9 @@
                 brightness_pct: 15
               target:
                 entity_id: light.nightstand_lights
+            - service: switch.turn_on
+              continue_on_error: true
+              entity_id: switch.ensuite_kiosk_screen
         - conditions:
             - condition: time
               after: "20:30:01"
@@ -2667,6 +2672,9 @@
                 brightness_pct: 5
               target:
                 entity_id: light.nightstand_lights
+            - service: switch.turn_on
+              continue_on_error: true
+              entity_id: switch.ensuite_kiosk_screen
         - conditions:
             - condition: time
               after: "21:30:01"
@@ -2679,6 +2687,9 @@
                 brightness_pct: 5
               target:
                 entity_id: light.donnas_light
+            - service: switch.turn_on
+              continue_on_error: true
+              entity_id: switch.ensuite_kiosk_screen
     - wait_for_trigger:
         platform: state
         entity_id: binary_sensor.bedroom_motion_sensors
@@ -2696,6 +2707,9 @@
     - service: light.turn_off
       continue_on_error: true
       entity_id: light.donnas_light
+    - service: switch.turn_off
+      continue_on_error: true
+      entity_id: switch.ensuite_kiosk_screen
   mode: restart
   max_exceeded: silent
 - id: "170273218670383"
