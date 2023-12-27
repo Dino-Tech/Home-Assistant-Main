@@ -185,17 +185,7 @@
     - service: light.turn_on
       target:
         entity_id: light.every_light
-    - service: notify.mobile_app_pixel_8_pro
-      data_template:
-        message: "{{ trigger.to_state.attributes.friendly_name }} smoke detected 🔥 "
-        title: Smoke Alarm
-        data:
-          channel: alert
-          group: alert
-          sticky: true
-          importance: high
-          notification_icon: "mdi:smoke-detector-variant-alert"
-    - service: notify.mobile_app_pixel_5
+    - service: notify.notify_all
       data_template:
         message: "{{ trigger.to_state.attributes.friendly_name }} smoke detected 🔥 "
         title: Smoke Alarm
@@ -988,7 +978,7 @@
         payload: Idle
         retain: "true"
 - id: "17016188774927534"
-  alias: "Washing\U0001F455\U0001F457\U0001F456finished"
+  alias: "Washing finished"
   initial_state: true
   trigger:
     - platform: state
@@ -1010,9 +1000,7 @@
         message: Donna or Darren.. Clothes ready..  The washing machine has finished!
     - service: notify.pixels_and_den_tv
       data_template:
-        message:
-          "Washing\U0001F455\U0001F457\U0001F456finished {{ states('sensor.time_12_hour_am_pm')
-          }}"
+        message: "Washing👕👗👖Finished {{ states('sensor.time_12_hour_am_pm') }}"
 - id: "17016189747497534"
   alias: Dryer State - Drying
   initial_state: true
@@ -1044,7 +1032,7 @@
         payload: Idle
         retain: "true"
 - id: "17012181747497534"
-  alias: "Drying\U0001F455\U0001F457\U0001F456Finished"
+  alias: "Drying Finished"
   initial_state: true
   trigger:
     - platform: state
@@ -1066,9 +1054,7 @@
         message: Donna or Darren.. Clothes ready..  The dryer has finished!
     - service: notify.pixels_and_den_tv
       data_template:
-        message:
-          "Drying\U0001F455\U0001F457\U0001F456Finished {{ states('sensor.time_12_hour_am_pm')
-          }}"
+        message: "Drying👕👗👖Finished {{ states('sensor.time_12_hour_am_pm') }}"
 - id: "170181817174975343345"
   alias: "[Alarmo] Triggered"
   initial_state: true
@@ -2842,18 +2828,20 @@
     - service: tts.google_say
       entity_id: media_player.living_room_google
       data_template:
-        message:
-          "{% if is_state(\"binary_sensor.garage_door_sensor_zb\", \"on\") %}\n
-          \ Garage door opened\n{% elif is_state(\"binary_sensor.garage_door_sensor_zb\",
-          \"off\") %}\n  Garage door closed\n{% else %} {% endif %}\n"
+        message: |
+          '{% if is_state("binary_sensor.garage_door_sensor_zb", "on") %}
+            Garage door opened
+          {% elif is_state("binary_sensor.garage_door_sensor_zb", "off") %}
+            Garage door closed
+          {% else %} {% endif %}'
     - service: notify.android_tv_fire_tv
       data_template:
-        message:
-          "{% if is_state(\"binary_sensor.garage_door_sensor_zb\", \"on\") %}\n
-          \ \"⚠️Garage Door\U0001F6AAopened at {{ states('sensor.time_12_hour_am_pm')
-          }}\"\n{% elif is_state(\"binary_sensor.garage_door_sensor_zb\", \"off\") %}\n
-          \ \"⚠️Garage Door\U0001F6AAclosed at {{ states('sensor.time_12_hour_am_pm')
-          }}\"\n{% else %} {% endif %}\n"
+        message: |
+          {% if is_state("binary_sensor.garage_door_sensor_zb", "on") %}
+            ⚠️Garage Door🚪opened at {{ states('sensor.time_12_hour_am_pm') }}
+          {% elif is_state("binary_sensor.garage_door_sensor_zb", "off") %}
+            ⚠️Garage Door🚪closed at {{ states('sensor.time_12_hour_am_pm') }}
+          {% else %} {% endif %}
   mode: queued
 
 - id: "170343250676301455712"
@@ -2896,6 +2884,14 @@
     - service: input_boolean.turn_on
       target:
         entity_id: input_boolean.darren_is_awake
+    - service: notify.mobile_app_pixel_8_pro
+      data:
+        message: command_broadcast_intent
+        data:
+          intent_package_name: com.urbandroid.sleep
+          intent_action: com.urbandroid.sleep.alarmclock.STOP_SLEEP_TRACK
+          ttl: 0
+          priority: high
 - id: "1703432544430144455712"
   alias: "Everyone is awake"
   mode: single

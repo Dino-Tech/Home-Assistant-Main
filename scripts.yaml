@@ -216,6 +216,7 @@ good_night:
         - input_boolean.donna_s_alarm_triggered_today
         - input_boolean.donna_is_awake
         - input_boolean.morning_triggered_today
+        - input_boolean.everyone_is_awake
         - input_boolean.auto_tablet
         - input_boolean.auto_backgroundz
         - input_boolean.sports_updates
@@ -250,7 +251,6 @@ good_night:
       continue_on_error: true
       data:
         entity_id:
-          - media_player.pixel_fully
           - media_player.office_mini
         volume_level: "0.35"
     - service: tts.google_say
@@ -263,6 +263,36 @@ good_night:
           Good night. {{ ["You are a child of God.", "Sleep well!", "God is good ALL the time!"] | random }}
     - service: homeassistant.turn_off
       entity_id: switch.main_kiosk_screen
+    - service: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id: media_player.living_room_google
+        volume_level: "0.30"
+    - service: notify.mobile_app_pixel_8_pro
+      data:
+        message: command_broadcast_intent
+        data:
+          intent_package_name: com.urbandroid.sleep
+          intent_action: com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK
+          ttl: 0
+          priority: high
+    - delay: 10
+    - service: notify.mobile_app_pixel_8_pro
+      data:
+        message: command_broadcast_intent
+        data:
+          intent_package_name: com.urbandroid.sleep
+          intent_action: com.urbandroid.sleep.media.lullaby.LullabyService
+          ttl: 0
+          priority: high
+    - condition: state
+      entity_id: light.cabinet_lights
+      state: "on"
+    - service: mqtt.publish
+      data:
+        topic: cmnd/cabinets/power1
+        payload: "OFF"
+        retain: "true"
 #
 # Morning
 #
@@ -820,16 +850,16 @@ browser_popup_2:
         entity_id: camera.entry_hall_cam
         large: true
 
-browser_popup_3:
-  sequence:
-    - condition: state
-      entity_id: input_boolean.disable_popups
-      state: "off"
-    - condition: state
-    - service: browser_mod.more_info
-      data:
-        entity_id: camera.garage_cam
-        large: true
+#browser_popup_3:
+#  sequence:
+#    - condition: state
+#      entity_id: input_boolean.disable_popups
+#      state: "off"
+#    - condition: state
+#    - service: browser_mod.more_info
+#      data:
+#        entity_id: camera.garage_cam
+#        large: true
 
 browser_popup_4:
   sequence:
@@ -1013,8 +1043,16 @@ darrens_wake_up:
   sequence:
     - service: homeassistant.turn_on
       entity_id: input_boolean.darren_s_alarm_triggered_today
-    - service: light.turn_on
+    - service: notify.mobile_app_pixel_8_pro
       continue_on_error: true
+      data:
+        message: command_broadcast_intent
+        data:
+          intent_package_name: com.urbandroid.sleep
+          intent_action: com.urbandroid.sleep.ACTION_LULLABY_STOP_PLAYBACK
+          ttl: 0
+          priority: high
+    - service: light.turn_on
       data:
         entity_id: light.corner_light
         brightness_pct: 10
@@ -1215,7 +1253,6 @@ people_home:
         - switch.main_kiosk_screen
         - light.inside_christmas_lights
         - switch.den_nightlight_plugs
-        - fan.inside_fans
     - service: homeassistant.turn_off
       continue_on_error: true
       entity_id:
@@ -1460,7 +1497,7 @@ alarm_disarm:
     - service: light.turn_off
       entity_id:
         - light.alarm_triggered_lights
-    - service: notify.notify_all
+    - service: notify.pixels_and_den_tv
       data_template:
         message: "Alarm disarmed at {{ states('sensor.time_12_hour_am_pm') }}"
     - service: input_boolean.turn_off
@@ -1478,7 +1515,7 @@ alarmo_disarm:
     - service: light.turn_off
       entity_id:
         - light.alarm_triggered_lights
-    - service: notify.notify_all
+    - service: notify.pixels_and_den_tv
       data_template:
         message: "Alarm disarmed at {{ states('sensor.time_12_hour_am_pm') }}"
     - service: input_boolean.turn_off
