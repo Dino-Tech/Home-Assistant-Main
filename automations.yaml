@@ -235,18 +235,13 @@
   action:
     - service: notify.mobile_app_pixel_8_pro
       data_template:
-        message: "Garage fridge turned off at '{{ now().strftime('%I:%M %p') }}'
-
-          "
+        message: "Garage fridge turned off at '{{ now().strftime('%I:%M %p') }}' "
     - delay: 00:15:00
     - service: homeassistant.turn_on
       entity_id: switch.garage_fridge_relay
     - service: notify.mobile_app_pixel_8_pro
       data_template:
-        message: "Garage fridge turned back on at '{{ now().strftime('%I:%M %p')
-          }}'
-
-          "
+        message: "Garage fridge turned back on at '{{ now().strftime('%I:%M %p') }}' "
 - id: "17059999999941"
   alias: Update Template Sensors
   initial_state: true
@@ -347,9 +342,7 @@
         'script.{{["browser_theme_red", "browser_theme_orange", "browser_theme_yellow",
         "browser_theme_geaux", "browser_theme_magenta", "browser_theme_lime", "browser_theme_pink",
         "browser_theme_blue", "browser_theme_grey", "browser_theme_green", "browser_theme_purple",
-        "browser_theme_ocean"] | random }}
-
-        '
+        "browser_theme_ocean"] | random }}'
 - id: "17091999999944"
   alias: "[Tablet] background night"
   initial_state: true
@@ -391,9 +384,7 @@
         'script.{{["browser_theme_red", "browser_theme_orange", "browser_theme_yellow",
         "browser_theme_geaux", "browser_theme_magenta", "browser_theme_lime", "browser_theme_pink",
         "browser_theme_blue", "browser_theme_grey", "browser_theme_green", "browser_theme_purple",
-        "browser_theme_ocean"] | random }}
-
-        '
+        "browser_theme_ocean"] | random }}'
 - id: "17093999999988"
   alias: "[Mobile] background select"
   initial_state: true
@@ -476,7 +467,6 @@
     - service: homeassistant.turn_{{- trigger.to_state.state -}}
       data:
         entity_id: group.tablet_icons
-
 - id: "17099939999933322"
   alias: "[Motion] Porch Motion Lights after Dark"
   trigger:
@@ -761,14 +751,21 @@
   initial_state: true
   trigger:
     - platform: state
-      entity_id: light.office_ceiling_fan
+      entity_id: fan.office_fan
       to: "on"
   action:
-    - delay:
-        "{{ states('input_number.office_fan_hours') | int }}:{{ states('input_number.office_fan_minutes')
-        | int }}:{{ states('input_number.office_fan_seconds') | int }}"
-    - service: light.turn_off
-      entity_id: light.office_ceiling_fan
+    #    - delay:
+    #        "{{ states('input_number.office_fan_hours') | int }}:{{ states('input_number.office_fan_minutes')
+    #        | int }}:{{ states('input_number.office_fan_seconds') | int }}"
+    - service: timer.start
+      data:
+        duration: >-
+          {{ states.input_number.office_fan_duration.state | int(0) * 60 }}
+      target:
+        entity_id:
+          - timer.office_fan_timer
+    - service: fan.turn_off
+      entity_id: fan.office_fan
 - id: "17099999919856349"
   alias: "[Notify] Coffee Maker ON"
   initial_state: true
