@@ -8,6 +8,10 @@
       continue_on_error: true
       target:
         entity_id: button.main_kiosk_load_start_url
+    - service: button.press
+      continue_on_error: true
+      target:
+        entity_id: button.ensuite_kiosk_load_start_url
     - delay:
         seconds: 3
     - service: script.browser_window_reload
@@ -44,6 +48,10 @@
   action:
     - service: lovelace.reload_resources
     - delay: 6
+    - service: button.press
+      continue_on_error: true
+      target:
+        entity_id: button.ensuite_kiosk_load_start_url
     - choose:
         - conditions:
             - condition: state
@@ -93,21 +101,61 @@
     - platform: time_pattern
       minutes: "30"
   condition:
+    - condition: state
+      entity_id: input_boolean.cuckoo_clock
+      state: "on"
     - condition: time
       after: 09:29:00
       before: "21:30:00"
     - condition: template
-      value_template:
-        "{% if is_state('media_player.family_tv', 'on') %}\n  false\n{%
-        else %}\n  true\n{% endif %}\n"
+      value_template: |
+        {% if is_state('media_player.family_tv', 'on') %}
+          false
+        {% else %}
+          true
+        {% endif %}
   action:
     - service: media_player.play_media
       data_template:
         entity_id: media_player.ac9b7f58_cfbfe785
-        media_content_id:
-          '{% if now().strftime("%M")|int == 30 %} https://raw.githubusercontent.com/CCOSTAN/Home-AssistantConfig/master/config/sounds/cuckoo-clock-01.wav
-          {% else %} https://raw.githubusercontent.com/CCOSTAN/Home-AssistantConfig/master/config/sounds/cuckoo-clock-{{now().strftime("%I")}}.wav
-          {% endif %}'
+        media_content_id: >-
+          {% if now().strftime("%M")|int == 30 %}
+          media-source://media_source/local/cuckoo-clock-01.wav {% else %}
+          media-source://media_source/local/cuckoo-clock-{{now().strftime("%I")}}.wav
+          {% endif %}
+        media_content_type: music
+  initial_state: true
+- id: "170666736526675"
+  alias: Grandfather Clock
+  trigger:
+    - platform: time_pattern
+      hours: "*"
+      minutes: "0"
+    - platform: time_pattern
+      minutes: "30"
+  condition:
+    - condition: state
+      entity_id: input_boolean.grandfather_clock
+      state: "on"
+    - condition: time
+      after: 09:29:00
+      before: "21:30:00"
+    - condition: template
+      value_template: |
+        {% if is_state('media_player.family_tv', 'on') %}
+          false
+        {% else %}
+          true
+        {% endif %}
+  action:
+    - service: media_player.play_media
+      data_template:
+        entity_id: media_player.living_room_google
+        media_content_id: >-
+          {% if now().strftime("%M")|int == 30 %}
+          media-source://media_source/local/gf-hour-30.mp3 {% else %}
+          media-source://media_source/local/gf-hour-{{now().strftime("%I")}}.mp3
+          {% endif %}
         media_content_type: music
   initial_state: true
 - id: "170999999999458"
@@ -428,19 +476,7 @@
     - service: homeassistant.turn_{{- trigger.to_state.state -}}
       data:
         entity_id: group.tablet_icons
-- id: "17099939999944"
-  alias: "[Browser] popup_front_door"
-  trigger:
-    - platform: device
-      device_id: 011d22447a45c26939459e4d099889cb
-      domain: nest
-      type: camera_person
-  action:
-    - service: script.browser_popup_1
-    - delay: 300
-  initial_state: true
-  mode: single
-  max_exceeded: silent
+
 - id: "17099939999933322"
   alias: "[Motion] Porch Motion Lights after Dark"
   trigger:
@@ -472,7 +508,7 @@
         - light.front_yard_cam_floodlight
     - wait_for_trigger:
         platform: state
-        entity_id: timer.patio_motion_timer
+        entity_id: binary_sensor.front_motion
         from: "on"
         to: "off"
     - delay: 600
@@ -482,42 +518,7 @@
         - light.front_yard_cam_floodlight
   mode: restart
   max_exceeded: silent
-- id: "170999599999170"
-  alias: "[Browser] popup_driveway"
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.driveway_motion
-      to: "on"
-  action:
-    - service: script.browser_popup_7
-    - delay: 300
-  initial_state: true
-  mode: single
-  max_exceeded: silent
-- id: "170999959999160"
-  alias: Turn on Fans
-  trigger:
-    - platform: numeric_state
-      entity_id: sensor.den_temperature
-      above: 76
-  action:
-    - service: homeassistant.turn_on
-      entity_id: fan.inside_fans
-  initial_state: true
-- id: "170999969999161"
-  alias: Turn off Fans
-  trigger:
-    - platform: numeric_state
-      entity_id: sensor.den_temperature
-      below: 75
-  condition:
-    - condition: state
-      entity_id: group.person_group
-      state: not_home
-  action:
-    - service: homeassistant.turn_off
-      entity_id: fan.inside_fans
-  initial_state: true
+
 - id: "170999978999162"
   alias: "[Presence] Darren Away"
   trigger:
@@ -592,6 +593,10 @@
           sequence:
             - service: light.turn_on
               entity_id: light.garage_ceiling_lights
+    - delay: 180
+    - service: input_boolean.turn_off
+      entity_id:
+        - input_boolean.camera_snapshots
   initial_state: true
   mode: single
 - id: "170999979999641209"
@@ -694,7 +699,7 @@
       entity_id: group.person_group
       to: home
       for:
-        seconds: 10
+        seconds: 8
   action:
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.alarmo
@@ -732,7 +737,23 @@
               entity_id: light.entry_hall_lights
     - service: script.people_home
     - service: script.wake_tablet
-    - delay: 300
+    - choose:
+        - conditions:
+            - condition: time
+              after: "22:00:00"
+              before: "07:00:00"
+          sequence:
+            - delay: 360
+            - service: light.turn_off
+              entity_id: light.outside_lights
+        - conditions:
+            - condition: time
+              after: "07:00:01"
+              before: "21:59:59"
+          sequence:
+            - delay: 1200
+            - service: light.turn_off
+              entity_id: light.outside_lights
   mode: single
   max_exceeded: silent
 - id: "170999995999164"
@@ -803,7 +824,7 @@
         entity_id: binary_sensor.kitchen_motion_sensors
         from: "on"
         to: "off"
-    - delay: 840
+    - delay: 720
     - service: light.turn_off
       entity_id: light.kitchen_ceiling_lights
     - service: mqtt.publish
@@ -822,6 +843,9 @@
       from: "off"
       to: "on"
   condition:
+    - condition: state
+      entity_id: group.person_group
+      state: home
     - condition: state
       entity_id: input_boolean.motion_lights
       state: "on"
@@ -884,7 +908,7 @@
       enabled: true
     - condition: numeric_state
       entity_id: sensor.ensuite_temperature_2
-      above: 74
+      above: 70
   action:
     - service_template: |
         {% if states('sensor.ensuite_humidity_2')|float > 60 %}
@@ -2504,6 +2528,9 @@
       to: "on"
   condition:
     - condition: state
+      entity_id: group.person_group
+      state: home
+    - condition: state
       entity_id: input_boolean.motion_lights
       state: "on"
     - condition: time
@@ -2540,6 +2567,9 @@
       from: "off"
       to: "on"
   condition:
+    - condition: state
+      entity_id: group.person_group
+      state: home
     - condition: state
       entity_id: input_boolean.motion_lights
       state: "on"
@@ -2591,13 +2621,31 @@
       entity_id: binary_sensor.bedroom_door
       state: "on"
     - condition: state
+      entity_id: group.person_group
+      state: home
+    - condition: state
       entity_id: input_boolean.motion_lights
       state: "on"
   action:
     - choose:
         - conditions:
             - condition: time
-              after: 09:30:00
+              after: "09:30:00"
+              before: "18:30:00"
+              enabled: true
+          sequence:
+            - service: light.turn_on
+              continue_on_error: true
+              entity_id: light.mood_lights
+            - service: light.turn_on
+              continue_on_error: true
+              data:
+                brightness_pct: 45
+              target:
+                entity_id: light.nightstand_lights
+        - conditions:
+            - condition: time
+              after: "18:30:01"
               before: "20:30:00"
               enabled: true
           sequence:
@@ -2613,7 +2661,7 @@
         - conditions:
             - condition: time
               after: "20:30:01"
-              before: "22:30:00"
+              before: "21:30:00"
               enabled: true
           sequence:
             - service: light.turn_on
@@ -2622,6 +2670,18 @@
                 brightness_pct: 5
               target:
                 entity_id: light.nightstand_lights
+        - conditions:
+            - condition: time
+              after: "21:30:01"
+              before: "22:30:00"
+              enabled: true
+          sequence:
+            - service: light.turn_on
+              continue_on_error: true
+              data:
+                brightness_pct: 5
+              target:
+                entity_id: light.donnas_light
     - wait_for_trigger:
         platform: state
         entity_id: binary_sensor.bedroom_motion_sensors
@@ -2837,6 +2897,8 @@
     - service: input_boolean.turn_on
       target:
         entity_id: input_boolean.everyone_is_awake
+    - delay:
+        hours: 1
     - service: media_player.volume_set
       target:
         entity_id: media_player.living_room_google
