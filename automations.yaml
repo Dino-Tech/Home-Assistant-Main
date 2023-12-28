@@ -511,10 +511,7 @@
         - person.darren
       to: not_home
       for:
-        hours: 0
         minutes: 4
-        seconds: 0
-      from: home
   action:
     - service: input_boolean.turn_on
       entity_id: input_boolean.camera_snapshots
@@ -522,7 +519,7 @@
       continue_on_error: true
       entity_id:
         - input_boolean.darren_home
-        - light.office_floor_lights
+        - light.office_lights
         - switch.ha2_office_monitor
         - fan.hallway_fan
         - switch.ha2_work_bench
@@ -536,8 +533,6 @@
         - person.darren
       to: home
       for:
-        hours: 0
-        minutes: 0
         seconds: 12
   action:
     - service: homeassistant.turn_on
@@ -635,9 +630,7 @@
         - person.donna
       to: not_home
       for:
-        hours: 0
-        minutes: 0
-        seconds: 15
+        minutes: 2
   action:
     - service: input_boolean.turn_off
       entity_id: input_boolean.donna_home
@@ -666,7 +659,7 @@
       entity_id: group.person_group
       to: not_home
       for:
-        seconds: 90
+        seconds: 60
   action:
     - service: script.alarm_arm
     - service: script.people_away
@@ -1249,16 +1242,14 @@
             - delay: 180
             - service: script.alarm_arm_home
 - id: "17071774947534873644"
-  alias: "[Alarmo] Morning Wake up Disarm alarm"
+  alias: "[Alarmo] Someone's awake Disarm alarm"
   mode: single
   trigger:
     - platform: state
-      entity_id:
-        - input_boolean.darren_is_awake
+      entity_id: input_boolean.darren_is_awake
       to: "on"
     - platform: state
-      entity_id:
-        - input_boolean.donna_is_awake
+      entity_id: input_boolean.donna_is_awake
       to: "on"
   condition:
     - condition: state
@@ -1300,7 +1291,7 @@
       data: {}
   initial_state: true
 - id: "17016181157497534"
-  alias: Notify Darren when the garage door opens and no one home
+  alias: Notify us when the garage door opens and no one home
   trigger:
     - platform: state
       entity_id: group.person_group
@@ -1329,7 +1320,6 @@
             - action: close_garage
               title: Close Garage Door
         title: GARAGE IS OPEN
-
 - id: "17016181274497534"
   alias: Close the garage when notification action is tapped
   trigger:
@@ -1368,7 +1358,7 @@
     event_data:
       action: turn_on
   action:
-    service: homeassistant.turn_on
+    service: light.turn_on
     entity_id: light.desk_light
 - id: "17016181374977534434343"
   alias: Notify when AC unit goes off
@@ -1434,7 +1424,6 @@
       entity_id: sensor.mainups_input_voltage
       domain: sensor
       below: 10
-  condition: []
   action:
     - service: notify.darren
       data:
@@ -1475,38 +1464,6 @@
       data_template:
         title: UPS changed state
         message: "{{ trigger.event.data.notify_msg }}"
-        data:
-          push:
-            sound:
-              name: default
-              critical: 1
-              volume: 1.0
-- id: "17016522907650795"
-  alias: Notify Donna when the garage door opens and no one home
-  trigger:
-    - platform: state
-      entity_id:
-        - cover.garage_door
-      to: open
-      from: closed
-      for:
-        hours: 0
-        minutes: 1
-        seconds: 0
-  condition:
-    - condition: state
-      entity_id: group.person_group
-      state: not_home
-  action:
-    - service: notify.notify_all
-      data:
-        message: The garage is open and no one is home!!!
-        data:
-          color: red
-          actions:
-            - action: close_garage
-              title: Close Garage Door
-        title: GARAGE IS OPEN
 - id: "17016545649719910"
   alias: Donna left work turn on AC
   trigger:
@@ -1695,9 +1652,7 @@
         message: Person Detected at Front door
         title: Someone is at Front door
         data:
-          image:
-            /api/nest/event_media/{{ trigger.event.data.device_id }}/{{ trigger.event.data.nest_event_id
-            }}/thumbnail
+          image: /api/nest/event_media/{{ trigger.event.data.device_id }}/{{ trigger.event.data.nest_event_id }}/thumbnail
     - service: notify.android_tv_fire_tv
       data:
         message: Person Detected at Front door
@@ -2714,17 +2669,27 @@
     - service: tts.google_say
       entity_id: media_player.living_room_google
       data_template:
-        message:
-          "{% if is_state(\"binary_sensor.front_door\", \"on\") %}\n  Front door
-          open\n{% elif is_state(\"binary_sensor.front_door\", \"off\") %}\n  Front
-          door closed\n{% else %} {% endif %}\n"
+        message: |
+          {% if is_state("binary_sensor.front_door", "on") %}
+            Front door opened
+          {% elif is_state("binary_sensor.front_door", "off") %}
+            Front door closed
+          {% else %} {% endif %}
     - service: notify.android_tv_fire_tv
       data_template:
-        message:
-          "{% if is_state(\"binary_sensor.front_door\", \"on\") %}\n  \"⚠️Front
-          Door\U0001F6AAis open {{ states('sensor.time_12_hour_am_pm') }}\"\n{% elif
-          is_state(\"binary_sensor.front_door\", \"off\") %}\n  \"⚠️Front Door\U0001F6AAis
-          closed {{ states('sensor.time_12_hour_am_pm') }}\"\n{% else %} {% endif %}\n"
+        data:
+          fontsize: "large"
+          position: "bottom-right"
+          duration: 3
+          transparency: "25%"
+          color: "grey"
+          interrupt: 1
+        message: |
+          {% if is_state("binary_sensor.front_door", "on") %}
+            ⚠️Front Door🚪opened {{ states('sensor.time_12_hour_am_pm') }}
+          {% elif is_state("binary_sensor.front_door", "off") %}
+            ⚠️Front Door🚪closed {{ states('sensor.time_12_hour_am_pm') }}
+          {% else %} {% endif %}
   mode: queued
 - id: "170283218843560"
   alias: Back Door TTS
@@ -2742,17 +2707,27 @@
     - service: tts.google_say
       entity_id: media_player.living_room_google
       data_template:
-        message:
-          "{% if is_state(\"binary_sensor.back_door\", \"on\") %}\n  Back door
-          open\n{% elif is_state(\"binary_sensor.back_door\", \"off\") %}\n  Back door
-          closed\n{% else %} {% endif %}\n"
+        message: |
+          {% if is_state("binary_sensor.back_door", "on") %}
+            Back door opened
+          {% elif is_state("binary_sensor.back_door", "off") %}
+            Back door closed
+          {% else %} {% endif %}
     - service: notify.android_tv_fire_tv
       data_template:
-        message:
-          "{% if is_state(\"binary_sensor.back_door\", \"on\") %}\n  \"⚠️Back
-          Door\U0001F6AAis open {{ states('sensor.time_12_hour_am_pm') }}\"\n{% elif
-          is_state(\"binary_sensor.back_door\", \"off\") %}\n  \"⚠️Back Door\U0001F6AAis
-          closed {{ states('sensor.time_12_hour_am_pm') }}\"\n{% else %} {% endif %}\n"
+        data:
+          fontsize: "large"
+          position: "bottom-right"
+          duration: 3
+          transparency: "25%"
+          color: "grey"
+          interrupt: 1
+        message: |
+          {% if is_state("binary_sensor.back_door", "on") %}
+            ⚠️Back Door🚪opened {{ states('sensor.time_12_hour_am_pm') }}
+          {% elif is_state("binary_sensor.back_door", "off") %}
+            ⚠️Back Door🚪closed {{ states('sensor.time_12_hour_am_pm') }}
+          {% else %} {% endif %}
   mode: queued
 - id: "170293219333914"
   alias: Side Door TTS
@@ -2770,48 +2745,34 @@
     - service: tts.google_say
       entity_id: media_player.living_room_google
       data_template:
-        message:
-          "{% if is_state(\"binary_sensor.side_door\", \"on\") %}\n  Side door
-          open\n{% elif is_state(\"binary_sensor.side_door\", \"off\") %}\n  Side door
-          closed\n{% else %} {% endif %}\n"
+        message: |
+          {% if is_state("binary_sensor.side_door", "on") %}
+            Side door opened
+          {% elif is_state("binary_sensor.side_door", "off") %}
+            Side door closed
+          {% else %} {% endif %}
     - service: notify.android_tv_fire_tv
       data_template:
-        message:
-          "{% if is_state(\"binary_sensor.side_door\", \"on\") %}\n  \"⚠️Side
-          Door\U0001F6AAis open {{ states('sensor.time_12_hour_am_pm') }}\"\n{% elif
-          is_state(\"binary_sensor.side_door\", \"off\") %}\n  \"⚠️Side Door\U0001F6AAis
-          closed {{ states('sensor.time_12_hour_am_pm') }}\"\n{% else %} {% endif %}\n"
+        data:
+          fontsize: "large"
+          position: "bottom-right"
+          duration: 3
+          transparency: "25%"
+          color: "grey"
+          interrupt: 1
+        message: |
+          {% if is_state("binary_sensor.side_door", "on") %}
+            ⚠️Side Door🚪opened {{ states('sensor.time_12_hour_am_pm') }}
+          {% elif is_state("binary_sensor.side_door", "off") %}
+            ⚠️Side Door🚪closed {{ states('sensor.time_12_hour_am_pm') }}
+          {% else %} {% endif %}
   mode: queued
-- id: "170303224556505"
-  alias: Pixel sleep tracking start
-  description: Pixel sleep tracking test
-  trigger: []
-  condition: []
-  action:
-    - service: notify.mobile_app_pixel_8_pro
-      data:
-        message: command_broadcast_intent
-        data:
-          intent_package_name: com.urbandroid.sleep
-          intent_action: com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK
-          ttl: 0
-          priority: high
-  mode: single
-- id: "170313224579395"
-  alias: Pixel sleep tracking stop
-  description: Pixel sleep tracking test
-  trigger: []
-  condition: []
-  action:
-    - service: notify.mobile_app_pixel_8_pro
-      data:
-        message: command_broadcast_intent
-        data:
-          intent_package_name: com.urbandroid.sleep
-          intent_action: com.urbandroid.sleep.alarmclock.STOP_SLEEP_TRACK
-          ttl: 0
-          priority: high
-  mode: single
+# - id: "170303224556505"
+#  alias: Pixel sleep tracking start
+
+#- id: "170313224579395"
+#  alias: Pixel sleep tracking stop
+
 - id: "170323250576301"
   alias: Garage Door TTS
   trigger:
@@ -2836,11 +2797,18 @@
           {% else %} {% endif %}'
     - service: notify.android_tv_fire_tv
       data_template:
+        data:
+          fontsize: "large"
+          position: "bottom-right"
+          duration: 3
+          transparency: "25%"
+          color: "grey"
+          interrupt: 1
         message: |
           {% if is_state("binary_sensor.garage_door_sensor_zb", "on") %}
-            ⚠️Garage Door🚪opened at {{ states('sensor.time_12_hour_am_pm') }}
+            ⚠️Garage Door⚠️opened {{ states('sensor.time_12_hour_am_pm') }}
           {% elif is_state("binary_sensor.garage_door_sensor_zb", "off") %}
-            ⚠️Garage Door🚪closed at {{ states('sensor.time_12_hour_am_pm') }}
+            ⚠️Garage Door⚠️closed {{ states('sensor.time_12_hour_am_pm') }}
           {% else %} {% endif %}
   mode: queued
 
@@ -2979,3 +2947,50 @@
         switch.turn_off
       {% endif %}
     entity_id: fan.bedroom_fan
+- id: "170883399227153856993332311"
+  alias: Romance Time
+  description: ""
+  mode: single
+  trigger:
+    - platform: state
+      entity_id:
+        - input_boolean.romance_time
+      to: "on"
+    - platform: state
+      entity_id:
+        - input_boolean.romance_time_2
+      to: "on"
+  action:
+    - service: light.turn_off
+      target:
+        entity_id: light.bedroom_lights
+    - service: light.turn_on
+      target:
+        entity_id: light.nightstand_lights
+      data:
+        color_name: red
+        brightness_pct: 4
+    - service: media_player.play_media
+      target:
+        entity_id: media_player.bedroom_speaker
+      data:
+        media_content_id: >-
+          spotify://9f616d8fea216b2657003da0fa09fb2d/spotify:playlist:5zi91HUGYmLXm6EaKaycIr
+        media_content_type: spotify://playlist
+      metadata:
+        title: Lovely Nights
+        thumbnail: https://i.scdn.co/image/ab67616d0000b273521970c52fd7470e5c515c1a
+        media_class: playlist
+        children_media_class: track
+        navigateIds:
+          - {}
+          - media_content_type: spotify://library
+            media_content_id: spotify://9f616d8fea216b2657003da0fa09fb2d
+          - media_content_type: spotify://current_user_playlists
+            media_content_id: spotify://9f616d8fea216b2657003da0fa09fb2d/current_user_playlists
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.romance_time
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.romance_time_2
