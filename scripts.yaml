@@ -220,7 +220,6 @@ good_night:
         - input_boolean.auto_tablet
         - input_boolean.auto_backgroundz
         - input_boolean.sports_updates
-        - light.all_christmas_lights
     - service: mqtt.publish
       continue_on_error: true
       data:
@@ -235,10 +234,8 @@ good_night:
     - service: homeassistant.turn_on
       continue_on_error: true
       entity_id:
-        - input_boolean.notifications
         - input_boolean.motion_lights
         - input_boolean.camera_snapshots
-        - input_boolean.voice_notifications
         - input_boolean.driveway_motion_lights
         - switch.air_cleaner
         - input_boolean.disable_auto_garage
@@ -251,13 +248,12 @@ good_night:
       continue_on_error: true
       data:
         entity_id:
-          - media_player.office_mini
+          - media_player.office_google
         volume_level: "0.35"
     - service: tts.google_say
       continue_on_error: true
       entity_id:
-        - media_player.office_mini
-        - media_player.pixel_fully
+        - media_player.office_google
       data_template:
         message: >
           Good night. {{ ["You are a child of God.", "Sleep well!", "God is good ALL the time!"] | random }}
@@ -268,6 +264,40 @@ good_night:
       data:
         entity_id: media_player.living_room_google
         volume_level: "0.30"
+    - service: media_player.volume_set
+      metadata: {}
+      data:
+        volume_level: 0
+      target:
+        entity_id: media_player.office_google
+    - service: media_player.play_media
+      target:
+        entity_id: media_player.office_google
+      data:
+        media_content_id: >-
+          spotify://9f616d8fea216b2657003da0fa09fb2d/spotify:track:35s2rUqdSUdJaqWJINg7mK
+        media_content_type: spotify://track
+      metadata:
+        title: White Noise 432 Hertz - One Hour (Loopable with No Fade)
+        thumbnail: https://i.scdn.co/image/ab67616d0000b273a43bcb4eda8e2eb2544cb6b9
+        media_class: track
+        children_media_class: null
+        navigateIds:
+          - {}
+          - media_content_type: spotify://library
+            media_content_id: spotify://9f616d8fea216b2657003da0fa09fb2d
+          - media_content_type: spotify://current_user_playlists
+            media_content_id: spotify://9f616d8fea216b2657003da0fa09fb2d/current_user_playlists
+          - media_content_type: spotify://playlist
+            media_content_id: >-
+              spotify://9f616d8fea216b2657003da0fa09fb2d/spotify:playlist:3HeFztu9uNOl5blCGg3MTj
+    - delay: 3
+    - service: media_player.volume_set
+      metadata: {}
+      data:
+        volume_level: 0.45
+      target:
+        entity_id: media_player.office_google
     - service: notify.mobile_app_pixel_8_pro
       data:
         message: command_broadcast_intent
@@ -277,14 +307,6 @@ good_night:
           ttl: 0
           priority: high
     - delay: 10
-    - service: notify.mobile_app_pixel_8_pro
-      data:
-        message: command_broadcast_intent
-        data:
-          intent_package_name: com.urbandroid.sleep
-          intent_action: com.urbandroid.sleep.media.lullaby.LullabyService
-          ttl: 0
-          priority: high
     - condition: state
       entity_id: light.cabinet_lights
       state: "on"
@@ -313,8 +335,6 @@ morning:
         retain: "true"
     - service: input_boolean.turn_off
       entity_id:
-        - input_boolean.notifications
-        - input_boolean.voice_notifications
         - input_boolean.disable_laundry_notifications
         - input_boolean.camera_snapshots
         - input_boolean.alarm_disarm_switch
@@ -328,7 +348,6 @@ morning:
         - switch.main_kiosk_screen
         - switch.subwoofer
         - switch.den_nightlight_plugs
-        - light.inside_christmas_lights
     - delay: 300
     - service: input_boolean.turn_on
       entity_id:
@@ -1069,11 +1088,11 @@ darrens_wake_up:
     - service: media_player.volume_set
       data:
         entity_id:
-          - media_player.office_mini
+          - media_player.office_google
         volume_level: "0.35"
     - service: tts.google_say
       entity_id:
-        - media_player.office_mini
+        - media_player.office_google
       data_template:
         message: >
           Good morning. {{ ["Time to wake up and be thankful.", "You have been blessed with another day!", "God is good ALL the time!"] | random }}
@@ -1085,7 +1104,7 @@ darrens_wake_up:
         device_id: 4365464e7cdd496ca499d4ce5141ce6e
     - service: media_player.play_media
       target:
-        entity_id: media_player.office_mini
+        entity_id: media_player.office_google
       data:
         media_content_id: >-
           spotify://9f616d8fea216b2657003da0fa09fb2d/spotify:track:0flJAxxpEXWCJB7Y3514OG
@@ -1251,7 +1270,6 @@ people_home:
         - input_boolean.auto_backgroundz
         - input_boolean.disable_inside_popups
         - switch.main_kiosk_screen
-        - light.inside_christmas_lights
         - switch.den_nightlight_plugs
     - service: homeassistant.turn_off
       continue_on_error: true
@@ -1288,14 +1306,11 @@ people_away:
         - switch.night_switches
         - switch.den_nightlight_plugs
         - fan.inside_fans
-        - light.all_christmas_lights
     - delay: "00:00:03"
     - service: homeassistant.turn_on
       continue_on_error: true
       entity_id:
-        - input_boolean.notifications
-        - input_boolean.garage_entry_voice
-        - input_boolean.driveway_motion_lights
+        - input_boolean.door_announcements
         - input_boolean.camera_snapshots
         - light.ha2_sofa_lamp
         - light.cabinet_lights
