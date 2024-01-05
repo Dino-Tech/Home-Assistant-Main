@@ -74,6 +74,37 @@
               target:
                 entity_id: button.main_kiosk_load_start_url
   mode: single
+- id: "17016739887151444"
+  alias: Reboot Kiosk
+  trigger:
+    - platform: device
+      type: turned_off
+      device_id: 17f117e87ed2ea44630be8afa72f7334
+      entity_id: switch.main_kiosk_screen
+      domain: switch
+    - platform: state
+      entity_id:
+        - light.ac9b7f58_cfbfe785_screen
+      to: "off"
+  condition:
+    - condition: time
+      after: 05:00:00
+      before: "23:59:01"
+  action:
+    - delay:
+        minutes: 1
+    - service: switch.turn_on
+      target:
+        entity_id: switch.main_kiosk_screen
+    - delay: 3
+    - service: light.turn_on
+      target:
+        entity_id: light.ac9b7f58_cfbfe785_screen
+    - delay: 3
+    - service: button.press
+      target:
+        entity_id: button.main_kiosk_load_start_url
+  mode: single
 - id: "17055555555545"
   alias: Create a notification when something is added to HACS
   initial_state: true
@@ -659,7 +690,7 @@
       entity_id: group.person_group
       to: not_home
       for:
-        seconds: 60
+        seconds: 180
   action:
     - service: script.alarm_arm
     - service: script.people_away
@@ -751,6 +782,11 @@
       target:
         entity_id:
           - timer.office_fan_timer
+    - wait_for_trigger:
+        platform: state
+        entity_id: timer.office_fan_timer
+        from: active
+        to: idle
     - service: fan.turn_off
       entity_id: fan.office_fan
 - id: "17099999919856349"
@@ -924,8 +960,7 @@
       entity_id:
         - input_boolean.camera_snapshots
         - input_boolean.motion_lights
-        - input_boolean.notifications
-        - input_boolean.driveway_motion_lights
+        - input_boolean.door_announcements
         - input_boolean.disable_laundry_notifications
     - service: input_boolean.turn_off
       entity_id:
@@ -990,7 +1025,7 @@
     - service: tts.google_say
       entity_id: media_player.tv_speakers
       data_template:
-        message: Donna or Darren.. Clothes ready..  The washing machine has finished!
+        message: Donna or Darren..,,Clothes ready..,The washing machine has finished!
     - service: notify.pixels_and_den_tv
       data_template:
         message: "Washing👕👗👖Finished {{ states('sensor.time_12_hour_am_pm') }}"
@@ -1044,7 +1079,7 @@
     - service: tts.google_say
       entity_id: media_player.tv_speakers
       data_template:
-        message: Donna or Darren.. Clothes ready..  The dryer has finished!
+        message: Donna or Darren..,Clothes are ready..,The dryer has finished!
     - service: notify.pixels_and_den_tv
       data_template:
         message: "Drying👕👗👖Finished {{ states('sensor.time_12_hour_am_pm') }}"
@@ -1093,6 +1128,7 @@
     - delay: "00:00:01"
     - service: tts.google_say
       data:
+        cache: true
         entity_id: media_player.tv_speakers
       data_template:
         message: "Alarm triggered! Police has been notified! at {{ states('sensor.time_12_hour_am_pm') }}"
@@ -1110,7 +1146,7 @@
         data:
           ttl: 0
           priority: high
-          tts_text: Security system away mode activated.
+          tts_text: Security system activated.
 - id: "1701177486112975382884"
   alias: "[Alarmo] Disarmed"
   initial_state: true
@@ -1288,7 +1324,6 @@
           from: "off"
           to: "on"
     - service: script.morning
-      data: {}
   initial_state: true
 - id: "17016181157497534"
   alias: Notify us when the garage door opens and no one home
@@ -1657,37 +1692,6 @@
       data:
         message: Person Detected at Front door
         title: Someone is at Front door
-- id: "17016739887151444"
-  alias: Reboot Kiosk
-  trigger:
-    - platform: device
-      type: turned_off
-      device_id: 17f117e87ed2ea44630be8afa72f7334
-      entity_id: switch.main_kiosk_screen
-      domain: switch
-    - platform: state
-      entity_id:
-        - light.ac9b7f58_cfbfe785_screen
-      to: "off"
-  condition:
-    - condition: time
-      after: 05:00:00
-      before: "23:59:01"
-  action:
-    - delay:
-        minutes: 1
-    - service: switch.turn_on
-      target:
-        entity_id: switch.main_kiosk_screen
-    - delay: 3
-    - service: light.turn_on
-      target:
-        entity_id: light.ac9b7f58_cfbfe785_screen
-    - delay: 3
-    - service: fully_kiosk.start_application
-      target:
-        entity_id: media_player.ac9b7f58_cfbfe785
-  mode: single
 - id: "17016817804741351"
   alias: Foyer Lights ON
   trigger:
@@ -1958,23 +1962,6 @@
       target:
         entity_id: input_select.mobilelayout
   mode: single
-- id: "1771701134411609"
-  alias: outside Christmas lights ON at dark
-  trigger:
-    - platform: state
-      entity_id:
-        - binary_sensor.night
-      to: "on"
-      for:
-        minutes: 35
-      from: "off"
-  action:
-    - service: homeassistant.turn_on
-      target:
-        entity_id:
-          - switch.porch_outlets
-          - switch.guest_air_cleaner
-  mode: single
 - id: "17081207628341"
   alias: Bathroom motion low battery
   trigger:
@@ -2094,7 +2081,7 @@
       target:
         entity_id: button.wyze_cam_kitchen_cam_update_snapshot
     - delay:
-        seconds: 4
+        seconds: 8
     - service: notify.mobile_app_pixel_8_pro
       data:
         message: Kitchen Motion at {{ states('sensor.time_12_hour_am_pm') }}
@@ -2134,17 +2121,39 @@
     - service: button.press
       target:
         entity_id: button.wyze_cam_front_yard_cam_update_snapshot
-    - service: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id: media_player.tv_speakers
-        volume_level: "0.80"
-    - service: tts.google_say
-      continue_on_error: true
-      data:
-        cache: true
-        entity_id: media_player.tv_speakers
-        message: Motion at front door
+    - choose:
+        - conditions:
+            - condition: time
+              after: "22:00:00"
+              before: "07:00:00"
+          sequence:
+            - service: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.office_google
+                volume_level: "0.50"
+            - service: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.office_google
+                message: Motion at front door
+        - conditions:
+            - condition: time
+              after: "07:00:01"
+              before: "21:59:59"
+          sequence:
+            - service: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.tv_speakers
+                volume_level: "0.80"
+            - service: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.tv_speakers
+                message: Motion at front door
     - delay:
         seconds: 4
     - service: notify.notify_all
@@ -2155,6 +2164,24 @@
           image:
             /api/camera_proxy/camera.wyze_cam_front_door_cam_snapshot?token={{
             state_attr('camera.wyze_cam_front_door_cam_snapshot','access_token') }}
+          persistent: true
+          color: red
+          channel: Cameras
+          tag: Motion
+          actions:
+            - action: URI
+              title: Click to Open Cameras
+              uri: /lovelace/cameras
+    - delay:
+        seconds: 4
+    - service: notify.notify_all
+      data:
+        message: ⚠️Front Motion!⚠️️ {{ states('sensor.time_12_hour_am_pm') }}
+        data:
+          notification_icon: mdi:cctv
+          image:
+            /api/camera_proxy/camera.wyze_cam_front_yard_cam_snapshot?token={{
+            state_attr('camera.wyze_cam_front_yard_cam_snapshot','access_token') }}
           persistent: true
           color: red
           channel: Cameras
@@ -2197,18 +2224,39 @@
     - service: button.press
       target:
         entity_id: button.wyze_cam_drive_side_camera_update_snapshot
-      data: {}
-    - service: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id: media_player.tv_speakers
-        volume_level: "0.80"
-    - service: tts.google_say
-      continue_on_error: true
-      data:
-        cache: true
-        entity_id: media_player.tv_speakers
-        message: Motion at side door
+    - choose:
+        - conditions:
+            - condition: time
+              after: "22:00:00"
+              before: "07:00:00"
+          sequence:
+            - service: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.office_google
+                volume_level: "0.50"
+            - service: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.office_google
+                message: Motion at side door
+        - conditions:
+            - condition: time
+              after: "07:00:01"
+              before: "21:59:59"
+          sequence:
+            - service: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.tv_speakers
+                volume_level: "0.80"
+            - service: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.tv_speakers
+                message: Motion at side door
     - delay:
         seconds: 4
     - service: notify.notify_all
@@ -2252,18 +2300,39 @@
     - service: button.press
       target:
         entity_id: button.wyze_cam_patio_camera_update_snapshot
-      data: {}
-    - service: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id: media_player.tv_speakers
-        volume_level: "0.80"
-    - service: tts.google_say
-      continue_on_error: true
-      data:
-        cache: true
-        entity_id: media_player.tv_speakers
-        message: Motion on patio
+    - choose:
+        - conditions:
+            - condition: time
+              after: "22:00:00"
+              before: "07:00:00"
+          sequence:
+            - service: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.office_google
+                volume_level: "0.50"
+            - service: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.office_google
+                message: Motion on patio
+        - conditions:
+            - condition: time
+              after: "07:00:01"
+              before: "21:59:59"
+          sequence:
+            - service: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.tv_speakers
+                volume_level: "0.80"
+            - service: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.tv_speakers
+                message: Motion on patio
     - delay:
         seconds: 4
     - service: notify.notify_all
@@ -2305,7 +2374,6 @@
     - service: button.press
       target:
         entity_id: button.wyze_cam_garage_camera_update_snapshot
-      data: {}
     - service: media_player.volume_set
       continue_on_error: true
       data:
@@ -2441,7 +2509,6 @@
       state: home
   action:
     - service: script.darrens_wake_up
-      data: {}
   mode: single
 - id: "1703172027074"
   alias: Donna's Alarm Pixel 5 next alarm
@@ -2459,7 +2526,6 @@
       state: home
   action:
     - service: script.donnas_wake_up
-      data: {}
   mode: single
 - id: "170243184400922"
   alias: "[Motion] Guest Motion Lights"
@@ -2491,16 +2557,32 @@
       entity_id: light.guest_ceiling_lights
   mode: restart
   max_exceeded: silent
-#- id: "170253187944685"
-#  alias: pixel alarm test
-#  trigger:
-#    - platform: time
-#      at: sensor.pixel_8_pro_next_alarm
-#  action:
-#    - service: light.turn_off
-#      target:
-#        entity_id: light.bed_light
-#      data: {}
+- id: "17025318794468582"
+  alias: "[Motion] Someone's at the Table"
+  trigger:
+    - type: motion
+      platform: device
+      device_id: 269bfe586d1a26f1b65fddeca53aa69e
+      entity_id: 4e749991fa9d067cbd709f6239f0b863
+      domain: binary_sensor
+  condition: []
+  action:
+    - service: light.turn_on
+      target:
+        device_id: 760cfce120cdf3eedbaa7f35d36aa2db
+    - wait_for_trigger:
+        - platform: state
+          entity_id:
+            - binary_sensor.table_motion
+          from: "on"
+          to: "off"
+    - delay:
+        minutes: 15
+    - service: light.turn_off
+      target:
+        device_id: 760cfce120cdf3eedbaa7f35d36aa2db
+  mode: restart
+  max_exceeded: silent
 - id: "1703196844652"
   alias: "[Motion] Hall Bathroom Lights"
   trigger:
@@ -2552,7 +2634,6 @@
       entity_id: binary_sensor.bedroom_motion_sensors
       from: "off"
       to: "on"
-      enabled: true
   condition:
     - condition: state
       entity_id: binary_sensor.bedroom_door
@@ -2653,6 +2734,31 @@
       entity_id: switch.ensuite_kiosk_screen
   mode: restart
   max_exceeded: silent
+- id: "1703032245565054"
+  alias: "[Motion] Office night light"
+  trigger:
+    - type: motion
+      platform: device
+      device_id: 5ba129f5afddad4746612d2d8d985871
+      entity_id: 11d607ec53cc97b3fe7069a87115296f
+      domain: binary_sensor
+  condition: []
+  action:
+    - service: light.turn_on
+      target:
+        device_id: 5ba129f5afddad4746612d2d8d985871
+    - wait_for_trigger:
+        platform: state
+        entity_id: binary_sensor.office_night_motion
+        from: "on"
+        to: "off"
+    - delay: 10
+      enabled: true
+    - service: light.turn_off
+      target:
+        device_id: 5ba129f5afddad4746612d2d8d985871
+  mode: restart
+  max_exceeded: silent
 - id: "170273218670383"
   alias: Front Door TTS
   trigger:
@@ -2663,6 +2769,9 @@
       entity_id: binary_sensor.front_door
       to: "off"
   condition:
+    - condition: state
+      entity_id: input_boolean.door_announcements
+      state: "on"
     - condition: template
       value_template: "{{ trigger.from_state.state != 'unavailable' }}"
   action:
@@ -2701,6 +2810,9 @@
       entity_id: binary_sensor.back_door
       to: "off"
   condition:
+    - condition: state
+      entity_id: input_boolean.door_announcements
+      state: "on"
     - condition: template
       value_template: "{{ trigger.from_state.state != 'unavailable' }}"
   action:
@@ -2739,6 +2851,9 @@
       entity_id: binary_sensor.side_door
       to: "off"
   condition:
+    - condition: state
+      entity_id: input_boolean.door_announcements
+      state: "on"
     - condition: template
       value_template: "{{ trigger.from_state.state != 'unavailable' }}"
   action:
@@ -2767,8 +2882,6 @@
             ⚠️Side Door🚪closed {{ states('sensor.time_12_hour_am_pm') }}
           {% else %} {% endif %}
   mode: queued
-# - id: "170303224556505"
-#  alias: Pixel sleep tracking start
 
 #- id: "170313224579395"
 #  alias: Pixel sleep tracking stop
@@ -2872,13 +2985,16 @@
     - service: input_boolean.turn_on
       target:
         entity_id: input_boolean.everyone_is_awake
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.door_announcements
     - delay:
         hours: 1
     - service: media_player.volume_set
       target:
         entity_id: media_player.living_room_google
       data:
-        volume_level: 0.6
+        volume_level: 0.5
 - id: "17033325057263014567"
   alias: Guest room auto fan
   trigger:
