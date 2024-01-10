@@ -15,8 +15,8 @@ kiosk_mode:
       hide_sidebar: false
   user_settings:
     - users:
-        #      ignore_entity_settings: true
         - OfficePC
+      ignore_entity_settings: true
       hide_sidebar: false
       hide_header: false
 
@@ -72,1074 +72,8 @@ animated_background:
 title:
   New Life Home
   #  resources: !include lovelace/resources/resources.yaml
-# custom_header: !include lovelace/custom_header/custom_header.yaml
-popup_cards: !include_dir_named lovelace/popup-cards
-
-anchors:
-  darren_mobile_styles: &darrenmobilestyles
-    style: |
-      ha-card {
-        background: rgba(0,0,0,0.35);
-        --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
-        --ha-card-border-radius: 0px;
-        padding: 0px;
-        box-shadow: 0px;
-        --primary-text-color: #e0e1e1;
-        --paper-card-background-color: rgba(0, 0, 0,0.38);
-        font-weight: bold;
-        font-size: 26px;
-        text-transform: capitalize;
-        font-variant: small-caps;
-        text-shadow: '2px 2px 0 #444444, 2px -2px 0 #444444, -2px 2px 0 #444444, -2px -2px 0 #444444, 2px 0px 0 #444444, 0px 2px 0 #444444, -2px 0px 0 #444444, 0px -2px 0 #444444';
-        --paper-item-icon-color: var(--accent-color);
-        --iron-icon-height: 41px;
-        --iron-icon-width: 41px;
-      }
-      :host {
-        border-radius: 0px;
-        padding: 0px;
-        box-shadow: 0px;
-        --primary-text-color: #e0e1e1;
-        font-weight: bold;
-        font-size: 1.55em;
-      }
-  entity_button_mobile: &entitybuttonmobile
-    style: |
-      :host {
-        border-radius: 216px;
-        --ha-card-border-radius: 12px;
-        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-        --paper-card-background-color: #000;
-        font-size: .95em;
-      }
-      ha-card {
-        background: rgba(0, 0, 0,0.60);
-      }
-  entity_button_mobile3: &entitybuttonmobile3
-    style: |
-      ha-card {
-        border-radius: 12px;
-        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-        background: rgba(0, 0, 0,0.52);
-        --paper-item-icon-color: var(--accent-color);
-        font-size: .95em;
-      }
-      :host {
-        --paper-item-icon-color: var(--accent-color);
-      }
-
-  entity_button_mobile4: &entitybuttonmobile4
-    style: |
-      ha-card {
-        border-radius: 12px;
-        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-        background: rgba(0, 0, 0,0.52);
-        border: solid 1px black;
-        height: 95px !important;
-        --paper-item-icon-color: var(--accent-color);
-        font-size: 3.15em;
-      }
-
-  popup_toolbar: &popuptoolbar
-    style:
-      .: |
-        app-toolbar {
-          color: rgba(0, 0, 0,0.58) !important;
-          background-color: rgba(0, 0, 0,0.58) !important;
-          height: 50px !important;
-        }
-  popup_toolbar2: &popuptoolbar2
-    style:
-      .: |
-        app-toolbar {
-          color: var(--accent-color) !important;
-          background-color: rgba(0, 0, 0,0.58) !important;
-          height: 50px !important;
-        }
-  donna_styles: &donnastyles
-    style: |
-      ha-card {
-        background: rgba(0,0,0,0.35);
-        --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
-        border-radius: 15px;
-        padding-bottom: 4px;
-        box-shadow: 0 10px 6px -6px rgba(200,200,200,0.33);
-        --primary-text-color: #fbfbfb;
-        --paper-card-background-color: rgba(0, 0, 0,0.38);
-        font-weight: bold;
-        font-size: 1.75em;
-        text-transform: capitalize;
-        font-variant: small-caps;
-        text-shadow: 2px 2px 0 #444444, 2px -2px 0 #444444, -2px 2px 0 #444444, -2px -2px 0 #444444, 2px 0px 0 #444444, 0px 2px 0 #444444, -2px 0px 0 #444444, 0px -2px 0 #444444;
-        --paper-item-icon-color: var(--accent-color);
-        --iron-icon-height: 38px;
-        --iron-icon-width: 38px;
-      }
-
-  office_menu_styles: &officemenustyles
-    style: |
-      ha-card {
-        background-color: rgba(0,0,0,0.3);
-        border-radius: 12px;
-        border: solid 1px rgba( 0, 0, 0,1.0);
-        box-shadow: 5px 5px 5px rgba( 100, 100, 100,0.3);
-        padding: 15px;
-        text-transform: capitalize;
-        font-variant: small-caps;
-      }
-
-  view_extra_styles: &viewextrastyles
-    extra_styles: >
-      @keyframes ready {
-        from {border: solid 3px lime;}
-        to {border: solid 3px black;}
-      }
-      @keyframes alarm {
-        from {border: solid 3px red;}
-        to {border: solid 3px black; background: red;}
-      }
-      @keyframes alert {
-        from {border: solid 3px yellow;}
-        to {border: solid 3px black; background: yellow;}
-      }
-
-  header_text: &headertext
-    style:
-      border-radius: 12px
-      --paper-card-background-color: rgba(0, 0, 0, 0.0)
-      box-shadow: 2px 2px rgba(0,0,0,0.0)
-      padding: 0px 10px
-      height: 28px
-      font-family: Righteous
-
-  frontpage_size: &frontpagesize
-    color: auto
-
-  light_button_style: &lightbuttonstyle
-    styles:
-      card:
-        - border-radius: 12px
-        - width: 105px
-        - height: 105px
-        - --paper-card-background-color: "rgba(0, 0, 0, 0.8)"
-        - box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.35), 0 3px 10px 0 rgba(255, 255, 255, 0.34)
-      label:
-        - color: white
-        - font-size: 12px
-        - font-family: Righteous
-        - padding: 0px 10px
-        - justify-self: start
-      state:
-        - font-size: 12px
-        - font-family: Righteous
-        - padding: 0px 10px
-        - justify-self: start
-        - text-transform: capitalize
-        - font-weight: bold
-        - padding-left: 10px
-      grid:
-        - grid-template-areas: '"i" "n" "s" "l"'
-        - grid-template-columns: 1fr
-        - grid-template-rows: 1fr min-content min-content
-      img_cell:
-        - align-self: start
-        - text-align: start
-        - margin-right: 60px
-      name:
-        - justify-self: start
-        - padding-left: 10px
-        - font-weight: bold
-        - font-family: Righteous
-        - font-size: 14px
-
-  light_button_state: &lightbuttonstate
-    state:
-      - value: "on"
-        styles:
-          card:
-            - box-shadow: "0px 0px 4px 2px var(--sidebar-icon-color)"
-          name:
-            - color: "var(--sidebar-icon-color)"
-          state:
-            - color: white
-          lock:
-            - color: black
-      - value: "off"
-        styles:
-          card:
-            - opacity: 0.7
-            - box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.35), 0 3px 10px 0 rgba(255, 255, 255, 0.34)
-          icon:
-            - color: white
-          name:
-            - color: white
-          state:
-            - color: white
-          lock:
-            - color: black
-      - value: "unavailable"
-        style:
-          - opacity: 0.2
-          - color: black
-          - --paper-item-icon-color: black
-
-  light_button2_state: &lightbutton2state
-    state:
-      - value: "on"
-        styles:
-          card:
-            - opacity: 0.75
-            - box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.35), 0 3px 10px 0 rgba(255, 255, 255, 0.34)
-          name:
-            - color: "rgba(255, 255, 255, 0.75)"
-          state:
-            - color: white
-          lock:
-            - color: black
-      - value: "off"
-        styles:
-          card:
-            - opacity: 0.75
-            - box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.35), 0 3px 10px 0 rgba(255, 255, 255, 0.34)
-          icon:
-            - color: white
-          name:
-            - color: "rgba(255, 255, 255, 0.75)"
-          state:
-            - color: white
-          lock:
-            - color: black
-      - value: "unavailable"
-        style:
-          - opacity: 0.2
-          - color: black
-          - --paper-item-icon-color: black
-
-  light_button_actions: &lightbuttonactions
-    tap_action:
-      action: toggle
-      haptic: light
-    hold_action:
-      action: more-info
-      haptic: success
-
-  standard_button_style: &standardbuttonstyle
-    styles:
-      card:
-        - border-radius: 12px
-        - width: 101px
-        - height: 85px
-        - --paper-card-background-color: "rgba(0, 0, 0, 0.8)"
-      label:
-        - color: white
-        - font-size: 18px
-        - font-family: Righteous
-        - padding-left: 10px
-        - justify-self: start
-      state:
-        - font-size: 16px
-        - font-family: Righteous
-        - padding: 0px 10px
-        - justify-self: start
-        - text-transform: capitalize
-        - padding-left: 10px
-        - color: white
-      grid:
-        - grid-template-areas: '"i" "n" "s" "l"'
-        - grid-template-columns: 1fr
-        - grid-template-rows: 1fr min-content min-content
-      img_cell:
-        - align-self: start
-        - text-align: start
-        - margin-right: 45px
-      name:
-        - justify-self: start
-        - padding-left: 10px
-        - font-family: Righteous
-        - font-size: 18px
-        - color: white
-      icon:
-        - color: "var(--accent-color)"
-
-  light_button2_style: &lightbutton2style
-    styles:
-      card:
-        - border-radius: 12px
-        - width: 90px
-        - height: 90px
-        - --paper-card-background-color: rgba(0, 0, 0, 0.8)
-      label:
-        - color: white
-        - font-size: 12px
-        - font-family: Righteous
-        - padding: 0px 10px
-        - justify-self: start
-      state:
-        - font-size: 12px
-        - font-family: Righteous
-        - padding: 0px 10px
-        - justify-self: start
-        - text-transform: capitalize
-        - font-weight: bold
-        - padding-left: 10px
-      grid:
-        - grid-template-areas: '"i" "n" "s" "l"'
-        - grid-template-columns: 1fr
-        - grid-template-rows: 1fr min-content min-content
-      img_cell:
-        - align-self: start
-        - text-align: start
-        - margin-right: 60px
-      name:
-        - justify-self: start
-        - padding-left: 10px
-        - font-weight: bold
-        - font-family: Righteous
-        - font-size: 14px
-
-  light_button3_style: &lightbutton3style
-    styles:
-      card:
-        - border-radius: 12px
-        - width: 160px
-        - height: 160px
-        - --paper-card-background-color: rgba(0, 0, 0, 0.8)
-      label:
-        - color: white
-        - font-size: 18px
-        - font-family: Righteous
-        - padding: 0px 10px
-        - justify-self: start
-      state:
-        - font-size: 20px
-        - font-family: Righteous
-        - padding: 0px 10px
-        - justify-self: start
-        - text-transform: capitalize
-        - padding-left: 10px
-      grid:
-        - grid-template-areas: '"i" "n" "s" "l"'
-        - grid-template-columns: 1fr
-        - grid-template-rows: 1fr min-content min-content
-      img_cell:
-        - align-self: start
-        - text-align: start
-        - margin-right: 60px
-      name:
-        - justify-self: start
-        - padding-left: 10px
-        - font-family: Righteous
-        - font-size: 22px
-
-  light_button4_style: &lightbutton4style
-    styles:
-      card:
-        - border-radius: 12px
-        - width: 105px
-        - height: 105px
-        - --paper-card-background-color: "rgba(0, 0, 0, 0.8)"
-        - box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.35), 0 3px 10px 0 rgba(255, 255, 255, 0.34)
-      label:
-        - color: white
-        - font-size: 18px
-        - font-family: Righteous
-        - padding: 0px 10px
-        - justify-self: start
-      state:
-        - font-size: 12px
-        - font-family: Righteous
-        - padding: 0px 10px
-        - justify-self: start
-        - text-transform: capitalize
-        - font-weight: bold
-        - padding-left: 10px
-      name:
-        - justify-self: start
-        - padding-left: 10px
-        - font-weight: bold
-        - font-family: Righteous
-        - font-size: 14px
-
-  alarm_button_style: &alarmbuttonstyle
-    card:
-      - border-radius: 13px
-      - width: 152px #360px
-      - height: 91px
-      - --paper-card-background-color: "rgba(0, 0, 0, 0.48)"
-      - box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.31), 0 3px 10px 0 rgba(255, 255, 255, 0.30)
-    state:
-      - font-size: 16px
-      - font-family: Righteous
-      - padding: 6.05px 0px
-      - justify-self: center
-      - text-transform: capitalize
-      - letter-spacing: 1.3px
-      - color: white
-    grid:
-      - grid-template-areas: '"i" "n" "s" "l"'
-      - grid-template-columns: 1fr
-      - grid-template-rows: 1fr min-content min-content
-    img_cell:
-      - align-self: center
-      - text-align: center
-    name:
-      - justify-self: center
-      - padding: 3.5px 0px
-      - font-family: Righteous
-      - font-size: 16px
-      - letter-spacing: 1.4px
-      - color: rgba(255,255,255.0.8)
-    icon:
-      - color: white
-
-  alarm_button2_style: &alarmbutton2style
-    card:
-      - border-radius: 15px
-      - width: 122px
-      - height: 95px
-      - --paper-card-background-color: rgba(0, 0, 0, 0.58)
-    state:
-      - font-size: 18px
-      - font-family: Righteous
-      - padding: 5px 0px
-      - justify-self: center
-      - text-transform: capitalize
-      - font-variant: small-caps
-      - letter-spacing: 1.4px
-      - color: white
-    grid:
-      - grid-template-areas: '"i" "n" "s" "l"'
-      - grid-template-columns: 1fr
-      - grid-template-rows: 1fr min-content min-content
-    img_cell:
-      - align-self: center
-      - text-align: center
-    name:
-      - justify-self: center
-      - font-weight: bold
-      - font-family: Righteous
-      - font-size: 16px
-      - color: white
-    icon:
-      - color: white
-
-  fan_state: &fanstate
-    state:
-      - value: "on"
-        styles:
-          card:
-            - box-shadow: "0px 0px 4px 2px var(--sidebar-icon-color)"
-          name:
-            - color: "var(--sidebar-icon-color)"
-          state:
-            - color: white
-          icon:
-            - color: "var(--accent-color)"
-          lock:
-            - color: black
-        spin: true
-      - value: "off"
-        styles:
-          card:
-            - opacity: 0.7
-            - box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.35), 0 3px 10px 0 rgba(255, 255, 255, 0.34)
-          icon:
-            - color: white
-            - --iron-icon-stroke-color: white
-          name:
-            - color: white
-          state:
-            - color: white
-          lock:
-            - color: black
-      - value: "unavailable"
-        style:
-          - opacity: 0.2
-          - color: black
-          - --paper-item-icon-color: black
-
-  standard_button_actions: &standardbuttonactions
-    tap_action:
-      action: more-info
-      haptic: light
-
-  standard_button_actions2: &standardbuttonactions2
-    tap_action:
-      action: toggle
-      haptic: success
-
-  standard_button_actions3: &standardbuttonactions3
-    tap_action:
-      action: call-service
-      service: script.office_lamps
-      haptic: success
-
-  standard_button_actions4: &standardbuttonactions4
-    tap_action:
-      action: call-service
-      service: script.alarm_panel_popup
-      haptic: success
-
-  show_label: &showlabel
-    show_state: false
-    show_label: true
-  show_state: &showstate
-    show_state: true
-    show_label: false
-  show_both: &showboth
-    show_state: true
-    show_label: true
-  show_none: &shownone
-    show_state: true
-    show_label: true
-    show_name: false
-  show_none2: &shownone2
-    show_state: false
-    show_label: false
-    show_name: false
-  show_none3: &shownone3
-    show_state: false
-    show_label: false
-    show_name: true
-
-decluttering_templates:
-  bar_card_temp:
-    card:
-      type: custom:bar-cardder
-      severity:
-        - value: "[[value_1]]"
-          color: "[[color_1]]"
-        - value: "[[value_2]]"
-          color: "[[color_2]]"
-        - value: 120
-          color: "[[color_3]]"
-      title_position: inside
-      decimal: "0"
-      columns: "[[columns]]"
-      padding: 2px
-      align: split
-      show_icon: true
-      rounding: 5px
-      saturation: 85%
-      height: "[[height]]"
-      card_style:
-        background: "rgba(0, 0, 0, 0.55)"
-        border-radius: 8px
-      title_style:
-        font-weight: bold
-        font-size: 22px
-        text-transform: capitalize
-        font-variant: small-caps
-        color: "#e0e1e1"
-        text-shadow: "2px 2px 4px black"
-      value_style:
-        font-size: 24px
-        font-weight: bold
-        text-shadow: "2px 2px 4px black"
-      entity: "[[entity]]"
-      title: "[[title]]"
-      tap_action: "[[tap_action]]"
-      service_options:
-        domain: "[[domain]]"
-        service: "[[service]]"
-        data:
-          entity_id: "[[entity_id]]"
-
-  motion_button_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: true
-      color: auto
-      size: 36%
-      <<: *lightbuttonstyle
-      <<: *shownone
-      <<: *lightbuttonstate
-      <<: *standardbuttonactions
-
-  motion_button_temp1:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: true
-      color: auto
-      size: 36%
-      <<: *lightbuttonstyle
-      <<: *showboth
-      <<: *lightbuttonstate
-      <<: *standardbuttonactions
-
-  motion_button2_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: true
-      color: auto
-      size: 40%
-      <<: *lightbutton3style
-      <<: *shownone
-      <<: *lightbuttonstate
-      <<: *standardbuttonactions
-
-  fan_button_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: true
-      color: auto
-      size: 36%
-      <<: *lightbuttonstyle
-      <<: *showlabel
-      <<: *fanstate
-      <<: *lightbuttonactions
-
-  switch_button_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: true
-      color: auto
-      size: 36%
-      <<: *lightbuttonstyle
-      <<: *showlabel
-      <<: *lightbuttonstate
-      <<: *lightbuttonactions
-
-  switch_button2_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: true
-      color: auto
-      size: 36%
-      <<: *lightbutton2style
-      <<: *showlabel
-      <<: *lightbuttonstate
-      <<: *lightbuttonactions
-
-  switch_button3_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: true
-      color: auto
-      size: 36%
-      <<: *lightbuttonstyle
-      <<: *showlabel
-      <<: *lightbuttonstate
-      <<: *standardbuttonactions3
-
-  switch_button4_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      <<: *standardbuttonactions
-
-  switch_button5_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: call-service
-        service: input_select.select_option
-        service_data:
-          entity_id: input_select.button_animation_2
-          option: buttonlock
-
-  switch_button6_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: call-service
-        service: input_select.select_option
-        service_data:
-          entity_id: input_select.button_layout
-          option: section1
-
-  switch_button7_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: call-service
-        service: input_select.select_option
-        service_data:
-          entity_id: input_select.button_layout
-          option: section2
-
-  switch_button8_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: call-service
-        service: input_select.select_option
-        service_data:
-          entity_id: input_select.button_layout
-          option: section4
-
-  switch_button81_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: fire-dom-event
-        browser_mod:
-          service: browser_mod.more_info
-          data:
-            large: true
-            ignore_popup_card: true
-            entity: camera.driveway_cam
-
-  switch_button91_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: fire-dom-event
-        browser_mod:
-          service: browser_mod.more_info
-          data:
-            large: true
-            ignore_popup_card: true
-            entity: camera.front_yard_cam
-
-  switch_button101_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: fire-dom-event
-        browser_mod:
-          service: browser_mod.more_info
-          data:
-            large: true
-            ignore_popup_card: true
-            entity: camera.front_door
-
-  switch_button111_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: fire-dom-event
-        browser_mod:
-          service: browser_mod.more_info
-          data:
-            large: true
-            ignore_popup_card: true
-            entity: camera.patio_cam
-  switch_button121_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: fire-dom-event
-        browser_mod:
-          service: browser_mod.more_info
-          data:
-            large: true
-            ignore_popup_card: true
-            entity: camera.backyard_cam
-
-  switch_button131_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: fire-dom-event
-        browser_mod:
-          service: browser_mod.more_info
-          data:
-            large: true
-            ignore_popup_card: true
-            entity: camera.garage_cam
-
-  switch_button141_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: fire-dom-event
-        browser_mod:
-          service: browser_mod.more_info
-          data:
-            large: true
-            ignore_popup_card: true
-            entity: camera.den_cam
-
-  switch_button151_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: fire-dom-event
-        browser_mod:
-          service: browser_mod.more_info
-          data:
-            large: true
-            ignore_popup_card: true
-            entity: camera.hallway_cam
-
-  switch_button161_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: fire-dom-event
-        browser_mod:
-          service: browser_mod.more_info
-          data:
-            large: true
-            ignore_popup_card: true
-            entity: camera.new_orleans_radar
-
-  switch_button171_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: fire-dom-event
-        browser_mod:
-          service: browser_mod.more_info
-          data:
-            large: true
-            ignore_popup_card: true
-            entity: camera.cdn_star_nesdis_noaa_gov
-
-  switch_button9_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: call-service
-        service: input_select.select_option
-        service_data:
-          entity_id: input_select.button_layout
-          option: section5
-
-  switch_button181_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: fire-dom-event
-        browser_mod:
-          service: browser_mod.more_info
-          data:
-            large: true
-            ignore_popup_card: true
-            entity: camera.local_radar
-
-  switch_button11_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: call-service
-        service: input_select.select_option
-        service_data:
-          entity_id: input_select.button_layout
-          option: section6
-
-  switch_button12_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: call-service
-        service: input_select.select_option
-        service_data:
-          entity_id: input_select.button_layout
-          option: section7
-
-  switch_button404_temp:
-    card:
-      type: custom:button-card
-      entity: "[[entity]]"
-      name: "[[name]]"
-      icon: "[[icon]]"
-      show_last_changed: false
-      color: auto
-      size: 40%
-      <<: *standardbuttonstyle
-      <<: *shownone3
-      <<: *lightbutton2state
-      tap_action:
-        action: fire-dom-event
-        browser_mod:
-          service: browser_mod.more_info
-          data:
-            large: true
-            ignore_popup_card: true
-            entity: camera.kitchen_cam_2
+  # custom_header: !include lovelace/custom_header/custom_header.yaml
+  # popup_cards: !include_dir_named lovelace/popup-cards
 
 views:
   - title: Home
@@ -1156,7 +90,7 @@ views:
             - type: custom:state-switch
               entity: input_select.popupcard1
               transition: slide-up
-              transition_time: 600
+              transition_time: 50
               states:
                 popupcard11:
                   type: picture-glance
@@ -1523,7 +457,7 @@ views:
       - type: custom:state-switch
         entity: input_select.mobilelayout
         transition: flip
-        transition_time: 700
+        transition_time: 300
         states:
           mobile6:
             type: vertical-stack
@@ -1531,7 +465,7 @@ views:
               - type: custom:state-switch
                 entity: input_select.mobilelayout2
                 transition: slide-left
-                transition_time: 600
+                transition_time: 300
                 states:
                   mobile21:
                     type: custom:mod-card
@@ -1636,18 +570,19 @@ views:
                         - type: vertical-stack
                           cards:
                             - type: custom:stack-in-card
-                              style: |
-                                ha-card {
-                                  border-radius: 12px;
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0,0.65);
-                                  --paper-item-icon-color: var(--accent-color);
-                                  backdrop-filter: blur(9.1px);
-                                  -webkit-backdrop-filter: blur(9.1px);
-                                }
-                                :host {
-                                  --paper-item-icon-color: var(--accent-color);
-                                }
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    border-radius: 12px;
+                                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                    background: rgba(0, 0, 0,0.65);
+                                    --paper-item-icon-color: var(--accent-color);
+                                    backdrop-filter: blur(9.1px);
+                                    -webkit-backdrop-filter: blur(9.1px);
+                                  }
+                                  :host {
+                                    --paper-item-icon-color: var(--accent-color);
+                                  }
                               mode: vertical
                               cards:
                                 - type: custom:button-card
@@ -1680,18 +615,19 @@ views:
                         - type: vertical-stack
                           cards:
                             - type: custom:stack-in-card
-                              style: |
-                                ha-card {
-                                  border-radius: 12px;
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0,0.90);
-                                  --paper-item-icon-color: var(--accent-color);
-                                  backdrop-filter: blur(9.1px);
-                                  -webkit-backdrop-filter: blur(9.1px);
-                                }
-                                :host {
-                                  --paper-item-icon-color: var(--accent-color);
-                                }
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    border-radius: 12px;
+                                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                    background: rgba(0, 0, 0,0.90);
+                                    --paper-item-icon-color: var(--accent-color);
+                                    backdrop-filter: blur(9.1px);
+                                    -webkit-backdrop-filter: blur(9.1px);
+                                  }
+                                  :host {
+                                    --paper-item-icon-color: var(--accent-color);
+                                  }
                               mode: vertical
                               cards:
                                 - type: custom:button-card
@@ -1732,18 +668,19 @@ views:
                         - type: vertical-stack
                           cards:
                             - type: custom:stack-in-card
-                              style: |
-                                ha-card {
-                                  border-radius: 12px;
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0,0.10);
-                                  --paper-item-icon-color: var(--accent-color);
-                                  backdrop-filter: blur(9.1px);
-                                  -webkit-backdrop-filter: blur(9.1px);
-                                }
-                                :host {
-                                  --paper-item-icon-color: var(--accent-color);
-                                }
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    border-radius: 12px;
+                                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                    background: rgba(0, 0, 0,0.10);
+                                    --paper-item-icon-color: var(--accent-color);
+                                    backdrop-filter: blur(9.1px);
+                                    -webkit-backdrop-filter: blur(9.1px);
+                                  }
+                                  :host {
+                                    --paper-item-icon-color: var(--accent-color);
+                                  }
                               mode: vertical
                               cards:
                                 - type: custom:button-card
@@ -1786,18 +723,19 @@ views:
                         - type: vertical-stack
                           cards:
                             - type: custom:stack-in-card
-                              style: |
-                                ha-card {
-                                  border-radius: 12px;
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0,0.60);
-                                  --paper-item-icon-color: var(--accent-color);
-                                  backdrop-filter: blur(9.1px);
-                                  -webkit-backdrop-filter: blur(9.1px);
-                                }
-                                :host {
-                                  --paper-item-icon-color: var(--accent-color);
-                                }
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    border-radius: 12px;
+                                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                    background: rgba(0, 0, 0,0.60);
+                                    --paper-item-icon-color: var(--accent-color);
+                                    backdrop-filter: blur(9.1px);
+                                    -webkit-backdrop-filter: blur(9.1px);
+                                  }
+                                  :host {
+                                    --paper-item-icon-color: var(--accent-color);
+                                  }
                               mode: vertical
                               cards:
                                 - type: custom:button-card
@@ -1830,18 +768,19 @@ views:
                         - type: vertical-stack
                           cards:
                             - type: custom:stack-in-card
-                              style: |
-                                ha-card {
-                                  border-radius: 12px;
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0,0.60);
-                                  --paper-item-icon-color: var(--accent-color);
-                                  backdrop-filter: blur(9.1px);
-                                  -webkit-backdrop-filter: blur(9.1px);
-                                }
-                                :host {
-                                  --paper-item-icon-color: var(--accent-color);
-                                }
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    border-radius: 12px;
+                                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                    background: rgba(0, 0, 0,0.60);
+                                    --paper-item-icon-color: var(--accent-color);
+                                    backdrop-filter: blur(9.1px);
+                                    -webkit-backdrop-filter: blur(9.1px);
+                                  }
+                                  :host {
+                                    --paper-item-icon-color: var(--accent-color);
+                                  }
                               mode: vertical
                               cards:
                                 - type: custom:button-card
@@ -1874,18 +813,19 @@ views:
                         - type: vertical-stack
                           cards:
                             - type: custom:stack-in-card
-                              style: |
-                                ha-card {
-                                  border-radius: 12px;
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0,0.60);
-                                  --paper-item-icon-color: var(--accent-color);
-                                  backdrop-filter: blur(9.1px);
-                                  -webkit-backdrop-filter: blur(9.1px);
-                                }
-                                :host {
-                                  --paper-item-icon-color: var(--accent-color);
-                                }
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    border-radius: 12px;
+                                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                    background: rgba(0, 0, 0,0.60);
+                                    --paper-item-icon-color: var(--accent-color);
+                                    backdrop-filter: blur(9.1px);
+                                    -webkit-backdrop-filter: blur(9.1px);
+                                  }
+                                  :host {
+                                    --paper-item-icon-color: var(--accent-color);
+                                  }
                               mode: vertical
                               cards:
                                 - type: custom:button-card
@@ -1915,7 +855,7 @@ views:
                                     moon_elevation: true
                                     moonrise: true
                                     moonset: true
-                                    moon_phase: true
+                                    moon_phase: false
                                   southern_flip: false
                                   moon_phase_rotation: -10
                                   language: en
@@ -1926,27 +866,81 @@ views:
                                     action: none
                                   hold_action:
                                     action: none
+                                - type: horizontal-stack
+                                  cards:
+                                    - type: custom:button-card
+                                      color_type: blank-card
+                                      styles:
+                                        card:
+                                          - width: 105px
+                                    - type: custom:mushroom-template-card
+                                      card_mod:
+                                        style: |
+                                          ha-card {
+                                            background: rgba(0, 0, 0,0.0);
+                                            box-shadow: 0px 0px 2px 1px rgba(0, 0, 0,0.0);
+                                            border: solid 2px rgba(0, 0, 0,0.0);
+                                          }
+                                      entity: sensor.moon
+                                      icon_color: ""
+                                      fill_container: false
+                                      picture: >-
+                                        /local/moon_phases/{{states(entity)}}.png
+                                      primary: Moon Phase
+                                      secondary: >-
+                                        {% set phase = states(entity)  %}
+
+                                        {% if phase == 'last_quarter' %} Last
+                                        Quarter
+
+                                        {% elif phase == 'waning_crescent' %}
+                                        Waning Crescent
+
+                                        {% elif phase == 'full_moon' %} Full
+                                        Moon
+
+                                        {% elif phase == 'first_quarter' %}
+                                        First Quarter
+
+                                        {% elif phase == 'waxing_gibbous' %}
+                                        Waxing Gibbous
+
+                                        {% elif phase == 'new_moon' %} New Moon
+
+                                        {% elif phase == 'waning_gibbous' %}
+                                        Waning Gibbous
+
+                                        {% elif phase == 'waxing_crescent' %}
+                                        Waxing Crescent
+
+                                        {% endif %}
+                                    - type: custom:button-card
+                                      color_type: blank-card
+                                      styles:
+                                        card:
+                                          - width: 45px
                                 - type: custom:button-card
                                   color_type: blank-card
                                   styles:
                                     card:
-                                      - height: 125px
+                                      - height: 70px
                         - type: vertical-stack
                           cards:
                             - type: custom:stack-in-card
-                              style: |
-                                ha-card {
-                                  border-radius: 12px;
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0,0.70);
-                                  --paper-item-icon-color: var(--accent-color);
-                                  backdrop-filter: blur(9.1px);
-                                  -webkit-backdrop-filter: blur(9.1px);
-                                }
-                                :host {
-                                  --paper-item-icon-color: var(--accent-color);
-                                }
-                              mode: vertical
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    border-radius: 12px;
+                                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                    background: rgba(0, 0, 0,0.70);
+                                    --paper-item-icon-color: var(--accent-color);
+                                    backdrop-filter: blur(9.1px);
+                                    -webkit-backdrop-filter: blur(9.1px);
+                                  }
+                                  :host {
+                                    --paper-item-icon-color: var(--accent-color);
+                                  }
+                                mode: vertical
                               cards:
                                 - type: custom:button-card
                                   color_type: blank-card
@@ -2073,18 +1067,19 @@ views:
                         - type: vertical-stack
                           cards:
                             - type: custom:stack-in-card
-                              style: |
-                                ha-card {
-                                  border-radius: 12px;
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0,0.60);
-                                  --paper-item-icon-color: var(--accent-color);
-                                  backdrop-filter: blur(9.1px);
-                                  -webkit-backdrop-filter: blur(9.1px);
-                                }
-                                :host {
-                                  --paper-item-icon-color: var(--accent-color);
-                                }
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    border-radius: 12px;
+                                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                    background: rgba(0, 0, 0,0.60);
+                                    --paper-item-icon-color: var(--accent-color);
+                                    backdrop-filter: blur(9.1px);
+                                    -webkit-backdrop-filter: blur(9.1px);
+                                  }
+                                  :host {
+                                    --paper-item-icon-color: var(--accent-color);
+                                  }
                               mode: vertical
                               cards:
                                 - type: custom:button-card
@@ -2108,18 +1103,19 @@ views:
                         - type: vertical-stack
                           cards:
                             - type: custom:stack-in-card
-                              style: |
-                                ha-card {
-                                  border-radius: 12px;
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0,0.90);
-                                  --paper-item-icon-color: var(--accent-color);
-                                  backdrop-filter: blur(9.1px);
-                                  -webkit-backdrop-filter: blur(9.1px);
-                                }
-                                :host {
-                                  --paper-item-icon-color: var(--accent-color);
-                                }
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    border-radius: 12px;
+                                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                    background: rgba(0, 0, 0,0.90);
+                                    --paper-item-icon-color: var(--accent-color);
+                                    backdrop-filter: blur(9.1px);
+                                    -webkit-backdrop-filter: blur(9.1px);
+                                  }
+                                  :host {
+                                    --paper-item-icon-color: var(--accent-color);
+                                  }
                               mode: vertical
                               cards:
                                 - type: custom:button-card
@@ -2152,18 +1148,19 @@ views:
                         - type: vertical-stack
                           cards:
                             - type: custom:stack-in-card
-                              style: |
-                                ha-card {
-                                  border-radius: 12px;
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0,0.90);
-                                  --paper-item-icon-color: var(--accent-color);
-                                  backdrop-filter: blur(9.1px);
-                                  -webkit-backdrop-filter: blur(9.1px);
-                                }
-                                :host {
-                                  --paper-item-icon-color: var(--accent-color);
-                                }
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    border-radius: 12px;
+                                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                    background: rgba(0, 0, 0,0.90);
+                                    --paper-item-icon-color: var(--accent-color);
+                                    backdrop-filter: blur(9.1px);
+                                    -webkit-backdrop-filter: blur(9.1px);
+                                  }
+                                  :host {
+                                    --paper-item-icon-color: var(--accent-color);
+                                  }
                               mode: vertical
                               cards:
                                 - type: custom:button-card
@@ -2196,18 +1193,19 @@ views:
                         - type: vertical-stack
                           cards:
                             - type: custom:stack-in-card
-                              style: |
-                                ha-card {
-                                  border-radius: 12px;
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0,0.60);
-                                  --paper-item-icon-color: var(--accent-color);
-                                  backdrop-filter: blur(9.1px);
-                                  -webkit-backdrop-filter: blur(9.1px);
-                                }
-                                :host {
-                                  --paper-item-icon-color: var(--accent-color);
-                                }
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    border-radius: 12px;
+                                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                    background: rgba(0, 0, 0,0.60);
+                                    --paper-item-icon-color: var(--accent-color);
+                                    backdrop-filter: blur(9.1px);
+                                    -webkit-backdrop-filter: blur(9.1px);
+                                  }
+                                  :host {
+                                    --paper-item-icon-color: var(--accent-color);
+                                  }
                               mode: vertical
                               cards:
                                 - type: custom:button-card
@@ -2232,18 +1230,19 @@ views:
                     type: vertical-stack
                     cards:
                       - type: custom:stack-in-card
-                        style: |
-                          ha-card {
-                            border-radius: 12px;
-                            box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            background: rgba(0, 0, 0,0.60);
-                            --paper-item-icon-color: var(--accent-color);
-                            backdrop-filter: blur(9.1px);
-                            -webkit-backdrop-filter: blur(9.1px);
-                          }
-                          :host {
-                            --paper-item-icon-color: var(--accent-color);
-                          }
+                        card_mod:
+                          style: |
+                            ha-card {
+                              border-radius: 12px;
+                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                              background: rgba(0, 0, 0,0.60);
+                              --paper-item-icon-color: var(--accent-color);
+                              backdrop-filter: blur(9.1px);
+                              -webkit-backdrop-filter: blur(9.1px);
+                            }
+                            :host {
+                              --paper-item-icon-color: var(--accent-color);
+                            }
                         mode: vertical
                         cards:
                           - type: custom:button-card
@@ -2252,7 +1251,7 @@ views:
                               card:
                                 - height: 20px
                           - type: custom:text-divider-row
-                            text: Office Floor Lamps
+                            text: Office Lights
                           - type: custom:mushroom-chips-card
                             chips:
                               - type: light
@@ -2266,7 +1265,7 @@ views:
                                   service: light.turn_on
                                   data:
                                     kelvin: 6500
-                                    brightness: 255
+                                    brightness_pct: 100
                                     transition: 2
                                   target:
                                     entity_id: light.office_floor_lights
@@ -2283,8 +1282,8 @@ views:
                                   action: call-service
                                   service: light.turn_on
                                   data:
-                                    kelvin: 5000
-                                    brightness: 255
+                                    kelvin: 4000
+                                    brightness_pct: 50
                                     transition: 2
                                   target:
                                     entity_id: light.office_floor_lights
@@ -2308,8 +1307,8 @@ views:
                                   service: light.turn_on
                                   data:
                                     transition: 2
-                                    brightness: 50
-                                    kelvin: 2300
+                                    brightness_pct: 5
+                                    kelvin: 2000
                                   target:
                                     entity_id: light.office_floor_lights
                                 card_mod:
@@ -2360,8 +1359,6 @@ views:
                                 ha-card {
                                   --ha-card-border-width: 0px; 
                                 }
-                          - type: custom:text-divider-row
-                            text: Office Ceiling
                           - type: custom:mushroom-light-card
                             entity: light.office_ceiling_lights
                             show_brightness_control: true
@@ -2379,40 +1376,51 @@ views:
                                 }
                           - type: custom:text-divider-row
                             text: Office Fan
-                          - type: horizontal-stack
+                          - type: custom:stack-in-card
+                            card_mod:
+                              style: |
+                                ha-card {
+                                  ha-state-icon: white;
+                                  border-radius: 12px;
+                                  box-shadow: rgba(0, 0, 0,0.0);
+                                  background: rgba(0, 0, 0,0.0);
+                                  --paper-item-icon-color: var(--accent-color);
+                                }
+                                :host {
+                                  --paper-item-icon-color: var(--accent-color);
+                                }
+                            mode: vertical
                             cards:
-                              - type: custom:numberbox-card
-                                border: true
-                                entity: input_number.office_fan_hours
-                                unit: time
-                                style: >
-                                  .body{display:block!important}
-                                  .body::after{text-align:center;font-size:10px;content:"Hours";display:block!important}
+                              - type: custom:mushroom-number-card
+                                entity: input_number.office_fan_duration
+                                card_mod:
+                                  style:
+                                    mushroom-number-value-control$:
+                                      mushroom-slider$: |
+                                        .slider {
+                                          --main-color: var(--accent-color) !important;
+                                          --bg-color: dimgrey !important;
+                                        }
+                                    .: ""
+                                    mushroom-shape-icon$: |
+                                      .shape {
+                                        --shape-color: var(--accent-color-lighter) !important;
+                                      }
                                 icon: mdi:ceiling-fan
-                                name: false
-                              - type: custom:numberbox-card
-                                border: true
-                                entity: input_number.office_fan_minutes
-                                unit: time
-                                name: false
-                                style: >
-                                  .body{display:block!important}
-                                  .body::after{text-align:center;font-size:10px;content:"Minutes";display:block!important}
-                                icon: mdi:ceiling-fan
-                          - type: entities
-                            show_header_toggle: false
-                            entities:
-                              - entity: fan.office_fan
-                                type: custom:fan-mode-button-row
-                                name: Fan
-                                customTheme: true
-                                buttonInactiveColor: rgba(0,0,0, 0.60)
-                                isOffColor: rgba(220,220,220, 0.3)
-                                isOnModeOneColor: var(--accent-color)
-                                isOnModeTwoColor: var(--accent-color)
-                                isOnModeThreeColor: var(--accent-color)
-                                width: 35px
-                            state_color: false
+                              - type: entities
+                                show_header_toggle: false
+                                entities:
+                                  - entity: fan.office_fan
+                                    type: custom:fan-mode-button-row
+                                    name: Fan
+                                    customTheme: true
+                                    buttonInactiveColor: rgba(0,0,0, 0.60)
+                                    isOffColor: rgba(220,220,220, 0.3)
+                                    isOnModeOneColor: var(--accent-color)
+                                    isOnModeTwoColor: var(--accent-color)
+                                    isOnModeThreeColor: var(--accent-color)
+                                    width: 35px
+                                state_color: false
                           - type: custom:mushroom-chips-card
                             chips:
                               - type: template
@@ -2508,7 +1516,7 @@ views:
                             color_type: blank-card
                             styles:
                               card:
-                                - height: 10px
+                                - height: 1px
                   mobile23:
                     type: custom:swipe-card
                     style: null
@@ -2528,18 +1536,19 @@ views:
                       - type: vertical-stack
                         cards:
                           - type: custom:stack-in-card
-                            style: |
-                              ha-card {
-                                border-radius: 12px;
-                                box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                background: rgba(0, 0, 0,0.60);
-                                backdrop-filter: blur(9.1px);
-                                -webkit-backdrop-filter: blur(9.1px);
-                                --paper-item-icon-color: var(--accent-color);
-                              }
-                              :host {
-                                --paper-item-icon-color: var(--accent-color);
-                              }
+                            card_mod:
+                              style: |
+                                ha-card {
+                                  border-radius: 12px;
+                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                  background: rgba(0, 0, 0,0.60);
+                                  backdrop-filter: blur(9.1px);
+                                  -webkit-backdrop-filter: blur(9.1px);
+                                  --paper-item-icon-color: var(--accent-color);
+                                }
+                                :host {
+                                  --paper-item-icon-color: var(--accent-color);
+                                }
                             mode: vertical
                             cards:
                               - type: custom:mushroom-title-card
@@ -2646,18 +1655,19 @@ views:
                       - type: vertical-stack
                         cards:
                           - type: custom:stack-in-card
-                            style: |
-                              ha-card {
-                                border-radius: 12px;
-                                box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                background: rgba(0, 0, 0,0.60);
-                                backdrop-filter: blur(9.1px);
-                                -webkit-backdrop-filter: blur(9.1px);
-                                --paper-item-icon-color: var(--accent-color);
-                              }
-                              :host {
-                                --paper-item-icon-color: var(--accent-color);
-                              }
+                            card_mod:
+                              style: |
+                                ha-card {
+                                  border-radius: 12px;
+                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                  background: rgba(0, 0, 0,0.60);
+                                  backdrop-filter: blur(9.1px);
+                                  -webkit-backdrop-filter: blur(9.1px);
+                                  --paper-item-icon-color: var(--accent-color);
+                                }
+                                :host {
+                                  --paper-item-icon-color: var(--accent-color);
+                                }
                             mode: vertical
                             cards:
                               - type: custom:mushroom-title-card
@@ -2764,18 +1774,19 @@ views:
                       - type: vertical-stack
                         cards:
                           - type: custom:stack-in-card
-                            style: |
-                              ha-card {
-                                border-radius: 12px;
-                                box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                background: rgba(0, 0, 0,0.60);
-                                backdrop-filter: blur(9.1px);
-                                -webkit-backdrop-filter: blur(9.1px);
-                                --paper-item-icon-color: var(--accent-color);
-                              }
-                              :host {
-                                --paper-item-icon-color: var(--accent-color);
-                              }
+                            card_mod:
+                              style: |
+                                ha-card {
+                                  border-radius: 12px;
+                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                  background: rgba(0, 0, 0,0.60);
+                                  backdrop-filter: blur(9.1px);
+                                  -webkit-backdrop-filter: blur(9.1px);
+                                  --paper-item-icon-color: var(--accent-color);
+                                }
+                                :host {
+                                  --paper-item-icon-color: var(--accent-color);
+                                }
                             mode: vertical
                             cards:
                               - type: custom:mushroom-title-card
@@ -2880,18 +1891,19 @@ views:
                                   card:
                                     - height: 112px
                       - type: vertical-stack
-                        style: |
-                          ha-card {
-                            border-radius: 12px;
-                            box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            background: rgba(0, 0, 0,0.60);
-                            backdrop-filter: blur(9.1px);
-                            -webkit-backdrop-filter: blur(9.1px);
-                            --paper-item-icon-color: var(--accent-color);
-                          }
-                          :host {
-                            --paper-item-icon-color: var(--accent-color);
-                          }
+                        card_mod:
+                          style: |
+                            ha-card {
+                              border-radius: 12px;
+                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                              background: rgba(0, 0, 0,0.60);
+                              backdrop-filter: blur(9.1px);
+                              -webkit-backdrop-filter: blur(9.1px);
+                              --paper-item-icon-color: var(--accent-color);
+                            }
+                            :host {
+                              --paper-item-icon-color: var(--accent-color);
+                            }
                         cards:
                           - type: custom:mushroom-title-card
                             card_mod:
@@ -3078,16 +2090,17 @@ views:
                       - type: vertical-stack
                         cards:
                           - type: custom:stack-in-card
-                            style: |
-                              ha-card {
-                                border-radius: 18px;
-                                padding: 8px;
-                                box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                background: rgba(86, 86, 86,0.9);
-                              }
-                              :host {
-                                background: rgba(16, 16, 16,0.9);
-                              }
+                            card_mod:
+                              style: |
+                                ha-card {
+                                  border-radius: 18px;
+                                  padding: 8px;
+                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                  background: rgba(86, 86, 86,0.9);
+                                }
+                                :host {
+                                  background: rgba(16, 16, 16,0.9);
+                                }
                             mode: vertical
                             cards:
                               - type: custom:button-card
@@ -3128,16 +2141,17 @@ views:
                       - type: vertical-stack
                         cards:
                           - type: custom:stack-in-card
-                            style: |
-                              ha-card {
-                                border-radius: 18px;
-                                padding: 8px;
-                                box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                background: rgba(86, 86, 86,0.9);
-                              }
-                              :host {
-                                background: rgba(16, 16, 16,0.85);
-                              }
+                            card_mod:
+                              style: |
+                                ha-card {
+                                  border-radius: 18px;
+                                  padding: 8px;
+                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                  background: rgba(86, 86, 86,0.9);
+                                }
+                                :host {
+                                  background: rgba(16, 16, 16,0.85);
+                                }
                             mode: vertical
                             cards:
                               - type: custom:button-card
@@ -3179,18 +2193,20 @@ views:
                     type: vertical-stack
                     cards:
                       - type: custom:stack-in-card
-                        style: |
-                          ha-card {
-                            border-radius: 12px;
-                            box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            background: rgba(0, 0, 0,0.75);
-                            backdrop-filter: blur(9.1px);
-                            -webkit-backdrop-filter: blur(9.1px);
-                            --paper-item-icon-color: var(--accent-color);
-                          }
-                          :host {
-                            --paper-item-icon-color: var(--accent-color);
-                          }
+                        card_mod:
+                          style: |
+                            ha-card {
+                              border-radius: 12px;
+                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                              background: rgba(0, 0, 0,0.70);
+                              border-width: 0px;
+                              backdrop-filter: blur(19.1px);
+                              -webkit-backdrop-filter: blur(19.1px);
+                              --paper-item-icon-color: var(--accent-color);
+                            }
+                            :host {
+                              --paper-item-icon-color: var(--accent-color);
+                            }
                         mode: vertical
                         cards:
                           - type: custom:button-card
@@ -3557,16 +2573,17 @@ views:
             type: vertical-stack
             cards:
               - type: custom:stack-in-card
-                style: |
-                  ha-card {
-                    border-radius: 12px;
-                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                    background: rgba(0, 0, 0,0.60);
-                    --paper-item-icon-color: var(--accent-color);
-                  }
-                  :host {
-                    --paper-item-icon-color: var(--accent-color);
-                  }
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-radius: 12px;
+                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                      background: rgba(0, 0, 0,0.75);
+                      --paper-item-icon-color: var(--accent-color);
+                    }
+                    :host {
+                      --paper-item-icon-color: var(--accent-color);
+                    }
                 mode: vertical
                 cards:
                   - type: custom:alarmo-card
@@ -3604,7 +2621,7 @@ views:
                     sort:
                       method: last_changed
                       reverse: true
-                      count: 7
+                      count: 10
                   - type: custom:button-card
                     color_type: blank-card
                     styles:
@@ -3614,16 +2631,17 @@ views:
             type: vertical-stack
             cards:
               - type: custom:stack-in-card
-                style: |
-                  ha-card {
-                    border-radius: 12px;
-                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                    background: rgba(0, 0, 0,0.60);
-                    --paper-item-icon-color: var(--accent-color);
-                  }
-                  :host {
-                    --paper-item-icon-color: var(--accent-color);
-                  }
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-radius: 12px;
+                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                      background: rgba(0, 0, 0,0.60);
+                      --paper-item-icon-color: var(--accent-color);
+                    }
+                    :host {
+                      --paper-item-icon-color: var(--accent-color);
+                    }
                 mode: vertical
                 cards:
                   - type: conditional
@@ -3673,23 +2691,24 @@ views:
             type: vertical-stack
             cards:
               - type: custom:stack-in-card
-                style: |
-                  ha-card {
-                    border-radius: 12px;
-                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                    background: rgba(0, 0, 0,0.60);
-                    --paper-item-icon-color: var(--accent-color);
-                  }
-                  :host {
-                    --paper-item-icon-color: var(--accent-color);
-                  }
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-radius: 12px;
+                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                      background: rgba(0, 0, 0,0.70);
+                      --paper-item-icon-color: var(--accent-color);
+                    }
+                    :host {
+                      --paper-item-icon-color: var(--accent-color);
+                    }
                 mode: vertical
                 cards:
                   - type: custom:button-card
                     color_type: blank-card
                     styles:
                       card:
-                        - height: 5px
+                        - height: 65px
                   - type: custom:spotify-card
                     card_mod:
                       style: |
@@ -3702,21 +2721,22 @@ views:
                     color_type: blank-card
                     styles:
                       card:
-                        - height: 45px
+                        - height: 120px
           mobile1:
             type: vertical-stack
             cards:
               - type: custom:stack-in-card
-                style: |
-                  ha-card {
-                    border-radius: 12px;
-                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                    background: rgba(0, 0, 0,0.75);
-                    --paper-item-icon-color: var(--accent-color);
-                  }
-                  :host {
-                    --paper-item-icon-color: var(--accent-color);
-                  }
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-radius: 12px;
+                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                      background: rgba(0, 0, 0,0.75);
+                      --paper-item-icon-color: var(--accent-color);
+                    }
+                    :host {
+                      --paper-item-icon-color: var(--accent-color);
+                    }
                 mode: vertical
                 cards:
                   - type: todo-list
@@ -3737,23 +2757,24 @@ views:
             type: vertical-stack
             cards:
               - type: custom:stack-in-card
-                style: |
-                  ha-card {
-                    border-radius: 12px;
-                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                    background: rgba(0, 0, 0,0.60);
-                    --paper-item-icon-color: var(--accent-color);
-                  }
-                  :host {
-                    --paper-item-icon-color: var(--accent-color);
-                  }
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-radius: 12px;
+                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                      background: rgba(0, 0, 0,0.80);
+                      --paper-item-icon-color: var(--accent-color);
+                    }
+                    :host {
+                      --paper-item-icon-color: var(--accent-color);
+                    }
                 mode: vertical
                 cards:
                   - type: custom:button-card
                     color_type: blank-card
                     styles:
                       card:
-                        - height: 5px
+                        - height: 35px
                   - type: custom:mushroom-light-card
                     entity: light.bedroom_lights
                     layout: vertical
@@ -3763,6 +2784,7 @@ views:
                         ha-card {
                           --ha-card-border-width: 0px;
                           --ha-card-background: rgba(0, 0, 0, 0);
+                          box-shadow: 0px;
                         }
                   - type: custom:text-divider-row
                     text: Nightstand
@@ -3778,7 +2800,7 @@ views:
                           action: call-service
                           service: light.turn_on
                           data:
-                            kelvin: 6500
+                            kelvin: 5500
                             brightness: 255
                             transition: 2
                           target:
@@ -3796,8 +2818,8 @@ views:
                           action: call-service
                           service: light.turn_on
                           data:
-                            kelvin: 5000
-                            brightness: 255
+                            kelvin: 3500
+                            brightness: 200
                             transition: 2
                           target:
                             entity_id: light.nightstand_lights
@@ -3821,8 +2843,8 @@ views:
                           service: light.turn_on
                           data:
                             transition: 2
-                            brightness: 50
-                            kelvin: 2300
+                            brightness: 5
+                            kelvin: 2000
                           target:
                             entity_id: light.nightstand_lights
                         card_mod:
@@ -3845,7 +2867,9 @@ views:
                     card_mod:
                       style: |
                         ha-card {
-                          --ha-card-border-width: 0px; 
+                          --ha-card-border-width: 0px;
+                          background: rgba(0, 0, 0, 0);
+                          box-shadow: 0px;
                         }
                   - type: custom:rgb-light-card
                     entity: light.nightstand_lights
@@ -3878,12 +2902,20 @@ views:
                         transition: 5
                   - type: custom:text-divider-row
                     text: Ceiling Lights
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --ha-card-border-width: 0px;
+                          --ha-card-background: rgba(0, 0, 0, 0);
+                          box-shadow: 0px;
+                        }
                   - type: custom:stack-in-card
                     card_mod:
                       style: |
                         ha-card {
                           --ha-card-border-width: 0px;
                           --ha-card-background: rgba(0, 0, 0, 0);
+                          box-shadow: 0px;
                         }
                     mode: vertical
                     cards:
@@ -3900,7 +2932,9 @@ views:
                         card_mod:
                           style: |
                             ha-card {
-                              --ha-card-border-width: 0px; 
+                              --ha-card-border-width: 0px;
+                              background: rgba(0, 0, 0, 0);
+                              box-shadow: 0px;
                             }
                       - type: custom:mushroom-light-card
                         entity: light.bedroom_ceiling_lights
@@ -3915,7 +2949,9 @@ views:
                         card_mod:
                           style: |
                             ha-card {
-                              --ha-card-border-width: 0px; 
+                              --ha-card-border-width: 0px;
+                              background: rgba(0, 0, 0, 0);
+                              box-shadow: 0px;
                             }
                   - type: custom:text-divider-row
                     text: Ceiling Fan
@@ -3926,8 +2962,8 @@ views:
                         type: custom:fan-mode-button-row
                         name: Modes
                         customTheme: true
-                        buttonInactiveColor: rgba(0,0,0, 0.60)
-                        isOffColor: rgba(220,220,220, 0.3)
+                        buttonInactiveColor: rgba(0,0,0, 0.65)
+                        isOffColor: rgba(220,220,220, 0.35)
                         isOnModeOneColor: var(--accent-color)
                         isOnModeTwoColor: var(--accent-color)
                         isOnModeThreeColor: var(--accent-color)
@@ -3937,7 +2973,65 @@ views:
                     color_type: blank-card
                     styles:
                       card:
-                        - height: 25px
+                        - height: 5px
+                  - type: custom:stack-in-card
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: Bedroom
+                        secondary: >-
+                          {{ states('sensor.bedroom_temperature_2') | round(1)
+                          }}°F  | {{ states('sensor.bedroom_humidity_2') }} %
+                        icon: mdi:thermometer-water
+                        card_mod:
+                          style: |
+                            ha-card {
+                              z-index: 1;
+                              --ha-card-border-width: 0px;
+                              box-shadow: 0px;
+                            }
+                      - type: custom:mini-graph-card
+                        entities:
+                          - entity: sensor.bedroom_temperature_2
+                            name: Temperature
+                            color: green
+                          - entity: sensor.bedroom_humidity_2
+                            name: Humidity
+                            color: "#3399ff"
+                            y_axis: secondary
+                        height: 50
+                        hours_to_show: 24
+                        line_width: 3
+                        font_size: 50
+                        animate: true
+                        show:
+                          name: false
+                          icon: false
+                          state: false
+                          legend: false
+                          fill: fade
+                        card_mod:
+                          style: |
+                            ha-card {
+                              position: absolute !important;
+                              height: 100%;
+                              width: 100%;
+                              top: 0px;
+                              --ha-card-border-width: 0px;
+                              background: rgba(0,0,0,0);
+                              box-shadow: 0px;
+                            }
+                            ha-card:after {
+                              content: "";
+                              position: absolute;
+                              width: 100%;
+                              height: 100%;
+                              background: rgba(0,0,0,0);
+                            }
+                  - type: custom:button-card
+                    color_type: blank-card
+                    styles:
+                      card:
+                        - height: 20px
           mobile3:
             type: vertical-stack
             cards:
@@ -4096,15 +3190,16 @@ views:
                               title: Darren
                               content:
                                 type: custom:mod-card
-                                style: |
-                                  ha-card {
-                                    --padding-right: 15px;
-                                    --padding-left: 15px;
-                                    --padding-bottom: 15px;
-                                    box-shadow: 0px 0px 2px 1px var(--accent-color);
-                                    background: rgba(0, 0, 0,0.60);
-                                    --ha-card-border-width: 0px;
-                                  }
+                                card_mod:
+                                  style: |
+                                    ha-card {
+                                      --padding-right: 15px;
+                                      --padding-left: 15px;
+                                      --padding-bottom: 15px;
+                                      box-shadow: 0px 0px 2px 1px var(--accent-color);
+                                      background: rgba(0, 0, 0,0.60);
+                                      --ha-card-border-width: 0px;
+                                    }
                                 card:
                                   type: custom:vertical-stack-in-card
                                   cards:
@@ -4201,14 +3296,15 @@ views:
                                   title: Darren's Phone
                                   content:
                                     type: custom:mod-card
-                                    style: |
-                                      ha-card {
-                                        padding: 5px;
-                                        border: solid 2px var(--accent-color-light);
-                                        --mdc-dialog-box-shadow: var(--accent-color);
-                                        background: rgba(0, 0, 0,0.75);
-                                        height: 600px;
-                                      }
+                                    card_mod:
+                                      style: |
+                                        ha-card {
+                                          padding: 5px;
+                                          border: solid 2px var(--accent-color-light);
+                                          --mdc-dialog-box-shadow: var(--accent-color);
+                                          background: rgba(0, 0, 0,0.75);
+                                          height: 600px;
+                                        }
                                     card:
                                       type: gauge
                                       entity: sensor.pixel_8_pro_battery_level
@@ -4245,14 +3341,15 @@ views:
                               title: Donna
                               content:
                                 type: custom:mod-card
-                                style: |
-                                  ha-card {
-                                    --padding-right: 15px;
-                                    --padding-left: 15px;
-                                    --padding-bottom: 15px;
-                                    --box-shadow: 2px 2px 2px 2px var(--accent-color-light);
-                                    --ha-card-border-width: 0px;
-                                  }
+                                card_mod:
+                                  style: |
+                                    ha-card {
+                                      --padding-right: 15px;
+                                      --padding-left: 15px;
+                                      --padding-bottom: 15px;
+                                      --box-shadow: 2px 2px 2px 2px var(--accent-color-light);
+                                      --ha-card-border-width: 0px;
+                                    }
                                 card:
                                   type: vertical-stack
                                   cards:
@@ -4344,17 +3441,18 @@ views:
                                   title: Donna's Phone
                                   content:
                                     type: custom:mod-card
-                                    style: |
-                                      ha-card {
-                                        --padding-right: 15px;
-                                        --padding-left: 15px;
-                                        --padding-bottom: 15px;
-                                        border: solid 2px var(--accent-color-light);
-                                        box-shadow: 0px 0px 2px 1px var(--accent-color);
-                                        background: rgba(0, 0, 0,0.75);
-                                        height: 600px;
-                                        box-sizing: border-box;
-                                      }
+                                    card_mod:
+                                      style: |
+                                        ha-card {
+                                          --padding-right: 15px;
+                                          --padding-left: 15px;
+                                          --padding-bottom: 15px;
+                                          border: solid 2px var(--accent-color-light);
+                                          box-shadow: 0px 0px 2px 1px var(--accent-color);
+                                          background: rgba(0, 0, 0,0.75);
+                                          height: 600px;
+                                          box-sizing: border-box;
+                                        }
                                     card:
                                       type: gauge
                                       entity: sensor.pixel_5_battery_level
@@ -4414,19 +3512,20 @@ views:
                           size: fullscreen
                           content:
                             type: custom:mod-card
-                            style: |
-                              ha-card {
-                                background-color: rgba(0, 0, 0, 0.65);
-                                box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                border-radius: 15px;
-                                padding: 0px, 5px, 15px, 5px;
-                              }
-                              .: |
-                                app-toolbar {
-                                  color: rgba(0, 0, 0,0.58) !important;
-                                  background-color: rgba(0, 0, 0,0.58) !important;
-                                  height: 20px !important;
+                            card_mod:
+                              style: |
+                                ha-card {
+                                  background-color: rgba(0, 0, 0, 0.65);
+                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                  border-radius: 15px;
+                                  padding: 0px, 5px, 15px, 5px;
                                 }
+                                .: |
+                                  app-toolbar {
+                                    color: rgba(0, 0, 0,0.58) !important;
+                                    background-color: rgba(0, 0, 0,0.58) !important;
+                                    height: 20px !important;
+                                  }
                             card:
                               type: custom:vertical-stack-in-card
                               card_mod:
@@ -4466,21 +3565,23 @@ views:
                                         card:
                                           - width: 8px
                                 - type: custom:mushroom-cover-card
-                                  style: |
-                                    ha-card {
-                                      background: rgba(0, 0, 0, 0.65);
-                                    }
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        background: rgba(0, 0, 0, 0.65);
+                                      }
                                   entity: cover.garage_door
                                   layout: vertical
                                   fill_container: true
                                   show_position_control: false
                                   show_buttons_control: true
                                 - type: custom:mushroom-light-card
-                                  style: |
-                                    ha-card {
-                                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                      background: rgba(0, 0, 0, 0.65);
-                                    }
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                        background: rgba(0, 0, 0, 0.65);
+                                      }
                                   entity: light.garage_ceiling_lights
                                   icon: mdi:light-recessed
                                   layout: horizontal
@@ -4652,25 +3753,26 @@ views:
                           title: " "
                           content:
                             type: custom:mod-card
-                            style: |
-                              ha-card {
-                                background: center / cover no-repeat url("/local/images-lovelace/backgroundz/clockHands.jpg");
-                                background-size: 100% 100%;
-                                padding: 4px;
-                                border-radius: 22px;
-                                border: solid 3px var(--accent-color-lighter);
-                                --ha-card-box-shadow: inset 1px var(--accent-color-lighter);
-                                --paper-item-icon-color: #535353;
-                                --primary-color: rgba(245, 245, 245,0.5);
-                                font-size: 1.35em;
-                                --app-toolbar-font-size: 1.875em;
-                                --primary-text-color: rgba(245, 245, 245,0.70);
-                                text-shadow: "0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)";
-                                width: 94vw;
-                                height: 77vh;
-                                box-sizing: border-box;
-                                margin: 0;
-                              }
+                            card_mod:
+                              style: |
+                                ha-card {
+                                  background: center / cover no-repeat url("/local/images-lovelace/backgroundz/clockHands.jpg");
+                                  background-size: 100% 100%;
+                                  padding: 4px;
+                                  border-radius: 22px;
+                                  border: solid 3px var(--accent-color-lighter);
+                                  --ha-card-box-shadow: inset 1px var(--accent-color-lighter);
+                                  --paper-item-icon-color: #535353;
+                                  --primary-color: rgba(245, 245, 245,0.5);
+                                  font-size: 1.35em;
+                                  --app-toolbar-font-size: 1.875em;
+                                  --primary-text-color: rgba(245, 245, 245,0.70);
+                                  text-shadow: "0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)";
+                                  width: 94vw;
+                                  height: 77vh;
+                                  box-sizing: border-box;
+                                  margin: 0;
+                                }
                             card:
                               type: vertical-stack
                               cards:
@@ -4692,16 +3794,17 @@ views:
                                         name: true
                                         icon: true
                                     - type: tile
-                                      style: |
-                                        ha-card {
-                                          height: 105px;
-                                          background: rgba(0,0,0,0.0);
-                                          --ha-card-box-shadow: inset 1px rgba(0,0,0,0.0);
-                                          margin: 0 !important;
-                                          padding: 0 !important;
-                                          --primary-text-color: white;
-                                          border: none;
-                                        }
+                                      card_mod:
+                                        style: |
+                                          ha-card {
+                                            height: 105px;
+                                            background: rgba(0,0,0,0.0);
+                                            --ha-card-box-shadow: inset 1px rgba(0,0,0,0.0);
+                                            margin: 0 !important;
+                                            padding: 0 !important;
+                                            --primary-text-color: white;
+                                            border: none;
+                                          }
                                       tap_action:
                                         action: toggle
                                       entity: input_boolean.donnas_work_alarm
@@ -4724,28 +3827,30 @@ views:
                                         name: true
                                         icon: true
                                     - type: tile
-                                      style: |
-                                        ha-card {
-                                          height: 105px;
-                                          background: rgba(0,0,0,0.0);
-                                          --ha-card-box-shadow: inset 1px rgba(0,0,0,0.0);
-                                          margin: 0 !important;
-                                          padding: 0 !important;
-                                          --primary-text-color: white;
-                                          border: none;
-                                        }
+                                      card_mod:
+                                        style: |
+                                          ha-card {
+                                            height: 105px;
+                                            background: rgba(0,0,0,0.0);
+                                            --ha-card-box-shadow: inset 1px rgba(0,0,0,0.0);
+                                            margin: 0 !important;
+                                            padding: 0 !important;
+                                            --primary-text-color: white;
+                                            border: none;
+                                          }
                                       tap_action:
                                         action: toggle
                                       entity: input_boolean.darrens_work_alarm
                                       vertical: true
                                 - type: entities
-                                  style: |
-                                    :host {
-                                      margin: 0 !important;
-                                      padding: 0 !important;
-                                      background: rgba(0,0,0,0.35);
-                                      --ha-card-box-shadow: inset 1px rgba(0,0,0,0.0);
-                                    }
+                                  card_mod:
+                                    style: |
+                                      :host {
+                                        margin: 0 !important;
+                                        padding: 0 !important;
+                                        background: rgba(0,0,0,0.35);
+                                        --ha-card-box-shadow: inset 1px rgba(0,0,0,0.0);
+                                      }
                                   show_header_toggle: false
                                   entities:
                                     - type: custom:button-card
@@ -4754,25 +3859,27 @@ views:
                                         card:
                                           - height: 20px
                                     - type: custom:bignumber-card
-                                      style: |
-                                        ha-card {
-                                          height: 130px;
-                                          background: rgba(0,0,0,0.0);
-                                          --ha-card-box-shadow: inset 1px rgba(0,0,0,0.0);
-                                          margin: 0 !important;
-                                          padding: 0 !important;
-                                        }
+                                      card_mod:
+                                        style: |
+                                          ha-card {
+                                            height: 130px;
+                                            background: rgba(0,0,0,0.0);
+                                            --ha-card-box-shadow: inset 1px rgba(0,0,0,0.0);
+                                            margin: 0 !important;
+                                            padding: 0 !important;
+                                          }
                                       entity: sensor.time_12_hour_am_pm
                                       scale: 58px
                                     - type: custom:countdown-dates
-                                      style: |
-                                        ha-card {
-                                          height: 160px;
-                                          background: rgba(0,0,0,0.0);
-                                          --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
-                                          margin: 0 !important;
-                                          padding: 0 !important;
-                                        }
+                                      card_mod:
+                                        style: |
+                                          ha-card {
+                                            height: 160px;
+                                            background: rgba(0,0,0,0.0);
+                                            --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                                            margin: 0 !important;
+                                            padding: 0 !important;
+                                          }
                                       title: "Reminders:"
                                       phrase: days
                                       show_age: true
@@ -4795,16 +3902,16 @@ views:
                       service: script.good_night
                       target: {}
                     entity: script.good_night
-                    card_mod: null
-                    style: |
-                      ha-card {
-                        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                        background: rgba(0, 0, 0,0.60);
-                        --paper-item-icon-color: var(--accent-color);
-                      }
-                      :host {
-                        --paper-item-icon-color: var(--accent-color);
-                      }
+                    card_mod:
+                      style: |
+                        ha-card {
+                          box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                          background: rgba(0, 0, 0,0.60);
+                          --paper-item-icon-color: var(--accent-color);
+                        }
+                        :host {
+                          --paper-item-icon-color: var(--accent-color);
+                        }
               - type: custom:stack-in-card
                 mode: vertical
                 card_mod:
@@ -5053,16 +4160,17 @@ views:
                       --paper-item-icon-color: var(--accent-color);
                     }
               - type: entities
-                style: |
-                  ha-card {
-                    border-radius: 12px;
-                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                    background: rgba(0, 0, 0,0.60);
-                    --paper-item-icon-color: var(--accent-color);
-                  }
-                  :host {
-                    --paper-item-icon-color: var(--accent-color);
-                  }
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-radius: 12px;
+                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                      background: rgba(0, 0, 0,0.60);
+                      --paper-item-icon-color: var(--accent-color);
+                    }
+                    :host {
+                      --paper-item-icon-color: var(--accent-color);
+                    }
                 entities:
                   - type: custom:fold-entity-row
                     head:
@@ -5071,58 +4179,62 @@ views:
                     padding: 0px
                     items:
                       - type: custom:mod-card
-                        style: |
-                          ha-card {
-                            --paper-card-background-color: #202020;
-                            height: auto;
-                            font-size: 6px;
-                          }
+                        card_mod:
+                          style: |
+                            ha-card {
+                              --paper-card-background-color: #202020;
+                              height: auto;
+                              font-size: 6px;
+                            }
                         card:
                           type: vertical-stack
                           cards:
                             - type: horizontal-stack
                               cards:
                                 - type: custom:mushroom-entity-card
-                                  style: |
-                                    ha-card {
-                                      border-radius: 12px;
-                                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                      background: rgba(0, 0, 0,0.60);
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
-                                    :host {
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        border-radius: 12px;
+                                        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                        background: rgba(0, 0, 0,0.60);
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
+                                      :host {
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
                                   entity: camera.driveway_cam
                                   name: " "
                                   use_entity_picture: true
                                   secondary_info: none
                                 - type: custom:mushroom-entity-card
-                                  style: |
-                                    ha-card {
-                                      border-radius: 12px;
-                                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                      background: rgba(0, 0, 0,0.60);
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
-                                    :host {
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        border-radius: 12px;
+                                        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                        background: rgba(0, 0, 0,0.60);
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
+                                      :host {
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
                                   entity: camera.front_door
                                   name: " "
                                   use_entity_picture: true
                                   secondary_info: none
                                 - type: custom:mushroom-entity-card
-                                  style: |
-                                    ha-card {
-                                      border-radius: 12px;
-                                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                      background: rgba(0, 0, 0,0.60);
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
-                                    :host {
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        border-radius: 12px;
+                                        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                        background: rgba(0, 0, 0,0.60);
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
+                                      :host {
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
                                   entity: camera.patio_cam
                                   name: " "
                                   use_entity_picture: true
@@ -5130,47 +4242,50 @@ views:
                             - type: horizontal-stack
                               cards:
                                 - type: custom:mushroom-entity-card
-                                  style: |
-                                    ha-card {
-                                      border-radius: 12px;
-                                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                      background: rgba(0, 0, 0,0.60);
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
-                                    :host {
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        border-radius: 12px;
+                                        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                        background: rgba(0, 0, 0,0.60);
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
+                                      :host {
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
                                   entity: camera.garage_cam
                                   use_entity_picture: true
                                   secondary_info: none
                                   name: " "
                                 - type: custom:mushroom-entity-card
-                                  style: |
-                                    ha-card {
-                                      border-radius: 12px;
-                                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                      background: rgba(0, 0, 0,0.60);
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
-                                    :host {
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        border-radius: 12px;
+                                        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                        background: rgba(0, 0, 0,0.60);
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
+                                      :host {
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
                                   entity: camera.front_yard_cam
                                   primary_info: none
                                   secondary_info: none
                                   use_entity_picture: true
                                   name: " "
                                 - type: custom:mushroom-entity-card
-                                  style: |
-                                    ha-card {
-                                      border-radius: 12px;
-                                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                      background: rgba(0, 0, 0,0.60);
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
-                                    :host {
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        border-radius: 12px;
+                                        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                        background: rgba(0, 0, 0,0.60);
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
+                                      :host {
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
                                   entity: camera.entry_hall_cam
                                   primary_info: none
                                   secondary_info: none
@@ -5179,47 +4294,50 @@ views:
                             - type: horizontal-stack
                               cards:
                                 - type: custom:mushroom-entity-card
-                                  style: |
-                                    ha-card {
-                                      border-radius: 12px;
-                                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                      background: rgba(0, 0, 0,0.60);
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
-                                    :host {
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        border-radius: 12px;
+                                        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                        background: rgba(0, 0, 0,0.60);
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
+                                      :host {
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
                                   entity: camera.kitchen_cam
                                   use_entity_picture: true
                                   secondary_info: none
                                   name: " "
                                 - type: custom:mushroom-entity-card
-                                  style: |
-                                    ha-card {
-                                      border-radius: 12px;
-                                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                      background: rgba(0, 0, 0,0.60);
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
-                                    :host {
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        border-radius: 12px;
+                                        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                        background: rgba(0, 0, 0,0.60);
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
+                                      :host {
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
                                   entity: camera.hallway_cam
                                   primary_info: none
                                   secondary_info: none
                                   use_entity_picture: true
                                   name: " "
                                 - type: custom:mushroom-entity-card
-                                  style: |
-                                    ha-card {
-                                      border-radius: 12px;
-                                      box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                      background: rgba(0, 0, 0,0.60);
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
-                                    :host {
-                                      --paper-item-icon-color: var(--accent-color);
-                                    }
+                                  card_mod:
+                                    style: |
+                                      ha-card {
+                                        border-radius: 12px;
+                                        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                        background: rgba(0, 0, 0,0.60);
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
+                                      :host {
+                                        --paper-item-icon-color: var(--accent-color);
+                                      }
                                   entity: camera.kitchen_cam_2
                                   primary_info: none
                                   secondary_info: none
@@ -5468,24 +4586,40 @@ views:
               font-size: .8em !important;
             }
 
+  - !include lovelace/views/newtab.yaml
+  - !include lovelace/views/ensuite_kiosk.yaml
+  - !include lovelace/views/random.yaml
+  - !include lovelace/views/screen.yaml
+  - !include lovelace/views/1drive-cam.yaml
+  - !include lovelace/views/1porch-cam.yaml
+  - !include lovelace/views/1front-cam.yaml
+  - !include lovelace/views/1doorbell-cam.yaml
+  - !include lovelace/views/1patio-cam.yaml
+  - !include lovelace/views/1backyard-cam.yaml
+  - !include lovelace/views/1garage-cam.yaml
+  - !include lovelace/views/1noaa-radar.yaml
+  - !include lovelace/views/2drive-cam.yaml
+  - !include lovelace/views/2porch-cam.yaml
+  - !include lovelace/views/2front-cam.yaml
+  - !include lovelace/views/2doorbell-cam.yaml
+  - !include lovelace/views/2patio-cam.yaml
+  - !include lovelace/views/2backyard-cam.yaml
+  - !include lovelace/views/2garage-cam.yaml
+  - !include lovelace/views/2noaa-radar.yaml
+  - !include lovelace/views/cameras.yaml
+  #  - !include lovelace/views/newmob.yaml
   #  - !include lovelace/views/autocam.yaml
   #  - !include lovelace/views/outside.yaml
   #  - !include lovelace/views/power.yaml
-  - !include lovelace/views/settings.yaml
+  #  - !include lovelace/views/settings.yaml
   #  - !include lovelace/views/tablet.yaml
-  - !include lovelace/views/random.yaml
   #  - !include lovelace/views/list.yaml
-  - !include lovelace/views/cameras.yaml
   #  - !include lovelace/views/floorplan.yaml
   #  - !include lovelace/views/test.yaml
   #  - !include lovelace/views/testing.yaml
   #  - !include lovelace/views/media.yaml
   #  - !include lovelace/views/media2.yaml
   #  - !include lovelace/views/panel.yaml
-  #  - !include lovelace/views/screen.yaml
   #  - !include lovelace/views/screen2.yaml
   #  - !include lovelace/views/screen3.yaml
-  - !include lovelace/views/temp.1.yaml
-  - !include lovelace/views/newtab.yaml
-  - !include lovelace/views/newmob.yaml
 #  - !include lovelace/views/newtab2.yaml

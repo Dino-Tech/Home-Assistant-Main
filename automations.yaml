@@ -173,7 +173,7 @@
       before: "21:30:00"
     - condition: template
       value_template: |
-        {% if is_state('media_player.family_tv', 'on') %}
+        {% if is_state('media_player.tv_speakers', 'on') %}
           false
         {% else %}
           true
@@ -181,7 +181,7 @@
   action:
     - service: media_player.play_media
       data_template:
-        entity_id: media_player.living_room_google
+        entity_id: media_player.tv_speakers
         media_content_id: >-
           {% if now().strftime("%M")|int == 15 %}
           media-source://media_source/local/gf-hour-15.mp3
@@ -401,7 +401,7 @@
   initial_state: true
   trigger:
     platform: time_pattern
-    minutes: /6
+    minutes: /7
   action:
     - service: input_select.select_next
       entity_id: input_select.wallpaper
@@ -415,7 +415,7 @@
   initial_state: true
   trigger:
     platform: time_pattern
-    minutes: /4
+    minutes: /5
   action:
     - service: input_select.select_next
       entity_id:
@@ -435,7 +435,17 @@
       after: 05:30:00
       before: "23:00:00"
   action:
-    - service: script.wake_tablet
+    - service: switch.turn_on
+      data:
+        entity_id: switch.main_kiosk_screen
+    - service: light.turn_on
+      data:
+        entity_id: light.ac9b7f58_cfbfe785_screen
+    - service: browser_mod.navigate
+      data:
+        browser_id:
+          - ac9b7f58-cfbfe785
+        path: /lovelace/newtab
 - id: "17095999999922"
   alias: "[Tablet] motion_OFF_night"
   initial_state: true
@@ -444,12 +454,11 @@
       entity_id: light.den_nite_lites
       to: "off"
       for:
-        minutes: 5
+        minutes: 15
   condition:
     - condition: time
       after: "22:30:01"
       before: 05:30:00
-    - condition: state
   action:
     - service: switch.turn_off
       data:
@@ -460,28 +469,31 @@
   trigger:
     - platform: state
       entity_id: light.den_nite_lites
-      to: "off"
-      for:
-        minutes: 5
-  condition:
-    - condition: time
-      after: 05:30:01
-      before: "22:30:00"
-  action:
-    - service: script.sleep_tablet
-- id: "17097999999955"
-  alias: "[Tablet] motion_OFF_day_picsaver_ON"
-  initial_state: true
-  trigger:
-    - platform: state
-      entity_id: light.den_nite_lites
+      from: "on"
       to: "off"
   condition:
     - condition: time
       after: 05:30:01
       before: "22:30:00"
+    - condition: state
+      entity_id: binary_sensor.den_motion_sensors
+      state: "off"
   action:
-    - service: script.browser_picsaver_on
+    - delay: 300
+    - service: browser_mod.navigate
+      data:
+        browser_id:
+          - ac9b7f58-cfbfe785
+        path: /lovelace/random
+    - delay: 600
+    - service: browser_mod.navigate
+      data:
+        path: /lovelace/screen
+        browser_id:
+          - ac9b7f58-cfbfe785
+  mode: restart
+  max_exceeded: silent
+
 - id: "17099299999977"
   alias: "[Tablet] Toggle tablet icons color"
   initial_state: true
@@ -554,6 +566,7 @@
         - switch.ha2_office_monitor
         - fan.hallway_fan
         - switch.ha2_work_bench
+        - switch.keurig_coffee
   initial_state: true
   mode: single
 - id: "170999979999163"
@@ -744,7 +757,17 @@
             - service: light.turn_on
               entity_id: light.entry_hall_lights
     - service: script.people_home
-    - service: script.wake_tablet
+    - service: switch.turn_on
+      data:
+        entity_id: switch.main_kiosk_screen
+    - service: light.turn_on
+      data:
+        entity_id: light.ac9b7f58_cfbfe785_screen
+    - service: browser_mod.navigate
+      data:
+        browser_id:
+          - ac9b7f58-cfbfe785
+        path: /lovelace/newtab
     - choose:
         - conditions:
             - condition: time
@@ -977,7 +1000,7 @@
   initial_state: true
   trigger:
     - platform: numeric_state
-      entity_id: sensor.washer_watts
+      entity_id: sensor.washer_plug_energy_power
       above: 4
       for:
         minutes: 4
@@ -995,7 +1018,7 @@
   initial_state: true
   trigger:
     - platform: numeric_state
-      entity_id: sensor.washer_watts
+      entity_id: sensor.washer_plug_energy_power
       below: 5
       for:
         minutes: 4
@@ -1034,7 +1057,7 @@
   initial_state: true
   trigger:
     - platform: numeric_state
-      entity_id: sensor.dryer_watts
+      entity_id: sensor.dryer_energy_power
       above: 50
       for:
         minutes: 4
@@ -1049,7 +1072,7 @@
   initial_state: true
   trigger:
     - platform: numeric_state
-      entity_id: sensor.dryer_watts
+      entity_id: sensor.dryer_energy_power
       below: 6
       for:
         minutes: 1
@@ -1216,10 +1239,17 @@
             - service: light.turn_off
               continue_on_error: true
               entity_id:
-                - light.alarm_triggered_lights
+                - light.every_light
+                - light.outside_lights
             - service: notify.pixels_and_den_tv
               data_template:
                 message: "Alarm canceled at {{ states('sensor.time_12_hour_am_pm') }}"
+            - delay: 3
+            - service: light.turn_on
+              continue_on_error: true
+              entity_id:
+                - light.ha2_sofa_lamp
+                - light.cabinet_lights
 - id: "1701613174749753434567"
   alias: "[Alarmo] Home mode switch"
   initial_state: true
@@ -1899,6 +1929,10 @@
     - platform: time_pattern
       minutes: /5
       enabled: true
+  condition:
+    - condition: state
+      entity_id: input_boolean.radar_updates
+      state: "on"
   action:
     - service: downloader.download_file
       data:
@@ -1913,6 +1947,10 @@
     - platform: time_pattern
       minutes: /15
       enabled: true
+  condition:
+    - condition: state
+      entity_id: input_boolean.radar_updates
+      state: "on"
   action:
     - service: downloader.download_file
       data:
@@ -1927,6 +1965,10 @@
     - platform: time_pattern
       minutes: /5
       enabled: true
+  condition:
+    - condition: state
+      entity_id: input_boolean.radar_updates
+      state: "on"
   action:
     - service: downloader.download_file
       data:
@@ -1941,6 +1983,10 @@
     - platform: time_pattern
       minutes: /5
       enabled: true
+  condition:
+    - condition: state
+      entity_id: input_boolean.radar_updates
+      state: "on"
   action:
     - service: downloader.download_file
       data:
@@ -2196,6 +2242,12 @@
       data:
         entity_id: media_player.tv_speakers
         volume_level: "0.40"
+    - delay: 2
+    - service: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id: media_player.office_google
+        volume_level: "0.40"
   mode: single
   max_exceeded: silent
 - id: "170163035746544"
@@ -2276,12 +2328,18 @@
             - action: URI
               title: Click to Open Cameras
               uri: /lovelace/cameras
+    - delay: 300
     - service: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.tv_speakers
         volume_level: "0.40"
-    - delay: 300
+    - delay: 2
+    - service: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id: media_player.office_google
+        volume_level: "0.40"
   mode: single
   max_exceeded: silent
 - id: "170183046792101"
@@ -2356,6 +2414,12 @@
       continue_on_error: true
       data:
         entity_id: media_player.tv_speakers
+        volume_level: "0.40"
+    - delay: 2
+    - service: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id: media_player.office_google
         volume_level: "0.40"
   mode: single
   max_exceeded: silent
@@ -2499,8 +2563,10 @@
     - platform: template
       value_template:
         "{{ states('sensor.date_time') == (as_timestamp(states.sensor.pixel_8_pro_next_alarm.state)
-        |int -600)| timestamp_custom('%Y-%m-%d, %H:%M', True) }} "
+        |int -300)| timestamp_custom('%Y-%m-%d, %H:%M', True) }} "
   condition:
+    - condition: template
+      value_template: "{{ trigger.from_state.state != 'unavailable' }}"
     - condition: state
       entity_id: input_boolean.darren_s_alarm_triggered_today
       state: "off"
@@ -2518,6 +2584,8 @@
         "{{ states('sensor.date_time') == (as_timestamp(states.sensor.pixel_5_next_alarm.state)
         |int -60)| timestamp_custom('%Y-%m-%d, %H:%M', True) }} "
   condition:
+    - condition: template
+      value_template: "{{ trigger.from_state.state != 'unavailable' }}"
     - condition: state
       entity_id: input_boolean.donna_s_alarm_triggered_today
       state: "off"
@@ -2934,7 +3002,11 @@
         - light.bedroom_lights
       to: "on"
       for:
-        minutes: 3
+        seconds: 30
+    - platform: state
+      entity_id:
+        - binary_sensor.bedroom_motion_sensors
+      to: "on"
   condition:
     - condition: time
       before: "11:00:00"
@@ -2960,7 +3032,7 @@
   condition:
     - condition: time
       before: "11:00:00"
-      after: "05:00:00"
+      after: "04:00:00"
   action:
     - service: input_boolean.turn_on
       target:
@@ -2973,13 +3045,19 @@
           intent_action: com.urbandroid.sleep.alarmclock.STOP_SLEEP_TRACK
           ttl: 0
           priority: high
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.door_announcements
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.radar_updates
 - id: "1703432544430144455712"
   alias: "Everyone is awake"
   mode: single
   trigger:
     - platform: state
       entity_id:
-        - group.everyone_awake
+        - binary_sensor.everyone_awake
       to: "on"
   action:
     - service: input_boolean.turn_on
@@ -2994,7 +3072,7 @@
       target:
         entity_id: media_player.living_room_google
       data:
-        volume_level: 0.5
+        volume_level: 0.55
 - id: "17033325057263014567"
   alias: Guest room auto fan
   trigger:

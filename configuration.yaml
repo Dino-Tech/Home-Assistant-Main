@@ -2,6 +2,8 @@
 homeassistant:
   auth_providers:
     - type: homeassistant
+  media_dirs:
+    local: /config/media
   name: !secret home_name
   latitude: !secret home_latitude
   longitude: !secret home_longitude
@@ -67,6 +69,9 @@ recorder:
       - sensor.date_time
       - sensor.date_time_iso
       - sensor.daylight
+      - sensor.verse_feed
+    entity_globs:
+      - sensor.flightradar24*
   include:
     entities:
       - climate.den
@@ -155,6 +160,20 @@ media_player:
       - media_player.all_speakers_group
       - media_player.guest_clock
       - media_player.kitchen_speakers
+
+modbus:
+  - name: MM Sensor
+    type: tcp
+    host: 192.168.1.153
+    port: 502
+    sensors:
+      - name: mm_sensor
+        address: 802
+        scan_interval: 10
+        unique_id: mm_sensor
+      - name: mm_sensor_no_person
+        address: 832
+        unique_id: mm_sensor_no_person
 
 zone:
   - name: !secret zone2_name

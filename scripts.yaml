@@ -208,8 +208,9 @@ good_night:
       continue_on_error: true
       entity_id:
         - light.every_light
-        - switch.night_switches
         - light.office_floor_lights
+        - switch.night_switches
+        - switch.keurig_coffee
         - input_boolean.disable_popups
         - input_boolean.darren_s_alarm_triggered_today
         - input_boolean.darren_is_awake
@@ -220,6 +221,7 @@ good_night:
         - input_boolean.auto_tablet
         - input_boolean.auto_backgroundz
         - input_boolean.sports_updates
+        - input_boolean.radar_updates
     - service: mqtt.publish
       continue_on_error: true
       data:
@@ -259,6 +261,7 @@ good_night:
           Good night. {{ ["You are a child of God.", "Sleep well!", "God is good ALL the time!"] | random }}
     - service: homeassistant.turn_off
       entity_id: switch.main_kiosk_screen
+    - delay: 3
     - service: media_player.volume_set
       continue_on_error: true
       data:
@@ -348,6 +351,7 @@ morning:
         - switch.main_kiosk_screen
         - switch.subwoofer
         - switch.den_nightlight_plugs
+        - switch.keurig_coffee
     - delay: 300
     - service: input_boolean.turn_on
       entity_id:
@@ -730,14 +734,14 @@ browser_window_reload:
     - delay: "00:00:04"
     - service: browser_mod.navigate
       data:
-        path: /dashboard-wallkiosk/0
+        path: /lovelace/newtab
         browser_id:
           - ac9b7f58-cfbfe785
     - service: browser_mod.navigate
       data:
-        path: /dashboard-switch/0
+        path: /lovelace/ensuite_kiosk
         browser_id:
-          - d75a5595-2777b7c8
+          - 1b918469-5d6a2b44
     - delay: "00:00:03"
     - service: browser_mod.refresh
 
@@ -747,60 +751,12 @@ browser_window_reload_test:
     - delay: "00:00:04"
     - service: browser_mod.navigate
       data:
-        path: /dashboard-wallkiosk/screen # /lovelace/screen2 need fix
+        path: /lovelace/newtab
         browser_id:
           - d75a5595-2777b7c8
 
-browser_home:
-  sequence:
-    - service: browser_mod.navigate
-      data:
-        path: /dashboard-wallkiosk/0
-        browser_id:
-          #         - OfficeTab LAN
-          - ac9b7f58-cfbfe785
-    - service: browser_mod.navigate
-      data:
-        path: /dashboard-wallkiosk/0
-        browser_id:
-          - OfficePC
-    - service: input_boolean.turn_off
-      data:
-        entity_id: input_boolean.browser_home
-
 browser_close_popup:
   sequence:
-    - service: browser_mod.refresh
-
-browser_refresh:
-  sequence:
-    - service: browser_mod.refresh
-    - service: input_boolean.turn_off
-      data:
-        entity_id: input_boolean.browser_refresh
-
-browser_navigate:
-  sequence:
-    - service: browser_mod.navigate
-      data:
-        path: /dashboard-wallkiosk/0
-    - delay: "00:00:01"
-    - service: browser_mod.refresh
-
-browser_tablet:
-  sequence:
-    - service: browser_mod.navigate
-      data:
-        path: /dashboard-wallkiosk/0
-        browser_id:
-          #          - OfficeTab LAN
-          - ac9b7f58-cfbfe785
-    #    - service: browser_mod.navigate
-    #      data:
-    #        path: /lovelace/home
-    #        browser_id:
-    #          - Kiosk
-    - delay: "00:00:01"
     - service: browser_mod.refresh
 
 # ####################################################
@@ -813,223 +769,17 @@ browser_picsaver_on:
         option: blink
     - service: browser_mod.navigate
       data:
-        path: /dashboard-wallkiosk/screen
+        path: /lovelace/screen
         browser_id:
           - ac9b7f58-cfbfe785
-# ####################################################
+# ##########################################################
 browser_picsaver_off:
   sequence:
     - service: browser_mod.navigate
       data:
-        path: /dashboard-wallkiosk/0
+        path: /lovelace/newtab
         browser_id:
           - ac9b7f58-cfbfe785
-# ###########################################################
-sleep_tablet: # CLOCK SCREENSAVER
-  sequence:
-    - service: browser_mod.navigate
-      data:
-        browser_id:
-          - ac9b7f58-cfbfe785
-        path: /dashboard-wallkiosk/random
-# ###########################################################
-wake_tablet: # NORMAL VIEW
-  sequence:
-    - service: switch.turn_on
-      data:
-        entity_id: switch.main_kiosk_screen
-    - service: light.turn_on
-      data:
-        entity_id: light.ac9b7f58_cfbfe785_screen
-    - service: browser_mod.navigate
-      data:
-        browser_id:
-          - ac9b7f58-cfbfe785
-        path: /dashboard-wallkiosk/0
-# ####################################################
-browser_popup_1:
-  sequence:
-    - condition: state
-      entity_id: input_boolean.disable_popups
-      state: "off"
-    - service: browser_mod.more_info
-      data:
-        entity_id: camera.front_door
-        large: true
-    - delay: "00:02:00"
-    - service: browser_mod.refresh
-
-browser_popup_2:
-  sequence:
-    - condition: state
-      entity_id: input_boolean.disable_inside_popups
-      state: "off"
-    - service: browser_mod.more_info
-      data:
-        entity_id: camera.entry_hall_cam
-        large: true
-
-#browser_popup_3:
-#  sequence:
-#    - condition: state
-#      entity_id: input_boolean.disable_popups
-#      state: "off"
-#    - condition: state
-#    - service: browser_mod.more_info
-#      data:
-#        entity_id: camera.garage_cam
-#        large: true
-
-browser_popup_4:
-  sequence:
-    - condition: state
-      entity_id: input_boolean.disable_inside_popups
-      state: "off"
-    - service: browser_mod.more_info
-      data:
-        entity_id: camera.den_cam
-        large: true
-
-browser_popup_5:
-  sequence:
-    - condition: state
-      entity_id: input_boolean.disable_inside_popups
-      state: "off"
-    - service: browser_mod.more_info
-      data:
-        entity_id: camera.kitchen_cam
-        large: true
-
-browser_popup_6:
-  sequence:
-    - condition: state
-      entity_id: input_boolean.disable_popups
-      state: "off"
-    - service: browser_mod.more_info
-      data:
-        entity_id: camera.patio_cam
-        large: true
-
-browser_popup_7:
-  sequence:
-    - condition: state
-      entity_id: input_boolean.disable_popups
-      state: "off"
-    - service: browser_mod.more_info
-      data:
-        entity_id: camera.driveway_cam
-        large: true
-
-browser_popup_8:
-  sequence:
-    - condition: state
-      entity_id: input_boolean.disable_inside_popups
-      state: "off"
-    - service: browser_mod.more_info
-      data:
-        entity_id: camera.poopy_cam
-        large: true
-
-# ###########################################################
-# ######         WALLPAPER & BORDER COLOR SETS        #######
-# ###########################################################
-morning_screen:
-  sequence:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.wallpaper
-        option: dawn
-    - service: input_boolean.turn_on
-      entity_id:
-        - input_boolean.auto_tablet
-# ###########################################################
-night_screen:
-  sequence:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.wallpaper
-        option: ColorSunset
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.auto_borderz
-        option: Black
-# ###########################################################
-purple_screen:
-  sequence:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.wallpaper
-        option: light-purple
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.auto_borderz
-        option: Purple
-# ###########################################################
-red_fire_screen:
-  sequence:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.wallpaper
-        option: Fire
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.auto_borderz
-        option: Red
-# ###########################################################
-blue_fire_screen:
-  sequence:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.wallpaper
-        option: Fire
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.auto_borderz
-        option: DarkBlue
-# ###########################################################
-green_screen:
-  sequence:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.wallpaper
-        option: green.ice
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.auto_borderz
-        option: Chartreuse
-# ###########################################################
-star_screen:
-  sequence:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.wallpaper
-        option: ColorSunset
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.auto_borderz
-        option: Black
-# ###########################################################
-space_screen:
-  sequence:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.wallpaper
-        option: space01
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.auto_borderz
-        option: Black
-# ###########################################################
-aqua_screen:
-  sequence:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.wallpaper
-        option: lights
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.auto_borderz
-        option: Lime
 # ###########################################################
 # ###########################################################
 home_assistant_screen: # HA SCREENSAVER
@@ -1045,7 +795,6 @@ home_assistant_screen: # HA SCREENSAVER
 # ###########################################################
 # ##               TIMERS & ALARM SCRIPTS                 ###
 # ###########################################################
-
 coffee_on:
   sequence:
     - service: homeassistant.turn_on
@@ -1062,25 +811,17 @@ darrens_wake_up:
   sequence:
     - service: homeassistant.turn_on
       entity_id: input_boolean.darren_s_alarm_triggered_today
-    - service: notify.mobile_app_pixel_8_pro
       continue_on_error: true
-      data:
-        message: command_broadcast_intent
-        data:
-          intent_package_name: com.urbandroid.sleep
-          intent_action: com.urbandroid.sleep.ACTION_LULLABY_STOP_PLAYBACK
-          ttl: 0
-          priority: high
     - service: light.turn_on
       data:
-        entity_id: light.corner_light
+        entity_id: light.desk_light
         brightness_pct: 10
         transition: 4
         kelvin: 2400
     - delay: "00:01:00"
     - service: light.turn_on
       data:
-        entity_id: light.corner_light
+        entity_id: light.desk_light
         brightness_pct: 30
         transition: 4
         kelvin: 3300
@@ -1123,21 +864,21 @@ darrens_wake_up:
               spotify://9f616d8fea216b2657003da0fa09fb2d/current_user_recently_played
     - service: light.turn_on
       data:
-        entity_id: light.bed_light
+        entity_id: light.corner_light
         brightness_pct: 10
         transition: 4
         kelvin: 2400
     - delay: "00:01:00"
     - service: light.turn_on
       data:
-        entity_id: light.bed_light
+        entity_id: light.corner_light
         brightness_pct: 30
         transition: 2
         kelvin: 3300
     - delay: "00:02:00"
     - service: light.turn_on
       data:
-        entity_id: light.desk_light
+        entity_id: light.bed_light
         brightness_pct: 30
         transition: 2
         kelvin: 3300
@@ -1145,7 +886,7 @@ darrens_wake_up:
       data:
         entity_id: light.office_ceiling_lights
         brightness_pct: 30
-    - service: homeassistant.turn_off
+    - service: switch.turn_off
       entity_id:
         - switch.air_cleaner
     - delay: "00:05:00"
@@ -1367,13 +1108,13 @@ restart_ha:
     - delay: "00:00:03"
     - service: browser_mod.navigate
       data:
-        path: /dashboard-wallkiosk/0 #/lovelace/screen2 need to fix
+        path: /lovelace/newtab #/lovelace/screen2 need to fix
         browser_id:
           - d75a5595-2777b7c8
     - delay: "00:00:01"
     - service: browser_mod.navigate
       data:
-        path: /dashboard-wallkiosk/0 #/lovelace/screen3 need to fix
+        path: /lovelace/newtab #/lovelace/screen3 need to fix
         browser_id:
           - ac9b7f58-cfbfe785
     - delay: "00:00:06"
@@ -1510,11 +1251,19 @@ alarm_disarm:
         - switch.noonlight_switch
         - switch.siren
     - service: light.turn_off
+      continue_on_error: true
       entity_id:
-        - light.alarm_triggered_lights
+        - light.every_light
+        - light.outside_lights
     - service: notify.pixels_and_den_tv
       data_template:
-        message: "Alarm disarmed at {{ states('sensor.time_12_hour_am_pm') }}"
+        message: "Alarm canceled at {{ states('sensor.time_12_hour_am_pm') }}"
+    - delay: 3
+    - service: light.turn_on
+      continue_on_error: true
+      entity_id:
+        - light.ha2_sofa_lamp
+        - light.cabinet_lights
     - service: input_boolean.turn_off
       entity_id: input_boolean.alarm_disarm_switch
 alarmo_disarm:
