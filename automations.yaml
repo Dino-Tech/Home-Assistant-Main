@@ -579,13 +579,6 @@
       for:
         seconds: 12
   action:
-    - service: homeassistant.turn_on
-      continue_on_error: true
-      entity_id:
-        - input_boolean.darren_home
-        - light.office_floor_lights
-        - fan.hallway_fan
-        - switch.ha2_office_monitor
     - choose:
         - conditions:
             - condition: state
@@ -616,6 +609,21 @@
           sequence:
             - service: light.turn_on
               entity_id: light.garage_ceiling_lights
+    - service: homeassistant.turn_on
+      continue_on_error: true
+      entity_id:
+        - input_boolean.darren_home
+        - light.office_floor_lights
+    - wait_for_trigger:
+        platform: state
+        entity_id: binary_sensor.office_motion_sensors
+        from: "off"
+        to: "on"
+    - service: homeassistant.turn_on
+      continue_on_error: true
+      entity_id:
+        - fan.hallway_fan
+        - switch.ha2_office_monitor
     - delay: 180
     - service: input_boolean.turn_off
       entity_id:
