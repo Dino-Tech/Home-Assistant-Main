@@ -2,34 +2,70 @@
 # resources:
 - url: /hacsfiles/lovelace-card-tools/card-tools.js
   type: module
-- url: https://fonts.googleapis.com/css?family=Righteous
+- url: /hacsfiles/entity-attributes-card/entity-attributes-card.js
+  type: module
+- url: https://fonts.googleapis.com/css?family=Righteous&family=Sofia+Sans+Extra+Condensed:wght@500
   type: css
-- url: https://cdn.jsdelivr.net/gh/custom-cards/spotify-card@1.8/dist/spotify-card.umd.js
+- url: https://fonts.googleapis.com/css?family=Sofia+Sans+Extra+Condensed:wght@500
+  type: css
+- url: /hacsfiles/kiosk-mode/kiosk-mode.js
   type: module
-- url: /hacsfiles/lovelace-card-preloader/lovelace-card-preloader.js
+#- url: /hacsfiles/lovelace-header-cards/lovelace-header-cards.js
+#  type: module
+- url: /hacsfiles/fr24_card/fr24_card.js
   type: module
-- url: /hacsfiles/lovelace-layout-card/layout-card.js
+- url: /hacsfiles/clock-weather-card/clock-weather-card.js
   type: module
-- url: /hacsfiles/custom-header/custom-header.js
+- url: /hacsfiles/ha-teamtracker-card/ha-teamtracker-card.js
   type: module
 - url: /hacsfiles/spotify-card/spotify-card.js
   type: module
-- url: /hacsfiles/lovelace-gap-card/gap-card.js
+- url: /hacsfiles/surveillance-card/surveillance-card.js
+  type: module
+- url: /hacsfiles/platinum-weather-card/platinum-weather-card.js
+  type: module
+- url: /hacsfiles/alarmo-card/alarmo-card.js
+  type: module
+- url: /hacsfiles/slider-button-card/slider-button-card.js
+  type: module
+- url: /hacsfiles/lovelace-layout-card/layout-card.js
+  type: module
+- url: /hacsfiles/lovelace-fluid-level-background-card/fluid-level-background-card.js
+  type: module
+#- url: /hacsfiles/lovelace-wallpanel/wallpanel.js
+#  type: module
+#- url: /hacsfiles/HomeAssistant-Touchpad-Card/touchpad-card.js
+#  type: module
+- url: /hacsfiles/lovelace-horizon-card/lovelace-horizon-card.js
+  type: module
+- url: /hacsfiles/my-cards/my-cards.js
+  type: module
+- url: /hacsfiles/light-entity-card/light-entity-card.js
+  type: module
+- url: /hacsfiles/lovelace-hui-element/hui-element.js
+  type: module
+- url: /hacsfiles/lightalarm-card/lightalarm-card.js
+  type: module
+- url: /hacsfiles/stack-in-card/stack-in-card.js
+  type: module
+- url: /hacsfiles/spotify-card/spotify-card.js
+  type: module
+- url: /hacsfiles/lovelace-mushroom/mushroom.js
   type: module
 - url: /local/custom-lovelace/thermostat-card/thermostat-card.js
   type: module
-- url: /hacsfiles/lovelace-card-modder/card-modder.js
+- url: /local/lovelace-card-modder/card-modder.js
   type: module
-- url: /local/lovelace-card-mod/card-mod.js
+- url: /hacsfiles/numberbox-card/numberbox-card.js
   type: module
 - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
   type: module
 - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
   type: module
-- url: /hacsfiles/surveillance-card/surveillance-card.js
+- url: /hacsfiles/fan-mode-button-row/fan-mode-button-row.js
   type: module
-- url: /hacsfiles/light-entity-row/light-entity-row.js
-  type: module
+##- url: /hacsfiles/light-entity-row/light-entity-row.js
+##  type: module
 - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
   type: module
 - url: /hacsfiles/button-card/button-card.js
@@ -40,13 +76,17 @@
   type: module
 - url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
   type: module
-- url: /hacsfiles/radial-menu/radial-menu.js
-  type: module
+#- url: /hacsfiles/radial-menu/radial-menu.js
+#  type: module
 - url: /hacsfiles/bignumber-card/bignumber-card.js
   type: module
-- url: /local/custom-lovelace/dark-sky-weather-card.js
-  type: module
-- url: /hacsfiles/restriction-card/restriction-card.js
+#- url: /local/custom-lovelace/dark-sky-weather-card.js
+#  type: module
+#- url: /hacsfiles/restriction-card/restriction-card.js
+#  type: module
+#- url: /webrtc/webrtc-camera.js
+#  type: module
+- url: /hacsfiles/lovelace-windrose-card/windrose-card.js
   type: module
 - url: /local/custom-lovelace/lovelace-state-switched/state-switched.js
   type: module
@@ -56,9 +96,9 @@
   type: module
 - url: /hacsfiles/bar-card/bar-card.js
   type: module
-- url: /hacsfiles/lovelace-dummy-entity-row/dummy-entity-row.js
+- url: /local/bar-cardder/bar-cardder.js?v=1.7.1
   type: module
-- url: /hacsfiles/lovelace-time-input-row/time-input-row.js
+- url: /hacsfiles/lovelace-dummy-entity-row/dummy-entity-row.js
   type: module
 - url: /hacsfiles/text-divider-row/text-divider-row.js
   type: module
@@ -66,37 +106,57 @@
   type: module
 - url: /hacsfiles/weather-card/weather-card.js
   type: module
-- url: /hacsfiles/swipe-card/swipe-card.js
+- url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/swipe-card.js
   type: module
 - url: /hacsfiles/list-card/list-card.js
+  type: module
+- url: /local/lovelace-gap-card/gap-card.js
+  type: module
+- url: /hacsfiles/lovelace-animated-background/animated-background.js
   type: module
 - url: /local/custom-lovelace/lovelace-countdown-dates.js?v=0.1.1.8
   type: module
 - url: /local/atomic_calendar.js?v=0.9.1
   type: module
-- url: /local/custom-lovelace/camera-card.js
+- url: /hacsfiles/atomic-calendar-revive/atomic-calendar-revive.js
   type: module
-- url: /local/custom-lovelace/weather-card-chart.js
-  type: module
+#- url: /local/custom-lovelace/camera-card.js
+#  type: module
+#- url: /local/custom-lovelace/weather-card-chart.js
+#  type: module
 - url: /hacsfiles/lovelace-more-info-card/more-info-card.js
   type: module
-- url: /hacsfiles/logbook-card/logbook-card.js
+- url: /hacsfiles/lovelace-clock-card/clock-card.js
   type: module
+#- url: /hacsfiles/logbook-card/logbook-card.js
+#  type: module
 - url: /local/floorplan/floorplan-card.js?v=1.1.14
   type: module
 - url: https://cdn.jsdelivr.net/npm/rgb-light-card
   type: module
 - url: /hacsfiles/lovelace-template-entity-row/template-entity-row.js
   type: module
-- url: /local/air-visual-card/air-visual-card.js?v=0.1.6
+- url: /hacsfiles/air-visual-card/air-visual-card.js
   type: module
 - url: /hacsfiles/light-popup-card/light-popup-card.js
   type: module
-- url: /local/q-card.js?v=0.1.2
-  type: module
+#- url: /local/q-card.js?v=0.1.2
+#  type: module
 - url: /local/custom-smart-home-panel-card.js?v=0.1.b6
   type: module
 - url: /local/multi-dimmer-slider-card.js?v=0.1.1
   type: module
 - url: /hacsfiles/thermostat-popup-card/thermostat-popup-card.js
   type: module
+- url: /local/restriction-card/restriction-card.js?v=1.1.7g
+  type: module
+- url: /hacsfiles/lovelace-time-picker-card/time-picker-card.js
+  type: module
+- url: /hacsfiles/surveillance-card/surveillance-card.js
+  type: module
+#- url: /hacsfiles/quote-of-the-day-card/quote-of-the-day-card.js
+#  type: module
+#- url: /hacsfiles/lovelace-thermostat-dark-card/thermostat-dark-card.js
+#  type: module
+#- url: /hacsfiles/room-card/room-card.js
+#  type: module
