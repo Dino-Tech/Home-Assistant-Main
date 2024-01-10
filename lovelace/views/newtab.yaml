@@ -32,6 +32,54 @@ kiosk_mode:
       hide_search: true
       hide_assistant: true
 
+anchors:
+  show_label: &showlabel
+    show_state: false
+    show_label: true
+  show_state: &showstate
+    show_state: true
+    show_label: false
+
+  frontpage_size: &frontpagesize
+    color: auto
+
+  alarm_button_style: &alarmbuttonstyle
+    card:
+      - border-radius: 13px
+      - width: 153px #360px
+      - height: 83px
+      - --paper-card-background-color: "rgba(0, 0, 0, 0.48)"
+      - box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.31), 0 3px 10px 0 rgba(255, 255, 255, 0.30)
+    state:
+      - font-size: 16px
+      - font-family: Righteous
+      - padding: 6.05px 0px
+      - justify-self: center
+      - text-transform: capitalize
+      - letter-spacing: 1.3px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: center
+      - text-align: center
+    name:
+      - justify-self: center
+      - padding: 3.5px 0px
+      - font-family: Righteous
+      - font-size: 16px
+      - letter-spacing: 1.4px
+      - color: rgba(255,255,255.0.8)
+    icon:
+      - color: white
+
+  standard_button_actions: &standardbuttonactions
+    tap_action:
+      action: more-info
+      haptic: light
+
 id: newtab
 title: Newtab
 path: newtab
@@ -42,26 +90,35 @@ panel: true
 cards:
   - type: custom:card-modder
     style:
-      background: >-
-        center / cover no-repeat url(/local/images-lovelace/backgroundz/[[
-        input_select.wallpaper.state ]].jpg)
-      border-radius: 22px
+      background: "center / cover no-repeat url(/local/images-lovelace/backgroundz/[[ input_select.wallpaper.state ]].jpg)"
+      border-radius: 12px
       padding: 2px 2px 5px 10px
       margin: 0
-      border: solid 0px rgba(0,0,0,0.0)
+      border: "solid 1px black"
       box-sizing: border-box
-      box-shadow: none
       width: 100vw
       height: auto
       display: block
+      animation: "[[ input_select.alert_type.state ]] 2s linear 4"
+    extra_styles: >
+      @keyframes ready {
+        from {border: solid 3px lime;}
+        to {border: solid 3px black;}
+      }
+      @keyframes alarm {
+        from {border: solid 3px red;}
+        to {border: solid 3px black; background: red;}
+      }
+      @keyframes alert {
+        from {border: solid 3px yellow;}
+        to {border: solid 3px black; background: yellow;}
+      }
     recurse: false
     card:
       type: custom:layout-card
       layout: vertical
       column_num: 2
-      max_width:
-        - 980px
-        - 356px
+      max_width: [980px, 356px]
       cards:
         - type: custom:state-switch
           entity: input_select.button_layout
@@ -69,226 +126,187 @@ cards:
           transition_time: 800
           states:
             mainsection:
-              type: custom:stack-in-card
-              card_mod:
-                style: |
-                  ha-card {
-                    background: rgba(0,0,0,0.65);
-                    box-shadow: none;
-                    border: solid 0px rgba(0,0,0,0.0);
-                    --primary-text-color: rgba(255,255,255,0.63);
-                    --primary-color": rgba(248, 248, 248,0.53);
-                    box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                  }
-                  ha-card::before {
-                    content: '';
-                    position: absolute;
-                    height: 100%;
-                    width: 100%;
-                    top: 0;
-                    border-radius: 22px;
-                    overflow: hidden;
-                    opacity: .90;
-                    background-image: url('{{ state_attr('media_player.spotify_dinotech', 'entity_picture') }}');
-                    background-position: cover;
-                    background-repeat: no-repeat;
-                    background-size: 100% 100%;
-                  }
-                  .card-content {
-                    padding: 2px;
-                  }
-                  .card-content > div {
-                    margin: 0 !important;
-                  }
-              mode: vertical
+              type: vertical-stack
               cards:
-                - type: horizontal-stack
-                  cards:
-                    - type: custom:bignumber-card
-                      card_mod:
-                        style: |
-                          ha-card {
-                            border-radius: 22px 0px 0px 0px;
-                            border: solid 0px rgba(0,0,0,0.0);
-                            background: rgba(0,0,0,0.0);
-                            padding: 30px 0px 0px 0px;
-                            font-weight: bold;
-                            letter-spacing: 2px;
-                            height: 75px;
-                            display: block;
-                          }
-                      title: SUNRISE
-                      entity: sensor.sunrise
-                      scale: 26px
-                    - type: custom:bignumber-card
-                      card_mod:
-                        style: |
-                          ha-card {
-                            border-radius: 0px 0px 0px 0px;
-                            border: solid 0px rgba(0,0,0,0.0);
-                            background: rgba(0,0,0,0.0);
-                            padding: 30px 0px 0px 0px;
-                            font-weight: bold;
-                            letter-spacing: 2px;
-                            height: 75px;
-                            display: block;
-                          }
-                      title: DAYLIGHT HOURS
-                      entity: sensor.daylight
-                      scale: 26px
-                    - type: custom:bignumber-card
-                      card_mod:
-                        style: |
-                          ha-card {
-                            border-radius: 0px 22px 0px 0px;
-                            border: solid 0px rgba(0,0,0,0.0);
-                            background: rgba(0,0,0,0.0);
-                            padding: 30px 0px 0px 0px;
-                            font-weight: bold;
-                            letter-spacing: 2px;
-                            height: 75px;
-                            display: block;
-                          }
-                      title: SUNSET
-                      entity: sensor.sunset
-                      scale: 26px
-                - type: horizontal-stack
-                  cards:
-                    - type: custom:bignumber-card
-                      card_mod:
-                        style: |
-                          ha-card {
-                            border-radius: 0px;
-                            background: rgba(0,0,0,0.0);
-                            border: solid 0px rgba(0,0,0,0.0);
-                            font-family: Righteous;
-                            font-weight: bold;
-                            letter-spacing: 1px;
-                            --primary-text-color: rgba(255,255,255,0.6);
-                            text-shadow: 0 1px 0 #999999, 0 2px 0 #8c8c8c, 0 3px 0 #808080, 0 4px 0 #737373, 0 5px 0 #4d4d4d, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
-                            opacity: .73;
-                            height: 236px;
-                            display: block;
-                          }
-                      entity: sensor.time_12_hour_am_pm
-                      scale: 105px
-                - type: horizontal-stack
-                  cards:
-                    - type: custom:atomic-calendar-revive
-                      card_mod:
-                        style: |
-                          ha-card {
-                            border-radius: 0px;
-                            border: solid 0px rgba(0,0,0,0.0);
-                            background: rgba(0,0,0,0.0);
-                            font-family: Righteous;
-                            font-size: 2.7em;
-                            height: 450px;
-                            opacity: 0.68;
-                            overflow: hidden;
-                          }
-                      title: " "
-                      titleSize: 0.1
-                      enableModeChange: true
-                      hideDuplicates: true
-                      disableEventLink: true
-                      disableLocationLink: true
-                      showCurrentEventLine: false
-                      defaultMode: 2
-                      CalEventBackgroundColor: rgba(86, 86, 86, .65)
-                      CalEventWeekendColor: rgba(0,0,0,0.45)
-                      CalEventHolidayColor: var(--accent-color)
-                      CalEventIcon1Filter: event, events
-                      CalEventIcon2Filter: birthday
-                      CalEventIcon1: " "
-                      CalEventIcon2: " "
-                      CalEventIcon3: " "
-                      entities:
-                        - entity: calendar.contacts
-                          type: icon2, holiday
-                        - entity: calendar.holidays_in_united_states
-                          type: holiday
-                        - entity: calendar.christian_holidays
-                          type: icon3, holiday
-                      dateSize: 80
-                      timeSize: 100
-                      firstDayOfWeek: 7
-                - type: custom:simple-weather-card
-                  card_mod:
-                    style: |
-                      ha-card {
-                        border-radius: 0px;
-                        border: solid 0px rgba(0,0,0,0.0);
-                        background: rgba(0,0,0,0.0);
-                        font-size: 19px;
-                        overflow: hidden;
-                        height: 115px;
-                      }
-                  entity: weather.tomorrow_io_new_life_daily
-                  secondary_info: humidity
-                  name: "Current conditions at home... "
-                  backdrop:
-                    day: rgba(0,0,0,0.0)
-                    night: rgba(0,0,0,0.0)
-                    text: "#FFFFFF"
-                - type: custom:bar-cardder
-                  severity:
-                    - value: 100
-                      color: var(--accent-color-light)
-                  title_position: inside
-                  decimal: "0"
-                  tap_action: info
-                  columns: 4
-                  padding: 2px
-                  align: split
-                  rounding: 6px
-                  saturation: 65%
-                  height: 25px
-                  card_style:
-                    background: rgba(0, 0, 0, 0.35)
-                    border-radius: 10px
-                  title_style:
-                    font-size: 16px
-                    color: "#F2F2F2"
-                    text-shadow: 2px 2px 5px black
-                  value_style:
-                    font-size: 24px
-                    font-weight: bold
-                  entities:
-                    - sensor.filtered_realistic_temperature
-                    - sensor.filtered_outside_temperature
-                    - sensor.filtered_realistic_humidity
-                    - sensor.filtered_outside_humidity
-            section1:
-              type: custom:stack-in-card
-              card_mod:
-                style: |
-                  ha-card {
-                    background: center / cover no-repeat url("/local/images-lovelace/card_backz/Den9.png");
-                    font-family: Righteous;
-                    border-radius: 20px;
-                    border: solid 3px rgba(0,0,0,0.0);
-                    --primary-text-color: #F2F2F2;
-                    --paper-item-icon-color: rgb(0, 13, 255);
-                    --paper-item-icon-active-color: lime;
-                    --iron-icon-height: 45px;
-                    --iron-icon-width: 45px;
-                    --app-toolbar-font-size: 1.3em;
-                    padding: 14px 0px 0px 0px;
-                    font-size: 24px;
-                    text-transform: capitalize;
-                    font-variant: small-caps;
-                    width: calc(100% - .5px);
-                    height: 770px;
-                    box-sizing: border-box;
-                    margin: 0 !important;
-                  }
-              mode: vertical
-              cards:
-                - type: glance
+                - type: custom:mod-card
                   style: |
                     ha-card {
-                      background: rgba(0,0,0,0.0);
+                      background: rgba(0,0,0,0.33);
+                      --primary-text-color: rgba(255,255,255,0.63);
+                      --primary-color": rgba(248, 248, 248,0.53);
+                    }
+                    ha-card::before {
+                      content: '';
+                      position: absolute;
+                      height: 99%;
+                      width: 100%;
+                      top: 0;
+                      border-radius: 22px;
+                      overflow: hidden;
+                      opacity: .50;
+                      background-image: url('{{ state_attr('media_player.spotify_dinotech', 'entity_picture') }}');
+                      background-position: cover;
+                      background-repeat: no-repeat;
+                      background-size: 100% 100%;
+                    }
+                    .card-content {
+                      padding: 2px;
+                    }
+                    .card-content > div {
+                      margin: 0 !important;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
+                    mode: vertical
+                    cards:
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:bignumber-card
+                            style: |
+                              ha-card {
+                                border-radius: 26px 0px 0px 0px;
+                                padding: 30px 0px 0px 0px;
+                                font-weight: bold;
+                                letter-spacing: 2px;
+                                height: 70px;
+                                display: block;
+                              }
+                            title: SUNRISE
+                            entity: sensor.sunrise
+                            scale: 26px
+                          - type: custom:bignumber-card
+                            style: |
+                              ha-card {
+                                border-radius: 0px;
+                                padding: 30px 0px 0px 0px;
+                                font-weight: bold;
+                                letter-spacing: 2px;
+                                height: 70px;
+                                display: block;
+                              }
+                            title: DAYLIGHT HOURS
+                            entity: sensor.daylight
+                            scale: 26px
+                          - type: custom:bignumber-card
+                            style: |
+                              ha-card {
+                                border-radius: 0px 26px 0px 0px;
+                                padding: 30px 0px 0px 0px;
+                                font-weight: bold;
+                                letter-spacing: 2px;
+                                height: 70px;
+                                display: block;
+                              }
+                            title: SUNSET
+                            entity: sensor.sunset
+                            scale: 26px
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:bignumber-card
+                            style: |
+                              ha-card {
+                                border-radius: 0px;
+                                font-family: Righteous;
+                                font-weight: bold;
+                                letter-spacing: 1px;
+                                --primary-text-color: rgba(255,255,255,0.6);
+                                text-shadow: 0 1px 0 #999999, 0 2px 0 #8c8c8c, 0 3px 0 #808080, 0 4px 0 #737373, 0 5px 0 #4d4d4d, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+                                opacity: .73;
+                                height: 236px;
+                                display: block;
+                              }
+                            entity: sensor.time_12_hour_am_pm
+                            scale: 105px
+                      - type: horizontal-stack
+                        cards:
+                          - type: "custom:atomic-calendar-revive"
+                            style: |
+                              ha-card {
+                                border-radius: 0px;
+                                font-family: Righteous;
+                                font-size: 2.7em;
+                                height: 450px;
+                                opacity: 0.68;
+                                overflow: hidden;
+                              }
+                            title: " "
+                            titleSize: 0.1
+                            enableModeChange: true
+                            hideDuplicates: true
+                            disableEventLink: true
+                            disableLocationLink: true
+                            showCurrentEventLine: false
+                            defaultMode: 2
+                            CalEventBackgroundColor: rgba(86, 86, 86, .65)
+                            CalEventWeekendColor: rgba(0,0,0,0.45)
+                            CalEventHolidayColor: "var(--accent-color)"
+                            CalEventIcon1Filter: event, events
+                            CalEventIcon2Filter: birthday
+                            CalEventIcon1: " "
+                            CalEventIcon2: " "
+                            CalEventIcon3: " "
+                            entities:
+                              - entity: calendar.contacts
+                                type: icon2, holiday
+                              - entity: calendar.holidays_in_united_states
+                                type: holiday
+                              - entity: calendar.christian_holidays
+                                type: icon3, holiday
+                            dateSize: 80
+                            timeSize: 100
+                            firstDayOfWeek: 7
+                      - type: custom:simple-weather-card
+                        style: |
+                          ha-card {
+                            border-radius: 0px 0px 26px 26px;
+                            font-size: 19px;
+                            overflow: hidden;
+                          }
+                        entity: weather.tomorrow_io_new_life_daily #weather.khdc_hourly #weather.tomorrow_io_new_life_daily
+                        secondary_info: humidity
+                        name: "Current conditions at home... "
+                        backdrop:
+                          day: "rgba(0,0,0,0.0)"
+                          night: "rgba(0,0,0,0.0)"
+                          text: "#FFFFFF"
+                      - type: custom:bar-cardder
+                        severity:
+                          - value: 100
+                            color: "var(--accent-color-light)"
+                        title_position: inside
+                        decimal: "0"
+                        tap_action: info
+                        columns: 4
+                        padding: 2px
+                        align: split
+                        rounding: 6px
+                        saturation: 65%
+                        height: 25px
+                        card_style:
+                          background: "rgba(0, 0, 0, 0.35)"
+                          border-radius: 10px
+                        title_style:
+                          font-size: 16px
+                          color: "#F2F2F2"
+                          text-shadow: "2px 2px 5px black"
+                        value_style:
+                          font-size: 24px
+                          font-weight: bold
+                        entities:
+                          - sensor.filtered_realistic_temperature
+                          - sensor.filtered_outside_temperature
+                          - sensor.filtered_realistic_humidity
+                          - sensor.filtered_outside_humidity
+            section1:
+              type: vertical-stack #custom:layout-card
+              #              layout: vertical
+              #              column_num: 1
+              #              max_width: [100%]
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: center / cover no-repeat url("/local/images-lovelace/card_backz/Den9.png");
                       font-family: Righteous;
                       border-radius: 20px;
                       border: solid 3px rgba(0,0,0,0.0);
@@ -307,308 +325,1812 @@ cards:
                       box-sizing: border-box;
                       margin: 0 !important;
                     }
-                  entities:
-                    - type: button
-                      entity: binary_sensor.den_main_motion
-                      name: Motion
-                    - type: button
-                      entity: binary_sensor.front_door
-                      name: Front Door
-                    - type: button
-                      entity: binary_sensor.main_kiosk_plugged_in
-                      name: Kiosk
-                    - type: button
-                      entity: light.den_ceiling_light
-                      name: Ceiling
-                      tap_action:
-                        action: toggle
-                    - type: button
-                      entity: fan.den_ceiling_fan
-                      name: Fan
-                      tap_action:
-                        action: toggle
-                    - type: button
-                      entity: light.ha2_sofa_lamp
-                      name: Lamp
-                      tap_action:
-                        action: toggle
-                    - type: button
-                      entity: light.fireplace_lights
-                      name: Fireplace
-                      tap_action:
-                        action: toggle
-                    - type: button
-                      entity: light.tv_ambient_lights
-                      name: TV Accent
-                      tap_action:
-                        action: toggle
-                    - type: button
-                      entity: light.foyer_lights
-                      name: Foyer
-                      tap_action:
-                        action: toggle
-                    - type: button
-                      entity: sun.sun
-                      name: Close
-                      icon: mdi:logout
-                      tap_action:
-                        action: call-service
-                        service: input_select.select_option
-                        service_data:
-                          entity_id: input_select.button_layout
-                          option: mainsection
-                  show_state: false
-        - break
-        - type: custom:state-switch
-          entity: input_select.button_animation_2
-          transition: swap-down
-          transition_time: 700
-          states:
-            buttonshow:
+                  card:
+                    type: custom:vertical-stack-in-card
+                    cards:
+                      - type: glance
+                        style: |
+                          ha-card {
+                            background: rgba(0,0,0,0.0);
+                            font-family: Righteous;
+                            border-radius: 20px;
+                            border: solid 3px rgba(0,0,0,0.0);
+                            --primary-text-color: #F2F2F2;
+                            --paper-item-icon-color: rgb(0, 13, 255);
+                            --paper-item-icon-active-color: lime;
+                            --iron-icon-height: 45px;
+                            --iron-icon-width: 45px;
+                            --app-toolbar-font-size: 1.3em;
+                            padding: 14px 0px 0px 0px;
+                            font-size: 24px;
+                            text-transform: capitalize;
+                            font-variant: small-caps;
+                            width: calc(100% - .5px);
+                            height: 770px;
+                            box-sizing: border-box;
+                            margin: 0 !important;
+                          }
+                        entities:
+                          - type: entity-button
+                            entity: binary_sensor.den_main_motion
+                            name: Motion
+                          - type: entity-button
+                            entity: binary_sensor.front_door
+                            name: Front Door
+                          - type: entity-button
+                            entity: binary_sensor.den_windows
+                            name: Windows
+                          - type: entity-button
+                            entity: light.den_ceiling_light
+                            name: Ceiling
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: fan.den_ceiling_fan
+                            name: Fan
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.ha2_sofa_lamp
+                            name: Lamp
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.ha2_sofa_lamp
+                            name: Fireplace
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.tv_ambient_lights
+                            name: TV Accent
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.ha2_foyer_lights
+                            name: Foyer
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: sun.sun #light.foyer_accent_lights
+                            name: Close
+                            icon: mdi:logout
+                            tap_action:
+                              action: call-service
+                              service: input_select.select_option
+                              service_data:
+                                entity_id: input_select.button_layout
+                                option: mainsection
+                        show_state: false
+
+            section2:
+              type: vertical-stack #custom:layout-card
+              #              layout: vertical
+              #              column_num: 1
+              #              max_width: [100%]
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: center / cover no-repeat url("/local/images-lovelace/card_backz/Office9.png");
+                      font-family: Righteous;
+                      border-radius: 20px;
+                      border: solid 3px rgba(0,0,0,0.0);
+                      --primary-text-color: #F2F2F2;
+                      --paper-item-icon-color: rgb(128, 128, 128);
+                      --paper-item-icon-active-color: lime;
+                      --iron-icon-height: 45px;
+                      --iron-icon-width: 45px;
+                      --app-toolbar-font-size: 1.3em;
+                      padding: 14px 0px 0px 0px;
+                      font-size: 24px;
+                      text-transform: capitalize;
+                      font-variant: small-caps;
+                      width: calc(100% - .5px);
+                      height: 770px;
+                      box-sizing: border-box;
+                      margin: 0 !important;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
+                    cards:
+                      - type: glance
+                        style: |
+                          ha-card {
+                            background: rgba(0,0,0,0.0);
+                            font-family: Righteous;
+                            border-radius: 20px;
+                            border: solid 3px rgba(0,0,0,0.0);
+                            --primary-text-color: #F2F2F2;
+                            --paper-item-icon-color: rgb(128, 128, 128);
+                            --paper-item-icon-active-color: lime;
+                            --iron-icon-height: 45px;
+                            --iron-icon-width: 45px;
+                            --app-toolbar-font-size: 1.3em;
+                            padding: 14px 0px 0px 0px;
+                            font-size: 24px;
+                            text-transform: capitalize;
+                            font-variant: small-caps;
+                            width: calc(100% - .5px);
+                            height: 770px;
+                            box-sizing: border-box;
+                            margin: 0 !important;
+                          }
+                        entities:
+                          - type: entity-button
+                            entity: binary_sensor.office_motion_motion
+                            name: Motion
+                          - type: entity-button
+                            entity: switch.ha2_printer
+                            name: Printer
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.office_ceiling_lights
+                            name: Ceiling
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.office_ceiling_fan
+                            name: Fan
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.desk_light
+                            name: Desk
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.office_floor_lights
+                            name: All Lamps
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.corner_light
+                            name: Right
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.bed_light
+                            name: Left
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.ha2_desk_back_light
+                            name: Accent
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: switch.ha2_work_bench
+                            name: Bench
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: switch.office_sound
+                            name: Audio
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: switch.office_video
+                            name: Video
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: switch.ha2_office_monitor
+                            name: Monitor
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: switch.air_cleaner
+                            name: Purifier
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: switch.ha2_printer
+                            icon: mdi:logout
+                            name: Close
+                            tap_action:
+                              action: call-service
+                              service: input_select.select_option
+                              service_data:
+                                entity_id: input_select.button_layout
+                                option: mainsection
+                        show_state: false
+
+            section3:
               type: custom:mod-card
-              card_mod:
-                style: |
-                  ha-card {
-                    padding: 2px 3px 0px 3px;
-                    background: rgba(0,0,0,0.0);
-                    margin: 0;
-                  }
+              style: |
+                ha-card {
+                  background: center / cover no-repeat url("/local/images-lovelace/backgroundz/eye4.jpg");
+                  border-radius: 20px;
+                  margin: 0;
+                }
               card:
-                type: vertical-stack
+                type: custom:layout-card
+                layout: vertical
+                column_num: 2
+                max_width: [40%, 58%]
                 cards:
-                  - type: horizontal-stack
+                  - type: custom:state-switch
+                    entity: input_select.button_card
+                    transition: swap-left
+                    transition_time: 800
+                    states:
+                      card1:
+                        type: custom:mod-card
+                        style: |
+                          ha-card {
+                            height: 782px;
+                            border-radius: 20px 0px 0px 20px;
+                            box-sizing: border-box;
+                            margin: 0;
+                          }
+                        card:
+                          type: custom:vertical-stack-in-card
+                          cards:
+                            - type: map
+                              entities:
+                                - entity: device_tracker.pixel_8_pro #device_tracker.darren_wilson
+                                - entity: device_tracker.pixel_5 #device_tracker.donna_wilson
+                                - zone.home
+                                - zone.donnas_work
+                              aspect_ratio: 172%
+                            - type: glance
+                              style: |
+                                ha-card: {
+                                  margin: 0;
+                                }
+                                :host {
+                                  --paper-card-background-color: rgba(0,0,0,0.75);
+                                }
+                              columns: 4
+                              entities:
+                                - entity: sensor.pixel_5_battery_level
+                                  name: Pixel 5
+                                - person.donna
+                                - person.darren
+                                - entity: sensor.pixel_8_pro_battery_level
+                                  name: Pixel 8 Pro
+                      card2:
+                        type: custom:mod-card
+                        style: |
+                          ha-card {
+                            background: center / cover no-repeat url("/local/images-lovelace/backgroundz/blackSteel40197.jpg");
+                            height: 782px;
+                            border-radius: 20px 0px 0px 20px;
+                            box-sizing: border-box;
+                            margin: 0;
+                          }
+                        card:
+                          type: vertical-stack
+                          cards:
+                            - type: horizontal-stack
+                              cards:
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.front_motion
+                                    - name: Porch 1
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.front_motion
+                                    - name: Porch 2
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.driveway_motion
+                                    - name: Driveway
+                                    - icon: "mdi:motion-sensor"
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                            - type: horizontal-stack
+                              cards:
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.back_motion
+                                    - name: Patio
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.den_main_motion
+                                    - name: Den 1
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.den_motion
+                                    - name: Den 2
+                                    - icon: "mdi:motion-sensor"
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                            - type: horizontal-stack
+                              cards:
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.wyzesense_77879826
+                                    - name: Garage 1
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.garage_motion_sensor_motion
+                                    - name: Garage 2
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.garage_motion
+                                    - name: Garage 3
+                                    - icon: "mdi:motion-sensor"
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                            - type: horizontal-stack
+                              cards:
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.entry_hall_motion
+                                    - name: Entry Hall
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.wyzesense_7782a115
+                                    - name: Mailbox
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.laundry_room_motion
+                                    - name: Laundry
+                                    - icon: "mdi:motion-sensor"
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                            - type: horizontal-stack
+                              cards:
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.wyzesense_7787900d
+                                    - name: Kitchen 1
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.wyzesense_77878a66
+                                    - name: Kitchen 2
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.bedroom_motion
+                                    - name: Master
+                                    - icon: "mdi:motion-sensor"
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                            - type: horizontal-stack
+                              cards:
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.office_motion_motion
+                                    - name: Office
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.mbath_motion
+                                    - name: En Suite
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.hall_bath_motion
+                                    - name: Hall Bath
+                                    - icon: "mdi:motion-sensor"
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                            - type: horizontal-stack
+                              cards:
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.hall_motion
+                                    - name: Hall
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.hallway_motion
+                                    - name: Hallway
+                                    - icon: "mdi:motion-sensor"
+                                - type: custom:decluttering-card
+                                  template: motion_button_temp1
+                                  variables:
+                                    - entity: binary_sensor.hallway_rf_motion
+                                    - name: Hallway (up)
+                                    - icon: "mdi:motion-sensor"
+                                - type: "custom:button-card"
+                                  color_type: blank-card
+                                  styles:
+                                    card:
+                                      - width: 15px
+                  - break
+                  - type: custom:state-switch
+                    entity: input_select.button_card
+                    transition: swap-right
+                    transition_time: 800
+                    states:
+                      card1:
+                        type: vertical-stack
+                        cards:
+                          - type: entities
+                            style: |
+                              ha-card {
+                                background: center / cover no-repeat url("/local/images-lovelace/backgroundz/black_steel2.jpg");
+                                font-family: Righteous;
+                                border-radius: 0px 20px 20px 0px;
+                                border: solid 3px #161616;
+                                --primary-text-color: #F2F2F2;
+                                --paper-item-icon-color: red;
+                                --paper-item-icon-active-color: lime;
+                                --iron-icon-stroke-color: lime;
+                                --iron-icon-height: 45px;
+                                --iron-icon-width: 45px;
+                                --app-toolbar-font-size: 1.3em;
+                                padding: 14px 0px 0px 0px;
+                                font-size: 24px;
+                                text-transform: capitalize;
+                                font-variant: small-caps;
+                                height: 770px;
+                                box-sizing: border-box;
+                                margin: 0;
+                              }
+                            entities:
+                              - type: custom:hui-element
+                                style: |
+                                  ha-card {
+                                    height: 190px;
+                                    --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                                  }
+                                card_type: glance
+                                columns: 1
+                                show_state: false
+                                entities:
+                                  - entity: sun.sun
+                                    name: PANIC
+                                    icon: mdi:alert-decagram
+                                    tap_action:
+                                      action: call-service
+                                      service: script.turn_on
+                                      service_data:
+                                        entity_id: script.triggered_flash
+                              #                          - type: 'custom:hui-alarm-panel-card'
+                              #                            style:
+                              #                              .: |
+                              #                                ha-card {
+                              #                                  --mdc-theme-primary: white;
+                              #                                  --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                              #                                  height: 405px;
+                              #                                }
+                              #                              "#keypad mwc-button":
+                              #                                $: |
+                              #                                  :host {
+                              #                                    background: transparent;
+                              #                                  }
+                              #                                  button {
+                              #                                    font-size: 27px !important;
+                              #                                  }
+                              #                              "#keypad mwc-button:nth-of-type(12)":
+                              #                                $: |
+                              #                                  button {
+                              #                                    font-size: 17px !important;
+                              #                                    --mdc-theme-primary: limeGreen;
+                              #                                  }
+                              #                           entity: alarm_control_panel.alarm
+                              #                           name: ' '
+                              - type: custom:hui-element
+                                style: |
+                                  ha-card {
+                                    --paper-item-icon-color: limegreen;
+                                    --paper-item-active-icon-color: limegreen;
+                                    --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                                  }
+                                card_type: glance
+                                columns: 5
+                                show_state: false
+                                entities:
+                                  - entity: sun.sun
+                                    name: Open
+                                    icon: mdi:arrow-left-bold
+                                    tap_action:
+                                      action: call-service
+                                      service: input_select.select_next
+                                      service_data:
+                                        entity_id: input_select.button_card
+                                  - type: custom:dummy-entity-row
+                                    entity: sun.sun
+                                    icon: mdi:this-icon-does-not-exist
+                                    name: " "
+                                  - type: custom:dummy-entity-row
+                                    entity: sun.sun
+                                    icon: mdi:this-icon-does-not-exist
+                                    name: " "
+                                  - type: custom:dummy-entity-row
+                                    entity: sun.sun
+                                    icon: mdi:this-icon-does-not-exist
+                                    name: " "
+                                  - entity: sun.sun
+                                    name: Close
+                                    icon: mdi:arrow-right-bold
+                                    tap_action:
+                                      action: call-service
+                                      service: input_select.select_option
+                                      service_data:
+                                        entity_id: input_select.button_layout
+                                        option: mainsection
+                          - type: alarm-panel
+                            style: |
+                              ha-card {
+                                background: center / cover no-repeat url("/local/images-lovelace/backgroundz/black_steel2.jpg");
+                                font-family: Righteous;
+                                border-radius: 0px 20px 20px 0px;
+                                border: solid 3px #161616;
+                                --primary-text-color: #F2F2F2;
+                                --paper-item-icon-color: red;
+                                --paper-item-icon-active-color: lime;
+                                --iron-icon-stroke-color: lime;
+                                --iron-icon-height: 45px;
+                                --iron-icon-width: 45px;
+                                --app-toolbar-font-size: 1.3em;
+                                padding: 14px 0px 0px 0px;
+                                font-size: 24px;
+                                text-transform: capitalize;
+                                font-variant: small-caps;
+                                height: 770px;
+                                box-sizing: border-box;
+                                margin: 0;
+                              }
+                            entity: alarm_control_panel.alarmo
+
+                      card2:
+                        type: custom:mod-card
+                        style: |
+                          ha-card {
+                            font-family: Righteous;
+                            background: rgba(0,0,0,0.8);
+                            border-radius: 0px 20px 20px 0px;
+                            border: solid 1.5px #161616;
+                            --primary-text-color: #F2F2F2;
+                            --paper-item-icon-color: red;
+                            --paper-item-icon-active-color: lime;
+                            --iron-icon-stroke-color: lime;
+                            --iron-icon-height: 45px;
+                            --iron-icon-width: 45px;
+                            font-size: 24px;
+                            text-transform: capitalize;
+                            font-variant: small-caps;
+                            height: 783px;
+                            box-sizing: border-box;
+                            margin: 0;
+                          }
+                        card:
+                          type: custom:vertical-stack-in-card
+                          cards:
+                            - type: custom:mini-graph-card
+                              entities:
+                                - entity: binary_sensor.wyzesense_7793f829
+                                  name: Kitchen
+                                  color: orange
+                                - entity: binary_sensor.den_main_motion
+                                  name: Den
+                                - entity: binary_sensor.bedroom_motion
+                                  name: Master
+                                  color: green
+                                - entity: binary_sensor.ensuite_ceiling_motion
+                                  name: Ensuite
+                                - entity: binary_sensor.entry_hall_motion
+                                  name: Entry Hall
+                                - entity: binary_sensor.hall_bath_motion
+                                  name: Bath
+                              name: Inside Motion Last Hour
+                              hours_to_show: 0.25
+                              points_per_hour: 60
+                              update_interval: 30
+                              aggregate_func: max
+                              line_width: 2
+                              height: 75
+                              font_size_header: 28
+                              font_size: 110
+                              align_header: center
+                              smoothing: false
+                              state_map:
+                                - value: "off"
+                                  label: Clear
+                                - value: "on"
+                                  label: Detected
+                              show:
+                                icon: false
+                                name: true
+                                state: false
+                            - type: custom:mini-graph-card
+                              entities:
+                                - entity: binary_sensor.front_motion # porch
+                                  name: Front Porch
+                                  color: yellow
+                                - entity: binary_sensor.driveway_motion
+                                  name: Driveway
+                                  color: pink
+                                - entity: binary_sensor.back_motion
+                                  name: Patio
+                              name: Outside Motion Last Hour
+                              hours_to_show: 0.25
+                              points_per_hour: 60
+                              update_interval: 30
+                              aggregate_func: max
+                              line_width: 2
+                              height: 75
+                              font_size_header: 28
+                              font_size: 130
+                              align_header: center
+                              smoothing: false
+                              state_map:
+                                - value: "off"
+                                  label: Clear
+                                - value: "on"
+                                  label: Detected
+                              show:
+                                icon: false
+                                name: true
+                                state: false
+                            - type: custom:mini-graph-card
+                              entities:
+                                - entity: binary_sensor.front_door
+                                  name: Front
+                                  color: orange
+                                - entity: binary_sensor.back_door
+                                  name: Back
+                                - entity: binary_sensor.side_door
+                                  name: Side
+                                  color: green
+                                - entity: binary_sensor.garage_entry_door
+                                  name: Garage Entry
+                                - entity: binary_sensor.garage_door_sensor_zb
+                                  name: Garage OHD
+                              name: Doors Opened Last Hour
+                              hours_to_show: 0.25
+                              points_per_hour: 60
+                              update_interval: 30
+                              aggregate_func: max
+                              line_width: 2
+                              height: 55
+                              font_size_header: 28
+                              font_size: 130
+                              align_header: center
+                              smoothing: false
+                              state_map:
+                                - value: "off"
+                                  label: Clear
+                                - value: "on"
+                                  label: Detected
+                              show:
+                                icon: false
+                                name: true
+                                state: false
+                            - type: custom:hui-element
+                              style: |
+                                ha-card {
+                                  --paper-item-icon-color: limegreen;
+                                  --paper-item-active-icon-color: limegreen;
+                                  --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                                }
+                              card_type: glance
+                              columns: 5
+                              show_state: false
+                              entities:
+                                - entity: sun.sun
+                                  name: Open
+                                  icon: mdi:arrow-left-bold
+                                  tap_action:
+                                    action: call-service
+                                    service: input_select.select_next
+                                    service_data:
+                                      entity_id: input_select.button_card
+                                - type: custom:dummy-entity-row
+                                  entity: sun.sun
+                                  icon: mdi:this-icon-does-not-exist
+                                  name: " "
+                                - type: custom:dummy-entity-row
+                                  entity: sun.sun
+                                  icon: mdi:this-icon-does-not-exist
+                                  name: " "
+                                - type: custom:dummy-entity-row
+                                  entity: sun.sun
+                                  icon: mdi:this-icon-does-not-exist
+                                  name: " "
+                                - entity: sun.sun
+                                  name: Close
+                                  icon: mdi:arrow-right-bold
+                                  tap_action:
+                                    action: call-service
+                                    service: input_select.select_option
+                                    service_data:
+                                      entity_id: input_select.button_layout
+                                      option: mainsection
+
+            section4:
+              type: vertical-stack
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: center / cover no-repeat url("/local/images-lovelace/card_backz/Kit9.png");
+                      font-family: Righteous;
+                      border-radius: 20px;
+                      border: solid 3px rgba(0,0,0,0.0);
+                      --primary-text-color: #F2F2F2;
+                      --paper-item-icon-color: rgb(19, 235, 19);
+                      --paper-item-icon-active-color: rgb(255, 255, 0);
+                      --iron-icon-height: 45px;
+                      --iron-icon-width: 45px;
+                      --app-toolbar-font-size: 1.3em;
+                      padding: 14px 0px 0px 0px;
+                      font-size: 24px;
+                      text-transform: capitalize;
+                      font-variant: small-caps;
+                      width: calc(100% - .5px);
+                      height: 770px;
+                      box-sizing: border-box;
+                      margin: 0;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
                     cards:
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:cctv
-                        name: Driveway
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/driveway
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:cctv
-                        name: Doorbell
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/doorbell
-                  - type: custom:button-card
-                    color_type: blank-card
-                    styles:
-                      card:
-                        - height: .1px
-                  - type: horizontal-stack
+                      - type: glance
+                        style: |
+                          ha-card {
+                            background: rgba(0,0,0,0.0);
+                            font-family: Righteous;
+                            border-radius: 20px;
+                            border: solid 3px rgba(0,0,0,0.0);
+                            --primary-text-color: #F2F2F2;
+                            --paper-item-icon-color: rgb(19, 235, 19);
+                            --paper-item-icon-active-color: rgb(255, 255, 0);
+                            --iron-icon-height: 45px;
+                            --iron-icon-width: 45px;
+                            --app-toolbar-font-size: 1.3em;
+                            padding: 14px 0px 0px 0px;
+                            font-size: 24px;
+                            text-transform: capitalize;
+                            font-variant: small-caps;
+                            width: calc(100% - .5px);
+                            height: 770px;
+                            box-sizing: border-box;
+                            margin: 0 !important;
+                          }
+                        entities:
+                          - type: entity-button
+                            entity: binary_sensor.kitchen_motion_sensors
+                            name: Motion
+                          - type: entity-button
+                            entity: light.kitchen_ceiling_center
+                            name: Island
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.kitchen_ceiling_left
+                            name: Left
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.kitchen_ceiling_right
+                            name: Right
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.sink_light
+                            name: Sink
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.cabinet_lights
+                            name: Cabinets
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.table_light
+                            name: Table
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.coffee_light
+                            name: Coffee
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: switch.coffee_maker
+                            name: Coffee Maker
+                            icon: mdi:coffee-maker
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: sun.sun
+                            icon: mdi:logout
+                            name: Close
+                            tap_action:
+                              action: call-service
+                              service: input_select.select_option
+                              service_data:
+                                entity_id: input_select.button_layout
+                                option: mainsection
+                        show_state: false
+
+            section5:
+              type: vertical-stack
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: center / cover no-repeat url("/local/images-lovelace/card_backz/Bdrm9.png");
+                      font-family: Righteous;
+                      border-radius: 20px;
+                      border: solid 3px black;
+                      --primary-text-color: #F2F2F2;
+                      --paper-item-icon-color: rgb(240, 26, 255);
+                      --paper-item-icon-active-color: lime;
+                      --iron-icon-height: 45px;
+                      --iron-icon-width: 45px;
+                      --app-toolbar-font-size: 1.3em;
+                      padding: 14px 0px 0px 0px;
+                      font-size: 24px;
+                      text-transform: capitalize;
+                      font-variant: small-caps;
+                      width: calc(100% - .5px);
+                      height: 770px;
+                      box-sizing: border-box;
+                      margin: 0 !important;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
                     cards:
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:cctv
-                        name: Front
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/front
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:cctv
-                        name: Porch
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/porch
-                  - type: custom:button-card
-                    color_type: blank-card
-                    styles:
-                      card:
-                        - height: .1px
-                  - type: horizontal-stack
+                      - type: glance
+                        style: |
+                          ha-card {
+                            background: rgba(0,0,0,0.0);
+                            font-family: Righteous;
+                            border-radius: 20px;
+                            border: solid 3px rgba(0,0,0,0.0);
+                            --primary-text-color: #F2F2F2;
+                            --paper-item-icon-color: rgb(240, 26, 255);
+                            --paper-item-icon-active-color: lime;
+                            --iron-icon-height: 45px;
+                            --iron-icon-width: 45px;
+                            --app-toolbar-font-size: 1.3em;
+                            padding: 14px 0px 0px 0px;
+                            font-size: 24px;
+                            text-transform: capitalize;
+                            font-variant: small-caps;
+                            width: calc(100% - .5px);
+                            height: 770px;
+                            box-sizing: border-box;
+                            margin: 0 !important;
+                          }
+                        entities:
+                          - type: entity-button
+                            entity: binary_sensor.bedroom_motion
+                            name: Motion
+                          - type: entity-button
+                            entity: light.salt_light
+                            name: Salt Light
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.bedroom_ceiling_lights
+                            name: Ceiling
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.bedroom_ceiling_fan
+                            name: Fan
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.donnas_light
+                            name: Donna's
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.darrens_light
+                            name: Darren's
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: input_boolean.bedroom_lamps
+                            icon: mdi:floor-lamp
+                            name: Lamps
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.mood_lights
+                            icon: mdi:light-recessed
+                            name: Mood
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.night_light_1
+                            name: Night
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: sun.sun
+                            icon: mdi:logout
+                            name: Close
+                            tap_action:
+                              action: call-service
+                              service: input_select.select_option
+                              service_data:
+                                entity_id: input_select.button_layout
+                                option: mainsection
+                        show_state: false
+
+            section6:
+              type: vertical-stack
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: center / cover no-repeat url("/local/images-lovelace/backgroundz/light-purple2.jpg");
+                      font-family: Righteous;
+                      border-radius: 20px;
+                      border: solid 1.5px var(--accent-color);
+                      --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                      --primary-text-color: #F2F2F2;
+                      --iron-icon-height: 50px;
+                      --iron-icon-width: 50px;
+                      padding: 0px;
+                      font-size: 24px;
+                      text-transform: capitalize;
+                      font-variant: small-caps;
+                      width: 100%;
+                      height: 780px;
+                      box-sizing: border-box;
+                      margin: 0 !important;
+                      overflow: hidden;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
                     cards:
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:cctv
-                        name: Garage
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/garage
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:cctv
-                        name: Patio
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/patio
-                  - type: custom:button-card
-                    color_type: blank-card
-                    styles:
-                      card:
-                        - height: .1px
-                  - type: horizontal-stack
+                      - type: entities
+                        entities:
+                          - type: custom:auto-entities
+                            show_empty: true
+                            card:
+                              type: glance
+                              style: |
+                                ha-card {
+                                  height: 724px;
+                                  border: solid 3px rgba(0,0,0,0.0);
+                                }
+                              show_state: false
+                              columns: 3
+                            filter:
+                              include:
+                                - entity_id: sun.sun
+                                  options:
+                                    icon: mdi:logout
+                                    name: Close
+                                    tap_action:
+                                      action: call-service
+                                      service: input_select.select_option
+                                      service_data:
+                                        entity_id: input_select.button_layout
+                                        option: mainsection
+                                - domain: light
+                                  state: "on"
+                                  options:
+                                    tap_action:
+                                      action: toggle
+                                - domain: fan
+                                  state: "on"
+                                  options:
+                                    tap_action:
+                                      action: toggle
+                                - domain: switch
+                                  state: "on"
+                                  options:
+                                    tap_action:
+                                      action: toggle
+                              exclude:
+                                - entity_id: "switch.*switch*"
+                                - entity_id: "switch.*light*"
+                                - entity_id: "switch.*wyze*"
+                                - entity_id: "switch.*cam*"
+                                - entity_id: "switch.*fan*"
+                                - entity_id: "light.*cam*"
+                                - entity_id: "switch.*notification*"
+                                - entity_id: "switch.*speaker*"
+                                - entity_id: "switch.*volume*"
+                                - entity_id: "switch.*shuffle*"
+                                - entity_id: "switch.*nest*"
+                                - entity_id: "switch.*doorbell*"
+                                - entity_id: "light.*alarm*"
+                                - entity_id: switch.washing_machine
+                                - entity_id: switch.dryer_plug
+                                - entity_id: switch.ceiling_center
+                                - entity_id: switch.ceiling_left
+                                - entity_id: switch.ceiling_right
+                                - entity_id: switch.living_room_lamp
+                                - entity_id: switch.washer_plug
+                                - entity_id: switch.garage_fridge_relay
+                                - entity_id: light.ac9b7f58_cfbfe785_screen
+                                - entity_id: light.pixel_lan
+                                - entity_id: light.pixel_fully
+                                - entity_id: light.officetab_lan
+                                - entity_id: light.officepc
+                                - entity_id: light.iphone_cloud
+                                - entity_id: light.alarm_panel
+                                - entity_id: light.den_night_light
+                                - entity_id: light.7e1b68a8_917189a1
+                                - entity_id: light.hall_night_light
+                                - entity_id: light.hallway_night_light
+                                - entity_id: light.cabinet_right
+                                - entity_id: light.cabinet_left
+                                - entity_id: light.1df3360d_0bc37cb4
+
+            section7:
+              type: vertical-stack
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: center / cover no-repeat url("/local/images-lovelace/card_backz/ensuite2ON.jpg");
+                      font-family: Righteous;
+                      border-radius: 22px;
+                      border: solid 1.5px rgb(204, 255, 255);
+                      --primary-text-color: #F2F2F2;
+                      --paper-item-icon-color: rgb(204, 255, 255);
+                      --paper-item-icon-active-color: lime;
+                      --iron-icon-height: 44px;
+                      --iron-icon-width: 44px;
+                      --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                      font-size: 26px;
+                      text-transform: capitalize;
+                      font-variant: small-caps;
+                      width: 100%;
+                      height: 780px;
+                      box-sizing: border-box;
+                      margin: 0 !important;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
                     cards:
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:cctv
-                        name: Backyard
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/backyard
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:radar
-                        name: NOAA
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/noaaradar
-                  - type: custom:button-card
-                    color_type: blank-card
-                    styles:
-                      card:
-                        - height: .1px
-                  - type: horizontal-stack
+                      - type: horizontal-stack
+                        cards:
+                          - type: entities
+                            style: |
+                              :host {
+                                padding: 20px 20px 0px 0px;
+                              }
+                            entities:
+                              - action_name: Relay
+                                name: Turn on diffuser
+                                service: rest_command.assistant_relay
+                                type: call-service
+                                service_data:
+                                  command: "turn on ensuite diffuser"
+                          - type: entities
+                            style: |
+                              :host {
+                                padding: 20px 20px 0px 0px;
+                              }
+                            entities:
+                              - action_name: Relay
+                                name: Turn off diffuser
+                                service: rest_command.assistant_relay
+                                type: call-service
+                                service_data:
+                                  command: "turn off ensuite diffuser"
+                      - type: custom:hui-element
+                        style: |
+                          ha-card {
+                            background: rgba(0,0,0,0.0);
+                            --ha-card-background: rgba(0,0,0,0.0);
+                            width: 100%;
+                            height: 500px;
+                            box-sizing: border-box;
+                            padding: 0px;
+                            margin: 0;
+                          }
+                        card_type: glance
+                        columns: 7
+                        show_state: false
+                        entities:
+                          - type: entity-button
+                            entity: binary_sensor.bedroom_motion
+                            name: Motion
+                          - type: entity-button
+                            entity: light.ensuite_ceiling_light
+                            name: Ceiling
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: light.jacuzzi_light
+                            name: Bathtub
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: switch.ensuite_vent
+                            icon: mdi:fan
+                            name: Vent
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: input_boolean.ensuite_controls
+                            icon: mdi:youtube
+                            name: Relax
+                            tap_action:
+                              action: more-info
+                          - type: entity-button
+                            entity: light.mbath_night_light
+                            name: Night
+                            tap_action:
+                              action: toggle
+                          - type: entity-button
+                            entity: sun.sun
+                            icon: mdi:logout
+                            name: Close
+                            tap_action:
+                              action: call-service
+                              service: input_select.select_option
+                              service_data:
+                                entity_id: input_select.button_layout
+                                option: mainsection
+
+            section8:
+              type: vertical-stack
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: black;
+                      border-radius: 20px;
+                      border: solid 1.5px var(--accent-color);
+                      --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                      padding: 0px;
+                      width: auto;
+                      height: 780px;
+                      box-sizing: border-box;
+                      margin: 0 !important;
+                      overflow: hidden;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
                     cards:
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: light.outside_lights
-                        icon: mdi:lightbulb-group
-                        show_state: true
-                        name: Outside
-                        tap_action:
-                          action: toggle
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: cover.garage_door
-                        show_state: true
-                        state_color: true
-                        show_name: true
-                        name: Garage
-                        show_icon: true
-                        tap_action:
-                          action: toggle
-                  - type: custom:button-card
-                    color_type: blank-card
-                    styles:
-                      card:
-                        - height: .1px
-                  - type: horizontal-stack
-                    cards:
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        show_name: false
-                        show_icon: true
-                        tap_action:
-                          action: call-service
-                          service: alarmo.disarm
-                          target: {}
-                          data:
-                            entity_id: alarm_control_panel.alarmo
-                            code: "3971"
-                        entity: alarm_control_panel.alarmo
-                        show_state: true
-                        hold_action:
-                          action: call-service
-                          service: alarm_control_panel.alarm_trigger
-                          target:
-                            entity_id: alarm_control_panel.alarmo
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:arrow-down-bold
-                        name: Open
+                      - type: custom:more-info-card #picture-glance #picture-entity
+                        #camera_view: live
+                        #aspect_ratio: 65%
+                        #                        camera_image: camera.driveway_cam
+                        #                        entities: []
+                        #                        title: " "
+                        entity: camera.driveway_cam
                         tap_action:
                           action: call-service
                           service: input_select.select_option
                           service_data:
-                            entity_id: input_select.button_animation_2
-                            option: buttonlock
-            buttonlock:
+                            entity_id: input_select.button_layout
+                            option: mainsection
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:mushroom-light-card
+                            entity: light.outside_lights
+                          - type: custom:mushroom-light-card
+                            entity: light.side_door_light
+                          - type: custom:mushroom-entity-card
+                            entity: binary_sensor.driveway_motion
+            section9:
+              type: vertical-stack
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: black;
+                      border-radius: 20px;
+                      border: solid 1.5px var(--accent-color);
+                      --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                      padding: 0px;
+                      width: auto;
+                      height: 780px;
+                      box-sizing: border-box;
+                      margin: 0 !important;
+                      overflow: hidden;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
+                    cards:
+                      - type: custom:more-info-card #picture-entity
+                        #                        camera_view: live
+                        #                        aspect_ratio: 65%
+                        entity: camera.front_door
+                        tap_action:
+                          action: call-service
+                          service: input_select.select_option
+                          service_data:
+                            entity_id: input_select.button_layout
+                            option: mainsection
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:mushroom-light-card
+                            entity: light.outside_lights
+                          - type: custom:mushroom-light-card
+                            entity: light.ha2_porch_light
+                          - type: custom:mushroom-entity-card
+                            entity: binary_sensor.front_motion
+            section10:
+              type: vertical-stack
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: black;
+                      border-radius: 20px;
+                      border: solid 1.5px var(--accent-color);
+                      --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                      padding: 0px;
+                      width: auto;
+                      height: 780px;
+                      box-sizing: border-box;
+                      margin: 0 !important;
+                      overflow: hidden;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
+                    cards:
+                      - type: custom:more-info-card #picture-entity
+                        #                        camera_view: live
+                        #                        aspect_ratio: 65%
+                        entity: camera.front_yard_cam
+                        tap_action:
+                          action: call-service
+                          service: input_select.select_option
+                          service_data:
+                            entity_id: input_select.button_layout
+                            option: mainsection
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:mushroom-light-card
+                            entity: light.outside_lights
+                          - type: custom:mushroom-light-card
+                            entity: light.front_yard_cam_floodlight
+                          - type: custom:mushroom-entity-card
+                            entity: binary_sensor.front_motion
+            section11:
+              type: vertical-stack
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: black;
+                      border-radius: 20px;
+                      border: solid 1.5px var(--accent-color);
+                      --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                      padding: 0px;
+                      width: auto;
+                      height: 780px;
+                      box-sizing: border-box;
+                      margin: 0 !important;
+                      overflow: hidden;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
+                    cards:
+                      - type: custom:more-info-card #picture-entity
+                        #                        camera_view: live
+                        #                        aspect_ratio: 65%
+                        entity: camera.patio_cam
+                        tap_action:
+                          action: call-service
+                          service: input_select.select_option
+                          service_data:
+                            entity_id: input_select.button_layout
+                            option: mainsection
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:mushroom-light-card
+                            entity: light.outside_lights
+                          - type: custom:mushroom-light-card
+                            entity: light.patio_ceiling_light
+                          - type: custom:mushroom-entity-card
+                            entity: binary_sensor.back_motion
+            section12:
+              type: vertical-stack
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: black;
+                      border-radius: 20px;
+                      border: solid 1.5px var(--accent-color);
+                      --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                      padding: 0px;
+                      width: auto;
+                      height: 780px;
+                      box-sizing: border-box;
+                      margin: 0 !important;
+                      overflow: hidden;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
+                    cards:
+                      - type: custom:more-info-card #picture-entity
+                        #                        camera_view: live
+                        #                        aspect_ratio: 65%
+                        entity: camera.backyard_cam
+                        tap_action:
+                          action: call-service
+                          service: input_select.select_option
+                          service_data:
+                            entity_id: input_select.button_layout
+                            option: mainsection
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:mushroom-light-card
+                            entity: light.outside_lights
+                          - type: custom:mushroom-entity-card
+                            entity: binary_sensor.driveway_motion
+                          - type: custom:mushroom-entity-card
+                            entity: binary_sensor.back_motion
+            section13:
+              type: vertical-stack
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: black;
+                      border-radius: 20px;
+                      border: solid 1.5px var(--accent-color);
+                      --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                      padding: 0px;
+                      width: auto;
+                      height: 780px;
+                      box-sizing: border-box;
+                      margin: 0 !important;
+                      overflow: hidden;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
+                    cards:
+                      - type: custom:more-info-card #picture-entity
+                        #                        camera_view: live
+                        #                        aspect_ratio: 65%
+                        entity: camera.garage_cam
+                        tap_action:
+                          action: call-service
+                          service: input_select.select_option
+                          service_data:
+                            entity_id: input_select.button_layout
+                            option: mainsection
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:mushroom-light-card
+                            entity: light.outside_lights
+                          - type: custom:mushroom-light-card
+                            entity: light.garage_ceiling_lights
+                          - type: custom:mushroom-entity-card
+                            entity: binary_sensor.garage_motion
+            section14:
+              type: vertical-stack
+              cards:
+                - type: custom:mod-card
+                  style: |
+                    ha-card {
+                      background: black;
+                      border-radius: 20px;
+                      border: solid 1.5px var(--accent-color);
+                      --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                      padding: 0px;
+                      width: auto;
+                      height: 780px;
+                      box-sizing: border-box;
+                      margin: 0 !important;
+                      overflow: hidden;
+                    }
+                  card:
+                    type: custom:vertical-stack-in-card
+                    cards:
+                      - type: custom:more-info-card #picture-entity
+                        #                        camera_view: live
+                        #                        aspect_ratio: 65%
+                        entity: camera.local_radar
+                        tap_action:
+                          action: call-service
+                          service: input_select.select_option
+                          service_data:
+                            entity_id: input_select.button_layout
+                            option: mainsection
+        - break # #################################################
+        - type: custom:state-switch
+          entity: input_select.button_animation_2
+          transition: swap-right
+          transition_time: 700
+          states:
+            buttonshow:
               type: custom:mod-card
-              card_mod:
-                style: |
-                  ha-card {
-                    padding: 2px 3px 0px 3px;
-                    background: rgba(0,0,0,0.0);
-                    margin: 0;
-                  }
+              style: |
+                ha-card {
+                  padding: 0px;
+                  --paper-item-icon-active-color: var(--accent-color);
+                  margin: 0;
+                }
               card:
                 type: vertical-stack
                 cards:
-                  - type: custom:list-card
-                    card_mod:
-                      style: |
-                        ha-card {
-                          --primary-text-color: rgba(250,250,250,0.6);
-                          padding-top: 16px;
-                          height: 233px;
-                          overflow: hidden;
-                        }
-                        :host {
-                          --primary-text-color: #e0e1e1;
-                        }
-                    entity: sensor.verse_feed
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:decluttering-card
+                        template: switch_button81_temp
+                        variables:
+                          - entity: input_boolean.camera_driveway
+                          - name: Driveway
+                          - icon: "mdi:cctv"
+                      - type: custom:decluttering-card
+                        template: switch_button101_temp
+                        variables:
+                          - entity: input_boolean.camera_outside_cams
+                          - name: Porch
+                          - icon: "mdi:cctv"
+                      - type: custom:decluttering-card
+                        template: switch_button91_temp
+                        variables:
+                          - entity: input_boolean.camera_frontdoor
+                          - name: Front
+                          - icon: "mdi:cctv"
+                      - type: "custom:button-card"
+                        color_type: blank-card
+                        styles:
+                          card:
+                            - width: 28px
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:decluttering-card
+                        template: switch_button111_temp
+                        variables:
+                          - entity: input_boolean.camera_patio
+                          - name: Patio
+                          - icon: "mdi:cctv"
+                      - type: custom:decluttering-card
+                        template: switch_button121_temp
+                        variables:
+                          - entity: input_boolean.camera_garage
+                          - name: Backyard
+                          - icon: "mdi:cctv"
+                      - type: custom:decluttering-card
+                        template: switch_button131_temp
+                        variables:
+                          - entity: input_boolean.camera_entryhall
+                          - name: Garage
+                          - icon: "mdi:cctv"
+                      - type: "custom:button-card"
+                        color_type: blank-card
+                        styles:
+                          card:
+                            - width: 28px
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:decluttering-card
+                        template: switch_button141_temp
+                        variables:
+                          - entity: input_boolean.camera_den
+                          - name: Den
+                          - icon: "mdi:cctv"
+                      - type: custom:decluttering-card
+                        template: switch_button151_temp
+                        variables:
+                          - entity: input_boolean.camera_hallway
+                          - name: Hallway
+                          - icon: "mdi:cctv"
+                      - type: custom:decluttering-card
+                        template: switch_button404_temp
+                        variables:
+                          - entity: input_boolean.camera_kitchen
+                          - name: Kitchen
+                          - icon: "mdi:cctv"
+
+                      - type: "custom:button-card"
+                        color_type: blank-card
+                        styles:
+                          card:
+                            - width: 28px
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:decluttering-card
+                        template: switch_button7_temp
+                        variables:
+                          - entity: input_boolean.office_controls
+                          - name: Office
+                          - icon: "mdi:laptop"
+                      - type: custom:decluttering-card
+                        template: switch_button8_temp
+                        variables:
+                          - entity: input_boolean.kitchen_controls
+                          - name: Kitchen
+                          - icon: "mdi:silverware-variant"
+                      - type: custom:decluttering-card
+                        template: switch_button9_temp
+                        variables:
+                          - entity: input_boolean.bedroom_controls
+                          - name: Master
+                          - icon: "mdi:bed"
+                      - type: "custom:button-card"
+                        color_type: blank-card
+                        styles:
+                          card:
+                            - width: 28px
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:decluttering-card
+                        template: switch_button6_temp
+                        variables:
+                          - entity: input_boolean.den_controls
+                          - name: Den
+                          - icon: "mdi:sofa"
+                      - type: custom:decluttering-card
+                        template: switch_button12_temp
+                        variables:
+                          - entity: input_boolean.ensuite_controls
+                          - name: Ensuite
+                          - icon: "mdi:shower"
+                      - type: custom:decluttering-card
+                        template: switch_button11_temp
+                        variables:
+                          - entity: input_boolean.lights_on
+                          - name: Lights
+                          - icon: "mdi:lightbulb-on-outline"
+                      - type: "custom:button-card"
+                        color_type: blank-card
+                        styles:
+                          card:
+                            - width: 28px
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:decluttering-card
+                        template: switch_button161_temp
+                        variables:
+                          - entity: input_boolean.radar_interactive
+                          - name: N.O.L.A.
+                          - icon: "mdi:radar"
+                      - type: custom:decluttering-card
+                        template: switch_button171_temp
+                        variables:
+                          - entity: input_boolean.radar_regional
+                          - name: NOAA
+                          - icon: "mdi:radar"
+                      - type: custom:decluttering-card
+                        template: switch_button181_temp
+                        variables:
+                          - entity: input_boolean.radar_local
+                          - name: Local
+                          - icon: "mdi:radar"
+                      - type: "custom:button-card"
+                        color_type: blank-card
+                        styles:
+                          card:
+                            - width: 28px
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:decluttering-card
+                        template: switch_button5_temp
+                        variables:
+                          - entity: input_boolean.mobile_kiosk
+                          - name: Panel
+                          - icon: "mdi:logout"
+                      - type: custom:decluttering-card
+                        template: switch_button4_temp
+                        variables:
+                          - entity: input_boolean.theme_select
+                          - name: Themes
+                          - icon: "mdi:home-assistant"
+                      - type: custom:decluttering-card
+                        template: switch_button4_temp
+                        variables:
+                          - entity: input_boolean.forecast
+                          - name: Forecast
+                          - icon: "mdi:weather-partly-cloudy"
+                      - type: "custom:button-card"
+                        color_type: blank-card
+                        styles:
+                          card:
+                            - width: 28px
+                  - type: horizontal-stack
+                    cards:
+                      - type: "custom:button-card"
+                        entity: alarm_control_panel.alarmo
+                        show_name: false
+                        icon: "mdi:shield-check"
+                        tap_action:
+                          action: call-service
+                          service: input_select.select_option
+                          service_data:
+                            entity_id: input_select.button_layout
+                            option: section3
+                        <<: *showstate
+                        <<: *frontpagesize
+                        styles:
+                          <<: *alarmbuttonstyle
+                        state:
+                          - value: "disarmed"
+                            icon: "mdi:shield-cross"
+                            style:
+                              - opacity: 0.75
+                            styles:
+                              name:
+                                - color: white
+                              state:
+                                - color: "rgba(255, 255, 255,0.85)"
+                              icon:
+                                - color: white
+                                - animation: blink 2s linear 4
+                                - opacity: 0.75
+                          - value: "armed_home"
+                            icon: "mdi:shield-home"
+                            styles:
+                              name:
+                                - color: black
+                              state:
+                                - color: white
+                              icon:
+                                - color: red
+                                - animation: blink 2s ease infinite
+                          - value: "armed_night"
+                            icon: "mdi:shield-home"
+                            styles:
+                              name:
+                                - color: black
+                              state:
+                                - color: white
+                              icon:
+                                - color: green
+                                - animation: blink 2s ease infinite
+                          - value: "armed_away"
+                            icon: "mdi:shield-lock"
+                            styles:
+                              name:
+                                - color: black
+                              state:
+                                - color: white
+                              icon:
+                                - color: red
+                                - animation: blink 2s ease infinite
+                          - value: "pending" # arming
+                            style:
+                              - opacity: 0.7
+                            icon: "mdi:clock-alert-outline"
+                            styles:
+                              name:
+                                - color: black
+                              state:
+                                - color: white
+                              icon:
+                                - color: orange
+                                - animation: blink 1s ease infinite
+                      - type: "custom:button-card"
+                        entity: input_boolean.spotify
+                        icon: "mdi:spotify"
+                        <<: *standardbuttonactions
+                        <<: *showlabel
+                        <<: *frontpagesize
+                        styles:
+                          <<: *alarmbuttonstyle
+                        state:
+                          - value: "off"
+                            style:
+                              - opacity: 0.8
+                            styles:
+                              icon:
+                                - color: white
+                                - opacity: 0.75
+                          - value: "on"
+                            style:
+                              - opacity: 0.75
+                            styles:
+                              icon:
+                                - color: "var(--sidebar-icon-color)"
+                      - type: "custom:button-card"
+                        color_type: blank-card
+                        styles:
+                          card:
+                            - width: 15px
+                  - type: "custom:button-card"
+                    color_type: blank-card
+                    styles:
+                      card:
+                        - height: 1.5px
+            buttonlock:
+              type: custom:mod-card
+              style: |
+                ha-card {
+                  background: rgba(0,0,0,0.45);
+                  border-radius: 12px;
+                  --ha-card-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.0);
+                  font-family: Righteous;
+                  --paper-card-background-color: rgba(0,0,0,0.0);
+                  --primary-text-color: rgba(255,255,255,0.48);
+                  font-weight: bold;
+                  opacity: 1;
+                  margin: 0;
+                  box-sizing: border-box;
+                }
+              card:
+                type: custom:vertical-stack-in-card
+                cards:
+                  - type: "custom:list-card"
+                    style: |
+                      ha-card {
+                        --primary-text-color: rgba(250,250,250,0.6);
+                        padding-top: 16px;
+                        height: 440px;
+                      }
+                      :host {
+                        --primary-text-color: #e0e1e1;
+                      }
+                    entity: sensor.verse_feed #sensor.verse_of_the_day #sensor.bible_gateway_feed
                     feed_attribute: entries
                     row_limit: 1
                     columns:
@@ -617,167 +2139,49 @@ cards:
                         style:
                           - text-align: center
                           - font-size: 24px
-                          - text-shadow: >-
-                              0 1px 0 #999999, 0 2px 0 #8c8c8c, 0 3px 0
-                              #808080, 0 4px 0 #737373, 0 5px 0 #4d4d4d, 0
-                              6px 1px rgba(0,0,0,.1), 0 0 5px
-                              rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0
-                              3px 5px rgba(0,0,0,.2), 0 5px 10px
-                              rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0
-                              20px 20px rgba(0,0,0,.15)
+                          - text-shadow: "0 1px 0 #999999, 0 2px 0 #8c8c8c, 0 3px 0 #808080, 0 4px 0 #737373, 0 5px 0 #4d4d4d, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)"
                           - letter-spacing: 1.50px
                           - padding-bottom: 0px
-                  - type: custom:button-card
-                    color_type: blank-card
-                    styles:
-                      card:
-                        - height: .1px
-                  - type: horizontal-stack
+                  - type: vertical-stack
                     cards:
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:cctv
-                        name: Front
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/front
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:cctv
-                        name: Driveway
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/driveway
-                  - type: custom:button-card
-                    color_type: blank-card
-                    styles:
-                      card:
-                        - height: .1px
-                  - type: horizontal-stack
-                    cards:
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:cctv
-                        name: Doorbell
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/doorbell
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:cctv
-                        name: Patio
-                        tap_action:
-                          action: navigate
-                          navigation_path: /lovelace/patio
-                  - type: custom:button-card
-                    color_type: blank-card
-                    styles:
-                      card:
-                        - height: .1px
-                  - type: horizontal-stack
-                    cards:
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: light.outside_lights
-                        icon: mdi:lightbulb-group
-                        show_state: true
-                        name: Outside
-                        tap_action:
-                          action: toggle
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: cover.garage_door
-                        show_state: true
-                        state_color: true
-                        show_name: true
-                        name: Garage
-                        show_icon: true
-                        tap_action:
-                          action: toggle
-                  - type: custom:button-card
-                    color_type: blank-card
-                    styles:
-                      card:
-                        - height: .1px
-                  - type: horizontal-stack
-                    cards:
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        show_name: false
-                        show_icon: true
-                        tap_action:
-                          action: call-service
-                          service: alarmo.disarm
-                          target: {}
-                          data:
-                            entity_id: alarm_control_panel.alarmo
-                            code: "3971"
-                        entity: alarm_control_panel.alarmo
-                        show_state: true
-                        hold_action:
-                          action: call-service
-                          service: alarm_control_panel.alarm_trigger
-                          target:
-                            entity_id: alarm_control_panel.alarmo
-                      - type: button
-                        card_mod:
-                          style: |
-                            ha-card {
-                              background: rgba(0,0,0,0.5);
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                            }
-                        entity: input_boolean.ensuite_controls
-                        icon: mdi:arrow-down-bold
-                        name: Close
-                        tap_action:
-                          action: call-service
-                          service: input_select.select_option
-                          service_data:
-                            entity_id: input_select.button_animation_2
-                            option: buttonshow
+                      - type: custom:hui-element
+                        card_type: entities
+                        entities:
+                          - type: "custom:button-card"
+                            color_type: blank-card
+                            styles:
+                              card:
+                                - height: 110px
+                          - type: custom:hui-element
+                            card_type: glance
+                            columns: 1
+                            show_state: false
+                            style: |
+                              ha-card {
+                                font-size: 2em;
+                                text-align: center;
+                                --iron-icon-height: 60px;
+                                --iron-icon-width: 60px;
+                                --paper-item-icon-color: rgba(255,255,255,0.48);
+                                --paper-item-icon-active-color: rgba(255,255,255,0.48);
+                                --paper-card-background-color: rgba(0,0,0,0.0);
+                                background: rgba(0,0,0,0.0);
+                              }
+                            entities:
+                              - entity: sun.sun
+                                name: Panel Access
+                                icon: mdi:lock-smart
+                                tap_action:
+                                  action: call-service
+                                  service: input_select.select_option
+                                  service_data:
+                                    entity_id: input_select.button_animation_2
+                                    option: buttonshow
+
         - type: custom:bar-cardder
           severity:
             - value: 100
-              color: var(--accent-color-light)
+              color: "var(--accent-color-light)"
           title_position: inside
           decimal: "0"
           tap_action: info
@@ -788,15 +2192,15 @@ cards:
           saturation: 65%
           height: 26px
           card_style:
-            background: rgba(0, 0, 0, 0.4)
+            background: "rgba(0, 0, 0, 0.4)"
             border-radius: 10px
           title_style:
             font-size: 16px
             color: "#F2F2F2"
-            text-shadow: 2px 2px 5px black
+            text-shadow: "2px 2px 5px black"
           value_style:
             font-size: 24px
             font-weight: bold
           entities:
-            - sensor.ensuite_humidity_2
-            - sensor.ensuite_temperature_2
+            - sensor.processor_use
+            - sensor.memory_use_percent
