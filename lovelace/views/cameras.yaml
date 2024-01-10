@@ -1,5 +1,5 @@
 ---
-id: cameras
+animated_background: none
 title: Cameras
 path: cameras
 background: black
@@ -8,19 +8,22 @@ panel: true
 cards:
   - type: custom:vertical-stack-in-card
     cards:
+      - type: custom:more-info-card
+        title: " "
+        entity: camera.driveway_cam
       - type: horizontal-stack
         cards:
           - type: custom:more-info-card
-            title: ' '
-            entity: camera.driveway_cam
-          - type: custom:more-info-card
-            title: ' '
+            title: " "
             entity: camera.front_door
+          - type: custom:more-info-card
+            title: " "
+            entity: camera.front_yard_cam
       - type: horizontal-stack
         cards:
           - type: custom:more-info-card
-            title: ' '
-            entity: camera.patio_cam
-          - type: custom:more-info-card
-            title: ' '
+            title: " "
             entity: camera.garage_cam
+          - type: custom:more-info-card
+            title: " "
+            entity: camera.patio_cam

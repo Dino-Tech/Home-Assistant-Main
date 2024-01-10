@@ -1,0 +1,34 @@
+---
+kiosk_mode:
+  entity_settings:
+    - entity:
+        input_boolean.hide_header: "on"
+      hide_header: true
+    - entity:
+        input_boolean.hide_header: "off"
+      hide_header: false
+    - entity:
+        input_boolean.hide_sidebar: "on"
+      hide_sidebar: true
+    - entity:
+        input_boolean.hide_sidebar: "off"
+      hide_sidebar: false
+  user_settings:
+    - users:
+        - OfficePC
+      ignore_entity_settings: true
+      hide_sidebar: false
+      hide_header: false
+animated_background: none
+title: Driveway2
+path: driveway2
+background: rgba(0,0,0,0.0)
+icon: mdi:car-traction-control
+panel: true
+cards:
+  - type: picture-entity
+    entity: camera.driveway_cam
+    camera_view: live
+    tap_action:
+      action: navigate
+      navigation_path: /lovelace/ensuite_kiosk

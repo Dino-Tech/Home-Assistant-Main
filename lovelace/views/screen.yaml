@@ -1,22 +1,24 @@
 ---
 kiosk_mode:
+  entity_settings:
+    - entity:
+        input_boolean.hide_header: "on"
+      hide_header: true
+    - entity:
+        input_boolean.hide_header: "off"
+      hide_header: false
+    - entity:
+        input_boolean.hide_sidebar: "on"
+      hide_sidebar: true
+    - entity:
+        input_boolean.hide_sidebar: "off"
+      hide_sidebar: false
   user_settings:
     - users:
         - OfficePC
+      ignore_entity_settings: true
       hide_sidebar: false
-      hide_header: false
-    - users:
-        - Tablet
-        - Kiosk
-        - AlarmPanel
-        - Guest
-      hide_header: true
-      hide_sidebar: true
-      hide_menubutton: true
-      hide_overflow: true
-      hide_account: true
-      hide_search: true
-      hide_assistant: true
+
 animated_background:
   default_url: "https://cdn.flixel.com/flixel/ypy8bw9fgw1zv2b4htp2.hd.mp4"
   entity: "input_select.video_wallpaper"
@@ -66,26 +68,11 @@ animated_background:
     "cloudyMoon":
       - /local/background_videos/cloudyMoon.mp4
 
-id: random
-title: Random Cameras
-path: random
-background: transparent
-icon: mdi:clock-star-four-points-outline
-panel: true
-cards:
-  - type: "custom:clock-card"
-    style: |
-      ha-card {
-        background: rgba(0,0,0,0.0);
-      }
-    time_zone: "America/Chicago" #OPTIONAL
-    size: 780 #OPTIONAL
-    font_size: 100 #OPTIONAL
-    disable_seconds: true #OPTIONAL
-    #    caption: "Corporate"
-    #    display_date: "MM/DD/YY"
-    theme:
-      background: black
-      hands: "#404040"
-      numbers: dimgrey
-      border: "#1a1a1a"
+id: screen
+title: PicSaver
+path: screen
+background: rgba(0,0,0,0.0)
+icon: mdi:image-frame
+type: panel
+badges: []
+cards: []
