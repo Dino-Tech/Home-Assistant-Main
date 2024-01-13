@@ -1,26 +1,11 @@
+---
+## Automations
 - id: "1701111117565"
   alias: Report state on start-up
   trigger:
     - platform: homeassistant
       event: start
   action:
-    - service: button.press
-      continue_on_error: true
-      target:
-        entity_id: button.main_kiosk_load_start_url
-    - service: button.press
-      continue_on_error: true
-      target:
-        entity_id: button.ensuite_kiosk_load_start_url
-    - delay:
-        seconds: 3
-    - service: script.browser_window_reload
-    - delay:
-        seconds: 3
-    - service: frontend.set_theme
-      data:
-        name: Blue-Nightz
-    - delay: 10
     - service: mqtt.publish
       data:
         topic: cmnd/sonoffs/backlog
@@ -35,7 +20,45 @@
       data:
         topic: shellies/command
         payload: announce
+    - delay: 10
+    - service: button.press
+      continue_on_error: true
+      target:
+        entity_id: button.main_kiosk_load_start_url
+    - service: button.press
+      continue_on_error: true
+      target:
+        entity_id: button.ensuite_kiosk_load_start_url
+    - delay:
+        seconds: 10
+    - service: script.browser_window_reload
+    - delay:
+        seconds: 10
+    - service: frontend.set_theme
+      data:
+        name: Blue-Nightz
+  mode: single
   initial_state: true
+- id: "1705577229915545231"
+  alias: Turn on lights when garage opened after dark
+  mode: single
+  trigger:
+    - platform: state
+      entity_id:
+        - cover.garage_door
+      to: open
+  condition:
+    - condition: state
+      entity_id: binary_sensor.night
+      state: "on"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.front_yard_lights
+    - delay: 600
+    - service: light.turn_off
+      target:
+        entity_id: light.front_yard_lights
 - id: "1705577229915545"
   alias: Reload kiosk when lovelace is updated
   trigger:
@@ -48,10 +71,6 @@
   action:
     - service: lovelace.reload_resources
     - delay: 6
-    - service: button.press
-      continue_on_error: true
-      target:
-        entity_id: button.ensuite_kiosk_load_start_url
     - choose:
         - conditions:
             - condition: state
@@ -73,6 +92,27 @@
             - service: button.press
               target:
                 entity_id: button.main_kiosk_load_start_url
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: switch.ensuite_kiosk_screen
+              state: "off"
+          sequence:
+            - service: switch.turn_on
+              entity_id: switch.ensuite_kiosk_screen
+            - delay: 2
+            - service: button.press
+              target:
+                entity_id: button.ensuite_kiosk_load_start_url
+        - conditions:
+            - condition: state
+              entity_id: switch.ensuite_kiosk_screen
+              state: "on"
+          sequence:
+            - delay: 2
+            - service: button.press
+              target:
+                entity_id: button.ensuite_kiosk_load_start_url
   mode: single
 - id: "17016739887151444"
   alias: Reboot Kiosk
@@ -475,17 +515,31 @@
     - condition: time
       after: 05:30:01
       before: "22:30:00"
-    - condition: state
-      entity_id: binary_sensor.den_motion_sensors
-      state: "off"
   action:
     - delay: 300
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: light.den_nite_lites
+              state: "off"
+          sequence:
+            - service: browser_mod.navigate
+              data:
+                browser_id:
+                  - ac9b7f58-cfbfe785
+                path: /lovelace/random
+        - conditions:
+            - condition: state
+              entity_id: light.den_nite_lites
+              state: "on"
+          sequence:
+            - delay: 300
     - service: browser_mod.navigate
       data:
         browser_id:
           - ac9b7f58-cfbfe785
         path: /lovelace/random
-    - delay: 600
+    - delay: 300
     - service: browser_mod.navigate
       data:
         path: /lovelace/screen
@@ -493,7 +547,6 @@
           - ac9b7f58-cfbfe785
   mode: restart
   max_exceeded: silent
-
 - id: "17099299999977"
   alias: "[Tablet] Toggle tablet icons color"
   initial_state: true
@@ -545,7 +598,6 @@
         - light.front_yard_cam_floodlight
   mode: restart
   max_exceeded: silent
-
 - id: "170999978999162"
   alias: "[Presence] Darren Away"
   trigger:
@@ -766,16 +818,33 @@
               entity_id: light.entry_hall_lights
     - service: script.people_home
     - service: switch.turn_on
+      continue_on_error: true
       data:
         entity_id: switch.main_kiosk_screen
     - service: light.turn_on
+      continue_on_error: true
       data:
         entity_id: light.ac9b7f58_cfbfe785_screen
     - service: browser_mod.navigate
+      continue_on_error: true
       data:
         browser_id:
           - ac9b7f58-cfbfe785
         path: /lovelace/newtab
+    - service: switch.turn_on
+      continue_on_error: true
+      data:
+        entity_id: switch.ensuite_kiosk_screen
+    - service: light.turn_on
+      continue_on_error: true
+      data:
+        entity_id: light.ensuite_kiosk_screen
+    - service: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - 1b918469-5d6a2b44
+        path: /lovelace/ensuite_kiosk
     - choose:
         - conditions:
             - condition: time
@@ -2818,7 +2887,6 @@
       device_id: 5ba129f5afddad4746612d2d8d985871
       entity_id: 11d607ec53cc97b3fe7069a87115296f
       domain: binary_sensor
-  condition: []
   action:
     - service: light.turn_on
       target:
@@ -3196,3 +3264,57 @@
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.romance_time_2
+- id: "1715533926243786698923"
+  alias: Master night motion light off
+  mode: single
+  trigger:
+    - type: motion
+      platform: device
+      device_id: 31fe2afd0f8ba1c9cf9cb83a7cfcf22b
+      entity_id: 52a4f241edd4202fa7a47079cb8bf7f5
+      domain: binary_sensor
+  action:
+    - service: light.turn_off
+      target:
+        entity_id: light.bedroom_night_motion_light
+- id: "1715533926243722435923"
+  alias: Ensuite motion light on
+  mode: single
+  trigger:
+    - type: motion
+      platform: device
+      device_id: 34b613dffbb5eaa7e4db5c6bb5f95f69
+      entity_id: 4061103ea4bf323909c17af4d9dbf672
+      domain: binary_sensor
+  condition:
+    - condition: time
+      before: "22:00:00"
+      after: "19:00:00"
+    - condition: state
+      entity_id: binary_sensor.night
+      state: "on"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.jacuzzi_light
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: switch.ensuite_kiosk_screen
+              state: "off"
+          sequence:
+            - service: switch.turn_on
+              entity_id: switch.ensuite_kiosk_screen
+            - delay: 2
+            - service: button.press
+              target:
+                entity_id: button.ensuite_kiosk_load_start_url
+        - conditions:
+            - condition: state
+              entity_id: switch.ensuite_kiosk_screen
+              state: "on"
+          sequence:
+            - delay: 2
+            - service: button.press
+              target:
+                entity_id: button.ensuite_kiosk_load_start_url
