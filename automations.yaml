@@ -39,6 +39,47 @@
         name: Blue-Nightz
   mode: single
   initial_state: true
+- id: "17055772299155456532"
+  mode: single
+  alias: Start Voice assistant initiated Timer When Duration Set and notify when completed
+  trigger:
+    - platform: numeric_state
+      entity_id:
+        - input_number.timer_duration
+      above: 0
+  action:
+    - delay: 1
+    - service: timer.set_duration
+      target:
+        entity_id: timer.voice_timer
+      data_template:
+        duration: >-
+          {{ states('input_number.timer_duration') }}
+    - delay: 1
+    - service: timer.start
+      entity_id: timer.voice_timer
+    - wait_for_trigger:
+        platform: state
+        entity_id: timer.voice_timer
+        from: active
+        to: idle
+    - service: notify.mobile_app_pixel_8_pro
+      data_template:
+        title: Timer Finished
+        message: >-
+          {{ state_attr('timer.voice_timer', 'duration') }} timer has finished
+    - service: notify.mobile_app_pixel_8_pro
+      data:
+        message: TTS
+        data:
+          ttl: 0
+          priority: high
+          tts_text: The timer has finished
+    - service: input_number.set_value
+      data:
+        value: "0"
+      target:
+        entity_id: input_number.timer_duration
 - id: "1705577229915545231"
   alias: Turn on lights when garage opened after dark
   mode: single
