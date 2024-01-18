@@ -54,7 +54,7 @@
         entity_id: timer.voice_timer
       data_template:
         duration: >-
-          {{ states('input_number.timer_duration') | int }}
+          00:{{ states('input_number.timer_duration') | int }}:00
     - delay: 1
     - service: timer.start
       entity_id: timer.voice_timer
