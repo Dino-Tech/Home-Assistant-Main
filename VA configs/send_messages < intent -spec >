@@ -1,0 +1,53 @@
+## revised for sending messages via HA app for different recipients and destinations
+####################################################################################
+- spec:
+    name: send_message_to_darren
+    description: Use this function to send message to Darren's phone.
+    parameters:
+      type: object
+      properties:
+        message:
+          type: string
+          description: message you want to send
+      required:
+      - message
+  function:
+    type: script
+    sequence:
+    - service: notify.mobile_app_pixel_8_pro
+      data:
+        message: "{{ message }}"
+- spec:
+    name: send_message_to_donna
+    description: Use this function to send message to Donna's phone.
+    parameters:
+      type: object
+      properties:
+        message:
+          type: string
+          description: message you want to send
+      required:
+      - message
+  function:
+    type: script
+    sequence:
+    - service: notify.mobile_app_pixel_5
+      data:
+        message: "{{ message }}"
+- spec:
+    name: send_message_to_everyone
+    description: Use this function to send message to everyone's phone.
+    parameters:
+      type: object
+      properties:
+        message:
+          type: string
+          description: message you want to send
+      required:
+      - message
+  function:
+    type: script
+    sequence:
+    - service: notify.notify_all
+      data:
+        message: "{{ message }}"
