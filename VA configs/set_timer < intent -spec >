@@ -1,6 +1,8 @@
 ---
 ## Use to set timer in HA using voice assistant
 ## along with automation located in automations.yaml
+####################################################
+
 - spec:
     name: set_timer_duration
     description: Use this function to set timer duration.
