@@ -45,7 +45,8 @@
   trigger:
     - platform: numeric_state
       entity_id:
-        - input_number.timer_duration
+        - input_number.timer_minutes
+        - input_number.timer_seconds
       above: 0
   action:
     - delay: 1
@@ -54,7 +55,7 @@
         entity_id: timer.voice_timer
       data_template:
         duration: >-
-          00:{{ states('input_number.timer_duration') | int }}:00
+          00:{{ states('input_number.timer_minutes') | int }}:{{ states('input_number.timer_seconds') | int }}
     - delay: 1
     - service: timer.start
       entity_id: timer.voice_timer
@@ -77,9 +78,11 @@
           tts_text: The timer has finished
     - service: input_number.set_value
       data:
-        value: "0"
+        value: 0
       target:
-        entity_id: input_number.timer_duration
+        entity_id:
+          - input_number.timer_seconds
+          - input_number.timer_minutes
 - id: "1705577229915545231"
   alias: Turn on lights when garage opened after dark
   mode: single
