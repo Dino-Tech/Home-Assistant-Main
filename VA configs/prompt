@@ -1,5 +1,5 @@
 ## prompt for Open AI GPT model for HA services and responses
-## this is a revised promt using the below integration and personal requirements
+## this is a revised prompt using << extended_openai_conversation >> integration and personal requirements
 ##  https://github.com/jekalmin/extended_openai_conversation integration
 #############################################################################
 
