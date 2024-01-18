@@ -1,0 +1,31 @@
+---
+## Use to set timer in HA using voice assistant
+## along with automation
+- spec:
+    name: set_timer_duration
+    description: Use this function to set timer duration.
+    parameters:
+      type: object
+      properties:
+        timer_minutes:
+          type: number
+          description: The timer duration minutes in '%H:%M:%S' format
+        timer_seconds:
+          type: number
+          description: The timer duration seconds in '%H:%M:%S' format
+      required:
+      - timer_minutes
+      - timer_seconds
+  function:
+    type: script
+    sequence:
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.timer_minutes
+      data:
+        value: "{{ timer_minutes }}"
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.timer_seconds
+      data:
+        value: "{{ timer_seconds }}"
