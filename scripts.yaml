@@ -210,7 +210,7 @@ good_night:
         - light.every_light
         - light.office_floor_lights
         - switch.night_switches
-        - switch.keurig_coffee
+        #        - switch.keurig_coffee
         - input_boolean.disable_popups
         - input_boolean.darren_s_alarm_triggered_today
         - input_boolean.darren_is_awake
@@ -222,12 +222,6 @@ good_night:
         - input_boolean.auto_backgroundz
         - input_boolean.sports_updates
         - input_boolean.radar_updates
-    - service: mqtt.publish
-      continue_on_error: true
-      data:
-        topic: cmnd/cabinets/power1
-        payload: "OFF"
-        retain: "true"
     - service: alarm_control_panel.alarm_arm_night
       continue_on_error: true
       entity_id: alarm_control_panel.alarmo
@@ -242,16 +236,6 @@ good_night:
         - switch.air_cleaner
         - input_boolean.disable_auto_garage
         - input_boolean.disable_laundry_notifications
-    - service: lock.lock
-      continue_on_error: true
-      target:
-        entity_id: lock.side_door
-    - service: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id:
-          - media_player.office_google
-        volume_level: "0.35"
     - service: tts.google_say
       continue_on_error: true
       entity_id:
@@ -259,21 +243,9 @@ good_night:
       data_template:
         message: >
           Good night. {{ ["You are a child of God.", "Sleep well!", "God is good ALL the time!"] | random }}
-    - service: homeassistant.turn_off
-      entity_id: switch.main_kiosk_screen
-    - delay: 3
-    - service: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id: media_player.living_room_google
-        volume_level: "0.30"
-    - service: media_player.volume_set
-      metadata: {}
-      data:
-        volume_level: 0
-      target:
-        entity_id: media_player.office_google
+    - delay: 10
     - service: media_player.play_media
+      continue_on_error: true
       target:
         entity_id: media_player.office_google
       data:
@@ -294,13 +266,20 @@ good_night:
           - media_content_type: spotify://playlist
             media_content_id: >-
               spotify://9f616d8fea216b2657003da0fa09fb2d/spotify:playlist:3HeFztu9uNOl5blCGg3MTj
+    - service: homeassistant.turn_off
+      entity_id: switch.main_kiosk_screen
     - delay: 3
     - service: media_player.volume_set
-      metadata: {}
+      continue_on_error: true
       data:
-        volume_level: 0.45
-      target:
-        entity_id: media_player.office_google
+        entity_id: media_player.living_room_google
+        volume_level: 0.30
+    - service: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id: media_player.tv_speakers
+        volume_level: 0.30
+    - delay: 3
     - service: notify.mobile_app_pixel_8_pro
       data:
         message: command_broadcast_intent
@@ -309,6 +288,10 @@ good_night:
           intent_action: com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK
           ttl: 0
           priority: high
+    - service: lock.lock
+      continue_on_error: true
+      target:
+        entity_id: lock.side_door
     - delay: 10
     - condition: state
       entity_id: light.cabinet_lights
@@ -347,11 +330,11 @@ morning:
         - input_boolean.auto_backgroundz
         - input_boolean.auto_tablet
         - input_boolean.auto_backgroundz
-        - light.ha2_sofa_lamp
+        - light.sofa_light
         - switch.main_kiosk_screen
         - switch.subwoofer
         - switch.den_nightlight_plugs
-        - switch.keurig_coffee
+    #        - switch.keurig_coffee
     - delay: 300
     - service: input_boolean.turn_on
       entity_id:
@@ -815,53 +798,59 @@ darrens_wake_up:
     - service: light.turn_on
       data:
         entity_id: light.desk_light
-        brightness_pct: 10
+        brightness_pct: 1
         transition: 4
         kelvin: 2400
     - delay: "00:01:00"
     - service: light.turn_on
       data:
         entity_id: light.desk_light
-        brightness_pct: 30
+        brightness_pct: 5
         transition: 4
         kelvin: 3300
     - delay: "00:01:00"
     - service: media_player.volume_set
+      continue_on_error: true
       data:
         entity_id:
           - media_player.office_google
         volume_level: "0.35"
     - service: tts.google_say
+      continue_on_error: true
       entity_id:
         - media_player.office_google
       data_template:
         message: >
           Good morning. {{ ["Time to wake up and be thankful.", "You have been blessed with another day!", "God is good ALL the time!"] | random }}
+    - service: light.turn_on
+      data:
+        entity_id: light.desk_light
+        brightness_pct: 30
+        transition: 4
+        kelvin: 3800
     - delay: "00:00:20"
     - service: media_player.volume_set
+      continue_on_error: true
       data:
         volume_level: 0.4
       target:
         device_id: 4365464e7cdd496ca499d4ce5141ce6e
     - service: media_player.play_media
+      continue_on_error: true
       target:
-        entity_id: media_player.office_google
+        entity_id: media_player.office_speaker
       data:
-        media_content_id: >-
-          spotify://9f616d8fea216b2657003da0fa09fb2d/spotify:track:0flJAxxpEXWCJB7Y3514OG
-        media_content_type: spotify://track
+        media_content_id: library://track/56
+        media_content_type: music
       metadata:
-        title: PRAISE YOU ANYWHERE
-        thumbnail: https://i.scdn.co/image/ab67616d0000b27343d7792fc3c1a59922740d0e
+        title: Crowder - Grave Robber
+        thumbnail: https://i.scdn.co/image/ab67616d0000b273f695a68ba59a73597e11fb76
         media_class: track
         children_media_class: null
         navigateIds:
           - {}
-          - media_content_type: spotify://library
-            media_content_id: spotify://9f616d8fea216b2657003da0fa09fb2d
-          - media_content_type: spotify://current_user_recently_played
-            media_content_id: >-
-              spotify://9f616d8fea216b2657003da0fa09fb2d/current_user_recently_played
+          - media_content_type: mass
+            media_content_id: tracks
     - service: light.turn_on
       data:
         entity_id: light.corner_light
@@ -889,13 +878,17 @@ darrens_wake_up:
     - service: switch.turn_off
       entity_id:
         - switch.air_cleaner
+    - service: light.turn_on
+      data:
+        entity_id: light.office_ceiling_lights
+        brightness_pct: 40
     - delay: "00:05:00"
     - service: script.morning
     - service: light.turn_on
       data:
         entity_id: light.office_floor_lights
         brightness_pct: 100
-        kelvin: 3000
+        kelvin: 3200
     - delay: "00:30:00"
     - service: homeassistant.turn_off
       entity_id: input_boolean.darren_s_alarm_triggered_today
@@ -1053,7 +1046,7 @@ people_away:
       entity_id:
         - input_boolean.door_announcements
         - input_boolean.camera_snapshots
-        - light.ha2_sofa_lamp
+        - light.sofa_light
         - light.cabinet_lights
     - service: mqtt.publish
       continue_on_error: true
@@ -1262,7 +1255,7 @@ alarm_disarm:
     - service: light.turn_on
       continue_on_error: true
       entity_id:
-        - light.ha2_sofa_lamp
+        - light.sofa_light
         - light.cabinet_lights
     - service: input_boolean.turn_off
       entity_id: input_boolean.alarm_disarm_switch
