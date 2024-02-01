@@ -39,6 +39,34 @@
         name: Blue-Nightz
   mode: single
   initial_state: true
+- id: "1735793299155456532216"
+  alias: Integration Watchdog ## code framework thanks to @dsellers1
+  description: >
+    This automation watches entities to ensure the integration is functioning; if
+    not, it will restart it.
+  trigger:
+    - platform: state
+      entity_id:
+        - camera.backyard_cam
+        - camera.den_cam
+        - camera.driveway_cam
+        - camera.entry_hall_cam
+        - camera.garage_cam
+        - camera.front_door
+        - camera.front_yard_cam
+        - camera.kitchen_cam
+        - camera.kitchen_cam_2
+        - camera.patio_cam
+        - camera.poopy_cam
+      to: unavailable
+      for:
+        minutes: 6
+  action:
+    - service: homeassistant.reload_config_entry
+      target:
+        entity_id: "{{ trigger.entity_id }}"
+  mode: single
+  initial_state: true
 - id: "17055772299155456532"
   mode: single
   alias: Start Voice assistant initiated Timer When Duration Set and notify when completed
@@ -69,6 +97,7 @@
         title: Timer Finished
         message: >-
           {{ state_attr('timer.voice_timer', 'duration') }} timer has finished
+    - delay: 1
     - service: notify.mobile_app_pixel_8_pro
       data:
         message: TTS
@@ -104,7 +133,7 @@
       target:
         entity_id: light.front_yard_lights
 - id: "1705577229915545"
-  alias: Reload kiosk when lovelace is updated
+  alias: Reload kiosk when lovelace is updated ## code framework thanks to @dsellers1
   trigger:
     - platform: event
       event_type: lovelace_updated
@@ -603,6 +632,7 @@
         entity_id: group.tablet_icons
 - id: "17099939999933322"
   alias: "[Motion] Porch Motion Lights after Dark"
+  initial_state: true
   trigger:
     - platform: state
       entity_id: binary_sensor.front_motion
@@ -800,6 +830,20 @@
       data:
         entity_id: light.outside_lights
   initial_state: true
+- id: "17520931774975342345"
+  alias: "[SWITCH] Sofa Light"
+  trigger:
+    - platform: state
+      entity_id:
+        - switch.sofa_lamp
+  condition:
+    - condition: template
+      value_template: "{{ trigger.from_state.state != 'unavailable' }}"
+  action:
+    - service: homeassistant.turn_{{- trigger.to_state.state -}}
+      data:
+        entity_id: switch.sofa_light_plug_switch
+  initial_state: true
 - id: "170999993999165"
   alias: "[Presence] People Away"
   trigger:
@@ -988,7 +1032,7 @@
         entity_id: binary_sensor.kitchen_motion_sensors
         from: "on"
         to: "off"
-    - delay: 720
+    - delay: 1200
     - service: light.turn_off
       entity_id: light.kitchen_ceiling_lights
     - service: mqtt.publish
@@ -1369,7 +1413,7 @@
             - service: light.turn_on
               continue_on_error: true
               entity_id:
-                - light.ha2_sofa_lamp
+                - light.sofa_light
                 - light.cabinet_lights
 - id: "1701613174749753434567"
   alias: "[Alarmo] Home mode switch"
@@ -2684,7 +2728,7 @@
     - platform: template
       value_template:
         "{{ states('sensor.date_time') == (as_timestamp(states.sensor.pixel_8_pro_next_alarm.state)
-        |int -300)| timestamp_custom('%Y-%m-%d, %H:%M', True) }} "
+        |int -120)| timestamp_custom('%Y-%m-%d, %H:%M', True) }} "
   condition:
     - condition: template
       value_template: "{{ trigger.from_state.state != 'unavailable' }}"
@@ -2749,12 +2793,10 @@
 - id: "17025318794468582"
   alias: "[Motion] Someone's at the Table"
   trigger:
-    - type: motion
-      platform: device
-      device_id: 269bfe586d1a26f1b65fddeca53aa69e
-      entity_id: 4e749991fa9d067cbd709f6239f0b863
-      domain: binary_sensor
-  condition: []
+    - platform: state
+      entity_id:
+        - binary_sensor.kitchen_table_motion_sensors
+      to: "on"
   action:
     - service: light.turn_on
       target:
@@ -2762,7 +2804,7 @@
     - wait_for_trigger:
         - platform: state
           entity_id:
-            - binary_sensor.table_motion
+            - binary_sensor.kitchen_table_motion_sensors
           from: "on"
           to: "off"
     - delay:
@@ -2807,7 +2849,7 @@
         entity_id: binary_sensor.bathroom_motion
         from: "on"
         to: "off"
-    - delay: 10
+    - delay: 30
     - condition: state
       entity_id: binary_sensor.bathroom_door_bt
       state: "on"
@@ -3321,15 +3363,14 @@
     - service: light.turn_off
       target:
         entity_id: light.bedroom_night_motion_light
-- id: "1715533926243722435923"
+- id: "17192624372243592387"
   alias: Ensuite motion light on
   mode: single
   trigger:
-    - type: motion
-      platform: device
-      device_id: 34b613dffbb5eaa7e4db5c6bb5f95f69
-      entity_id: 4061103ea4bf323909c17af4d9dbf672
-      domain: binary_sensor
+    - platform: state
+      entity_id:
+        - binary_sensor.ensuite_motion_sensors
+      to: "on"
   condition:
     - condition: time
       before: "22:00:00"
