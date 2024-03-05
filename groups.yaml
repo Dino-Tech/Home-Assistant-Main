@@ -2,12 +2,15 @@
 # # groups# /config/groups.yaml
 # ############################################
 
-#camera_reboot:
-#  name: Reboot Cameras
-#  entities:
-#    - switch.drive_garage_cam_power
-#    - switch.den_power_strip
-#    - switch.porch_outlets
+alarm_sirens:
+  name: Alarm Sirens
+  entities:
+    - switch.main_siren
+    - switch.siren
+    - siren.front_yard_cam_siren
+    - siren.garage_camera_siren
+    - siren.patio_camera_siren
+    - siren.pan_cam_siren
 
 # presence groups
 person_group:
