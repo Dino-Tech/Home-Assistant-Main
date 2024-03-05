@@ -132,6 +132,20 @@
     - service: light.turn_off
       target:
         entity_id: light.front_yard_lights
+- id: "1783625788126933756"
+  alias: Outside Cam Notifications ON when dark
+  mode: single
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.night
+      to: "on"
+      for:
+        minutes: 30
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.outside_cam_notifications
 - id: "1705577229915545"
   alias: Reload kiosk when lovelace is updated ## code framework thanks to @dsellers1
   trigger:
@@ -380,6 +394,25 @@
     - service: notify.mobile_app_pixel_8_pro
       data_template:
         message: "Garage fridge turned back on at '{{ now().strftime('%I:%M %p') }}' "
+- id: "1754999377123967"
+  alias: "[Notify] Kitchen Fridge OFF"
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: switch.kitchen_fridge
+      to: "off"
+      for:
+        minutes: 2
+  action:
+    - service: notify.mobile_app_pixel_8_pro
+      data_template:
+        message: "Kitchen fridge turned off at '{{ now().strftime('%I:%M %p') }}' "
+    - delay: 00:15:00
+    - service: homeassistant.turn_on
+      entity_id: switch.kitchen_fridge
+    - service: notify.mobile_app_pixel_8_pro
+      data_template:
+        message: "Kitchen fridge turned back on at '{{ now().strftime('%I:%M %p') }}' "
 - id: "17059999999941"
   alias: Update Template Sensors
   initial_state: true
@@ -403,7 +436,7 @@
   initial_state: true
   trigger:
     platform: time
-    at: 06:30:00
+    at: 04:30:00
   action:
     - service: input_select.set_options
       entity_id: input_select.wallpaper
@@ -1021,7 +1054,7 @@
       state: "on"
   action:
     - service: light.turn_on
-      entity_id: light.kitchen_ceiling_lights
+      entity_id: light.kitchen_ceiling_lights_3
     - service: mqtt.publish
       data:
         topic: cmnd/cabinets/power1
@@ -1034,7 +1067,7 @@
         to: "off"
     - delay: 1200
     - service: light.turn_off
-      entity_id: light.kitchen_ceiling_lights
+      entity_id: light.kitchen_ceiling_lights_3
     - service: mqtt.publish
       data:
         topic: cmnd/cabinets/power1
@@ -1068,6 +1101,34 @@
     - delay: 10
     - service: light.turn_off
       entity_id: light.entry_hall_lights
+  mode: restart
+  max_exceeded: silent
+- id: "179161817217497534"
+  alias: "[Motion] Foyer Motion Lights"
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.foyer_motion_sensors
+      from: "off"
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: group.person_group
+      state: home
+    - condition: state
+      entity_id: input_boolean.motion_lights
+      state: "on"
+  action:
+    - service: light.turn_on
+      entity_id: light.foyer_lights
+    - wait_for_trigger:
+        platform: state
+        entity_id: binary_sensor.foyer_motion_sensors
+        from: "on"
+        to: "off"
+    - delay: 10
+    - service: light.turn_off
+      entity_id: light.foyer_lights
   mode: restart
   max_exceeded: silent
 - id: "1706618177497534"
@@ -1295,9 +1356,9 @@
           ttl: 0
           priority: high
           tts_text: "The alarm has been triggered by {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
-    - service: switch.turn_on
+    - service: homeassistant.turn_on
       continue_on_error: true
-      entity_id: switch.siren
+      entity_id: group.alarm_sirens
     - service: noonlight.create_alarm
       continue_on_error: true
       data:
@@ -1396,11 +1457,11 @@
               entity_id: alarm_control_panel.alarmo
               state: disarmed
           sequence:
-            - service: switch.turn_off
+            - service: homeassistant.turn_off
               continue_on_error: true
               entity_id:
                 - switch.noonlight_switch
-                - switch.siren
+                - group.alarm_sirens
             - service: light.turn_off
               continue_on_error: true
               entity_id:
@@ -1527,7 +1588,7 @@
       entity_id: group.person_group
       to: not_home
       for:
-        minutes: 3
+        minutes: 2
   condition:
     - condition: state
       entity_id: cover.garage_door
@@ -2238,7 +2299,7 @@
   action:
     - service: homeassistant.turn_{{- trigger.to_state.state -}}
       data:
-        entity_id: light.kitchen_ceiling_lights
+        entity_id: light.kitchen_ceiling_lights_3
   mode: single
 - id: "170132997235605"
   alias: Kitchen 2 motion pic
@@ -2728,7 +2789,7 @@
     - platform: template
       value_template:
         "{{ states('sensor.date_time') == (as_timestamp(states.sensor.pixel_8_pro_next_alarm.state)
-        |int -120)| timestamp_custom('%Y-%m-%d, %H:%M', True) }} "
+        |int -1)| timestamp_custom('%Y-%m-%d, %H:%M', True) }} "
   condition:
     - condition: template
       value_template: "{{ trigger.from_state.state != 'unavailable' }}"
@@ -2747,7 +2808,7 @@
     - platform: template
       value_template:
         "{{ states('sensor.date_time') == (as_timestamp(states.sensor.pixel_5_next_alarm.state)
-        |int -60)| timestamp_custom('%Y-%m-%d, %H:%M', True) }} "
+        |int -1)| timestamp_custom('%Y-%m-%d, %H:%M', True) }} "
   condition:
     - condition: template
       value_template: "{{ trigger.from_state.state != 'unavailable' }}"
@@ -3403,3 +3464,48 @@
             - service: button.press
               target:
                 entity_id: button.ensuite_kiosk_load_start_url
+- id: "1749263722887642387"
+  alias: "BLE STATE CHANGE"
+  mode: single
+  trigger:
+    - platform: state
+      entity_id:
+        - sensor.ble_pixel_8_pro
+      to: "office"
+    - platform: state
+      entity_id:
+        - sensor.ble_pixel_8_pro
+      to: "garage"
+    - platform: state
+      entity_id:
+        - sensor.ble_pixel_8_pro
+      to: "family"
+    - platform: state
+      entity_id:
+        - sensor.ble_pixel_8_pro
+      to: "kitchen"
+    - platform: state
+      entity_id:
+        - sensor.ble_pixel_8_pro
+      to: "bathroom"
+    - platform: state
+      entity_id:
+        - sensor.ble_pixel_8_pro
+      to: "not_home"
+  action:
+    - service: notify.mobile_app_pixel_8_pro
+      data_template:
+        message: |
+          {% if is_state("sensor.ble_pixel_8_pro", "kitchen") %}
+            ⚠️BLE State KITCHEN {{ states('sensor.time_12_hour_am_pm') }}
+          {% elif is_state("sensor.ble_pixel_8_pro", "office") %}
+            ⚠️BLE State OFFICE {{ states('sensor.time_12_hour_am_pm') }}
+          {% elif is_state("sensor.ble_pixel_8_pro", "family") %}
+            ⚠️BLE State DEN {{ states('sensor.time_12_hour_am_pm') }}
+          {% elif is_state("sensor.ble_pixel_8_pro", "garage") %}
+            ⚠️BLE State GARAGE {{ states('sensor.time_12_hour_am_pm') }}
+          {% elif is_state("sensor.ble_pixel_8_pro", "bedroom") %}
+            ⚠️BLE State BED {{ states('sensor.time_12_hour_am_pm') }}
+          {% elif is_state("sensor.ble_pixel_8_pro", "not_home") %}
+            ⚠️BLE State AWAY {{ states('sensor.time_12_hour_am_pm') }}
+          {% else %} {% endif %}
