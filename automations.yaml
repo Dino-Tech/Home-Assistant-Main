@@ -1,4 +1,3 @@
-## Automations
 - id: "1701111117565"
   alias: Report state on start-up
   triggers:
@@ -131,9 +130,11 @@
   mode: single
   triggers:
     - trigger: state
-      entity_id:
-        - binary_sensor.back_door1
+      entity_id: binary_sensor.back_door1
       to: open
+    - trigger: state
+      entity_id: binary_sensor.back_motion
+      to: "on"
   condition:
     - condition: state
       entity_id: binary_sensor.night
@@ -145,7 +146,7 @@
     - delay: 600
     - action: light.turn_off
       target:
-        entity_id: light.backyard_lights
+        entity_id: light.patio_ceiling_light, light.back_flood_lights
 - id: "1783625788126933756"
   alias: Outside Cam Notifications ON when dark
   mode: single
@@ -630,28 +631,30 @@
       entity_id:
         - input_select.mobile_wallpaper
         - input_select.video_wallpaper
-- id: "1999499652422319944"
-  alias: "KIOSK motion control"
-  initial_state: true
+- id: "17837532245565054"
+  alias: "[Motion] ZB5 night lights and KIOSK"
   triggers:
     - trigger: state
-      entity_id:
-        - light.den_night_lights
+      entity_id: binary_sensor.den_night_light_motion
       to: "on"
-    - trigger: state
-      entity_id:
-        - light.den_night_lights
-      to: "off"
   action:
     - choose:
         - conditions:
-            - condition: state
-              entity_id: light.den_night_lights
-              state: "on"
+            - condition: time
+              after: "23:00:01"
+              before: "05:30:00"
+          sequence:
+            - action: light.turn_on
+              data:
+                entity_id: light.den_night_lights
+        - conditions:
             - condition: time
               after: 05:30:01
               before: "23:00:00"
           sequence:
+            - action: light.turn_on
+              data:
+                entity_id: light.den_night_lights
             - action: switch.turn_on
               data:
                 entity_id: switch.main_kiosk_screen
@@ -663,30 +666,32 @@
                 browser_id:
                   - ac9b7f58-cfbfe785
                 path: /lovelace/newtab
+    - wait_for_trigger:
+        - trigger: state
+          entity_id: binary_sensor.den_night_light_motion
+          from: "on"
+          to: "off"
+    - delay: 90
+    - action: light.turn_off
+      entity_id: light.den_night_lights
+    - choose:
         - conditions:
-            - condition: state
-              entity_id: light.den_night_lights
-              state: "off"
             - condition: time
               after: 05:30:01
               before: "23:00:00"
           sequence:
-            - delay: 30
             - action: browser_mod.navigate
               data:
                 browser_id:
                   - ac9b7f58-cfbfe785
                 path: /lovelace/random
-            - delay: 180
+            - delay: 300
             - action: browser_mod.navigate
               data:
                 path: /lovelace/screen
                 browser_id:
                   - ac9b7f58-cfbfe785
         - conditions:
-            - condition: state
-              entity_id: light.den_night_lights
-              state: "off"
             - condition: time
               after: "22:30:01"
               before: 05:30:00
@@ -695,52 +700,9 @@
             - action: light.turn_off
               data:
                 entity_id: light.ac9b7f58_cfbfe785_screen
+      enabled: true
   mode: restart
   max_exceeded: silent
-#- id: "17095999999922"
-#  alias: "[Tablet] motion_OFF_night"
-#  initial_state: true
-#  triggers:
-#    - trigger: state
-#      entity_id: light.den_night_lights
-#      to: "off"
-#      for:
-#        minutes: 15
-#  condition:
-#    - condition: time
-#      after: "22:30:01"
-#      before: 05:30:00
-#  action:
-#    - action: switch.turn_off
-#      data:
-#        entity_id: switch.main_kiosk_screen
-#- id: "17096999999966"
-#  alias: "[Tablet] motion_OFF_day"
-#  initial_state: true
-#  triggers:
-#    - trigger: state
-#      entity_id: light.den_night_lights
-#      from: "on"
-#      to: "off"
-#  condition:
-#    - condition: time
-#      after: 05:30:01
-#      before: "22:30:00"
-#  action:
-#    - delay: 90
-#    - action: browser_mod.navigate
-#      data:
-#        browser_id:
-#          - ac9b7f58-cfbfe785
-#        path: /lovelace/random
-#    - delay: 180
-#    - action: browser_mod.navigate
-#     data:
-#        path: /lovelace/screen
-#        browser_id:
-#          - ac9b7f58-cfbfe785
-# mode: restart
-#  max_exceeded: silent
 - id: "17099299999977"
   alias: "[Tablet] Toggle tablet icons color"
   initial_state: true
@@ -982,7 +944,6 @@
     - action: switch.turn_off
       entity_id: switch.patio_box_fan_switch
   mode: single
-
 - id: "170999993999165"
   alias: "[Presence] People Away"
   triggers:
@@ -1124,31 +1085,52 @@
       entity_id: input_boolean.motion_lights
       state: "off"
   action:
-    - action: light.turn_on
-      entity_id: light.kitchen_ceiling_lights_3
-    - action: light.turn_on
-      entity_id: light.cabinet_lights
-    - action: mqtt.publish
-      data:
-        topic: cmnd/cabinets/power1
-        payload: "ON"
-        retain: "true"
+    - choose:
+        - conditions:
+            - condition: time
+              after: "23:00:01"
+              before: "05:30:00"
+          sequence:
+            - action: light.turn_on
+              data:
+                entity_id: light.cabinet_lights_3
+        - conditions:
+            - condition: time
+              after: 05:30:01
+              before: "23:00:00"
+          sequence:
+            - action: light.turn_on
+              data:
+                entity_id: light.cabinet_lights_3
+            - action: light.turn_on
+              data:
+                entity_id: light.kitchen_ceiling_lights_3
     - wait_for_trigger:
         - trigger: state
           entity_id: binary_sensor.kitchen_motion_sensors
           from: "on"
           to: "off"
-    - delay: 1200
-    - action: light.turn_off
-      entity_id: light.kitchen_ceiling_lights_3
-    - delay: 600
-    - action: light.turn_off
-      entity_id: light.cabinet_lights
-    - action: mqtt.publish
-      data:
-        topic: cmnd/cabinets/power1
-        payload: "OFF"
-        retain: "true"
+    - choose:
+        - conditions:
+            - condition: time
+              after: "22:00:01"
+              before: "05:30:00"
+          sequence:
+            - delay: 600
+            - action: light.turn_off
+              data:
+                entity_id: light.cabinet_lights_3
+        - conditions:
+            - condition: time
+              after: 05:30:01
+              before: "22:00:00"
+          sequence:
+            - delay: 900
+            - action: light.turn_off
+              entity_id: light.kitchen_ceiling_lights_3
+            - delay: 600
+            - action: light.turn_off
+              entity_id: light.cabinet_lights_3
   mode: restart
   max_exceeded: silent
 - id: "1701618177497534"
@@ -1305,7 +1287,6 @@
   initial_state: true
   mode: single
   max_exceeded: silent
-
 - id: "17016381774975134"
   alias: "[Auto] Ensuite Vent auto off timer"
   triggers:
@@ -1594,7 +1575,7 @@
               continue_on_error: true
               entity_id:
                 - light.sofa_lamp
-                - light.cabinet_lights
+                - light.cabinet_lights_3
 - id: "1701613174749753434567"
   alias: "[Alarmo] Home mode switch"
   initial_state: true
@@ -1874,134 +1855,6 @@
       data_template:
         title: UPS changed state
         message: "{{ trigger.event.data.notify_msg }}"
-- id: "17016646577672587"
-  alias: Bedroom Fan Low
-  triggers:
-    - trigger: state
-      entity_id:
-        - input_boolean.bedroom_fan_low
-      from: "off"
-      to: "on"
-  action:
-    - action: script.bedroom_fan_low
-    - delay:
-        seconds: 3
-    - action: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.bedroom_fan_low
-  mode: single
-- id: "17016646861505822"
-  alias: Bedroom Fan Medium
-  triggers:
-    - trigger: state
-      entity_id:
-        - input_boolean.bedroom_fan_medium
-      from: "off"
-      to: "on"
-  action:
-    - action: script.bedroom_fan_medium
-    - delay:
-        seconds: 3
-    - action: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.bedroom_fan_medium
-  mode: single
-- id: "17016654686576228"
-  alias: Bedroom Fan High
-  triggers:
-    - trigger: state
-      entity_id:
-        - input_boolean.bedroom_fan_high
-      from: "off"
-      to: "on"
-  action:
-    - action: script.bedroom_fan_high
-    - delay:
-        seconds: 3
-    - action: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.bedroom_fan_high
-  mode: single
-- id: "17016646786640111"
-  alias: Bedroom Fan Max
-  triggers:
-    - trigger: state
-      entity_id:
-        - input_boolean.bedroom_fan_max
-      from: "off"
-      to: "on"
-  action:
-    - action: script.bedroom_fan_max
-    - delay:
-        seconds: 3
-    - action: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.bedroom_fan_max
-  mode: single
-- id: "1701664617767258723"
-  alias: Office Fan Low
-  triggers:
-    - trigger: state
-      entity_id:
-        - input_boolean.office_fan_low
-      from: "off"
-      to: "on"
-  action:
-    - action: script.office_fan_low
-    - delay:
-        seconds: 3
-    - action: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.office_fan_low
-  mode: single
-- id: "1701664628650582276"
-  alias: Office Fan Medium
-  triggers:
-    - trigger: state
-      entity_id:
-        - input_boolean.office_fan_medium
-      from: "off"
-      to: "on"
-  action:
-    - action: script.office_fan_medium
-    - delay:
-        seconds: 3
-    - action: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.office_fan_medium
-  mode: single
-- id: "1701664868657622838"
-  alias: Office Fan High
-  triggers:
-    - trigger: state
-      entity_id:
-        - input_boolean.office_fan_high
-      from: "off"
-      to: "on"
-  action:
-    - action: script.office_fan_high
-    - delay:
-        seconds: 3
-    - action: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.office_fan_high
-  mode: single
-- id: "17016464686640111334"
-  alias: Office Fan Max
-  triggers:
-    - trigger: state
-      entity_id:
-        - input_boolean.office_fan_max
-      from: "off"
-      to: "on"
-  action:
-    - action: script.office_fan_max
-    - delay:
-        seconds: 3
-    - action: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.office_fan_max
-  mode: single
 - id: "17016703383649836"
   alias: TV Ambient lights ON when TV is on
   triggers:
@@ -2877,21 +2730,21 @@
               after: 06:00:01
           sequence:
             - action: light.turn_on
-              entity_id: light.bathroom_lights
+              entity_id: light.bathroom_lights_2_2
         - conditions:
             - condition: time
               before: "19:59:59"
               after: 08:30:00
           sequence:
             - action: light.turn_on
-              entity_id: light.bathroom_lights
+              entity_id: light.bathroom_lights_2_2
         - conditions:
             - condition: time
               before: "22:29:59"
               after: "20:00:00"
           sequence:
             - action: light.turn_on
-              entity_id: light.bathroom_lights
+              entity_id: light.bathroom_lights_2_2
         - conditions:
             - condition: time
               before: 06:00:00
@@ -2911,7 +2764,7 @@
       state: "on"
       enabled: true
     - action: light.turn_off
-      entity_id: light.bathroom_lights
+      entity_id: light.bathroom_lights_2_2
   mode: restart
   max_exceeded: silent
 - id: "170263206754260"
@@ -3021,44 +2874,36 @@
       entity_id: switch.ensuite_kiosk_screen
   mode: restart
   max_exceeded: silent
+- id: "19317603288153054"
+  alias: "Patio LEDs ON at sunset"
+  mode: single
+  triggers:
+    - trigger: sun
+      event: sunset
+      offset: "+00:30:00"
+  actions:
+    - type: turn_on
+      device_id: ea11a241127e97442fb1c99327e49b59
+      entity_id: 914303f3da00efeb0ba5e45707be8974
+      domain: switch
 - id: "170303288153054"
   alias: "[Motion] Garage night lights"
   triggers:
     - trigger: state
-      entity_id: binary_sensor.garage_zb_motion_sensors
+      entity_id: binary_sensor.garage_motion_sensors
       to: "on"
   action:
     - action: light.turn_on
       entity_id: light.garage_zb_night_lights
     - wait_for_trigger:
         - trigger: state
-          entity_id: binary_sensor.garage_zb_motion_sensors
+          entity_id: binary_sensor.garage_motion_sensors
           from: "on"
           to: "off"
-    - delay: 10
+    - delay: 300
       enabled: true
     - action: light.turn_off
       entity_id: light.garage_zb_night_lights
-  mode: restart
-  max_exceeded: silent
-- id: "1703032245565054"
-  alias: "[Motion] ZB5 night lights"
-  triggers:
-    - trigger: state
-      entity_id: binary_sensor.den_night_light_motion
-      to: "on"
-  action:
-    - action: light.turn_on
-      entity_id: light.den_night_lights
-    - wait_for_trigger:
-        - trigger: state
-          entity_id: binary_sensor.den_night_light_motion
-          from: "on"
-          to: "off"
-    - delay: 90
-      enabled: true
-    - action: light.turn_off
-      entity_id: light.den_night_lights
   mode: restart
   max_exceeded: silent
 - id: "170273218670383"
@@ -3648,7 +3493,7 @@
       target:
         entity_id: light.office_floor_lights
 - id: "17676447855444526"
-  alias: "Office NOT Occupied"
+  alias: Office NOT Occupied
   mode: single
   trigger:
     - type: not_occupied
@@ -3757,7 +3602,7 @@
   action:
     - action: light.toggle
       target:
-        entity_id: light.cabinet_lights
+        entity_id: light.cabinet_lights_3
 - id: "1817854671155444526"
   alias: kitchen remote button 2
   mode: single
@@ -3872,7 +3717,7 @@
   action:
     - action: light.toggle
       target:
-        entity_id: light.cabinet_lights
+        entity_id: light.cabinet_lights_3
 - id: "193294371155444526"
   alias: kitchen remote 1 button 3
   mode: single

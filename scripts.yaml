@@ -1,216 +1,40 @@
 ---
-# /config/scripts.yaml
-garage_door_opened_announce:
+tts_alerts_mailbox:
+  alias: tts alerts mailbox
   sequence:
-    - data:
+    - condition: state
+      entity_id: sensor.pixel_8_pro_ringer_mode # Only speak if the Ringer is normal (not vibrate or silent)
+      state: normal
+    - condition: state
+      entity_id: sensor.pixel_8_pro_do_not_disturb_sensor # Only speak if DND is not enabled
+      state: "off"
+    - action: notify.mobile_app_pixel_8_pro
+      data:
+        message: TTS
         data:
-          method: speak
-          type: announce
-        message: Garage door has been opened
-        target: media_player.darren_s_echo_dot
-      service: notify.alexa_media
-
+          tts_text: You've got mail!!!
+          media_stream: "alarm_stream_max"
 screen_changer:
+  alias: screen changer
   sequence:
-    - service: homeassistant.turn_on
+    - action: homeassistant.turn_on
       data:
         entity_id: input_boolean.sports_updates
-    - service: input_select.select_option
+    - action: input_select.select_option
       data:
         entity_id: input_select.mobilelayout2
         option: mobile23
-bedroom_fan_low:
-  sequence:
-    - service: light.turn_on
-      data:
-        entity_id: light.bedroom_ceiling_fan
-        brightness: 63
-bedroom_fan_medium:
-  sequence:
-    - service: light.turn_on
-      data:
-        entity_id: light.bedroom_ceiling_fan
-        brightness: 127
-bedroom_fan_high:
-  sequence:
-    - service: light.turn_on
-      data:
-        entity_id: light.bedroom_ceiling_fan
-        brightness: 191
-bedroom_fan_max:
-  sequence:
-    - service: light.turn_on
-      data:
-        entity_id: light.bedroom_ceiling_fan
-        brightness: 255
-
-office_fan_low:
-  sequence:
-    - service: light.turn_on
-      data:
-        entity_id: light.office_ceiling_fan
-        brightness: 63
-    - delay: "00:00:03"
-office_fan_medium:
-  sequence:
-    - service: light.turn_on
-      data:
-        entity_id: light.office_ceiling_fan
-        brightness: 127
-office_fan_high:
-  sequence:
-    - service: light.turn_on
-      data:
-        entity_id: light.office_ceiling_fan
-        brightness: 191
-office_fan_max:
-  sequence:
-    - service: light.turn_on
-      data:
-        entity_id: light.office_ceiling_fan
-        brightness: 255
-
-klove_radio_inside_group:
-  sequence:
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.everywhere
-        volume_level: "0.40"
-    - service: media_player.play_media
-      entity_id: media_player.everywhere
-      data:
-        media_content_id: media-source://radio_browser/960b6c19-0601-11e8-ae97-52543be04c81
-        media_content_type: audio/mpeg
-      metadata:
-        title: WAY-FM 88.7 Spring Hill, TN
-        thumbnail: >-
-          http://www.wayfm.com/wp-content/themes/WayFM/images/webLogo_fullCircle.gif
-        media_class: music
-        children_media_class: null
-        navigateIds:
-          - {}
-          - media_content_type: app
-            media_content_id: media-source://radio_browser
-          - media_content_type: music
-            media_content_id: media-source://radio_browser/tag
-          - media_content_type: music
-            media_content_id: media-source://radio_browser/tag/christian
-klove_radio:
-  sequence:
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.kitchen_speakers
-        volume_level: "0.40"
-    - service: media_player.play_media
-      entity_id: media_player.kitchen_speakers
-      data:
-        media_content_id: media-source://radio_browser/960b6c19-0601-11e8-ae97-52543be04c81
-        media_content_type: audio/mpeg
-      metadata:
-        title: WAY-FM 88.7 Spring Hill, TN
-        thumbnail: >-
-          http://www.wayfm.com/wp-content/themes/WayFM/images/webLogo_fullCircle.gif
-        media_class: music
-        children_media_class: null
-        navigateIds:
-          - {}
-          - media_content_type: app
-            media_content_id: media-source://radio_browser
-          - media_content_type: music
-            media_content_id: media-source://radio_browser/tag
-          - media_content_type: music
-            media_content_id: media-source://radio_browser/tag/christian
-gods_djs:
-  sequence:
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.everywhere
-        volume_level: "0.35"
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.everywhere
-        media_content_id: http://www.godsdjsradio.com:8080/stream
-        media_content_type: "music"
-hits_radio:
-  sequence:
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.everywhere
-        volume_level: "0.35"
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.everywhere
-        media_content_id: http://tunein4.streamguys1.com/chrhtfree1?
-        media_content_type: "music"
-the_blast:
-  sequence:
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.everywhere
-        volume_level: "0.35"
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.everywhere
-        media_content_id: http://blender.theblast.fm.fast-serv.com/128
-        media_content_type: "music"
-
-radio_player:
-  sequence:
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.everywhere
-        volume_level: "0.35"
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.patio_speaker
-        volume_level: "0.45"
-    - service: media_player.play_media
-      data_template:
-        entity_id: >
-          {% if is_state("input_select.output_radio", "Inside") %} media_player.everywhere
-          {% elif is_state("input_select.output_radio", "Patio") %} media_player.patio_speaker
-          {% elif is_state("input_select.output_radio", "Office") %} media_player.office_group
-          {% endif %}
-        media_content_id: >
-          {% if is_state("input_select.radio_station", "KLove") %} https://maestro.emfcdn.com/stream_for/sk001/tunein
-          {% elif is_state("input_select.radio_station", "Hits") %} http://tunein4.streamguys1.com/chrhtfree1?
-          {% elif is_state("input_select.radio_station", "The Blast") %} http://blender.theblast.fm.fast-serv.com/128
-          {% elif is_state("input_select.radio_station", "God's DJ's") %} http://www.godsdjsradio.com:8080/stream
-          {% elif is_state("input_select.radio_station", "Rock") %} http://listen.christianrock.net/stream/9/
-          {% elif is_state("input_select.radio_station", "Heavy") %} http://listen.christianrock.net/stream/3/?sid=3
-          {% endif %}
-        media_content_type: "music"
-
-radio_klove:
-  sequence:
-    - service: media_player.play_media
-      entity_id: media_player.office_google
-      data:
-        media_content_id: https://maestro.emfcdn.com/stream_for/sk001/tunein
-        media_content_type: music
-# audio/mp4
-# http://tunein4.streamguys1.com/chrhtfree1?
-# http://ca8.rcast.net:8010/;stream.mp3
-# http://listen.christianrock.net/stream/9/
-# http://74.82.59.197:8301/stream
-# http://listen.christianrock.net/stream/3/?sid=3
-# http://blast.theblast.fm.fast-serv.com/128
-# http://www.godsdjsradio.com:8080/stream ### DANCE
-# http://142.4.215.64:8096/stream
-# http://blender.theblast.fm.fast-serv.com/128
-# http://tunein4.streamguys1.com/chrhtfree1?
-#
-# Bedtime
-#
 good_night:
+  alias: good night
   sequence:
-    - service: homeassistant.turn_off
+    - action: homeassistant.turn_off
       continue_on_error: true
       entity_id:
         - light.every_light
         - light.office_floor_lights
         - switch.night_switches
-        #        - switch.keurig_coffee
+        - switch.keurig_coffee
+        - input_boolean.motion_lights
         - input_boolean.disable_popups
         - input_boolean.darren_s_alarm_triggered_today
         - input_boolean.darren_is_awake
@@ -222,49 +46,127 @@ good_night:
         - input_boolean.auto_backgroundz
         - input_boolean.sports_updates
         - input_boolean.radar_updates
-    - service: alarm_control_panel.alarm_arm_night
+        - switch.patio_led_outlet
+        - switch.subwoofer
+        - switch.joy_sign
+        - switch.front_plug_1
+        - switch.front_plug_2
+        - switch.outdoor_plug_2
+        - switch.switchbot_plug_1
+    - action: google_assistant_sdk.send_text_command
+      continue_on_error: true
+      data:
+        command: turn off kitchen water heater
+    - action: alarm_control_panel.alarm_arm_night
       continue_on_error: true
       entity_id: alarm_control_panel.alarmo
       data:
         code: !secret alarm_code
-    - service: homeassistant.turn_on
+    - action: homeassistant.turn_on
       continue_on_error: true
       entity_id:
-        - input_boolean.motion_lights
+        - input_boolean.good_night_executed
         - input_boolean.camera_snapshots
         - input_boolean.driveway_motion_lights
         - switch.air_cleaner
         - input_boolean.disable_auto_garage
         - input_boolean.disable_laundry_notifications
-    - service: tts.google_say
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: media_player.office_speaker
+              state: "off"
+          sequence:
+            - action: media_player.volume_set
+              data:
+                volume_level: 0
+              target:
+                entity_id: media_player.office_speaker
+            - action: media_player.turn_on
+              target:
+                entity_id: media_player.office_speaker
+            - wait_template: "{{ is_state('media_player.office_speaker', 'idle') }}"
+            - action: media_player.volume_set
+              data:
+                volume_level: 0.2
+              target:
+                entity_id: media_player.office_speaker
+        - conditions:
+            - condition: state
+              entity_id: media_player.office_speaker
+              state: idle
+          sequence:
+            - action: media_player.volume_set
+              data:
+                volume_level: 0.2
+              target:
+                entity_id: media_player.office_speaker
+            - delay: 1
+    - action: tts.google_say
       continue_on_error: true
       entity_id:
-        - media_player.office_google
+        - media_player.office_speaker
       data_template:
         message: >
           Good night. {{ ["You are a child of God.", "Sleep well!", "God is good ALL the time!"] | random }}
-    - delay: 10
-    - service: media_player.play_media
+    - delay: 7
+    - action: media_player.volume_set
+      data:
+        volume_level: 0.3
+      target:
+        entity_id: media_player.office_speaker
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: media_player.office_display
+              state: "off"
+          sequence:
+            - action: media_player.volume_set
+              data:
+                volume_level: 0
+              target:
+                entity_id: media_player.office_display
+            - action: media_player.turn_on
+              target:
+                entity_id: media_player.office_display
+            - wait_template: "{{ is_state('media_player.office_display', 'idle') }}"
+            - action: media_player.volume_set
+              data:
+                volume_level: 0.7
+              target:
+                entity_id: media_player.office_display
+        - conditions:
+            - condition: state
+              entity_id: media_player.office_display
+              state: idle
+          sequence:
+            - action: media_player.volume_set
+              data:
+                volume_level: 0.7
+              target:
+                entity_id: media_player.office_display
+            - delay: 1
+    - action: media_player.play_media
+      continue_on_error: true
       target:
         entity_id: media_player.office_display
       data:
-        media_content_id: library://playlist/19
-        media_content_type: playlist
+        media_content_id: library://playlist/10
+        media_content_type: music
       metadata:
-        title: Brown Noise
-        thumbnail: null
+        title: Sleepyhead
+        thumbnail: https://i.scdn.co/image/ab67616d00001e0254fd590e1d82f29e50061821
         media_class: playlist
-        children_media_class: track
+        children_media_class: null
         navigateIds:
           - {}
-          - media_content_type: mass
+          - media_content_type: music_assistant
             media_content_id: playlists
-          - media_content_type: music
-            media_content_id: library://playlist/19
-    - service: homeassistant.turn_off
+    - action: homeassistant.turn_off
       entity_id: switch.main_kiosk_screen
-    - delay: 3
-    - service: notify.mobile_app_pixel_8_pro
+    - delay: 2
+    - action: notify.mobile_app_pixel_8_pro
+      continue_on_error: true
       data:
         message: command_broadcast_intent
         data:
@@ -273,91 +175,96 @@ good_night:
           ttl: 0
           priority: high
     - delay: 10
-    - condition: state
-      entity_id: light.cabinet_lights
-      state: "on"
-    - service: mqtt.publish
-      data:
-        topic: cmnd/cabinets/power1
-        payload: "OFF"
-        retain: "true"
-    - delay: 3
-    - service: media_player.volume_set
+    - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.living_room_google
         volume_level: 0.30
-    - service: media_player.volume_set
+    - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.tv_speakers
         volume_level: 0.30
-    - service: lock.lock
+    - delay: 3
+    - action: lock.lock
       continue_on_error: true
       target:
-        entity_id: lock.side_door
-#
-# Morning
-#
+        entity_id:
+          - lock.side_door
+          - lock.back_door
 morning:
+  alias: morning
   sequence:
     - condition: state
       entity_id: input_boolean.morning_triggered_today
       state: "off"
-    - service: alarm_control_panel.alarm_disarm
+    - action: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.alarmo
       data:
         code: !secret alarm_code
-    - service: mqtt.publish
+    - action: mqtt.publish
       continue_on_error: true
       data:
         topic: cmnd/cabinets/power1
         payload: "ON"
         retain: "true"
-    - service: input_boolean.turn_off
+    - action: input_boolean.turn_off
       entity_id:
+        - input_boolean.good_night_executed
         - input_boolean.disable_laundry_notifications
         - input_boolean.camera_snapshots
         - input_boolean.alarm_disarm_switch
-    - service: script.browser_window_reload
-    - service: homeassistant.turn_on
+    - action: google_assistant_sdk.send_text_command
+      continue_on_error: true
+      data:
+        command: turn on kitchen water heater
+    - action: homeassistant.turn_on
+      continue_on_error: true
       entity_id:
         - input_boolean.auto_backgroundz
         - input_boolean.auto_tablet
         - input_boolean.auto_backgroundz
-        - light.sofa_light
+        - light.sofa_lamp
         - switch.main_kiosk_screen
         - switch.subwoofer
         - switch.den_nightlight_plugs
-    #        - switch.keurig_coffee
+        - switch.keurig_coffee
+    - action: script.browser_window_reload
+      continue_on_error: true
     - delay: 300
-    - service: input_boolean.turn_on
+    - action: input_boolean.turn_on
       entity_id:
         - input_boolean.morning_triggered_today
-# ###########################################################
-#          POPUPS, CAMERAS, BROWSER SCRIPTS                 #
-# ###########################################################
+    - action: homeassistant.turn_off
+      continue_on_error: true
+      entity_id:
+        - switch.attic_outlet
+    - delay: 30
+    - action: homeassistant.turn_on
+      continue_on_error: true
+      entity_id:
+        - switch.attic_outlet
 browser_blackout_button:
+  alias: browser blackout button
   sequence:
-    #    - service: browser_mod.blackout
-    - service: tts.google_say
+    - action: tts.google_say
       data:
         entity_id:
           - media_player.pixel_fully
       data_template:
         message: "Browser blackout is active"
-
 browser_theme_ocean:
+  alias: browser theme ocean
   sequence:
-    - service: frontend.set_theme
+    - action: frontend.set_theme
       data:
         name: Ocean-Nightz
-    - service: browser_mod.set_theme
+    - action: browser_mod.set_theme
       data:
         theme: Ocean-Nightz
         browser_id:
           - ac9b7f58-cfbfe785
-    - service: input_select.set_options
+    - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
         options:
@@ -380,13 +287,13 @@ browser_theme_ocean:
             "mobile171",
             "mobile18",
           ]
-
 browser_theme_purple:
+  alias: browser theme purple
   sequence:
-    - service: frontend.set_theme
+    - action: frontend.set_theme
       data:
         name: Purple-Nightz
-    - service: input_select.set_options
+    - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
         options:
@@ -408,13 +315,13 @@ browser_theme_purple:
             "mobile16",
             "mobile18",
           ]
-
 browser_theme_green:
+  alias: browser theme green
   sequence:
-    - service: frontend.set_theme
+    - action: frontend.set_theme
       data:
         name: Green-Nightz
-    - service: input_select.set_options
+    - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
         options:
@@ -433,18 +340,18 @@ browser_theme_green:
             "mobile16",
             "mobile51",
           ]
-
 browser_theme_grey:
+  alias: browser theme grey
   sequence:
-    - service: frontend.set_theme
+    - action: frontend.set_theme
       data:
         name: Grey-Nightz
-    - service: browser_mod.set_theme
+    - action: browser_mod.set_theme
       data:
         browser_id:
           - ac9b7f58-cfbfe785
         theme: Grey-Nightz
-    - service: input_select.set_options
+    - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
         options:
@@ -463,18 +370,18 @@ browser_theme_grey:
             "mobile16",
             "mobile51",
           ]
-
 browser_theme_blue:
+  alias: browser theme blue
   sequence:
-    - service: frontend.set_theme
+    - action: frontend.set_theme
       data:
         name: Blue-Nightz
-    - service: browser_mod.set_theme
+    - action: browser_mod.set_theme
       data:
         browser_id:
           - ac9b7f58-cfbfe785
         theme: Blue-Nightz
-    - service: input_select.set_options
+    - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
         options:
@@ -493,18 +400,18 @@ browser_theme_blue:
             "mobile16",
             "mobile51",
           ]
-
 browser_theme_pink:
+  alias: browser theme pink
   sequence:
-    - service: frontend.set_theme
+    - action: frontend.set_theme
       data:
         name: Pink-Nightz
-    - service: browser_mod.set_theme
+    - action: browser_mod.set_theme
       data:
         browser_id:
           - ac9b7f58-cfbfe785
         theme: Pink-Nightz
-    - service: input_select.set_options
+    - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
         options:
@@ -523,18 +430,18 @@ browser_theme_pink:
             "mobile16",
             "mobile51",
           ]
-
 browser_theme_lime:
+  alias: browser theme lime
   sequence:
-    - service: frontend.set_theme
+    - action: frontend.set_theme
       data:
         name: Lime-Nightz
-    - service: browser_mod.set_theme
+    - action: browser_mod.set_theme
       data:
         browser_id:
           - ac9b7f58-cfbfe785
         theme: Lime-Nightz
-    - service: input_select.set_options
+    - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
         options:
@@ -553,18 +460,18 @@ browser_theme_lime:
             "mobile16",
             "mobile51",
           ]
-
 browser_theme_magenta:
+  alias: browser theme magenta
   sequence:
-    - service: frontend.set_theme
+    - action: frontend.set_theme
       data:
         name: Magenta-Nightz
-    - service: browser_mod.set_theme
+    - action: browser_mod.set_theme
       data:
         browser_id:
           - ac9b7f58-cfbfe785
         theme: Magenta-Nightz
-    - service: input_select.set_options
+    - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
         options:
@@ -583,18 +490,18 @@ browser_theme_magenta:
             "mobile16",
             "mobile51",
           ]
-
 browser_theme_geaux:
+  alias: browser theme geaux
   sequence:
-    - service: frontend.set_theme
+    - action: frontend.set_theme
       data:
         name: Geaux-Nightz
-    - service: browser_mod.set_theme
+    - action: browser_mod.set_theme
       data:
         browser_id:
           - ac9b7f58-cfbfe785
         theme: Geaux-Nightz
-    - service: input_select.set_options
+    - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
         options:
@@ -612,18 +519,18 @@ browser_theme_geaux:
             "mobile15",
             "mobile16",
           ]
-
 browser_theme_red:
+  alias: browser theme red
   sequence:
-    - service: frontend.set_theme
+    - action: frontend.set_theme
       data:
         name: Red-Nightz
-    - service: browser_mod.set_theme
+    - action: browser_mod.set_theme
       data:
         browser_id:
           - ac9b7f58-cfbfe785
         theme: Red-Nightz
-    - service: input_select.set_options
+    - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
         options:
@@ -642,18 +549,18 @@ browser_theme_red:
             "mobile16",
             "mobile51",
           ]
-
 browser_theme_orange:
+  alias: browser theme orange
   sequence:
-    - service: frontend.set_theme
+    - action: frontend.set_theme
       data:
         name: Orange-Nightz
-    - service: browser_mod.set_theme
+    - action: browser_mod.set_theme
       data:
         browser_id:
           - ac9b7f58-cfbfe785
         theme: Orange-Nightz
-    - service: input_select.set_options
+    - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
         options:
@@ -672,18 +579,18 @@ browser_theme_orange:
             "mobile16",
             "mobile51",
           ]
-
 browser_theme_yellow:
+  alias: browser theme yellow
   sequence:
-    - service: frontend.set_theme
+    - action: frontend.set_theme
       data:
         name: Yellow-Nightz
-    - service: browser_mod.set_theme
+    - action: browser_mod.set_theme
       data:
         browser_id:
           - ac9b7f58-cfbfe785
         theme: Yellow-Nightz
-    - service: input_select.set_options
+    - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
         options:
@@ -702,333 +609,337 @@ browser_theme_yellow:
             "mobile16",
             "mobile51",
           ]
-
 browser_window_reload:
+  alias: browser window reload
   sequence:
-    - service: switch.turn_on
+    - action: switch.turn_on
       data:
         entity_id: switch.main_kiosk_screen
-    - service: lovelace.reload_resources
+    - action: lovelace.reload_resources
     - delay: "00:00:04"
-    - service: browser_mod.navigate
+    - action: browser_mod.navigate
       data:
         path: /lovelace/newtab
         browser_id:
           - ac9b7f58-cfbfe785
-    - service: browser_mod.navigate
+    - action: browser_mod.navigate
       data:
         path: /lovelace/ensuite_kiosk
         browser_id:
           - 1b918469-5d6a2b44
     - delay: "00:00:03"
-    - service: browser_mod.refresh
-
+    - action: browser_mod.refresh
 browser_window_reload_test:
+  alias: browser window reload test
   sequence:
-    - service: lovelace.reload_resources
+    - action: lovelace.reload_resources
     - delay: "00:00:04"
-    - service: browser_mod.navigate
+    - action: browser_mod.navigate
       data:
         path: /lovelace/newtab
         browser_id:
           - d75a5595-2777b7c8
-
 browser_close_popup:
+  alias: browser close popup
   sequence:
-    - service: browser_mod.refresh
-
-# ####################################################
+    - action: browser_mod.refresh
 browser_picsaver_on:
+  alias: browser picsaver on
   sequence:
-    - service: input_select.select_option
+    - action: input_select.select_option
       data:
         entity_id:
           - input_select.button_animation_1
         option: blink
-    - service: browser_mod.navigate
+    - action: browser_mod.navigate
       data:
         path: /lovelace/screen
         browser_id:
           - ac9b7f58-cfbfe785
-# ##########################################################
 browser_picsaver_off:
+  alias: browser picsaver off
   sequence:
-    - service: browser_mod.navigate
+    - action: browser_mod.navigate
       data:
         path: /lovelace/newtab
         browser_id:
           - ac9b7f58-cfbfe785
-# ###########################################################
-# ###########################################################
-home_assistant_screen: # HA SCREENSAVER
-  sequence:
-    - service: browser_mod.navigate
-      data:
-        path: http://192.168.1.134:8123/local/demo.html
-        browser_id:
-          - OfficePC
-          - ac9b7f58-cfbfe785
-          - d75a5595-2777b7c8
-# ###########################################################
-# ###########################################################
-# ##               TIMERS & ALARM SCRIPTS                 ###
-# ###########################################################
 coffee_on:
+  alias: coffee on
   sequence:
-    - service: homeassistant.turn_on
+    - action: homeassistant.turn_on
       entity_id:
         - switch.coffee_maker
         - light.coffee_light
-    - service: notify.mobile_app_pixel_8_pro
+    - action: notify.mobile_app_pixel_8_pro
       data_template:
         title: "🔴 New Life Alert❗️"
         message: "⚠️️Coffee☕️ Maker ON!⚠️{{ states('sensor.time_12_hour_am_pm') }}"
-# ###########################################################
-# # Darren's wake up alarm
 darrens_wake_up:
+  alias: darrens wake up
   sequence:
-    - service: homeassistant.turn_on
+    - action: homeassistant.turn_on
       entity_id: input_boolean.darren_s_alarm_triggered_today
       continue_on_error: true
-    - service: light.turn_on
+    - action: light.turn_on
       data:
         entity_id: light.desk_light
         brightness_pct: 1
         transition: 4
         kelvin: 2400
-    - delay: "00:01:00"
-    - service: light.turn_on
+    - delay: "00:00:30"
+    - action: light.turn_on
       data:
         entity_id: light.desk_light
         brightness_pct: 5
         transition: 4
         kelvin: 3300
-    - delay: "00:01:00"
-    - service: media_player.volume_set
+    - delay: "00:00:30"
+    - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id:
           - media_player.office_google
-        volume_level: "0.35"
-    - service: tts.google_say
+        volume_level: 0.3
+    - action: tts.google_say
       continue_on_error: true
       entity_id:
         - media_player.office_google
       data_template:
         message: >
           Good morning. {{ ["Time to wake up and be thankful.", "You have been blessed with another day!", "God is good ALL the time!"] | random }}
-    - service: light.turn_on
+    - action: light.turn_on
       data:
         entity_id: light.desk_light
         brightness_pct: 30
         transition: 4
         kelvin: 3800
-    - delay: "00:00:20"
-    - service: media_player.volume_set
+    - delay: "00:00:15"
+    - action: media_player.volume_set
       continue_on_error: true
       data:
         volume_level: 0.4
       target:
         device_id: 4365464e7cdd496ca499d4ce5141ce6e
-    - service: light.turn_on
+    - action: light.turn_on
       data:
         entity_id: light.corner_light
         brightness_pct: 10
         transition: 4
         kelvin: 2400
-    - delay: "00:01:00"
-    - service: light.turn_on
+    - delay: "00:00:20"
+    - action: light.turn_on
       data:
         entity_id: light.corner_light
         brightness_pct: 30
         transition: 2
         kelvin: 3300
-    - service: switch.turn_off
-      entity_id:
-        - switch.air_cleaner
-    - service: media_player.play_media
+    - action: media_player.play_media
       continue_on_error: true
       target:
         entity_id: media_player.office_display
       data:
-        media_content_id: library://track/56
+        media_content_id: library://track/9
         media_content_type: music
       metadata:
-        title: Crowder - Grave Robber
-        thumbnail: https://i.scdn.co/image/ab67616d0000b273f695a68ba59a73597e11fb76
+        title: Brandon Lake - Hard Fought Hallelujah
+        thumbnail: https://i.scdn.co/image/ab67616d0000b273e6a84fdb6474fe2c88f1366e
         media_class: track
         children_media_class: null
         navigateIds:
           - {}
-          - media_content_type: mass
+          - media_content_type: music_assistant
             media_content_id: tracks
-    - delay: "00:01:00"
-    - service: light.turn_on
+    - action: switch.turn_off
+      entity_id:
+        - switch.air_cleaner
+    - delay: "00:00:30"
+    - action: light.turn_on
       data:
         entity_id: light.bed_light
         brightness_pct: 30
         transition: 2
         kelvin: 3300
-    - service: light.turn_on
+    - action: light.turn_on
       data:
         entity_id: light.office_ceiling_lights
         brightness_pct: 30
-    - service: light.turn_on
+    - action: light.turn_on
       data:
         entity_id: light.office_ceiling_lights
         brightness_pct: 40
-    - delay: "00:03:00"
-    - service: script.morning
-    - service: light.turn_on
+    - delay: "00:01:00"
+    - action: script.morning
+    - action: light.turn_on
       data:
         entity_id: light.office_floor_lights
         brightness_pct: 100
         kelvin: 3200
     - delay: "00:30:00"
-    - service: homeassistant.turn_off
+    - action: homeassistant.turn_off
       entity_id: input_boolean.darren_s_alarm_triggered_today
-# ###########################################################
-# Donna's wake up alarm
 donnas_wake_up:
+  alias: donnas wake up
   sequence:
-    - service: homeassistant.turn_on
+    - action: homeassistant.turn_on
       entity_id: input_boolean.donna_s_alarm_triggered_today
     - delay: "00:06:00"
-    - service: light.turn_on
+    - action: light.turn_on
       target:
         entity_id: light.darrens_light
       data:
         kelvin: 2000
         brightness_pct: 1
     - delay: "00:02:00"
-    - service: light.turn_on
+    - action: light.turn_on
       target:
         entity_id: light.darrens_light
       data:
         kelvin: 2600
         brightness_pct: 10
     - delay: "00:02:00"
-    - service: light.turn_on
+    - action: light.turn_on
       target:
         entity_id: light.donnas_light
       data:
         kelvin: 2000
         brightness_pct: 1
-    - service: light.turn_on
+    - action: light.turn_on
       target:
         entity_id: light.darrens_light
       data:
         kelvin: 3000
         brightness_pct: 20
     - delay: "00:02:00"
-    - service: media_player.turn_on
+    - action: media_player.turn_on
+      continue_on_error: true
       data:
-        entity_id: media_player.bedroom_speaker
-    - service: media_player.volume_set
+        entity_id: media_player.bedroom_stereo
+    - action: media_player.volume_set
+      continue_on_error: true
       data:
-        entity_id: media_player.bedroom_speaker
-        volume_level: "0.45"
-    - service: tts.google_say
+        volume_level: 0.2
+      target:
+        entity_id: media_player.bedroom_stereo
+    - action: tts.google_say
+      continue_on_error: true
       data:
-        entity_id: media_player.bedroom_speaker
+        entity_id: media_player.bedroom_stereo
       data_template:
         message: >
-          Good morning beautiful. {{ ["Time to wake up ram bow.", "Your husband is madly in love with you!", "Your husband thinks you are beautiful!", "God is good ALL the time!", "You are a child of God.", "Rise and shine! God gave you another day!", "God is good ALL the time!"] | random }}
+          Good morning beautiful. {{ ["Time to wake up my love.", "Your husband is madly in love with you!", "Your husband thinks you are beautiful!", "God is good ALL the time!", "You are a child of God.", "Rise and shine! God gave you another day!", "God is good ALL the time!"] | random }}
     - delay: "00:01:00"
-    - service: light.turn_on
+    - action: media_player.play_media
+      continue_on_error: true
+      target:
+        entity_id: media_player.bedroom_stereo
+      data:
+        media_content_id: library://track/9
+        media_content_type: music
+      metadata:
+        title: Brandon Lake - Hard Fought Hallelujah
+        thumbnail: https://i.scdn.co/image/ab67616d0000b273e6a84fdb6474fe2c88f1366e
+        media_class: track
+        children_media_class: null
+        navigateIds:
+          - {}
+          - media_content_type: music_assistant
+            media_content_id: tracks
+    - action: light.turn_on
       target:
         entity_id: light.donnas_light
       data:
         kelvin: 2600
         brightness_pct: 5
-    - service: light.turn_on
+    - action: light.turn_on
       target:
         entity_id: light.darrens_light
       data:
         kelvin: 3600
         brightness_pct: 35
-    - delay: "00:02:00"
-    - service: light.turn_on
+    - delay: "00:00:30"
+    - action: light.turn_on
       target:
         entity_id: light.donnas_light
       data:
         kelvin: 3600
         brightness_pct: 25
-    - service: light.turn_on
+    - action: light.turn_on
       data:
         entity_id: light.jacuzzi_light
         brightness_pct: 35
     - delay: "00:12:00"
-    - service: light.turn_on
+    - action: light.turn_on
       data:
         entity_id: light.mood_lights
-    - service: script.morning
+    - action: script.morning
     - delay: "00:30:00"
     - wait_for_trigger:
-        platform: state
-        entity_id: binary_sensor.ensuite_ceiling_motion
+        trigger: state
+        entity_id: binary_sensor.ensuite_ceiling_motion1
         to: "off"
     - delay: 600
-    - service: light.turn_off
+    - action: light.turn_off
       entity_id: light.ensuite_lights
     - wait_for_trigger:
-        platform: state
+        trigger: state
         entity_id: binary_sensor.bedroom_motion_sensors
         to: "off"
     - delay: 600
-    - service: light.turn_off
+    - action: light.turn_off
       entity_id: light.bedroom_lights
     - delay: "00:30:00"
-    - service: homeassistant.turn_off
+    - action: homeassistant.turn_off
       entity_id: input_boolean.donna_s_alarm_triggered_today
-# ###########################################################
-# ##                   PRESENCE SCRIPTS                   ###
-# ###########################################################
-# People Home
 people_home:
+  alias: people home
   sequence:
-    - service: homeassistant.turn_on
+    - action: homeassistant.turn_on
       continue_on_error: true
       entity_id:
         - input_boolean.disable_popups
         - input_boolean.people_home_boolean
-        - input_boolean.motion_lights
         - input_boolean.auto_tablet
         - input_boolean.auto_backgroundz
         - input_boolean.disable_inside_popups
+        - switch.subwoofer
         - switch.main_kiosk_screen
         - switch.den_nightlight_plugs
-    - service: homeassistant.turn_off
+    - action: google_assistant_sdk.send_text_command
+      continue_on_error: true
+      data:
+        command: turn on kitchen water heater
+    - action: homeassistant.turn_off
       continue_on_error: true
       entity_id:
         - input_boolean.notifications
+        - input_boolean.motion_lights
         - input_boolean.camera_snapshots
-    - service: media_player.volume_set
+    - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.kitchen_speakers
         volume_level: "0.40"
-    - service: media_player.media_stop
+    - action: media_player.media_stop
       continue_on_error: true
       data:
         entity_id: media_player.kitchen_speakers
-    - service: script.nest_set_home
+    - action: script.nest_set_home
     - delay: "00:00:03"
-    - service: homeassistant.turn_off
+    - action: homeassistant.turn_off
       continue_on_error: true
       entity_id:
         - switch.inside_cam_notifications
+        - switch.cameras_inside_motion
         - switch.outside_cam_notifications
-# ###########################################################
-# People Away
 people_away:
+  alias: people away
   sequence:
-    - service: homeassistant.turn_off
+    - action: homeassistant.turn_off
       continue_on_error: true
       entity_id:
         - light.every_light
         - input_boolean.people_home_boolean
-        - input_boolean.motion_lights
         - input_boolean.auto_tablet
         - input_boolean.auto_cameras
         - input_boolean.disable_popups
@@ -1038,254 +949,316 @@ people_away:
         - input_boolean.auto_backgroundz
         - switch.night_switches
         - switch.den_nightlight_plugs
-        - fan.inside_fans
+        - switch.subwoofer
     - delay: "00:00:03"
-    - service: homeassistant.turn_on
+    - action: google_assistant_sdk.send_text_command
+      continue_on_error: true
+      data:
+        command: turn off kitchen water heater
+    - action: homeassistant.turn_on
       continue_on_error: true
       entity_id:
         - input_boolean.door_announcements
         - input_boolean.camera_snapshots
-        - light.sofa_light
-        - light.cabinet_lights
-    - service: mqtt.publish
-      continue_on_error: true
-      data:
-        topic: cmnd/cabinets/power1
-        payload: "ON"
-        retain: "true"
-    - service: script.nest_set_away
+        - light.sofa_lamp
+        - light.cabinet_lights_3
+        - input_boolean.motion_lights
+    - action: script.nest_set_away
       continue_on_error: true
     - delay: "00:00:15"
-    - service: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id: media_player.kitchen_speakers
-        volume_level: "0.50"
-    - delay: "00:00:05"
-    - service: media_player.play_media
+    - action: media_player.play_media
       continue_on_error: true
       target:
-        entity_id: media_player.kitchen_speakers
+        entity_id: media_player.kitchen_speakers_2
       data:
-        media_content_id: media-source://radio_browser/960b6c19-0601-11e8-ae97-52543be04c81
-        media_content_type: audio/mpeg
+        media_content_id: library://radio/3
+        media_content_type: music
       metadata:
-        title: WAY-FM 88.7 Spring Hill, TN
-        thumbnail: >-
-          http://www.wayfm.com/wp-content/themes/WayFM/images/webLogo_fullCircle.gif
+        title: Way FM
+        thumbnail: http://cdn-profiles.tunein.com/s24847/images/logoq.png?t=162397
         media_class: music
         children_media_class: null
         navigateIds:
           - {}
-          - media_content_type: app
-            media_content_id: media-source://radio_browser
-          - media_content_type: music
-            media_content_id: media-source://radio_browser/tag
-          - media_content_type: music
-            media_content_id: media-source://radio_browser/tag/christian
+          - media_content_type: music_assistant
+            media_content_id: radio
+    - delay: "00:00:05"
+    - action: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id: media_player.kitchen_speakers
+        volume_level: "0.50"
     - delay: "00:00:03"
-    - service: homeassistant.turn_on
+    - action: homeassistant.turn_on
       continue_on_error: true
       entity_id:
         - switch.inside_cam_notifications
+        - switch.cameras_inside_motion
         - switch.outside_cam_notifications
-# ###########################################################
-# ###########################################################
-# Restart HASS
+    - action: lock.lock
+      entity_id: lock.back_door
 restart_ha:
+  alias: restart ha
   sequence:
-    - service: input_select.select_option
+    - action: input_select.select_option
       continue_on_error: true
       data:
         option: fireworks
       target:
         entity_id: input_select.video_wallpaper
-    - service: browser_mod.navigate
+    - action: browser_mod.navigate
       data:
         path: /dashboard-wallkiosk/screen
     - delay: "00:00:03"
-    - service: browser_mod.navigate
+    - action: browser_mod.navigate
       data:
-        path: /lovelace/newtab #/lovelace/screen2
+        path: /lovelace/newtab
         browser_id:
           - d75a5595-2777b7c8
     - delay: "00:00:01"
-    - service: browser_mod.navigate
+    - action: browser_mod.navigate
       data:
-        path: /lovelace/newtab #/lovelace/screen3
+        path: /lovelace/newtab
         browser_id:
           - ac9b7f58-cfbfe785
     - delay: "00:00:06"
-    - service: homeassistant.restart
-# Reboot Cams
+    - action: homeassistant.restart
 reboot_cameras:
+  alias: reboot cameras
   sequence:
-    - service: homeassistant.turn_off
+    - action: homeassistant.turn_off
       data: {}
       target:
         entity_id:
           - switch.porch_outlets
           - light.ha2_camera_reboot_back
-          - switch.drive_garage_cam_power
     - delay:
         hours: 0
         minutes: 1
         seconds: 0
         milliseconds: 0
-    - service: homeassistant.turn_on
+    - action: homeassistant.turn_on
       data: {}
       target:
         entity_id:
           - switch.porch_outlets
           - light.ha2_camera_reboot_back
-          - switch.drive_garage_cam_power
   mode: single
   icon: mdi:backup-restore
-# ###########################################################
-# Reload Automations
-reload_automations:
+hvac_water_leak:
+  alias: hvac water leak
   sequence:
-    - service: automation.reload
-# ###########################################################
-# Reload Scripts
-reload_scripts:
-  sequence:
-    - service: script.reload
-############################################################
-# Config Check
-run_config_check:
-  sequence:
-    - service: config_check.run
-# ###########################################################
-# ##            DOORS, MOTION, LIGHTS SCRIPTS             ###
-# ###########################################################
-# # '[Notify] Water Heater Leak'
+    - action: media_player.volume_set
+      data:
+        entity_id: media_player.everywhere_3
+        volume_level: "0.85"
+    - delay: "00:00:02"
+    - action: tts.google_say
+      data:
+        entity_id: media_player.everywhere_3
+      data_template:
+        message: "Air conditioner is Leaking!"
+    - delay: "00:00:10"
+    - action: tts.google_say
+      data:
+        entity_id: media_player.everywhere_3
+      data_template:
+        message: "Air conditioner is Leaking!"
+    - delay: "00:00:10"
+    - action: media_player.volume_set
+      data:
+        entity_id: media_player.everywhere_3
+        volume_level: "0.30"
 water_heater_leak:
+  alias: water heater leak
   sequence:
-    - service: media_player.volume_set
+    - action: media_player.volume_set
       data:
-        entity_id: media_player.everywhere
-        volume_level: "0.70"
+        entity_id: media_player.everywhere_3
+        volume_level: "0.85"
     - delay: "00:00:02"
-    - service: tts.google_say
+    - action: tts.google_say
       data:
-        entity_id: media_player.everywhere
+        entity_id: media_player.everywhere_3
       data_template:
         message: "Water heater is Leaking!"
     - delay: "00:00:10"
-    - service: tts.google_say
+    - action: tts.google_say
       data:
-        entity_id: media_player.everywhere
+        entity_id: media_player.everywhere_3
       data_template:
         message: "Water heater is Leaking!"
     - delay: "00:00:10"
-    - service: media_player.volume_set
+    - action: media_player.volume_set
       data:
-        entity_id: media_player.everywhere
+        entity_id: media_player.everywhere_3
         volume_level: "0.30"
-# ###########################################################
-# # '[Notify] Washing Machine Leak'
 washer_leak:
+  alias: washer leak
   sequence:
-    - service: media_player.volume_set
-      entity_id: media_player.everywhere
+    - action: media_player.volume_set
+      entity_id: media_player.everywhere_3
       data:
-        volume_level: "0.70"
+        volume_level: "0.85"
     - delay: "00:00:02"
-    - service: tts.google_say
-      entity_id: media_player.everywhere
+    - action: tts.google_say
+      entity_id: media_player.everywhere_3
       data_template:
         message: "Washing machine is Leaking!"
     - delay: "00:00:10"
-    - service: tts.google_say
-      entity_id: media_player.everywhere
+    - action: tts.google_say
+      entity_id: media_player.everywhere_3
       data_template:
         message: "Washing machine is Leaking!"
     - delay: "00:00:10"
-    - service: media_player.volume_set
+    - action: media_player.volume_set
       data:
-        entity_id: media_player.everywhere
+        entity_id: media_player.everywhere_3
         volume_level: "0.30"
-# ###########################################################
-# ##                    NEST  SCRIPTS                     ###
-# ###########################################################
 nest_set_away:
+  alias: nest set away
   sequence:
-    - service: climate.set_preset_mode
+    - action: climate.set_preset_mode
       data:
         preset_mode: "eco"
         entity_id: climate.den
 nest_set_home:
+  alias: nest set home
   sequence:
-    - service: climate.set_preset_mode
+    - action: climate.set_preset_mode
       data:
         preset_mode: "none"
         entity_id: climate.den
-
 alarm_arm:
+  alias: alarm arm
   sequence:
-    - service: alarm_control_panel.alarm_arm_away
+    - action: alarm_control_panel.alarm_arm_away
       entity_id: alarm_control_panel.alarmo
       data:
         code: !secret alarm_code
-    - service: input_boolean.turn_off
+    - action: input_boolean.turn_off
       entity_id: input_boolean.alarm_arm_away_switch
 alarm_arm_home:
+  alias: alarm arm home
   sequence:
-    - service: alarm_control_panel.alarm_arm_home
+    - action: alarm_control_panel.alarm_arm_home
       entity_id: alarm_control_panel.alarmo
       data:
         code: !secret alarm_code
-    - service: input_boolean.turn_off
+    - action: input_boolean.turn_off
       entity_id: input_boolean.alarm_arm_home
 alarm_disarm:
+  alias: alarm disarm
   sequence:
-    - service: alarm_control_panel.alarm_disarm
+    - action: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.alarmo
       data:
         code: !secret alarm_code
-    - service: switch.turn_off
+    - action: switch.turn_off
       entity_id:
         - switch.noonlight_switch
-        - switch.siren
-    - service: light.turn_off
+        - siren.alarm_panel_siren
+    - action: light.turn_off
       continue_on_error: true
       entity_id:
         - light.every_light
         - light.outside_lights
-    - service: notify.pixels_and_den_tv
+    - action: notify.pixels_and_den_tv
       data_template:
         message: "Alarm canceled at {{ states('sensor.time_12_hour_am_pm') }}"
     - delay: 3
-    - service: light.turn_on
+    - action: light.turn_on
       continue_on_error: true
       entity_id:
-        - light.sofa_light
-        - light.cabinet_lights
-    - service: input_boolean.turn_off
+        - light.sofa_lamp
+        - light.cabinet_lights_3
+    - action: input_boolean.turn_off
       entity_id: input_boolean.alarm_disarm_switch
 alarmo_disarm:
+  alias: alarmo disarm
   sequence:
-    - service: alarm_control_panel.alarm_disarm
+    - action: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.alarmo
       data:
         code: !secret alarm_code
-    - service: switch.turn_off
+    - action: switch.turn_off
       entity_id:
         - switch.noonlight_switch
-        - switch.siren
-    - service: light.turn_off
+        - siren.alarm_panel_siren
+    - action: light.turn_off
       entity_id:
         - light.alarm_triggered_lights
-    - service: notify.pixels_and_den_tv
+    - action: notify.pixels_and_den_tv
       data_template:
         message: "Alarm disarmed at {{ states('sensor.time_12_hour_am_pm') }}"
-    - service: input_boolean.turn_off
+    - action: input_boolean.turn_off
       entity_id: input_boolean.alarm_disarm_switch
 away_mode_armed:
+  alias: away mode armed
   sequence:
-    - service: tts.google_say
+    - action: tts.google_say
       data:
         entity_id: media_player.tv_speakers
       data_template:
         message: "Motion sensors activated!"
+
+cfe_off:
+  alias: cfe_off
+  sequence:
+    - delay: 00:{{ states('input_number.cfe_off') | int}}:00
+    - action: homeassistant.turn_off
+      data:
+        entity_id: switch.coffee_maker
+    - action: notify.mobile_app_pixel_8_pro
+      data_template:
+        message:
+          Coffee maker has turned off. The ({{ states('input_number.cfe_off')
+          | int }} minute timer has expired)
+    - action: script.browser_close_popup
+  description: ""
+  icon: mdi:coffee-maker-check-outline
+weatheralerts_1_popup_on_wx_alert:
+  alias: weatheralerts 1 popup on wx alert
+  sequence:
+    - action: persistent_notification.dismiss
+      data:
+        notification_id: weatheralerts_1_alert
+    - action:
+        "{% if states.sensor.weather_alerts_1.state != '0' %}\n  persistent_notification.create\n{%
+        endif %}\n"
+      data_template:
+        notification_id: weatheralerts_1_alert
+        message: "{{ message }}"
+        title: "{{ title }}"
+  description: ""
+  icon: mdi:alert-box
+weatheralerts_2_popup_on_wx_alert:
+  alias: weatheralerts 2 popup on wx alert
+  sequence:
+    - action: persistent_notification.dismiss
+      data:
+        notification_id: weatheralerts_2_alert
+    - action:
+        "{% if states.sensor.weather_alerts_2.state != '0' %}\n  persistent_notification.create\n{%
+        endif %}\n"
+      data_template:
+        notification_id: weatheralerts_2_alert
+        message: "{{ message }}"
+        title: "{{ title }}"
+  description: ""
+  icon: mdi:alert-box
+weatheralerts_3_popup_on_wx_alert:
+  alias: weatheralerts 3 popup on wx alert
+  sequence:
+    - action: persistent_notification.dismiss
+      data:
+        notification_id: weatheralerts_3_alert
+    - action:
+        "{% if states.sensor.weather_alerts_3.state != '0' %}\n  persistent_notification.create\n{%
+        endif %}\n"
+      data_template:
+        notification_id: weatheralerts_3_alert
+        message: "{{ message }}"
+        title: "{{ title }}"
+  description: ""
+  icon: mdi:alert-box
