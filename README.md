@@ -2,28 +2,28 @@
 <h1 align="center">
   <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/header2.jpg" alt="Dino Tech's Smart Home" width="85%">
   <br>
-  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/LoadingScreen3.gif" alt="Dino Tech's Smart Home" width="230"></a>
+  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/LoadingScreen3.gif" alt="Dino Tech's Smart Home" width="230">
   <br>
-  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/powered-by.png" alt="Powered by HA" width="200"></a>
+  <img src="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/powered-by.png" alt="Powered by HA" width="200">
 </h1>
 </div>
 <div align="center">
   <h3 align="center">My Home Assistant Configuration and Lovelace Designs<br>Be sure to :star: my repo so you can keep current on updates!</h3>
   <p align="center">
-    <a href="https://img.shields.io/badge/Home%20Assistant-2024.12.5-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-2024.12.5-blue.svg?style=plasticr"/>  </a>
-    <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master"/>  </a>
-    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr"/>  </a>
-    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plasticr" />  </a>
-    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/graphs/commit-activity"><img src="https://img.shields.io/badge/Maintained%3F-Yes-brightgreen.svg?style=plasticr" />  </a>
-    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master"><img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=plasticr"/>  </a>
+    <a href="https://img.shields.io/badge/Home%20Assistant-2024.12.5-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-2024.12.5-blue.svg?style=plasticr" alt="Home Assistant Version"/></a>
+    <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master" alt="Travis CI Status"/></a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plasticr" alt="GitHub Stars"/></a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plasticr" alt="GitHub Watchers"/></a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/graphs/commit-activity"><img src="https://img.shields.io/badge/Maintained%3F-Yes-brightgreen.svg?style=plasticr" alt="Maintained"/></a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master"><img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=plasticr" alt="Last Commit"/></a>
 <br>
-  <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-OliveDrab?style=plasticr"/>  </a>
-  <a href="https://www.twitter.com/DarrenW96969730"><img src="https://img.shields.io/twitter/follow/DarrenW96969730"/>  </a>
-  <a href="https://discord.gg/aYTW2Z9"><img src="https://img.shields.io/badge/HA%20Discord-Frontend-GoldenRod?style=plasticr"/>  </a>
+  <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-OliveDrab?style=plasticr" alt="HA Community Forum"/></a>
+  <a href="https://www.twitter.com/DarrenW96969730"><img src="https://img.shields.io/twitter/follow/DarrenW96969730" alt="Twitter Follow"/></a>
+  <a href="https://discord.gg/aYTW2Z9"><img src="https://img.shields.io/badge/HA%20Discord-Frontend-GoldenRod?style=plasticr" alt="HA Discord Frontend"/></a>
   </p>
 </div>
 <p align="justify"><strong>
-    This Repo is designed for Smart Home and Lovelace UI inspiration.   The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world.  This is a working configuration of <em>my Smart Home</em> and <em>my Lovelace designs</em>.  All of the code is free to use and contribute to.</strong><br>
+    This Repo is designed for Smart Home and Lovelace UI inspiration. The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world. This is a working configuration of <em>my Smart Home</em> and <em>my Lovelace designs</em>. All of the code is free to use and contribute to.</strong><br>
 </p>
 <div name="menu">
 <p align="center"><strong>
@@ -64,11 +64,11 @@
 </div>
 <hr>
  
-<h5 align="center"><a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br></h5>
+<h5 align="center"><a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;"></a><br></h5>
 
-<p align="center"><a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.1.jpg" alt="Tablet Screen"></p>
+<p align="center"><a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/screenshots_tablet/update2020.1.jpg" alt="Tablet Screen"></a></p>
 <div>
-  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 2024.12.5 on a <a href="https://www.home-assistant.io/blue/">Home Assistant Blue </a></h2>
+  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 2025.2.5 on a <a href="https://amzn.to/3F3oci0">Beelink Mini PC, Mini S12 Pro Intel 12th N100, 16GB DDR4 500GB M.2 SSD </a></h2>
 </div>
 <p align="center"><a name="menu2"></a><strong>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#wyzemovie_cameracams-and-accessories">
