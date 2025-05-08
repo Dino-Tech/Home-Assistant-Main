@@ -1,4 +1,209 @@
 ---
+tts_daily_msg:
+  alias: daily morning message
+  sequence:
+    - variables:
+        weather_entity: weather.home
+        calendar_entity: calendar.dwilson_churchoftheking_com
+        zone_entity: zone.home
+        calendar_duration:
+          hours: 24
+        prompt: >-
+          Please generate text for a notification that will be sent to Darren's bedside speaker with helpful information to start off his day.
+
+          You are a helpful personal agent that generates a spoken response for Darren:
+
+          - Your answers are helpful, friendly, warm, insightful.
+
+          - Respond using a warm tone that is inviting, with a hint of mischief.
+
+          - You should always include current time in 12 hour format and current day of the week and date.
+
+          - You should always include the temperature, humidity, air quality level and today's weather forecast highlighting the next 3 hours of weather.
+
+          - You should always include two inspirational bible verses from the New Testament NIV.
+
+          - Your answers are not technical, and do not include Home Assistant internal details such as entities in responses.
+
+          - Your messages help Darren prepare for his day, for example:
+            - Making note of unusual weather for the location and time of year (but not mundane details like "0% chance of precipitation")
+            - How much time remaining until their first meeting
+            - Anything that may be special or unique, such as celebrating a birthday
+    - alias: Fetch Weather Forecast
+      action: weather.get_forecasts
+      data:
+        type: hourly
+      target:
+        entity_id:
+          - "{{ weather_entity }}"
+      response_variable: daily_forecast
+    - variables:
+        forecast_entity: "{{ daily_forecast[weather_entity] }}"
+        forecast: "{{ forecast_entity.forecast[0] }}"
+    - alias: Fetch Calendar Agenda
+      action: calendar.get_events
+      data:
+        duration:
+          hours: 24
+      target:
+        entity_id: calendar.dwilson_churchoftheking_com
+      response_variable: events_response
+    - alias: Conversation Agent Notification Text
+      action: conversation.process
+      data:
+        text: >-
+          Time: {{ now().strftime("%A %B %d %H:%M %p") }}
+
+          {%- if weather_entity is defined %}
+
+          {%- set temperature_unit = state_attr(weather_entity,
+          'temperature_unit') -%}
+
+          Forecast: {{ forecast.condition }} ({{ forecast.temperature }}{{
+          temperature_unit }}, {{ forecast.precipitation }}% precipitation)
+
+          {%- endif %}
+
+
+          Calendar "{{ state_attr(calendar_entity, 'friendly_name') }}" events for
+          the next {{ calendar_duration.hours }} hours:
+
+          {%- set agenda = (events_response | items | first)[1] %}
+
+          {%- if agenda.events %}
+            {%- for event in agenda.events %}
+            - Summary: {{ event.summary }}
+              Start-End: {% if event.start is defined %}{{ event.start }} to {{ event.end }}{% else %}All Day{% endif %}
+              {%- if event.description is defined %}
+              Description: {{ event.description }}
+              {% endif -%}
+              {%- if event.location is defined %}
+                Location: {{ event.location }}
+              {% endif -%}
+            {%- endfor %}
+          {%- else %}
+            - No upcoming events.
+          {%- endif %}
+
+
+          {{ prompt }}
+        agent_id: e181a3af361f399aaf5b0703856e124b
+      response_variable: agent
+    - alias: Send notification
+      action: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id:
+          - media_player.office_display
+        volume_level: 0.2
+    - action: tts.cloud_say
+      continue_on_error: true
+      entity_id:
+        - media_player.office_display
+      data_template:
+        message: "{{ agent.response.speech.plain.speech }}"
+
+tts_daily_msg_donna:
+  alias: daily morning message donna
+  sequence:
+    - variables:
+        weather_entity: weather.home
+        calendar_entity: calendar.holidays_in_united_states
+        zone_entity: zone.home
+        calendar_duration:
+          hours: 24
+        prompt: >-
+          Please generate text for a notification that will be sent to Donna's bedside speaker with helpful information to start off her day.
+
+          You are a helpful personal agent that generates a spoken response for Donna:
+
+          - Your answers are helpful, friendly, warm, insightful, using a cheerful tone.
+
+          - You should always include current time in 12 hour format and current day of the week and date.
+
+          - You should always include the temperature, humidity, air quality level and today's weather forecast highlighting the next 3 hours of weather.
+
+          - You should always include two inspirational bible verses from the New Testament NIV.
+
+          - Your answers are not technical, and do not include Home Assistant internal details such as entities in responses.
+
+          - Your messages help Donna prepare for her day, for example:
+            - Making note of unusual weather for the location and time of year (but not mundane details like "0% chance of precipitation")
+            - Anything that may be special or unique, such as celebrating a birthday or holiday
+    - alias: Fetch Weather Forecast
+      action: weather.get_forecasts
+      data:
+        type: hourly
+      target:
+        entity_id:
+          - "{{ weather_entity }}"
+      response_variable: daily_forecast
+    - variables:
+        forecast_entity: "{{ daily_forecast[weather_entity] }}"
+        forecast: "{{ forecast_entity.forecast[0] }}"
+    - alias: Fetch Calendar Agenda
+      action: calendar.get_events
+      data:
+        duration:
+          hours: 24
+      target:
+        entity_id: calendar.holidays_in_united_states
+      response_variable: events_response
+    - alias: Conversation Agent Notification Text
+      action: conversation.process
+      data:
+        text: >-
+          Time: {{ now().strftime("%A %B %d %H:%M %p") }}
+
+          {%- if weather_entity is defined %}
+
+          {%- set temperature_unit = state_attr(weather_entity,
+          'temperature_unit') -%}
+
+          Forecast: {{ forecast.condition }} ({{ forecast.temperature }}{{
+          temperature_unit }}, {{ forecast.precipitation }}% precipitation)
+
+          {%- endif %}
+
+
+          Calendar "{{ state_attr(calendar_entity, 'friendly_name') }}" events for
+          the next {{ calendar_duration.hours }} hours:
+
+          {%- set agenda = (events_response | items | first)[1] %}
+
+          {%- if agenda.events %}
+            {%- for event in agenda.events %}
+            - Summary: {{ event.summary }}
+              Start-End: {% if event.start is defined %}{{ event.start }} to {{ event.end }}{% else %}All Day{% endif %}
+              {%- if event.description is defined %}
+              Description: {{ event.description }}
+              {% endif -%}
+              {%- if event.location is defined %}
+                Location: {{ event.location }}
+              {% endif -%}
+            {%- endfor %}
+          {%- else %}
+            - No upcoming events.
+          {%- endif %}
+
+
+          {{ prompt }}
+        agent_id: e181a3af361f399aaf5b0703856e124b
+      response_variable: agent
+    - alias: Send notification
+      action: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id:
+          - media_player.bedroom_stereo
+        volume_level: 0.2
+    - action: tts.cloud_say
+      continue_on_error: true
+      entity_id:
+        - media_player.bedroom_stereo
+      data_template:
+        message: "{{ agent.response.speech.plain.speech }}"
+
 tts_alerts_mailbox:
   alias: tts alerts mailbox
   sequence:
@@ -48,10 +253,6 @@ good_night:
         - input_boolean.radar_updates
         - switch.patio_led_outlet
         - switch.subwoofer
-        - switch.joy_sign
-        - switch.front_plug_1
-        - switch.front_plug_2
-        - switch.outdoor_plug_2
         - switch.switchbot_plug_1
     - action: google_assistant_sdk.send_text_command
       continue_on_error: true
@@ -66,55 +267,12 @@ good_night:
       continue_on_error: true
       entity_id:
         - input_boolean.good_night_executed
+        - input_boolean.naptime
         - input_boolean.camera_snapshots
-        - input_boolean.driveway_motion_lights
+        - input_boolean.patio_garage_alerts
         - switch.air_cleaner
         - input_boolean.disable_auto_garage
         - input_boolean.disable_laundry_notifications
-    - choose:
-        - conditions:
-            - condition: state
-              entity_id: media_player.office_speaker
-              state: "off"
-          sequence:
-            - action: media_player.volume_set
-              data:
-                volume_level: 0
-              target:
-                entity_id: media_player.office_speaker
-            - action: media_player.turn_on
-              target:
-                entity_id: media_player.office_speaker
-            - wait_template: "{{ is_state('media_player.office_speaker', 'idle') }}"
-            - action: media_player.volume_set
-              data:
-                volume_level: 0.2
-              target:
-                entity_id: media_player.office_speaker
-        - conditions:
-            - condition: state
-              entity_id: media_player.office_speaker
-              state: idle
-          sequence:
-            - action: media_player.volume_set
-              data:
-                volume_level: 0.2
-              target:
-                entity_id: media_player.office_speaker
-            - delay: 1
-    - action: tts.google_say
-      continue_on_error: true
-      entity_id:
-        - media_player.office_speaker
-      data_template:
-        message: >
-          Good night. {{ ["You are a child of God.", "Sleep well!", "God is good ALL the time!"] | random }}
-    - delay: 7
-    - action: media_player.volume_set
-      data:
-        volume_level: 0.3
-      target:
-        entity_id: media_player.office_speaker
     - choose:
         - conditions:
             - condition: state
@@ -132,7 +290,7 @@ good_night:
             - wait_template: "{{ is_state('media_player.office_display', 'idle') }}"
             - action: media_player.volume_set
               data:
-                volume_level: 0.7
+                volume_level: 0.2
               target:
                 entity_id: media_player.office_display
         - conditions:
@@ -142,10 +300,23 @@ good_night:
           sequence:
             - action: media_player.volume_set
               data:
-                volume_level: 0.7
+                volume_level: 0.2
               target:
                 entity_id: media_player.office_display
             - delay: 1
+    - action: tts.google_say
+      continue_on_error: true
+      entity_id:
+        - media_player.office_display
+      data_template:
+        message: >
+          Good night. {{ ["You are a child of God.", "Sleep well!", "God is good ALL the time!"] | random }}
+    - delay: 1
+    - action: media_player.volume_set
+      data:
+        volume_level: 0.6
+      target:
+        entity_id: media_player.office_display
     - action: media_player.play_media
       continue_on_error: true
       target:
@@ -164,7 +335,6 @@ good_night:
             media_content_id: playlists
     - action: homeassistant.turn_off
       entity_id: switch.main_kiosk_screen
-    - delay: 2
     - action: notify.mobile_app_pixel_8_pro
       continue_on_error: true
       data:
@@ -174,7 +344,7 @@ good_night:
           intent_action: com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK
           ttl: 0
           priority: high
-    - delay: 10
+    - delay: 5
     - action: media_player.volume_set
       continue_on_error: true
       data:
@@ -213,7 +383,9 @@ morning:
         - input_boolean.good_night_executed
         - input_boolean.disable_laundry_notifications
         - input_boolean.camera_snapshots
+        - input_boolean.patio_garage_alerts
         - input_boolean.alarm_disarm_switch
+        - input_boolean.naptime
     - action: google_assistant_sdk.send_text_command
       continue_on_error: true
       data:
@@ -250,7 +422,7 @@ browser_blackout_button:
     - action: tts.google_say
       data:
         entity_id:
-          - media_player.pixel_fully
+          - media_player.office_speaker
       data_template:
         message: "Browser blackout is active"
 browser_theme_ocean:
@@ -617,16 +789,24 @@ browser_window_reload:
         entity_id: switch.main_kiosk_screen
     - action: lovelace.reload_resources
     - delay: "00:00:04"
-    - action: browser_mod.navigate
-      data:
-        path: /lovelace/newtab
-        browser_id:
-          - ac9b7f58-cfbfe785
-    - action: browser_mod.navigate
-      data:
-        path: /lovelace/ensuite_kiosk
-        browser_id:
-          - 1b918469-5d6a2b44
+    - action: button.press
+      continue_on_error: true
+      target:
+        entity_id: button.main_kiosk_load_start_url
+    - action: button.press
+      continue_on_error: true
+      target:
+        entity_id: button.ensuite_kiosk_load_start_url
+    #    - action: browser_mod.navigate
+    #      data:
+    #        path: /lovelace/newtab
+    #        browser_id:
+    #          - ac9b7f58-cfbfe785
+    #    - action: browser_mod.navigate
+    #      data:
+    #        path: /lovelace/ensuite_kiosk
+    #        browser_id:
+    #          - 1b918469-5d6a2b44
     - delay: "00:00:03"
     - action: browser_mod.refresh
 browser_window_reload_test:
@@ -675,7 +855,7 @@ coffee_on:
       data_template:
         title: "🔴 New Life Alert❗️"
         message: "⚠️️Coffee☕️ Maker ON!⚠️{{ states('sensor.time_12_hour_am_pm') }}"
-darrens_wake_up:
+darrens_wake_up_old:
   alias: darrens wake up
   sequence:
     - action: homeassistant.turn_on
@@ -683,17 +863,17 @@ darrens_wake_up:
       continue_on_error: true
     - action: light.turn_on
       data:
-        entity_id: light.desk_light
-        brightness_pct: 1
-        transition: 4
-        kelvin: 2400
+        entity_id: light.office_floor_lights
+        brightness_pct: 100
+        transition: 300
+        color_temp_kelvin: 2400
     - delay: "00:00:30"
     - action: light.turn_on
       data:
         entity_id: light.desk_light
         brightness_pct: 5
         transition: 4
-        kelvin: 3300
+        color_temp_kelvin: 3300
     - delay: "00:00:30"
     - action: media_player.volume_set
       continue_on_error: true
@@ -713,12 +893,12 @@ darrens_wake_up:
         entity_id: light.desk_light
         brightness_pct: 30
         transition: 4
-        kelvin: 3800
+        color_temp_kelvin: 3800
     - delay: "00:00:15"
     - action: media_player.volume_set
       continue_on_error: true
       data:
-        volume_level: 0.4
+        volume_level: 0.2
       target:
         device_id: 4365464e7cdd496ca499d4ce5141ce6e
     - action: light.turn_on
@@ -726,14 +906,17 @@ darrens_wake_up:
         entity_id: light.corner_light
         brightness_pct: 10
         transition: 4
-        kelvin: 2400
+        color_temp_kelvin: 2400
     - delay: "00:00:20"
     - action: light.turn_on
       data:
         entity_id: light.corner_light
         brightness_pct: 30
         transition: 2
-        kelvin: 3300
+        color_temp_kelvin: 3300
+    - action: script.tts_daily_msg
+      continue_on_error: true
+    - delay: "00:00:30"
     - action: media_player.play_media
       continue_on_error: true
       target:
@@ -759,22 +942,64 @@ darrens_wake_up:
         entity_id: light.bed_light
         brightness_pct: 30
         transition: 2
-        kelvin: 3300
+        color_temp_kelvin: 3300
     - action: light.turn_on
       data:
-        entity_id: light.office_ceiling_lights
+        entity_id: light.office_lights
         brightness_pct: 30
-    - action: light.turn_on
-      data:
-        entity_id: light.office_ceiling_lights
-        brightness_pct: 40
     - delay: "00:01:00"
     - action: script.morning
     - action: light.turn_on
       data:
         entity_id: light.office_floor_lights
         brightness_pct: 100
-        kelvin: 3200
+        color_temp_kelvin: 3200
+    - delay: "00:30:00"
+    - action: homeassistant.turn_off
+      entity_id: input_boolean.darren_s_alarm_triggered_today
+darrens_wake_up:
+  alias: darrens wake up
+  sequence:
+    - action: homeassistant.turn_on
+      entity_id: input_boolean.darren_s_alarm_triggered_today
+      continue_on_error: true
+    - action: light.turn_on
+      continue_on_error: true
+      data:
+        entity_id: light.office_floor_lights
+        brightness_pct: 100
+        transition: 300
+        color_temp_kelvin: 3800
+    - delay: "00:00:30"
+    - action: switch.turn_off
+      continue_on_error: true
+      entity_id:
+        - switch.air_cleaner
+    - action: script.tts_daily_msg
+      continue_on_error: true
+    - delay: "00:00:02"
+    - action: media_player.play_media
+      continue_on_error: true
+      target:
+        entity_id: media_player.office_display
+      data:
+        media_content_id: library://track/9
+        media_content_type: music
+      metadata:
+        title: Brandon Lake - Hard Fought Hallelujah
+        thumbnail: https://i.scdn.co/image/ab67616d0000b273e6a84fdb6474fe2c88f1366e
+        media_class: track
+        children_media_class: null
+        navigateIds:
+          - {}
+          - media_content_type: music_assistant
+            media_content_id: tracks
+    - action: light.turn_on
+      data:
+        entity_id: light.office_ceiling_lights
+        brightness_pct: 30
+    - delay: "00:01:00"
+    - action: script.morning
     - delay: "00:30:00"
     - action: homeassistant.turn_off
       entity_id: input_boolean.darren_s_alarm_triggered_today
@@ -788,27 +1013,27 @@ donnas_wake_up:
       target:
         entity_id: light.darrens_light
       data:
-        kelvin: 2000
-        brightness_pct: 1
-    - delay: "00:02:00"
+        color_temp_kelvin: 2000
+        brightness_pct: 10
+    - delay: "00:01:30"
     - action: light.turn_on
       target:
         entity_id: light.darrens_light
       data:
-        kelvin: 2600
-        brightness_pct: 10
-    - delay: "00:02:00"
+        color_temp_kelvin: 2600
+        brightness_pct: 30
+    - delay: "00:01:30"
     - action: light.turn_on
       target:
         entity_id: light.donnas_light
       data:
-        kelvin: 2000
+        color_temp_kelvin: 2000
         brightness_pct: 1
     - action: light.turn_on
       target:
         entity_id: light.darrens_light
       data:
-        kelvin: 3000
+        color_temp_kelvin: 3000
         brightness_pct: 20
     - delay: "00:02:00"
     - action: media_player.turn_on
@@ -828,7 +1053,10 @@ donnas_wake_up:
       data_template:
         message: >
           Good morning beautiful. {{ ["Time to wake up my love.", "Your husband is madly in love with you!", "Your husband thinks you are beautiful!", "God is good ALL the time!", "You are a child of God.", "Rise and shine! God gave you another day!", "God is good ALL the time!"] | random }}
-    - delay: "00:01:00"
+    - delay: "00:00:10"
+    - action: script.tts_daily_msg_donna
+      continue_on_error: true
+    - delay: "00:00:30"
     - action: media_player.play_media
       continue_on_error: true
       target:
@@ -849,20 +1077,20 @@ donnas_wake_up:
       target:
         entity_id: light.donnas_light
       data:
-        kelvin: 2600
+        color_temp_kelvin: 2600
         brightness_pct: 5
     - action: light.turn_on
       target:
         entity_id: light.darrens_light
       data:
-        kelvin: 3600
+        color_temp_kelvin: 3600
         brightness_pct: 35
     - delay: "00:00:30"
     - action: light.turn_on
       target:
         entity_id: light.donnas_light
       data:
-        kelvin: 3600
+        color_temp_kelvin: 3600
         brightness_pct: 25
     - action: light.turn_on
       data:
@@ -914,23 +1142,23 @@ people_home:
       entity_id:
         - input_boolean.notifications
         - input_boolean.motion_lights
-        - input_boolean.camera_snapshots
+        - input_boolean.patio_garage_alerts
     - action: media_player.volume_set
       continue_on_error: true
       data:
-        entity_id: media_player.kitchen_speakers
-        volume_level: "0.40"
+        entity_id: media_player.kitchen_speakers_2
+        volume_level: 0.4
     - action: media_player.media_stop
       continue_on_error: true
       data:
-        entity_id: media_player.kitchen_speakers
+        entity_id: media_player.kitchen_speakers_2
     - action: script.nest_set_home
     - delay: "00:00:03"
     - action: homeassistant.turn_off
       continue_on_error: true
       entity_id:
-        - switch.inside_cam_notifications
-        - switch.cameras_inside_motion
+        #        - switch.inside_cam_notifications
+        #        - switch.cameras_inside_motion
         - switch.outside_cam_notifications
 people_away:
   alias: people away
@@ -960,12 +1188,19 @@ people_away:
       entity_id:
         - input_boolean.door_announcements
         - input_boolean.camera_snapshots
+        - input_boolean.patio_garage_alerts
         - light.sofa_lamp
         - light.cabinet_lights_3
         - input_boolean.motion_lights
     - action: script.nest_set_away
       continue_on_error: true
-    - delay: "00:00:15"
+    - delay: "00:00:10"
+    - action: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id: media_player.kitchen_speakers_2
+        volume_level: 0.5
+    - delay: "00:00:05"
     - action: media_player.play_media
       continue_on_error: true
       target:
@@ -982,19 +1217,18 @@ people_away:
           - {}
           - media_content_type: music_assistant
             media_content_id: radio
-    - delay: "00:00:05"
-    - action: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id: media_player.kitchen_speakers
-        volume_level: "0.50"
     - delay: "00:00:03"
     - action: homeassistant.turn_on
       continue_on_error: true
       entity_id:
-        - switch.inside_cam_notifications
-        - switch.cameras_inside_motion
+        #        - switch.inside_cam_notifications
+        #        - switch.cameras_inside_motion
         - switch.outside_cam_notifications
+    - action: google_assistant_sdk.send_text_command
+      continue_on_error: true
+      data:
+        command: turn off den tv
+    - delay: "00:00:03"
     - action: lock.lock
       entity_id: lock.back_door
 restart_ha:

@@ -9,7 +9,7 @@
         topic: shellies/command
         payload: announce
     - delay:
-        seconds: 10
+        seconds: 5
     - action: button.press
       continue_on_error: true
       target:
@@ -19,10 +19,7 @@
       target:
         entity_id: button.ensuite_kiosk_load_start_url
     - delay:
-        seconds: 10
-    - action: script.browser_window_reload
-    - delay:
-        seconds: 10
+        seconds: 5
     - action: frontend.set_theme
       data:
         name: Blue-Nightz
@@ -36,20 +33,20 @@
   triggers:
     - trigger: state
       entity_id:
-        - camera.backyard_cam
-        - camera.driveway_cam
-        - camera.entryway_cam
-        - camera.garage_cam
+        - camera.backyard
+        - camera.driveway
+        - camera.entryway
+        - camera.garage_cam_wuuk
         - camera.front_door
         - camera.front_yard_cam
-        - camera.kitchen_cam
-        - camera.den_camera
-        - camera.patio_cam
-        - camera.poopy_cam
-      #        - camera.rambo_cam
+        - camera.kitchen
+        - camera.den
+        - camera.patio
+        - camera.porch
+        - camera.rambo_cam
       to: unavailable
       for:
-        minutes: 6
+        minutes: 2
   action:
     - action: homeassistant.reload_config_entry
       target:
@@ -111,12 +108,17 @@
       to: open
     - trigger: state
       entity_id:
-        - binary_sensor.side_door1
+        - binary_sensor.side_door_bt
       to: "on"
   condition:
-    - condition: state
-      entity_id: binary_sensor.night
-      state: "on"
+    - condition: or
+      conditions:
+        - condition: sun
+          after: sunset
+          after_offset: 15
+        - condition: sun
+          before: sunrise
+          before_offset: 15
   action:
     - action: light.turn_on
       target:
@@ -127,18 +129,23 @@
         entity_id: light.front_yard_lights
 - id: "18011577229915545231"
   alias: "turn ON backyard lights when door opened"
-  mode: single
+  mode: restart
   triggers:
     - trigger: state
-      entity_id: binary_sensor.back_door1
-      to: open
+      entity_id: binary_sensor.back_door1, binary_sensor.backdoor_bt_sensor
+      to: "on"
     - trigger: state
       entity_id: binary_sensor.back_motion
       to: "on"
   condition:
-    - condition: state
-      entity_id: binary_sensor.night
-      state: "on"
+    - condition: or
+      conditions:
+        - condition: sun
+          after: sunset
+          after_offset: 15
+        - condition: sun
+          before: sunrise
+          before_offset: 15
   action:
     - action: light.turn_on
       target:
@@ -146,7 +153,7 @@
     - delay: 600
     - action: light.turn_off
       target:
-        entity_id: light.patio_ceiling_light, light.back_flood_lights
+        entity_id: light.patio_fan_light, light.back_floodlights2
 - id: "1783625788126933756"
   alias: Outside Cam Notifications ON when dark
   mode: single
@@ -313,6 +320,9 @@
     - condition: time
       after: 09:29:00
       before: "21:30:00"
+    - condition: state
+      entity_id: remote.den_tv
+      state: "off"
     - condition: template
       value_template: |
         {% if is_state('light.tv_ambient_lights', 'on') %}
@@ -645,16 +655,45 @@
               before: "05:30:00"
           sequence:
             - action: light.turn_on
-              data:
-                entity_id: light.den_night_lights
+              data_template:
+                hs_color:
+                  - "{{ range(360)|random }}"
+                  - "{{ range(80,101)|random }}"
+                brightness_pct: 40
+              target:
+                entity_id: light.den_night_lights_zb
         - conditions:
+            - condition: state
+              entity_id: input_boolean.camera_motion_detected
+              state: "on"
             - condition: time
               after: 05:30:01
               before: "23:00:00"
           sequence:
             - action: light.turn_on
-              data:
-                entity_id: light.den_night_lights
+              data_template:
+                hs_color:
+                  - "{{ range(360)|random }}"
+                  - "{{ range(80,101)|random }}"
+                brightness_pct: 100
+              target:
+                entity_id: light.den_night_lights_zb
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.camera_motion_detected
+              state: "off"
+            - condition: time
+              after: 05:30:01
+              before: "23:00:00"
+          sequence:
+            - action: light.turn_on
+              data_template:
+                hs_color:
+                  - "{{ range(360)|random }}"
+                  - "{{ range(80,101)|random }}"
+                brightness_pct: 100
+              target:
+                entity_id: light.den_night_lights_zb
             - action: switch.turn_on
               data:
                 entity_id: switch.main_kiosk_screen
@@ -673,7 +712,7 @@
           to: "off"
     - delay: 90
     - action: light.turn_off
-      entity_id: light.den_night_lights
+      entity_id: light.den_night_lights_zb
     - choose:
         - conditions:
             - condition: time
@@ -700,7 +739,7 @@
             - action: light.turn_off
               data:
                 entity_id: light.ac9b7f58_cfbfe785_screen
-      enabled: true
+  initial_state: true
   mode: restart
   max_exceeded: silent
 - id: "17099299999977"
@@ -728,10 +767,6 @@
       device_id: 011d22447a45c26939459e4d099889cb
       domain: nest
       type: camera_person
-    - trigger: device
-      device_id: 011d22447a45c26939459e4d099889cb
-      domain: nest
-      type: camera_motion
   condition:
     - condition: or
       conditions:
@@ -769,7 +804,9 @@
         seconds: 30
   action:
     - action: input_boolean.turn_on
-      entity_id: input_boolean.camera_snapshots
+      entity_id:
+        - input_boolean.camera_snapshots
+        - input_boolean.patio_garage_alerts
     - action: homeassistant.turn_off
       continue_on_error: true
       entity_id:
@@ -791,6 +828,8 @@
       for:
         seconds: 4
   action:
+    - action: input_boolean.turn_off
+      entity_id: input_boolean.patio_garage_alerts
     - choose:
         - conditions:
             - condition: state
@@ -812,22 +851,23 @@
               entity_id: cover.garage_door
               state: closed
           sequence:
-            - action: switch.turn_on
-              entity_id: switch.garage_door
+            - action: cover.open_cover
+              entity_id: cover.garage_door
         - conditions:
             - condition: state
               entity_id: cover.garage_door
               state: open
           sequence:
-            - action: google_assistant_sdk.send_text_command
-              continue_on_error: true
+            - action: light.turn_on
               data:
-                command: "turn on garage ceiling lights"
+                entity_id: light.garage_ceiling_lights
     - action: homeassistant.turn_on
       continue_on_error: true
       entity_id:
         - input_boolean.darren_home
-        - light.office_floor_lights
+    - action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.naptime
     - wait_for_trigger:
         - trigger: state
           entity_id: binary_sensor.office_motion_sensors
@@ -838,10 +878,6 @@
       entity_id:
         - fan.hallway_fan
         - switch.ha2_office_monitor
-    - delay: 180
-    - action: input_boolean.turn_off
-      entity_id:
-        - input_boolean.camera_snapshots
   initial_state: true
   mode: single
 - id: "170999979999641209"
@@ -852,10 +888,10 @@
         - person.donna
       to: home
       for:
-        seconds: 14
+        seconds: 4
   action:
-    - action: input_boolean.turn_on
-      entity_id: input_boolean.donna_home
+    - action: input_boolean.turn_off
+      entity_id: input_boolean.patio_garage_alerts
     - choose:
         - conditions:
             - condition: state
@@ -877,17 +913,18 @@
               entity_id: cover.garage_door
               state: closed
           sequence:
-            - action: switch.turn_on
-              entity_id: switch.garage_door
+            - action: cover.open_cover # switch.turn_on
+              entity_id: cover.garage_door # switch.garage_door
         - conditions:
             - condition: state
               entity_id: cover.garage_door
               state: open
           sequence:
-            - action: google_assistant_sdk.send_text_command
-              continue_on_error: true
+            - action: light.turn_on
               data:
-                command: "turn on garage ceiling lights"
+                entity_id: light.garage_ceiling_lights
+    - action: input_boolean.turn_on
+      entity_id: input_boolean.donna_home
   initial_state: true
   mode: single
 - id: "170999989999524"
@@ -906,44 +943,6 @@
   mode: single
   initial_state: true
   max_exceeded: silent
-- id: "17326181774975112345"
-  alias: "[SWITCH] Patio Mister ON/OFF cycle"
-  triggers:
-    - trigger: state
-      entity_id: switch.patio_box_fan_switch
-      to: "on"
-  action:
-    - action: fan.turn_on
-      entity_id: fan.patio_fan
-    - repeat:
-        sequence:
-          - action: switch.turn_on
-            entity_id: switch.patio_mister_2
-          - delay:
-              seconds: 10
-          - action: switch.turn_off
-            entity_id: switch.patio_mister_2
-          - delay:
-              seconds: 50
-        until:
-          - condition: state
-            entity_id: switch.patio_box_fan_switch
-            state: "off"
-    - action: fan.turn_off
-      entity_id: fan.patio_fan
-  initial_state: true
-- id: "17776181774975112345"
-  alias: "[SWITCH] Patio Mister time limit"
-  triggers:
-    - trigger: state
-      entity_id: switch.patio_box_fan_switch
-      to: "on"
-      for:
-        minutes: 10
-  action:
-    - action: switch.turn_off
-      entity_id: switch.patio_box_fan_switch
-  mode: single
 - id: "170999993999165"
   alias: "[Presence] People Away"
   triggers:
@@ -951,7 +950,7 @@
       entity_id: group.person_group
       to: not_home
       for:
-        seconds: 180
+        seconds: 300
   action:
     - action: script.alarm_arm
     - action: script.people_away
@@ -1042,6 +1041,44 @@
           to: idle
     - action: fan.turn_off
       entity_id: fan.office_fan
+- id: "302170975645999164"
+  alias: "[Timer] 15 minute HVAC Fan timer"
+  initial_state: true
+  triggers:
+    - trigger: state
+      entity_id: input_button.hvac_15_fan_timer
+  action:
+    - action: climate.set_fan_mode
+      data:
+        fan_mode: "on"
+      target:
+        entity_id: climate.den
+    - delay:
+        minutes: 15
+    - action: climate.set_fan_mode
+      data:
+        fan_mode: "off"
+      target:
+        entity_id: climate.den
+- id: "312170975645999164"
+  alias: "[Timer] 30 minute HVAC Fan timer"
+  initial_state: true
+  triggers:
+    - trigger: state
+      entity_id: input_button.hvac_30_fan_timer
+  action:
+    - action: climate.set_fan_mode
+      data:
+        fan_mode: "on"
+      target:
+        entity_id: climate.den
+    - delay:
+        minutes: 30
+    - action: climate.set_fan_mode
+      data:
+        fan_mode: "off"
+      target:
+        entity_id: climate.den
 - id: "17099999919856349"
   alias: "[Notify] Coffee Maker ON"
   initial_state: true
@@ -1064,11 +1101,11 @@
   action:
     - action: switch.turn_on
       target:
-        entity_id: switch.patio_fan_fountain
+        entity_id: switch.patio_fountain_plug
     - delay: 600
     - action: switch.turn_off
       target:
-        entity_id: switch.patio_fan_fountain
+        entity_id: switch.patio_fountain_plug
   initial_state: true
 - id: "170999999799168"
   alias: "[Motion] Kitchen Motion Lights"
@@ -1077,6 +1114,11 @@
       entity_id: binary_sensor.kitchen_motion_sensors
       from: "off"
       to: "on"
+    - type: occupied
+      device_id: 11ae90ced5ee1712eecfff81dc93849c
+      entity_id: 4cee93a6bdbf5e7c5eadbf7db0533093
+      domain: binary_sensor
+      trigger: device
   condition:
     - condition: state
       entity_id: group.person_group
@@ -1106,33 +1148,21 @@
               data:
                 entity_id: light.kitchen_ceiling_lights_3
     - wait_for_trigger:
-        - trigger: state
-          entity_id: binary_sensor.kitchen_motion_sensors
-          from: "on"
-          to: "off"
-    - choose:
-        - conditions:
-            - condition: time
-              after: "22:00:01"
-              before: "05:30:00"
-          sequence:
-            - delay: 600
-            - action: light.turn_off
-              data:
-                entity_id: light.cabinet_lights_3
-        - conditions:
-            - condition: time
-              after: 05:30:01
-              before: "22:00:00"
-          sequence:
-            - delay: 900
-            - action: light.turn_off
-              entity_id: light.kitchen_ceiling_lights_3
-            - delay: 600
-            - action: light.turn_off
-              entity_id: light.cabinet_lights_3
+        - type: not_occupied
+          device_id: 11ae90ced5ee1712eecfff81dc93849c
+          entity_id: 4cee93a6bdbf5e7c5eadbf7db0533093
+          domain: binary_sensor
+          trigger: device
+    - action: light.turn_off
+      entity_id: light.kitchen_ceiling_lights_3
+    - action: light.turn_off
+      entity_id: light.table_light
+    - delay: 900
+    - action: light.turn_off
+      entity_id: light.cabinet_lights_3
   mode: restart
   max_exceeded: silent
+  initial_state: true
 - id: "1701618177497534"
   alias: "[Motion] Entryway Motion Lights"
   description: ""
@@ -1161,6 +1191,7 @@
       entity_id: light.entryway_dimmer, light.laundry_room_light
   mode: restart
   max_exceeded: silent
+  initial_state: true
 - id: "1771618178227534"
   alias: "[Motion] Laundry Motion Lights"
   description: ""
@@ -1263,7 +1294,7 @@
   action:
     - action: switch.turn_on
       target:
-        entity_id: switch.ensuite_vent
+        entity_id: fan.ensuite_vent
     - delay: 300
   initial_state: true
   mode: single
@@ -1282,7 +1313,7 @@
   action:
     - action: switch.turn_off
       target:
-        entity_id: switch.ensuite_vent
+        entity_id: fan.ensuite_vent
     - delay: 300
   initial_state: true
   mode: single
@@ -1291,13 +1322,13 @@
   alias: "[Auto] Ensuite Vent auto off timer"
   triggers:
     - trigger: state
-      entity_id: switch.ensuite_vent
+      entity_id: fan.ensuite_vent
       to: "on"
       for:
         minutes: 15
   action:
     - action: switch.turn_off
-      entity_id: switch.ensuite_vent
+      entity_id: fan.ensuite_vent
   initial_state: true
   mode: single
 - id: "17016185774975347"
@@ -1309,6 +1340,7 @@
     - action: input_boolean.turn_on
       entity_id:
         - input_boolean.camera_snapshots
+        - input_boolean.patio_garage_alerts
         - input_boolean.door_announcements
         - input_boolean.disable_laundry_notifications
     - action: input_boolean.turn_off
@@ -1496,7 +1528,7 @@
         data:
           ttl: 0
           priority: high
-          tts_text: Security system is armed. Machine Gun turrets and land mines online and ready.
+          tts_text: Security system armed. The house and grounds are now under video surveillance.
 - id: "1701177486112975382884"
   alias: "[Alarmo] Disarmed"
   initial_state: true
@@ -1504,6 +1536,10 @@
     - trigger: state
       entity_id: alarm_control_panel.alarmo
       to: disarmed
+  condition:
+    - condition: state
+      entity_id: input_boolean.naptime
+      state: "off"
   action:
     - delay: 5
     - action: notify.mobile_app_pixel_8_pro
@@ -1512,7 +1548,7 @@
         data:
           ttl: 0
           priority: high
-          tts_text: Security system turned off. Machine guns and land mines have been deactivated.
+          tts_text: Security system disarmed. You may enter the premises.
 - id: "1701612177497534"
   alias: "[Alarmo] Home Mode Armed"
   initial_state: true
@@ -2110,7 +2146,7 @@
   alias: Sports sensor update
   triggers:
     - trigger: time_pattern
-      seconds: "30"
+      seconds: "59"
   condition:
     - condition: state
       entity_id: input_boolean.sports_updates
@@ -2205,69 +2241,21 @@
       device_id: 011d22447a45c26939459e4d099889cb
       domain: nest
       type: camera_person
-  condition:
-    - condition: state
-      entity_id: input_boolean.camera_snapshots
-      state: "on"
   action:
-    - action: button.press
-      target:
-        entity_id: button.wyze_cam_porch_cam_update_snapshot
-    - action: button.press
-      target:
-        entity_id: button.wyze_cam_front_yard_cam_update_snapshot
-    - choose:
-        - conditions:
-            - condition: time
-              after: "22:00:00"
-              before: "07:00:00"
-          sequence:
-            - action: media_player.volume_set
-              continue_on_error: true
-              data:
-                entity_id: media_player.office_display
-                volume_level: "0.60"
-            - action: tts.google_say
-              continue_on_error: true
-              data:
-                cache: true
-                entity_id: media_player.office_display
-                message: Motion at front door
-        - conditions:
-            - condition: time
-              after: "07:00:01"
-              before: "21:59:59"
-          sequence:
-            - action: media_player.volume_set
-              continue_on_error: true
-              data:
-                entity_id: media_player.tv_speakers
-                volume_level: "0.80"
-            - action: tts.google_say
-              continue_on_error: true
-              data:
-                cache: true
-                entity_id: media_player.tv_speakers
-                message: Motion at front door
-    - delay:
-        seconds: 4
-    - action: notify.notify_all
+    - action: browser_mod.navigate
+      continue_on_error: true
       data:
-        message: ⚠️Porch Motion!⚠️️ {{ states('sensor.time_12_hour_am_pm') }}
-        data:
-          notification_icon: mdi:cctv
-          image: /api/camera_proxy/camera.wyze_cam_porch_cam_snapshot?token={{
-            state_attr('camera.wyze_cam_porch_cam_snapshot','access_token') }}
-          persistent: true
-          color: red
-          channel: Cameras
-          tag: Motion
-          actions:
-            - action: URI
-              title: Click to Open Cameras
-              uri: /lovelace/porch
-    - delay:
-        seconds: 4
+        browser_id:
+          - ac9b7f58-cfbfe785
+        path: /dashboard-cast/porch
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - 1b918469-5d6a2b44
+        path: /dashboard-cast/porch
+    - action: input_boolean.turn_on
+      entity_id: input_boolean.camera_motion_detected
     - action: notify.notify_all
       data:
         message: ⚠️Front Motion!⚠️️ {{ states('sensor.time_12_hour_am_pm') }}
@@ -2283,19 +2271,175 @@
           actions:
             - action: URI
               title: Click to Open Cameras
-              uri: /lovelace/front
-    - delay: 300
+              uri: dashboard-cast/porch
+    #    - action: button.press
+    #      target:
+    #        entity_id: button.wyze_cam_porch_cam_update_snapshot
+    #    - action: button.press
+    #      target:
+    #        entity_id: button.wyze_cam_front_yard_cam_update_snapshot
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.camera_snapshots
+              state: "on"
+            - condition: time
+              after: "22:00:00"
+              before: "07:00:00"
+          sequence:
+            - action: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.ensuite_display
+                volume_level: "0.3"
+            - action: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.ensuite_display
+                message: Motion at front door
+            - action: media_player.play_media
+              target:
+                entity_id: media_player.ensuite_display
+              data:
+                media_content_id: dashboard-cast/porch
+                media_content_type: lovelace
+              metadata:
+                title: Porch
+                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
+                media_class: app
+                children_media_class: null
+                navigateIds:
+                  - {}
+                  - media_content_type: lovelace
+                    media_content_id: ""
+                  - media_content_type: lovelace
+                    media_content_id: dashboard-cast
+            - delay: 240
+            - action: media_player.turn_off
+              continue_on_error: true
+              data:
+                entity_id: media_player.ensuite_display
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.camera_snapshots
+              state: "on"
+            - condition: time
+              after: "07:00:01"
+              before: "21:59:59"
+            - condition: state
+              entity_id: group.person_group
+              state: not_home
+          sequence:
+            - action: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.tv_speakers
+                volume_level: "0.80"
+            - action: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.tv_speakers
+                message: Motion at front door
+            - action: media_player.play_media
+              continue_on_error: true
+              target:
+                entity_id: media_player.foyer_tv # den tv
+              data:
+                media_content_id: dashboard-cast/porch
+                media_content_type: lovelace
+              metadata:
+                title: Porch
+                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
+                media_class: app
+                children_media_class: null
+                navigateIds:
+                  - {}
+                  - media_content_type: lovelace
+                    media_content_id: ""
+                  - media_content_type: lovelace
+                    media_content_id: dashboard-cast
+            - delay: 180
+            - action: media_player.turn_off
+              continue_on_error: true
+              data:
+                entity_id: media_player.android_tv_192_168_1_128
+            - action: remote.turn_off
+              continue_on_error: true
+              target:
+                entity_id: remote.den_tv
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.camera_snapshots
+              state: "on"
+            - condition: time
+              after: "07:00:01"
+              before: "21:59:59"
+            - condition: state
+              entity_id: group.person_group
+              state: home
+          sequence:
+            - action: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.tv_speakers
+                volume_level: "0.80"
+            - action: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.tv_speakers
+                message: Motion at front door
+            - action: media_player.play_media
+              continue_on_error: true
+              target:
+                entity_id: media_player.foyer_tv
+              data:
+                media_content_id: dashboard-cast/porch
+                media_content_type: lovelace
+              metadata:
+                title: Porch
+                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
+                media_class: app
+                children_media_class: null
+                navigateIds:
+                  - {}
+                  - media_content_type: lovelace
+                    media_content_id: ""
+                  - media_content_type: lovelace
+                    media_content_id: dashboard-cast
+            - delay: 180
+            - action: media_player.turn_off
+              continue_on_error: true
+              data:
+                entity_id: media_player.foyer_tv
+    - delay: 120
+    - action: input_boolean.turn_off
+      entity_id: input_boolean.camera_motion_detected
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - 1b918469-5d6a2b44
+        path: /lovelace/newtab
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - ac9b7f58-cfbfe785
+        path: /lovelace/newtab
     - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.tv_speakers
-        volume_level: "0.40"
+        volume_level: "0.2"
     - delay: 2
     - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.office_display
-        volume_level: "0.40"
+        volume_level: "0.2"
   mode: single
   max_exceeded: silent
 - id: "170163035746544"
@@ -2316,49 +2460,22 @@
       entity_id:
         - binary_sensor.side_motion_sensor
       to: "on"
-  condition:
-    - condition: state
-      entity_id: input_boolean.camera_snapshots
-      state: "on"
+  condition: []
   action:
-    - action: button.press
-      target:
-        entity_id: button.wyze_cam_drive_side_camera_update_snapshot
-    - choose:
-        - conditions:
-            - condition: time
-              after: "22:00:00"
-              before: "07:00:00"
-          sequence:
-            - action: media_player.volume_set
-              continue_on_error: true
-              data:
-                entity_id: media_player.office_display
-                volume_level: "0.50"
-            - action: tts.google_say
-              continue_on_error: true
-              data:
-                cache: true
-                entity_id: media_player.office_display
-                message: Motion at side door
-        - conditions:
-            - condition: time
-              after: "07:00:01"
-              before: "21:59:59"
-          sequence:
-            - action: media_player.volume_set
-              continue_on_error: true
-              data:
-                entity_id: media_player.tv_speakers
-                volume_level: "0.80"
-            - action: tts.google_say
-              continue_on_error: true
-              data:
-                cache: true
-                entity_id: media_player.tv_speakers
-                message: Motion at side door
-    - delay:
-        seconds: 4
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - ac9b7f58-cfbfe785
+        path: /dashboard-cast/driveway
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - 1b918469-5d6a2b44
+        path: /dashboard-cast/driveway
+    - action: input_boolean.turn_on
+      entity_id: input_boolean.camera_motion_detected
     - action: notify.notify_all
       data:
         message: ⚠️Side Door Motion!⚠️️{{ states('sensor.time_12_hour_am_pm') }}
@@ -2374,20 +2491,171 @@
           tag: Motion
           actions:
             - action: URI
-              title: Click to Open Cameras
-              uri: /lovelace/driveway
-    - delay: 300
+              title: Click to Open Camera
+              uri: /dashboard-cast/driveway
+    #    - action: button.press
+    #      target:
+    #        entity_id: button.wyze_cam_drive_side_camera_update_snapshot
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.camera_snapshots
+              state: "on"
+            - condition: time
+              after: "22:00:00"
+              before: "07:00:00"
+          sequence:
+            - action: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.ensuite_display
+                volume_level: "0.3"
+            - action: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.ensuite_display
+                message: Motion at side door
+            - action: media_player.play_media
+              target:
+                entity_id: media_player.ensuite_display
+              data:
+                media_content_id: dashboard-cast/driveway
+                media_content_type: lovelace
+              metadata:
+                title: Driveway
+                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
+                media_class: app
+                children_media_class: null
+                navigateIds:
+                  - {}
+                  - media_content_type: lovelace
+                    media_content_id: ""
+                  - media_content_type: lovelace
+                    media_content_id: dashboard-cast
+            - delay: 240
+            - action: media_player.turn_off
+              continue_on_error: true
+              data:
+                entity_id: media_player.ensuite_display
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.camera_snapshots
+              state: "on"
+            - condition: time
+              after: "07:00:01"
+              before: "21:59:59"
+            - condition: state
+              entity_id: group.person_group
+              state: not_home
+          sequence:
+            - action: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.tv_speakers
+                volume_level: "0.6"
+            - action: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.tv_speakers
+                message: Motion at side door
+            - action: media_player.play_media
+              target:
+                entity_id: media_player.foyer_tv # den TV
+              data:
+                media_content_id: dashboard-cast/driveway
+                media_content_type: lovelace
+              metadata:
+                title: Driveway
+                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
+                media_class: app
+                children_media_class: null
+                navigateIds:
+                  - {}
+                  - media_content_type: lovelace
+                    media_content_id: ""
+                  - media_content_type: lovelace
+                    media_content_id: dashboard-cast
+            - delay: 180
+            - action: media_player.turn_off
+              continue_on_error: true
+              data:
+                entity_id: media_player.foyer_tv
+            - action: remote.turn_off
+              continue_on_error: true
+              target:
+                entity_id: remote.den_tv
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.camera_snapshots
+              state: "on"
+            - condition: time
+              after: "07:00:01"
+              before: "21:59:59"
+            - condition: state
+              entity_id: group.person_group
+              state: home
+          sequence:
+            - action: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.tv_speakers
+                volume_level: "0.6"
+            - action: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.tv_speakers
+                message: Motion at side door
+            - action: media_player.play_media
+              target:
+                entity_id: media_player.foyer_tv # den TV
+              data:
+                media_content_id: dashboard-cast/driveway
+                media_content_type: lovelace
+              metadata:
+                title: Driveway
+                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
+                media_class: app
+                children_media_class: null
+                navigateIds:
+                  - {}
+                  - media_content_type: lovelace
+                    media_content_id: ""
+                  - media_content_type: lovelace
+                    media_content_id: dashboard-cast
+            - delay: 180
+            - action: media_player.turn_off
+              continue_on_error: true
+              data:
+                entity_id: media_player.foyer_tv
+    - delay: 120
+    - action: input_boolean.turn_off
+      entity_id: input_boolean.camera_motion_detected
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - 1b918469-5d6a2b44
+        path: /lovelace/newtab
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - ac9b7f58-cfbfe785
+        path: /lovelace/newtab
     - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.tv_speakers
-        volume_level: "0.40"
+        volume_level: "0.2"
     - delay: 2
     - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.office_display
-        volume_level: "0.40"
+        volume_level: "0.2"
   mode: single
   max_exceeded: silent
 - id: "170183046792101"
@@ -2398,49 +2666,22 @@
       entity_id:
         - binary_sensor.back_motion
       to: "on"
-  condition:
-    - condition: state
-      entity_id: input_boolean.camera_snapshots
-      state: "on"
+  condition: []
   action:
-    - action: button.press
-      target:
-        entity_id: button.wyze_cam_patio_camera_update_snapshot
-    - choose:
-        - conditions:
-            - condition: time
-              after: "22:00:00"
-              before: "07:00:00"
-          sequence:
-            - action: media_player.volume_set
-              continue_on_error: true
-              data:
-                entity_id: media_player.office_display
-                volume_level: "0.50"
-            - action: tts.google_say
-              continue_on_error: true
-              data:
-                cache: true
-                entity_id: media_player.office_display
-                message: Motion on patio
-        - conditions:
-            - condition: time
-              after: "07:00:01"
-              before: "21:59:59"
-          sequence:
-            - action: media_player.volume_set
-              continue_on_error: true
-              data:
-                entity_id: media_player.tv_speakers
-                volume_level: "0.80"
-            - action: tts.google_say
-              continue_on_error: true
-              data:
-                cache: true
-                entity_id: media_player.tv_speakers
-                message: Motion on patio
-    - delay:
-        seconds: 4
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - ac9b7f58-cfbfe785
+        path: /dashboard-cast/patio
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - 1b918469-5d6a2b44
+        path: /dashboard-cast/patio
+    - action: input_boolean.turn_on
+      entity_id: input_boolean.camera_motion_detected
     - action: notify.notify_all
       data:
         message: ⚠️Patio Motion!⚠️️{{ states('sensor.time_12_hour_am_pm') }}
@@ -2456,19 +2697,170 @@
           actions:
             - action: URI
               title: Click to Open Cameras
-              uri: /lovelace/patio
-    - delay: 300
+              uri: /dashboard-cast/patio
+    #    - action: button.press
+    #      target:
+    #        entity_id: button.wyze_cam_patio_camera_update_snapshot
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.patio_garage_alerts
+              state: "on"
+            - condition: time
+              after: "22:00:00"
+              before: "07:00:00"
+          sequence:
+            - action: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.office_display
+                volume_level: "0.3"
+            - action: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.office_display
+                message: motion on patio
+            - action: media_player.play_media
+              target:
+                entity_id: media_player.ensuite_display
+              data:
+                media_content_id: dashboard-cast/patio
+                media_content_type: lovelace
+              metadata:
+                title: Patio
+                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
+                media_class: app
+                children_media_class: null
+                navigateIds:
+                  - {}
+                  - media_content_type: lovelace
+                    media_content_id: ""
+                  - media_content_type: lovelace
+                    media_content_id: dashboard-cast
+            - delay: 240
+            - action: media_player.turn_off
+              continue_on_error: true
+              data:
+                entity_id: media_player.ensuite_display
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.patio_garage_alerts
+              state: "on"
+            - condition: time
+              after: "07:00:01"
+              before: "21:59:59"
+            - condition: state
+              entity_id: group.person_group
+              state: not_home
+          sequence:
+            - action: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.tv_speakers
+                volume_level: "0.6"
+            - action: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.tv_speakers
+                message: motion on patio
+            - action: media_player.play_media
+              target:
+                entity_id: media_player.foyer_tv # den TV
+              data:
+                media_content_id: dashboard-cast/patio
+                media_content_type: lovelace
+              metadata:
+                title: Patio
+                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
+                media_class: app
+                children_media_class: null
+                navigateIds:
+                  - {}
+                  - media_content_type: lovelace
+                    media_content_id: ""
+                  - media_content_type: lovelace
+                    media_content_id: dashboard-cast
+            - delay: 180
+            - action: media_player.turn_off
+              continue_on_error: true
+              data:
+                entity_id: media_player.foyer_tv
+            - action: remote.turn_off
+              continue_on_error: true
+              target:
+                entity_id: remote.den_tv
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.patio_garage_alerts
+              state: "on"
+            - condition: time
+              after: "07:00:01"
+              before: "21:59:59"
+            - condition: state
+              entity_id: group.person_group
+              state: home
+          sequence:
+            - action: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.tv_speakers
+                volume_level: "0.6"
+            - action: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.tv_speakers
+                message: motion on patio
+            - action: media_player.play_media
+              target:
+                entity_id: media_player.foyer_tv # den TV
+              data:
+                media_content_id: dashboard-cast/patio
+                media_content_type: lovelace
+              metadata:
+                title: Patio
+                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
+                media_class: app
+                children_media_class: null
+                navigateIds:
+                  - {}
+                  - media_content_type: lovelace
+                    media_content_id: ""
+                  - media_content_type: lovelace
+                    media_content_id: dashboard-cast
+            - delay: 180
+            - action: media_player.turn_off
+              continue_on_error: true
+              data:
+                entity_id: media_player.foyer_tv
+    - delay: 120
+    - action: input_boolean.turn_off
+      entity_id: input_boolean.camera_motion_detected
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - 1b918469-5d6a2b44
+        path: /lovelace/newtab
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - ac9b7f58-cfbfe785
+        path: /lovelace/newtab
     - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.tv_speakers
-        volume_level: "0.40"
+        volume_level: "0.3"
     - delay: 2
     - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.office_display
-        volume_level: "0.40"
+        volume_level: "0.2"
   mode: single
   max_exceeded: silent
 - id: "170193047329426"
@@ -2478,27 +2870,22 @@
       entity_id:
         - binary_sensor.garage_motion_sensors
       to: "on"
-  condition:
-    - condition: state
-      entity_id: input_boolean.camera_snapshots
-      state: "on"
+  condition: []
   action:
-    - action: button.press
-      target:
-        entity_id: button.wyze_cam_garage_camera_update_snapshot
-    - action: media_player.volume_set
+    - action: browser_mod.navigate
       continue_on_error: true
       data:
-        entity_id: media_player.tv_speakers
-        volume_level: "0.80"
-    - action: tts.google_say
+        browser_id:
+          - ac9b7f58-cfbfe785
+        path: /dashboard-cast/garage
+    - action: browser_mod.navigate
       continue_on_error: true
       data:
-        cache: true
-        entity_id: media_player.tv_speakers
-        message: Motion in the garage
-    - delay:
-        seconds: 4
+        browser_id:
+          - 1b918469-5d6a2b44
+        path: /dashboard-cast/garage
+    - action: input_boolean.turn_on
+      entity_id: input_boolean.camera_motion_detected
     - action: notify.notify_all
       data:
         message: ⚠️Garage Motion!⚠️️ {{ states('sensor.time_12_hour_am_pm') }}
@@ -2514,8 +2901,159 @@
           actions:
             - action: URI
               title: Click to Open Cameras
-              uri: /lovelace/garage
-    - delay: 300
+              uri: /dashboard-cast/garage
+    #    - action: button.press
+    #      target:
+    #        entity_id: button.wyze_cam_garage_camera_update_snapshot
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.patio_garage_alerts
+              state: "on"
+            - condition: time
+              after: "07:00:01"
+              before: "22:00:00"
+            - condition: state
+              entity_id: group.person_group
+              state: not_home
+          sequence:
+            - action: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.tv_speakers
+                volume_level: "0.6"
+            - action: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.tv_speakers
+                message: Motion in the garage
+            - action: media_player.play_media
+              target:
+                entity_id: media_player.foyer_tv # den TV
+              data:
+                media_content_id: dashboard-cast/garage
+                media_content_type: lovelace
+              metadata:
+                title: Garage
+                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
+                media_class: app
+                children_media_class: null
+                navigateIds:
+                  - {}
+                  - media_content_type: lovelace
+                    media_content_id: ""
+                  - media_content_type: lovelace
+                    media_content_id: dashboard-cast
+            - delay: 180
+            - action: media_player.turn_off
+              continue_on_error: true
+              data:
+                entity_id: media_player.foyer_tv
+            - action: remote.turn_off
+              continue_on_error: true
+              target:
+                entity_id: remote.den_tv
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.patio_garage_alerts
+              state: "on"
+            - condition: time
+              after: "07:00:01"
+              before: "22:00:00"
+            - condition: state
+              entity_id: group.person_group
+              state: home
+          sequence:
+            - action: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.tv_speakers
+                volume_level: "0.6"
+            - action: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.tv_speakers
+                message: Motion in the garage
+            - action: media_player.play_media
+              target:
+                entity_id: media_player.foyer_tv # den TV
+              data:
+                media_content_id: dashboard-cast/garage
+                media_content_type: lovelace
+              metadata:
+                title: Garage
+                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
+                media_class: app
+                children_media_class: null
+                navigateIds:
+                  - {}
+                  - media_content_type: lovelace
+                    media_content_id: ""
+                  - media_content_type: lovelace
+                    media_content_id: dashboard-cast
+            - delay: 180
+            - action: media_player.turn_off
+              continue_on_error: true
+              data:
+                entity_id: media_player.foyer_tv
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.patio_garage_alerts
+              state: "on"
+            - condition: time
+              after: "22:00:01"
+              before: "07:00:00"
+          sequence:
+            - action: media_player.volume_set
+              continue_on_error: true
+              data:
+                entity_id: media_player.ensuite_display
+                volume_level: "0.3"
+            - action: tts.google_say
+              continue_on_error: true
+              data:
+                cache: true
+                entity_id: media_player.ensuite_display
+                message: Motion in garage
+            - action: media_player.play_media
+              target:
+                entity_id: media_player.ensuite_display # office display
+              data:
+                media_content_id: dashboard-cast/garage
+                media_content_type: lovelace
+              metadata:
+                title: Garage
+                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
+                media_class: app
+                children_media_class: null
+                navigateIds:
+                  - {}
+                  - media_content_type: lovelace
+                    media_content_id: ""
+                  - media_content_type: lovelace
+                    media_content_id: dashboard-cast
+            - delay: 240
+            - action: media_player.turn_off
+              continue_on_error: true
+              data:
+                entity_id: media_player.ensuite_display
+    - delay: 120
+    - action: input_boolean.turn_off
+      entity_id: input_boolean.camera_motion_detected
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - 1b918469-5d6a2b44
+        path: /lovelace/newtab
+    - action: browser_mod.navigate
+      continue_on_error: true
+      data:
+        browser_id:
+          - ac9b7f58-cfbfe785
+        path: /lovelace/newtab
     - action: media_player.volume_set
       continue_on_error: true
       data:
@@ -2552,40 +3090,11 @@
       entity_id: light.front_yard_lights
   mode: restart
   max_exceeded: silent
-- id: "170213097939844"
-  alias: "[Motion] Patio Motion Lights after Dark"
-  triggers:
-    - trigger: state
-      entity_id: binary_sensor.back_motion
-      from: "off"
-      to: "on"
-  condition:
-    - condition: or
-      conditions:
-        - condition: sun
-          after: sunset
-          after_offset: 45
-        - condition: sun
-          before: sunrise
-          before_offset: 45
-  action:
-    - action: light.turn_on
-      entity_id: light.backyard_lights
-    - wait_for_trigger:
-        - trigger: state
-          entity_id: binary_sensor.back_motion
-          from: "on"
-          to: "off"
-    - delay: 300
-    - action: light.turn_off
-      entity_id: light.backyard_lights
-  mode: restart
-  max_exceeded: silent
 - id: "170223138270251"
   alias: "[Motion] Garage Motion Lights"
   triggers:
     - trigger: state
-      entity_id: binary_sensor.garage_motion_sensors
+      entity_id: binary_sensor.garage_occupied # binary_sensor.garage_motion_sensors
       from: "off"
       to: "on"
   condition:
@@ -2599,28 +3108,31 @@
               before: "21:29:59"
               after: 09:00:01
           sequence:
-            - action: google_assistant_sdk.send_text_command
-              continue_on_error: true
+            - action: light.turn_on
               data:
-                command: "turn on garage ceiling lights"
+                brightness_pct: 100
+              target:
+                entity_id: light.garage_lights
         - conditions:
             - condition: time
               before: 09:00:00
               after: "21:30:00"
           sequence:
-            - action: google_assistant_sdk.send_text_command
-              continue_on_error: true
+            - action: light.turn_on
               data:
-                command: "turn on garage ceiling lights"
+                brightness_pct: 35
+              target:
+                entity_id: light.garage_lights
     - wait_for_trigger:
         - trigger: state
-          entity_id: binary_sensor.garage_motion_sensors
+          entity_id: binary_sensor.garage_occupied
           from: "on"
           to: "off"
-    - delay: 900
-    - action: google_assistant_sdk.send_text_command
+          for:
+            minutes: 10
+    - action: light.turn_off
       data:
-        command: "turn off garage ceiling lights"
+        entity_id: light.garage_lights
   mode: restart
   max_exceeded: silent
 - id: "170233166895065"
@@ -2677,7 +3189,7 @@
       state: "off"
   action:
     - action: light.turn_on
-      entity_id: light.night_light_6
+      entity_id: light.night_light_6, light.guest_night_lights
   mode: single
   max_exceeded: silent
 - id: "17025318794468582"
@@ -2725,26 +3237,32 @@
   action:
     - choose:
         - conditions:
+            - condition: state
+              entity_id: light.bathroom_lights
+              state: "on"
+          sequence:
+            - delay: 3
+        - conditions:
             - condition: time
               before: "08:29:59"
               after: 06:00:01
           sequence:
             - action: light.turn_on
-              entity_id: light.bathroom_lights_2_2
+              entity_id: light.bathroom_lights
         - conditions:
             - condition: time
               before: "19:59:59"
               after: 08:30:00
           sequence:
             - action: light.turn_on
-              entity_id: light.bathroom_lights_2_2
+              entity_id: light.bathroom_lights
         - conditions:
             - condition: time
               before: "22:29:59"
               after: "20:00:00"
           sequence:
             - action: light.turn_on
-              entity_id: light.bathroom_lights_2_2
+              entity_id: light.bathroom_lights
         - conditions:
             - condition: time
               before: 06:00:00
@@ -2764,7 +3282,7 @@
       state: "on"
       enabled: true
     - action: light.turn_off
-      entity_id: light.bathroom_lights_2_2
+      entity_id: light.bathroom_lights
   mode: restart
   max_exceeded: silent
 - id: "170263206754260"
@@ -2800,7 +3318,13 @@
               data:
                 brightness_pct: 45
               target:
-                entity_id: light.nightstand_lights
+                entity_id: light.donnas_light
+            - action: light.turn_on
+              continue_on_error: true
+              data:
+                brightness_pct: 45
+              target:
+                entity_id: light.darrens_light
             - action: switch.turn_on
               continue_on_error: true
               entity_id: switch.ensuite_kiosk_screen
@@ -2818,7 +3342,13 @@
               data:
                 brightness_pct: 15
               target:
-                entity_id: light.nightstand_lights
+                entity_id: light.donnas_light
+            - action: light.turn_on
+              continue_on_error: true
+              data:
+                brightness_pct: 15
+              target:
+                entity_id: light.darrens_light
             - action: switch.turn_on
               continue_on_error: true
               entity_id: switch.ensuite_kiosk_screen
@@ -2833,7 +3363,13 @@
               data:
                 brightness_pct: 5
               target:
-                entity_id: light.nightstand_lights
+                entity_id: light.donnas_light
+            - action: light.turn_on
+              continue_on_error: true
+              data:
+                brightness_pct: 5
+              target:
+                entity_id: light.darrens_light
             - action: switch.turn_on
               continue_on_error: true
               entity_id: switch.ensuite_kiosk_screen
@@ -2880,32 +3416,36 @@
   triggers:
     - trigger: sun
       event: sunset
-      offset: "+00:30:00"
+      offset: "+00:20:00"
   actions:
     - type: turn_on
       device_id: ea11a241127e97442fb1c99327e49b59
       entity_id: 914303f3da00efeb0ba5e45707be8974
       domain: switch
-- id: "170303288153054"
-  alias: "[Motion] Garage night lights"
+- id: "19936353603288153054"
+  alias: "Patio LEDs ON when Donna is awake"
+  mode: single
   triggers:
     - trigger: state
-      entity_id: binary_sensor.garage_motion_sensors
+      entity_id: binary_sensor.donna_is_awake
       to: "on"
-  action:
-    - action: light.turn_on
-      entity_id: light.garage_zb_night_lights
+  condition:
+    - condition: sun
+      before: sunrise
+      before_offset: 45
+  actions:
+    - type: turn_on
+      device_id: ea11a241127e97442fb1c99327e49b59
+      entity_id: 914303f3da00efeb0ba5e45707be8974
+      domain: switch
     - wait_for_trigger:
         - trigger: state
-          entity_id: binary_sensor.garage_motion_sensors
-          from: "on"
-          to: "off"
-    - delay: 300
-      enabled: true
-    - action: light.turn_off
-      entity_id: light.garage_zb_night_lights
-  mode: restart
-  max_exceeded: silent
+          entity_id: person.donna
+          to: not_home
+    - type: turn_off
+      device_id: ea11a241127e97442fb1c99327e49b59
+      entity_id: 914303f3da00efeb0ba5e45707be8974
+      domain: switch
 - id: "170273218670383"
   alias: Front Door TTS
   triggers:
@@ -2951,10 +3491,10 @@
   alias: Back Door TTS
   triggers:
     - trigger: state
-      entity_id: binary_sensor.back_door1
+      entity_id: binary_sensor.back_door1, binary_sensor.backdoor_bt_sensor
       to: "on"
     - trigger: state
-      entity_id: binary_sensor.back_door1
+      entity_id: binary_sensor.back_door1, binary_sensor.backdoor_bt_sensor
       to: "off"
   condition:
     - condition: state
@@ -2992,10 +3532,10 @@
   alias: Side Door TTS
   triggers:
     - trigger: state
-      entity_id: binary_sensor.side_door1
+      entity_id: binary_sensor.side_door_bt
       to: "on"
     - trigger: state
-      entity_id: binary_sensor.side_door1
+      entity_id: binary_sensor.side_door_bt
       to: "off"
   condition:
     - condition: state
@@ -3008,9 +3548,9 @@
       entity_id: media_player.living_room_google
       data_template:
         message: |
-          {% if is_state("binary_sensor.side_door1", "on") %}
+          {% if is_state("binary_sensor.side_door_bt", "on") %}
             Side door opened
-          {% elif is_state("binary_sensor.side_door1", "off") %}
+          {% elif is_state("binary_sensor.side_door_bt", "off") %}
             Side door closed
           {% else %} {% endif %}
     - action: notify.android_tv_fire_tv
@@ -3023,9 +3563,9 @@
           color: "grey"
           interrupt: 1
         message: |
-          {% if is_state("binary_sensor.side_door1", "on") %}
+          {% if is_state("binary_sensor.side_door_bt", "on") %}
             ⚠️Side Door🚪opened {{ states('sensor.time_12_hour_am_pm') }}
-          {% elif is_state("binary_sensor.side_door1", "off") %}
+          {% elif is_state("binary_sensor.side_door_bt", "off") %}
             ⚠️Side Door🚪closed {{ states('sensor.time_12_hour_am_pm') }}
           {% else %} {% endif %}
   mode: queued
@@ -3112,6 +3652,17 @@
     - action: input_boolean.turn_on
       target:
         entity_id: input_boolean.darren_is_awake
+    - action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.naptime
+    - action: switch.turn_on
+      target:
+        entity_id: switch.ha2_office_monitor
+    - action: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id: media_player.office_display
+        volume_level: "0.40"
     - action: notify.mobile_app_pixel_8_pro
       data:
         message: command_broadcast_intent
@@ -3151,26 +3702,6 @@
         entity_id: media_player.living_room_google
       data:
         volume_level: 0.45
-- id: "17033325057263014567"
-  alias: Guest room auto fan ON
-  triggers:
-    - trigger: numeric_state
-      entity_id: sensor.guest_room_temperature
-      above: 75.5
-  action:
-    - action: fan.turn_on
-      target:
-        entity_id: fan.ha2_guest_ceiling_fan
-- id: "17956325057263014567"
-  alias: Guest room auto fan OFF
-  triggers:
-    - trigger: numeric_state
-      entity_id: sensor.guest_room_temperature
-      below: 74
-  action:
-    - action: fan.turn_off
-      target:
-        entity_id: fan.ha2_guest_ceiling_fan
 
 - id: "17033325058863014567"
   alias: Office auto fan
@@ -3201,11 +3732,11 @@
       target:
         entity_id: fan.office_fan
 
-- id: "17033399058863014567"
-  alias: Den auto fan ON
+- id: "170333943278863014567"
+  alias: Guest auto fan ON
   triggers:
     - trigger: numeric_state
-      entity_id: sensor.den_temperature
+      entity_id: sensor.guest_room_temperature
       above: 75.5
   condition:
     - condition: state
@@ -3214,16 +3745,16 @@
   action:
     - action: input_boolean.turn_on
       target:
-        entity_id: input_boolean.den_ceiling_fan
+        entity_id: input_boolean.guest_ceiling_fan
     - action: google_assistant_sdk.send_text_command
       continue_on_error: true
       data:
-        command: "turn on den ceiling fan"
-- id: "179653399058863014567"
-  alias: Den auto fan OFF
+        command: "turn on guest ceiling fan"
+- id: "179657711058863014567"
+  alias: Guest auto fan OFF
   triggers:
     - trigger: numeric_state
-      entity_id: sensor.den_temperature
+      entity_id: sensor.guest_room_temperature
       below: 74
   condition:
     - condition: state
@@ -3232,37 +3763,11 @@
   action:
     - action: input_boolean.turn_off
       target:
-        entity_id: input_boolean.den_ceiling_fan
+        entity_id: input_boolean.guest_ceiling_fan
     - action: google_assistant_sdk.send_text_command
       continue_on_error: true
       data:
-        command: "turn off den ceiling fan"
-
-- id: "1997633399058863014567"
-  alias: Den fan ON
-  triggers:
-    - trigger: state
-      entity_id:
-        - input_boolean.den_ceiling_fan
-      to: "on"
-  action:
-    - action: google_assistant_sdk.send_text_command
-      continue_on_error: true
-      data:
-        command: "turn on den ceiling fan"
-- id: "12967633399058863014567"
-  alias: Den fan OFF
-  triggers:
-    - trigger: state
-      entity_id:
-        - input_boolean.den_ceiling_fan
-      to: "off"
-  action:
-    - action: google_assistant_sdk.send_text_command
-      continue_on_error: true
-      data:
-        command: "turn off den ceiling fan"
-
+        command: "turn off guest ceiling fan"
 - id: "170883399227153856993332311"
   alias: Romance Time
   description: ""
@@ -3287,7 +3792,7 @@
         entity_id: light.bedroom_lights
     - action: light.turn_on
       target:
-        entity_id: light.nightstand_lights
+        entity_id: light.nightstand_lamps
       data:
         color_name: red
         brightness_pct: 4
@@ -3316,7 +3821,6 @@
         entity_id: input_boolean.romance_time_2
 - id: "17192624372243592387"
   alias: Ensuite motion light on
-  mode: single
   triggers:
     - trigger: state
       entity_id:
@@ -3357,6 +3861,21 @@
             - action: button.press
               target:
                 entity_id: button.ensuite_kiosk_load_start_url
+    - wait_for_trigger:
+        - trigger: state
+          entity_id: binary_sensor.ensuite_motion_sensors
+          from: "on"
+          to: "off"
+    - delay:
+        minutes: 120
+    - action: light.turn_off
+      continue_on_error: true
+      entity_id: light.jacuzzi_light
+    - action: switch.turn_off
+      continue_on_error: true
+      entity_id: switch.ensuite_kiosk_screen
+  mode: restart
+  max_exceeded: silent
 - id: "17692637954621642387"
   alias: "Mailbox Opened"
   mode: queued
@@ -3471,44 +3990,71 @@
     - action: light.turn_on
       target:
         entity_id: light.tv_ambient_lights
-
-- id: "17676447855442387"
-  alias: "Office Occupied"
-  mode: single
+- id: "1938466447855442387"
+  alias: "Office Occupancy Lights"
   triggers:
     - trigger: state
-      entity_id:
-        - binary_sensor.office_motion_sensors
+      entity_id: binary_sensor.office_motion_sensors
+      from: "off"
       to: "on"
-    - trigger: state
-      entity_id:
-        - binary_sensor.office_bt_motion
-      to: "on"
-  condition:
-    - condition: time
-      before: "22:00:00"
-      after: "09:00:00"
-  action:
-    - action: light.turn_on
-      target:
-        entity_id: light.office_floor_lights
-- id: "17676447855444526"
-  alias: Office NOT Occupied
-  mode: single
-  trigger:
-    - type: not_occupied
-      trigger: device
+    - type: occupied
       device_id: 66bf747d7602dd0c9f8320299e66f1df
       entity_id: 67cb3789db2356f8ed82959441d19e4e
       domain: binary_sensor
+      trigger: device
   condition:
-    - condition: time
-      before: "23:00:00"
-      after: "09:00:00"
+    - condition: state
+      entity_id: input_boolean.motion_lights
+      state: "off"
+    - condition: state
+      entity_id: input_boolean.naptime
+      state: "off"
   action:
+    - choose:
+        - conditions:
+            - condition: time
+              before: "20:29:59"
+              after: 09:00:01
+            - condition: state
+              entity_id: light.office_lights
+              state: "off"
+          sequence:
+            - action: light.turn_on
+              data:
+                brightness_pct: 30
+              target:
+                entity_id: light.office_lights
+        - conditions:
+            - condition: time
+              before: "23:59:00"
+              after: "20:30:00"
+            - condition: state
+              entity_id: light.office_lights
+              state: "off"
+          sequence:
+            - action: light.turn_on
+              data:
+                brightness_pct: 5
+              target:
+                entity_id: light.office_lights
+        - conditions:
+            - condition: time
+              before: "09:00:00"
+              after: "23:59:01"
+          sequence:
+            - delay: 300
+    - wait_for_trigger:
+        - type: not_occupied
+          device_id: 66bf747d7602dd0c9f8320299e66f1df
+          entity_id: 67cb3789db2356f8ed82959441d19e4e
+          domain: binary_sensor
+          trigger: device
+          for:
+            seconds: 15
     - action: light.turn_off
-      target:
-        entity_id: light.office_floor_lights
+      entity_id: light.office_lights
+  mode: restart
+  max_exceeded: silent
 - id: "17976441155444526"
   alias: AC on turn ON HVAC mister
   mode: single
@@ -3616,7 +4162,6 @@
     - action: light.toggle
       data:
         entity_id: light.fireplace_lights
-
 - id: "183294371155444526"
   alias: kitchen remote button 3
   mode: single
@@ -3789,7 +4334,7 @@
   action:
     - action: light.toggle
       target:
-        entity_id: light.nightstand_lights
+        entity_id: light.nightstand_lamps
 - id: "1912124371155444526"
   alias: bedroom remote button 1
   mode: single
@@ -3808,7 +4353,7 @@
           - 0
         brightness_pct: 16
       target:
-        entity_id: light.nightstand_lights
+        entity_id: light.nightstand_lamps
 - id: "1934224371155444526"
   alias: bedroom remote button 1
   mode: single
@@ -3821,10 +4366,10 @@
   action:
     - action: light.turn_on
       data:
-        kelvin: 3000
+        color_temp_kelvin: 3000
         brightness_pct: 15
       target:
-        entity_id: light.nightstand_lights
+        entity_id: light.nightstand_lamps
 - id: "192224371155444526"
   alias: bedroom remote button 2
   mode: single
@@ -3935,3 +4480,353 @@
     - action: light.turn_on
       target:
         entity_id: light.tv_ambient_lights
+## patio remote buttons
+- id: "2012143711587972238"
+  alias: patio remote button 1
+  mode: single
+  triggers:
+    - device_id: 678ee59e9221d02b1ee09145dd4183f1
+      domain: bthome
+      type: button_1
+      subtype: press
+      trigger: device
+  actions:
+    - action: light.toggle
+      target:
+        entity_id: light.patio_led_lights
+- id: "201214371158797223822"
+  alias: patio remote button 2
+  mode: single
+  triggers:
+    - device_id: 678ee59e9221d02b1ee09145dd4183f1
+      domain: bthome
+      type: button_2
+      subtype: press
+      trigger: device
+  actions:
+    - action: switch.toggle
+      target:
+        entity_id: switch.patio_fountain_plug
+- id: "201214371158797223833"
+  alias: patio remote button 3
+  mode: single
+  triggers:
+    - device_id: 678ee59e9221d02b1ee09145dd4183f1
+      domain: bthome
+      type: button_3
+      subtype: press
+      trigger: device
+  actions:
+    - action: input_boolean.toggle
+      target:
+        entity_id: input_boolean.patio_mister_switch
+- id: "201214371158797223844"
+  alias: patio remote button 4
+  mode: single
+  triggers:
+    - device_id: 678ee59e9221d02b1ee09145dd4183f1
+      domain: bthome
+      type: button_4
+      subtype: press
+      trigger: device
+  actions:
+    - action: light.toggle
+      target:
+        entity_id: light.outside_lights
+- id: "17326181774975112345"
+  alias: "[SWITCH] Patio Mister ON/OFF cycle"
+  triggers:
+    - trigger: state
+      entity_id: input_boolean.patio_mister_switch
+      to: "on"
+  action:
+    - action: fan.turn_on
+      entity_id: fan.patio_fan
+    - repeat:
+        sequence:
+          - action: switch.turn_on
+            entity_id: switch.patio_mister_2
+          - delay:
+              seconds: 10
+          - action: switch.turn_off
+            entity_id: switch.patio_mister_2
+          - delay:
+              seconds: 50
+        until:
+          - condition: state
+            entity_id: input_boolean.patio_mister_switch
+            state: "off"
+    - action: fan.turn_off
+      entity_id: fan.patio_fan
+  initial_state: true
+- id: "17776181774975112345"
+  alias: "[SWITCH] Patio Mister time limit"
+  triggers:
+    - trigger: state
+      entity_id: input_boolean.patio_mister_switch
+      to: "on"
+      for:
+        minutes: 10
+  action:
+    - action: input_boolean.turn_off
+      entity_id: input_boolean.patio_mister_switch
+  mode: single
+- id: "20126181775112345"
+  alias: "[SWITCH] Office Fan cycle"
+  triggers:
+    - trigger: state
+      entity_id: input_boolean.office_fan_cycles
+      to: "on"
+  action:
+    - action: fan.turn_on
+      entity_id: fan.office_fan
+    - repeat:
+        sequence:
+          - action: fan.turn_on
+            entity_id: fan.office_fan
+          - delay:
+              seconds: 120
+          - action: fan.turn_off
+            entity_id: fan.office_fan
+          - delay:
+              minutes: 9
+        until:
+          - condition: state
+            entity_id: input_boolean.office_fan_cycles
+            state: "off"
+    - action: fan.turn_off
+      entity_id: fan.office_fan
+  initial_state: true
+
+- id: "201261817757785345"
+  alias: "[SWITCH] Guest Fan cycle"
+  triggers:
+    - trigger: state
+      entity_id: input_boolean.den_fan_cycles
+      to: "on"
+  action:
+    - action: fan.turn_on
+      entity_id: fan.guest_fan
+    - delay:
+        seconds: 5
+    - repeat:
+        sequence:
+          - delay:
+              seconds: 5
+          - action: fan.turn_on
+            entity_id: fan.guest_fan
+          - delay:
+              seconds: 240
+          - action: fan.turn_off
+            entity_id: fan.guest_fan
+          - delay:
+              minutes: 6
+        until:
+          - condition: state
+            entity_id: input_boolean.den_fan_cycles
+            state: "off"
+    - action: fan.turn_off
+      entity_id: fan.guest_fan
+  initial_state: true
+
+- id: "202946321485676354"
+  alias: "[TIMER] Toothbrush Charger"
+  triggers:
+    - trigger: time
+      at: "02:30:00"
+  action:
+    - action: switch.turn_on
+      target:
+        entity_id: switch.bathroom_night_light_plug
+    - delay:
+        minutes: 20
+    - action: switch.turn_off
+      target:
+        entity_id: switch.bathroom_night_light_plug
+  initial_state: true
+- id: "203005432198623276354"
+  triggers:
+    - trigger: template
+      value_template: >-
+        {{ states('sensor.date_time') ==
+        (as_timestamp(states.sensor.pixel_8_pro_next_alarm.state) |int -1)|
+        timestamp_custom('%Y-%m-%d, %H:%M', True) }}
+  mode: single
+  conditions:
+    - condition: template
+      value_template: "{{ trigger.from_state.state != 'unavailable' }}"
+    - condition: state
+      entity_id: input_boolean.darren_s_alarm_triggered_today
+      state: "off"
+    - condition: state
+      entity_id: person.darren
+      state: home
+  actions:
+    - variables:
+        weather_entity: weather.home
+        calendar_entity: calendar.dwilson_churchoftheking_com
+        zone_entity: zone.home
+        calendar_duration:
+          hours: 24
+        prompt: >-
+          Please generate text for a notification that will be sent to Darren's bedside speaker with helpful information to start off his day.
+
+          You are a helpful personal agent that generates a spoken response for Darren:
+
+          - Your answers are helpful, friendly, warm, insightful.
+
+          - Respond using a warm tone that is inviting, with a hint of mischief.
+
+          - You should always include current time in 12 hour format, temperature, humidity and today's weather forecast.
+
+          - You should always include a short, but inspirational bible verse.
+
+          - Your answers are not technical, and do not include Home Assistant internal details such as entities in responses.
+
+          - Your messages help Darren prepare for his day, for example:
+            - Making note of unusual weather for the location and time of year (but not mundane details like "0% chance of precipitation")
+            - How much time remaining until their first meeting
+            - Anything that may be special or unique, such as celebrating a birthday
+    - alias: Fetch Weather Forecast
+      action: weather.get_forecasts
+      data:
+        type: hourly
+      target:
+        entity_id:
+          - "{{ weather_entity }}"
+      response_variable: daily_forecast
+    - variables:
+        forecast_entity: "{{ daily_forecast[weather_entity] }}"
+        forecast: "{{ forecast_entity.forecast[0] }}"
+    - alias: Fetch Calendar Agenda
+      action: calendar.get_events
+      data:
+        duration:
+          hours: 24
+      target:
+        entity_id: calendar.dwilson_churchoftheking_com
+      response_variable: events_response
+    - alias: Conversation Agent Notification Text
+      action: conversation.process
+      data:
+        text: >-
+          Time: {{ now().strftime("%A %B %d %H:%M %p") }}
+
+          {%- if weather_entity is defined %}
+
+          {%- set temperature_unit = state_attr(weather_entity,
+          'temperature_unit') -%}
+
+          Forecast: {{ forecast.condition }} ({{ forecast.temperature }}{{
+          temperature_unit }}, {{ forecast.precipitation }}% precipitation)
+
+          {%- endif %}
+
+
+          Calendar "{{ state_attr(calendar_entity, 'friendly_name') }}" events for
+          the next {{ calendar_duration.hours }} hours:
+
+          {%- set agenda = (events_response | items | first)[1] %}
+
+          {%- if agenda.events %}
+            {%- for event in agenda.events %}
+            - Summary: {{ event.summary }}
+              Start-End: {% if event.start is defined %}{{ event.start }} to {{ event.end }}{% else %}All Day{% endif %}
+              {%- if event.description is defined %}
+              Description: {{ event.description }}
+              {% endif -%}
+              {%- if event.location is defined %}
+                Location: {{ event.location }}
+              {% endif -%}
+            {%- endfor %}
+          {%- else %}
+            - No upcoming events.
+          {%- endif %}
+
+
+          {{ prompt }}
+        agent_id: e181a3af361f399aaf5b0703856e124b
+      response_variable: agent
+    - alias: Send notification
+      action: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id:
+          - media_player.office_display
+        volume_level: 0.1
+    - action: tts.cloud_say
+      continue_on_error: true
+      entity_id:
+        - media_player.office_display
+      data_template:
+        message: "{{ agent.response.speech.plain.speech }}"
+  alias: "Daily Info AI Testing"
+  description: ""
+
+- id: "203305432198623285254"
+  triggers:
+    - trigger: template
+      value_template: >-
+        {{ states('sensor.date_time') ==
+        (as_timestamp(states.sensor.pixel_8_pro_next_alarm.state) |int -1)|
+        timestamp_custom('%Y-%m-%d, %H:%M', True) }}
+  mode: single
+  actions:
+    - alias: Conversation Agent Notification TTS
+      action: conversation.process
+      data:
+        text: >-
+          What is the current time, weather conditions and forecast for today?
+
+          - You should always include current time in 12 hour format, temperature and humidity and current weather forecast.
+
+          Any events on my calanders for over the next 18 hours?
+
+          - How much time remaining until their first meeting
+
+          - Anything that may be special or unique, such as celebrating a birthday
+
+          Please give me a short, but inspirational bible verse.
+
+          Send this information to my phone.
+        agent_id: e181a3af361f399aaf5b0703856e124b
+      response_variable: agent
+    - alias: Send notification
+      action: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id:
+          - media_player.office_display
+        volume_level: 0.1
+    - action: tts.cloud_say
+      continue_on_error: true
+      entity_id:
+        - media_player.office_display
+      data_template:
+        message: "{{ agent.response.speech.plain.speech }}"
+  alias: "Daily TTS AI Testing"
+  description: ""
+
+- id: "204446321485676354"
+  alias: "Sleep track announce"
+  description: ""
+  mode: single
+  use_blueprint:
+    path: IATkachenko/full.yaml
+    input:
+      device: 11f7d4c43d0425242be095e2da738148
+      person: person.darren
+      sleep_tracking_started:
+        - action: assist_satellite.announce
+          metadata: {}
+          data:
+            message: sleep tracking started
+          target:
+            device_id: c9ec3cc293f9997730f69821b949bae1
+      sleep_tracking_stopped:
+        - action: assist_satellite.announce
+          metadata: {}
+          data:
+            message: sleep tracking stopped, awake now
+          target:
+            entity_id: assist_satellite.home_assistant_voice_095e78_assist_satellite
