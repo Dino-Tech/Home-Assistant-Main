@@ -6,10 +6,8 @@ alarm_sirens:
   name: Alarm Sirens
   entities:
     - switch.main_siren
-    - switch.siren
+    - siren.alarm_panel_siren
     - siren.front_yard_cam_siren
-    - siren.garage_camera_siren
-    - siren.patio_camera_siren
     - siren.pan_cam_siren
 
 # presence groups
@@ -40,60 +38,53 @@ people_presence:
     - group.darren_presence
     - group.donna_presence
 
-everyone_awake:
-  name: Everyone awake
-  entities:
-    - input_boolean.donna_is_awake
-    - input_boolean.darren_is_awake
-
-lights:
-  name: Lights
-  entities:
-    - light.office_floor_lights
-    - light.kitchen_ceiling_lights_2
-    - light.table_light
-    - light.cabinet_lights
-    - light.bedroom_lights
-    - light.den_ceiling_light
-    - light.garage_ceiling_lights
-    - light.office_ceiling_lights
-    - light.tv_ambient_lights
-    - light.bathroom_lights
-    - light.ha2_sofa_lamp
-    - light.outside_lights
-    - light.hallway_light
-    - light.ensuite_lights
-    - light.guest_ceiling_lights
-    - light.attic_lights
-    - light.entry_hall_lights
-    - light.bathroom_ceiling_light
-    - light.den_nite_lites
-    - light.fireplace_lights
-    - light.foyer_lights
-    - light.sink_light
-    - light.salt_light
+#lights:
+#  name: Lights
+#  entities:
+#    - light.office_floor_lights
+#    - light.kitchen_ceiling_lights_2
+#    - light.table_light
+#    - light.cabinet_lights_3
+#    - light.bedroom_lights
+#    - light.den_ceiling_light
+#    - light.office_ceiling_lights
+#    - light.tv_ambient_lights
+#    - light.bathroom_lights
+#    - light.sofa_lamp
+#    - light.outside_lights
+#    - light.hallway_light
+#    - light.ensuite_lights
+#    - light.guest_ceiling_lights
+#    - light.attic_lights
+#    - light.entryway_dimmer
+#    - light.bathtub_light
+#    - light.den_night_lights
+#    - light.fireplace_lights
+#    - light.foyer_lights
+#    - light.sink_light
+#    - light.salt_light
 
 # alarm groups
-monitored_contacts:
-  name: Monitored Contacts
-  icon: mdi:shield-lock
-  entities:
-    - binary_sensor.front_door
-    - binary_sensor.back_door
-    - binary_sensor.side_door
-    - binary_sensor.garage_entry_door
-    - binary_sensor.bathroom_motion
-    - binary_sensor.bedroom_motion_sensors
-    - binary_sensor.den_main_motion
-    - binary_sensor.driveway_motion
-    - binary_sensor.ensuite_ceiling_motion
-    - binary_sensor.entryway_motion
-    - binary_sensor.front_motion
-    - binary_sensor.garage_motion_sensors
-    - binary_sensor.guest_motion
-    - binary_sensor.kitchen_motion_sensors
-    - binary_sensor.laundry_ceiling_motion
-    - binary_sensor.night_6_motion
+#monitored_contacts:
+#  name: Monitored Contacts
+#  icon: mdi:shield-lock
+#  entities:
+#    - binary_sensor.front_door
+#    - binary_sensor.back_door1
+#    - binary_sensor.side_door_bt
+#    - binary_sensor.garage_entry_door1
+#    - binary_sensor.bathroom_motion
+#    - binary_sensor.bedroom_motion_sensors
+#    - binary_sensor.den_main_motion1
+#    - binary_sensor.side_motion_sensor
+#    - binary_sensor.ensuite_ceiling_motion1
+#    - binary_sensor.entryway_motion
+#    - binary_sensor.front_porch_motion
+#    - binary_sensor.garage_motion_sensors
+#    - binary_sensor.guest_motion
+#    - binary_sensor.kitchen_motion_sensors
+#    - binary_sensor.laundry_ceiling_motion
+#    - binary_sensor.night_6_motion
 
 tablet_icons:
   name: Tablet Icon Color
