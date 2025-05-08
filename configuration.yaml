@@ -8,7 +8,7 @@ homeassistant:
   latitude: !secret home_latitude
   longitude: !secret home_longitude
   elevation: !secret home_elevation
-  unit_system: imperial
+  unit_system: us_customary
   currency: USD
   time_zone: "America/Chicago"
   country: US
@@ -16,10 +16,6 @@ homeassistant:
   #  internal_url: !secret internal_url
   packages: !include_dir_named packages
   customize: !include customize.yaml
-  customize_domain:
-    camera:
-      hide_attributes:
-        - all
 
 config:
 
@@ -29,10 +25,11 @@ frontend:
   themes: !include includes/themes.yaml
   extra_module_url:
     - /hacsfiles/lovelace-card-mod/card-mod.js
+    - /hacsfiles/kiosk-mode/kiosk-mode.js?v7.0.0-beta.0
+    - https://fonts.googleapis.com/css?family=Righteous&family=Sofia+Sans+Extra+Condensed:wght@500
+    - https://fonts.googleapis.com/css?family=Sofia+Sans+Extra+Condensed:wght@500
 
 http:
-#  ssl_certificate: /ssl/fullchain.pem
-#  ssl_key: /ssl/privkey.pem
 
 ssdp:
 
@@ -40,27 +37,25 @@ zeroconf:
 
 usb:
 
-#hacs:
-#  token: !secret hacs_github_access_token
-
 bluetooth:
+
+ffmpeg:
 
 recorder:
   db_url: !secret db_url
   auto_purge: true
-  purge_keep_days: 7
+  purge_keep_days: 3
+  auto_repack: true
   exclude:
     domains:
       - automation
       - lock
       - weblink
       - updater
+      - update
       - camera
       - media_player
-      - group
       - automation
-      - scene
-      - script
     entities:
       - sun.sun
       - sensor.last_boot
@@ -70,35 +65,23 @@ recorder:
       - sensor.date_time_iso
       - sensor.daylight
       - sensor.verse_feed
+      - sensor.worldclock_sensor
+      - sensor.worldclock_sensor_12hr
+      - sensor.worldclock_sensor_time_date
+      - sensor.home_local_observation_time
     entity_globs:
-      - sensor.flightradar24*
-  include:
-    entities:
-      - climate.den
-      - group.person_group
-      - group.darren_presence
-      - group.donna_presence
-      - group.people_presence
-      - sensor.hvac_mode
-      - binary_sensor.kitchen_motion_sensors
-      - binary_sensor.donna
-      - binary_sensor.darren
-
-#discovery:
-
-battery_notes:
+      - sensor.sun*
+      - weather.*
+    event_types:
+      - call_service
 
 mobile_app:
-
-lovelace_gen:
 
 lovelace:
   mode: yaml
   resources: !include lovelace/resources/resources.yaml
 
 conversation:
-
-map:
 
 sun:
 
@@ -114,104 +97,78 @@ logger:
 
 system_health:
 
-downloader:
-  download_dir: downloads
-
-#spotify:
-#  client_id: !secret spotify_client_id
-#  client_secret: !secret spotify_client_secret
-
-spotcast:
-  sp_dc: !secret sp_dc
-  sp_key: !secret sp_key
-  country: US
-#  username: !secret spotify_username
-#  password: !secret spotify_password
-
 media_player:
   - platform: universal
     name: Currently Playing
     children:
       - media_player.office_google
       - media_player.office_group
+      - media_player.office_group_3
+      - media_player.office_display
+      - media_player.office_speaker
+      - media_player.office_mini
+      - media_player.office_mini_2
       - media_player.office_pc
       - media_player.living_room_google
+      - media_player.living_room_google_2
       - media_player.living_room_tv
       - media_player.patio_speaker
+      - media_player.patio_speaker_2
+      - media_player.spotify_dinotech
       - media_player.family_tv
-      - media_player.tv_sound
       - media_player.tv_speakers
-      - media_player.right_tv_speaker
-      - media_player.left_tv_speaker
       - media_player.kitchen_table_display
+      - media_player.kitchen_table_display_2
       - media_player.sink_display
-      - media_player.inside_group
+      - media_player.front_group_2
+      - media_player.front_group
+      - media_player.everywhere_3
+      - media_player.everywhere_3_2
       - media_player.garage_mini
-      - media_player.family_tv
+      - media_player.garage_mini_2
       - media_player.ensuite_speaker
-      - media_player.ensuite_group
-      - media_player.ensuite_display
+      - media_player.ensuite_speaker_2
       - media_player.den_mini
-      - media_player.den_group
+      - media_player.den_mini_2
+      - media_player.den_speakers
+      - media_player.den_speakers_2
       - media_player.deb_tv
       - media_player.bedroom_tv
       - media_player.bedroom_speaker
+      - media_player.bedroom_speaker_2
       - media_player.bathroom_speaker
-      - media_player.all_speakers_group
+      - media_player.bathroom_speaker_2
       - media_player.guest_clock
+      - media_player.guest_clock_2
       - media_player.kitchen_speakers
-
-modbus:
-  - name: MM Sensor
-    type: tcp
-    host: 192.168.1.153
-    port: 502
-    sensors:
-      - name: mm_sensor
-        address: 802
-        scan_interval: 10
-        unique_id: mm_sensor
-      - name: mm_sensor_no_person
-        address: 832
-        unique_id: mm_sensor_no_person
+      - media_player.kitchen_speakers_2
 
 zone:
   - name: !secret zone2_name
     latitude: !secret zone2_latitude
     longitude: !secret zone2_longitude
-    radius: 240
+    radius: 200
     icon: mdi:office-building
 
   - name: !secret home_name
     latitude: !secret home_latitude
     longitude: !secret home_longitude
-    radius: 100
+    radius: 95
     icon: mdi:home-assistant
 
 tts:
   - platform: google_translate
-    #    base_url: http://192.168.1.134:8123
     service_name: google_say
     time_memory: 36000
 
-noonlight:
-  id: !secret noonlight_id
-  secret: !secret noonlight_secret
-  api_endpoint: https://api.noonlight.com/platform/v1
-  token_endpoint: https://noonlight.konnected.io/ha/token
-
 samsungtv_smart:
   - host: 192.168.1.135
-    #    name: Family TV
-    #    api_key: !secret smartthings_token
-    #    device_id: !secret tv_device_id
     app_list: '{"Internet": "org.tizen.browser", "YouTube": "111299001912", "Spotify": "3201606009684"}'
     source_list: '{"TV": "KEY_SOURCE+KEY_LEFT+KEY_LEFT+KEY_ENTER", "HDMI": "KEY_HDMI", "CHROMECAST": "KEY_SOURCE+KEY_LEFT+KEY_LEFT+KEY_RIGHT+KEY_RIGHT+KEY_ENTER"}'
 
 alert: !include includes/alert.yaml
 automation: !include automations.yaml
 binary_sensor: !include includes/binary_sensor.yaml
-# browser_mod: !include includes/browser_mod.yaml
 camera: !include includes/camera.yaml
 cloud: !include includes/cloud.yaml
 cover: !include includes/cover.yaml
@@ -223,7 +180,6 @@ input_boolean: !include includes/input_boolean.yaml
 input_datetime: !include includes/input_datetime.yaml
 input_number: !include includes/input_number.yaml
 input_select: !include includes/input_select.yaml
-# ios: !include includes/ios.yaml
 konnected: !include includes/konnected.yaml
 light: !include includes/light.yaml
 logbook: !include includes/logbook.yaml
