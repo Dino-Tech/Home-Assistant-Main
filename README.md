@@ -23,7 +23,7 @@
   </p>
 </div>
 <p align="justify"><strong>
-    This Repo is designed for Smart Home and Lovelace UI inspiration. The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world. This is a working configuration of <em>my Smart Home</em> and <em>my Lovelace designs</em>. All of the code is free to use and contribute to.</strong><br>
+    This Repo is designed for Smart Home and Lovelace UI/UX inspiration. The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world. This is a working configuration of <em>my Smart Home</em> and <em>my Lovelace designs</em>. All of the code is free to use and contribute to.</strong><br>
 </p>
 <div name="menu">
 <p align="center"><strong>
