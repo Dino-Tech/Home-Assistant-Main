@@ -3703,6 +3703,35 @@
       data:
         volume_level: 0.45
 
+- id: "325513325058863014567"
+  alias: Den auto fan
+  triggers:
+    - trigger: numeric_state
+      entity_id: sensor.den_temperature
+      above: 75.5
+  condition:
+    - condition: state
+      entity_id: group.person_group
+      state: not_home
+  action:
+    - action: fan.turn_on
+      target:
+        entity_id: fan.den_fan
+- id: "32662332505263014567"
+  alias: Den auto fan OFF
+  triggers:
+    - trigger: numeric_state
+      entity_id: sensor.den_temperature
+      below: 74
+  condition:
+    - condition: state
+      entity_id: group.person_group
+      state: not_home
+  action:
+    - action: fan.turn_off
+      target:
+        entity_id: fan.den_fan
+
 - id: "17033325058863014567"
   alias: Office auto fan
   triggers:
@@ -4571,6 +4600,7 @@
     - action: input_boolean.turn_off
       entity_id: input_boolean.patio_mister_switch
   mode: single
+
 - id: "20126181775112345"
   alias: "[SWITCH] Office Fan cycle"
   triggers:
@@ -4578,55 +4608,82 @@
       entity_id: input_boolean.office_fan_cycles
       to: "on"
   action:
-    - action: fan.turn_on
-      entity_id: fan.office_fan
+    - action: light.turn_on
+      entity_id: light.office_ceiling_fan
     - repeat:
         sequence:
-          - action: fan.turn_on
-            entity_id: fan.office_fan
           - delay:
               seconds: 120
           - action: fan.turn_off
             entity_id: fan.office_fan
           - delay:
-              minutes: 9
+              minutes: 8
+          - action: fan.turn_on
+            entity_id: fan.office_fan
         until:
           - condition: state
             entity_id: input_boolean.office_fan_cycles
             state: "off"
-    - action: fan.turn_off
-      entity_id: fan.office_fan
+    - action: light.turn_off
+      entity_id: light.office_ceiling_fan
   initial_state: true
 
 - id: "201261817757785345"
   alias: "[SWITCH] Guest Fan cycle"
   triggers:
     - trigger: state
-      entity_id: input_boolean.den_fan_cycles
+      entity_id: input_boolean.guest_fan_cycles
       to: "on"
   action:
-    - action: fan.turn_on
-      entity_id: fan.guest_fan
-    - delay:
-        seconds: 5
+    - action: input_boolean.turn_on
+      entity_id: input_boolean.guest_ceiling_fan
     - repeat:
         sequence:
-          - delay:
-              seconds: 5
-          - action: fan.turn_on
-            entity_id: fan.guest_fan
           - delay:
               seconds: 240
           - action: fan.turn_off
             entity_id: fan.guest_fan
           - delay:
-              minutes: 6
+              minutes: 16
+          - action: fan.turn_on
+            entity_id: fan.guest_fan
+        until:
+          - condition: state
+            entity_id: input_boolean.guest_fan_cycles
+            state: "off"
+    - delay:
+        seconds: 5
+    - action: input_boolean.turn_off
+      entity_id: input_boolean.guest_ceiling_fan
+  initial_state: true
+
+- id: "3121261817755342345"
+  alias: "[SWITCH] Den Fan cycle"
+  triggers:
+    - trigger: state
+      entity_id: input_boolean.den_fan_cycles
+      to: "on"
+  action:
+    - action: input_boolean.turn_on
+      entity_id: input_boolean.den_fan
+    - repeat:
+        sequence:
+          - delay:
+              seconds: 180
+          - action: fan.turn_off
+            entity_id: fan.den_fan
+          - delay:
+              seconds: 100
+          - action: fan.turn_on
+            entity_id: fan.den_fan
         until:
           - condition: state
             entity_id: input_boolean.den_fan_cycles
             state: "off"
-    - action: fan.turn_off
-      entity_id: fan.guest_fan
+    - delay:
+        seconds: 5
+    - action: input_boolean.turn_off
+      entity_id: input_boolean.den_fan
   initial_state: true
 
 - id: "202946321485676354"
