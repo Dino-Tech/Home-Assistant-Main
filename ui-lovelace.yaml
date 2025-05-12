@@ -1,21 +1,11 @@
+---
 kiosk_mode:
-  entity_settings:
-    - entity:
-        input_boolean.hide_header: "on"
-      hide_header: true
-    - entity:
-        input_boolean.hide_header: "off"
-      hide_header: false
-    - entity:
-        input_boolean.hide_sidebar: "on"
-      hide_sidebar: true
-    - entity:
-        input_boolean.hide_sidebar: "off"
-      hide_sidebar: false
+  hide_header: '{{ is_state("input_boolean.hide_header", "on") }}'
+  hide_sidebar: '{{ is_state("input_boolean.hide_sidebar", "on") }}'
+
   user_settings:
     - users:
         - OfficePC
-      ignore_entity_settings: true
       hide_sidebar: false
       hide_header: false
 
@@ -1464,6 +1454,40 @@ views:
                         features_position: bottom
                         vertical: false
                         name: Garage/Patio Alerts
+                  - type: horizontal-stack
+                    cards:
+                      - show_name: true
+                        show_icon: true
+                        type: button
+                        tap_action:
+                          action: toggle
+                        entity: input_boolean.den_fan_cycles
+                        show_state: false
+                        name: Cycle
+                      - show_name: true
+                        show_icon: true
+                        type: button
+                        tap_action:
+                          action: toggle
+                        entity: fan.den_fan
+                        show_state: false
+                        name: Den
+                      - show_name: true
+                        show_icon: true
+                        type: button
+                        tap_action:
+                          action: toggle
+                        entity: input_boolean.guest_fan_cycles
+                        show_state: false
+                        name: Cycle
+                      - show_name: true
+                        show_icon: true
+                        type: button
+                        tap_action:
+                          action: toggle
+                        entity: fan.guest_fan
+                        show_state: false
+                        name: Guest
                   - type: custom:button-card
                     color_type: blank-card
                     styles:
@@ -2129,7 +2153,7 @@ views:
                         type: button
                         tap_action:
                           action: toggle
-                        entity: input_boolean.office_fan_cycles
+                        entity: input_boolean.den_fan_cycles
                         show_state: false
                         name: Cycle
                       - show_name: true
@@ -2137,15 +2161,15 @@ views:
                         type: button
                         tap_action:
                           action: toggle
-                        entity: fan.office_fan
+                        entity: fan.den_fan
                         show_state: false
-                        name: Office
+                        name: Den
                       - show_name: true
                         show_icon: true
                         type: button
                         tap_action:
                           action: toggle
-                        entity: input_boolean.den_fan_cycles
+                        entity: input_boolean.guest_fan_cycles
                         show_state: false
                         name: Cycle
                       - show_name: true
@@ -2839,7 +2863,7 @@ views:
                         ha-card {
                           padding: 7px 0px 5px 28px !important;
                           height: 58px !important;
-                          --chip-background: rgba(var(--rgb-disabled), 0.15);
+                          --chip-background: rgba(15, 10, 10, 0.85);
                           --chip-box-shadow: none;
                           --chip-border-radius: 10px;
                           --chip-height: 42px;
@@ -2847,7 +2871,7 @@ views:
                           border-radius: 16px;
                           border: solid 2px rgba(0, 0, 0, 0.0) !important;
                           box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.0);
-                          background: rgb(26,26,26);
+                          background: rgba(15, 10, 10, 0.85);
                           --paper-item-icon-color: var(--accent-color);
                         }
                         :host {
@@ -2864,22 +2888,17 @@ views:
                           backdrop-filter: blur(9.1px);
                         }
                     cards:
-                      - type: custom:button-card
-                        color_type: blank-card
-                        styles:
-                          card:
-                            - height: 15px
                       - show_current: false
                         show_forecast: true
                         type: weather-forecast
                         entity: weather.bayou_gman_s
                         forecast_type: hourly
-                        forecast_slots: 6
-                      - type: custom:button-card
-                        color_type: blank-card
-                        styles:
-                          card:
-                            - height: 15px
+                        forecast_slots: 4
+                        card_mod:
+                          style: |
+                            ha-card {
+                            padding: 30px 0px 30px 0px;
+                            }
                   - type: conditional
                     card:
                       content: >-
@@ -2974,17 +2993,6 @@ views:
                           <br>IS ACTIVE FOR YOUR AREA</h2></center>
                         {% endif %}
                       type: markdown
-                      hold_action:
-                        action: call-service
-                        service: homeassistant.toggle
-                        service_data:
-                          entity_id: input_boolean.weather_notifications
-                      tap_action:
-                        action: call-service
-                        service: input_select.select_option
-                        service_data:
-                          entity_id: input_select.mobilelayout
-                          option: mobile4
                     conditions:
                       - entity: sensor.weatheralerts_1_alerts_are_active
                         state: "Yes"
@@ -4025,7 +4033,15 @@ views:
                                         box-shadow: 0px 2px 4px 0px rgba(210,210,210,0.22);
                                         background: black;
                                     }
-                                entity: fan.den_ceiling_fan
+                                entity: fan.den_fan
+                                tap_action:
+                                  action: toggle
+                          #                                  service: remote.send_command
+                          #                                  target:
+                          #                                    entity_id: remote.universal_remote
+                          #                                  data:
+                          #                                    device: fan
+                          #                                    command: power
                           - type: custom:button-card
                             color_type: blank-card
                             styles:
@@ -4102,6 +4118,40 @@ views:
                             styles:
                               card:
                                 - height: 30px
+                          - type: horizontal-stack
+                            cards:
+                              - show_name: true
+                                show_icon: true
+                                type: button
+                                tap_action:
+                                  action: toggle
+                                entity: input_boolean.den_fan_cycles
+                                show_state: false
+                                name: Cycle
+                              - show_name: true
+                                show_icon: true
+                                type: button
+                                tap_action:
+                                  action: toggle
+                                entity: fan.den_fan
+                                show_state: false
+                                name: Den
+                              - show_name: true
+                                show_icon: true
+                                type: button
+                                tap_action:
+                                  action: toggle
+                                entity: input_boolean.guest_fan_cycles
+                                show_state: false
+                                name: Cycle
+                              - show_name: true
+                                show_icon: true
+                                type: button
+                                tap_action:
+                                  action: toggle
+                                entity: fan.guest_fan
+                                show_state: false
+                                name: Guest
               - icon: mdi:thermostat
                 label: Thermostat
                 tap_action:
