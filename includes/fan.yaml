@@ -1,0 +1,157 @@
+---
+# lovelace_gen
+
+# fan:
+
+- platform: template
+  fans:
+    office_fan:
+      unique_id: office_fan
+      friendly_name: "Office Fan"
+      value_template: "{{ states('light.office_ceiling_fan') }}"
+      turn_on:
+        - action: light.turn_on
+          target:
+            entity_id: light.office_ceiling_fan
+      turn_off:
+        - action: light.turn_off
+          target:
+            entity_id: light.office_ceiling_fan
+
+      preset_modes:
+        - "off"
+        - "low"
+        - "medium"
+        - "high"
+        - "max"
+      preset_mode_template: >
+        {% if is_state('light.office_ceiling_fan', 'on') %}
+          {% if state_attr('light.office_ceiling_fan', 'brightness') == 255 %}
+            max
+          {% elif state_attr('light.office_ceiling_fan', 'brightness') == 191 %}
+            high
+          {% elif state_attr('light.office_ceiling_fan', 'brightness') == 127 %}
+            medium
+          {% elif state_attr('light.office_ceiling_fan', 'brightness') == 63 %}
+            low
+          {% else %}
+            unknown
+          {% endif %}
+        {% else %}
+          off
+        {% endif %}
+      set_preset_mode:
+        - action: light.turn_on
+          target:
+            entity_id: light.office_ceiling_fan
+          data:
+            brightness: >-
+              {% if preset_mode == 'max' %}
+                255
+              {% elif preset_mode == 'high' %}
+                191
+              {% elif preset_mode == 'medium' %}
+                127
+              {% elif preset_mode == 'low' %}
+                63
+              {% else %}
+                0
+              {% endif %}
+
+    bedroom_fan:
+      unique_id: bedroom_fan
+      friendly_name: "Bedroom Fan"
+      value_template: "{{ states('light.bedroom_ceiling_fan') }}"
+      turn_on:
+        - action: light.turn_on
+          target:
+            entity_id: light.bedroom_ceiling_fan
+      turn_off:
+        - action: light.turn_off
+          target:
+            entity_id: light.bedroom_ceiling_fan
+      preset_modes:
+        - "off"
+        - "low"
+        - "medium"
+        - "high"
+        - "max"
+      preset_mode_template: >
+        {% if is_state('light.bedroom_ceiling_fan', 'on') %}
+          {% if state_attr('light.bedroom_ceiling_fan', 'brightness') == 255 %}
+            max
+          {% elif state_attr('light.bedroom_ceiling_fan', 'brightness') == 191 %}
+            high
+          {% elif state_attr('light.bedroom_ceiling_fan', 'brightness') == 127 %}
+            medium
+          {% elif state_attr('light.bedroom_ceiling_fan', 'brightness') == 63 %}
+            low
+          {% else %}
+            unknown
+          {% endif %}
+        {% else %}
+          off
+        {% endif %}
+      set_preset_mode:
+        - action: light.turn_on
+          target:
+            entity_id: light.bedroom_ceiling_fan
+          data:
+            brightness: >-
+              {% if preset_mode == 'max' %}
+                255
+              {% elif preset_mode == 'high' %}
+                191
+              {% elif preset_mode == 'medium' %}
+                127
+              {% elif preset_mode == 'low' %}
+                63
+              {% else %}
+                0
+              {% endif %}
+
+    guest_fan:
+      unique_id: guest_fan
+      friendly_name: "Guest Fan"
+      value_template: "{{ states('input_boolean.guest_ceiling_fan') }}"
+      turn_on:
+        - action: google_assistant_sdk.send_text_command
+          continue_on_error: true
+          data:
+            command: "turn on guest ceiling fan"
+        - action: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.guest_ceiling_fan
+      turn_off:
+        - action: google_assistant_sdk.send_text_command
+          continue_on_error: true
+          data:
+            command: "turn off guest ceiling fan"
+        - action: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.guest_ceiling_fan
+
+    den_fan:
+      unique_id: den_fan_rf_remote
+      friendly_name: "Den Fan"
+      value_template: "{{ states('input_boolean.den_fan') }}"
+      turn_on:
+        - action: remote.send_command
+          target:
+            entity_id: remote.universal_remote
+          data:
+            device: fan
+            command: power
+        - action: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.den_fan
+      turn_off:
+        - action: remote.send_command
+          target:
+            entity_id: remote.universal_remote
+          data:
+            device: fan
+            command: power
+        - action: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.den_fan
