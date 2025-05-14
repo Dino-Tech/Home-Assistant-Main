@@ -104,16 +104,20 @@ CardTheme:
   lumo-shade-10pct: "rgba(41, 41, 41, .1)"
   lumo-shade-5pct: "rgba(41, 41, 41, .05)"
   lumo-tint-5pct: "var(--darker-grey-color)"
+  font-family: "Righteous"
+  primary-font-family: var(--font-family)
   material-font-family: "var(--primary-font-family)"
-  primary-font-family: "Righteous"
-  paper-font-common-base_-_font-family: "var(--primary-font-family)"
-  paper-font-common-code_-_font-family: "var(--primary-font-family)"
-  paper-font-body1_-_font-family: "var(--primary-font-family)"
-  paper-font-subhead_-_font-family: "var(--primary-font-family)"
-  paper-font-headline_-_font-family: "var(--primary-font-family)"
-  paper-font-caption_-_font-family: "var(--primary-font-family)"
-  paper-font-title_-_font-family: "var(--primary-font-family)"
-  ha-card-header-font-family: "var(--primary-font-family)"
+  ha-card-header-font-family: var(--font-family)
+  mdc-typography-font-family: var(--font-family)
+  mdc-typography-button-font-family: var(--font-family)
+  mdc-typography-headline6-font-family: var(--font-family)
+  mdc-typography-body1-font-family: var(--font-family)
+  mdc-typography-subtitle1-font-family: var(--font-family)
+  md-ref-typeface-plain: var(--font-family)
+  ha-font-family-body: var(--font-family)
+  ha-font-family-heading: var(--font-family)
+  ha-font-family-code: var(--font-family)
+  ha-font-family-longform: var(--font-family)
   # Restriction lock colors
   restriction-regular-lock-color: "rgba(39 ,189, 214,0.85)"
   restriction-success-lock-color: "lime"
@@ -318,16 +322,20 @@ Purple-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
+      font-family: "Righteous"
+      primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
-      primary-font-family: "Righteous"
-      paper-font-common-base_-_font-family: "var(--primary-font-family)"
-      paper-font-common-code_-_font-family: "var(--primary-font-family)"
-      paper-font-body1_-_font-family: "var(--primary-font-family)"
-      paper-font-subhead_-_font-family: "var(--primary-font-family)"
-      paper-font-headline_-_font-family: "var(--primary-font-family)"
-      paper-font-caption_-_font-family: "var(--primary-font-family)"
-      paper-font-title_-_font-family: "var(--primary-font-family)"
-      ha-card-header-font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: var(--font-family)
+      mdc-typography-font-family: var(--font-family)
+      mdc-typography-button-font-family: var(--font-family)
+      mdc-typography-headline6-font-family: var(--font-family)
+      mdc-typography-body1-font-family: var(--font-family)
+      mdc-typography-subtitle1-font-family: var(--font-family)
+      md-ref-typeface-plain: var(--font-family)
+      ha-font-family-body: var(--font-family)
+      ha-font-family-heading: var(--font-family)
+      ha-font-family-code: var(--font-family)
+      ha-font-family-longform: var(--font-family)
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(181 ,169, 251,0.85)"
       restriction-success-lock-color: "lime"
@@ -526,16 +534,20 @@ Green-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
+      font-family: "Righteous"
+      primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
-      primary-font-family: "Righteous"
-      paper-font-common-base_-_font-family: "var(--primary-font-family)"
-      paper-font-common-code_-_font-family: "var(--primary-font-family)"
-      paper-font-body1_-_font-family: "var(--primary-font-family)"
-      paper-font-subhead_-_font-family: "var(--primary-font-family)"
-      paper-font-headline_-_font-family: "var(--primary-font-family)"
-      paper-font-caption_-_font-family: "var(--primary-font-family)"
-      paper-font-title_-_font-family: "var(--primary-font-family)"
-      ha-card-header-font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: var(--font-family)
+      mdc-typography-font-family: var(--font-family)
+      mdc-typography-button-font-family: var(--font-family)
+      mdc-typography-headline6-font-family: var(--font-family)
+      mdc-typography-body1-font-family: var(--font-family)
+      mdc-typography-subtitle1-font-family: var(--font-family)
+      md-ref-typeface-plain: var(--font-family)
+      ha-font-family-body: var(--font-family)
+      ha-font-family-heading: var(--font-family)
+      ha-font-family-code: var(--font-family)
+      ha-font-family-longform: var(--font-family)
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(132, 192, 138,0.85)"
       restriction-success-lock-color: "lime"
@@ -740,16 +752,20 @@ Grey-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
+      font-family: "Righteous"
+      primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
-      primary-font-family: "Righteous"
-      paper-font-common-base_-_font-family: "var(--primary-font-family)"
-      paper-font-common-code_-_font-family: "var(--primary-font-family)"
-      paper-font-body1_-_font-family: "var(--primary-font-family)"
-      paper-font-subhead_-_font-family: "var(--primary-font-family)"
-      paper-font-headline_-_font-family: "var(--primary-font-family)"
-      paper-font-caption_-_font-family: "var(--primary-font-family)"
-      paper-font-title_-_font-family: "var(--primary-font-family)"
-      ha-card-header-font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: var(--font-family)
+      mdc-typography-font-family: var(--font-family)
+      mdc-typography-button-font-family: var(--font-family)
+      mdc-typography-headline6-font-family: var(--font-family)
+      mdc-typography-body1-font-family: var(--font-family)
+      mdc-typography-subtitle1-font-family: var(--font-family)
+      md-ref-typeface-plain: var(--font-family)
+      ha-font-family-body: var(--font-family)
+      ha-font-family-heading: var(--font-family)
+      ha-font-family-code: var(--font-family)
+      ha-font-family-longform: var(--font-family)
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(112, 110, 119,0.85)"
       restriction-success-lock-color: "lime"
@@ -954,16 +970,20 @@ Blue-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
+      font-family: "Righteous"
+      primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
-      primary-font-family: "Righteous"
-      paper-font-common-base_-_font-family: "var(--primary-font-family)"
-      paper-font-common-code_-_font-family: "var(--primary-font-family)"
-      paper-font-body1_-_font-family: "var(--primary-font-family)"
-      paper-font-subhead_-_font-family: "var(--primary-font-family)"
-      paper-font-headline_-_font-family: "var(--primary-font-family)"
-      paper-font-caption_-_font-family: "var(--primary-font-family)"
-      paper-font-title_-_font-family: "var(--primary-font-family)"
-      ha-card-header-font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: var(--font-family)
+      mdc-typography-font-family: var(--font-family)
+      mdc-typography-button-font-family: var(--font-family)
+      mdc-typography-headline6-font-family: var(--font-family)
+      mdc-typography-body1-font-family: var(--font-family)
+      mdc-typography-subtitle1-font-family: var(--font-family)
+      md-ref-typeface-plain: var(--font-family)
+      ha-font-family-body: var(--font-family)
+      ha-font-family-heading: var(--font-family)
+      ha-font-family-code: var(--font-family)
+      ha-font-family-longform: var(--font-family)
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(3, 169, 244,0.85)"
       restriction-success-lock-color: "lime"
@@ -1167,16 +1187,20 @@ Pink-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
+      font-family: "Righteous"
+      primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
-      primary-font-family: "Righteous"
-      paper-font-common-base_-_font-family: "var(--primary-font-family)"
-      paper-font-common-code_-_font-family: "var(--primary-font-family)"
-      paper-font-body1_-_font-family: "var(--primary-font-family)"
-      paper-font-subhead_-_font-family: "var(--primary-font-family)"
-      paper-font-headline_-_font-family: "var(--primary-font-family)"
-      paper-font-caption_-_font-family: "var(--primary-font-family)"
-      paper-font-title_-_font-family: "var(--primary-font-family)"
-      ha-card-header-font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: var(--font-family)
+      mdc-typography-font-family: var(--font-family)
+      mdc-typography-button-font-family: var(--font-family)
+      mdc-typography-headline6-font-family: var(--font-family)
+      mdc-typography-body1-font-family: var(--font-family)
+      mdc-typography-subtitle1-font-family: var(--font-family)
+      md-ref-typeface-plain: var(--font-family)
+      ha-font-family-body: var(--font-family)
+      ha-font-family-heading: var(--font-family)
+      ha-font-family-code: var(--font-family)
+      ha-font-family-longform: var(--font-family)
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(229, 0, 125,0.85)"
       restriction-success-lock-color: "lime"
@@ -1380,16 +1404,20 @@ Lime-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
+      font-family: "Righteous"
+      primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
-      primary-font-family: "Righteous"
-      paper-font-common-base_-_font-family: "var(--primary-font-family)"
-      paper-font-common-code_-_font-family: "var(--primary-font-family)"
-      paper-font-body1_-_font-family: "var(--primary-font-family)"
-      paper-font-subhead_-_font-family: "var(--primary-font-family)"
-      paper-font-headline_-_font-family: "var(--primary-font-family)"
-      paper-font-caption_-_font-family: "var(--primary-font-family)"
-      paper-font-title_-_font-family: "var(--primary-font-family)"
-      ha-card-header-font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: var(--font-family)
+      mdc-typography-font-family: var(--font-family)
+      mdc-typography-button-font-family: var(--font-family)
+      mdc-typography-headline6-font-family: var(--font-family)
+      mdc-typography-body1-font-family: var(--font-family)
+      mdc-typography-subtitle1-font-family: var(--font-family)
+      md-ref-typeface-plain: var(--font-family)
+      ha-font-family-body: var(--font-family)
+      ha-font-family-heading: var(--font-family)
+      ha-font-family-code: var(--font-family)
+      ha-font-family-longform: var(--font-family)
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(95, 224, 31,0.85)"
       restriction-success-lock-color: "lime"
@@ -1593,16 +1621,20 @@ Magenta-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
+      font-family: "Righteous"
+      primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
-      primary-font-family: "Righteous"
-      paper-font-common-base_-_font-family: "var(--primary-font-family)"
-      paper-font-common-code_-_font-family: "var(--primary-font-family)"
-      paper-font-body1_-_font-family: "var(--primary-font-family)"
-      paper-font-subhead_-_font-family: "var(--primary-font-family)"
-      paper-font-headline_-_font-family: "var(--primary-font-family)"
-      paper-font-caption_-_font-family: "var(--primary-font-family)"
-      paper-font-title_-_font-family: "var(--primary-font-family)"
-      ha-card-header-font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: var(--font-family)
+      mdc-typography-font-family: var(--font-family)
+      mdc-typography-button-font-family: var(--font-family)
+      mdc-typography-headline6-font-family: var(--font-family)
+      mdc-typography-body1-font-family: var(--font-family)
+      mdc-typography-subtitle1-font-family: var(--font-family)
+      md-ref-typeface-plain: var(--font-family)
+      ha-font-family-body: var(--font-family)
+      ha-font-family-heading: var(--font-family)
+      ha-font-family-code: var(--font-family)
+      ha-font-family-longform: var(--font-family)
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(223, 32, 223,0.85)"
       restriction-success-lock-color: "lime"
@@ -1806,16 +1838,20 @@ Orange-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
+      font-family: "Righteous"
+      primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
-      primary-font-family: "Righteous"
-      paper-font-common-base_-_font-family: "var(--primary-font-family)"
-      paper-font-common-code_-_font-family: "var(--primary-font-family)"
-      paper-font-body1_-_font-family: "var(--primary-font-family)"
-      paper-font-subhead_-_font-family: "var(--primary-font-family)"
-      paper-font-headline_-_font-family: "var(--primary-font-family)"
-      paper-font-caption_-_font-family: "var(--primary-font-family)"
-      paper-font-title_-_font-family: "var(--primary-font-family)"
-      ha-card-header-font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: var(--font-family)
+      mdc-typography-font-family: var(--font-family)
+      mdc-typography-button-font-family: var(--font-family)
+      mdc-typography-headline6-font-family: var(--font-family)
+      mdc-typography-body1-font-family: var(--font-family)
+      mdc-typography-subtitle1-font-family: var(--font-family)
+      md-ref-typeface-plain: var(--font-family)
+      ha-font-family-body: var(--font-family)
+      ha-font-family-heading: var(--font-family)
+      ha-font-family-code: var(--font-family)
+      ha-font-family-longform: var(--font-family)
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(251, 129, 34,0.85)"
       restriction-success-lock-color: "lime"
@@ -2020,16 +2056,20 @@ Red-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
+      font-family: "Righteous"
+      primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
-      primary-font-family: "Righteous"
-      paper-font-common-base_-_font-family: "var(--primary-font-family)"
-      paper-font-common-code_-_font-family: "var(--primary-font-family)"
-      paper-font-body1_-_font-family: "var(--primary-font-family)"
-      paper-font-subhead_-_font-family: "var(--primary-font-family)"
-      paper-font-headline_-_font-family: "var(--primary-font-family)"
-      paper-font-caption_-_font-family: "var(--primary-font-family)"
-      paper-font-title_-_font-family: "var(--primary-font-family)"
-      ha-card-header-font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: var(--font-family)
+      mdc-typography-font-family: var(--font-family)
+      mdc-typography-button-font-family: var(--font-family)
+      mdc-typography-headline6-font-family: var(--font-family)
+      mdc-typography-body1-font-family: var(--font-family)
+      mdc-typography-subtitle1-font-family: var(--font-family)
+      md-ref-typeface-plain: var(--font-family)
+      ha-font-family-body: var(--font-family)
+      ha-font-family-heading: var(--font-family)
+      ha-font-family-code: var(--font-family)
+      ha-font-family-longform: var(--font-family)
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(216, 28, 35,0.85)"
       restriction-success-lock-color: "lime"
@@ -2234,16 +2274,20 @@ Geaux-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
+      font-family: "Righteous"
+      primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
-      primary-font-family: "Righteous"
-      paper-font-common-base_-_font-family: "var(--primary-font-family)"
-      paper-font-common-code_-_font-family: "var(--primary-font-family)"
-      paper-font-body1_-_font-family: "var(--primary-font-family)"
-      paper-font-subhead_-_font-family: "var(--primary-font-family)"
-      paper-font-headline_-_font-family: "var(--primary-font-family)"
-      paper-font-caption_-_font-family: "var(--primary-font-family)"
-      paper-font-title_-_font-family: "var(--primary-font-family)"
-      ha-card-header-font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: var(--font-family)
+      mdc-typography-font-family: var(--font-family)
+      mdc-typography-button-font-family: var(--font-family)
+      mdc-typography-headline6-font-family: var(--font-family)
+      mdc-typography-body1-font-family: var(--font-family)
+      mdc-typography-subtitle1-font-family: var(--font-family)
+      md-ref-typeface-plain: var(--font-family)
+      ha-font-family-body: var(--font-family)
+      ha-font-family-heading: var(--font-family)
+      ha-font-family-code: var(--font-family)
+      ha-font-family-longform: var(--font-family)
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(37, 155, 154,0.85)"
       restriction-success-lock-color: "lime"
@@ -2447,16 +2491,20 @@ Yellow-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
+      font-family: "Righteous"
+      primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
-      primary-font-family: "Righteous"
-      paper-font-common-base_-_font-family: "var(--primary-font-family)"
-      paper-font-common-code_-_font-family: "var(--primary-font-family)"
-      paper-font-body1_-_font-family: "var(--primary-font-family)"
-      paper-font-subhead_-_font-family: "var(--primary-font-family)"
-      paper-font-headline_-_font-family: "var(--primary-font-family)"
-      paper-font-caption_-_font-family: "var(--primary-font-family)"
-      paper-font-title_-_font-family: "var(--primary-font-family)"
-      ha-card-header-font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: var(--font-family)
+      mdc-typography-font-family: var(--font-family)
+      mdc-typography-button-font-family: var(--font-family)
+      mdc-typography-headline6-font-family: var(--font-family)
+      mdc-typography-body1-font-family: var(--font-family)
+      mdc-typography-subtitle1-font-family: var(--font-family)
+      md-ref-typeface-plain: var(--font-family)
+      ha-font-family-body: var(--font-family)
+      ha-font-family-heading: var(--font-family)
+      ha-font-family-code: var(--font-family)
+      ha-font-family-longform: var(--font-family)
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(253, 217, 53,0.85)"
       restriction-success-lock-color: "lime"
