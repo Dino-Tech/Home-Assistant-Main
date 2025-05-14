@@ -4608,24 +4608,47 @@
       entity_id: input_boolean.office_fan_cycles
       to: "on"
   action:
-    - action: light.turn_on
-      entity_id: light.office_ceiling_fan
-    - repeat:
-        sequence:
-          - delay:
-              seconds: 120
-          - action: fan.turn_off
-            entity_id: fan.office_fan
-          - delay:
-              minutes: 8
-          - action: fan.turn_on
-            entity_id: fan.office_fan
-        until:
-          - condition: state
-            entity_id: input_boolean.office_fan_cycles
-            state: "off"
-    - action: light.turn_off
-      entity_id: light.office_ceiling_fan
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: light.office_ceiling_fan
+              state: "on"
+          sequence:
+            - repeat:
+                sequence:
+                  - delay:
+                      seconds: 120
+                  - action: fan.turn_off
+                    entity_id: fan.office_fan
+                  - delay:
+                      minutes: 8
+                  - action: fan.turn_on
+                    entity_id: fan.office_fan
+                until:
+                  - condition: state
+                    entity_id: input_boolean.office_fan_cycles
+                    state: "off"
+        - conditions:
+            - condition: state
+              entity_id: light.office_ceiling_fan
+              state: "off"
+          sequence:
+            - action: light.turn_on
+              entity_id: light.office_ceiling_fan
+            - repeat:
+                sequence:
+                  - delay:
+                      seconds: 120
+                  - action: fan.turn_off
+                    entity_id: fan.office_fan
+                  - delay:
+                      minutes: 8
+                  - action: fan.turn_on
+                    entity_id: fan.office_fan
+                until:
+                  - condition: state
+                    entity_id: input_boolean.office_fan_cycles
+                    state: "off"
   initial_state: true
 
 - id: "201261817757785345"
@@ -4635,26 +4658,47 @@
       entity_id: input_boolean.guest_fan_cycles
       to: "on"
   action:
-    - action: input_boolean.turn_on
-      entity_id: input_boolean.guest_ceiling_fan
-    - repeat:
-        sequence:
-          - delay:
-              seconds: 240
-          - action: fan.turn_off
-            entity_id: fan.guest_fan
-          - delay:
-              minutes: 16
-          - action: fan.turn_on
-            entity_id: fan.guest_fan
-        until:
-          - condition: state
-            entity_id: input_boolean.guest_fan_cycles
-            state: "off"
-    - delay:
-        seconds: 5
-    - action: input_boolean.turn_off
-      entity_id: input_boolean.guest_ceiling_fan
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: fan.guest_fan
+              state: "on"
+          sequence:
+            - repeat:
+                sequence:
+                  - delay:
+                      minutes: 10
+                  - action: fan.turn_off
+                    entity_id: fan.guest_fan
+                  - delay:
+                      minutes: 10
+                  - action: fan.turn_on
+                    entity_id: fan.guest_fan
+                until:
+                  - condition: state
+                    entity_id: input_boolean.guest_fan_cycles
+                    state: "off"
+        - conditions:
+            - condition: state
+              entity_id: fan.guest_fan
+              state: "off"
+          sequence:
+            - action: fan.turn_on
+              entity_id: fan.guest_fan
+            - repeat:
+                sequence:
+                  - delay:
+                      minutes: 10
+                  - action: fan.turn_off
+                    entity_id: fan.guest_fan
+                  - delay:
+                      minutes: 10
+                  - action: fan.turn_on
+                    entity_id: fan.guest_fan
+                until:
+                  - condition: state
+                    entity_id: input_boolean.guest_fan_cycles
+                    state: "off"
   initial_state: true
 
 - id: "3121261817755342345"
@@ -4664,26 +4708,47 @@
       entity_id: input_boolean.den_fan_cycles
       to: "on"
   action:
-    - action: input_boolean.turn_on
-      entity_id: input_boolean.den_fan
-    - repeat:
-        sequence:
-          - delay:
-              seconds: 180
-          - action: fan.turn_off
-            entity_id: fan.den_fan
-          - delay:
-              seconds: 100
-          - action: fan.turn_on
-            entity_id: fan.den_fan
-        until:
-          - condition: state
-            entity_id: input_boolean.den_fan_cycles
-            state: "off"
-    - delay:
-        seconds: 5
-    - action: input_boolean.turn_off
-      entity_id: input_boolean.den_fan
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: fan.den_fan
+              state: "on"
+          sequence:
+            - repeat:
+                sequence:
+                  - delay:
+                      seconds: 180
+                  - action: fan.turn_off
+                    entity_id: fan.den_fan
+                  - delay:
+                      seconds: 80
+                  - action: fan.turn_on
+                    entity_id: fan.den_fan
+                until:
+                  - condition: state
+                    entity_id: input_boolean.den_fan_cycles
+                    state: "off"
+        - conditions:
+            - condition: state
+              entity_id: fan.den_fan
+              state: "off"
+          sequence:
+            - action: fan.turn_on
+              entity_id: fan.den_fan
+            - repeat:
+                sequence:
+                  - delay:
+                      seconds: 180
+                  - action: fan.turn_off
+                    entity_id: fan.den_fan
+                  - delay:
+                      seconds: 80
+                  - action: fan.turn_on
+                    entity_id: fan.den_fan
+                until:
+                  - condition: state
+                    entity_id: input_boolean.den_fan_cycles
+                    state: "off"
   initial_state: true
 
 - id: "202946321485676354"
