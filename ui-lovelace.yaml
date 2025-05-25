@@ -93,14 +93,16 @@ views:
                 ha-card {
                   border-radius: 12px;
                   box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                  background: rgba(15, 10, 10, 0.85);
-                  backdrop-filter: blur(9.1px);
-                  --paper-item-icon-color: var(--accent-color);
+                  background: rgba(15, 10, 10, 0.75);
+                  backdrop-filter: blur(11.6px);
+                  -webkit-backdrop-filter: blur(11.6px);
+                  --state-icon-color: var(--accent-color);
                   height: 890px;
                 }
                 :host {
-                  --paper-item-icon-color: var(--accent-color);
+                  --state-icon-color: var(--accent-color);
                 }
+
             mode: vertical
             cards:
               - type: custom:alarmo-card
@@ -108,7 +110,8 @@ views:
                   style: |
                     ha-card {
                       --ha-card-background: rgba(0, 0, 0,0.0);
-                      backdrop-filter: blur(9.1px);
+                      backdrop-filter: blur(11.6px);
+                      -webkit-backdrop-filter: blur(11.6px);
                       --ha-card-border-width: 0px;
                       --ha-card-box-shadow: 0px;
                     }
@@ -152,13 +155,14 @@ views:
                 ha-card {
                   border-radius: 12px;
                   box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                  background: rgba(15, 10, 10, 0.85);
-                  backdrop-filter: blur(9.1px);
-                  --paper-item-icon-color: var(--accent-color);
+                  background: rgba(0, 0, 0, 0);
+                  backdrop-filter: blur(11.6px);
+                  -webkit-backdrop-filter: blur(11.6px);
+                  --state-icon-color: var(--accent-color);
                   height: 880px;
                 }
                 :host {
-                  --paper-item-icon-color: var(--accent-color);
+                  --state-icon-color: var(--accent-color);
                 }
             mode: vertical
             cards:
@@ -226,7 +230,6 @@ views:
                     }
                 image: >-
                   https://s.w-x.co/staticmaps/wu/wu/wxtype1200_cur/usmsy/animate.png
-                theme: Metro Green
                 tap_action:
                   action: none
                 hold_action:
@@ -241,15 +244,14 @@ views:
                     ha-card {
                       border-radius: 12px;
                       box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                      background: rgba(15, 10, 10, 0.85);
-                      backdrop-filter: blur(9.1px);
-                      --paper-item-icon-color: var(--accent-color);
-                      backdrop-filter: blur(9.1px);
-                      -webkit-backdrop-filter: blur(9.1px);
+                      background: rgba(15, 10, 10, 0.75);
+                      --state-icon-color: var(--accent-color);
+                      backdrop-filter: blur(11.6px);
+                      -webkit-backdrop-filter: blur(11.6px);
                       height: 880px;
                     }
                     :host {
-                      --paper-item-icon-color: var(--accent-color);
+                      --state-icon-color: var(--accent-color);
                     }
                 mode: vertical
                 cards:
@@ -360,15 +362,14 @@ views:
                     ha-card {
                       border-radius: 12px;
                       box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                      background: rgba(15, 10, 10, 0.85);
-                      backdrop-filter: blur(9.1px);
-                      --paper-item-icon-color: white;
-                      backdrop-filter: blur(9.1px);
-                      -webkit-backdrop-filter: blur(9.1px);
+                      background: rgba(15, 10, 10, 0.75);
+                      --state-icon-color: white;
+                      backdrop-filter: blur(11.6px);
+                      -webkit-backdrop-filter: blur(11.6px);
                       height: 880px;
                     }
                     :host {
-                      --paper-item-icon-color: white;
+                      --state-icon-color: white;
                     }
                 mode: vertical
                 cards:
@@ -432,15 +433,14 @@ views:
                         ha-card {
                           border-radius: 12px;
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
-                          --paper-item-icon-color: var(--accent-color);
-                          backdrop-filter: blur(9.1px);
-                          -webkit-backdrop-filter: blur(9.1px);
+                          background: rgba(15, 10, 10, 0.75);
+                          --state-icon-color: var(--accent-color);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
                           height: 880px;
                         }
                         :host {
-                          --paper-item-icon-color: var(--accent-color);
+                          --state-icon-color: var(--accent-color);
                         }
                     mode: vertical
                     cards:
@@ -493,13 +493,13 @@ views:
                           border-radius: 12px;
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
                           background: black;
-                          --paper-item-icon-color: var(--accent-color);
-                          backdrop-filter: blur(9.1px);
-                          -webkit-backdrop-filter: blur(9.1px);
+                          --state-icon-color: var(--accent-color);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
                           height: 880px;
                         }
                         :host {
-                          --paper-item-icon-color: var(--accent-color);
+                          --state-icon-color: var(--accent-color);
                         }
                     mode: vertical
                     cards:
@@ -548,15 +548,14 @@ views:
                         ha-card {
                           border-radius: 12px;
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
-                          --paper-item-icon-color: var(--accent-color);
-                          backdrop-filter: blur(9.1px);
-                          -webkit-backdrop-filter: blur(9.1px);
+                          background: rgba(15, 10, 10, 0.75);
+                          --state-icon-color: var(--accent-color);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
                           height: 880px;
                         }
                         :host {
-                          --paper-item-icon-color: var(--accent-color);
+                          --state-icon-color: var(--accent-color);
                         }
                     mode: vertical
                     cards:
@@ -602,15 +601,14 @@ views:
                     ha-card {
                       border-radius: 12px;
                       box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                      background: rgba(15, 10, 10, 0.85);
-                      backdrop-filter: blur(9.1px);
-                      --paper-item-icon-color: var(--accent-color);
-                      backdrop-filter: blur(9.1px);
-                      -webkit-backdrop-filter: blur(9.1px);
+                      background: rgba(15, 10, 10, 0.75);
+                      --state-icon-color: var(--accent-color);
+                      backdrop-filter: blur(11.6px);
+                      -webkit-backdrop-filter: blur(11.6px);
                       height: 880px;
                     }
                     :host {
-                      --paper-item-icon-color: var(--accent-color);
+                      --state-icon-color: var(--accent-color);
                     }
                 mode: vertical
                 cards:
@@ -638,6 +636,7 @@ views:
                           --ha-card-background: rgba(0, 0, 0, 0);
                           box-shadow: 0px;
                         }
+                    mode: vertical
                     cards:
                       - type: custom:mushroom-template-card
                         primary: Office
@@ -1246,15 +1245,15 @@ views:
                     ha-card {
                       border-radius: 12px;
                       box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                      background: rgba(15, 10, 10, 0.85);
+                      background: rgba(15, 10, 10, 0.75);
                       border-width: 0px;
-                      backdrop-filter: blur(19.1px);
-                      -webkit-backdrop-filter: blur(19.1px);
-                      --paper-item-icon-color: var(--accent-color);
+                      -webkit-backdrop-filter: blur(11.6px);
+                      backdrop-filter: blur(11.6px);
+                      --state-icon-color: var(--accent-color);
                       height: 880px;
                     }
                     :host {
-                      --paper-item-icon-color: var(--accent-color);
+                      --state-icon-color: var(--accent-color);
                     }
                 mode: vertical
                 cards:
@@ -1454,40 +1453,6 @@ views:
                         features_position: bottom
                         vertical: false
                         name: Garage/Patio Alerts
-                  - type: horizontal-stack
-                    cards:
-                      - show_name: true
-                        show_icon: true
-                        type: button
-                        tap_action:
-                          action: toggle
-                        entity: input_boolean.den_fan_cycles
-                        show_state: false
-                        name: Cycle
-                      - show_name: true
-                        show_icon: true
-                        type: button
-                        tap_action:
-                          action: toggle
-                        entity: fan.den_fan
-                        show_state: false
-                        name: Den
-                      - show_name: true
-                        show_icon: true
-                        type: button
-                        tap_action:
-                          action: toggle
-                        entity: input_boolean.guest_fan_cycles
-                        show_state: false
-                        name: Cycle
-                      - show_name: true
-                        show_icon: true
-                        type: button
-                        tap_action:
-                          action: toggle
-                        entity: fan.guest_fan
-                        show_state: false
-                        name: Guest
                   - type: custom:button-card
                     color_type: blank-card
                     styles:
@@ -1547,14 +1512,14 @@ views:
                         ha-card {
                           border-radius: 18px;
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
-                          -webkit-backdrop-filter: blur(9.1px);
-                          --paper-item-icon-color: var(--accent-color);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
+                          --state-icon-color: var(--accent-color);
                           height: 880px;
                         }
                         :host {
-                          --paper-item-icon-color: var(--accent-color);
+                          --state-icon-color: var(--accent-color);
                         }
                     mode: vertical
                     cards:
@@ -1694,14 +1659,14 @@ views:
                         ha-card {
                           border-radius: 18px;
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
-                          -webkit-backdrop-filter: blur(9.1px);
-                          --paper-item-icon-color: var(--accent-color);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
+                          --state-icon-color: var(--accent-color);
                           height: 880px;
                         }
                         :host {
-                          --paper-item-icon-color: var(--accent-color);
+                          --state-icon-color: var(--accent-color);
                         }
                     mode: vertical
                     cards:
@@ -1841,14 +1806,14 @@ views:
                         ha-card {
                           border-radius: 12px;
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(16, 16, 16,0.8));
-                          backdrop-filter: blur(9.1px);
-                          -webkit-backdrop-filter: blur(9.1px);
-                          --paper-item-icon-color: var(--accent-color);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
+                          --state-icon-color: var(--accent-color);
                           height: 880px;
                         }
                         :host {
-                          --paper-item-icon-color: var(--accent-color);
+                          --state-icon-color: var(--accent-color);
                         }
                     mode: vertical
                     cards:
@@ -1955,13 +1920,13 @@ views:
                       border-radius: 12px;
                       box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
                       background: rgba(0, 0, 0,0.60);
-                      backdrop-filter: blur(9.1px);
-                      -webkit-backdrop-filter: blur(9.1px);
-                      --paper-item-icon-color: var(--accent-color);
+                      backdrop-filter: blur(11.6px);
+                      -webkit-backdrop-filter: blur(11.6px);
+                      --state-icon-color: var(--accent-color);
                       height: 860px;
                     }
                     :host {
-                      --paper-item-icon-color: var(--accent-color);
+                      --state-icon-color: var(--accent-color);
                     }
                 cards:
                   - type: custom:mushroom-title-card
@@ -2146,40 +2111,6 @@ views:
                       method: name
                       numeric: false
                       reverse: false
-                  - type: horizontal-stack
-                    cards:
-                      - show_name: true
-                        show_icon: true
-                        type: button
-                        tap_action:
-                          action: toggle
-                        entity: input_boolean.den_fan_cycles
-                        show_state: false
-                        name: Cycle
-                      - show_name: true
-                        show_icon: true
-                        type: button
-                        tap_action:
-                          action: toggle
-                        entity: fan.den_fan
-                        show_state: false
-                        name: Den
-                      - show_name: true
-                        show_icon: true
-                        type: button
-                        tap_action:
-                          action: toggle
-                        entity: input_boolean.guest_fan_cycles
-                        show_state: false
-                        name: Cycle
-                      - show_name: true
-                        show_icon: true
-                        type: button
-                        tap_action:
-                          action: toggle
-                        entity: fan.guest_fan
-                        show_state: false
-                        name: Guest
               - type: vertical-stack
                 cards:
                   - type: custom:stack-in-card
@@ -2189,12 +2120,14 @@ views:
                           border-radius: 18px;
                           padding: 8px;
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
+                          background: rgba(15, 10, 10, 0.75);
+                          -webkit-backdrop-filter: blur(11.6px);
+                          backdrop-filter: blur(11.6px);
                         }
                         :host {
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
                         }
                     mode: vertical
                     cards:
@@ -2209,8 +2142,9 @@ views:
                             ha-card {
                               border-radius: 16px;
                               box-shadow: 0px 0px 2px 1px rgba(0, 0,255,0.35);
-                              background: rgba(6, 6, 6,0.85);
-                              backdrop-filter: blur(9.1px);
+                              background: rgba(15, 10, 10, 0.75);
+                              backdrop-filter: blur(11.6px);
+                              -webkit-backdrop-filter: blur(11.6px);
                               border: solid 1px blue;
                             }
                         entity: sensor.titans
@@ -2227,8 +2161,9 @@ views:
                             ha-card {
                               border-radius: 16px;
                               box-shadow: 0px 0px 2px 1px rgba(230,230,0,0.35);
-                              background: rgba(6, 6, 6,0.85);
-                              backdrop-filter: blur(9.1px);
+                              background: rgba(15, 10, 10, 0.75);
+                              backdrop-filter: blur(11.6px);
+                              -webkit-backdrop-filter: blur(11.6px);
                               border: solid 1px gold;
                             }
                         entity: sensor.predators
@@ -2244,12 +2179,14 @@ views:
                           border-radius: 18px;
                           padding: 8px;
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
                         }
                         :host {
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
                         }
                     mode: vertical
                     cards:
@@ -2264,8 +2201,9 @@ views:
                             ha-card {
                               border-radius: 16px;
                               box-shadow: 0px 0px 2px 1px rgba(230,230,0,0.35);
-                              background: rgba(6, 6, 6,0.85);
-                              backdrop-filter: blur(9.1px);
+                              background: rgba(15, 10, 10, 0.75);
+                              backdrop-filter: blur(11.6px);
+                              -webkit-backdrop-filter: blur(11.6px);
                               border: solid 1px gold;
                             }
                         entity: sensor.saints
@@ -2282,8 +2220,9 @@ views:
                             ha-card {
                               border-radius: 16px;
                               box-shadow: 0px 0px 2px 1px rgba(255,0,0,0.35);
-                              background: rgba(6, 6, 6,0.9);
-                              backdrop-filter: blur(9.1px);
+                              background: rgba(15, 10, 10, 0.75);
+                              backdrop-filter: blur(11.6px);
+                              -webkit-backdrop-filter: blur(11.6px);
                               border: solid 1px red;
                             }
                         entity: sensor.atlanta_braves
@@ -2299,14 +2238,14 @@ views:
                     ha-card {
                       border-radius: 12px;
                       box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                      background: rgba(15, 10, 10, 0.85);
-                      --paper-item-icon-color: var(--accent-color);
-                      backdrop-filter: blur(9.1px);
-                      -webkit-backdrop-filter: blur(9.1px);
+                      background: rgba(15, 10, 10, 0.75);
+                      --state-icon-color: var(--accent-color);
+                      backdrop-filter: blur(11.6px);
+                      -webkit-backdrop-filter: blur(11.6px);
                       height: 880px;
                     }
                     :host {
-                      --paper-item-icon-color: var(--accent-color);
+                      --state-icon-color: var(--accent-color);
                     }
                 mode: vertical
                 cards:
@@ -2344,14 +2283,14 @@ views:
                     ha-card {
                       border-radius: 12px;
                       box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                      background: rgba(15, 10, 10, 0.85);
-                      --paper-item-icon-color: white;
-                      backdrop-filter: blur(9.1px);
-                      -webkit-backdrop-filter: blur(9.1px);
+                      background: rgba(15, 10, 10, 0.75);
+                      --state-icon-color: white;
+                      backdrop-filter: blur(11.6px);
+                      -webkit-backdrop-filter: blur(11.6px);
                       height: 880px;
                     }
                     :host {
-                      --paper-item-icon-color: white;
+                      --state-icon-color: white;
                     }
                 mode: vertical
                 cards:
@@ -2402,7 +2341,8 @@ views:
                     ha-card {
                       box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
                       background: black;
-                      backdrop-filter: blur(9.1px);
+                      backdrop-filter: blur(11.6px);
+                      -webkit-backdrop-filter: blur(11.6px);
                       height: 880px;
                 mode: vertical
                 cards:
@@ -2442,13 +2382,14 @@ views:
                     ha-card {
                       border-radius: 12px;
                       box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                      background: rgba(15, 10, 10, 0.85);
-                      backdrop-filter: blur(9.1px);
-                      --paper-item-icon-color: var(--accent-color);
+                      background: rgba(15, 10, 10, 0.75);
+                      --state-icon-color: var(--accent-color);
+                      backdrop-filter: blur(11.6px);
+                      -webkit-backdrop-filter: blur(11.6px);
                       height: 860px;
                     }
                     :host {
-                      --paper-item-icon-color: var(--accent-color);
+                      --state-icon-color: var(--accent-color);
                     }
                 mode: vertical
                 cards:
@@ -2664,6 +2605,7 @@ views:
                           --ha-card-background: rgba(0, 0, 0, 0);
                           box-shadow: 0px;
                         }
+                    mode: vertical
                     cards:
                       - type: custom:mushroom-template-card
                         primary: Bedroom
@@ -2768,7 +2710,8 @@ views:
                               --padding-bottom: 15px;
                               box-shadow: 0px 0px 2px 1px var(--accent-color);
                               background: rgba(0, 0, 0,0.60);
-                              backdrop-filter: blur(9.1px);
+                              backdrop-filter: blur(11.6px);
+                              -webkit-backdrop-filter: blur(11.6px);
                               --ha-card-border-width: 0px;
                             }
                         card:
@@ -2797,7 +2740,6 @@ views:
                                   }
                               image: >-
                                 https://s.w-x.co/staticmaps/wu/wu/wxtype1200_cur/usmsy/animate.png
-                              #                              theme: Metro Green
                               tap_action:
                                 action: none
               - type: custom:stack-in-card
@@ -2812,6 +2754,7 @@ views:
                     :host {
                       box-shadow: 0px;
                     }
+                mode: vertical
                 cards:
                   - type: vertical-stack
                     cards:
@@ -2863,7 +2806,7 @@ views:
                         ha-card {
                           padding: 7px 0px 5px 28px !important;
                           height: 58px !important;
-                          --chip-background: rgba(15, 10, 10, 0.85);
+                          --chip-background: rgba(15, 10, 10, 0.75);
                           --chip-box-shadow: none;
                           --chip-border-radius: 10px;
                           --chip-height: 42px;
@@ -2871,22 +2814,24 @@ views:
                           border-radius: 16px;
                           border: solid 2px rgba(0, 0, 0, 0.0) !important;
                           box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.0);
-                          background: rgba(15, 10, 10, 0.85);
-                          --paper-item-icon-color: var(--accent-color);
+                          background: rgba(15, 10, 10, 0.75);
+                          --state-icon-color: var(--accent-color);
                         }
                         :host {
-                          --paper-item-icon-color: var(--accent-color);
+                          --state-icon-color: var(--accent-color);
                         }
               - type: vertical-stack
                 cards:
-                  - type: custom:vertical-stack-in-card
+                  - type: custom:stack-in-card
                     card_mod:
                       style: |
                         ha-card {
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          --ha-card-background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
                         }
+                    mode: vertical
                     cards:
                       - show_current: false
                         show_forecast: true
@@ -3002,35 +2947,306 @@ views:
                 columns: 2
                 type: grid
                 cards:
-                  - type: vertical-stack
+                  - type: custom:stack-in-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
+                        }
+                    mode: vertical
                     cards:
-                      - type: custom:vertical-stack-in-card
+                      - type: custom:mushroom-person-card
                         card_mod:
                           style: |
                             ha-card {
                               box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                              --ha-card-background: rgba(15, 10, 10, 0.85);
-                              backdrop-filter: blur(9.1px);
+                              background-color: rgba(0, 0, 0, 0);
                             }
-                        cards:
-                          - type: custom:mushroom-person-card
-                            card_mod:
-                              style: |
-                                ha-card {
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0, 0);
-                                  backdrop-filter: blur(9.1px);
-                                }
-                            entity: person.darren
-                            use_entity_picture: true
-                            hide_name: true
-                            layout: vertical
+                        entity: person.darren
+                        use_entity_picture: true
+                        hide_name: true
+                        layout: vertical
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Darren
+                              size: fullscreen
+                              content:
+                                type: custom:mod-card
+                                card_mod:
+                                  style: |
+                                    ha-card {
+                                      --padding-right: 15px;
+                                      --padding-left: 15px;
+                                      --padding-bottom: 15px;
+                                      box-shadow: 0px 0px 2px 1px var(--accent-color);
+                                      background: rgba(0, 0, 0, 0.0);
+                                      backdrop-filter: blur(11.6px);
+                                      -webkit-backdrop-filter: blur(11.6px);
+                                      --ha-card-border-width: 0px;
+                                    }
+                                    :host{
+                                      --ha-dialog-border-radius: 16px;
+                                    }
+                                card:
+                                  type: custom:vertical-stack-in-card
+                                  cards:
+                                    - type: custom:mushroom-entity-card
+                                      entity: sensor.pixel_8_pro_geocoded_location
+                                      secondary_info: last-updated
+                                      primary_info: state
+                                      icon: mdi:map-marker
+                                      icon_color: yellow
+                                    - type: custom:mushroom-entity-card
+                                      entity: sensor.pixel_8_pro_detected_activity_formatted
+                                      secondary_info: last-updated
+                                      primary_info: state
+                                      tap_action:
+                                        action: call-service
+                                        service: notify.mobile_app_pixel_8_pro
+                                        data:
+                                          message: request_location_update
+                                    - type: map
+                                      entities:
+                                        - entity: person.darren
+                                        - entity: person.donna
+                                      dark_mode: false
+                                      hours_to_show: 12
+                                      auto_fit: true
+                                      default_zoom: 16
+                      - type: custom:mushroom-chips-card
+                        card_mod:
+                          style: |
+                            ha-card {
+                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                              background: transparent !important;
+                            }
+                        chips:
+                          - type: template
+                            icon_color: |2-
+                                        {% set state=states('device_tracker.94_45_60_5f_c7_00') %}
+                                        {% if state=='home' %}
+                                        green
+                                        {% elif state=='away' %}
+                                        DimGray
+                                        {% endif %}
+                            entity: device_tracker.94_45_60_5f_c7_00
+                            icon: mdi:wifi
+                            tap_action:
+                              action: more-info
+                          - type: template
+                            icon_color: |2-
+                                        {% set state=states('sensor.pixel_8_pro_battery_state') %}
+                                        {% if state=='charging' %}
+                                        green
+                                        {% elif state=='discharging' %}
+                                        DimGray
+                                        {% endif %}
+                            entity: sensor.pixel_8_pro_battery_state
+                            icon: mdi:power-plug
+                            tap_action:
+                              action: more-info
+                          - type: template
+                            entity: sensor.pixel_8_pro_battery_level
+                            icon: |2
+                                        {% set bl = states('sensor.pixel_8_pro_battery_level') | int %}
+                                        {% if bl < 10 %} mdi:battery-outline
+                                        {% elif bl < 20 %} mdi:battery-10
+                                        {% elif bl < 30 %} mdi:battery-20
+                                        {% elif bl < 40 %} mdi:battery-30
+                                        {% elif bl < 50 %} mdi:battery-40
+                                        {% elif bl < 60 %} mdi:battery-50
+                                        {% elif bl < 70 %} mdi:battery-60
+                                        {% elif bl < 80 %} mdi:battery-70
+                                        {% elif bl < 90 %} mdi:battery-80
+                                        {% elif bl < 100 %} mdi:battery-90
+                                        {% elif bl == 100 %} mdi:battery
+                                        {% else %} mdi:battery-unknown
+                                        {% endif %}
+                            icon_color: |2-
+                                        {% set bl = states('sensor.pixel_8_pro_battery_level') | int %}
+                                        {% if bl < 10 %} red
+                                        {% elif bl < 20 %} red
+                                        {% elif bl < 30 %} red
+                                        {% elif bl < 40 %} yellow
+                                        {% elif bl < 50 %} orange
+                                        {% elif bl < 60 %} green
+                                        {% elif bl < 70 %} green
+                                        {% elif bl < 80 %} green
+                                        {% elif bl < 90 %} green
+                                        {% elif bl < 100 %} green
+                                        {% elif bl == 100 %} green
+                                        {% else %} grey
+                                        {% endif %}
                             tap_action:
                               action: fire-dom-event
                               browser_mod:
                                 service: browser_mod.popup
                                 data:
-                                  title: Darren
+                                  title: Darren's Phone
+                                  size: fullscreen
+                                  content:
+                                    type: custom:mod-card
+                                    card_mod:
+                                      style: |
+                                        ha-card {
+                                          padding: 5px;
+                                          border: solid 2px var(--accent-color-light);
+                                          --mdc-dialog-box-shadow: var(--accent-color);
+                                          background: rgba(15, 10, 10, 0.75);
+                                          backdrop-filter: blur(11.6px);
+                                          -webkit-backdrop-filter: blur(11.6px);
+                                          height: 600px;
+                                        }
+                                    card:
+                                      type: gauge
+                                      entity: sensor.pixel_8_pro_battery_level
+                                      needle: true
+                                      severity:
+                                        green: 70
+                                        yellow: 40
+                                        red: 0
+                        alignment: center
+                  - type: custom:stack-in-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
+                        }
+                    mode: vertical
+                    cards:
+                      - type: custom:mushroom-person-card
+                        card_mod:
+                          style: |
+                            ha-card {
+                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                              background-color: rgba(0, 0, 0, 0);
+                            }
+                        entity: person.donna
+                        use_entity_picture: true
+                        hide_name: true
+                        layout: vertical
+                        tap_action:
+                          action: fire-dom-event
+                          browser_mod:
+                            service: browser_mod.popup
+                            data:
+                              title: Donna
+                              size: fullscreen
+                              content:
+                                type: custom:mod-card
+                                card_mod:
+                                  style: |
+                                    ha-card {
+                                      --padding-right: 15px;
+                                      --padding-left: 15px;
+                                      --padding-bottom: 15px;
+                                      --box-shadow: 2px 2px 2px 2px var(--accent-color-light);
+                                      --ha-card-border-width: 0px;
+                                    }
+                                card:
+                                  type: vertical-stack
+                                  cards:
+                                    - type: custom:mushroom-entity-card
+                                      entity: sensor.pixel_5_geocoded_location
+                                      secondary_info: last-updated
+                                      primary_info: state
+                                      icon: mdi:map-marker
+                                      icon_color: yellow
+                                    - type: custom:mushroom-entity-card
+                                      entity: sensor.pixel_5_detected_activity_formatted
+                                      secondary_info: last-updated
+                                      primary_info: state
+                                      tap_action:
+                                        action: call-service
+                                        service: notify.mobile_app_pixel_5
+                                        data:
+                                          message: request_location_update
+                                    - type: map
+                                      entities:
+                                        - entity: person.donna
+                                      dark_mode: false
+                                      hours_to_show: 12
+                                      auto_fit: true
+                                      default_zoom: 16
+                      - type: custom:mushroom-chips-card
+                        card_mod:
+                          style: |
+                            ha-card {
+                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                              background: transparent !important;
+                            }
+                        chips:
+                          - type: template
+                            icon_color: |2-
+                                        {% set state=states('device_tracker.f8_1a_2b_34_16_cb') %}
+                                        {% if state=='home' %}
+                                        green
+                                        {% elif state=='away' %}
+                                        DimGray
+                                        {% endif %}
+                            entity: device_tracker.f8_1a_2b_34_16_cb
+                            icon: mdi:wifi
+                            tap_action:
+                              action: more-info
+                          - type: template
+                            icon_color: |2-
+                                        {% set state=states('sensor.pixel_5_battery_state') %}
+                                        {% if state=='charging' %}
+                                        green
+                                        {% elif state=='discharging' %}
+                                        DimGray
+                                        {% endif %}
+                            entity: sensor.pixel_5_battery_state
+                            icon: mdi:power-plug
+                            tap_action:
+                              action: more-info
+                          - type: template
+                            entity: sensor.pixel_5_battery_level
+                            icon: |2
+                                        {% set bl = states('sensor.pixel_5_battery_level') | int %}
+                                        {% if bl < 10 %} mdi:battery-outline
+                                        {% elif bl < 20 %} mdi:battery-10
+                                        {% elif bl < 30 %} mdi:battery-20
+                                        {% elif bl < 40 %} mdi:battery-30
+                                        {% elif bl < 50 %} mdi:battery-40
+                                        {% elif bl < 60 %} mdi:battery-50
+                                        {% elif bl < 70 %} mdi:battery-60
+                                        {% elif bl < 80 %} mdi:battery-70
+                                        {% elif bl < 90 %} mdi:battery-80
+                                        {% elif bl < 100 %} mdi:battery-90
+                                        {% elif bl == 100 %} mdi:battery
+                                        {% else %} mdi:battery-unknown
+                                        {% endif %}
+                            icon_color: |2-
+                                        {% set bl = states('sensor.pixel_5_battery_level') | int %}
+                                        {% if bl < 10 %} red
+                                        {% elif bl < 20 %} red
+                                        {% elif bl < 30 %} red
+                                        {% elif bl < 40 %} yellow
+                                        {% elif bl < 50 %} orange
+                                        {% elif bl < 60 %} green
+                                        {% elif bl < 70 %} green
+                                        {% elif bl < 80 %} green
+                                        {% elif bl < 90 %} green
+                                        {% elif bl < 100 %} green
+                                        {% elif bl == 100 %} green
+                                        {% else %} grey
+                                        {% endif %}
+                            tap_action:
+                              action: fire-dom-event
+                              browser_mod:
+                                service: browser_mod.popup
+                                data:
+                                  title: Donna's Phone
                                   size: fullscreen
                                   content:
                                     type: custom:mod-card
@@ -3040,286 +3256,23 @@ views:
                                           --padding-right: 15px;
                                           --padding-left: 15px;
                                           --padding-bottom: 15px;
+                                          border: solid 2px var(--accent-color-light);
                                           box-shadow: 0px 0px 2px 1px var(--accent-color);
-                                          background: rgba(0, 0, 0, 0.0);
-                                          backdrop-filter: blur(9.1px);
-                                          --ha-card-border-width: 0px;
-                                        }
-                                        :host{
-                                          --ha-dialog-border-radius: 16px;
-                                        }
-                                    card:
-                                      type: custom:vertical-stack-in-card
-                                      cards:
-                                        - type: custom:mushroom-entity-card
-                                          entity: sensor.pixel_8_pro_geocoded_location
-                                          secondary_info: last-updated
-                                          primary_info: state
-                                          icon: mdi:map-marker
-                                          icon_color: yellow
-                                        - type: custom:mushroom-entity-card
-                                          entity: sensor.pixel_8_pro_detected_activity_formatted
-                                          secondary_info: last-updated
-                                          primary_info: state
-                                          tap_action:
-                                            action: call-service
-                                            service: notify.mobile_app_pixel_8_pro
-                                            data:
-                                              message: request_location_update
-                                        - type: map
-                                          entities:
-                                            - entity: person.darren
-                                            - entity: person.donna
-                                          dark_mode: false
-                                          hours_to_show: 12
-                                          auto_fit: true
-                                          default_zoom: 16
-                          - type: custom:mushroom-chips-card
-                            chips:
-                              - type: template
-                                icon_color: |2-
-                                            {% set state=states('device_tracker.94_45_60_5f_c7_00') %}
-                                            {% if state=='home' %}
-                                            green
-                                            {% elif state=='away' %}
-                                            DimGray
-                                            {% endif %}
-                                entity: device_tracker.94_45_60_5f_c7_00
-                                icon: mdi:wifi
-                                tap_action:
-                                  action: more-info
-                              - type: template
-                                icon_color: |2-
-                                            {% set state=states('sensor.pixel_8_pro_battery_state') %}
-                                            {% if state=='charging' %}
-                                            green
-                                            {% elif state=='discharging' %}
-                                            DimGray
-                                            {% endif %}
-                                entity: sensor.pixel_8_pro_battery_state
-                                icon: mdi:power-plug
-                                tap_action:
-                                  action: more-info
-                              - type: template
-                                entity: sensor.pixel_8_pro_battery_level
-                                icon: |2
-                                            {% set bl = states('sensor.pixel_8_pro_battery_level') | int %}
-                                            {% if bl < 10 %} mdi:battery-outline
-                                            {% elif bl < 20 %} mdi:battery-10
-                                            {% elif bl < 30 %} mdi:battery-20
-                                            {% elif bl < 40 %} mdi:battery-30
-                                            {% elif bl < 50 %} mdi:battery-40
-                                            {% elif bl < 60 %} mdi:battery-50
-                                            {% elif bl < 70 %} mdi:battery-60
-                                            {% elif bl < 80 %} mdi:battery-70
-                                            {% elif bl < 90 %} mdi:battery-80
-                                            {% elif bl < 100 %} mdi:battery-90
-                                            {% elif bl == 100 %} mdi:battery
-                                            {% else %} mdi:battery-unknown
-                                            {% endif %}
-                                icon_color: |2-
-                                            {% set bl = states('sensor.pixel_8_pro_battery_level') | int %}
-                                            {% if bl < 10 %} red
-                                            {% elif bl < 20 %} red
-                                            {% elif bl < 30 %} red
-                                            {% elif bl < 40 %} yellow
-                                            {% elif bl < 50 %} orange
-                                            {% elif bl < 60 %} green
-                                            {% elif bl < 70 %} green
-                                            {% elif bl < 80 %} green
-                                            {% elif bl < 90 %} green
-                                            {% elif bl < 100 %} green
-                                            {% elif bl == 100 %} green
-                                            {% else %} grey
-                                            {% endif %}
-                                tap_action:
-                                  action: fire-dom-event
-                                  browser_mod:
-                                    service: browser_mod.popup
-                                    data:
-                                      title: Darren's Phone
-                                      size: fullscreen
-                                      content:
-                                        type: custom:mod-card
-                                        card_mod:
-                                          style: |
-                                            ha-card {
-                                              padding: 5px;
-                                              border: solid 2px var(--accent-color-light);
-                                              --mdc-dialog-box-shadow: var(--accent-color);
-                                              background: rgba(15, 10, 10, 0.85);
-                                              backdrop-filter: blur(9.1px);
-                                              height: 600px;
-                                            }
-                                        card:
-                                          type: gauge
-                                          entity: sensor.pixel_8_pro_battery_level
-                                          needle: true
-                                          severity:
-                                            green: 70
-                                            yellow: 40
-                                            red: 0
-                            alignment: center
-                  - type: vertical-stack
-                    cards:
-                      - type: custom:vertical-stack-in-card
-                        card_mod:
-                          style: |
-                            ha-card {
-                              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                              --ha-card-background: rgba(15, 10, 10, 0.85);
-                              backdrop-filter: blur(9.1px);
-                            }
-                        cards:
-                          - type: custom:mushroom-person-card
-                            card_mod:
-                              style: |
-                                ha-card {
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background: rgba(0, 0, 0, 0);
-                                }
-                            entity: person.donna
-                            use_entity_picture: true
-                            hide_name: true
-                            layout: vertical
-                            tap_action:
-                              action: fire-dom-event
-                              browser_mod:
-                                service: browser_mod.popup
-                                data:
-                                  title: Donna
-                                  size: fullscreen
-                                  content:
-                                    type: custom:mod-card
-                                    card_mod:
-                                      style: |
-                                        ha-card {
-                                          --padding-right: 15px;
-                                          --padding-left: 15px;
-                                          --padding-bottom: 15px;
-                                          --box-shadow: 2px 2px 2px 2px var(--accent-color-light);
-                                          --ha-card-border-width: 0px;
+                                          background: rgba(15, 10, 10, 0.75);
+                                          backdrop-filter: blur(11.6px);
+                                          -webkit-backdrop-filter: blur(11.6px);
+                                          height: 600px;
+                                          box-sizing: border-box;
                                         }
                                     card:
-                                      type: vertical-stack
-                                      cards:
-                                        - type: custom:mushroom-entity-card
-                                          entity: sensor.pixel_5_geocoded_location
-                                          secondary_info: last-updated
-                                          primary_info: state
-                                          icon: mdi:map-marker
-                                          icon_color: yellow
-                                        - type: custom:mushroom-entity-card
-                                          entity: sensor.pixel_5_detected_activity_formatted
-                                          secondary_info: last-updated
-                                          primary_info: state
-                                          tap_action:
-                                            action: call-service
-                                            service: notify.mobile_app_pixel_5
-                                            data:
-                                              message: request_location_update
-                                        - type: map
-                                          entities:
-                                            - entity: person.donna
-                                          dark_mode: false
-                                          hours_to_show: 12
-                                          auto_fit: true
-                                          default_zoom: 16
-                          - type: custom:mushroom-chips-card
-                            card_mod:
-                              style: |
-                                ha-card {
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                  background-color: rgba(19, 19, 19, 0.9) !important;
-                                }
-                            chips:
-                              - type: template
-                                icon_color: |2-
-                                            {% set state=states('device_tracker.f8_1a_2b_34_16_cb') %}
-                                            {% if state=='home' %}
-                                            green
-                                            {% elif state=='away' %}
-                                            DimGray
-                                            {% endif %}
-                                entity: device_tracker.f8_1a_2b_34_16_cb
-                                icon: mdi:wifi
-                                tap_action:
-                                  action: more-info
-                              - type: template
-                                icon_color: |2-
-                                            {% set state=states('sensor.pixel_5_battery_state') %}
-                                            {% if state=='charging' %}
-                                            green
-                                            {% elif state=='discharging' %}
-                                            DimGray
-                                            {% endif %}
-                                entity: sensor.pixel_5_battery_state
-                                icon: mdi:power-plug
-                                tap_action:
-                                  action: more-info
-                              - type: template
-                                entity: sensor.pixel_5_battery_level
-                                icon: |2
-                                            {% set bl = states('sensor.pixel_5_battery_level') | int %}
-                                            {% if bl < 10 %} mdi:battery-outline
-                                            {% elif bl < 20 %} mdi:battery-10
-                                            {% elif bl < 30 %} mdi:battery-20
-                                            {% elif bl < 40 %} mdi:battery-30
-                                            {% elif bl < 50 %} mdi:battery-40
-                                            {% elif bl < 60 %} mdi:battery-50
-                                            {% elif bl < 70 %} mdi:battery-60
-                                            {% elif bl < 80 %} mdi:battery-70
-                                            {% elif bl < 90 %} mdi:battery-80
-                                            {% elif bl < 100 %} mdi:battery-90
-                                            {% elif bl == 100 %} mdi:battery
-                                            {% else %} mdi:battery-unknown
-                                            {% endif %}
-                                icon_color: |2-
-                                            {% set bl = states('sensor.pixel_5_battery_level') | int %}
-                                            {% if bl < 10 %} red
-                                            {% elif bl < 20 %} red
-                                            {% elif bl < 30 %} red
-                                            {% elif bl < 40 %} yellow
-                                            {% elif bl < 50 %} orange
-                                            {% elif bl < 60 %} green
-                                            {% elif bl < 70 %} green
-                                            {% elif bl < 80 %} green
-                                            {% elif bl < 90 %} green
-                                            {% elif bl < 100 %} green
-                                            {% elif bl == 100 %} green
-                                            {% else %} grey
-                                            {% endif %}
-                                tap_action:
-                                  action: fire-dom-event
-                                  browser_mod:
-                                    service: browser_mod.popup
-                                    data:
-                                      title: Donna's Phone
-                                      size: fullscreen
-                                      content:
-                                        type: custom:mod-card
-                                        card_mod:
-                                          style: |
-                                            ha-card {
-                                              --padding-right: 15px;
-                                              --padding-left: 15px;
-                                              --padding-bottom: 15px;
-                                              border: solid 2px var(--accent-color-light);
-                                              box-shadow: 0px 0px 2px 1px var(--accent-color);
-                                              background: rgba(15, 10, 10, 0.85);
-                                              backdrop-filter: blur(9.1px);
-                                              height: 600px;
-                                              box-sizing: border-box;
-                                            }
-                                        card:
-                                          type: gauge
-                                          entity: sensor.pixel_5_battery_level
-                                          needle: true
-                                          severity:
-                                            green: 70
-                                            yellow: 40
-                                            red: 0
-                            alignment: center
+                                      type: gauge
+                                      entity: sensor.pixel_5_battery_level
+                                      needle: true
+                                      severity:
+                                        green: 70
+                                        yellow: 40
+                                        red: 0
+                        alignment: center
               - type: horizontal-stack
                 cards:
                   - type: custom:mushroom-template-card
@@ -3353,8 +3306,9 @@ views:
                         }
                         ha-card {
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
                         }
                         @keyframes door {
                           0% { clip-path: inset(0 0 0 0); }
@@ -3391,8 +3345,9 @@ views:
                                 style: |
                                   ha-card {
                                     box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                                    background: rgba(15, 10, 10, 0.85);
-                                    backdrop-filter: blur(9.1px);
+                                    background: rgba(15, 10, 10, 0.75);
+                                    backdrop-filter: blur(11.6px);
+                                    -webkit-backdrop-filter: blur(11.6px);
                                   }
                               cards:
                                 - type: custom:mushroom-title-card
@@ -3401,7 +3356,8 @@ views:
                                       ha-card {
                                         box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
                                         background: rgba(19, 19, 19, 0.9) !important;
-                                        backdrop-filter: blur(9.1px);
+                                        backdrop-filter: blur(11.6px);
+                                        -webkit-backdrop-filter: blur(11.6px);
                                       }
                                   title: Garage
                                   alignment: center
@@ -3430,7 +3386,8 @@ views:
                                     style: |
                                       ha-card {
                                         background: rgba(0, 0, 0, 0.65);
-                                        backdrop-filter: blur(9.1px);
+                                        backdrop-filter: blur(11.6px);
+                                        -webkit-backdrop-filter: blur(11.6px);
                                       }
                                   entity: cover.garage_door
                                   layout: vertical
@@ -3443,7 +3400,8 @@ views:
                                       ha-card {
                                         box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
                                         background: rgba(0, 0, 0, 0.65);
-                                        backdrop-filter: blur(9.1px);
+                                        backdrop-filter: blur(11.6px);
+                                        -webkit-backdrop-filter: blur(11.6px);
                                       }
                                   entity: light.garage_lights
                                   icon: mdi:light-recessed
@@ -3466,8 +3424,9 @@ views:
                         }
                         ha-card {
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
                         }
                     fill_container: true
                     hold_action:
@@ -3481,35 +3440,27 @@ views:
                           size: fullscreen
                           content:
                             type: custom:auto-entities
-                            card:
-                              type: entities
-                              card_mod:
-                                style: |
-                                  ha-card {
-                                    background: rgba(0, 0, 0, 0.7);
-                                    backdrop-filter: blur(9.1px);
-                                    height: 730px;
-                                  }
+                            card_mod:
+                              style: |
+                                ha-card {
+                                  background: rgba(15, 10, 10, 0.75);
+                                  backdrop-filter: blur(11.6px);
+                                  -webkit-backdrop-filter: blur(11.6px);
+                                  height: 730px;
+                                }
                             filter:
                               include:
                                 - domain: light
                                   state: "on"
                                   options:
-                                    layout: vertical
+                                    type: custom:entity-progress-card
+                                    entity: this.entity_id
+                                    attribute: brightness
                                     tap_action:
                                       action: toggle
-                                    hold_action:
-                                      action: more-info
-                                    secondary_info: last-changed
-                                - domain: fan
-                                  state: "on"
-                                  options:
-                                    layout: vertical
-                                    tap_action:
+                                    bar_size: medium
+                                    icon_tap_action:
                                       action: toggle
-                                    hold_action:
-                                      action: more-info
-                                    secondary_info: last-changed
                               exclude:
                                 - entity_id: switch.*switch*
                                 - entity_id: switch.*light*
@@ -3520,11 +3471,8 @@ views:
                                 - entity_id: light.pixel_fully
                                 - entity_id: light.officetab_lan
                                 - entity_id: light.officepc
-                                - entity_id: light.alarm_panel
                                 - entity_id: light.right_side_cabinets
                                 - entity_id: light.cabinet_left
-                                - entity_id: light.entry_hall_light_switch
-                                - entity_id: light.entry_hall_light
                                 - entity_id: switch.*cam*
                                 - entity_id: light.*cam*
                                 - entity_id: light.*screen*
@@ -3539,6 +3487,13 @@ views:
                                 - entity_id: light.*fan*
                                 - entity_id: light.*kiosk*
                                 - entity_id: light.*night*
+                                - entity_id: light.patio_led_lights
+                            card:
+                              square: false
+                              type: grid
+                              columns: 1
+                            show_empty: true
+                            card_param: cards
                             sort:
                               method: friendly_name
               - type: horizontal-stack
@@ -3546,14 +3501,15 @@ views:
                   style: |
                     ha-card {
                       box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                      background: rgba(15, 10, 10, 0.85);
-                      backdrop-filter: blur(9.1px);
+                      background: rgba(15, 10, 10, 0.75);
+                      backdrop-filter: blur(11.6px);
+                      -webkit-backdrop-filter: blur(11.6px);
                     }
                 cards:
                   - show_name: true
                     show_icon: false
                     name: Morning
-                    icon_height: 18px
+                    icon_height: 32px
                     type: button
                     tap_action:
                       action: call-service
@@ -3564,13 +3520,13 @@ views:
                       style: |
                         ha-card {
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
-                          --paper-item-icon-color: var(--accent-color);
-                          height: 40px !important;
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
+                          --state-icon-color: var(--accent-color);
                         }
                         :host {
-                          --paper-item-icon-color: var(--accent-color);
+                          --state-icon-color: var(--accent-color);
                         }
                   - show_name: true
                     show_icon: false
@@ -3586,24 +3542,26 @@ views:
                       style: |
                         ha-card {
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
-                          --paper-item-icon-color: var(--accent-color);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
+                          --state-icon-color: var(--accent-color);
                         }
                         :host {
-                          --paper-item-icon-color: var(--accent-color);
+                          --state-icon-color: var(--accent-color);
                         }
                   - type: button
                     card_mod:
                       style: |
                         ha-card {
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
-                          --paper-item-icon-color: var(--accent-color);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
+                          --state-icon-color: var(--accent-color);
                         }
                         :host {
-                          --paper-item-icon-color: var(--accent-color);
+                          --state-icon-color: var(--accent-color);
                         }
                     entity: input_boolean.disable_auto_bathroom
                     name: Stop
@@ -3628,12 +3586,13 @@ views:
                       style: |
                         ha-card {
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                          background: rgba(15, 10, 10, 0.85);
-                          backdrop-filter: blur(9.1px);
-                          --paper-item-icon-color: var(--accent-color);
+                          background: rgba(15, 10, 10, 0.75);
+                          backdrop-filter: blur(11.6px);
+                          -webkit-backdrop-filter: blur(11.6px);
+                          --state-icon-color: var(--accent-color);
                         }
                         :host {
-                          --paper-item-icon-color: var(--accent-color);
+                          --state-icon-color: var(--accent-color);
                         }
               - type: custom:stack-in-card
                 mode: vertical
@@ -3641,8 +3600,9 @@ views:
                   style: |
                     ha-card {
                       box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
-                      background: rgba(15, 10, 10, 0.85);
-                      backdrop-filter: blur(9.1px);
+                      background: rgba(15, 10, 10, 0.75);
+                      backdrop-filter: blur(11.6px);
+                      -webkit-backdrop-filter: blur(11.6px);
                     }
                 cards:
                   - type: grid
@@ -3832,8 +3792,9 @@ views:
             background: rgb(26,26,26);
           }
           .navbar-popup-backdrop {
-            background: rgba(76,76,76, 0.9);
-            backdrop-filter: blur(9.1px);
+            background: rgba(76,76,76, 0.5);
+            backdrop-filter: blur(11.6px);
+            -webkit-backdrop-filter: blur(11.6px);
           }
         desktop:
           position: bottom
@@ -3854,19 +3815,6 @@ views:
               data:
                 cycle: true
             popup:
-              - icon: si:qwant
-                label: Quantum Web
-                tap_action:
-                  action: fire-dom-event
-                  browser_mod:
-                    service: browser_mod.popup
-                    data:
-                      content:
-                        type: iframe
-                        url: https://quantumhometechnologies.com/
-                        aspect_ratio: 200%
-                      title: Quantum Home Technologies
-                      size: fullscreen
               - icon: si:googlesearchconsole
                 label: Settings
                 tap_action:
@@ -3875,6 +3823,10 @@ views:
                   service_data:
                     entity_id: input_select.mobilelayout
                     option: mobile9
+              - icon: mdi:dots-horizontal
+                label: Side Menu
+                tap_action:
+                  action: toggle-menu
               - icon: mdi:hammer
                 label: Dev Tools
                 url: /developer-tools/yaml
@@ -3901,6 +3853,19 @@ views:
                     entity_id:
                       - input_boolean.hide_header
                       - input_boolean.hide_sidebar
+              - icon: si:qwant
+                label: Quantum Web
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    service: browser_mod.popup
+                    data:
+                      content:
+                        type: iframe
+                        url: https://quantumhometechnologies.com/
+                        aspect_ratio: 200%
+                      title: Quantum Home Technologies
+                      size: fullscreen
               - icon: mdi:power
                 label: Restart
                 tap_action:
@@ -3914,8 +3879,9 @@ views:
                 [[[ states['update.home_assistant_core_update'].state === 'on'
                 ]]]
               color: var(--primary-color)
+
           #####
-          - icon: si:cloudways
+          - icon: mdi:thermometer-lines #si:cloudways
             label: Climate
             tap_action:
               action: open-popup
@@ -3982,7 +3948,8 @@ views:
                               box-sizing: border-box;
                               margin: 0;
                               height: 880px;
-                              backdrop-filter: blur(9.1px);
+                              backdrop-filter: blur(11.6px);
+                              -webkit-backdrop-filter: blur(11.6px);
                             }
                         cards:
                           - type: custom:button-card
@@ -4036,12 +4003,6 @@ views:
                                 entity: fan.den_fan
                                 tap_action:
                                   action: toggle
-                          #                                  service: remote.send_command
-                          #                                  target:
-                          #                                    entity_id: remote.universal_remote
-                          #                                  data:
-                          #                                    device: fan
-                          #                                    command: power
                           - type: custom:button-card
                             color_type: blank-card
                             styles:
@@ -4120,9 +4081,14 @@ views:
                                 - height: 30px
                           - type: horizontal-stack
                             cards:
-                              - show_name: true
+                              - show_name: true #- font-family: "Sofia Sans Extra Condensed"
                                 show_icon: true
                                 type: button
+                                card_mod:
+                                  style: |
+                                    ha-card {
+                                        font-family: "Sofia Sans Extra Condensed";
+                                    }
                                 tap_action:
                                   action: toggle
                                 entity: input_boolean.den_fan_cycles
@@ -4131,6 +4097,11 @@ views:
                               - show_name: true
                                 show_icon: true
                                 type: button
+                                card_mod:
+                                  style: |
+                                    ha-card {
+                                        font-family: "Sofia Sans Extra Condensed";
+                                    }
                                 tap_action:
                                   action: toggle
                                 entity: fan.den_fan
@@ -4139,6 +4110,11 @@ views:
                               - show_name: true
                                 show_icon: true
                                 type: button
+                                card_mod:
+                                  style: |
+                                    ha-card {
+                                        font-family: "Sofia Sans Extra Condensed";
+                                    }
                                 tap_action:
                                   action: toggle
                                 entity: input_boolean.guest_fan_cycles
@@ -4147,11 +4123,42 @@ views:
                               - show_name: true
                                 show_icon: true
                                 type: button
+                                card_mod:
+                                  style: |
+                                    ha-card {
+                                        font-family: "Sofia Sans Extra Condensed";
+                                    }
                                 tap_action:
                                   action: toggle
                                 entity: fan.guest_fan
                                 show_state: false
                                 name: Guest
+                              - show_name: true
+                                show_icon: true
+                                type: button
+                                card_mod:
+                                  style: |
+                                    ha-card {
+                                        font-family: "Sofia Sans Extra Condensed";
+                                    }
+                                tap_action:
+                                  action: toggle
+                                entity: input_boolean.office_fan_cycles
+                                show_state: false
+                                name: Cycle
+                              - show_name: true
+                                show_icon: true
+                                type: button
+                                card_mod:
+                                  style: |
+                                    ha-card {
+                                        font-family: "Sofia Sans Extra Condensed";
+                                    }
+                                tap_action:
+                                  action: toggle
+                                entity: fan.office_fan
+                                show_state: false
+                                name: Office
               - icon: mdi:thermostat
                 label: Thermostat
                 tap_action:
@@ -4168,7 +4175,7 @@ views:
                             color_type: blank-card
                             styles:
                               card:
-                                - height: 45px
+                                - height: 10px
                           - type: custom:stack-in-card
                             mode: vertical
                             card_mod:
@@ -4176,7 +4183,8 @@ views:
                                 ha-card {
                                   box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
                                   background: black;
-                                  backdrop-filter: blur(9.1px);
+                                  backdrop-filter: blur(11.6px);
+                                  -webkit-backdrop-filter: blur(11.6px);
                                 }
                             cards:
                               - type: grid
@@ -4284,6 +4292,32 @@ views:
                                 entity: input_button.hvac_30_fan_timer
                                 hide_state: true
                                 color: accent
+                          - type: custom:mushroom-template-card
+                            primary: "FAN {{ state_attr('climate.den', 'fan_mode' ) }}"
+                            entity: binary_sensor.hvac_fan
+                            layout: vertical
+                            tap_action:
+                              action: none
+                            icon_color: >
+                              {{ ((states(entity)) == 'off') | iif("grey","black")
+                              }}
+                            icon: >
+                              {{ ((states(entity)) == 'off') |
+                              iif("mdi:fan-off","mdi:fan") }}
+                            card_mod:
+                              style: |
+                                ha-state-icon {
+                                  --icon-symbol-size: 60px;
+                                }
+                                ha-card {
+                                  {% set entity = 'binary_sensor.hvac_fan' %}
+                                  background: 
+                                      {% if is_state (entity, 'off') %} rgba(10,10,10,0.55)
+                                      {% else %} var(--accent-color-light)
+                                      {% endif %};
+                                  text-transform: uppercase;
+                                  padding: 20px 0px 5px 0px;
+                                  }
           #####
           - icon: mdi:cctv
             icon_selected: mdi:cctv
