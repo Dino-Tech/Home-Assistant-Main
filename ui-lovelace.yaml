@@ -99,9 +99,6 @@ views:
                   --state-icon-color: var(--accent-color);
                   height: 890px;
                 }
-                :host {
-                  --state-icon-color: var(--accent-color);
-                }
 
             mode: vertical
             cards:
@@ -3302,7 +3299,7 @@ views:
                             animation: door 3s steps(1) infinite alternate;
                           {% else %}
 
-                          {% endif %} 
+                          {% endif %}
                         }
                         ha-card {
                           box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
@@ -3414,8 +3411,9 @@ views:
                     card_mod:
                       style: |
                         ha-state-icon {
-                          {% if states('group.lights') == 'on' %}
+                          {% if states('light.every_light') == 'on' %}
                             animation: illumination 2s infinite;
+                            color: yellow;
                           {% endif %}
                         }
                         @keyframes illumination {
@@ -3449,53 +3447,26 @@ views:
                                   height: 730px;
                                 }
                             filter:
-                              include:
-                                - domain: light
-                                  state: "on"
-                                  options:
-                                    type: custom:entity-progress-card
-                                    entity: this.entity_id
-                                    attribute: brightness
-                                    tap_action:
-                                      action: toggle
-                                    bar_size: medium
-                                    icon_tap_action:
-                                      action: toggle
-                              exclude:
-                                - entity_id: switch.*switch*
-                                - entity_id: switch.*light*
-                                - entity_id: switch.washer_plug
-                                - entity_id: switch.dryer_plug
-                                - entity_id: switch.garage_fridge_relay
-                                - entity_id: light.ac9b7f58_cfbfe785
-                                - entity_id: light.pixel_fully
-                                - entity_id: light.officetab_lan
-                                - entity_id: light.officepc
-                                - entity_id: light.right_side_cabinets
-                                - entity_id: light.cabinet_left
-                                - entity_id: switch.*cam*
-                                - entity_id: light.*cam*
-                                - entity_id: light.*screen*
-                                - entity_id: switch.*notification*
-                                - entity_id: switch.*speaker*
-                                - entity_id: switch.*volume*
-                                - entity_id: switch.*shuffle*
-                                - entity_id: switch.*nest*
-                                - entity_id: switch.*doorbell*
-                                - entity_id: light.*alarm*
-                                - entity_id: switch.*fan*
-                                - entity_id: light.*fan*
-                                - entity_id: light.*kiosk*
-                                - entity_id: light.*night*
-                                - entity_id: light.patio_led_lights
-                            card:
-                              square: false
-                              type: grid
-                              columns: 1
+                              template: |-
+                                {% for light in expand('light.every_light') if light.state == 'on' -%}
+                                  {{
+                                    {
+                                      'type': 'custom:mushroom-light-card',
+                                      'entity': light.entity_id,
+                                      'show_brightness_control': true,
+                                      'show_color_control': true,
+                                      'show_color_temp_control': true
+                                    }
+                                  }},
+                                {%- endfor %}
                             show_empty: true
                             card_param: cards
                             sort:
                               method: friendly_name
+                            card:
+                              type: grid
+                              columns: 1
+                              square: false
               - type: horizontal-stack
                 card_mod:
                   style: |
@@ -3823,10 +3794,6 @@ views:
                   service_data:
                     entity_id: input_select.mobilelayout
                     option: mobile9
-              - icon: mdi:dots-horizontal
-                label: Side Menu
-                tap_action:
-                  action: toggle-menu
               - icon: mdi:hammer
                 label: Dev Tools
                 url: /developer-tools/yaml
@@ -3885,6 +3852,8 @@ views:
             label: Climate
             tap_action:
               action: open-popup
+            hold_action:
+              action: toggle-menu
             popup:
               - icon: mdi:sun-thermometer
                 label: Weather
@@ -4081,7 +4050,7 @@ views:
                                 - height: 30px
                           - type: horizontal-stack
                             cards:
-                              - show_name: true #- font-family: "Sofia Sans Extra Condensed"
+                              - show_name: true
                                 show_icon: true
                                 type: button
                                 card_mod:
@@ -4181,7 +4150,7 @@ views:
                             card_mod:
                               style: |
                                 ha-card {
-                                  box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                                  box-shadow: 0px 0px 2px 1px rgba(3, 169, 244,0.3);
                                   background: black;
                                   backdrop-filter: blur(11.6px);
                                   -webkit-backdrop-filter: blur(11.6px);
@@ -4254,6 +4223,7 @@ views:
                                     icon_color: blue
                               - type: thermostat
                                 entity: climate.den
+                                theme: Blue-Nightz
                                 show_current_as_primary: false
                                 features:
                                   - style: icons
@@ -4278,23 +4248,10 @@ views:
                                 styles:
                                   card:
                                     - height: 5px
-                          - type: horizontal-stack
-                            cards:
-                              - type: tile
-                                features_position: bottom
-                                vertical: false
-                                entity: input_button.hvac_15_fan_timer
-                                hide_state: true
-                                color: accent
-                              - type: tile
-                                features_position: bottom
-                                vertical: false
-                                entity: input_button.hvac_30_fan_timer
-                                hide_state: true
-                                color: accent
                           - type: custom:mushroom-template-card
                             primary: "FAN {{ state_attr('climate.den', 'fan_mode' ) }}"
                             entity: binary_sensor.hvac_fan
+                            animation: spin
                             layout: vertical
                             tap_action:
                               action: none
@@ -4313,11 +4270,28 @@ views:
                                   {% set entity = 'binary_sensor.hvac_fan' %}
                                   background: 
                                       {% if is_state (entity, 'off') %} rgba(10,10,10,0.55)
-                                      {% else %} var(--accent-color-light)
+                                      {% else %} rgba(3, 169, 244,0.6)
                                       {% endif %};
                                   text-transform: uppercase;
                                   padding: 20px 0px 5px 0px;
+                                  box-shadow: 0px 0px 2px 1px rgba(3, 169, 244,0.3);
+                                  backdrop-filter: blur(11.6px);
+                                  -webkit-backdrop-filter: blur(11.6px);
                                   }
+                          - type: horizontal-stack
+                            cards:
+                              - type: tile
+                                features_position: bottom
+                                vertical: false
+                                entity: input_button.hvac_15_fan_timer
+                                hide_state: true
+                                color: blue
+                              - type: tile
+                                features_position: bottom
+                                vertical: false
+                                entity: input_button.hvac_30_fan_timer
+                                hide_state: true
+                                color: blue
           #####
           - icon: mdi:cctv
             icon_selected: mdi:cctv
