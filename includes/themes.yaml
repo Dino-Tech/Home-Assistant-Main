@@ -4,10 +4,12 @@
 # frontend:
 #  javascript_version: latest
 #  extra_html_url:
-#    - https://fonts.googleapis.com/css?family=Indie Flower|Permanent Marker|Righteous
+#    - https://fonts.googleapis.com/css?family=Indie Flower|Permanent Marker|Poetsen One
 #  themes:
 CardTheme:
   dialog-backdrop-filter: blur(2em) brightness(0.80)
+  app-header-background-color: transparent
+  app-header-text-color: var(--primary-text-color)
   ocean-color: "#27bdd6"
   red-color: "#b70000"
   white-color: "#F2F2F2"
@@ -35,6 +37,11 @@ CardTheme:
   sidebar-icon-color: "rgba(39 ,189, 214,0.5)"
   sidebar-selected-background-color: "rgba(39 ,189, 214,0.2)"
   sidebar-background-color: "var(--paper-listbox-background-color)"
+  sidebar-selected-text-color: "var(--secondary-text-color)"
+  sidebar-selected-icon-color: "var(--accent-color-lighter)"
+  sidebar-text-color: "var(--primary-text-color)"
+  sidebar-menu-button-text-color: "var(--primary-text-color)"
+  sidebar-state-pressed-background: "var(--accent-color-lighter)"
   primary-background-color: "#000000"
   dark-theme-background-color: "#0b0b0e"
   secondary-background-color: "#000000"
@@ -47,12 +54,11 @@ CardTheme:
   paper-grey-50: "var(--primary-text-color)"
   paper-grey-200: "var(--dark-grey-color)"
   paper-card-header-color: "var(--accent-color)"
-  paper-card-background-color: "rgba(6, 8, 8,0.9)"
+  paper-card-background-color: "rgba(15, 10, 10, 0.7)"
   #      paper-card-background-color: 'rgba(0, 0, 0,0.0)'
   paper-dialog-background-color: "var(--paper-card-background-color)"
-  paper-item-icon-color: "var(--lighter-grey-color)"
-  state-icon-color: "var(--paper-item-icon-color)"
-  state-icon-active-color: "var(--paper-item-icon-active-color)"
+  state-icon-color: "var(--lighter-grey-color)"
+  state-icon-active-color: "var(--ocean-color)"
   state-icon-unavailable-color: "rgba(255, 80, 10,0.5)"
   paper-item-icon-active-color: "var(--ocean-color)"
   paper-item-icon_-_color: "var(--ocean-color)"
@@ -104,7 +110,7 @@ CardTheme:
   lumo-shade-10pct: "rgba(41, 41, 41, .1)"
   lumo-shade-5pct: "rgba(41, 41, 41, .05)"
   lumo-tint-5pct: "var(--darker-grey-color)"
-  font-family: "Righteous"
+  font-family: "Poetsen One"
   primary-font-family: var(--font-family)
   material-font-family: "var(--primary-font-family)"
   ha-card-header-font-family: var(--font-family)
@@ -113,11 +119,19 @@ CardTheme:
   mdc-typography-headline6-font-family: var(--font-family)
   mdc-typography-body1-font-family: var(--font-family)
   mdc-typography-subtitle1-font-family: var(--font-family)
+  mdc-typography-button-text-transform: capitalize
+  mdc-button-horizontal-padding: 12px
   md-ref-typeface-plain: var(--font-family)
   ha-font-family-body: var(--font-family)
   ha-font-family-heading: var(--font-family)
   ha-font-family-code: var(--font-family)
   ha-font-family-longform: var(--font-family)
+  paper-font-body1_-_font-family: var(--font-family)
+  ha-font-weight-light: "300"
+  ha-font-weight-normal: "400"
+  ha-font-weight-medium: "500"
+  ha-font-weight-bold: "700"
+  md-list-item-label-text-weight: "700"
   # Restriction lock colors
   restriction-regular-lock-color: "rgba(39 ,189, 214,0.85)"
   restriction-success-lock-color: "lime"
@@ -170,7 +184,7 @@ CardTheme:
   # POPUP MORE INFO
   dialog-box-shadow: var(--accent-color)
   # dialog-backdrop-filter: blur(12px) brightness(0.3)
-  popup-background-color: rgba(34,38,39,0.9)
+  popup-background-color: rgba(34,38,39,0.75)
   # popup-background-color: rgba(30,30,45, 0.8)
   # popup-border-width: 1px
   popup-border-radius: 1em
@@ -187,6 +201,23 @@ CardTheme:
       ha-dialog > div {
         outline: none !important;
       }
+          ha-dialog {
+            --vertical-align-dialog: center !important;
+          }
+          ha-dialog$: |
+            div.mdc-dialog__surface {
+              animation: slide-and-fade-in 0.5s forwards; /* Use a new animation name */
+            }
+            @keyframes slide-and-fade-in {
+              from {
+                transform: translateX(100%);
+                opacity: 0; /* Start invisible */
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1; /* End fully visible */
+              }
+            }
     $: |
       .mdc-dialog {
         backdrop-filter: blur(17px);
@@ -212,7 +243,10 @@ CardTheme:
           padding-left: 100px !important;
         }
       }
-
+      .toolbar > sl-tab-group {
+        pointer-events: none;
+        opacity: 0;
+      }
       /* Add bottom padding for mobile screens to prevent cards from overlapping with the navbar */
       @media (max-width: 767px) {
         hui-sections-view:after {
@@ -223,10 +257,22 @@ CardTheme:
           background-color: transparent; 
         }
       }
+      .header {
+        transition: shadow 0s !important;
+        transition: box-shadow 0s !important;
+      }
+  card-mod-view-yaml: |
+    .: |
+      ::-webkit-scrollbar {
+        background: var(--accent-color-lighter);
+      }
+
 Purple-Nightz:
   modes:
     dark:
       dialog-backdrop-filter: blur(2em) brightness(0.80)
+      app-header-background-color: transparent
+      app-header-text-color: var(--primary-text-color)
       purple-color: "#b5a9fb"
       red-color: "#b70000"
       white-color: "#F2F2F2"
@@ -254,6 +300,11 @@ Purple-Nightz:
       sidebar-icon-color: "rgba(181 ,169, 251,0.5)"
       sidebar-selected-background-color: "rgba(181 ,169, 251,0.2)"
       sidebar-background-color: "var(--paper-listbox-background-color)"
+      sidebar-selected-text-color: "var(--secondary-text-color)"
+      sidebar-selected-icon-color: "var(--accent-color-lighter)"
+      sidebar-text-color: "var(--primary-text-color)"
+      sidebar-menu-button-text-color: "var(--primary-text-color)"
+      sidebar-state-pressed-background: "var(--accent-color-lighter)"
       primary-background-color: "#000000"
       dark-theme-background-color: "#0b0b0e"
       secondary-background-color: "#000000"
@@ -266,11 +317,10 @@ Purple-Nightz:
       paper-grey-50: "var(--primary-text-color)"
       paper-grey-200: "var(--dark-grey-color)"
       paper-card-header-color: "var(--accent-color)"
-      paper-card-background-color: "rgba(6, 8, 8,0.9)" # rgba(34,38,39,0.9)
+      paper-card-background-color: "rgba(15, 10, 10, 0.7)" # rgba(34,38,39,0.9)
       paper-dialog-background-color: "var(--paper-card-background-color)"
-      paper-item-icon-color: "var(--lighter-grey-color)"
-      state-icon-color: "var(--paper-item-icon-color)"
-      state-icon-active-color: "var(--paper-item-icon-active-color)"
+      state-icon-color: "var(--lighter-grey-color)"
+      state-icon-active-color: "var(--purple-color)"
       state-icon-unavailable-color: "rgba(255, 80, 10,0.5)"
       paper-item-icon-active-color: "var(--purple-color)"
       paper-item-icon_-_color: "var(--purple-color)"
@@ -322,7 +372,7 @@ Purple-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
-      font-family: "Righteous"
+      font-family: "Poetsen One"
       primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
       ha-card-header-font-family: var(--font-family)
@@ -331,11 +381,19 @@ Purple-Nightz:
       mdc-typography-headline6-font-family: var(--font-family)
       mdc-typography-body1-font-family: var(--font-family)
       mdc-typography-subtitle1-font-family: var(--font-family)
+      mdc-typography-button-text-transform: capitalize
+      mdc-button-horizontal-padding: 12px
       md-ref-typeface-plain: var(--font-family)
       ha-font-family-body: var(--font-family)
       ha-font-family-heading: var(--font-family)
       ha-font-family-code: var(--font-family)
       ha-font-family-longform: var(--font-family)
+      paper-font-body1_-_font-family: var(--font-family)
+      ha-font-weight-light: "300"
+      ha-font-weight-normal: "400"
+      ha-font-weight-medium: "500"
+      ha-font-weight-bold: "700"
+      md-list-item-label-text-weight: "700"
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(181 ,169, 251,0.85)"
       restriction-success-lock-color: "lime"
@@ -388,7 +446,7 @@ Purple-Nightz:
       # POPUP MORE INFO
       dialog-box-shadow: var(--accent-color)
       # dialog-backdrop-filter: blur(12px) brightness(0.3)
-      popup-background-color: rgba(34,38,39,0.9)
+      popup-background-color: rgba(34,38,39,0.75)
       # popup-background-color: rgba(30,30,45, 0.8)
       # popup-border-width: 1px
       popup-border-radius: 1em
@@ -420,7 +478,10 @@ Purple-Nightz:
               padding-left: 100px !important;
             }
           }
-
+          .toolbar > sl-tab-group {
+            pointer-events: none;
+            opacity: 0;
+          }
           @media (max-width: 767px) {
             hui-sections-view:after {
               content: "";
@@ -430,14 +491,25 @@ Purple-Nightz:
               background-color: transparent; 
             }
           }
-        .mdc-checkbox__background {
-          border: 1px white;
-        }
+          .mdc-checkbox__background {
+            border: 1px white;
+          }
+          .header {
+            transition: shadow 0s !important;
+            transition: box-shadow 0s !important;
+          }
+      card-mod-view-yaml: |
+        .: |
+          ::-webkit-scrollbar {
+            background: var(--accent-color-lighter);
+          }
 
 Green-Nightz:
   modes:
     dark:
       dialog-backdrop-filter: blur(2em) brightness(0.80)
+      app-header-background-color: transparent
+      app-header-text-color: var(--primary-text-color)
       green-color: "#84c08a"
       red-color: "#b70000"
       white-color: "#F2F2F2"
@@ -466,6 +538,11 @@ Green-Nightz:
       sidebar-icon-color: "rgba(132, 192, 138,0.5)"
       sidebar-selected-background-color: "rgba(132, 192, 138,0.2)"
       sidebar-background-color: "var(--paper-listbox-background-color)"
+      sidebar-selected-text-color: "var(--secondary-text-color)"
+      sidebar-selected-icon-color: "var(--accent-color-lighter)"
+      sidebar-text-color: "var(--primary-text-color)"
+      sidebar-menu-button-text-color: "var(--primary-text-color)"
+      sidebar-state-pressed-background: "var(--accent-color-lighter)"
       primary-background-color: "#000000"
       dark-theme-background-color: "#0b0b0e"
       secondary-background-color: "#000000"
@@ -478,11 +555,10 @@ Green-Nightz:
       paper-grey-50: "var(--primary-text-color)"
       paper-grey-200: "var(--dark-grey-color)"
       paper-card-header-color: "var(--accent-color)"
-      paper-card-background-color: "rgba(6, 8, 8,0.9)"
+      paper-card-background-color: "rgba(15, 10, 10, 0.7)"
       paper-dialog-background-color: "var(--paper-card-background-color)" # "var(--medium-grey-color)"
-      paper-item-icon-color: "var(--lighter-grey-color)"
-      state-icon-color: "var(--paper-item-icon-color)"
-      state-icon-active-color: "var(--paper-item-icon-active-color)"
+      state-icon-color: "var(--lighter-grey-color)"
+      state-icon-active-color: "var(--green-color)"
       state-icon-unavailable-color: "rgba(255, 80, 10,0.5)"
       paper-item-icon-active-color: "var(--green-color)"
       paper-item-icon_-_color: "var(--green-color)"
@@ -534,7 +610,7 @@ Green-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
-      font-family: "Righteous"
+      font-family: "Poetsen One"
       primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
       ha-card-header-font-family: var(--font-family)
@@ -543,11 +619,19 @@ Green-Nightz:
       mdc-typography-headline6-font-family: var(--font-family)
       mdc-typography-body1-font-family: var(--font-family)
       mdc-typography-subtitle1-font-family: var(--font-family)
+      mdc-typography-button-text-transform: capitalize
+      mdc-button-horizontal-padding: 12px
       md-ref-typeface-plain: var(--font-family)
       ha-font-family-body: var(--font-family)
       ha-font-family-heading: var(--font-family)
       ha-font-family-code: var(--font-family)
       ha-font-family-longform: var(--font-family)
+      paper-font-body1_-_font-family: var(--font-family)
+      ha-font-weight-light: "300"
+      ha-font-weight-normal: "400"
+      ha-font-weight-medium: "500"
+      ha-font-weight-bold: "700"
+      md-list-item-label-text-weight: "700"
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(132, 192, 138,0.85)"
       restriction-success-lock-color: "lime"
@@ -600,7 +684,7 @@ Green-Nightz:
       # POPUP MORE INFO
       dialog-box-shadow: var(--accent-color)
       # dialog-backdrop-filter: blur(12px) brightness(0.3)
-      popup-background-color: rgba(34,38,39,0.9)
+      popup-background-color: rgba(34,38,39,0.75)
       # popup-background-color: rgba(30,30,45, 0.8)
       # popup-border-width: 1px
       popup-border-radius: 1em
@@ -617,6 +701,23 @@ Green-Nightz:
           ha-dialog > div {
             outline: none !important;
           }
+          ha-dialog {
+            --vertical-align-dialog: center !important;
+          }
+          ha-dialog$: |
+            div.mdc-dialog__surface {
+              animation: slide-and-fade-in 0.5s forwards; /* Use a new animation name */
+            }
+            @keyframes slide-and-fade-in {
+              from {
+                transform: translateX(100%);
+                opacity: 0; /* Start invisible */
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1; /* End fully visible */
+              }
+            }
         $: |
           .mdc-dialog {
             backdrop-filter: blur(17px);
@@ -641,7 +742,10 @@ Green-Nightz:
               padding-left: 100px !important;
             }
           }
-
+          .toolbar > sl-tab-group {
+            pointer-events: none;
+            opacity: 0;
+          }
           @media (max-width: 767px) {
             hui-sections-view:after {
               content: "";
@@ -651,11 +755,25 @@ Green-Nightz:
               background-color: transparent; 
             }
           }
+          .mdc-checkbox__background {
+            border: 1px white;
+          }
+          .header {
+            transition: shadow 0s !important;
+            transition: box-shadow 0s !important;
+          }
+      card-mod-view-yaml: |
+        .: |
+          ::-webkit-scrollbar {
+            background: var(--accent-color-lighter);
+          }
 
 Grey-Nightz:
   modes:
     dark:
       dialog-backdrop-filter: blur(2em) brightness(0.80)
+      app-header-background-color: transparent
+      app-header-text-color: var(--primary-text-color)
       grey-color: "#706e77"
       red-color: "#b70000"
       white-color: "#F2F2F2"
@@ -684,6 +802,11 @@ Grey-Nightz:
       sidebar-icon-color: "rgba(112, 110, 119,0.5)"
       sidebar-selected-background-color: "rgba(112, 110, 119,0.2)"
       sidebar-background-color: "var(--primary-background-color)"
+      sidebar-selected-text-color: "var(--secondary-text-color)"
+      sidebar-selected-icon-color: "var(--accent-color-lighter)"
+      sidebar-text-color: "var(--primary-text-color)"
+      sidebar-menu-button-text-color: "var(--primary-text-color)"
+      sidebar-state-pressed-background: "var(--accent-color-lighter)"
       primary-background-color: "#000000"
       dark-theme-background-color: "#0b0b0e"
       secondary-background-color: "#000000"
@@ -696,11 +819,10 @@ Grey-Nightz:
       paper-grey-50: "var(--primary-text-color)"
       paper-grey-200: "var(--dark-grey-color)"
       paper-card-header-color: "var(--accent-color)"
-      paper-card-background-color: "rgba(6, 8, 8,0.9)"
+      paper-card-background-color: "rgba(15, 10, 10, 0.7)"
       paper-dialog-background-color: "var(--paper-card-background-color)"
-      paper-item-icon-color: "var(--lighter-grey-color)"
-      state-icon-color: "var(--paper-item-icon-color)"
-      state-icon-active-color: "var(--paper-item-icon-active-color)"
+      state-icon-color: "var(--lighter-grey-color)"
+      state-icon-active-color: "var(--grey-color)"
       state-icon-unavailable-color: "rgba(255, 80, 10,0.5)"
       paper-item-icon-active-color: "var(--grey-color)"
       paper-item-icon_-_color: "var(--grey-color)"
@@ -752,7 +874,7 @@ Grey-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
-      font-family: "Righteous"
+      font-family: "Poetsen One"
       primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
       ha-card-header-font-family: var(--font-family)
@@ -761,11 +883,19 @@ Grey-Nightz:
       mdc-typography-headline6-font-family: var(--font-family)
       mdc-typography-body1-font-family: var(--font-family)
       mdc-typography-subtitle1-font-family: var(--font-family)
+      mdc-typography-button-text-transform: capitalize
+      mdc-button-horizontal-padding: 12px
       md-ref-typeface-plain: var(--font-family)
       ha-font-family-body: var(--font-family)
       ha-font-family-heading: var(--font-family)
       ha-font-family-code: var(--font-family)
       ha-font-family-longform: var(--font-family)
+      paper-font-body1_-_font-family: var(--font-family)
+      ha-font-weight-light: "300"
+      ha-font-weight-normal: "400"
+      ha-font-weight-medium: "500"
+      ha-font-weight-bold: "700"
+      md-list-item-label-text-weight: "700"
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(112, 110, 119,0.85)"
       restriction-success-lock-color: "lime"
@@ -818,7 +948,7 @@ Grey-Nightz:
       # POPUP MORE INFO
       dialog-box-shadow: var(--accent-color)
       # dialog-backdrop-filter: blur(12px) brightness(0.3)
-      popup-background-color: rgba(34,38,39,0.9)
+      popup-background-color: rgba(34,38,39,0.75)
       # popup-background-color: rgba(30,30,45, 0.8)
       # popup-border-width: 1px
       popup-border-radius: 1em
@@ -835,6 +965,23 @@ Grey-Nightz:
           ha-dialog > div {
             outline: none !important;
           }
+          ha-dialog {
+            --vertical-align-dialog: center !important;
+          }
+          ha-dialog$: |
+            div.mdc-dialog__surface {
+              animation: slide-and-fade-in 0.5s forwards; /* Use a new animation name */
+            }
+            @keyframes slide-and-fade-in {
+              from {
+                transform: translateX(100%);
+                opacity: 0; /* Start invisible */
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1; /* End fully visible */
+              }
+            }
         $: |
           .mdc-dialog {
             backdrop-filter: blur(17px);
@@ -859,7 +1006,10 @@ Grey-Nightz:
               padding-left: 100px !important;
             }
           }
-
+          .toolbar > sl-tab-group {
+            pointer-events: none;
+            opacity: 0;
+          }
           @media (max-width: 767px) {
             hui-sections-view:after {
               content: "";
@@ -869,11 +1019,25 @@ Grey-Nightz:
               background-color: transparent; 
             }
           }
+          .mdc-checkbox__background {
+            border: 1px white;
+          }
+          .header {
+            transition: shadow 0s !important;
+            transition: box-shadow 0s !important;
+          }
+      card-mod-view-yaml: |
+        .: |
+          ::-webkit-scrollbar {
+            background: var(--accent-color-lighter);
+          }
 
 Blue-Nightz:
   modes:
     dark:
       dialog-backdrop-filter: blur(2em) brightness(0.80)
+      app-header-background-color: transparent
+      app-header-text-color: var(--primary-text-color)
       blue-color: "#03a9f4"
       red-color: "#b70000"
       white-color: "#F2F2F2"
@@ -902,6 +1066,11 @@ Blue-Nightz:
       sidebar-icon-color: "rgba(3, 169, 244,0.5)"
       sidebar-selected-background-color: "rgba(3, 169, 244,0.2)"
       sidebar-background-color: "var(--paper-listbox-background-color)"
+      sidebar-selected-text-color: "var(--secondary-text-color)"
+      sidebar-selected-icon-color: "var(--accent-color-lighter)"
+      sidebar-text-color: "var(--primary-text-color)"
+      sidebar-menu-button-text-color: "var(--primary-text-color)"
+      sidebar-state-pressed-background: "var(--accent-color-lighter)"
       primary-background-color: "#000000"
       dark-theme-background-color: "#0b0b0e"
       secondary-background-color: "#000000"
@@ -914,11 +1083,10 @@ Blue-Nightz:
       paper-grey-50: "var(--primary-text-color)"
       paper-grey-200: "var(--dark-grey-color)"
       paper-card-header-color: "var(--accent-color)"
-      paper-card-background-color: "rgba(6, 8, 8,0.9)"
+      paper-card-background-color: "rgba(15, 10, 10, 0.7)"
       paper-dialog-background-color: "var(--paper-card-background-color)"
-      paper-item-icon-color: "var(--lighter-grey-color)"
-      state-icon-color: "var(--paper-item-icon-color)"
-      state-icon-active-color: "var(--paper-item-icon-active-color)"
+      state-icon-color: "var(--lighter-grey-color)"
+      state-icon-active-color: "var(--blue-color)"
       state-icon-unavailable-color: "rgba(255, 80, 10,0.5)"
       paper-item-icon-active-color: "var(--blue-color)"
       paper-item-icon_-_color: "var(--blue-color)"
@@ -970,7 +1138,7 @@ Blue-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
-      font-family: "Righteous"
+      font-family: "Poetsen One"
       primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
       ha-card-header-font-family: var(--font-family)
@@ -979,11 +1147,19 @@ Blue-Nightz:
       mdc-typography-headline6-font-family: var(--font-family)
       mdc-typography-body1-font-family: var(--font-family)
       mdc-typography-subtitle1-font-family: var(--font-family)
+      mdc-typography-button-text-transform: capitalize
+      mdc-button-horizontal-padding: 12px
       md-ref-typeface-plain: var(--font-family)
       ha-font-family-body: var(--font-family)
       ha-font-family-heading: var(--font-family)
       ha-font-family-code: var(--font-family)
       ha-font-family-longform: var(--font-family)
+      paper-font-body1_-_font-family: var(--font-family)
+      ha-font-weight-light: "300"
+      ha-font-weight-normal: "400"
+      ha-font-weight-medium: "500"
+      ha-font-weight-bold: "700"
+      md-list-item-label-text-weight: "700"
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(3, 169, 244,0.85)"
       restriction-success-lock-color: "lime"
@@ -1036,7 +1212,7 @@ Blue-Nightz:
       # POPUP MORE INFO
       dialog-box-shadow: var(--accent-color)
       # dialog-backdrop-filter: blur(12px) brightness(0.3)
-      popup-background-color: rgba(34,38,39,0.9)
+      popup-background-color: rgba(34,38,39,0.75)
       # popup-background-color: rgba(30,30,45, 0.8)
       # popup-border-width: 1px
       popup-border-radius: 1em
@@ -1053,6 +1229,23 @@ Blue-Nightz:
           ha-dialog > div {
             outline: none !important;
           }
+          ha-dialog {
+            --vertical-align-dialog: center !important;
+          }
+          ha-dialog$: |
+            div.mdc-dialog__surface {
+              animation: slide-and-fade-in 0.5s forwards; /* Use a new animation name */
+            }
+            @keyframes slide-and-fade-in {
+              from {
+                transform: translateX(100%);
+                opacity: 0; /* Start invisible */
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1; /* End fully visible */
+              }
+            }
         $: |
           .mdc-dialog {
             backdrop-filter: blur(17px);
@@ -1070,6 +1263,7 @@ Blue-Nightz:
             :host {
               --secondary-background-color: none;
             }
+
       card-mod-root-yaml: |
         .: |
           @media (min-width: 768px) {
@@ -1077,7 +1271,10 @@ Blue-Nightz:
               padding-left: 100px !important;
             }
           }
-
+          .toolbar > sl-tab-group {
+            pointer-events: none;
+            opacity: 0;
+          }
           @media (max-width: 767px) {
             hui-sections-view:after {
               content: "";
@@ -1087,11 +1284,25 @@ Blue-Nightz:
               background-color: transparent; 
             }
           }
+          .mdc-checkbox__background {
+            border: 1px white;
+          }
+          .header {
+            transition: shadow 0s !important;
+            transition: box-shadow 0s !important;
+          }
+      card-mod-view-yaml: |
+        .: |
+          ::-webkit-scrollbar {
+            background: var(--accent-color-lighter);
+          }
 
 Pink-Nightz:
   modes:
     dark:
       dialog-backdrop-filter: blur(2em) brightness(0.80)
+      app-header-background-color: transparent
+      app-header-text-color: var(--primary-text-color)
       pink-color: "#e5007d"
       red-color: "#b70000"
       white-color: "#F2F2F2"
@@ -1119,6 +1330,11 @@ Pink-Nightz:
       sidebar-icon-color: "rgba(229, 0, 125,0.5)"
       sidebar-selected-background-color: "rgba(229, 0, 125,0.2)"
       sidebar-background-color: "var(--paper-listbox-background-color)"
+      sidebar-selected-text-color: "var(--secondary-text-color)"
+      sidebar-selected-icon-color: "var(--accent-color-lighter)"
+      sidebar-text-color: "var(--primary-text-color)"
+      sidebar-menu-button-text-color: "var(--primary-text-color)"
+      sidebar-state-pressed-background: "var(--accent-color-lighter)"
       primary-background-color: "#000000"
       dark-theme-background-color: "#0b0b0e"
       secondary-background-color: "#000000"
@@ -1131,11 +1347,10 @@ Pink-Nightz:
       paper-grey-50: "var(--primary-text-color)"
       paper-grey-200: "var(--dark-grey-color)"
       paper-card-header-color: "var(--accent-color)"
-      paper-card-background-color: "rgba(6, 8, 8,0.9)"
+      paper-card-background-color: "rgba(15, 10, 10, 0.7)"
       paper-dialog-background-color: "var(--paper-card-background-color)"
-      paper-item-icon-color: "var(--lighter-grey-color)"
-      state-icon-color: "var(--paper-item-icon-color)"
-      state-icon-active-color: "var(--paper-item-icon-active-color)"
+      state-icon-color: "var(--lighter-grey-color)"
+      state-icon-active-color: "var(--pink-color)"
       state-icon-unavailable-color: "rgba(255, 102, 0,0.5)"
       paper-item-icon-active-color: "var(--pink-color)"
       paper-item-icon_-_color: "var(--pink-color)"
@@ -1187,7 +1402,7 @@ Pink-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
-      font-family: "Righteous"
+      font-family: "Poetsen One"
       primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
       ha-card-header-font-family: var(--font-family)
@@ -1196,11 +1411,19 @@ Pink-Nightz:
       mdc-typography-headline6-font-family: var(--font-family)
       mdc-typography-body1-font-family: var(--font-family)
       mdc-typography-subtitle1-font-family: var(--font-family)
+      mdc-typography-button-text-transform: capitalize
+      mdc-button-horizontal-padding: 12px
       md-ref-typeface-plain: var(--font-family)
       ha-font-family-body: var(--font-family)
       ha-font-family-heading: var(--font-family)
       ha-font-family-code: var(--font-family)
       ha-font-family-longform: var(--font-family)
+      paper-font-body1_-_font-family: var(--font-family)
+      ha-font-weight-light: "300"
+      ha-font-weight-normal: "400"
+      ha-font-weight-medium: "500"
+      ha-font-weight-bold: "700"
+      md-list-item-label-text-weight: "700"
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(229, 0, 125,0.85)"
       restriction-success-lock-color: "lime"
@@ -1253,7 +1476,7 @@ Pink-Nightz:
       # POPUP MORE INFO
       dialog-box-shadow: var(--accent-color)
       # dialog-backdrop-filter: blur(12px) brightness(0.3)
-      popup-background-color: rgba(34,38,39,0.9)
+      popup-background-color: rgba(34,38,39,0.75)
       # popup-background-color: rgba(30,30,45, 0.8)
       # popup-border-width: 1px
       popup-border-radius: 1em
@@ -1270,6 +1493,23 @@ Pink-Nightz:
           ha-dialog > div {
             outline: none !important;
           }
+          ha-dialog {
+            --vertical-align-dialog: center !important;
+          }
+          ha-dialog$: |
+            div.mdc-dialog__surface {
+              animation: slide-and-fade-in 0.5s forwards; /* Use a new animation name */
+            }
+            @keyframes slide-and-fade-in {
+              from {
+                transform: translateX(100%);
+                opacity: 0; /* Start invisible */
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1; /* End fully visible */
+              }
+            }
         $: |
           .mdc-dialog {
             backdrop-filter: blur(17px);
@@ -1294,7 +1534,10 @@ Pink-Nightz:
               padding-left: 100px !important;
             }
           }
-
+          .toolbar > sl-tab-group {
+            pointer-events: none;
+            opacity: 0;
+          }
           @media (max-width: 767px) {
             hui-sections-view:after {
               content: "";
@@ -1304,11 +1547,25 @@ Pink-Nightz:
               background-color: transparent; 
             }
           }
+          .mdc-checkbox__background {
+            border: 1px white;
+          }
+          .header {
+            transition: shadow 0s !important;
+            transition: box-shadow 0s !important;
+          }
+      card-mod-view-yaml: |
+        .: |
+          ::-webkit-scrollbar {
+            background: var(--accent-color-lighter);
+          }
 
 Lime-Nightz:
   modes:
     dark:
       dialog-backdrop-filter: blur(2em) brightness(0.80)
+      app-header-background-color: transparent
+      app-header-text-color: var(--primary-text-color)
       lime-color: "#5fe01f"
       red-color: "#b70000"
       white-color: "#F2F2F2"
@@ -1336,6 +1593,11 @@ Lime-Nightz:
       sidebar-icon-color: "rgba(95, 224, 31,0.5)"
       sidebar-selected-background-color: "rgba(95, 224, 31,0.2)"
       sidebar-background-color: "var(--paper-listbox-background-color)"
+      sidebar-selected-text-color: "var(--secondary-text-color)"
+      sidebar-selected-icon-color: "var(--accent-color-lighter)"
+      sidebar-text-color: "var(--primary-text-color)"
+      sidebar-menu-button-text-color: "var(--primary-text-color)"
+      sidebar-state-pressed-background: "var(--accent-color-lighter)"
       primary-background-color: "#000000"
       dark-theme-background-color: "#0b0b0e"
       secondary-background-color: "#000000"
@@ -1348,11 +1610,10 @@ Lime-Nightz:
       paper-grey-50: "var(--primary-text-color)"
       paper-grey-200: "var(--dark-grey-color)"
       paper-card-header-color: "var(--accent-color)"
-      paper-card-background-color: "rgba(6, 8, 8,0.9)"
+      paper-card-background-color: "rgba(15, 10, 10, 0.7)"
       paper-dialog-background-color: "var(--paper-card-background-color)"
-      paper-item-icon-color: "var(--lighter-grey-color)"
-      state-icon-color: "var(--paper-item-icon-color)"
-      state-icon-active-color: "var(--paper-item-icon-active-color)"
+      state-icon-color: "var(--lighter-grey-color)"
+      state-icon-active-color: "var(--lime-color)"
       state-icon-unavailable-color: "rgba(255, 80, 10,0.5)"
       paper-item-icon-active-color: "var(--lime-color)"
       paper-item-icon_-_color: "var(--lime-color)"
@@ -1404,7 +1665,7 @@ Lime-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
-      font-family: "Righteous"
+      font-family: "Poetsen One"
       primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
       ha-card-header-font-family: var(--font-family)
@@ -1413,11 +1674,19 @@ Lime-Nightz:
       mdc-typography-headline6-font-family: var(--font-family)
       mdc-typography-body1-font-family: var(--font-family)
       mdc-typography-subtitle1-font-family: var(--font-family)
+      mdc-typography-button-text-transform: capitalize
+      mdc-button-horizontal-padding: 12px
       md-ref-typeface-plain: var(--font-family)
       ha-font-family-body: var(--font-family)
       ha-font-family-heading: var(--font-family)
       ha-font-family-code: var(--font-family)
       ha-font-family-longform: var(--font-family)
+      paper-font-body1_-_font-family: var(--font-family)
+      ha-font-weight-light: "300"
+      ha-font-weight-normal: "400"
+      ha-font-weight-medium: "500"
+      ha-font-weight-bold: "700"
+      md-list-item-label-text-weight: "700"
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(95, 224, 31,0.85)"
       restriction-success-lock-color: "lime"
@@ -1470,7 +1739,7 @@ Lime-Nightz:
       # POPUP MORE INFO
       dialog-box-shadow: var(--accent-color)
       # dialog-backdrop-filter: blur(12px) brightness(0.3)
-      popup-background-color: rgba(34,38,39,0.9)
+      popup-background-color: rgba(34,38,39,0.75)
       # popup-background-color: rgba(30,30,45, 0.8)
       # popup-border-width: 1px
       popup-border-radius: 1em
@@ -1487,6 +1756,23 @@ Lime-Nightz:
           ha-dialog > div {
             outline: none !important;
           }
+          ha-dialog {
+            --vertical-align-dialog: center !important;
+          }
+          ha-dialog$: |
+            div.mdc-dialog__surface {
+              animation: slide-and-fade-in 0.5s forwards; /* Use a new animation name */
+            }
+            @keyframes slide-and-fade-in {
+              from {
+                transform: translateX(100%);
+                opacity: 0; /* Start invisible */
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1; /* End fully visible */
+              }
+            }
         $: |
           .mdc-dialog {
             backdrop-filter: blur(17px);
@@ -1511,7 +1797,10 @@ Lime-Nightz:
               padding-left: 100px !important;
             }
           }
-
+          .toolbar > sl-tab-group {
+            pointer-events: none;
+            opacity: 0;
+          }
           @media (max-width: 767px) {
             hui-sections-view:after {
               content: "";
@@ -1521,11 +1810,25 @@ Lime-Nightz:
               background-color: transparent; 
             }
           }
+          .mdc-checkbox__background {
+            border: 1px white;
+          }
+          .header {
+            transition: shadow 0s !important;
+            transition: box-shadow 0s !important;
+          }
+      card-mod-view-yaml: |
+        .: |
+          ::-webkit-scrollbar {
+            background: var(--accent-color-lighter);
+          }
 
 Magenta-Nightz:
   modes:
     dark:
       dialog-backdrop-filter: blur(2em) brightness(0.80)
+      app-header-background-color: transparent
+      app-header-text-color: var(--primary-text-color)
       magenta-color: "#df20df"
       red-color: "#b70000"
       white-color: "#F2F2F2"
@@ -1553,6 +1856,11 @@ Magenta-Nightz:
       sidebar-icon-color: "rgba(223, 32, 223,0.5)"
       sidebar-selected-background-color: "rgba(223, 32, 223,0.2)"
       sidebar-background-color: "var(--paper-listbox-background-color)"
+      sidebar-selected-text-color: "var(--secondary-text-color)"
+      sidebar-selected-icon-color: "var(--accent-color-lighter)"
+      sidebar-text-color: "var(--primary-text-color)"
+      sidebar-menu-button-text-color: "var(--primary-text-color)"
+      sidebar-state-pressed-background: "var(--accent-color-lighter)"
       primary-background-color: "#000000"
       dark-theme-background-color: "#0b0b0e"
       secondary-background-color: "#000000"
@@ -1565,11 +1873,10 @@ Magenta-Nightz:
       paper-grey-50: "var(--primary-text-color)"
       paper-grey-200: "var(--dark-grey-color)"
       paper-card-header-color: "var(--accent-color)"
-      paper-card-background-color: "rgba(6, 8, 8,0.9)"
+      paper-card-background-color: "rgba(15, 10, 10, 0.7)"
       paper-dialog-background-color: "var(--paper-card-background-color)"
-      paper-item-icon-color: "var(--lighter-grey-color)"
-      state-icon-color: "var(--paper-item-icon-color)"
-      state-icon-active-color: "var(--paper-item-icon-active-color)"
+      state-icon-color: "var(--lighter-grey-color)"
+      state-icon-active-color: "var(--magenta-color)"
       state-icon-unavailable-color: "rgba(255, 80, 10,0.5)"
       paper-item-icon-active-color: "var(--magenta-color)"
       paper-item-icon_-_color: "var(--magenta-color)"
@@ -1621,7 +1928,7 @@ Magenta-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
-      font-family: "Righteous"
+      font-family: "Poetsen One"
       primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
       ha-card-header-font-family: var(--font-family)
@@ -1630,11 +1937,19 @@ Magenta-Nightz:
       mdc-typography-headline6-font-family: var(--font-family)
       mdc-typography-body1-font-family: var(--font-family)
       mdc-typography-subtitle1-font-family: var(--font-family)
+      mdc-typography-button-text-transform: capitalize
+      mdc-button-horizontal-padding: 12px
       md-ref-typeface-plain: var(--font-family)
       ha-font-family-body: var(--font-family)
       ha-font-family-heading: var(--font-family)
       ha-font-family-code: var(--font-family)
       ha-font-family-longform: var(--font-family)
+      paper-font-body1_-_font-family: var(--font-family)
+      ha-font-weight-light: "300"
+      ha-font-weight-normal: "400"
+      ha-font-weight-medium: "500"
+      ha-font-weight-bold: "700"
+      md-list-item-label-text-weight: "700"
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(223, 32, 223,0.85)"
       restriction-success-lock-color: "lime"
@@ -1687,7 +2002,7 @@ Magenta-Nightz:
       # POPUP MORE INFO
       dialog-box-shadow: var(--accent-color)
       # dialog-backdrop-filter: blur(12px) brightness(0.3)
-      popup-background-color: rgba(34,38,39,0.9)
+      popup-background-color: rgba(34,38,39,0.75)
       # popup-background-color: rgba(30,30,45, 0.8)
       # popup-border-width: 1px
       popup-border-radius: 1em
@@ -1704,6 +2019,23 @@ Magenta-Nightz:
           ha-dialog > div {
             outline: none !important;
           }
+          ha-dialog {
+            --vertical-align-dialog: center !important;
+          }
+          ha-dialog$: |
+            div.mdc-dialog__surface {
+              animation: slide-and-fade-in 0.5s forwards; /* Use a new animation name */
+            }
+            @keyframes slide-and-fade-in {
+              from {
+                transform: translateX(100%);
+                opacity: 0; /* Start invisible */
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1; /* End fully visible */
+              }
+            }
         $: |
           .mdc-dialog {
             backdrop-filter: blur(17px);
@@ -1728,7 +2060,10 @@ Magenta-Nightz:
               padding-left: 100px !important;
             }
           }
-
+          .toolbar > sl-tab-group {
+            pointer-events: none;
+            opacity: 0;
+          }
           @media (max-width: 767px) {
             hui-sections-view:after {
               content: "";
@@ -1738,11 +2073,25 @@ Magenta-Nightz:
               background-color: transparent; 
             }
           }
+          .mdc-checkbox__background {
+            border: 1px white;
+          }
+          .header {
+            transition: shadow 0s !important;
+            transition: box-shadow 0s !important;
+          }
+      card-mod-view-yaml: |
+        .: |
+          ::-webkit-scrollbar {
+            background: var(--accent-color-lighter);
+          }
 
 Orange-Nightz:
   modes:
     dark:
       dialog-backdrop-filter: blur(2em) brightness(0.80)
+      app-header-background-color: transparent
+      app-header-text-color: var(--primary-text-color)
       orange-color: "#FB8122"
       red-color: "#b70000"
       white-color: "#F2F2F2"
@@ -1770,6 +2119,11 @@ Orange-Nightz:
       sidebar-icon-color: "rgba(251, 129, 34,0.5)"
       sidebar-selected-background-color: "rgba(251, 129, 34,0.2)"
       sidebar-background-color: "var(--paper-listbox-background-color)"
+      sidebar-selected-text-color: "var(--secondary-text-color)"
+      sidebar-selected-icon-color: "var(--accent-color-lighter)"
+      sidebar-text-color: "var(--primary-text-color)"
+      sidebar-menu-button-text-color: "var(--primary-text-color)"
+      sidebar-state-pressed-background: "var(--accent-color-lighter)"
       primary-background-color: "#000000"
       dark-theme-background-color: "#0b0b0e"
       secondary-background-color: "#000000"
@@ -1782,11 +2136,10 @@ Orange-Nightz:
       paper-grey-50: "var(--primary-text-color)"
       paper-grey-200: "var(--dark-grey-color)"
       paper-card-header-color: "var(--accent-color)"
-      paper-card-background-color: "rgba(6, 8, 8,0.9)"
+      paper-card-background-color: "rgba(15, 10, 10, 0.7)"
       paper-dialog-background-color: "var(--paper-card-background-color)"
-      paper-item-icon-color: "var(--lighter-grey-color)"
-      state-icon-color: "var(--paper-item-icon-color)"
-      state-icon-active-color: "var(--paper-item-icon-active-color)"
+      state-icon-color: "var(--lighter-grey-color)"
+      state-icon-active-color: "var(--orange-color)"
       state-icon-unavailable-color: "rgba(255, 80, 10,0.5)"
       paper-item-icon-active-color: "var(--orange-color)"
       paper-item-icon_-_color: "var(--orange-color)"
@@ -1838,7 +2191,7 @@ Orange-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
-      font-family: "Righteous"
+      font-family: "Poetsen One"
       primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
       ha-card-header-font-family: var(--font-family)
@@ -1847,11 +2200,19 @@ Orange-Nightz:
       mdc-typography-headline6-font-family: var(--font-family)
       mdc-typography-body1-font-family: var(--font-family)
       mdc-typography-subtitle1-font-family: var(--font-family)
+      mdc-typography-button-text-transform: capitalize
+      mdc-button-horizontal-padding: 12px
       md-ref-typeface-plain: var(--font-family)
       ha-font-family-body: var(--font-family)
       ha-font-family-heading: var(--font-family)
       ha-font-family-code: var(--font-family)
       ha-font-family-longform: var(--font-family)
+      paper-font-body1_-_font-family: var(--font-family)
+      ha-font-weight-light: "300"
+      ha-font-weight-normal: "400"
+      ha-font-weight-medium: "500"
+      ha-font-weight-bold: "700"
+      md-list-item-label-text-weight: "700"
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(251, 129, 34,0.85)"
       restriction-success-lock-color: "lime"
@@ -1904,7 +2265,7 @@ Orange-Nightz:
       # POPUP MORE INFO
       dialog-box-shadow: var(--accent-color)
       # dialog-backdrop-filter: blur(12px) brightness(0.3)
-      popup-background-color: rgba(34,38,39,0.9)
+      popup-background-color: rgba(34,38,39,0.75)
       # popup-background-color: rgba(30,30,45, 0.8)
       # popup-border-width: 1px
       popup-border-radius: 1em
@@ -1921,6 +2282,23 @@ Orange-Nightz:
           ha-dialog > div {
             outline: none !important;
           }
+          ha-dialog {
+            --vertical-align-dialog: center !important;
+          }
+          ha-dialog$: |
+            div.mdc-dialog__surface {
+              animation: slide-and-fade-in 0.5s forwards; /* Use a new animation name */
+            }
+            @keyframes slide-and-fade-in {
+              from {
+                transform: translateX(100%);
+                opacity: 0; /* Start invisible */
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1; /* End fully visible */
+              }
+            }
         $: |
           .mdc-dialog {
             backdrop-filter: blur(17px);
@@ -1945,7 +2323,10 @@ Orange-Nightz:
               padding-left: 100px !important;
             }
           }
-
+          .toolbar > sl-tab-group {
+            pointer-events: none;
+            opacity: 0;
+          }
           @media (max-width: 767px) {
             hui-sections-view:after {
               content: "";
@@ -1955,11 +2336,25 @@ Orange-Nightz:
               background-color: transparent; 
             }
           }
+          .mdc-checkbox__background {
+            border: 1px white;
+          }
+          .header {
+            transition: shadow 0s !important;
+            transition: box-shadow 0s !important;
+          }
+      card-mod-view-yaml: |
+        .: |
+          ::-webkit-scrollbar {
+            background: var(--accent-color-lighter);
+          }
 
 Red-Nightz:
   modes:
     dark:
       dialog-backdrop-filter: blur(2em) brightness(0.80)
+      app-header-background-color: transparent
+      app-header-text-color: var(--primary-text-color)
       main-red-color: "#D81C23"
       red-color: "#b70000"
       white-color: "#F2F2F2"
@@ -1987,6 +2382,11 @@ Red-Nightz:
       sidebar-icon-color: "rgba(216, 28, 35,0.5)"
       sidebar-selected-background-color: "rgba(216, 28, 35,0.2)"
       sidebar-background-color: "var(--paper-listbox-background-color)"
+      sidebar-selected-text-color: "var(--secondary-text-color)"
+      sidebar-selected-icon-color: "var(--accent-color-lighter)"
+      sidebar-text-color: "var(--primary-text-color)"
+      sidebar-menu-button-text-color: "var(--primary-text-color)"
+      sidebar-state-pressed-background: "var(--accent-color-lighter)"
       primary-background-color: "#000000"
       dark-theme-background-color: "#0b0b0e"
       secondary-background-color: "#000000"
@@ -1999,11 +2399,10 @@ Red-Nightz:
       paper-grey-50: "var(--primary-text-color)"
       paper-grey-200: "var(--dark-grey-color)"
       paper-card-header-color: "var(--accent-color)"
-      paper-card-background-color: "rgba(6, 8, 8,0.9)"
+      paper-card-background-color: "rgba(15, 10, 10, 0.7)"
       paper-dialog-background-color: "var(--paper-card-background-color)"
-      paper-item-icon-color: "var(--lighter-grey-color)"
-      state-icon-color: "var(--paper-item-icon-color)"
-      state-icon-active-color: "var(--paper-item-icon-active-color)"
+      state-icon-color: "var(--lighter-grey-color)"
+      state-icon-active-color: "var(--main-red-color)"
       state-icon-unavailable-color: "rgba(255, 80, 10,0.5)"
       paper-item-icon-active-color: "var(--main-red-color)"
       paper-item-icon_-_color: "var(--main-red-color)"
@@ -2056,7 +2455,7 @@ Red-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
-      font-family: "Righteous"
+      font-family: "Poetsen One"
       primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
       ha-card-header-font-family: var(--font-family)
@@ -2065,11 +2464,19 @@ Red-Nightz:
       mdc-typography-headline6-font-family: var(--font-family)
       mdc-typography-body1-font-family: var(--font-family)
       mdc-typography-subtitle1-font-family: var(--font-family)
+      mdc-typography-button-text-transform: capitalize
+      mdc-button-horizontal-padding: 12px
       md-ref-typeface-plain: var(--font-family)
       ha-font-family-body: var(--font-family)
       ha-font-family-heading: var(--font-family)
       ha-font-family-code: var(--font-family)
       ha-font-family-longform: var(--font-family)
+      paper-font-body1_-_font-family: var(--font-family)
+      ha-font-weight-light: "300"
+      ha-font-weight-normal: "400"
+      ha-font-weight-medium: "500"
+      ha-font-weight-bold: "700"
+      md-list-item-label-text-weight: "700"
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(216, 28, 35,0.85)"
       restriction-success-lock-color: "lime"
@@ -2122,7 +2529,7 @@ Red-Nightz:
       # POPUP MORE INFO
       dialog-box-shadow: var(--accent-color)
       # dialog-backdrop-filter: blur(12px) brightness(0.3)
-      popup-background-color: rgba(34,38,39,0.9)
+      popup-background-color: rgba(34,38,39,0.75)
       # popup-background-color: rgba(30,30,45, 0.8)
       # popup-border-width: 1px
       popup-border-radius: 1em
@@ -2139,6 +2546,23 @@ Red-Nightz:
           ha-dialog > div {
             outline: none !important;
           }
+          ha-dialog {
+            --vertical-align-dialog: center !important;
+          }
+          ha-dialog$: |
+            div.mdc-dialog__surface {
+              animation: slide-and-fade-in 0.5s forwards; /* Use a new animation name */
+            }
+            @keyframes slide-and-fade-in {
+              from {
+                transform: translateX(100%);
+                opacity: 0; /* Start invisible */
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1; /* End fully visible */
+              }
+            }
         $: |
           .mdc-dialog {
             backdrop-filter: blur(17px);
@@ -2163,7 +2587,10 @@ Red-Nightz:
               padding-left: 100px !important;
             }
           }
-
+          .toolbar > sl-tab-group {
+            pointer-events: none;
+            opacity: 0;
+          }
           @media (max-width: 767px) {
             hui-sections-view:after {
               content: "";
@@ -2173,11 +2600,25 @@ Red-Nightz:
               background-color: transparent; 
             }
           }
+          .mdc-checkbox__background {
+            border: 1px white;
+          }
+          .header {
+            transition: shadow 0s !important;
+            transition: box-shadow 0s !important;
+          }
+      card-mod-view-yaml: |
+        .: |
+          ::-webkit-scrollbar {
+            background: var(--accent-color-lighter);
+          }
 
 Geaux-Nightz:
   modes:
     dark:
       dialog-backdrop-filter: blur(2em) brightness(0.80)
+      app-header-background-color: transparent
+      app-header-text-color: var(--primary-text-color)
       main-color: "#259B9A"
       red-color: "#b70000"
       white-color: "#F2F2F2"
@@ -2205,6 +2646,11 @@ Geaux-Nightz:
       sidebar-icon-color: "rgba(37, 155, 154,0.5)"
       sidebar-selected-background-color: "rgba(37, 155, 154,0.2)"
       sidebar-background-color: "var(--paper-listbox-background-color)"
+      sidebar-selected-text-color: "var(--secondary-text-color)"
+      sidebar-selected-icon-color: "var(--accent-color-lighter)"
+      sidebar-text-color: "var(--primary-text-color)"
+      sidebar-menu-button-text-color: "var(--primary-text-color)"
+      sidebar-state-pressed-background: "var(--accent-color-lighter)"
       primary-background-color: "#000000"
       dark-theme-background-color: "#0b0b0e"
       secondary-background-color: "#000000"
@@ -2217,11 +2663,10 @@ Geaux-Nightz:
       paper-grey-50: "var(--primary-text-color)"
       paper-grey-200: "var(--dark-grey-color)"
       paper-card-header-color: "var(--accent-color)"
-      paper-card-background-color: "rgba(6, 8, 8,0.9)"
+      paper-card-background-color: "rgba(15, 10, 10, 0.7)"
       paper-dialog-background-color: "var(--paper-card-background-color)"
-      paper-item-icon-color: "var(--lighter-grey-color)"
-      state-icon-color: "var(--paper-item-icon-color)"
-      state-icon-active-color: "var(--paper-item-icon-active-color)"
+      state-icon-color: "var(--lighter-grey-color)"
+      state-icon-active-color: "var(--main-color)"
       state-icon-unavailable-color: "rgba(255, 80, 10,0.5)"
       paper-item-icon-active-color: "var(--main-color)"
       paper-item-icon_-_color: "var(--main-color)"
@@ -2274,7 +2719,7 @@ Geaux-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
-      font-family: "Righteous"
+      font-family: "Poetsen One"
       primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
       ha-card-header-font-family: var(--font-family)
@@ -2283,11 +2728,19 @@ Geaux-Nightz:
       mdc-typography-headline6-font-family: var(--font-family)
       mdc-typography-body1-font-family: var(--font-family)
       mdc-typography-subtitle1-font-family: var(--font-family)
+      mdc-typography-button-text-transform: capitalize
+      mdc-button-horizontal-padding: 12px
       md-ref-typeface-plain: var(--font-family)
       ha-font-family-body: var(--font-family)
       ha-font-family-heading: var(--font-family)
       ha-font-family-code: var(--font-family)
       ha-font-family-longform: var(--font-family)
+      paper-font-body1_-_font-family: var(--font-family)
+      ha-font-weight-light: "300"
+      ha-font-weight-normal: "400"
+      ha-font-weight-medium: "500"
+      ha-font-weight-bold: "700"
+      md-list-item-label-text-weight: "700"
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(37, 155, 154,0.85)"
       restriction-success-lock-color: "lime"
@@ -2340,7 +2793,7 @@ Geaux-Nightz:
       # POPUP MORE INFO
       dialog-box-shadow: var(--accent-color)
       # dialog-backdrop-filter: blur(12px) brightness(0.3)
-      popup-background-color: rgba(34,38,39,0.9)
+      popup-background-color: rgba(34,38,39,0.75)
       # popup-background-color: rgba(30,30,45, 0.8)
       # popup-border-width: 1px
       popup-border-radius: 1em
@@ -2357,6 +2810,23 @@ Geaux-Nightz:
           ha-dialog > div {
             outline: none !important;
           }
+          ha-dialog {
+            --vertical-align-dialog: center !important;
+          }
+          ha-dialog$: |
+            div.mdc-dialog__surface {
+              animation: slide-and-fade-in 0.5s forwards; /* Use a new animation name */
+            }
+            @keyframes slide-and-fade-in {
+              from {
+                transform: translateX(100%);
+                opacity: 0; /* Start invisible */
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1; /* End fully visible */
+              }
+            }
         $: |
           .mdc-dialog {
             backdrop-filter: blur(17px);
@@ -2381,7 +2851,10 @@ Geaux-Nightz:
               padding-left: 100px !important;
             }
           }
-
+          .toolbar > sl-tab-group {
+            pointer-events: none;
+            opacity: 0;
+          }
           @media (max-width: 767px) {
             hui-sections-view:after {
               content: "";
@@ -2391,11 +2864,25 @@ Geaux-Nightz:
               background-color: transparent; 
             }
           }
+          .mdc-checkbox__background {
+            border: 1px white;
+          }
+          .header {
+            transition: shadow 0s !important;
+            transition: box-shadow 0s !important;
+          }
+      card-mod-view-yaml: |
+        .: |
+          ::-webkit-scrollbar {
+            background: var(--accent-color-lighter);
+          }
 
 Yellow-Nightz:
   modes:
     dark:
       dialog-backdrop-filter: blur(2em) brightness(0.80)
+      app-header-background-color: transparent
+      app-header-text-color: var(--primary-text-color)
       main-yellow-color: "#FDD935"
       red-color: "#b70000"
       white-color: "#F2F2F2"
@@ -2423,6 +2910,11 @@ Yellow-Nightz:
       sidebar-icon-color: "rgba(253, 217, 53,0.5)"
       sidebar-selected-background-color: "rgba(253, 217, 53,0.2)"
       sidebar-background-color: "var(--paper-listbox-background-color)"
+      sidebar-selected-text-color: "var(--secondary-text-color)"
+      sidebar-selected-icon-color: "var(--accent-color-lighter)"
+      sidebar-text-color: "var(--primary-text-color)"
+      sidebar-menu-button-text-color: "var(--primary-text-color)"
+      sidebar-state-pressed-background: "var(--accent-color-lighter)"
       primary-background-color: "#000000"
       dark-theme-background-color: "#0b0b0e"
       secondary-background-color: "#000000"
@@ -2435,11 +2927,10 @@ Yellow-Nightz:
       paper-grey-50: "var(--primary-text-color)"
       paper-grey-200: "var(--dark-grey-color)"
       paper-card-header-color: "var(--accent-color)"
-      paper-card-background-color: "rgba(6, 8, 8,0.9)"
+      paper-card-background-color: "rgba(15, 10, 10, 0.7)"
       paper-dialog-background-color: "var(--paper-card-background-color)"
-      paper-item-icon-color: "var(--lighter-grey-color)"
-      state-icon-color: "var(--paper-item-icon-color)"
-      state-icon-active-color: "var(--paper-item-icon-active-color)"
+      state-icon-color: "var(--lighter-grey-color)"
+      state-icon-active-color: "var(--main-yellow-color)"
       state-icon-unavailable-color: "rgba(255, 80, 10,0.5)"
       paper-item-icon-active-color: "var(--main-yellow-color)"
       paper-item-icon_-_color: "var(--main-yellow-color)"
@@ -2491,7 +2982,7 @@ Yellow-Nightz:
       lumo-shade-10pct: "rgba(41, 41, 41, .1)"
       lumo-shade-5pct: "rgba(41, 41, 41, .05)"
       lumo-tint-5pct: "var(--darker-grey-color)"
-      font-family: "Righteous"
+      font-family: "Poetsen One"
       primary-font-family: var(--font-family)
       material-font-family: "var(--primary-font-family)"
       ha-card-header-font-family: var(--font-family)
@@ -2500,11 +2991,19 @@ Yellow-Nightz:
       mdc-typography-headline6-font-family: var(--font-family)
       mdc-typography-body1-font-family: var(--font-family)
       mdc-typography-subtitle1-font-family: var(--font-family)
+      mdc-typography-button-text-transform: capitalize
+      mdc-button-horizontal-padding: 12px
       md-ref-typeface-plain: var(--font-family)
       ha-font-family-body: var(--font-family)
       ha-font-family-heading: var(--font-family)
       ha-font-family-code: var(--font-family)
       ha-font-family-longform: var(--font-family)
+      paper-font-body1_-_font-family: var(--font-family)
+      ha-font-weight-light: "300"
+      ha-font-weight-normal: "400"
+      ha-font-weight-medium: "500"
+      ha-font-weight-bold: "700"
+      md-list-item-label-text-weight: "700"
       # Restriction lock colors
       restriction-regular-lock-color: "rgba(253, 217, 53,0.85)"
       restriction-success-lock-color: "lime"
@@ -2560,7 +3059,7 @@ Yellow-Nightz:
       # POPUP MORE INFO
       dialog-box-shadow: var(--accent-color)
       # dialog-backdrop-filter: blur(12px) brightness(0.3)
-      popup-background-color: rgba(34,38,39,0.9)
+      popup-background-color: rgba(34,38,39,0.75)
       # popup-background-color: rgba(30,30,45, 0.8)
       # popup-border-width: 1px
       popup-border-radius: 1em
@@ -2577,6 +3076,23 @@ Yellow-Nightz:
           ha-dialog > div {
             outline: none !important;
           }
+          ha-dialog {
+            --vertical-align-dialog: center !important;
+          }
+          ha-dialog$: |
+            div.mdc-dialog__surface {
+              animation: slide-and-fade-in 0.5s forwards; /* Use a new animation name */
+            }
+            @keyframes slide-and-fade-in {
+              from {
+                transform: translateX(100%);
+                opacity: 0; /* Start invisible */
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1; /* End fully visible */
+              }
+            }
         $: |
           .mdc-dialog {
             backdrop-filter: blur(17px);
@@ -2601,7 +3117,10 @@ Yellow-Nightz:
               padding-left: 100px !important;
             }
           }
-
+          .toolbar > sl-tab-group {
+            pointer-events: none;
+            opacity: 0;
+          }
           @media (max-width: 767px) {
             hui-sections-view:after {
               content: "";
@@ -2611,1595 +3130,25 @@ Yellow-Nightz:
               background-color: transparent; 
             }
           }
-
-minimalist-desktop:
-  # Journal
-  state-icon-color: "rgb(var(--color-theme))"
-  border-radius: "20px"
-  error-color: "var(--google-red)"
-  warning-color: "var(--google-yellow)"
-  success-color: "var(--google-green)"
-  info-color: "var(--google-blue)"
-  divider-color: "rgba(var(--color-theme),.12)"
-  accent-color: "var(--google-yellow)"
-  card-mod-theme: "minimalist-desktop"
-  card-mod-view-yaml: |
-    "*:first-child$": |
-      #columns .column > * {
-        padding-left: 5px;
-        padding-right: 5px;
-        padding-bottom: 5px;
-      }
-  modes:
-    light:
-      # text
-      primary-text-color: "#212121"
-      # main interface colors
-      primary-color: "#434343"
-      google-red: "#F54436"
-      google-green: "#01C852"
-      google-yellow: "#FF9101"
-      google-blue: "#3D5AFE"
-      google-violet: "#661FFF"
-      google-grey: "#BBBBBB"
-      color-red: "245, 68, 54"
-      color-green: "1, 200, 82"
-      color-yellow: "255, 145, 1"
-      color-blue: "61, 90, 254"
-      color-purple: "102, 31, 255"
-      color-grey: "187, 187, 187"
-      color-pink: "233, 30, 99"
-      color-theme: "51,51,51"
-      color-background-yellow: "250, 250, 250"
-      color-background-blue: "250, 250, 250"
-      color-background-green: "250, 250, 250"
-      color-background-red: "250, 250, 250"
-      color-background-pink: "250, 250, 250"
-      color-background-purple: "250, 250, 250"
-      color-yellow-text: "var(--primary-text-color)"
-      color-blue-text: "var(--primary-text-color)"
-      color-green-text: "var(--primary-text-color)"
-      color-red-text: "var(--primary-text-color)"
-      color-pink-text: "var(--primary-text-color)"
-      color-purple-text: "var(--primary-text-color)"
-      opacity-bg: "1"
-      # background and sidebar
-      card-background-color: "#FAFAFA"
-      primary-background-color: "#EFEFEF"
-      secondary-background-color: "#EFEFEF"
-      # header
-      app-header-text-color: "var(--primary-text-color)"
-      app-header-background-color: "var(--primary-background-color)"
-      # paper-tabs-selection-bar-color: "var(--primary-text-color)"
-      # slider
-      slider-color: "rgb(var(--color-blue))"
-      slider-bar-color: "rgba(var(--color-blue),0.38)"
-      # cards
-      box-shadow: "0px 2px 4px 0px rgba(0,0,0,0.16)"
-      ha-card-box-shadow: "var(--box-shadow)"
-      # sidebar
-      sidebar-selected-text-color: "var(--google-red)"
-      sidebar-selected-icon-color: "var(--google-red)"
-      sidebar-text-color: "#80868b"
-      # switch
-      switch-checked-color: "var(--google-blue)"
-      # media player
-      mini-media-player-accent-color: "var(--google-blue)"
-    dark:
-      # text
-      primary-text-color: "#DDDDDD"
-      # main interface colors
-      primary-color: "#89B3F8"
-      google-red: "#F18B82"
-      google-green: "#80C994"
-      google-yellow: "#FCD663"
-      google-blue: "#89B3F8"
-      google-violet: "#BB86FC"
-      google-grey: "#BBBBBB"
-      color-red: "241, 139, 130"
-      color-green: "128, 201, 148"
-      color-yellow: "252, 214, 99"
-      color-blue: "137, 179, 248"
-      color-theme: "221,221,221"
-      color-purple: "102, 31, 255"
-      color-grey: "187, 187, 187"
-      color-pink: "233, 30, 99"
-      color-background-yellow: "var(--color-yellow)"
-      color-background-blue: "var(--color-blue)"
-      color-background-green: "var(--color-green)"
-      color-background-red: "var(--color-red)"
-      color-background-pink: "var(--color-pink)"
-      color-background-purple: "var(--color-purple)"
-      color-yellow-text: "var(--color-yellow)"
-      color-blue-text: "var(--color-blue)"
-      color-green-text: "var(--color-green)"
-      color-red-text: "var(--color-red)"
-      color-pink-text: "var(--color-pink)"
-      color-purple-text: "var(--color-purple)"
-      opacity-bg: "0.1"
-      # floating button text color
-      mdc-theme-on-secondary: "var(--card-background-color)"
-      # background and sidebar
-      card-background-color: "#1D1D1D"
-      primary-background-color: "#121212"
-      secondary-background-color: "#121212"
-      # header
-      app-header-text-color: "var(--primary-text-color)"
-      app-header-background-color: "var(--primary-background-color)"
-      paper-tabs-selection-bar-color: "var(--primary-text-color)"
-      # Sidebar
-      sidebar-selected-text-color: "rgb(var(--color-blue))"
-      sidebar-selected-icon-color: "rgb(var(--color-blue))"
-      # Slider
-      slider-color: "rgb(var(--color-blue))"
-      slider-bar-color: "rgba(var(--color-blue),0.38)"
-      # card
-      box-shadow: "none"
-      # media player
-      mini-media-player-accent-color: "var(--google-blue)"
-      # Journal
-      state-icon-color: "rgb(var(--color-theme))"
-minimalist-mobile:
-  # Journal
-  state-icon-color: "rgb(var(--color-theme))"
-  border-radius: "20px"
-  error-color: "var(--google-red)"
-  warning-color: "var(--google-yellow)"
-  success-color: "var(--google-green)"
-  info-color: "var(--google-blue)"
-  divider-color: "rgba(var(--color-theme),.12)"
-  accent-color: "var(--google-yellow)"
-  card-mod-theme: "minimalist-mobile"
-  card-mod-root: |
-    app-toolbar {
-      display: none;
-    }
-  card-mod-view-yaml: |
-    "*:first-child$": |
-      #columns .column > * {
-        padding-left: 5px;
-        padding-right: 5px;
-        padding-bottom: 5px;
-      }
-  modes:
-    light:
-      # text
-      primary-text-color: "#212121"
-      # main interface colors
-      primary-color: "#434343"
-      google-red: "#F54436"
-      google-green: "#01C852"
-      google-yellow: "#FF9101"
-      google-blue: "#3D5AFE"
-      google-violet: "#661FFF"
-      google-grey: "#BBBBBB"
-      color-red: "245, 68, 54"
-      color-green: "1, 200, 82"
-      color-yellow: "255, 145, 1"
-      color-blue: "61, 90, 254"
-      color-purple: "102, 31, 255"
-      color-grey: "187, 187, 187"
-      color-pink: "233, 30, 99"
-      color-theme: "51,51,51"
-      color-background-yellow: "250, 250, 250"
-      color-background-blue: "250, 250, 250"
-      color-background-green: "250, 250, 250"
-      color-background-red: "250, 250, 250"
-      color-background-pink: "250, 250, 250"
-      color-background-purple: "250, 250, 250"
-      color-yellow-text: "var(--primary-text-color)"
-      color-blue-text: "var(--primary-text-color)"
-      color-green-text: "var(--primary-text-color)"
-      color-red-text: "var(--primary-text-color)"
-      color-pink-text: "var(--primary-text-color)"
-      color-purple-text: "var(--primary-text-color)"
-      opacity-bg: "1"
-      # background and sidebar
-      card-background-color: "#FAFAFA"
-      primary-background-color: "#EFEFEF"
-      secondary-background-color: "#EFEFEF"
-      # header
-      app-header-text-color: "var(--primary-text-color)"
-      app-header-background-color: "var(--primary-background-color)"
-      # paper-tabs-selection-bar-color: "var(--primary-text-color)"
-      # slider
-      slider-color: "rgb(var(--color-blue))"
-      slider-bar-color: "rgba(var(--color-blue),0.38)"
-      # cards
-      box-shadow: "0px 2px 4px 0px rgba(0,0,0,0.16)"
-      ha-card-box-shadow: "var(--box-shadow)"
-      # sidebar
-      sidebar-selected-text-color: "var(--google-red)"
-      sidebar-selected-icon-color: "var(--google-red)"
-      sidebar-text-color: "#80868b"
-      # switch
-      switch-checked-color: "var(--google-blue)"
-      # media player
-      mini-media-player-accent-color: "var(--google-blue)"
-    dark:
-      # text
-      primary-text-color: "#DDDDDD"
-      # main interface colors
-      primary-color: "#89B3F8"
-      google-red: "#F18B82"
-      google-green: "#80C994"
-      google-yellow: "#FCD663"
-      google-blue: "#89B3F8"
-      google-violet: "#BB86FC"
-      google-grey: "#BBBBBB"
-      color-red: "241, 139, 130"
-      color-green: "128, 201, 148"
-      color-yellow: "252, 214, 99"
-      color-blue: "137, 179, 248"
-      color-theme: "221,221,221"
-      color-purple: "102, 31, 255"
-      color-grey: "187, 187, 187"
-      color-pink: "233, 30, 99"
-      color-background-yellow: "var(--color-yellow)"
-      color-background-blue: "var(--color-blue)"
-      color-background-green: "var(--color-green)"
-      color-background-red: "var(--color-red)"
-      color-background-pink: "var(--color-pink)"
-      color-background-purple: "var(--color-purple)"
-      color-yellow-text: "var(--color-yellow)"
-      color-blue-text: "var(--color-blue)"
-      color-green-text: "var(--color-green)"
-      color-red-text: "var(--color-red)"
-      color-pink-text: "var(--color-pink)"
-      color-purple-text: "var(--color-purple)"
-      opacity-bg: "0.1"
-      # floating button text color
-      mdc-theme-on-secondary: "var(--card-background-color)"
-      # background and sidebar
-      card-background-color: "#1D1D1D"
-      primary-background-color: "#121212"
-      secondary-background-color: "#121212"
-      # header
-      app-header-text-color: "var(--primary-text-color)"
-      app-header-background-color: "var(--primary-background-color)"
-      paper-tabs-selection-bar-color: "var(--primary-text-color)"
-      # Sidebar
-      sidebar-selected-text-color: "rgb(var(--color-blue))"
-      sidebar-selected-icon-color: "rgb(var(--color-blue))"
-      # Slider
-      slider-color: "rgb(var(--color-blue))"
-      slider-bar-color: "rgba(var(--color-blue),0.38)"
-      # card
-      box-shadow: "none"
-      # media player
-      mini-media-player-accent-color: "var(--google-blue)"
-      # Journal
-      state-icon-color: "rgb(var(--color-theme))"
-
-# Metrology Themes for Home Assistant
-# Created by Madelena Mak 2022 https://mmak.es
-# https://github.com/Madelena/Metrology-for-Hass
-
-# To add your own custom color, see the examples at the end of this file.
-
-############################################
-############################################
-############################################
-
-# BASE THEMES. DO NOT USE!
-# Base Dark Theme
-
-________________________________Metro Dark Common Attributes (DO NOT USE):
-  &metro-common-dark # Background Colors
-  primary-background-color: "rgb(0,0,0)"
-  secondary-background-color: "rgb(24,24,24)"
-  card-background-color: "rgba(255,255,255,.075)"
-  rgb-card-background-color: "255,255,255"
-  mdc-ripple-color: "#AAAAAA"
-  rgb-mdc-ripple-color: "170,170,170"
-
-  # Text Colors
-  primary-text-color: "rgb(255,255,255)"
-  rgb-primary-text-color: "255,255,255"
-  secondary-text-color: "rgba(255,255,255,.75)"
-  text-primary-color: var(--primary-text-color)
-  accent-text-color: "rgb(255,255,255)"
-  disabled-text-color: "rgba(255,255,255,.55)"
-  text-accent-color: var(--accent-text-color)
-
-  # Other Mode Specific Variables
-  mdc-theme-surface: "rgb(24,24,24)"
-  rgb-mdc-theme-surface: "24,24,24"
-  mdc-dialog-scrim-color: rgba(0, 0, 0, 0.5)
-  dialog-backdrop-filter: blur(2em) brightness(0.80)
-  mdc-dialog-box-shadow: 0 0px 16px 4px rgba(var(--rgb-accent-color), .15), 0 16px 64px 32px rgba(var(--rgb-primary-color), .5)
-  slider-thumb-color: "#121212"
-
-  # Main Interface Colors
-  divider-color: transparent
-  disabled-color: "rgba(255,255,255,.55)"
-  rgb-disabled-color: "128,128,128"
-  error-color: "#FF4400"
-  rgb-error-color: "255,64,0"
-  warning-color: "#ffa600"
-  success-color: "#008a17"
-  rgb-success-color: "0, 138, 23"
-  info-color: "#039be5"
-
-  # Main Interface Colors
-  lovelace-background: var(--primary-background-color)
-  ha-card-background: var(--card-background-color)
-
-  app-header-background-color: "rgba(0,0,0,.33)"
-  app-header-text-color: var(--primary-text-color)
-  app-header-selection-bar-color: var(--primary-color)
-  app-header-edit-background-color: rgb(var(--rgb-primary-color-darker))
-  app-header-edit-text-color: var(--accent-text-color)
-  app-header-border-bottom: none
-
-  # Material and Paper
-  light-theme-disabled-color: var(--disabled-color)
-  dark-theme-disabled-color: var(--disabled-color)
-
-  material-disabled-color: var(--disabled-color)
-  material-divider-color: var(--divider-color)
-
-  light-theme-base-color: var(--primary-color)
-  dark-theme-base-color: var(--primary-color)
-
-  dark-primary-color: var(--primary-color)
-  light-primary-color: var(--primary-color)
-
-  mdc-theme-primary: var(--accent-color)
-  mdc-theme-on-primary: var(--accent-text-color)
-
-  # Typography
-  font-stack: &font-stack "Righteous" #"Segoe UI Variable Static Text, Segoe UI, SegoeUI, -apple-system,BlinkMacSystemFont, sans-serif"
-  display-font-stack: &display-font-stack "Righteous" #"Segoe UI Variable Static Display, Segoe UI, SegoeUI, -apple-system,BlinkMacSystemFont, sans-serif"
-  mdc-typography-button-font-family: var(--font-stack)
-  mdc-typography-font-family: var(--font-stack)
-  paper-font-common-base_-_font-family: var(--font-stack)
-  paper-font-title_-_font-family: var(--display-font-stack)
-  paper-font-headline_-_font-family: var(--display-font-stack)
-  paper-font-subhead_-_font-family: var(--display-font-stack)
-  paper-font-display1_-_font-family: var(--display-font-stack)
-  paper-font-display2_-_font-family: var(--display-font-stack)
-  paper-font-display3_-_font-family: var(--display-font-stack)
-  paper-font-display4_-_font-family: var(--display-font-stack)
-
-  # Body at 14px = 10.5pt = 1rem
-  body-font-size: 1rem
-  body-font-weight: normal
-  body-line-height: 1
-  card-title-font-size: 1.5rem
-  card-title-font-weight: 500
-  card-title-line-height: 1.1
-  title-font-size: 3.5rem
-  subtitle-font-size: 1rem
-
-  h1-font-size: 2.85rem
-  h2-font-size: 2.25rem
-  h3-font-size: 2rem
-  h4-font-size: 1.5rem
-  h5-font-size: 1.15rem
-  h6-font-size: .7rem
-
-  h1-font-weight: 100
-  h2-font-weight: 100
-  h3-font-weight: 100
-  h4-font-weight: 500
-  h5-font-weight: 400
-  h6-font-weight: 400
-
-  h1-font: var(--h1-font-weight) var(--h1-font-size) /var(--h1-line-height)
-  h2-font: var(--h2-font-weight) var(--h2-font-size) /var(--h2-line-height)
-  h3-font: var(--h3-font-weight) var(--h3-font-size) /var(--h3-line-height)
-  h4-font: var(--h4-font-weight) var(--h4-font-size) /var(--h4-line-height)
-  h5-font: var(--h5-font-weight) var(--h5-font-size) /var(--h5-line-height)
-  h6-font: var(--h6-font-weight) var(--h6-font-size) /var(--h6-line-height)
-
-  paper-font-headline_-_font-size: 3.5rem
-  paper-font-headline_-_font-weight: 500
-  paper-font-headline_-_letter-spacing: 0
-  paper-font-headline_-_line-height: 5rem
-
-  mush-title-font-size: var(--title-font-size)
-  mush-title-font-weight: 500
-  mush-title-padding: 24px 16px 16px
-  mush-subtitle-font-size: var(--subtitle-font-size)
-  mush-subtitle-font-weight: 500
-  mush-card-primary-font-size: 1rem
-  mush-card-secondary-font-size: 1rem
-  mush-card-primary-font-weight: 500
-  mush-card-secondary-font-weight: normal
-  mush-chip-font-size: 1rem
-  mush-chip-font-weight: normal
-
-  # Layout
-  ha-card-border-radius: "12px"
-  masonry-view-card-margin: "1px"
-  grid-card-gap: "2px"
-  stack-card-margin: "1px"
-
-  mush-spacing: 16px
-  mush-icon-border-radius: 32px
-  mush-control-border-radius: 14px
-
-  mdc-icon-size: 24px
-  header-height: 56px
-  mdc-shape-small: 0
-
-  expansion-panel-summary-padding: 0
-  expansion-panel-content-padding: 0
-
-  # Color Reset
-  # Map all the colors to the defaults above
-
-  # Icons
-  state-icon-color: var(--primary-text-color)
-  state-icon-active-color: var(--primary-color)
-  state-icon-unavailable-color: var(--disabled-color)
-
-  # Sidebar Menu
-  sidebar-icon-color: var(--secondary-text-color)
-  sidebar-text-color: var(--primary-text-color)
-  sidebar-background-color: var(--secondary-background-color)
-  sidebar-selected-background-color: var(--primary-background-color)
-  sidebar-selected-icon-color: var(--primary-color)
-  sidebar-selected-text-color: var(--sidebar-selected-icon-color))
-
-  # Sliders
-  paper-slider-knob-color: var(--accent-color)
-  paper-slider-knob-start-color: var(--paper-slider-knob-color)
-  paper-slider-pin-color: var(--paper-slider-knob-color)
-  paper-slider-active-color: var(--paper-slider-knob-color)
-  paper-slider-secondary-color: var(--light-primary-color)
-
-  # Labels
-  label-badge-background-color: var(--primary-background-color)
-  label-badge-text-color: var(--primary-text-color)
-  label-badge-red: "#BE3A3E"
-  label-badge-green: "#5CB861"
-  label-badge-blue: "#44A4CD"
-  label-badge-yellow: "#D5AE43"
-  label-badge-gray: "#5F6267"
-
-  # Cards
-  paper-dialog-background-color: var(--card-background-color)
-  paper-listbox-background-color: var(--secondary-background-color)
-  paper-card-background-color: var(--card-background-color)
-
-  # Switches
-  switch-checked-button-color: var(--primary-color)
-  switch-checked-track-color: var(--primary-background-color)
-  switch-unchecked-button-color: var(--secondary-background-color)
-  switch-unchecked-track-color: var(--primary-background-color)
-  mdc-radio-unchecked-color: var(--secondary-text-color)
-
-  # Toggles
-  paper-toggle-button-checked-button-color: var(--switch-checked-button-color)
-  paper-toggle-button-checked-bar-color: var(--switch-checked-track-color)
-  paper-toggle-button-unchecked-button-color: var(--switch-unchecked-button-color)
-  paper-toggle-button-unchecked-bar-color: var(--switch-unchecked-track-color)
-
-  # Table
-  table-row-background-color: var(--primary-background-color)
-  table-row-alternative-background-color: var(--secondary-background-color)
-  data-table-background-color: var(--primary-background-color)
-
-  # Dropdowns
-  material-background-color: var(--secondary-background-color)
-  material-secondary-background-color: var(--primary-background-color)
-  mdc-text-field-idle-line-color: var(--secondary-text-color)
-
-  # HACS
-  hacs-chip-background-color: var(--primary-color)
-
-  # Code
-  markdown-code-background-color: var(--primary-background-color)
-
-  # Checkboxes
-  mdc-select-fill-color: var(--primary-background-color)
-  mdc-select-ink-color: var(--primary-text-color)
-  mdc-select-label-ink-color: var(--secondary-text-color)
-  mdc-select-idle-line-color: var(--primary-text-color)
-  mdc-select-dropdown-icon-color: var(--secondary-text-color)
-  mdc-select-hover-line-color: var(--primary-color)
-
-  # Input
-  input-fill-color: var(--primary-background-color)
-  input-disabled-fill-color: var(--disabled-color)
-  input-dropdown-icon-color: var(--secondary-text-color)
-
-  input-ink-color: var(--primary-text-color)
-  input-label-ink-color: var(--secondary-text-color)
-  input-disabled-ink-color: var(--disabled-text-color)
-
-  input-idle-line-color: var(--primary-text-color)
-  input-hover-line-color: var(--primary-color)
-  input-disabled-line-color: var(--disabled-text-color)
-
-  input-outlined-idle-border-color: none
-  input-outlined-hover-border-color: none
-  input-outlined-disabled-border-color: var(--disabled-text-color)
-
-  code-editor-background-color: var(--primary-background-color)
-  mdc-text-field-fill-color: var(--primary-background-color)
-
-  # Buttons
-  btn-bg-color-off: var(--primary-background-color)
-  mdc-button-disabled-fill-color: var(--disabled-color)
-  mdc-button-disabled-ink-color: var(--disabled-text-color)
-
-  # Home Assistant override
-  ha-card-box-shadow: "none"
-
-  # Mushroom
-  mush-rgb-pink: var(--rgb-primary-color)
-  mush-rgb-state-entity: var(--rgb-pink)
-
-  # Swiper
-  swiper-theme-color: var(--primary-color)
-
-  # Custom
-  dark-mode-filter: "invert(1) hue-rotate(.5turn)"
-
-############################################
-############################################
-############################################
-
-# Base Light Theme
-
-________________________________Metro Light Common Attributes (DO NOT USE):
-  &metro-common-light # Background Colors
-  primary-background-color: "rgb(255,255,255)"
-  secondary-background-color: "rgb(232,232,232)"
-  card-background-color: "rgba(0,0,0,.033)"
-  rgb-card-background-color: "0,0,0"
-  mdc-ripple-color: "#222222"
-  rgb-mdc-ripple-color: "32,32,32"
-
-  # Text Colors
-  primary-text-color: "rgba(0,0,0,.95)"
-  rgb-primary-text-color: "0,0,0"
-  secondary-text-color: "rgba(0,0,0,.66)"
-  text-primary-color: var(--primary-text-color)
-  accent-text-color: "rgb(255,255,255)"
-  disabled-text-color: "rgba(0,0,0,.6)"
-  text-accent-color: var(--accent-text-color)
-
-  # Other Mode Specific Variables
-  mdc-theme-surface: rgba(255,255,255)
-  rgb-mdc-theme-surface: "255,255,255"
-  mdc-dialog-scrim-color: rgba(255,255,255,.667)
-  dialog-backdrop-filter: blur(2em) brightness(0.80)
-  mdc-dialog-box-shadow: 0 8px 16px 4px rgb(0 0 0 / 25%), 0 48px 64px 32px rgb(0 0 0 / 20%)
-  slider-thumb-color: "#E8E8E8"
-
-  # Main Interface Colors
-  divider-color: transparent
-  disabled-color: "rgba(255,255,255,.55)"
-  rgb-disabled-color: "128,128,128"
-  error-color: "#FF4400"
-  rgb-error-color: "255,64,0"
-  warning-color: "#ffa600"
-  success-color: "#008a17"
-  rgb-success-color: "0, 138, 23"
-  info-color: "#039be5"
-
-  lovelace-background: var(--primary-background-color)
-  ha-card-background: var(--card-background-color)
-
-  app-header-background-color: "rgb(255,255,255,.33)"
-  app-header-text-color: var(--primary-text-color)
-  app-header-selection-bar-color: var(--primary-color)
-  app-header-edit-background-color: rgb(var(--rgb-primary-color-darker))
-  app-header-edit-text-color: var(--accent-text-color)
-  app-header-border-bottom: none
-
-  # Material and Paper
-  light-theme-disabled-color: var(--disabled-color)
-  dark-theme-disabled-color: var(--disabled-color)
-
-  material-disabled-color: var(--disabled-color)
-  material-divider-color: var(--divider-color)
-
-  light-theme-base-color: var(--primary-color)
-  dark-theme-base-color: var(--primary-color)
-
-  dark-primary-color: var(--primary-color)
-  light-primary-color: var(--primary-color)
-
-  mdc-theme-primary: var(--accent-color)
-  mdc-theme-on-primary: var(--accent-text-color)
-
-  # Typography
-  font-stack: *font-stack
-  display-font-stack: *display-font-stack
-  mdc-typography-button-font-family: var(--font-stack)
-  mdc-typography-font-family: var(--font-stack)
-  paper-font-common-base_-_font-family: var(--font-stack)
-  paper-font-title_-_font-family: var(--display-font-stack)
-  paper-font-headline_-_font-family: var(--display-font-stack)
-  paper-font-subhead_-_font-family: var(--display-font-stack)
-  paper-font-display1_-_font-family: var(--display-font-stack)
-  paper-font-display2_-_font-family: var(--display-font-stack)
-  paper-font-display3_-_font-family: var(--display-font-stack)
-  paper-font-display4_-_font-family: var(--display-font-stack)
-
-  # Body at 14px = 10.5pt = 1rem
-  body-font-size: 1rem
-  body-font-weight: normal
-  body-line-height: 1
-  card-title-font-size: 1.5rem
-  card-title-font-weight: 500
-  card-title-line-height: 1
-  title-font-size: 3.5rem
-  subtitle-font-size: 1rem
-
-  h1-font-size: 2.85rem
-  h2-font-size: 2.25rem
-  h3-font-size: 2rem
-  h4-font-size: 1.5rem
-  h5-font-size: 1.15rem
-  h6-font-size: .7rem
-
-  h1-font-weight: 100
-  h2-font-weight: 100
-  h3-font-weight: 100
-  h4-font-weight: 500
-  h5-font-weight: 400
-  h6-font-weight: 400
-
-  h1-font: var(--h1-font-weight) var(--h1-font-size) /var(--h1-line-height)
-  h2-font: var(--h2-font-weight) var(--h2-font-size) /var(--h2-line-height)
-  h3-font: var(--h3-font-weight) var(--h3-font-size) /var(--h3-line-height)
-  h4-font: var(--h4-font-weight) var(--h4-font-size) /var(--h4-line-height)
-  h5-font: var(--h5-font-weight) var(--h5-font-size) /var(--h5-line-height)
-  h6-font: var(--h6-font-weight) var(--h6-font-size) /var(--h6-line-height)
-
-  paper-font-headline_-_font-size: 3.5rem
-  paper-font-headline_-_font-weight: 500
-  paper-font-headline_-_letter-spacing: 0
-  paper-font-headline_-_line-height: 5rem
-
-  mush-title-font-size: var(--title-font-size)
-  mush-title-font-weight: 500
-  mush-title-padding: 24px 16px 16px
-  mush-subtitle-font-size: var(--subtitle-font-size)
-  mush-subtitle-font-weight: 500
-  mush-card-primary-font-size: 1rem
-  mush-card-secondary-font-size: 1rem
-  mush-card-primary-font-weight: 500
-  mush-card-secondary-font-weight: normal
-  mush-chip-font-size: 1rem
-  mush-chip-font-weight: normal
-
-  # Layout
-  ha-card-border-radius: "14px"
-  ha-dialog-border-radius: "8px"
-  masonry-view-card-margin: "1px"
-  grid-card-gap: "2px"
-  stack-card-margin: "1px"
-
-  mush-spacing: 16px
-  mush-icon-border-radius: 32px
-  mush-control-border-radius: 14px
-
-  mdc-icon-size: 24px
-  header-height: 56px
-  mdc-shape-small: 0
-
-  expansion-panel-summary-padding: 0
-  expansion-panel-content-padding: 0
-
-  # Color Reset
-  # Map all the colors to the defaults above
-
-  # Icons
-  state-icon-color: var(--primary-text-color)
-  state-icon-active-color: var(--primary-color)
-  state-icon-unavailable-color: var(--disabled-color)
-
-  # Sidebar Menu
-  sidebar-icon-color: rgba(0,0,0,.5)
-  sidebar-text-color: var(--primary-text-color)
-  sidebar-background-color: var(--primary-background-color)
-  sidebar-selected-background-color: var(--primary-background-color)
-  sidebar-selected-icon-color: var(--primary-color)
-  sidebar-selected-text-color: var(--sidebar-selected-icon-color))
-
-  # Sliders
-  paper-slider-knob-color: var(--accent-color)
-  paper-slider-knob-start-color: var(--paper-slider-knob-color)
-  paper-slider-pin-color: var(--paper-slider-knob-color)
-  paper-slider-active-color: var(--paper-slider-knob-color)
-  paper-slider-secondary-color: var(--light-primary-color)
-
-  # Labels
-  label-badge-background-color: var(--primary-background-color)
-  label-badge-text-color: var(--primary-text-color)
-  label-badge-red: "#BE3A3E"
-  label-badge-green: "#5CB861"
-  label-badge-blue: "#44A4CD"
-  label-badge-yellow: "#D5AE43"
-  label-badge-gray: "#5F6267"
-
-  # Cards
-  paper-dialog-background-color: var(--card-background-color)
-  paper-listbox-background-color: var(--secondary-background-color)
-  paper-card-background-color: var(--card-background-color)
-
-  # Switches
-  switch-checked-button-color: var(--primary-color)
-  switch-checked-track-color: var(--primary-background-color)
-  switch-unchecked-button-color: var(--secondary-background-color)
-  switch-unchecked-track-color: var(--primary-background-color)
-  mdc-radio-unchecked-color: var(--secondary-text-color)
-
-  # Toggles
-  paper-toggle-button-checked-button-color: var(--switch-checked-button-color)
-  paper-toggle-button-checked-bar-color: var(--switch-checked-track-color)
-  paper-toggle-button-unchecked-button-color: var(--switch-unchecked-button-color)
-  paper-toggle-button-unchecked-bar-color: var(--switch-unchecked-track-color)
-
-  # Table
-  table-row-background-color: var(--primary-background-color)
-  table-row-alternative-background-color: var(--secondary-background-color)
-  data-table-background-color: var(--primary-background-color)
-
-  # Dropdowns
-  material-background-color: var(--secondary-background-color)
-  material-secondary-background-color: var(--primary-background-color)
-  mdc-text-field-idle-line-color: var(--secondary-text-color)
-
-  # HACS
-  hacs-chip-background-color: var(--primary-color)
-
-  # Code
-  markdown-code-background-color: var(--primary-background-color)
-
-  # Checkboxes
-  mdc-select-fill-color: var(--primary-background-color)
-  mdc-select-ink-color: var(--primary-text-color)
-  mdc-select-label-ink-color: var(--secondary-text-color)
-  mdc-select-idle-line-color: var(--primary-text-color)
-  mdc-select-dropdown-icon-color: var(--secondary-text-color)
-  mdc-select-hover-line-color: var(--primary-color)
-
-  # Input
-  input-fill-color: var(--primary-background-color)
-  input-disabled-fill-color: var(--disabled-color)
-  input-dropdown-icon-color: var(--secondary-text-color)
-
-  input-ink-color: var(--primary-text-color)
-  input-label-ink-color: var(--secondary-text-color)
-  input-disabled-ink-color: var(--disabled-text-color)
-
-  input-idle-line-color: var(--primary-text-color)
-  input-hover-line-color: var(--primary-color)
-  input-disabled-line-color: var(--disabled-text-color)
-
-  input-outlined-idle-border-color: none
-  input-outlined-hover-border-color: none
-  input-outlined-disabled-border-color: var(--disabled-text-color)
-
-  code-editor-background-color: var(--primary-background-color)
-  mdc-text-field-fill-color: var(--primary-background-color)
-
-  # Buttons
-  btn-bg-color-off: var(--primary-background-color)
-  mdc-button-disabled-fill-color: var(--disabled-color)
-  mdc-button-disabled-ink-color: var(--disabled-text-color)
-
-  # Home Assistant override
-  ha-card-box-shadow: "none"
-
-  # Mushroom
-  mush-rgb-pink: var(--rgb-primary-color)
-  mush-rgb-state-entity: var(--rgb-pink)
-
-  # Swiper
-  swiper-theme-color: var(--primary-color)
-
-  # Custom
-  dark-mode-filter: "invert(1) hue-rotate(.5turn)"
-
-  # Card Mod
-  card-mod-theme: "Metro Red"
-  card-mod-row: &card-mod-row |
-    hui-generic-entity-row {
-      padding-top: 4px;
-      padding-bottom: 4px;
-    }
-    :host .info, :host .info > * {
-      white-space: normal !important;
-    }
-  card-mod-card: &card-mod-card |
-    ha-card {
-      --mdc-icon-size: 20px
-    }
-    ha-card .value {
-      font-size: var(--h1-font-size);
-      font-weight: var(--h1-font-weight);
-      margin-right: 0;
-    }
-    ha-card .name {
-      font-size: var(--body-font-size);
-      line-height: var(--body-line-height);
-      font-weight: var(--body-font-weight);
-      color: var(--primary-text-color);
-    }
-    ha-card .info {
-      line-height: 32px;
-      padding-top: 8px;
-    }
-    ha-card .header {
-      padding-top: 16px !important;
-    }
-    .icon {
-      line-height: 16px !important;
-    }
-    ha-card .measurement {
-      font-size: var(--h6-font-size);
-      font-weight: 700;
-      color: var(--secondary-text-color);
-      text-transform: uppercase;
-    }
-    .card-header, .card-header .name {
-      font-size: var(--card-title-font-size);
-      line-height: var(--card-title-line-height);
-      font-weight: var(--card-title-font-weight);
-      letter-spacing: 0;
-      margin-bottom: 8px;
-    }
-    :host ::slotted(.card-content:not(:first-child)), slot:not(:first-child)::slotted(.card-content) {
-      margin-top: 0;
-    }
-  card-mod-more-info-yaml: &card-mod-more-info-yaml |
-    $: |
-      .mdc-dialog__surface {
-        backdrop-filter: blur(8px);
-        background-color: rgba(var(--rgb-mdc-theme-surface), .5) !important;
-      }
-    ha-header-bar$: |
-      .mdc-top-app-bar {
-        background: none !important;
-      }
-    .: |
-      .mdc-top-app-bar__title, .main-title {
-        text-transform: uppercase;
-        font-size: var(--body-font-size);
-        font-weight: 500;
-        line-height: 1.1;
-        overflow: inherit;
-        white-space: normal;
-        margin-left: -6px;
-      }
-      .content {
-        # margin-top: -8px;
-      }
-    state-card-display$: |
-      .state {
-        margin-left: 46px !important;
-        font-size: var(--h1-font-size);
-        font-weight: var(--h1-font-weight);
-        text-align: left !important;
-        line-height: 1.1;
-      }
-      .layout.horizontal {
-        flex-direction: column-reverse !important;
-      }
-      state-info { margin-left: -8px; margin-top: -42px; }
-    state-card-display$state-info$: |
-      .name { display: none; }
-      .time-ago { margin-top: 42px; 
-        font-size: var(--h6-font-size);
-        text-transform: uppercase;}
-      state-badge {
-        width: 32px !important;
-        height: 32px !important;
-        border-radius: 0 !important;
-        margin: 4px 8px 8px 8px;
-      }
-      state-badge[icon] {
-        margin: 0 0 0 8px !important;
-      }
-    more-info-default$ha-attributes$: |
-      .data-entry { flex-direction: column !important; }
-      .key {
-        font-size: var(--h6-font-size);
-        text-transform: uppercase;
-        line-height: 1.1;
-      }
-      .data-entry .value {
-        text-align: left !important;
-        font-size: var(--h2-font-size);
-        font-weight: var(--h2-font-weight);
-        line-height: 1.1;
-        margin-bottom: 16px;
-        max-width: none !important;
-      }
-  card-mod-root-yaml: &card-mod-root |
-    .: |
-      app-header, app-toolbar {
-        backdrop-filter: blur(8px);
-      }
-      app-toolbar [main-title] {
-        font-size: var(--h5-font-size);
-        line-height: 1.1;
-        font-weight: var(--h5-font-weight);
-        text-transform: uppercase;
-        margin-left: 8px !important;
-      }
-    app-header$: |
-      :host::before {
-        box-shadow: inset 0px 4px 6px -4px rgb(0 0 0 / 10%) !important;
-      }
-  card-mod-view: &card-mod-view |
-    .main-title {
-      font-size: 10pt;
-      font-weight: 500;
-      text-transform: uppercase;
-    }
-    #tabbar {
-      font-size: 10pt;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-    #tabbar:not(.bottom-bar) {
-      justify-content: left;
-    }
-
-############################################
-############################################
-############################################
-
-# Color Variations
-
-# So happy that YAML Anchors work so I don't need to duplicate code a billion times.
-# It's relatively easy to create your own theme. You just need to provide the colors.
-
-Metro Red:
-  modes:
-    dark: *metro-common-dark
-    light: *metro-common-light
-
-  primary-color: "#C30052"
-  rgb-primary-color: "195,0,82"
-  rgb-primary-color-darker: "144, 0, 60"
-  rgb-primary-color-lighter: "233, 0, 98"
-  hue-primary-color: "335deg"
-
-  accent-color: "#e90062"
-  rgb-accent-color: "233, 0, 98"
-
-  card-mod-theme: "Metro Red"
-  card-mod-row: *card-mod-row
-  card-mod-card: *card-mod-card
-  card-mod-more-info-yaml: *card-mod-more-info-yaml
-  card-mod-root-yaml: *card-mod-root
-  card-mod-view: *card-mod-view
-
-Metro Blue:
-  modes:
-    dark: *metro-common-dark
-    light: *metro-common-light
-
-  primary-color: "#0078d7"
-  rgb-primary-color: "0,120,215"
-  rgb-primary-color-darker: "0,91,163"
-  rgb-primary-color-lighter: "0,141,253"
-  hue-primary-color: "207deg"
-
-  accent-color: "#008dfd"
-  rgb-accent-color: "0,141,253"
-
-  card-mod-theme: "Metro Blue"
-  card-mod-row: *card-mod-row
-  card-mod-card: *card-mod-card
-  card-mod-more-info-yaml: *card-mod-more-info-yaml
-  card-mod-root-yaml: *card-mod-root
-  card-mod-view: *card-mod-view
-
-Metro Green:
-  modes:
-    dark: *metro-common-dark
-    light: *metro-common-light
-
-  primary-color: "#5fe01f"
-  rgb-primary-color: "95, 224, 31"
-  rgb-primary-color-darker: "76, 180, 24"
-  rgb-primary-color-lighter: "127, 231, 75"
-  hue-primary-color: "151deg"
-
-  accent-color: "#5fe01f"
-  rgb-accent-color: "95, 224, 31"
-
-  card-mod-theme: "Metro Green"
-  card-mod-row: *card-mod-row
-  card-mod-card: *card-mod-card
-  card-mod-more-info-yaml: *card-mod-more-info-yaml
-  card-mod-root-yaml: *card-mod-root
-  card-mod-view: *card-mod-view
-
-Metro Orange:
-  modes:
-    dark: *metro-common-dark
-    light: *metro-common-light
-
-  primary-color: "#ff8c00"
-  rgb-primary-color: "255, 140, 0"
-  rgb-primary-color-darker: "204, 112, 0"
-  rgb-primary-color-lighter: "255, 157, 0"
-  hue-primary-color: "33deg"
-
-  accent-color: "#ff9d00"
-  rgb-accent-color: "255, 157, 0"
-
-  card-mod-theme: "Metro Orange"
-  card-mod-row: *card-mod-row
-  card-mod-card: *card-mod-card
-  card-mod-more-info-yaml: *card-mod-more-info-yaml
-  card-mod-root-yaml: *card-mod-root
-  card-mod-view: *card-mod-view
-
-# Bubble v1.0
-
-# Noctis from aFFekopp was my initial theme (thanks dude!)
-# Bubble is a modified one and is maintained by Clooos
-
-Bubble:
-  # Fonts
-  primary-font-family: "sans-serif"
-  paper-font-common-base_-_font-family: "var(--primary-font-family)"
-  paper-font-common-code_-_font-family: "var(--primary-font-family)"
-  paper-font-body1_-_font-family: "var(--primary-font-family)"
-  paper-font-subhead_-_font-family: "var(--primary-font-family)"
-  paper-font-headline_-_font-family: "var(--primary-font-family)"
-  paper-font-caption_-_font-family: "var(--primary-font-family)"
-  paper-font-title_-_font-family: "var(--primary-font-family)"
-  ha-card-header-font-family: "var(--primary-font-family)"
-
-  # Text
-  text-color: "#ffffff"
-  primary-text-color: "var(--text-color)"
-  text-primary-color: "var(--text-color)"
-  sidebar-text-color: "var(--text-color)"
-  pbs-button-color: "var(--text-color)"
-  pbs-button-rgb-color: "var(--text-color)"
-  pbs-button-rgb-state-color: "var(--text-color)"
-  pbs-button-rgb-default-color: "var(--text-color)"
-  rgb-state-default-color: "var(--text-color)"
-  pbs-button-rgb-fallback: "var(--text-color)"
-  secondary-text-color: "rgb(244, 238, 224)" #'rgb(193 211 170)' #"#BAC0C6"
-  text-medium-light-color: "#A0A2A8"
-  text-medium-color: "#80828A"
-  disabled-text-color: "#626569"
-  primary-color: "var(--accent-color)"
-
-  # Text Fields an Dropdown
-  mdc-text-field-fill-color: "var(--background-color)"
-  mdc-text-field-ink-color: "var(--text-color)"
-  mdc-select-fill-color: "var(--background-color)"
-  mdc-text-field-label-ink-color: "var(--secondary-text-color)"
-  input-fill-color: "var(--background-color)"
-  input-ink-color: "var(--text-color)"
-  input-label-ink-color: "var(--text-color)"
-  input-disabled-fill-color: "var(--background-color)"
-  input-disabled-ink-color: "var(--disabled-text-color)"
-  input-disabled-label-ink-color: "var(--disabled-text-color)"
-  input-idle-line-color: "var(--background-color)"
-  input-dropdown-icon-color: "var(--secondary-text-color)"
-  input-hover-line-color: "var(--primary-color)"
-  code-editor-background-color: "#222c40"
-  codemirror-property: "var(--accent-color)"
-
-  # Main Colors
-  app-header-background-color: "var(--background-color)" #'#242e42'
-  accent-color: "rgb(80, 110, 172)"
-  accent-medium-color: "var(--accent-color)"
-
-  # Background
-  background-color: "rgba(57, 54, 70, 1)" #'rgb(23, 24, 26)'
-  primary-background-color: "var(--background-color)"
-  background-color-2: "rgb(92, 83, 103)" #'#2e4a74'
-  secondary-background-color: "none"
-  markdown-code-background-color: "var(--background-color)"
-
-  # Card
-  card-background-color: "var(--ha-card-background)"
-  ha-card-background: "rgba(79, 69, 87, 1)" #'rgb(36, 37, 41)'
-  ha-card-box-shadow: "none"
-  ha-card-border-radius: "28px"
-  ha-card-border-style: "solid !important"
-  ha-card-border-width: "1px !important"
-  ha-card-border-color: "none !important"
-  border-color: "none"
-  grid-card-gap: "18px"
-  horizontal-stack-card-margin: "0 10px"
-  border-style: "none !important"
-  ha-card-background-active: "rgba(103,114,209, 0.4) radial-gradient(at bottom, rgba(103,114,209, 0.5) 0%, rgba(103,114,209, 0) 70%)"
-  control-button-border-radius: "50px"
-  control-button-background-color: "var(--ha-card-background)"
-
-  # Icons
-  paper-item-icon-color: "var(--text-color)"
-  paper-item-icon-active-color: "var(--accent-color)"
-
-  # Sidebar
-  sidebar-background-color: "var(--background-color)"
-  sidebar-icon-color: "#98a7b9"
-  sidebar-selected-icon-color: "var(--accent-color)"
-  sidebar-selected-text-color: "var(--text-color)"
-  paper-listbox-background-color: "var(--sidebar-background-color)"
-  divider-color: "var(--background-color)"
-  light-primary-color: "var(--ha-card-background)"
-
-  # Sliders
-  paper-slider-knob-color: "var(--accent-color)"
-  paper-slider-pin-color: "var(--background-color-2)"
-  paper-slider-active-color: "var(--accent-color)"
-  paper-slider-container-color: "var(--background-color-2)"
-
-  # Toggle:
-  paper-toggle-button-checked-bar-color: "var(--accent-color)"
-  mdc-theme-primary: "var(--accent-color)"
-
-  # Switch
-  switch-unchecked-color: "#70889e"
-  switch-checked-button-color: "var(--accent-color)"
-  switch-unchecked-track-color: "var(--background-color-2)"
-  switch-checked-track-color: "var(--background-color-2)"
-
-  # Radio Button
-  paper-radio-button-checked-color: "var(--accent-color)"
-
-  # Popups
-  more-info-header-background: "var(--secondary-background-color)"
-  paper-dialog-background-color: "var(--background-color)"
-
-  # Tables
-  table-row-background-color: "var(--background-color)"
-  table-row-alternative-background-color: "var(--ha-card-background)"
-
-  # Badges
-  label-badge-background-color: "var(--background-color)"
-  label-badge-text-color: "var(--text-primary-color)"
-  label-badge-red: "rgba(73,85,108,1)"
-  label-badge-blue: "rgba(26,137,245,1)"
-  label-badge-green: "rgba(0,202,139,1)"
-  label-badge-yellow: "rgba(222,176,107,1)"
-
-  paper-input-container-focus-color: "var(--accent-color)"
-
-  # Custom Header
-  ch-background: "var(--background-color)"
-  ch-active-tab-color: "var(--accent-color)"
-  ch-notification-dot-color: "var(--accent-color)"
-  ch-all-tabs-color: "var(--sidebar-icon-color)"
-  ch-tab-indicator-color: "var(--accent-color)"
-
-  # Mini Mediaplayer
-  mini-media-player-base-color: "var(--text-color)"
-  mini-media-player-accent-color: "var(--accent-color)"
-
-  # Alarm
-  alarm-color-armed: "rgba(247,53,67,1)"
-
-  card-mod-theme: Bubble
-
-  card-mod-root-yaml: |
-    .: |
-      @media only screen and (max-width: 768px) {
+          .mdc-checkbox__background {
+            border: 1px white;
+          }
           .header {
-            display: none;
-            opacity: 0;
+            transition: shadow 0s !important;
+            transition: box-shadow 0s !important;
           }
-          #view {
-            padding-top: 0 !important;
-            margin-top: 0 !important;
-            height: calc(100vh - env(safe-area-inset-top)) !important;
+      card-mod-view-yaml: |
+        .: |
+          ::-webkit-scrollbar {
+            background: var(--accent-color-lighter);
           }
-      }
-
-  card-mod-more-info-yaml: |
-    $: |
-      .mdc-dialog .mdc-dialog__scrim {
-          backdrop-filter: blur(15px);
-          -webkit-backdrop-filter: blur(15px);
-          background: rgba(0,0,0,0.6);
-      } 
-      .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
-          box-shadow: none !important;
-          border-radius: var(--ha-card-border-radius);
-      }
-      .: |
-      :host {
-          --ha-card-box-shadow: none;
-      }
-  card-mod-view-yaml: |
-    hui-sidebar-view:
-      $: |
-        .container {
-            overflow: hidden;
-            /* padding: 6px; */
-        }
-        @media only screen and (min-width: 768px) {
-            .container {
-              max-width: 520px;
-              margin: auto !important;
-              width: -webkit-fill-available;
-            }
-        }
-        #wrapper: |
-          $: |
-            #progressContainer {
-                border-radius: 14px !important;
-        }
-      .: |
-        "#view>hui-view>hui-sidebar-view$#main>hui-card-options:nth-child(7)>vertical-stack-in-card$ha-card>div>hui-horizontal-stack-card$#root>hui-grid-card$#root>hui-entities-card$#states>div:nth-child(4)>slider-entity-row$div>ha-slider$#sliderBar$#progressContainer" {
-            border-radius: 14px !important;
-        }
-
-  card-mod-card: |
-    ha-card {
-      transition: none;
-      border-style: none !important;
-    }
-
-Graphite:
-  # Graphite is a contemporary theme featuring a calming dark color scheme,
-  # native device fonts, and a cohesive design language.
-  # Designed to be visually appealing and easy on the eyes, it provides a
-  # consistent user experience across the entire home assistant interface,
-  # including the administration interface and code editors.
-
-  ##############################################################################
-  # Tokens
-
-  # Color tokens
-  token-rgb-primary: 0, 204, 0
-  token-color-primary: rgb(var(--token-rgb-primary))
-  token-color-accent: var(--token-color-primary)
-  token-color-feedback-info: rgb(138, 208, 248)
-  token-color-feedback-warning: rgb(244,180,0)
-  token-color-feedback-error: rgb(229, 97, 128)
-  token-color-feedback-success: rgb(93, 193, 145)
-  token-color-icon-primary: rgba(228, 228, 231, 1)
-  token-color-icon-secondary: rgb(138 140 153)
-  token-color-icon-sidebar: rgba(147, 149, 159, 1)
-  token-color-icon-sidebar-selected: rgba(174, 176, 183, 1)
-  token-color-text-primary: rgba(228, 228, 231, 1)
-  token-color-text-secondary: rgb(138 140 153)
-  token-color-text-disabled: rgba(255, 255, 255, 0.5)
-  token-color-text-sidebar-selected: rgba(214, 215, 219, 1)
-  token-color-text-sidebar: var(--token-color-text-secondary)
-  token-color-text-label-badge: rgb(198, 203, 210)
-  token-color-background-base: rgba(22, 24, 29, 1)
-  token-color-background-secondary: rgba(28, 29, 33, 1)
-  token-color-background-sidebar: var(--token-color-background-base)
-  token-color-background-input-base: rgba(46, 48, 56, 1)
-  token-color-background-input-disabled: rgba(37, 37, 40, 0.5)
-  token-color-background-label-badge: rgba(54, 55, 67, 1)
-  token-color-background-card: rgba(37, 38, 45, 1)
-  token-color-background-skrim: rgba(0, 0, 3, 0.9)
-  token-color-background-divider: var(--token-color-background-sidebar)
-  token-color-background-scrollbar-thumb: rgba(46, 48, 56, 1)
-  token-color-background-label-badge-red: var(--token-color-feedback-error)
-  token-color-background-label-badge-green: rgba(78, 183, 128, 1)
-  token-color-background-label-badge-blue: var(--token-color-feedback-info)
-  token-color-background-label-badge-yellow: var(--token-color-feedback-warning)
-  token-color-background-label-badge-grey: rgba(83, 90, 103, 1)
-  token-color-background-popup-scrim: rgba(4, 5, 7, 0.9)
-  token-color-border-card: rgba(0, 0, 0, 0)
-
-  # Opaciy tokens
-  token-opacity-ripple-hover: 0.14
-
-  # Font tokens
-  #  token-font-family-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
-  token-font-family-primary: "Righteous"
-  # Size tokens
-  token-size-radius-small: 9px
-  token-size-radius-medium: 16px
-  token-size-radius-large: 18px
-  token-size-radius-card: var(--token-size-radius-large)
-  token-size-width-border-card: 0
-  token-size-height-slider: 4px
-  token-size-height-navbar: 56px
-  token-size-font-title: 28px
-
-  # Weight tokens
-  token-weight-font-title: 600
-
-  ##############################################################################
-  # Definitions
-
-  # Shapes
-  mdc-shape-small: var(--token-size-radius-small)
-  mdc-shape-medium: var(--token-size-radius-medium)
-  mdc-shape-large: var(--token-size-radius-large)
-
-  # Sizes
-  header-height: var(--token-size-height-navbar)
-  paper-slider-height: var(--token-size-height-slider)
-
-  # Typography
-  primary-font-family: var(--token-font-family-primary)
-  paper-font-common-base_-_font-family: var(--token-font-family-primary)
-  paper-font-common-code_-_font-family: var(--token-font-family-primary)
-  paper-font-body1_-_font-family: var(--token-font-family-primary)
-  paper-font-subhead_-_font-family: var(--token-font-family-primary)
-  paper-font-headline_-_font-family: var(--token-font-family-primary)
-  paper-font-caption_-_font-family: var(--token-font-family-primary)
-  paper-font-title_-_font-family: var(--token-font-family-primary)
-  ha-card-header-font-family: var(--token-font-family-primary)
-  mdc-typography-font-family: var(--token-font-family-primary)
-  mdc-typography-button-font-family: var(--token-font-family-primary)
-  mdc-typography-body1-font-family: var(--token-font-family-primary)
-  mdc-typography-button-font-weight: var(--token-weight-font-title)
-
-  title-font-weight: var(--token-weight-font-title)
-  title-font-size: var(--token-size-font-title)
-
-  # Text
-  primary-text-color: var(--token-color-text-primary)
-  secondary-text-color: var(--token-color-text-secondary)
-  text-primary-color: var(--token-color-text-primary)
-  text-light-primary-color: var(--token-color-text-primary)
-  disabled-text-color: var(--token-color-text-disabled)
-
-  # Main interface colors
-  primary-color: var(--token-color-primary)
-  dark-primary-color: var(--primary-color)
-  light-primary-color: var(--primary-color)
-  accent-color: var(--token-color-accent)
-  divider-color: var(--token-color-background-divider)
-  scrollbar-thumb-color: var(--token-color-background-scrollbar-thumb)
-
-  # Feedback colors
-  error-color: rgb(234 114 135)
-  warning-color: rgb(255 219 117)
-  success-color: rgb(118 214 152)
-  info-color: rgb(39, 209, 246)
-
-  # Background
-  lovelace-background: var(--token-color-background-base)
-  background-color: var(--token-color-background-base)
-  primary-background-color: var(--token-color-background-base)
-  secondary-background-color: var(--token-color-background-secondary)
-
-  # Navbar
-  app-header-background-color: var(--primary-background-color)
-  app-header-text-color: var(--token-color-icon-primary)
-  app-header-edit-background-color: var(--token-color-background-card)
-
-  # Sidebar
-  sidebar-icon-color: var(--token-color-icon-sidebar)
-  sidebar-text-color: var(--sidebar-icon-color)
-  sidebar-background-color: var(--token-color-background-sidebar)
-  sidebar-selected-icon-color: var(--token-color-icon-sidebar-selected)
-  sidebar-selected-text-color: var(--token-color-text-sidebar-selected)
-
-  # Cards
-  border-radius: var(--token-size-radius-card)
-  card-background-color: var(--token-color-background-card)
-  ha-card-background: var(--token-color-background-card)
-  ha-card-border-radius: var(--token-size-radius-card)
-  ha-card-border-color: var(--token-color-border-card)
-  ha-card-border-width: var(--token-size-width-border-card)
-  ha-card-border-style: none
-  ha-card-border: none
-  ha-card-box-shadow: none
-
-  # States
-  state-icon-color: var(--token-color-icon-primary)
-  state-on-color: var(--token-color-feedback-success)
-  state-off-color: var(--token-color-feedback-error)
-
-  # Label-badge
-  label-badge-text-color: var(--token-color-text-primary)
-  label-badge-red: var(--token-color-background-label-badge-red)
-  label-badge-blue: var(--token-color-background-label-badge-blue)
-  label-badge-green: var(--token-color-background-label-badge-green)
-  label-badge-yellow: var(--token-color-background-label-badge-yellow)
-  label-badge-grey: var(--token-color-background-label-badge-grey)
-
-  # Chip
-  ha-chip-text-color: rgb(255 255 255)
-
-  # Dialog
-  mdc-dialog-scrim-color: var(--token-color-background-popup-scrim)
-
-  # Slider
-  paper-slider-knob-color: var(--token-color-primary)
-  paper-slider-knob-start-color: var(--paper-slider-knob-color)
-  paper-slider-pin-color: var(--paper-slider-knob-color)
-  paper-slider-active-color: var(--paper-slider-knob-color)
-  paper-slider-secondary-color: var(--light-primary-color)
-
-  # Switch
-  switch-checked-button-color: var(--primary-color)
-  switch-checked-track-color: var(--switch-checked-button-color)
-  switch-unchecked-button-color: rgba(255, 255, 255, 0.7)
-  switch-unchecked-track-color: rgba(125, 128, 132, 0.4)
-
-  # Toggles
-  paper-toggle-button-checked-button-color: var(--switch-checked-button-color)
-  paper-toggle-button-checked-bar-color: var(--switch-checked-track-color)
-  paper-toggle-button-unchecked-button-color: var(--switch-unchecked-button-color)
-  paper-toggle-button-unchecked-bar-color: var(--switch-unchecked-track-color)
-  mdc-checkbox-unchecked-color: var(--token-color-icon-secondary)
-  mdc-radio-unchecked-color: var(--mdc-checkbox-unchecked-color)
-
-  # List items
-  mdc-ripple-hover-opacity: var(--token-opacity-ripple-hover)
-
-  # Text Fields an Dropdown
-  input-background-color: var(--token-color-background-input-base)
-  input-background-token-color-disabled: rgba(var(--input-background-color), 0.5)
-  input-fill-color: var(--input-background-color)
-  input-ink-color: var(--token-color-text-primary)
-  input-label-ink-color: var(--token-color-text-primary)
-  input-disabled-fill-color: var(--input-background-token-color-disabled)
-  input-disabled-ink-color: var(--disabled-text-color)
-  input-disabled-label-ink-color: var(--disabled-text-color)
-  input-idle-line-color: var(--background-color)
-  input-dropdown-icon-color: var(--secondary-text-color)
-  input-hover-line-color: var(--primary-color)
-  mdc-select-idle-line-color: var(--color-background-base)
-  mdc-text-field-idle-line-color: var(--mdc-select-idle-line-color)
-
-  # Editor
-  code-editor-background-color: var(--token-color-background-base)
-  codemirror-meta: var(--token-color-text-primary)
-  codemirror-property: var(--accent-color)
-  codemirror-atom: var(--codemirror-property)
-  codemirror-string: rgb(119 196 229)
-  codemirror-keyword: rgb(140 169 255)
-  codemirror-number: rgb(255 91 29)
-
-  # RGB colors
-  rgb-primary-color: var(--token-rgb-primary)
-  rgb-accent-color: var(--token-rgb-primary)
-  rgb-white-color: 240, 243, 255
-  rgb-purple-color: 189, 157, 255
-  rgb-pink-color: 255, 98, 192
-  rgb-red-color: 255, 97, 116
-  rgb-deep-purple-color: 166, 77, 255
-  rgb-indigo-color: 84, 132, 255
-  rgb-blue-color: 33, 150, 243
-  rgb-light-blue-color: 3, 169, 244
-  rgb-cyan-color: 0, 188, 212
-  rgb-teal-color: 107, 255, 237
-  rgb-green-color: 141, 253, 166
-  rgb-light-green-color: 156, 255, 166
-  rgb-lime-color: 205, 220, 57
-  rgb-yellow-color: 255, 235, 59
-  rgb-amber-color: 255, 211, 99
-  rgb-orange-color: var(--rgb-primary-color)
-  rgb-deep-orange-color: 255, 87, 34
-  rgb-brown-color: 121, 85, 72
-  rgb-grey-color: 158, 158, 158
-  rgb-blue-grey-color: 96, 125, 139
-  rgb-black-color: 0, 0, 0
-  rgb-disabled-color: 61, 65, 85
-  rgb-state-inactive-color: 123, 126, 139
-
-  ##############################################################################
-  # Extentions
-
-  # HACS
-  hacs-new-color: rgb(27 153 123)
-  hacs-error-color: rgb(182 46 95)
-
-  # Mini graph card
-  mcg-title-font-weight: 400
-
-  # Mushroom
-  mush-title-font-weight: var(--title-font-weight)
-  mush-title-font-size: var(--title-font-size)
-  mush-rgb-white: var(--rgb-white-color)
-  mush-rgb-purple: var(--rgb-purple-color)
-  mush-rgb-pink: var(--rgb-pink-color)
-  mush-rgb-red: var(--rgb-red-color)
-  mush-rgb-deep-purple: var(--rgb-deep-purple-color)
-  mush-rgb-indigo: var(--rgb-indigo-color)
-  mush-rgb-blue: var(--rgb-blue-color)
-  mush-rgb-light-blue: var(--rgb-light-blue-color)
-  mush-rgb-cyan: var(--rgb-cyan-color)
-  mush-rgb-teal: var(--rgb-teal-color)
-  mush-rgb-green: var(--rgb-green-color)
-  mush-rgb-light-green: var(--rgb-light-green-color)
-  mush-rgb-lime: var(--rgb-lime-color)
-  mush-rgb-yellow: var(--rgb-yellow-color)
-  mush-rgb-amber: var(--rgb-amber-color)
-  mush-rgb-orange: var(--rgb-orange-color)
-  mush-rgb-deep-orange: var(--rgb-deep-orange-color)
-  mush-rgb-brown: var(--rgb-brown-color)
-  mush-rgb-grey: var(--rgb-grey-color)
-  mush-rgb-blue-grey: var(--rgb-blue-grey-color)
-  mush-rgb-black: var(--rgb-black-color)
-  mush-rgb-disabled: var(--rgb-disabled-color)
-  card-mod-theme: Graphite
-  card-mod-more-info-yaml: |
-    .: |
-        .mdc-top-app-bar {
-            display: none !important;
-        }
-      ha-dialog > div {
-        outline: none !important;
-      }
-    $: |
-      .mdc-dialog {
-        backdrop-filter: blur(17px);
-        -webkit-backdrop-filter: blur(17px);
-      }
-      .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
-        position: absolute;
-        top: 50%;
-        box-shadow: 0px 0px 0px 0px;
-        border-radius: 15px;
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
-      }
-    .: |
-        :host {
-          --secondary-background-color: none;
-        }
-  card-mod-root-yaml: |
-    .: |
-      @media (min-width: 768px) {
-        hui-sections-view {
-          padding-left: 100px !important;
-        }
-      }
-
-      @media (max-width: 767px) {
-        hui-sections-view:after {
-          content: "";
-          display: block;
-          height: 80px;
-          width: 100%;
-          background-color: transparent; 
-        }
-      }
 
 Ocean-Nightz:
   modes:
     dark:
-      primary-font-family: Righteous
-      font-stack: Righteous
-      display-font-stack: Righteous
-      paper-font-common-base_-_font-family: var(--primary-font-family)
-      paper-font-common-code_-_font-family: var(--primary-font-family)
-      paper-font-body1_-_font-family: var(--primary-font-family)
-      paper-font-subhead_-_font-family: var(--primary-font-family)
-      paper-font-headline_-_font-family: var(--primary-font-family)
-      paper-font-caption_-_font-family: var(--primary-font-family)
-      paper-font-title_-_font-family: var(--primary-font-family)
-      ha-card-header-font-family: var(--primary-font-family)
-      mdc-typography-body1-font-family: var(--primary-font-family)
-      mdc-typography-font-family: var(--primary-font-family)
-      mdc-typography-button-font-family: var(--primary-font-family)
-      paper-font-display1_-_font-family: var(--primary-font-family)
-      paper-font-display2_-_font-family: var(--primary-font-family)
-      paper-font-display3_-_font-family: var(--primary-font-family)
-      paper-font-display4_-_font-family: var(--primary-font-family)
-      error-color: "#db4437"
-      disabled-text-color: "#bdbdbd"
-      # Text
-      text-color: "#ffffffb3"
-      rgb-primary-text-color: "255, 255, 255"
-      primary-text-color: "var(--text-color)"
-      text-primary-color: "var(--text-color)"
-      sidebar-text-color: "var(--text-color)"
-      pbs-button-color: "var(--text-color)"
-      pbs-button-rgb-color: "var(--text-color)"
-      pbs-button-rgb-state-color: "var(--text-color)"
-      pbs-button-rgb-default-color: "var(--text-color)"
-      rgb-state-default-color: "var(--text-color)"
-      pbs-button-rgb-fallback: "var(--text-color)"
-      secondary-text-color: "#BAC0C6"
-      text-medium-light-color: "#A0A2A8"
-      text-medium-color: "#80828A"
-      # Main Colors
+      dialog-backdrop-filter: blur(2em) brightness(0.80)
+      app-header-background-color: transparent
+      app-header-text-color: var(--primary-text-color)
       ocean-color: "#27bdd6"
       red-color: "#b70000"
       white-color: "#F2F2F2"
@@ -4209,102 +3158,146 @@ Ocean-Nightz:
       dark-grey-color: "#222222"
       darker-grey-color: "#141414"
       ha-card-border-radius: "16px"
+      ha-card-box-shadow: "inset 0px 0px 0px 1px var(--medium-grey-color)"
+      card-background-color: "var(--paper-card-background-color)"
+      ha-card-background: "var(--paper-card-background-color)"
+      mdc-checkbox-unchecked-color: "var(--accent-color)"
       primary-color: "var(--ocean-color)"
       accent-color: "var(--ocean-color)"
       accent-color-light: "rgba(39 ,189, 214,0.7)"
       accent-color-lighter: "rgba(39 ,189, 214,0.3)"
-      rgb-accent-color: "39, 189, 214"
+      dark-primary-color: "var(--accent-color)"
+      light-primary-color: "var(--accent-color)"
+      primary-text-color: "var(--white-color)"
+      text-primary-color: "var(--primary-text-color)"
+      secondary-text-color: "var(--ocean-color)"
+      disabled-text-color: "var(--light-grey-color)"
+      label-badge-border-color: "var(--ocean-color)"
+      sidebar-icon-color: "rgba(39, 189, 214,0.5)"
+      sidebar-selected-background-color: "rgba(39, 189, 214,0.2)"
+      sidebar-background-color: "var(--paper-listbox-background-color)"
+      sidebar-selected-text-color: "var(--secondary-text-color)"
+      sidebar-selected-icon-color: "var(--accent-color-lighter)"
+      sidebar-text-color: "var(--primary-text-color)"
+      sidebar-menu-button-text-color: "var(--primary-text-color)"
+      sidebar-state-pressed-background: "var(--accent-color-lighter)"
+      primary-background-color: "#000000"
+      dark-theme-background-color: "#0b0b0e"
+      secondary-background-color: "#000000"
+      mdc-theme-primary: "var(--accent-color)"
+      divider-color: "rgba(0, 0, 0,0.12)"
+      table-row-background-color: "var(--medium-grey-color)"
+      table-row-alternative-background-color: "var(--medium-grey-color)"
+      paper-listbox-color: "var(--light-grey-color)"
+      paper-listbox-background-color: "var(--darker-grey-color)"
+      paper-grey-50: "var(--primary-text-color)"
+      paper-grey-200: "var(--dark-grey-color)"
+      paper-card-header-color: "var(--accent-color)"
+      paper-card-background-color: "rgba(15, 10, 10, 0.7)"
+      paper-dialog-background-color: "var(--paper-card-background-color)"
+      state-icon-color: "var(--lighter-grey-color)"
+      state-icon-active-color: "var(--ocean-color)"
+      state-icon-unavailable-color: "rgba(255, 80, 10,0.5)"
+      paper-item-icon-active-color: "var(--ocean-color)"
+      paper-item-icon_-_color: "var(--ocean-color)"
+      paper-item-selected_-_background-color: "var(--medium-grey-color)"
+      paper-tabs-selection-bar-color: "var(--ocean-color)"
+      label-badge-red: "var(--accent-color)"
+      label-badge-text-color: "var(--primary-text-color)"
+      label-badge-background-color: "var(--dark-grey-color)"
+      paper-toggle-button-checked-button-color: "var(--accent-color)"
+      paper-toggle-button-checked-bar-color: "var(--accent-color)"
+      paper-toggle-button-checked-ink-color: "var(--accent-color)"
+      paper-toggle-button-unchecked-button-color: "var(--disabled-text-color)"
+      paper-toggle-button-unchecked-bar-color: "var(--disabled-text-color)"
+      paper-toggle-button-unchecked-ink-color: "var(--disabled-text-color)"
+      switch-checked-color: "var(--accent-color)"
+      switch-unchecked-button-color: "var(--disabled-text-color)"
+      switch-unchecked-track-color: "var(--disabled-text-color)"
+      paper-slider-knob-color: "var(--accent-color)"
+      paper-slider-knob-start-color: "var(--accent-color)"
+      paper-slider-pin-color: "var(--accent-color)"
+      paper-slider-active-color: "var(--accent-color)"
+      paper-slider-container-color: "linear-gradient(var(--primary-background-color), var(--secondary-background-color)) no-repeat"
+      paper-slider-secondary-color: "var(--secondary-background-color)"
+      paper-slider-disabled-active-color: "var(--disabled-text-color)"
+      paper-slider-disabled-secondary-color: "var(--disabled-text-color)"
       disabled-color: "#bdbdbd"
       google-red-500: "var(--red-color)"
       google-green-500: "var(--green-color)"
       google-blue-500: "#0033cc"
       google-yellow-500: "#ffff66"
       paper-spinner-color: "var(--accent-color)"
-      rgb-primary-color: "39, 189, 214"
-      # Background
-      background-color: "#000000"
-      primary-background-color: "var(--background-color)"
-      background-color-2: "#FF9800"
-      rgb-header-background: "255, 255, 255"
-      app-header-background-color: rgba(0,0,0,1)
-      secondary-background-color: "rgb(24,24,24)"
-      # Card
-      # masonry-view-card-margin: 0
-      rgb-primary-background-color: "0,0,0"
-      card-background-color: "var(--ha-card-background)"
-      ha-card-background: "rgba(37, 38, 45, 0.55)" #"#21252b"
-      ha-card-box-shadow: "none"
-      ha-card-border-style: "none !important"
-      ha-card-border-width: 0px
-      ha-card-border-color: "none !important"
-      border-color: "none"
-      border-style: "none !important"
-      # # Icons
-      paper-item-icon-color: "var(--text-color)"
-      paper-item-icon-active-color: "var(--accent-color)"
-      # Sidebar
-      sidebar-background-color: "var(--background-color)"
-      scrollbar-thumb-color: "#303030"
-      sidebar-icon-color: "rgba(39 ,189, 214,0.5)"
-      sidebar-selected-background-color: "rgba(39 ,189, 214,0.2)"
-      sidebar-selected-icon-color: "var(--accent-color)"
-      sidebar-selected-text-color: "var(--text-color)"
-      paper-listbox-background-color: "var(--sidebar-background-color)"
-      divider-color: "var(--background-color)"
-      # # Sliders
-      paper-slider-knob-color: "var(--accent-color)"
-      paper-slider-pin-color: "var(--background-color-2)"
-      paper-slider-active-color: "var(--accent-color)"
-      paper-slider-container-color: "var(--background-color-2)"
-      # Toggle:
-      paper-toggle-button-checked-bar-color: "var(--accent-color)"
-      mdc-theme-primary: "var(--accent-color)"
-      mdc-theme-secondary: "var(--accent-color)"
-      # Radio Button
-      paper-radio-button-checked-color: "var(--accent-color)"
-      # Tables
-      table-row-background-color: "var(--background-color)"
-      table-row-alternative-background-color: "var(--ha-card-background)"
-      # Badges
-      label-badge-background-color: "var(--background-color)"
-      label-badge-text-color: "var(--text-primary-color)"
-      label-badge-red: "rgba(255,88,88,1)"
-      label-badge-blue: "rgba(26,137,245,1)"
-      label-badge-green: "rgba(0,202,139,1)"
-      label-badge-yellow: "rgba(222,176,107,1)"
-      # POPUP MORE INFO
-      dialog-box-shadow: var(--rgb-accent-color)
-      dialog-backdrop-filter: blur(12px) brightness(0.3)
-      popup-background-color: rgba(34,38,39,0.9)
-      # popup-background-color: rgba(30,30,45, 0.8)
-      # popup-border-width: 1px
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-      tablet-popup-header-color: rgba(200, 218, 222, 0.05)
-      tablet-popup-content-padding: 1.4em 2.2em 1.6em 1.5em
-      tablet-popup-button-padding: 0.1em 2em 1.8em 2em
-      tablet-popup-border-style: 1.5px solid rgba(0,0,0,0.2)
-      tablet-popup-align-dialog: center
-      tablet-popup-margin-top: 0px
-      state-icon-color: "#9da0a2"
-      state-icon-active-color: "#FF9800"
-      state-active-color: "#b68349"
-      st-spacing: 0
+      lumo-primary-text-color: "var(--ocean-color)"
+      lumo-secondary-text-color: "var(--ocean-color)"
+      lumo-primary-color: "var(--ocean-color)"
+      lumo-primary-color-50pct: "rgba(39, 189, 214, .5)"
+      lumo-primary-color-10pct: "rgba(39, 189, 214, .1)"
+      lumo-body-text-color: "var(--white-color)"
+      lumo-base-color: "var(--medium-grey-color)"
+      lumo-header-text-color: "var(--lumo-body-text-color)"
+      lumo-tertiary-text-color: "var(--lumo-body-text-color)"
+      lumo-shade: "var(medium-grey-color)"
+      lumo-shade-90pct: "rgba(41, 41, 41, .9)"
+      lumo-shade-80pct: "rgba(41, 41, 41, .8)"
+      lumo-shade-70pct: "rgba(41, 41, 41, .7)"
+      lumo-shade-60pct: "rgba(41, 41, 41, .6)"
+      lumo-shade-50pct: "rgba(41, 41, 41, .5)"
+      lumo-shade-40pct: "rgba(41, 41, 41, .4)"
+      lumo-shade-30pct: "rgba(41, 41, 41, .3)"
+      lumo-shade-20pct: "rgba(41, 41, 41, .2)"
+      lumo-shade-10pct: "rgba(41, 41, 41, .1)"
+      lumo-shade-5pct: "rgba(41, 41, 41, .05)"
+      lumo-tint-5pct: "var(--darker-grey-color)"
+      font-family: "Poetsen One"
+      primary-font-family: var(--font-family)
+      material-font-family: "var(--primary-font-family)"
+      ha-card-header-font-family: var(--font-family)
+      mdc-typography-font-family: var(--font-family)
+      mdc-typography-button-font-family: var(--font-family)
+      mdc-typography-headline6-font-family: var(--font-family)
+      mdc-typography-body1-font-family: var(--font-family)
+      mdc-typography-subtitle1-font-family: var(--font-family)
+      mdc-typography-button-text-transform: capitalize
+      mdc-button-horizontal-padding: 12px
+      md-ref-typeface-plain: var(--font-family)
+      ha-font-family-body: var(--font-family)
+      ha-font-family-heading: var(--font-family)
+      ha-font-family-code: var(--font-family)
+      ha-font-family-longform: var(--font-family)
+      paper-font-body1_-_font-family: var(--font-family)
+      ha-font-weight-light: "300"
+      ha-font-weight-normal: "400"
+      ha-font-weight-medium: "500"
+      ha-font-weight-bold: "700"
+      md-list-item-label-text-weight: "700"
+      # Restriction lock colors
+      restriction-regular-lock-color: "rgba(39, 189, 214,0.85)"
+      restriction-success-lock-color: "lime"
+      restriction-blocked-lock-color: "red"
+      restriction-invalid--color: "red"
+      restriction-lock-margin-left: 0px
+      restriction-lock-row-margin-left: 24px
+      restriction-lock-icon-height: 24px
+      restriction-lock-icon-width: 24px
       # Bar Card
       bar-card-border-radius: 8px
       bar-card-color: "var(--sidebar-icon-color)"
       bar-card-disabled-color: "var(--lighter-grey-color)"
       # Mini-media-player
       mini-media-player-base-color: "var(--accent-color)"
-      mini-media-player-icon-color: "var(--accent-color-light)"
+      mini-media-player-icon-color: "var(--accent-color-lighter)"
       mini-media-player-overlay-base-color: "var(--accent-color-light)"
       mini-media-player-overlay-accent-color: "var(--accent-color-light)"
       mini-media-player-media-cover-info-color: "var(--accent-color-light)"
       mini-media-player-progress-height: 7px
       mini-media-player-button-color: rgba(255,255,255,0.3)
+      # person fix
+      material-background-color: "var(--paper-listbox-background-color)"
+      material-secondary-background-color: "#222222"
+      material-body-text-color: "#FFFFFF"
+      time-picker-elements-background-color: "var(--accent-color)"
+      time-picker-accent-color: "var(--accent-color)"
       #Animated icons
       weather-icon-clear-night: url("/local/themes/caule-themes-pack-1/clear-night.svg")
       weather-icon-cloudy: url("/local/themes/caule-themes-pack-1/cloudy.svg")
@@ -4321,64 +3314,74 @@ Ocean-Nightz:
       weather-icon-windy: url("/local/themes/caule-themes-pack-1/windy.svg")
       weather-icon-windy-variant: url("/local/themes/caule-themes-pack-1/windy-variant.svg")
       weather-icon-exceptional: url("/local/themes/caule-themes-pack-1/exceptional.svg")
-  card-mod-theme: CardTheme
-  card-mod-more-info-yaml: |
-    $: |
-      .mdc-dialog__surface {
-        background-color: var(--popup-background-color);
-        box-shadow: 0 0px 16px 4px rgba(var(--dialog-box-shadow), .15), 0 16px 64px 32px rgba(var(--dialog-box-shadow), .5);
-      }
-      .mdc-dialog .mdc-dialog__container .mdc-dialog__surface,
-      .mdc-dialog .mdc-dialog__content {
-        overflow: visible;
-      }
-      .mdc-dialog__surface {
-        background-color: var(--popup-background-color) !important;
-        box-shadow: 0 0px 16px 4px rgba(var(--dialog-box-shadow), .15), 0 16px 64px 32px rgba(var(--dialog-box-shadow), .5) !important;
-      }
-      .mdc-deprecated-list {
-        background-color: rgb(47, 55, 76) !important;
-      }
-    ha-header-bar$: |
-      .mdc-top-app-bar {
-        background: none !important;
-      }
-    ha-dialog-header$header: |
-      div.header-bar {
-        padding: 10px 17px 8px 17px;
-      }
-    ha-dialog$: |
-      .mdc-dialog__surface {
-        background-color: var(--popup-background-color) !important;
-        box-shadow: 0 0px 16px 4px rgba(var(--dialog-box-shadow), .15), 0 16px 64px 32px rgba(var(--dialog-box-shadow), .5) !important;
-      }
-
-
-    .: |
-      :host {
-        --ha-card-border-width: 0 !important;
-        --ha-card-border-radius: 0px !important;
-        --ha-card-border-color: none !important;
-        --bar-card-border-radius: 12px !important;
-        --ha-card-box-shadow: none !important;
-        --ha-card-background: none !important;
-        --mdc-theme-surface: transparent;
-      }
-
-      ha-dialog > div.content > div.container {
-        padding: 0 !important;
-      }
-      ha-dialog {
-        --vertical-align-dialog: var(--tablet-popup-align-dialog) !important;
-        --dialog-surface-margin-top: var(--tablet-popup-margin-top) !important;
-      }
-      @media (max-width: 800px), (max-height: 500px) {
-        ha-dialog {
-          --mdc-dialog-min-width: 100vw !important;
-          --mdc-dialog-min-height: 100vh !important;
-          --popup-border-radius: 0 !important;
-        }
-      }
-      ha-dialog > div:focus {
-        outline: none;
-      }
+      # POPUP MORE INFO
+      dialog-box-shadow: var(--accent-color)
+      popup-background-color: rgba(34,38,39,0.75)
+      popup-border-radius: 1em
+      popup-padding-x: 0px
+      popup-padding-y: 0px
+      popup-min-width: 20vw
+      popup-max-width: 100vw
+      card-mod-theme: Ocean-Nightz
+      card-mod-more-info-yaml: |
+        .: |
+            .mdc-top-app-bar {
+                display: none !important;
+            }
+          ha-dialog > div {
+            outline: none !important;
+          }
+          ha-dialog {
+            --vertical-align-dialog: center !important;
+          }
+          ha-dialog$: |
+            div.mdc-dialog__surface {
+              animation: slide-and-fade-in 0.5s forwards; /* Use a new animation name */
+            }
+            @keyframes slide-and-fade-in {
+              from {
+                transform: translateX(100%);
+                opacity: 0; /* Start invisible */
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1; /* End fully visible */
+              }
+            }
+        $: |
+          .mdc-dialog {
+            backdrop-filter: blur(17px);
+            -webkit-backdrop-filter: blur(17px);
+          }
+          .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+            position: absolute;
+            top: 50%;
+            box-shadow: 0px 0px 0px 0px;
+            border-radius: 15px;
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+          }
+        .: |
+            :host {
+              --secondary-background-color: none;
+            }
+      card-mod-root-yaml: |
+        .: |
+          @media (min-width: 768px) {
+            hui-sections-view {
+              padding-left: 100px !important;
+            }
+          }
+          .toolbar > sl-tab-group {
+            pointer-events: none;
+            opacity: 0;
+          }
+          @media (max-width: 767px) {
+            hui-sections-view:after {
+              content: "";
+              display: block;
+              height: 80px;
+              width: 100%;
+              background-color: transparent; 
+            }
+          }
