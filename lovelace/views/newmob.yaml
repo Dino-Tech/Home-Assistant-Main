@@ -844,7 +844,7 @@ cards:
                                     action: call-service
                                     service: browser_mod.more_info
                                     service_data:
-                                      entity_id: camera.poopy_cam
+                                      entity_id: camera.rambo_cam
                                       large: true
                                 - type: button
                                   entity: input_boolean.mobile_inside_cams
