@@ -4924,7 +4924,7 @@ views:
                         mode: vertical
                         cards:
                           - type: custom:google-map-card
-                            api_key: AIzaSyDaWSbi2DqSIFJ3PpRn-Yg03f0EnYh8qkY
+                            api_key: !secret API KEY
                             zoom: 12
                             aspect_ratio: "9:16"
                             theme_mode: Dark_Carbon
