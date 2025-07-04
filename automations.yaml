@@ -635,9 +635,9 @@
   initial_state: true
   trigger:
     - trigger: time_pattern
-      minutes: /5
+      minutes: /6
   action:
-    - action: input_select.select_next
+    - action: input_select.random # select_next
       entity_id:
         - input_select.mobile_wallpaper
         - input_select.video_wallpaper
@@ -710,7 +710,9 @@
           entity_id: binary_sensor.den_night_light_motion
           from: "on"
           to: "off"
-    - delay: 90
+          for:
+            seconds: 90
+    #    - delay: 90
     - action: light.turn_off
       entity_id: light.den_night_lights_zb
     - choose:
@@ -1294,7 +1296,7 @@
   action:
     - action: switch.turn_on
       target:
-        entity_id: fan.ensuite_vent
+        entity_id: fan.ensuite_vent_2
     - delay: 300
   initial_state: true
   mode: single
@@ -1313,7 +1315,7 @@
   action:
     - action: switch.turn_off
       target:
-        entity_id: fan.ensuite_vent
+        entity_id: fan.ensuite_vent_2
     - delay: 300
   initial_state: true
   mode: single
@@ -1322,13 +1324,13 @@
   alias: "[Auto] Ensuite Vent auto off timer"
   triggers:
     - trigger: state
-      entity_id: fan.ensuite_vent
+      entity_id: fan.ensuite_vent_2
       to: "on"
       for:
         minutes: 15
   action:
-    - action: switch.turn_off
-      entity_id: fan.ensuite_vent
+    - action: fan.turn_off
+      entity_id: fan.ensuite_vent_2
   initial_state: true
   mode: single
 - id: "17016185774975347"
@@ -1816,6 +1818,31 @@
     - delay: 00:05:00
     - action: homeassistant.turn_on
       entity_id: climate.den
+
+- id: "4271663334274859"
+  description: ""
+  alias: AI Event Porch
+  use_blueprint:
+    path: valentinfrlch/event_summary.yaml
+    input:
+      camera_entities:
+        - camera.porch_camera_0
+      motion_sensors:
+        - binary_sensor.front_door
+        - binary_sensor.front_motion
+        - binary_sensor.front_porch_motion
+      duration: 6
+      provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
+      notify_device:
+        - 5402f427ac93601eeab00b7fc7d6f6da
+      preview_mode: Snapshot
+      tap_navigate: /dashboard-test/streams
+      notification_color: "#ffeb3b"
+      notification_channel: alarm_stream
+      tts_notification: true
+      tts_volume: alarm_stream_max
+      model: gpt-4o-mini
+
 - id: "17016499927893058"
   alias: Update notifications
   use_blueprint:
@@ -1954,16 +1981,16 @@
   action:
     - action: script.browser_theme_orange
   mode: single
-- id: "17019682488958358"
-  alias: Theme change for space video
-  triggers:
-    - trigger: state
-      entity_id:
-        - input_select.video_wallpaper
-      to: space
-  action:
-    - action: script.browser_theme_blue
-  mode: single
+#- id: "17019682488958358"
+#  alias: Theme change for space video
+#  triggers:
+#   - trigger: state
+#      entity_id:
+#        - input_select.video_wallpaper
+#      to: space
+#  action:
+#    - action: script.browser_theme_blue
+#  mode: single
 - id: "17016824889058894"
   alias: Theme change for nightClouds video
   triggers:
@@ -2242,6 +2269,17 @@
       domain: nest
       type: camera_person
   action:
+    - action: camera.snapshot
+      target:
+        entity_id: camera.porch_camera_0
+      data:
+        filename: /config/www/tmp/last_snapshot_porch.jpg
+    #    - action: camera.record
+    #      target:
+    #        entity_id: camera.porch_camera_0
+    #      data:
+    #        filename: /config/www/tmp/last_video_snapshot_porch.mp4
+    #        duration: 12
     - action: browser_mod.navigate
       continue_on_error: true
       data:
@@ -2256,14 +2294,14 @@
         path: /dashboard-cast/porch
     - action: input_boolean.turn_on
       entity_id: input_boolean.camera_motion_detected
+    - delay:
+        seconds: 2
     - action: notify.notify_all
       data:
-        message: ⚠️Front Motion!⚠️️ {{ states('sensor.time_12_hour_am_pm') }}
+        message: ⚠️Front Motion!⚠️️ {{ states('sensor.worldclock_sensor_12hr') }}
         data:
           notification_icon: mdi:cctv
-          image:
-            /api/camera_proxy/camera.wyze_cam_front_yard_cam_snapshot?token={{
-            state_attr('camera.wyze_cam_front_yard_cam_snapshot','access_token') }}
+          image: /local/tmp/last_snapshot_porch.jpg
           persistent: true
           color: red
           channel: Cameras
@@ -2272,12 +2310,6 @@
             - action: URI
               title: Click to Open Cameras
               uri: dashboard-cast/porch
-    #    - action: button.press
-    #      target:
-    #        entity_id: button.wyze_cam_porch_cam_update_snapshot
-    #    - action: button.press
-    #      target:
-    #        entity_id: button.wyze_cam_front_yard_cam_update_snapshot
     - choose:
         - conditions:
             - condition: state
@@ -2298,23 +2330,10 @@
                 cache: true
                 entity_id: media_player.ensuite_display
                 message: Motion at front door
-            - action: media_player.play_media
-              target:
-                entity_id: media_player.ensuite_display
+            - action: google_assistant_sdk.send_text_command
+              continue_on_error: true
               data:
-                media_content_id: dashboard-cast/porch
-                media_content_type: lovelace
-              metadata:
-                title: Porch
-                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
-                media_class: app
-                children_media_class: null
-                navigateIds:
-                  - {}
-                  - media_content_type: lovelace
-                    media_content_id: ""
-                  - media_content_type: lovelace
-                    media_content_id: dashboard-cast
+                command: "stream porch camera on office display"
             - delay: 240
             - action: media_player.turn_off
               continue_on_error: true
@@ -2342,33 +2361,15 @@
                 cache: true
                 entity_id: media_player.tv_speakers
                 message: Motion at front door
-            - action: media_player.play_media
+            - action: google_assistant_sdk.send_text_command
               continue_on_error: true
-              target:
-                entity_id: media_player.foyer_tv # den tv
               data:
-                media_content_id: dashboard-cast/porch
-                media_content_type: lovelace
-              metadata:
-                title: Porch
-                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
-                media_class: app
-                children_media_class: null
-                navigateIds:
-                  - {}
-                  - media_content_type: lovelace
-                    media_content_id: ""
-                  - media_content_type: lovelace
-                    media_content_id: dashboard-cast
+                command: "stream porch camera on den TV"
             - delay: 180
-            - action: media_player.turn_off
+            - action: google_assistant_sdk.send_text_command
               continue_on_error: true
               data:
-                entity_id: media_player.android_tv_192_168_1_128
-            - action: remote.turn_off
-              continue_on_error: true
-              target:
-                entity_id: remote.den_tv
+                command: "turn off den TV"
         - conditions:
             - condition: state
               entity_id: input_boolean.camera_snapshots
@@ -2391,29 +2392,15 @@
                 cache: true
                 entity_id: media_player.tv_speakers
                 message: Motion at front door
-            - action: media_player.play_media
+            - action: google_assistant_sdk.send_text_command
               continue_on_error: true
-              target:
-                entity_id: media_player.foyer_tv
               data:
-                media_content_id: dashboard-cast/porch
-                media_content_type: lovelace
-              metadata:
-                title: Porch
-                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
-                media_class: app
-                children_media_class: null
-                navigateIds:
-                  - {}
-                  - media_content_type: lovelace
-                    media_content_id: ""
-                  - media_content_type: lovelace
-                    media_content_id: dashboard-cast
+                command: "stream porch camera on den TV"
             - delay: 180
-            - action: media_player.turn_off
+            - action: google_assistant_sdk.send_text_command
               continue_on_error: true
               data:
-                entity_id: media_player.foyer_tv
+                command: "turn off den TV"
     - delay: 120
     - action: input_boolean.turn_off
       entity_id: input_boolean.camera_motion_detected
@@ -2462,6 +2449,18 @@
       to: "on"
   condition: []
   action:
+    - action: camera.snapshot
+      target:
+        entity_id: camera.driveway_0
+      data:
+        filename: /config/www/tmp/last_snapshot_driveway.jpg
+    #    - action: camera.record
+    #      continue_on_error: true
+    #      target:
+    #        entity_id: camera.driveway_0
+    #      data:
+    #        filename: /config/www/tmp/last_video_snapshot_driveway.mp4
+    #        duration: 12
     - action: browser_mod.navigate
       continue_on_error: true
       data:
@@ -2476,15 +2475,14 @@
         path: /dashboard-cast/driveway
     - action: input_boolean.turn_on
       entity_id: input_boolean.camera_motion_detected
+    - delay:
+        seconds: 2
     - action: notify.notify_all
       data:
-        message: ⚠️Side Door Motion!⚠️️{{ states('sensor.time_12_hour_am_pm') }}
+        message: ⚠️Side Door Motion!⚠️️{{ states('sensor.worldclock_sensor_12hr') }}
         data:
           notification_icon: mdi:cctv
-          image:
-            /api/camera_proxy/camera.wyze_cam_drive_side_camera_snapshot?token={{
-            state_attr('camera.wyze_cam_drive_side_camera_snapshot','access_token')
-            }}
+          image: /local/tmp/last_snapshot_driveway.jpg
           persistent: true
           color: red
           channel: Cameras
@@ -2493,9 +2491,6 @@
             - action: URI
               title: Click to Open Camera
               uri: /dashboard-cast/driveway
-    #    - action: button.press
-    #      target:
-    #        entity_id: button.wyze_cam_drive_side_camera_update_snapshot
     - choose:
         - conditions:
             - condition: state
@@ -2516,23 +2511,10 @@
                 cache: true
                 entity_id: media_player.ensuite_display
                 message: Motion at side door
-            - action: media_player.play_media
-              target:
-                entity_id: media_player.ensuite_display
+            - action: google_assistant_sdk.send_text_command
+              continue_on_error: true
               data:
-                media_content_id: dashboard-cast/driveway
-                media_content_type: lovelace
-              metadata:
-                title: Driveway
-                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
-                media_class: app
-                children_media_class: null
-                navigateIds:
-                  - {}
-                  - media_content_type: lovelace
-                    media_content_id: ""
-                  - media_content_type: lovelace
-                    media_content_id: dashboard-cast
+                command: "stream driveway camera on office display"
             - delay: 240
             - action: media_player.turn_off
               continue_on_error: true
@@ -2560,32 +2542,15 @@
                 cache: true
                 entity_id: media_player.tv_speakers
                 message: Motion at side door
-            - action: media_player.play_media
-              target:
-                entity_id: media_player.foyer_tv # den TV
+            - action: google_assistant_sdk.send_text_command
+              continue_on_error: true
               data:
-                media_content_id: dashboard-cast/driveway
-                media_content_type: lovelace
-              metadata:
-                title: Driveway
-                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
-                media_class: app
-                children_media_class: null
-                navigateIds:
-                  - {}
-                  - media_content_type: lovelace
-                    media_content_id: ""
-                  - media_content_type: lovelace
-                    media_content_id: dashboard-cast
+                command: "stream driveway camera on den TV"
             - delay: 180
-            - action: media_player.turn_off
+            - action: google_assistant_sdk.send_text_command
               continue_on_error: true
               data:
-                entity_id: media_player.foyer_tv
-            - action: remote.turn_off
-              continue_on_error: true
-              target:
-                entity_id: remote.den_tv
+                command: "turn off den TV"
         - conditions:
             - condition: state
               entity_id: input_boolean.camera_snapshots
@@ -2608,28 +2573,15 @@
                 cache: true
                 entity_id: media_player.tv_speakers
                 message: Motion at side door
-            - action: media_player.play_media
-              target:
-                entity_id: media_player.foyer_tv # den TV
-              data:
-                media_content_id: dashboard-cast/driveway
-                media_content_type: lovelace
-              metadata:
-                title: Driveway
-                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
-                media_class: app
-                children_media_class: null
-                navigateIds:
-                  - {}
-                  - media_content_type: lovelace
-                    media_content_id: ""
-                  - media_content_type: lovelace
-                    media_content_id: dashboard-cast
-            - delay: 180
-            - action: media_player.turn_off
+            - action: google_assistant_sdk.send_text_command
               continue_on_error: true
               data:
-                entity_id: media_player.foyer_tv
+                command: "stream driveway camera on den TV"
+            - delay: 180
+            - action: google_assistant_sdk.send_text_command
+              continue_on_error: true
+              data:
+                command: "turn off den TV"
     - delay: 120
     - action: input_boolean.turn_off
       entity_id: input_boolean.camera_motion_detected
@@ -2668,6 +2620,18 @@
       to: "on"
   condition: []
   action:
+    - action: camera.snapshot
+      target:
+        entity_id: camera.patio_0
+      data:
+        filename: /config/www/tmp/last_snapshot_patio.jpg
+    #    - action: camera.record
+    #      continue_on_error: true
+    #      target:
+    #        entity_id: camera.patio_0
+    #      data:
+    #        filename: /config/www/tmp/last_video_snapshot_patio.mp4
+    #        duration: 12
     - action: browser_mod.navigate
       continue_on_error: true
       data:
@@ -2682,14 +2646,14 @@
         path: /dashboard-cast/patio
     - action: input_boolean.turn_on
       entity_id: input_boolean.camera_motion_detected
+    - delay:
+        seconds: 2
     - action: notify.notify_all
       data:
-        message: ⚠️Patio Motion!⚠️️{{ states('sensor.time_12_hour_am_pm') }}
+        message: ⚠️Patio Motion!⚠️️{{ states('sensor.worldclock_sensor_12hr') }} # ️{{ states('sensor.time_12_hour_am_pm') }}
         data:
           notification_icon: mdi:cctv
-          image:
-            /api/camera_proxy/camera.wyze_cam_patio_camera_snapshot?token={{ state_attr('camera.wyze_cam_patio_camera_snapshot','access_token')
-            }}
+          image: /local/tmp/last_snapshot_patio.jpg
           persistent: true
           color: red
           channel: Cameras
@@ -2698,9 +2662,6 @@
             - action: URI
               title: Click to Open Cameras
               uri: /dashboard-cast/patio
-    #    - action: button.press
-    #      target:
-    #        entity_id: button.wyze_cam_patio_camera_update_snapshot
     - choose:
         - conditions:
             - condition: state
@@ -2721,23 +2682,10 @@
                 cache: true
                 entity_id: media_player.office_display
                 message: motion on patio
-            - action: media_player.play_media
-              target:
-                entity_id: media_player.ensuite_display
+            - action: google_assistant_sdk.send_text_command
+              continue_on_error: true
               data:
-                media_content_id: dashboard-cast/patio
-                media_content_type: lovelace
-              metadata:
-                title: Patio
-                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
-                media_class: app
-                children_media_class: null
-                navigateIds:
-                  - {}
-                  - media_content_type: lovelace
-                    media_content_id: ""
-                  - media_content_type: lovelace
-                    media_content_id: dashboard-cast
+                command: "stream patio camera on office display"
             - delay: 240
             - action: media_player.turn_off
               continue_on_error: true
@@ -2765,32 +2713,15 @@
                 cache: true
                 entity_id: media_player.tv_speakers
                 message: motion on patio
-            - action: media_player.play_media
-              target:
-                entity_id: media_player.foyer_tv # den TV
+            - action: google_assistant_sdk.send_text_command
+              continue_on_error: true
               data:
-                media_content_id: dashboard-cast/patio
-                media_content_type: lovelace
-              metadata:
-                title: Patio
-                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
-                media_class: app
-                children_media_class: null
-                navigateIds:
-                  - {}
-                  - media_content_type: lovelace
-                    media_content_id: ""
-                  - media_content_type: lovelace
-                    media_content_id: dashboard-cast
+                command: "stream patio camera on den TV"
             - delay: 180
-            - action: media_player.turn_off
+            - action: google_assistant_sdk.send_text_command
               continue_on_error: true
               data:
-                entity_id: media_player.foyer_tv
-            - action: remote.turn_off
-              continue_on_error: true
-              target:
-                entity_id: remote.den_tv
+                command: "turn off den TV"
         - conditions:
             - condition: state
               entity_id: input_boolean.patio_garage_alerts
@@ -2813,28 +2744,15 @@
                 cache: true
                 entity_id: media_player.tv_speakers
                 message: motion on patio
-            - action: media_player.play_media
-              target:
-                entity_id: media_player.foyer_tv # den TV
-              data:
-                media_content_id: dashboard-cast/patio
-                media_content_type: lovelace
-              metadata:
-                title: Patio
-                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
-                media_class: app
-                children_media_class: null
-                navigateIds:
-                  - {}
-                  - media_content_type: lovelace
-                    media_content_id: ""
-                  - media_content_type: lovelace
-                    media_content_id: dashboard-cast
-            - delay: 180
-            - action: media_player.turn_off
+            - action: google_assistant_sdk.send_text_command
               continue_on_error: true
               data:
-                entity_id: media_player.foyer_tv
+                command: "stream patio camera on den TV"
+            - delay: 180
+            - action: google_assistant_sdk.send_text_command
+              continue_on_error: true
+              data:
+                command: "turn off den TV"
     - delay: 120
     - action: input_boolean.turn_off
       entity_id: input_boolean.camera_motion_detected
@@ -2872,6 +2790,18 @@
       to: "on"
   condition: []
   action:
+    - action: camera.snapshot
+      target:
+        entity_id: camera.garage_0
+      data:
+        filename: /config/www/tmp/last_snapshot_garage.jpg
+    #    - action: camera.record
+    #      continue_on_error: true
+    #      target:
+    #        entity_id: camera.garage_0
+    #      data:
+    #        filename: /config/www/tmp/last_video_snapshot_garage.mp4
+    #        duration: 12
     - action: browser_mod.navigate
       continue_on_error: true
       data:
@@ -2886,14 +2816,14 @@
         path: /dashboard-cast/garage
     - action: input_boolean.turn_on
       entity_id: input_boolean.camera_motion_detected
+    - delay:
+        seconds: 2
     - action: notify.notify_all
       data:
-        message: ⚠️Garage Motion!⚠️️ {{ states('sensor.time_12_hour_am_pm') }}
+        message: ⚠️Garage Motion!⚠️️ {{ states('sensor.worldclock_sensor_12hr') }}
         data:
           notification_icon: mdi:cctv
-          image:
-            /api/camera_proxy/camera.wyze_cam_garage_camera_snapshot?token={{ state_attr('camera.wyze_cam_garage_camera_snapshot','access_token')
-            }}
+          image: /local/tmp/last_snapshot_patio.jpg
           persistent: true
           color: red
           channel: Cameras
@@ -2902,9 +2832,6 @@
             - action: URI
               title: Click to Open Cameras
               uri: /dashboard-cast/garage
-    #    - action: button.press
-    #      target:
-    #        entity_id: button.wyze_cam_garage_camera_update_snapshot
     - choose:
         - conditions:
             - condition: state
@@ -2928,32 +2855,15 @@
                 cache: true
                 entity_id: media_player.tv_speakers
                 message: Motion in the garage
-            - action: media_player.play_media
-              target:
-                entity_id: media_player.foyer_tv # den TV
+            - action: google_assistant_sdk.send_text_command
+              continue_on_error: true
               data:
-                media_content_id: dashboard-cast/garage
-                media_content_type: lovelace
-              metadata:
-                title: Garage
-                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
-                media_class: app
-                children_media_class: null
-                navigateIds:
-                  - {}
-                  - media_content_type: lovelace
-                    media_content_id: ""
-                  - media_content_type: lovelace
-                    media_content_id: dashboard-cast
+                command: "stream garage camera on den TV"
             - delay: 180
-            - action: media_player.turn_off
+            - action: google_assistant_sdk.send_text_command
               continue_on_error: true
               data:
-                entity_id: media_player.foyer_tv
-            - action: remote.turn_off
-              continue_on_error: true
-              target:
-                entity_id: remote.den_tv
+                command: "turn off den TV"
         - conditions:
             - condition: state
               entity_id: input_boolean.patio_garage_alerts
@@ -2976,28 +2886,15 @@
                 cache: true
                 entity_id: media_player.tv_speakers
                 message: Motion in the garage
-            - action: media_player.play_media
-              target:
-                entity_id: media_player.foyer_tv # den TV
-              data:
-                media_content_id: dashboard-cast/garage
-                media_content_type: lovelace
-              metadata:
-                title: Garage
-                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
-                media_class: app
-                children_media_class: null
-                navigateIds:
-                  - {}
-                  - media_content_type: lovelace
-                    media_content_id: ""
-                  - media_content_type: lovelace
-                    media_content_id: dashboard-cast
-            - delay: 180
-            - action: media_player.turn_off
+            - action: google_assistant_sdk.send_text_command
               continue_on_error: true
               data:
-                entity_id: media_player.foyer_tv
+                command: "stream garage camera on den TV"
+            - delay: 180
+            - action: google_assistant_sdk.send_text_command
+              continue_on_error: true
+              data:
+                command: "turn off den TV"
         - conditions:
             - condition: state
               entity_id: input_boolean.patio_garage_alerts
@@ -3017,23 +2914,10 @@
                 cache: true
                 entity_id: media_player.ensuite_display
                 message: Motion in garage
-            - action: media_player.play_media
-              target:
-                entity_id: media_player.ensuite_display # office display
+            - action: google_assistant_sdk.send_text_command
+              continue_on_error: true
               data:
-                media_content_id: dashboard-cast/garage
-                media_content_type: lovelace
-              metadata:
-                title: Garage
-                thumbnail: https://brands.home-assistant.io/_/lovelace/logo.png
-                media_class: app
-                children_media_class: null
-                navigateIds:
-                  - {}
-                  - media_content_type: lovelace
-                    media_content_id: ""
-                  - media_content_type: lovelace
-                    media_content_id: dashboard-cast
+                command: "stream garage camera on office display"
             - delay: 240
             - action: media_player.turn_off
               continue_on_error: true
@@ -3703,35 +3587,6 @@
       data:
         volume_level: 0.45
 
-- id: "325513325058863014567"
-  alias: Den auto fan
-  triggers:
-    - trigger: numeric_state
-      entity_id: sensor.den_temperature
-      above: 75.5
-  condition:
-    - condition: state
-      entity_id: group.person_group
-      state: not_home
-  action:
-    - action: fan.turn_on
-      target:
-        entity_id: fan.den_fan
-- id: "32662332505263014567"
-  alias: Den auto fan OFF
-  triggers:
-    - trigger: numeric_state
-      entity_id: sensor.den_temperature
-      below: 74
-  condition:
-    - condition: state
-      entity_id: group.person_group
-      state: not_home
-  action:
-    - action: fan.turn_off
-      target:
-        entity_id: fan.den_fan
-
 - id: "17033325058863014567"
   alias: Office auto fan
   triggers:
@@ -3862,6 +3717,9 @@
     - condition: state
       entity_id: binary_sensor.night
       state: "on"
+    - condition: state
+      entity_id: light.jacuzzi_light
+      state: "off"
   action:
     - action: light.turn_on
       target:
@@ -4742,7 +4600,7 @@
                   - action: fan.turn_off
                     entity_id: fan.den_fan
                   - delay:
-                      seconds: 80
+                      seconds: 40
                   - action: fan.turn_on
                     entity_id: fan.den_fan
                 until:
