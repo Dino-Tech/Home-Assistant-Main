@@ -10,7 +10,7 @@
 <div align="center">
   <h3 align="center">My Home Assistant Configuration and Lovelace Designs<br>Be sure to :star: my repo so you can keep current on updates!</h3>
   <p align="center">
-    <a href="https://img.shields.io/badge/Home%20Assistant-2025.5.1-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-2025.5.1-blue.svg?style=plastic" alt="Home Assistant Version"/></a>
+    <a href="https://img.shields.io/badge/Home%20Assistant-2025.8.3-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-2025.8.3-blue.svg?style=plastic" alt="Home Assistant Version"/></a>
     <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master" alt="Travis CI Status"/></a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plastic" alt="GitHub Stars"/></a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plastic" alt="GitHub Watchers"/></a>
@@ -61,7 +61,7 @@
 <hr>
 <h5 align="center"><a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;"></a><br></h5>
 <div>
-  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 2025.5.1 on a <a href="https://amzn.to/3F3oci0">Beelink Mini PC, Mini S12 Pro Intel 12th N100, 16GB DDR4 500GB M.2 SSD </a></h2>
+  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 2025.8.3 on a <a href="https://amzn.to/3F3oci0">Beelink Mini PC, Mini S12 Pro Intel 12th N100, 16GB DDR4 500GB M.2 SSD </a></h2>
 </div>
 <p align="center"><a name="menu2"></a><strong>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#wyzemovie_cameracams-and-accessories">
