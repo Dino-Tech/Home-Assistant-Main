@@ -34,14 +34,18 @@
     - trigger: state
       entity_id:
         - camera.backyard
+        - camera.driveway_0
         - camera.driveway
+        - camera.garage_0
         - camera.entryway
         - camera.garage_cam_wuuk
         - camera.front_door
         - camera.front_yard_cam
         - camera.kitchen
         - camera.den
+        - camera.patio_0
         - camera.patio
+        - camera.porch_camera_0
         - camera.porch
         - camera.rambo_cam
       to: unavailable
@@ -297,7 +301,7 @@
   action:
     - action: media_player.play_media
       data_template:
-        entity_id: media_player.ac9b7f58_cfbfe785
+        entity_id: media_player.main_kiosk
         media_content_id: >-
           {% if now().strftime("%M")|int == 30 %}
           media-source://media_source/local/cuckoo-clock-01.wav {% else %}
@@ -385,20 +389,29 @@
         - binary_sensor.nest_protect_kitchen_smoke_status
         - binary_sensor.nest_protect_garage_smoke_status
         - binary_sensor.laundry_smoke_detected
+        - binary_sensor.bedroom_smoke_detected
       to: "on"
       for:
-        seconds: 5
+        seconds: 3
+  condition:
+    - condition: template
+      value_template: >-
+        {{ trigger.to_state.state != 'unavailable' and trigger.to_state.state != 'unknown' }}
   action:
     - action: noonlight.create_alarm
+      continue_on_error: true
       data:
         action: fire
     - action: climate.turn_off
+      continue_on_error: true
       target:
         entity_id: climate.den
     - action: switch.turn_off
+      continue_on_error: true
       entity_id:
         - switch.dryer_plug
     - action: light.turn_on
+      continue_on_error: true
       target:
         entity_id: light.every_light
     - action: notify.notify_all
@@ -412,6 +425,89 @@
           importance: high
           notification_icon: "mdi:smoke-detector-variant-alert"
   initial_state: true
+- id: "4325567779999458"
+  alias: "[Notify] Carbon Monoxide Detected"
+  triggers:
+    - trigger: state
+      entity_id:
+        - binary_sensor.nest_protect_hallway_co_status
+        - binary_sensor.nest_protect_kitchen_co_status
+        - binary_sensor.nest_protect_garage_co_status
+        - binary_sensor.laundry_co_detected
+        - binary_sensor.bedroom_carbon_monoxide_detected
+      to: "on"
+      for:
+        seconds: 3
+  condition:
+    - condition: template
+      value_template: >-
+        {{ trigger.to_state.state != 'unavailable' and trigger.to_state.state != 'unknown' }}
+  action:
+    - action: noonlight.create_alarm
+      continue_on_error: true
+      data:
+        action: fire
+    - action: climate.turn_off
+      continue_on_error: true
+      target:
+        entity_id: climate.den
+    - action: switch.turn_off
+      continue_on_error: true
+      entity_id:
+        - switch.dryer_plug
+    - action: light.turn_on
+      continue_on_error: true
+      target:
+        entity_id: light.every_light
+    - action: notify.notify_all
+      data_template:
+        message: "{{ trigger.to_state.attributes.friendly_name }} carbon monoxide detected 🔥 "
+        title: Carbon Monoxide Alarm
+        data:
+          channel: alert
+          group: alert
+          sticky: true
+          importance: high
+          notification_icon: "mdi:smoke-detector-variant-alert"
+  initial_state: true
+- id: "4423659916354229"
+  alias: "Nest Protect Heat Detected"
+  triggers:
+    - trigger: state
+      entity_id:
+        - binary_sensor.nest_protect_hallway_heat_status
+        - binary_sensor.nest_protect_kitchen_heat_status
+        - binary_sensor.nest_protect_garage_heat_status
+      from: "normal"
+      for:
+        seconds: 3
+  condition:
+    - condition: template
+      value_template: >
+        {{ trigger.to_state.state != 'unavailable' and trigger.to_state.state != 'unknown' }}
+  action:
+    - action: climate.turn_off
+      continue_on_error: true
+      target:
+        entity_id: climate.den
+    - action: switch.turn_off
+      continue_on_error: true
+      entity_id:
+        - switch.dryer_plug
+    - action: light.turn_on
+      continue_on_error: true
+      target:
+        entity_id: light.every_light
+    - action: notify.notify_all
+      data_template:
+        message: "{{ trigger.to_state.attributes.friendly_name }} heat detected 🔥 "
+        title: "Heat Alarm"
+        data:
+          channel: alert
+          group: alert
+          sticky: true
+          importance: high
+          notification_icon: "mdi:smoke-detector-variant-alert"
 - id: "1773719935299957"
   alias: "[Notify] HVAC Water Leak"
   initial_state: true
@@ -703,16 +799,13 @@
             - action: browser_mod.navigate
               data:
                 browser_id:
-                  - ac9b7f58-cfbfe785
+                  - browser_ac9b7f58_cfbfe785
                 path: /lovelace/newtab
     - wait_for_trigger:
         - trigger: state
           entity_id: binary_sensor.den_night_light_motion
           from: "on"
           to: "off"
-          for:
-            seconds: 90
-    #    - delay: 90
     - action: light.turn_off
       entity_id: light.den_night_lights_zb
     - choose:
@@ -721,17 +814,17 @@
               after: 05:30:01
               before: "23:00:00"
           sequence:
-            - action: browser_mod.navigate
-              data:
-                browser_id:
-                  - ac9b7f58-cfbfe785
-                path: /lovelace/random
-            - delay: 300
+            #            - action: browser_mod.navigate
+            #              data:
+            #                browser_id:
+            #                  - browser_ac9b7f58_cfbfe785
+            #                path: /lovelace/random
+            #            - delay: 300
             - action: browser_mod.navigate
               data:
                 path: /lovelace/screen
                 browser_id:
-                  - ac9b7f58-cfbfe785
+                  - browser_ac9b7f58_cfbfe785
         - conditions:
             - condition: time
               after: "22:30:01"
@@ -795,32 +888,7 @@
         - light.front_yard_cam_floodlight
   mode: restart
   max_exceeded: silent
-- id: "170999978999162"
-  alias: "[Presence] Darren Away"
-  triggers:
-    - trigger: state
-      entity_id:
-        - person.darren
-      to: not_home
-      for:
-        seconds: 30
-  action:
-    - action: input_boolean.turn_on
-      entity_id:
-        - input_boolean.camera_snapshots
-        - input_boolean.patio_garage_alerts
-    - action: homeassistant.turn_off
-      continue_on_error: true
-      entity_id:
-        - input_boolean.darren_home
-        - light.office_lights
-        - switch.ha2_office_monitor
-        - fan.hallway_fan
-        - switch.ha2_work_bench
-        - switch.keurig_coffee
-  initial_state: true
-  mode: single
-- id: "170999979999163"
+- id: "1709945324567681209"
   alias: "[Presence] Darren Home"
   triggers:
     - trigger: state
@@ -830,8 +898,28 @@
       for:
         seconds: 4
   action:
+    - action: input_boolean.turn_on
+      entity_id: input_boolean.darren_home
     - action: input_boolean.turn_off
       entity_id: input_boolean.patio_garage_alerts
+    - choose:
+        - conditions:
+            not:
+              - condition: state
+                entity_id: alarm_control_panel.alarmo
+                state: "disarmed"
+          sequence:
+            - action: alarm_control_panel.alarm_disarm
+              entity_id: alarm_control_panel.alarmo
+              data:
+                code: 3971
+        - conditions:
+            - condition: state
+              entity_id: alarm_control_panel.alarmo
+              state: "disarmed"
+          sequence:
+            - delay:
+                milliseconds: 10
     - choose:
         - conditions:
             - condition: state
@@ -846,7 +934,10 @@
               state: "off"
           sequence:
             - action: light.turn_on
-              entity_id: light.entryway_dimmer
+              target:
+                entity_id:
+                  - light.entryway_dimmer
+                  - light.laundry_room_light
     - choose:
         - conditions:
             - condition: state
@@ -863,25 +954,91 @@
             - action: light.turn_on
               data:
                 entity_id: light.garage_ceiling_lights
-    - action: homeassistant.turn_on
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.people_home_boolean
+              state: "off"
+          sequence:
+            - action: script.people_home
+            - action: script.darren_home
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.people_home_boolean
+              state: "on"
+          sequence:
+            - action: script.darren_home
+  initial_state: true
+  mode: single
+- id: "170999978999162"
+  alias: "[Presence] Darren Away"
+  triggers:
+    - trigger: state
+      entity_id:
+        - person.darren
+      to: not_home
+      for:
+        seconds: 60
+  action:
+    - action: input_boolean.turn_on
+      entity_id:
+        - input_boolean.camera_snapshots
+    - action: homeassistant.turn_off
       continue_on_error: true
       entity_id:
         - input_boolean.darren_home
-    - action: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.naptime
-    - wait_for_trigger:
-        - trigger: state
-          entity_id: binary_sensor.office_motion_sensors
-          from: "off"
-          to: "on"
-    - action: homeassistant.turn_on
-      continue_on_error: true
-      entity_id:
-        - fan.hallway_fan
+        - light.office_lights
         - switch.ha2_office_monitor
+        - fan.hallway_fan
+        - switch.ha2_work_bench
+        - switch.keurig_coffee
   initial_state: true
   mode: single
+- id: "170999999999458"
+  alias: "[Notify] Smoke Detected"
+  triggers:
+    - trigger: state
+      entity_id:
+        - binary_sensor.nest_protect_hallway_smoke_status
+        - binary_sensor.nest_protect_kitchen_smoke_status
+        - binary_sensor.nest_protect_garage_smoke_status
+        - binary_sensor.laundry_smoke_detected
+        - binary_sensor.bedroom_smoke_detected
+      to: "on"
+      for:
+        seconds: 3
+  condition:
+    - condition: template
+      value_template: >-
+        {{ trigger.to_state.state != 'unavailable' and trigger.to_state.state != 'unknown' }}
+  action:
+    - action: noonlight.create_alarm
+      continue_on_error: true
+      data:
+        action: fire
+    - action: climate.turn_off
+      continue_on_error: true
+      target:
+        entity_id: climate.den
+    - action: switch.turn_off
+      continue_on_error: true
+      entity_id:
+        - switch.dryer_plug
+    - action: light.turn_on
+      continue_on_error: true
+      target:
+        entity_id: light.every_light
+    - action: notify.notify_all
+      data_template:
+        message: "{{ trigger.to_state.attributes.friendly_name }} smoke detected 🔥 "
+        title: Smoke Alarm
+        data:
+          channel: alert
+          group: alert
+          sticky: true
+          importance: high
+          notification_icon: "mdi:smoke-detector-variant-alert"
+  initial_state: true
 - id: "170999979999641209"
   alias: "[Presence] Donna Home"
   triggers:
@@ -892,8 +1049,28 @@
       for:
         seconds: 4
   action:
+    - action: input_boolean.turn_on
+      entity_id: input_boolean.donna_home
     - action: input_boolean.turn_off
       entity_id: input_boolean.patio_garage_alerts
+    - choose:
+        - conditions:
+            not:
+              - condition: state
+                entity_id: alarm_control_panel.alarmo
+                state: "disarmed"
+          sequence:
+            - action: alarm_control_panel.alarm_disarm
+              entity_id: alarm_control_panel.alarmo
+              data:
+                code: 3971
+        - conditions:
+            - condition: state
+              entity_id: alarm_control_panel.alarmo
+              state: "disarmed"
+          sequence:
+            - delay:
+                milliseconds: 10
     - choose:
         - conditions:
             - condition: state
@@ -908,15 +1085,18 @@
               state: "off"
           sequence:
             - action: light.turn_on
-              entity_id: light.entryway_dimmer
+              target:
+                entity_id:
+                  - light.entryway_dimmer
+                  - light.laundry_room_light
     - choose:
         - conditions:
             - condition: state
               entity_id: cover.garage_door
               state: closed
           sequence:
-            - action: cover.open_cover # switch.turn_on
-              entity_id: cover.garage_door # switch.garage_door
+            - action: cover.open_cover
+              entity_id: cover.garage_door
         - conditions:
             - condition: state
               entity_id: cover.garage_door
@@ -925,8 +1105,19 @@
             - action: light.turn_on
               data:
                 entity_id: light.garage_ceiling_lights
-    - action: input_boolean.turn_on
-      entity_id: input_boolean.donna_home
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.people_home_boolean
+              state: "off"
+          sequence:
+            - action: script.people_home
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.people_home_boolean
+              state: "on"
+          sequence:
+            - stop: "Automation terminated"
   initial_state: true
   mode: single
 - id: "170999989999524"
@@ -937,7 +1128,7 @@
         - person.donna
       to: not_home
       for:
-        seconds: 30
+        seconds: 60
   action:
     - action: input_boolean.turn_off
       entity_id: input_boolean.donna_home
@@ -952,7 +1143,7 @@
       entity_id: group.person_group
       to: not_home
       for:
-        seconds: 300
+        seconds: 180
   action:
     - action: script.alarm_arm
     - action: script.people_away
@@ -969,11 +1160,8 @@
       entity_id: group.person_group
       to: home
   action:
-    - action: alarm_control_panel.alarm_disarm
-      entity_id: alarm_control_panel.alarmo
-      data:
-        code: 3971
-    - action: script.people_home
+    - delay:
+        minutes: 3
     - action: switch.turn_on
       continue_on_error: true
       data:
@@ -986,7 +1174,7 @@
       continue_on_error: true
       data:
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
         path: /lovelace/newtab
     - action: switch.turn_on
       continue_on_error: true
@@ -1000,15 +1188,21 @@
       continue_on_error: true
       data:
         browser_id:
-          - 1b918469-5d6a2b44
+          - ensuite_kiosk
         path: /lovelace/ensuite_kiosk
     - choose:
+        - conditions:
+            - condition: state
+              entity_id: light.outside_lights
+              state: "off"
+          sequence:
+            - stop: "Lights off, automation terminated"
         - conditions:
             - condition: time
               after: "22:00:00"
               before: "07:00:00"
           sequence:
-            - delay: 360
+            - delay: 240
             - action: light.turn_off
               entity_id: light.outside_lights
         - conditions:
@@ -1016,7 +1210,7 @@
               after: "07:00:01"
               before: "21:59:59"
           sequence:
-            - delay: 1200
+            - delay: 600
             - action: light.turn_off
               entity_id: light.outside_lights
   mode: single
@@ -1113,7 +1307,15 @@
   alias: "[Motion] Kitchen Motion Lights"
   triggers:
     - trigger: state
-      entity_id: binary_sensor.kitchen_motion_sensors
+      entity_id: binary_sensor.kitchen_bt_motion
+      from: "off"
+      to: "on"
+    - trigger: state
+      entity_id: binary_sensor.kitchen_bt_motion_2
+      from: "off"
+      to: "on"
+    - trigger: state
+      entity_id: binary_sensor.kitchen_bt_motion_3
       from: "off"
       to: "on"
     - type: occupied
@@ -1136,32 +1338,88 @@
               before: "05:30:00"
           sequence:
             - action: light.turn_on
-              data:
-                entity_id: light.cabinet_lights_3
+              continue_on_error: true
+              target:
+                entity_id:
+                  - light.coffee_light
+                  - light.cabinet_left_side
+                  - light.subwoofer
         - conditions:
             - condition: time
               after: 05:30:01
+              before: "08:00:00"
+          sequence:
+            - action: light.turn_on
+              continue_on_error: true
+              target:
+                entity_id:
+                  - light.coffee_light
+                  - light.cabinet_left_side
+                  - light.subwoofer
+            - action: light.turn_on
+              continue_on_error: true
+              target:
+                entity_id: light.kitchen_ceiling_lights_3
+              data:
+                brightness_pct: 70
+        - conditions:
+            - condition: time
+              after: 08:00:01
+              before: "20:00:00"
+          sequence:
+            - action: light.turn_on
+              continue_on_error: true
+              target:
+                entity_id:
+                  - light.coffee_light
+                  - light.cabinet_left_side
+                  - light.subwoofer
+            - action: light.turn_on
+              continue_on_error: true
+              target:
+                entity_id: light.kitchen_ceiling_lights_3
+              data:
+                brightness_pct: 90
+        - conditions:
+            - condition: time
+              after: "20:00:01"
               before: "23:00:00"
           sequence:
             - action: light.turn_on
-              data:
-                entity_id: light.cabinet_lights_3
+              continue_on_error: true
+              target:
+                entity_id:
+                  - light.coffee_light
+                  - light.cabinet_left_side
+                  - light.subwoofer
             - action: light.turn_on
-              data:
+              continue_on_error: true
+              target:
                 entity_id: light.kitchen_ceiling_lights_3
+              data:
+                brightness_pct: 45
     - wait_for_trigger:
         - type: not_occupied
           device_id: 11ae90ced5ee1712eecfff81dc93849c
           entity_id: 4cee93a6bdbf5e7c5eadbf7db0533093
           domain: binary_sensor
           trigger: device
+          for:
+            seconds: 35
     - action: light.turn_off
+      continue_on_error: true
       entity_id: light.kitchen_ceiling_lights_3
     - action: light.turn_off
+      continue_on_error: true
       entity_id: light.table_light
     - delay: 900
     - action: light.turn_off
-      entity_id: light.cabinet_lights_3
+      continue_on_error: true
+      target:
+        entity_id:
+          - light.coffee_light
+          - light.cabinet_left_side
+          - light.subwoofer
   mode: restart
   max_exceeded: silent
   initial_state: true
@@ -1182,7 +1440,10 @@
       state: "off"
   action:
     - action: light.turn_on
-      entity_id: light.entryway_dimmer
+      target:
+        entity_id:
+          - light.entryway_dimmer
+          - light.laundry_room_light
     - wait_for_trigger:
         - trigger: state
           entity_id: binary_sensor.entryway_motion
@@ -1190,29 +1451,14 @@
           to: "off"
     - delay: 30
     - action: light.turn_off
-      entity_id: light.entryway_dimmer, light.laundry_room_light
+      target:
+        entity_id:
+          - light.entryway_dimmer
+          - light.laundry_room_light
   mode: restart
   max_exceeded: silent
   initial_state: true
-- id: "1771618178227534"
-  alias: "[Motion] Laundry Motion Lights"
-  description: ""
-  triggers:
-    - trigger: state
-      entity_id: binary_sensor.laundry_motion_sensors
-      to: "on"
-  condition:
-    - condition: state
-      entity_id: group.person_group
-      state: home
-    - condition: state
-      entity_id: input_boolean.motion_lights
-      state: "off"
-  action:
-    - action: light.turn_on
-      entity_id: light.laundry_room_light
-  mode: restart
-  max_exceeded: silent
+
 - id: "179161817217497534"
   alias: "[Motion] Foyer Motion Lights"
   description: ""
@@ -1297,7 +1543,6 @@
     - action: switch.turn_on
       target:
         entity_id: fan.ensuite_vent_2
-    - delay: 300
   initial_state: true
   mode: single
   max_exceeded: silent
@@ -1316,7 +1561,6 @@
     - action: switch.turn_off
       target:
         entity_id: fan.ensuite_vent_2
-    - delay: 300
   initial_state: true
   mode: single
   max_exceeded: silent
@@ -1530,7 +1774,7 @@
         data:
           ttl: 0
           priority: high
-          tts_text: Security system armed. The house and grounds are now under video surveillance.
+          tts_text: Security system armed. Machine gun turrets now online and active.
 - id: "1701177486112975382884"
   alias: "[Alarmo] Disarmed"
   initial_state: true
@@ -1550,7 +1794,7 @@
         data:
           ttl: 0
           priority: high
-          tts_text: Security system disarmed. You may enter the premises.
+          tts_text: Security system deactivated. Welcome home!
 - id: "1701612177497534"
   alias: "[Alarmo] Home Mode Armed"
   initial_state: true
@@ -1842,6 +2086,31 @@
       tts_notification: true
       tts_volume: alarm_stream_max
       model: gpt-4o-mini
+
+- id: "33234967873399558"
+  alias: AI Event Summary Garage(v1.4.3)
+  use_blueprint:
+    path: valentinfrlch/event_summary.yaml
+    input:
+      camera_entities:
+        - camera.garage_0
+      motion_sensors:
+        - binary_sensor.garage_motion_sensors
+        - binary_sensor.garage_doors
+      duration: 8
+      max_frames: 5
+      remember: true
+      use_memory: true
+      provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
+      model: gpt-4o-mini
+      notify_device:
+        - 5402f427ac93601eeab00b7fc7d6f6da
+      file_path: /config/www/tmp/last_snapshot_garage.jpg
+      tap_navigate: /dashboard-cast/garage
+      notification_color: "#ffc107"
+      notification_channel: alarm_stream
+      tts_notification: true
+      tts_volume: alarm_stream_max
 
 - id: "17016499927893058"
   alias: Update notifications
@@ -2200,11 +2469,6 @@
       state: not_home
       enabled: true
   action:
-    - action: button.press
-      target:
-        entity_id: button.wyze_cam_kitchen_cam_2_update_snapshot
-    - delay:
-        seconds: 4
     - action: notify.mobile_app_pixel_8_pro
       data:
         message: Kitchen Motion at {{ states('sensor.time_12_hour_am_pm') }}
@@ -2235,11 +2499,6 @@
       state: not_home
       enabled: true
   action:
-    - action: button.press
-      target:
-        entity_id: button.wyze_cam_kitchen_cam_update_snapshot
-    - delay:
-        seconds: 8
     - action: notify.mobile_app_pixel_8_pro
       data:
         message: Kitchen Motion at {{ states('sensor.time_12_hour_am_pm') }}
@@ -2274,43 +2533,46 @@
         entity_id: camera.porch_camera_0
       data:
         filename: /config/www/tmp/last_snapshot_porch.jpg
-    #    - action: camera.record
-    #      target:
-    #        entity_id: camera.porch_camera_0
-    #      data:
-    #        filename: /config/www/tmp/last_video_snapshot_porch.mp4
-    #        duration: 12
     - action: browser_mod.navigate
       continue_on_error: true
       data:
-        browser_id:
-          - ac9b7f58-cfbfe785
-        path: /dashboard-cast/porch
-    - action: browser_mod.navigate
-      continue_on_error: true
-      data:
-        browser_id:
-          - 1b918469-5d6a2b44
         path: /dashboard-cast/porch
     - action: input_boolean.turn_on
       entity_id: input_boolean.camera_motion_detected
     - delay:
-        seconds: 2
-    - action: notify.notify_all
+        seconds: 8
+    - action: llmvision.image_analyzer
       data:
-        message: ⚠️Front Motion!⚠️️ {{ states('sensor.worldclock_sensor_12hr') }}
-        data:
-          notification_icon: mdi:cctv
-          image: /local/tmp/last_snapshot_porch.jpg
-          persistent: true
-          color: red
-          channel: Cameras
-          tag: Motion
-          actions:
-            - action: URI
-              title: Click to Open Cameras
-              uri: dashboard-cast/porch
+        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
+        message: >
+          Classify the security event based on this image from the front door/porch camera.
+          Choose from the following options: "passive" for unimportant events and only
+          when no people are present, "time-sensitive" for notable but non-critical
+          events such as a person at the front door, and "critical" only for potential
+          burglaries or highly suspicious activity. Respond with one of these options
+          exactly, without additional explanation.
+        remember: true
+        use_memory: true
+        image_entity:
+          - camera.porch_camera_0
+        model: gpt-4o-mini
+        image_file: /config/www/tmp/last_snapshot_porch.jpg
+        include_filename: true
+        target_width: 1280
+        max_tokens: 3
+        generate_title: true
+        expose_images: true
+      response_variable: response
+    - alias: Update label with title
+      variables:
+        label: "{{response.title}}"
     - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ response.response_text|lower == 'passive' }}"
+          sequence:
+            - delay:
+                seconds: 1
         - conditions:
             - condition: state
               entity_id: input_boolean.camera_snapshots
@@ -2319,6 +2581,8 @@
               after: "22:00:00"
               before: "07:00:00"
           sequence:
+            - action: script.porch_video_snapshot
+              continue_on_error: true
             - action: media_player.volume_set
               continue_on_error: true
               data:
@@ -2334,6 +2598,23 @@
               continue_on_error: true
               data:
                 command: "stream porch camera on office display"
+            - delay:
+                seconds: 1
+            - action: notify.notify_all
+              data:
+                title: "{{ label }}"
+                message: "{{response.response_text}}"
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_porch.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/porch
             - delay: 240
             - action: media_player.turn_off
               continue_on_error: true
@@ -2346,10 +2627,9 @@
             - condition: time
               after: "07:00:01"
               before: "21:59:59"
-            - condition: state
-              entity_id: group.person_group
-              state: not_home
           sequence:
+            - action: script.porch_video_snapshot
+              continue_on_error: true
             - action: media_player.volume_set
               continue_on_error: true
               data:
@@ -2365,6 +2645,23 @@
               continue_on_error: true
               data:
                 command: "stream porch camera on den TV"
+            - delay:
+                seconds: 1
+            - action: notify.notify_all
+              data:
+                title: "{{ label }}"
+                message: "{{response.response_text}}"
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_porch.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/porch
             - delay: 180
             - action: google_assistant_sdk.send_text_command
               continue_on_error: true
@@ -2377,10 +2674,12 @@
             - condition: time
               after: "07:00:01"
               before: "21:59:59"
-            - condition: state
-              entity_id: group.person_group
-              state: home
+          #            - condition: state
+          #              entity_id: group.person_group
+          #              state: home
           sequence:
+            - action: script.porch_video_snapshot
+              continue_on_error: true
             - action: media_player.volume_set
               continue_on_error: true
               data:
@@ -2396,6 +2695,23 @@
               continue_on_error: true
               data:
                 command: "stream porch camera on den TV"
+            - delay:
+                seconds: 1
+            - action: notify.notify_all
+              data:
+                title: "{{ label }}"
+                message: "{{response.response_text}}"
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_porch.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/porch
             - delay: 180
             - action: google_assistant_sdk.send_text_command
               continue_on_error: true
@@ -2407,21 +2723,13 @@
     - action: browser_mod.navigate
       continue_on_error: true
       data:
-        browser_id:
-          - 1b918469-5d6a2b44
-        path: /lovelace/newtab
-    - action: browser_mod.navigate
-      continue_on_error: true
-      data:
-        browser_id:
-          - ac9b7f58-cfbfe785
         path: /lovelace/newtab
     - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.tv_speakers
         volume_level: "0.2"
-    - delay: 2
+    - delay: 1
     - action: media_player.volume_set
       continue_on_error: true
       data:
@@ -2439,6 +2747,20 @@
         data:
           channel: Cameras
           ledColor: red
+- id: "384450173036339632"
+  alias: Side Door Camera live view for wall mounted Nest
+  description: ""
+  triggers:
+    - trigger: state
+      entity_id:
+        - binary_sensor.side_motion_sensor
+      to: "on"
+  condition: []
+  action:
+    - action: google_assistant_sdk.send_text_command
+      continue_on_error: true
+      data:
+        command: stream driveway camera on entryway display
 - id: "170173036339632"
   alias: Side Door Last motion pic
   description: ""
@@ -2454,44 +2776,46 @@
         entity_id: camera.driveway_0
       data:
         filename: /config/www/tmp/last_snapshot_driveway.jpg
-    #    - action: camera.record
-    #      continue_on_error: true
-    #      target:
-    #        entity_id: camera.driveway_0
-    #      data:
-    #        filename: /config/www/tmp/last_video_snapshot_driveway.mp4
-    #        duration: 12
     - action: browser_mod.navigate
       continue_on_error: true
       data:
-        browser_id:
-          - ac9b7f58-cfbfe785
-        path: /dashboard-cast/driveway
-    - action: browser_mod.navigate
-      continue_on_error: true
-      data:
-        browser_id:
-          - 1b918469-5d6a2b44
         path: /dashboard-cast/driveway
     - action: input_boolean.turn_on
       entity_id: input_boolean.camera_motion_detected
     - delay:
-        seconds: 2
-    - action: notify.notify_all
+        seconds: 8
+    - action: llmvision.image_analyzer
       data:
-        message: ⚠️Side Door Motion!⚠️️{{ states('sensor.worldclock_sensor_12hr') }}
-        data:
-          notification_icon: mdi:cctv
-          image: /local/tmp/last_snapshot_driveway.jpg
-          persistent: true
-          color: red
-          channel: Cameras
-          tag: Motion
-          actions:
-            - action: URI
-              title: Click to Open Camera
-              uri: /dashboard-cast/driveway
+        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
+        message: >
+          Classify the security event based on this image from the side door/driveway camera.
+          Choose from the following options: "passive" for unimportant events and only
+          when no people are present, "time-sensitive" for notable but non-critical
+          events such as a person at the front door, and "critical" only for potential
+          burglaries or highly suspicious activity. Respond with one of these options
+          exactly, without additional explanation.
+        remember: true
+        use_memory: true
+        image_entity:
+          - camera.driveway_0
+        model: gpt-4o-mini
+        image_file: /config/www/tmp/last_snapshot_driveway.jpg
+        include_filename: true
+        target_width: 1280
+        max_tokens: 3
+        generate_title: true
+        expose_images: true
+      response_variable: response
+    - alias: Update label with title
+      variables:
+        label: "{{response.title}}"
     - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ response.response_text|lower == 'passive' }}"
+          sequence:
+            - delay:
+                seconds: 1
         - conditions:
             - condition: state
               entity_id: input_boolean.camera_snapshots
@@ -2500,6 +2824,8 @@
               after: "22:00:00"
               before: "07:00:00"
           sequence:
+            - action: script.driveway_video_snapshot
+              continue_on_error: true
             - action: media_player.volume_set
               continue_on_error: true
               data:
@@ -2515,6 +2841,23 @@
               continue_on_error: true
               data:
                 command: "stream driveway camera on office display"
+            - delay:
+                seconds: 1
+            - action: notify.notify_all
+              data:
+                title: "{{ label }}"
+                message: "{{response.response_text}}"
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_driveway.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/driveway
             - delay: 240
             - action: media_player.turn_off
               continue_on_error: true
@@ -2527,10 +2870,9 @@
             - condition: time
               after: "07:00:01"
               before: "21:59:59"
-            - condition: state
-              entity_id: group.person_group
-              state: not_home
           sequence:
+            - action: script.driveway_video_snapshot
+              continue_on_error: true
             - action: media_player.volume_set
               continue_on_error: true
               data:
@@ -2546,6 +2888,23 @@
               continue_on_error: true
               data:
                 command: "stream driveway camera on den TV"
+            - delay:
+                seconds: 1
+            - action: notify.notify_all
+              data:
+                title: "{{ label }}"
+                message: "{{response.response_text}}"
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_driveway.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/driveway
             - delay: 180
             - action: google_assistant_sdk.send_text_command
               continue_on_error: true
@@ -2558,10 +2917,12 @@
             - condition: time
               after: "07:00:01"
               before: "21:59:59"
-            - condition: state
-              entity_id: group.person_group
-              state: home
+          #            - condition: state
+          #              entity_id: group.person_group
+          #              state: home
           sequence:
+            - action: script.driveway_video_snapshot
+              continue_on_error: true
             - action: media_player.volume_set
               continue_on_error: true
               data:
@@ -2577,6 +2938,23 @@
               continue_on_error: true
               data:
                 command: "stream driveway camera on den TV"
+            - delay:
+                seconds: 1
+            - action: notify.notify_all
+              data:
+                title: "{{ label }}"
+                message: "{{response.response_text}}"
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_driveway.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/driveway
             - delay: 180
             - action: google_assistant_sdk.send_text_command
               continue_on_error: true
@@ -2588,21 +2966,13 @@
     - action: browser_mod.navigate
       continue_on_error: true
       data:
-        browser_id:
-          - 1b918469-5d6a2b44
-        path: /lovelace/newtab
-    - action: browser_mod.navigate
-      continue_on_error: true
-      data:
-        browser_id:
-          - ac9b7f58-cfbfe785
         path: /lovelace/newtab
     - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.tv_speakers
         volume_level: "0.2"
-    - delay: 2
+    - delay: 1
     - action: media_player.volume_set
       continue_on_error: true
       data:
@@ -2621,48 +2991,51 @@
   condition: []
   action:
     - action: camera.snapshot
+      continue_on_error: true
       target:
         entity_id: camera.patio_0
       data:
         filename: /config/www/tmp/last_snapshot_patio.jpg
-    #    - action: camera.record
-    #      continue_on_error: true
-    #      target:
-    #        entity_id: camera.patio_0
-    #      data:
-    #        filename: /config/www/tmp/last_video_snapshot_patio.mp4
-    #        duration: 12
     - action: browser_mod.navigate
       continue_on_error: true
       data:
-        browser_id:
-          - ac9b7f58-cfbfe785
-        path: /dashboard-cast/patio
-    - action: browser_mod.navigate
-      continue_on_error: true
-      data:
-        browser_id:
-          - 1b918469-5d6a2b44
         path: /dashboard-cast/patio
     - action: input_boolean.turn_on
       entity_id: input_boolean.camera_motion_detected
     - delay:
-        seconds: 2
-    - action: notify.notify_all
+        seconds: 8
+    - action: llmvision.image_analyzer
       data:
-        message: ⚠️Patio Motion!⚠️️{{ states('sensor.worldclock_sensor_12hr') }} # ️{{ states('sensor.time_12_hour_am_pm') }}
-        data:
-          notification_icon: mdi:cctv
-          image: /local/tmp/last_snapshot_patio.jpg
-          persistent: true
-          color: red
-          channel: Cameras
-          tag: Motion
-          actions:
-            - action: URI
-              title: Click to Open Cameras
-              uri: /dashboard-cast/patio
+        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
+        message: >
+          Classify the security event based on this image from the back door/patio camera.
+          Choose from the following options: "passive" for unimportant events and only
+          when no people are present, "time-sensitive" for notable but non-critical
+          events such as a person at the front door, and "critical" only for potential
+          burglaries or highly suspicious activity. Respond with one of these options
+          exactly, without additional explanation.
+        remember: true
+        use_memory: true
+        image_entity:
+          - camera.patio_0
+        model: gpt-4o-mini
+        image_file: /config/www/tmp/last_snapshot_patio.jpg
+        include_filename: true
+        target_width: 1280
+        max_tokens: 3
+        generate_title: true
+        expose_images: true
+      response_variable: response
+    - alias: Update label with title
+      variables:
+        label: "{{response.title}}"
     - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ response.response_text|lower == 'passive' }}"
+          sequence:
+            - delay:
+                seconds: 1
         - conditions:
             - condition: state
               entity_id: input_boolean.patio_garage_alerts
@@ -2671,6 +3044,8 @@
               after: "22:00:00"
               before: "07:00:00"
           sequence:
+            - action: script.patio_video_snapshot
+              continue_on_error: true
             - action: media_player.volume_set
               continue_on_error: true
               data:
@@ -2686,6 +3061,23 @@
               continue_on_error: true
               data:
                 command: "stream patio camera on office display"
+            - delay:
+                seconds: 1
+            - action: notify.notify_all
+              data:
+                title: "{{ label }}"
+                message: "{{response.response_text}}"
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_patio.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/patio
             - delay: 240
             - action: media_player.turn_off
               continue_on_error: true
@@ -2698,10 +3090,9 @@
             - condition: time
               after: "07:00:01"
               before: "21:59:59"
-            - condition: state
-              entity_id: group.person_group
-              state: not_home
           sequence:
+            - action: script.patio_video_snapshot
+              continue_on_error: true
             - action: media_player.volume_set
               continue_on_error: true
               data:
@@ -2717,6 +3108,23 @@
               continue_on_error: true
               data:
                 command: "stream patio camera on den TV"
+            - delay:
+                seconds: 1
+            - action: notify.notify_all
+              data:
+                title: "{{ label }}"
+                message: "{{response.response_text}}"
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_patio.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/patio
             - delay: 180
             - action: google_assistant_sdk.send_text_command
               continue_on_error: true
@@ -2729,10 +3137,12 @@
             - condition: time
               after: "07:00:01"
               before: "21:59:59"
-            - condition: state
-              entity_id: group.person_group
-              state: home
+          #            - condition: state
+          #              entity_id: group.person_group
+          #              state: home
           sequence:
+            - action: script.patio_video_snapshot
+              continue_on_error: true
             - action: media_player.volume_set
               continue_on_error: true
               data:
@@ -2748,6 +3158,23 @@
               continue_on_error: true
               data:
                 command: "stream patio camera on den TV"
+            - delay:
+                seconds: 1
+            - action: notify.notify_all
+              data:
+                title: "{{ label }}"
+                message: "{{response.response_text}}"
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_patio.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/patio
             - delay: 180
             - action: google_assistant_sdk.send_text_command
               continue_on_error: true
@@ -2759,21 +3186,13 @@
     - action: browser_mod.navigate
       continue_on_error: true
       data:
-        browser_id:
-          - 1b918469-5d6a2b44
-        path: /lovelace/newtab
-    - action: browser_mod.navigate
-      continue_on_error: true
-      data:
-        browser_id:
-          - ac9b7f58-cfbfe785
         path: /lovelace/newtab
     - action: media_player.volume_set
       continue_on_error: true
       data:
         entity_id: media_player.tv_speakers
         volume_level: "0.3"
-    - delay: 2
+    - delay: 1
     - action: media_player.volume_set
       continue_on_error: true
       data:
@@ -2792,47 +3211,50 @@
   action:
     - action: camera.snapshot
       target:
-        entity_id: camera.garage_0
+        entity_id:
+          - camera.garage_0
       data:
         filename: /config/www/tmp/last_snapshot_garage.jpg
-    #    - action: camera.record
-    #      continue_on_error: true
-    #      target:
-    #        entity_id: camera.garage_0
-    #      data:
-    #        filename: /config/www/tmp/last_video_snapshot_garage.mp4
-    #        duration: 12
     - action: browser_mod.navigate
       continue_on_error: true
       data:
-        browser_id:
-          - ac9b7f58-cfbfe785
-        path: /dashboard-cast/garage
-    - action: browser_mod.navigate
-      continue_on_error: true
-      data:
-        browser_id:
-          - 1b918469-5d6a2b44
         path: /dashboard-cast/garage
     - action: input_boolean.turn_on
       entity_id: input_boolean.camera_motion_detected
     - delay:
-        seconds: 2
-    - action: notify.notify_all
+        seconds: 8
+    - action: llmvision.image_analyzer
       data:
-        message: ⚠️Garage Motion!⚠️️ {{ states('sensor.worldclock_sensor_12hr') }}
-        data:
-          notification_icon: mdi:cctv
-          image: /local/tmp/last_snapshot_patio.jpg
-          persistent: true
-          color: red
-          channel: Cameras
-          tag: Motion
-          actions:
-            - action: URI
-              title: Click to Open Cameras
-              uri: /dashboard-cast/garage
+        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
+        message: >
+          Classify the security event based on this image from the garage interior camera.
+          Choose from the following options: "passive" for unimportant events and only
+          when no people are present, "time-sensitive" for notable but non-critical
+          events such as a person at the front door, and "critical" only for potential
+          burglaries or highly suspicious activity. Respond with one of these options
+          exactly, without additional explanation.
+        remember: true
+        use_memory: true
+        image_entity:
+          - camera.garage_0
+        model: gpt-4o-mini
+        image_file: /config/www/tmp/last_snapshot_garage.jpg
+        include_filename: true
+        target_width: 1280
+        max_tokens: 3
+        generate_title: true
+        expose_images: true
+      response_variable: response
+    - alias: Update label with title
+      variables:
+        label: "{{response.title}}"
     - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ response.response_text|lower == 'passive' }}"
+          sequence:
+            - delay:
+                seconds: 1
         - conditions:
             - condition: state
               entity_id: input_boolean.patio_garage_alerts
@@ -2840,10 +3262,9 @@
             - condition: time
               after: "07:00:01"
               before: "22:00:00"
-            - condition: state
-              entity_id: group.person_group
-              state: not_home
           sequence:
+            - action: script.garage_video_snapshot
+              continue_on_error: true
             - action: media_player.volume_set
               continue_on_error: true
               data:
@@ -2859,6 +3280,23 @@
               continue_on_error: true
               data:
                 command: "stream garage camera on den TV"
+            - delay:
+                seconds: 1
+            - action: notify.notify_all
+              data:
+                title: "{{ label }}"
+                message: "{{response.response_text}}"
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_garage.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/garage
             - delay: 180
             - action: google_assistant_sdk.send_text_command
               continue_on_error: true
@@ -2871,10 +3309,12 @@
             - condition: time
               after: "07:00:01"
               before: "22:00:00"
-            - condition: state
-              entity_id: group.person_group
-              state: home
+          #            - condition: state
+          #              entity_id: group.person_group
+          #              state: home
           sequence:
+            - action: script.garage_video_snapshot
+              continue_on_error: true
             - action: media_player.volume_set
               continue_on_error: true
               data:
@@ -2890,6 +3330,23 @@
               continue_on_error: true
               data:
                 command: "stream garage camera on den TV"
+            - delay:
+                seconds: 1
+            - action: notify.notify_all
+              data:
+                title: "{{ label }}"
+                message: "{{response.response_text}}"
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_garage.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/garage
             - delay: 180
             - action: google_assistant_sdk.send_text_command
               continue_on_error: true
@@ -2903,6 +3360,8 @@
               after: "22:00:01"
               before: "07:00:00"
           sequence:
+            - action: script.garage_video_snapshot
+              continue_on_error: true
             - action: media_player.volume_set
               continue_on_error: true
               data:
@@ -2918,6 +3377,23 @@
               continue_on_error: true
               data:
                 command: "stream garage camera on office display"
+            - delay:
+                seconds: 1
+            - action: notify.notify_all
+              data:
+                title: "{{ label }}"
+                message: "{{response.response_text}}"
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_garage.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/garage
             - delay: 240
             - action: media_player.turn_off
               continue_on_error: true
@@ -2929,14 +3405,6 @@
     - action: browser_mod.navigate
       continue_on_error: true
       data:
-        browser_id:
-          - 1b918469-5d6a2b44
-        path: /lovelace/newtab
-    - action: browser_mod.navigate
-      continue_on_error: true
-      data:
-        browser_id:
-          - ac9b7f58-cfbfe785
         path: /lovelace/newtab
     - action: media_player.volume_set
       continue_on_error: true
@@ -2978,7 +3446,11 @@
   alias: "[Motion] Garage Motion Lights"
   triggers:
     - trigger: state
-      entity_id: binary_sensor.garage_occupied # binary_sensor.garage_motion_sensors
+      entity_id: binary_sensor.garage_occupied
+      from: "off"
+      to: "on"
+    - trigger: state
+      entity_id: binary_sensor.garage_motion_sensors
       from: "off"
       to: "on"
   condition:
@@ -2993,6 +3465,7 @@
               after: 09:00:01
           sequence:
             - action: light.turn_on
+              continue_on_error: true
               data:
                 brightness_pct: 100
               target:
@@ -3003,6 +3476,7 @@
               after: "21:30:00"
           sequence:
             - action: light.turn_on
+              continue_on_error: true
               data:
                 brightness_pct: 35
               target:
@@ -3015,6 +3489,7 @@
           for:
             minutes: 10
     - action: light.turn_off
+      continue_on_error: true
       data:
         entity_id: light.garage_lights
   mode: restart
@@ -3111,6 +3586,10 @@
       entity_id: binary_sensor.bathroom_motion_motion
       from: "off"
       to: "on"
+    - trigger: state
+      entity_id: binary_sensor.bathroom_occupancy_zb
+      from: "off"
+      to: "on"
   condition:
     - condition: state
       entity_id: group.person_group
@@ -3157,10 +3636,10 @@
                 entity_id: light.bathtub_light
     - wait_for_trigger:
         - trigger: state
-          entity_id: binary_sensor.bathroom_motion_motion
+          entity_id: binary_sensor.bathroom_occupancy_zb # binary_sensor.bathroom_motion_motion
           from: "on"
           to: "off"
-    - delay: 70
+    #    - delay: 70
     - condition: state
       entity_id: binary_sensor.bathroom_door_bt
       state: "on"
@@ -3500,8 +3979,6 @@
       entity_id:
         - light.bedroom_lights
       to: "on"
-      for:
-        seconds: 3
   condition:
     - condition: time
       before: "11:00:00"
@@ -3522,8 +3999,6 @@
       entity_id:
         - light.office_lights
       to: "on"
-      for:
-        seconds: 3
   condition:
     - condition: time
       before: "11:00:00"
@@ -4624,6 +5099,168 @@
       target:
         entity_id: switch.bathroom_night_light_plug
   initial_state: true
+- id: "203005432198623276354"
+  triggers:
+    - trigger: template
+      value_template: >-
+        {{ states('sensor.date_time') ==
+        (as_timestamp(states.sensor.pixel_8_pro_next_alarm.state) |int -1)|
+        timestamp_custom('%Y-%m-%d, %H:%M', True) }}
+  mode: single
+  conditions:
+    - condition: template
+      value_template: "{{ trigger.from_state.state != 'unavailable' }}"
+    - condition: state
+      entity_id: input_boolean.darren_s_alarm_triggered_today
+      state: "off"
+    - condition: state
+      entity_id: person.darren
+      state: home
+  actions:
+    - variables:
+        weather_entity: weather.home
+        calendar_entity: calendar.dwilson_churchoftheking_com
+        zone_entity: zone.home
+        calendar_duration:
+          hours: 24
+        prompt: >-
+          Please generate text for a notification that will be sent to Darren's bedside speaker with helpful information to start off his day.
+
+          You are a helpful personal agent that generates a spoken response for Darren:
+
+          - Your answers are helpful, friendly, warm, insightful.
+
+          - Respond using a warm tone that is inviting, with a hint of mischief.
+
+          - You should always include current time in 12 hour format, temperature, humidity and today's weather forecast.
+
+          - You should always include a short, but inspirational bible verse.
+
+          - Your answers are not technical, and do not include Home Assistant internal details such as entities in responses.
+
+          - Your messages help Darren prepare for his day, for example:
+            - Making note of unusual weather for the location and time of year (but not mundane details like "0% chance of precipitation")
+            - How much time remaining until their first meeting
+            - Anything that may be special or unique, such as celebrating a birthday
+    - alias: Fetch Weather Forecast
+      action: weather.get_forecasts
+      data:
+        type: hourly
+      target:
+        entity_id:
+          - "{{ weather_entity }}"
+      response_variable: daily_forecast
+    - variables:
+        forecast_entity: "{{ daily_forecast[weather_entity] }}"
+        forecast: "{{ forecast_entity.forecast[0] }}"
+    - alias: Fetch Calendar Agenda
+      action: calendar.get_events
+      data:
+        duration:
+          hours: 24
+      target:
+        entity_id: calendar.dwilson_churchoftheking_com
+      response_variable: events_response
+    - alias: Conversation Agent Notification Text
+      action: conversation.process
+      data:
+        text: >-
+          Time: {{ now().strftime("%A %B %d %H:%M %p") }}
+
+          {%- if weather_entity is defined %}
+
+          {%- set temperature_unit = state_attr(weather_entity,
+          'temperature_unit') -%}
+
+          Forecast: {{ forecast.condition }} ({{ forecast.temperature }}{{
+          temperature_unit }}, {{ forecast.precipitation }}% precipitation)
+
+          {%- endif %}
+
+
+          Calendar "{{ state_attr(calendar_entity, 'friendly_name') }}" events for
+          the next {{ calendar_duration.hours }} hours:
+
+          {%- set agenda = (events_response | items | first)[1] %}
+
+          {%- if agenda.events %}
+            {%- for event in agenda.events %}
+            - Summary: {{ event.summary }}
+              Start-End: {% if event.start is defined %}{{ event.start }} to {{ event.end }}{% else %}All Day{% endif %}
+              {%- if event.description is defined %}
+              Description: {{ event.description }}
+              {% endif -%}
+              {%- if event.location is defined %}
+                Location: {{ event.location }}
+              {% endif -%}
+            {%- endfor %}
+          {%- else %}
+            - No upcoming events.
+          {%- endif %}
+
+
+          {{ prompt }}
+        agent_id: e181a3af361f399aaf5b0703856e124b
+      response_variable: agent
+    - alias: Send notification
+      action: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id:
+          - media_player.office_display
+        volume_level: 0.1
+    - action: tts.cloud_say
+      continue_on_error: true
+      entity_id:
+        - media_player.office_display
+      data_template:
+        message: "{{ agent.response.speech.plain.speech }}"
+  alias: "Daily Info AI Testing"
+  description: ""
+
+- id: "203305432198623285254"
+  triggers:
+    - trigger: template
+      value_template: >-
+        {{ states('sensor.date_time') ==
+        (as_timestamp(states.sensor.pixel_8_pro_next_alarm.state) |int -1)|
+        timestamp_custom('%Y-%m-%d, %H:%M', True) }}
+  mode: single
+  actions:
+    - alias: Conversation Agent Notification TTS
+      action: conversation.process
+      data:
+        text: >-
+          What is the current time, weather conditions and forecast for today?
+
+          - You should always include current time in 12 hour format, temperature and humidity and current weather forecast.
+
+          Any events on my calanders for over the next 18 hours?
+
+          - How much time remaining until their first meeting
+
+          - Anything that may be special or unique, such as celebrating a birthday
+
+          Please give me a short, but inspirational bible verse.
+
+          Send this information to my phone.
+        agent_id: e181a3af361f399aaf5b0703856e124b
+      response_variable: agent
+    - alias: Send notification
+      action: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id:
+          - media_player.office_display
+        volume_level: 0.1
+    - action: tts.cloud_say
+      continue_on_error: true
+      entity_id:
+        - media_player.office_display
+      data_template:
+        message: "{{ agent.response.speech.plain.speech }}"
+  alias: "Daily TTS AI Testing"
+  description: ""
 
 - id: "204446321485676354"
   alias: "Sleep track announce"
