@@ -1,9 +1,563 @@
 ---
+garage_video_test:
+  alias: garage motion message
+  sequence:
+    - action: camera.snapshot
+      target:
+        entity_id:
+          - camera.garage_0
+      data:
+        filename: /config/www/tmp/last_snapshot_garage.jpg
+    - delay:
+        seconds: 8
+    - action: llmvision.image_analyzer
+      data:
+        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
+        message: >
+          Classify the security event based on this image. Choose from the
+          following options: "passive" for unimportant events, "time-sensitive"
+          for notable but non-critical events such as a person at the front door,
+          and "critical" only for potential burglaries or highly suspicious
+          activity. Respond with one of these options exactly, without additional
+          explanation.
+        remember: false
+        use_memory: false
+        image_entity:
+          - camera.garage_0
+        model: gpt-4o-mini
+        image_file: /config/www/tmp/last_snapshot_garage.jpg
+        include_filename: true
+        target_width: 1280
+        max_tokens: 3
+        generate_title: true
+        expose_images: true
+      response_variable: importance
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ importance.response_text|lower == 'passive' }}"
+          sequence:
+            - stop: Event is not important
+        - conditions:
+            - condition: template
+              value_template: "true"
+          sequence:
+            - action: camera.snapshot
+              target:
+                entity_id:
+                  - camera.garage_0
+              data:
+                filename: /config/www/tmp/last_snapshot_garage.jpg
+            - delay:
+                seconds: 8
+            - alias: Send instant notification to notify devices
+              action: notify.notify_all
+              data:
+                title: "Motion detected"
+                message: "Garage camera has detected activity."
+                data:
+                  notification_icon: mdi:cctv
+                  image: /local/tmp/last_snapshot_garage.jpg
+                  persistent: true
+                  color: red
+                  channel: Cameras
+                  tag: Motion
+                  actions:
+                    - action: URI
+                      title: Click to Open Cameras
+                      uri: /dashboard-cast/garage
+    - action: llmvision.stream_analyzer
+      data:
+        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX # 01JZECF0T517YNCCB6WV6KTS3K
+        message: >
+          Summarize the events based on a series of images captured at short
+          intervals. Focus only on moving subjects such as people, vehicles, and
+          other active elements. Ignore static objects and scenery. Provide a
+          clear and concise account of movements and interactions. Do not mention
+          or imply the existence of images—present the information as if directly
+          observing the events. If no movement is detected, respond with: 'No
+          activity observed.'
+        model: gpt-4o-mini # gemini-2.5-flash
+        remember: true
+        use_memory: true
+        image_entity:
+          - camera.garage_0
+        duration: 8
+        max_frames: 3
+        include_filename: true
+        target_width: 1280
+        max_tokens: 40
+        generate_title: true
+        expose_images: true
+      response_variable: response
+    - alias: Update label with title
+      variables:
+        label: "{{response.title}}"
+    - delay:
+        seconds: 5
+    - alias: (Snapshot) Update notification on notify devices
+      action: notify.mobile_app_pixel_8_pro
+      data:
+        title: "{{ label }}"
+        message: "{{response.response_text}}"
+        data:
+          notification_icon: mdi:cctv
+          image: /local/tmp/last_snapshot_garage.jpg
+          persistent: true
+          color: red
+          channel: Cameras
+          tag: Motion
+          actions:
+            - action: URI
+              title: Click to Open Cameras
+              uri: /dashboard-cast/garage
+    - delay:
+        seconds: 5
+    - alias: TTS notification on notify devices
+      action: notify.mobile_app_pixel_8_pro
+      data:
+        message: TTS
+        data:
+          ttl: 0
+          priority: high
+          media_stream: alarm_stream_max
+          tts_text: "{{response.response_text}}"
+
+garage_video_msg:
+  alias: garage motion message
+  sequence:
+    - action: llmvision.stream_analyzer
+      data:
+        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
+        message: >
+          Summarize the events based on a series of images captured at short
+          intervals. Focus only on moving subjects such as people, vehicles, and
+          other active elements. Ignore static objects and scenery. Provide a
+          clear and concise account of movements and interactions. Do not mention
+          or imply the existence of images—present the information as if directly
+          observing the events. If no movement is detected, respond with: 'No
+          activity observed.'
+        model: gpt-4o-mini
+        remember: true
+        use_memory: true
+        image_entity:
+          - camera.garage_0
+        duration: 8
+        max_frames: 3
+        include_filename: true
+        target_width: 1280
+        max_tokens: 40
+        generate_title: true
+        expose_images: true
+      response_variable: response
+    - alias: Update label with title
+      variables:
+        label: "{{response.title}}"
+    - delay:
+        seconds: 2
+    - alias: (Snapshot) Update notification on notify devices
+      action: notify.mobile_app_pixel_8_pro
+      data:
+        title: "{{ label }}"
+        message: "{{response.response_text}}"
+        data:
+          notification_icon: mdi:cctv
+          image: /local/tmp/last_snapshot_garage.jpg
+          persistent: true
+          color: red
+          channel: Cameras
+          tag: Motion
+          actions:
+            - action: URI
+              title: Click to Open Cameras
+              uri: /dashboard-cast/garage
+    - delay:
+        seconds: 1
+    - alias: TTS notification on notify devices
+      action: notify.mobile_app_pixel_8_pro
+      data:
+        message: TTS
+        data:
+          ttl: 0
+          priority: high
+          media_stream: alarm_stream_max
+          tts_text: "{{response.response_text}}"
+    - delay:
+        minutes: 10
+
+garage_video_snapshot:
+  alias: save latest garage video clip
+  sequence:
+    - action: llmvision.stream_analyzer
+      data:
+        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX # 01JZECF0T517YNCCB6WV6KTS3K
+        message: >
+          Summarize the events based on a series of images captured at short
+          intervals. Focus only on moving subjects such as people, vehicles, and
+          other active elements. Ignore static objects and scenery. Provide a
+          clear and concise account of movements and interactions. Do not mention
+          or imply the existence of images—present the information as if directly
+          observing the events. If no movement is detected, respond with: 'No
+          activity observed.'
+        model: gpt-4o-mini # gemini-2.5-flash
+        remember: true
+        use_memory: true
+        image_entity:
+          - camera.garage_0
+        duration: 8
+        max_frames: 3
+        include_filename: true
+        target_width: 1280
+        max_tokens: 40
+        generate_title: true
+        expose_images: true
+      response_variable: response
+    - alias: Update label with title
+      variables:
+        label: "{{response.title}}"
+    - delay:
+        seconds: 2
+    - alias: (Snapshot) Update notification on notify devices
+      action: notify.mobile_app_pixel_8_pro
+      data:
+        title: "{{ label }}"
+        message: "{{response.response_text}}"
+        data:
+          notification_icon: mdi:cctv
+          image: /local/tmp/last_snapshot_garage.jpg
+          persistent: true
+          color: red
+          channel: Cameras
+          tag: Motion
+          actions:
+            - action: URI
+              title: Click to Open Cameras
+              uri: /dashboard-cast/garage
+    - delay:
+        seconds: 1
+    - alias: TTS notification on notify devices
+      action: notify.mobile_app_pixel_8_pro
+      data:
+        message: TTS
+        data:
+          ttl: 0
+          priority: high
+          media_stream: alarm_stream_max
+          tts_text: "{{response.response_text}}"
+    - alias: Gmail notification to Darren
+      action: notify.alphaprops_dwilson_gmail_com
+      data:
+        message: "{{response.response_text}}"
+        target:
+          - "alphaprops.dwilson@gmail.com"
+    - action: camera.record
+      target:
+        entity_id: camera.garage_0
+      data:
+        filename: /config/www/tmp/last_video_snapshot_garage.mp4
+        duration: 10
+porch_video_snapshot:
+  alias: process movement and save latest porch video clip
+  sequence:
+    - action: llmvision.stream_analyzer
+      data:
+        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX # 01JZECF0T517YNCCB6WV6KTS3K
+        message: >
+          Summarize the events based on a series of images captured at short
+          intervals. Focus only on moving subjects such as people, vehicles, and
+          other active elements. Ignore static objects and scenery. Provide a
+          clear and concise account of movements and interactions. Do not mention
+          or imply the existence of images—present the information as if directly
+          observing the events. If no movement is detected, respond with: 'No
+          activity observed.'
+        model: gpt-4o-mini # gemini-2.5-flash
+        remember: true
+        use_memory: true
+        image_entity:
+          - camera.porch_camera_0
+        duration: 8
+        max_frames: 3
+        include_filename: true
+        target_width: 1280
+        max_tokens: 40
+        generate_title: true
+        expose_images: true
+      response_variable: response
+    - alias: Update label with title
+      variables:
+        label: "{{response.title}}"
+    - delay:
+        seconds: 2
+    - alias: (Snapshot) Update notification on notify devices
+      action: notify.mobile_app_pixel_8_pro
+      data:
+        title: "{{ label }}"
+        message: "{{response.response_text}}"
+        data:
+          notification_icon: mdi:cctv
+          image: /local/tmp/last_snapshot_porch.jpg
+          persistent: true
+          color: red
+          channel: Cameras
+          tag: Motion
+          actions:
+            - action: URI
+              title: Click to Open Cameras
+              uri: /dashboard-cast/porch
+    - delay:
+        seconds: 1
+    - alias: TTS notification on notify devices
+      action: notify.mobile_app_pixel_8_pro
+      data:
+        message: TTS
+        data:
+          ttl: 0
+          priority: high
+          media_stream: alarm_stream_max
+          tts_text: "{{response.response_text}}"
+    - alias: Gmail notification to Darren
+      action: notify.alphaprops_dwilson_gmail_com
+      data:
+        message: "{{response.response_text}}"
+        target:
+          - "alphaprops.dwilson@gmail.com"
+    - action: camera.record
+      target:
+        entity_id: camera.porch_camera_0
+      data:
+        filename: /config/www/tmp/last_video_snapshot_porch.mp4
+        duration: 10
+driveway_video_snapshot:
+  alias: save latest driveway video clip
+  sequence:
+    - action: llmvision.stream_analyzer
+      data:
+        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX # 01JZECF0T517YNCCB6WV6KTS3K
+        message: >
+          Summarize the events based on a series of images captured at short
+          intervals. Focus only on moving subjects such as people, vehicles, and
+          other active elements. Ignore static objects and scenery. Provide a
+          clear and concise account of movements and interactions. Do not mention
+          or imply the existence of images—present the information as if directly
+          observing the events. If no movement is detected, respond with: 'No
+          activity observed.'
+        model: gpt-4o-mini # gemini-2.5-flash
+        remember: true
+        use_memory: true
+        image_entity:
+          - camera.driveway_0
+        duration: 8
+        max_frames: 3
+        include_filename: true
+        target_width: 1280
+        max_tokens: 40
+        generate_title: true
+        expose_images: true
+      response_variable: response
+    - alias: Update label with title
+      variables:
+        label: "{{response.title}}"
+    - delay:
+        seconds: 2
+    - alias: (Snapshot) Update notification on notify devices
+      action: notify.mobile_app_pixel_8_pro
+      data:
+        title: "{{ label }}"
+        message: "{{response.response_text}}"
+        data:
+          notification_icon: mdi:cctv
+          image: /local/tmp/last_snapshot_driveway.jpg
+          persistent: true
+          color: red
+          channel: Cameras
+          tag: Motion
+          actions:
+            - action: URI
+              title: Click to Open Cameras
+              uri: /dashboard-cast/driveway
+    - delay:
+        seconds: 1
+    - alias: TTS notification on notify devices
+      action: notify.mobile_app_pixel_8_pro
+      data:
+        message: TTS
+        data:
+          ttl: 0
+          priority: high
+          media_stream: alarm_stream_max
+          tts_text: "{{response.response_text}}"
+    - alias: Gmail notification to Darren
+      action: notify.alphaprops_dwilson_gmail_com
+      data:
+        message: "{{response.response_text}}"
+        target:
+          - "alphaprops.dwilson@gmail.com"
+    - action: camera.record
+      target:
+        entity_id: camera.driveway_0
+      data:
+        filename: /config/www/tmp/last_video_snapshot_driveway.mp4
+        duration: 10
+patio_video_snapshot:
+  alias: save latest patio video clip
+  sequence:
+    - action: llmvision.stream_analyzer
+      data:
+        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX # 01JZECF0T517YNCCB6WV6KTS3K
+        message: >
+          Summarize the events based on a series of images captured at short
+          intervals. Focus only on moving subjects such as people, vehicles, and
+          other active elements. Ignore static objects and scenery. Provide a
+          clear and concise account of movements and interactions. Do not mention
+          or imply the existence of images—present the information as if directly
+          observing the events. If no movement is detected, respond with: 'No
+          activity observed.'
+        model: gpt-4o-mini # gemini-2.5-flash
+        remember: true
+        use_memory: true
+        image_entity:
+          - camera.patio_0
+        duration: 8
+        max_frames: 3
+        include_filename: true
+        target_width: 1280
+        max_tokens: 40
+        generate_title: true
+        expose_images: true
+      response_variable: response
+    - alias: Update label with title
+      variables:
+        label: "{{response.title}}"
+    - delay:
+        seconds: 2
+    - alias: (Snapshot) Update notification on notify devices
+      action: notify.mobile_app_pixel_8_pro
+      data:
+        title: "{{ label }}"
+        message: "{{response.response_text}}"
+        data:
+          notification_icon: mdi:cctv
+          image: /local/tmp/last_snapshot_patio.jpg
+          persistent: true
+          color: red
+          channel: Cameras
+          tag: Motion
+          actions:
+            - action: URI
+              title: Click to Open Cameras
+              uri: /dashboard-cast/patio
+    - delay:
+        seconds: 1
+    - alias: TTS notification on notify devices
+      action: notify.mobile_app_pixel_8_pro
+      data:
+        message: TTS
+        data:
+          ttl: 0
+          priority: high
+          media_stream: alarm_stream_max
+          tts_text: "{{response.response_text}}"
+    - alias: Gmail notification to Darren
+      action: notify.alphaprops_dwilson_gmail_com
+      data:
+        message: "{{response.response_text}}"
+        target:
+          - "alphaprops.dwilson@gmail.com"
+    - action: camera.record
+      target:
+        entity_id: camera.patio_0
+      data:
+        filename: /config/www/tmp/last_video_snapshot_patio.mp4
+        duration: 10
+
+tablet_home_screen:
+  alias: tablet to home screen
+  sequence:
+    - action: input_select.select_option
+      data:
+        option: buttonshow
+      target:
+        entity_id: input_select.button_animation_2
+    - action: input_select.select_option
+      data:
+        option: mainsection
+      target:
+        entity_id: input_select.button_layout
+
+yellow_space:
+  alias: browser yellow
+  sequence:
+    - action: frontend.set_theme
+      data:
+        name: Yellow-Nightz
+    - action: input_select.select_option
+      data:
+        option: space
+      target:
+        entity_id: input_select.video_wallpaper
+    - action: input_select.select_option
+      data:
+        option: mobile6
+      target:
+        entity_id: input_select.mobilelayout
+
+tv_volume_down:
+  alias: volume down
+  sequence:
+    - action: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_type: "send_key"
+        media_content_id: KEY_VOLDOWN
+tv_volume_up:
+  alias: volume up
+  sequence:
+    - action: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_type: "send_key"
+        media_content_id: KEY_VOLUP
+tv_volume_mute:
+  alias: volume mute
+  sequence:
+    - action: media_player.play_media
+      data:
+        entity_id: media_player.family_tv
+        media_content_type: "send_key"
+        media_content_id: KEY_MUTE
+
+voice_google_search:
+  sequence:
+    - action: conversation.process
+      metadata: {}
+      data:
+        agent_id: conversation.google_generative_ai_conversation
+        text: "{{ query }}"
+      response_variable: result
+    - variables:
+        result:
+          response: "{{ result.response.speech.plain.speech }}"
+    - stop: ""
+      response_variable: result
+  alias: "Assist: Search Google"
+  description: >-
+    Makes a Google search to answer questions that are completely unrelated with
+    the smart home and are exclusively about current events or information in
+    real-time like the current president, results of last night's game, release
+    dates, etc.
+  fields:
+    query:
+      selector:
+        text: null
+      name: Query
+      description: The query to search Google for
+      required: true
+
 tts_daily_msg:
   alias: daily morning message
   sequence:
     - variables:
-        weather_entity: weather.home
+        weather_entity: weather.bayou_gman_s
         calendar_entity: calendar.dwilson_churchoftheking_com
         zone_entity: zone.home
         calendar_duration:
@@ -87,7 +641,8 @@ tts_daily_msg:
 
 
           {{ prompt }}
-        agent_id: e181a3af361f399aaf5b0703856e124b
+        agent_id: conversation.google_generative_ai
+        # e181a3af361f399aaf5b0703856e124b
       response_variable: agent
     - alias: Send notification
       action: media_player.volume_set
@@ -107,7 +662,7 @@ tts_daily_msg_donna:
   alias: daily morning message donna
   sequence:
     - variables:
-        weather_entity: weather.home
+        weather_entity: weather.bayou_gman_s
         calendar_entity: calendar.holidays_in_united_states
         zone_entity: zone.home
         calendar_duration:
@@ -188,7 +743,8 @@ tts_daily_msg_donna:
 
 
           {{ prompt }}
-        agent_id: e181a3af361f399aaf5b0703856e124b
+        agent_id: conversation.google_generative_ai
+        #e181a3af361f399aaf5b0703856e124b
       response_variable: agent
     - alias: Send notification
       action: media_player.volume_set
@@ -252,8 +808,6 @@ good_night:
         - input_boolean.sports_updates
         - input_boolean.radar_updates
         - switch.patio_led_outlet
-        - switch.subwoofer
-        - switch.switchbot_plug_1
     - action: google_assistant_sdk.send_text_command
       continue_on_error: true
       data:
@@ -314,7 +868,7 @@ good_night:
     - delay: 1
     - action: media_player.volume_set
       data:
-        volume_level: 0.6
+        volume_level: 0.5
       target:
         entity_id: media_player.office_display
     - action: media_player.play_media
@@ -322,17 +876,19 @@ good_night:
       target:
         entity_id: media_player.office_display
       data:
-        media_content_id: library://playlist/10
-        media_content_type: music
+        media_content_id: library://playlist/11
+        media_content_type: playlist
       metadata:
-        title: Sleepyhead
-        thumbnail: https://i.scdn.co/image/ab67616d00001e0254fd590e1d82f29e50061821
+        title: Brown Noise
+        thumbnail: null
         media_class: playlist
-        children_media_class: null
+        children_media_class: track
         navigateIds:
           - {}
           - media_content_type: music_assistant
             media_content_id: playlists
+          - media_content_type: music
+            media_content_id: library://playlist/11
     - action: homeassistant.turn_off
       entity_id: switch.main_kiosk_screen
     - action: notify.mobile_app_pixel_8_pro
@@ -382,7 +938,6 @@ morning:
       entity_id:
         - input_boolean.good_night_executed
         - input_boolean.disable_laundry_notifications
-        - input_boolean.camera_snapshots
         - input_boolean.patio_garage_alerts
         - input_boolean.alarm_disarm_switch
         - input_boolean.naptime
@@ -398,7 +953,6 @@ morning:
         - input_boolean.auto_backgroundz
         - light.sofa_lamp
         - switch.main_kiosk_screen
-        - switch.subwoofer
         - switch.den_nightlight_plugs
         - switch.keurig_coffee
     - action: script.browser_window_reload
@@ -435,7 +989,7 @@ browser_theme_ocean:
       data:
         theme: Ocean-Nightz
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
     - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
       data_template:
@@ -521,7 +1075,7 @@ browser_theme_grey:
     - action: browser_mod.set_theme
       data:
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
         theme: Grey-Nightz
     - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
@@ -551,7 +1105,7 @@ browser_theme_blue:
     - action: browser_mod.set_theme
       data:
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
         theme: Blue-Nightz
     - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
@@ -581,7 +1135,7 @@ browser_theme_pink:
     - action: browser_mod.set_theme
       data:
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
         theme: Pink-Nightz
     - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
@@ -611,7 +1165,7 @@ browser_theme_lime:
     - action: browser_mod.set_theme
       data:
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
         theme: Lime-Nightz
     - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
@@ -641,7 +1195,7 @@ browser_theme_magenta:
     - action: browser_mod.set_theme
       data:
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
         theme: Magenta-Nightz
     - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
@@ -671,7 +1225,7 @@ browser_theme_geaux:
     - action: browser_mod.set_theme
       data:
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
         theme: Geaux-Nightz
     - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
@@ -700,7 +1254,7 @@ browser_theme_red:
     - action: browser_mod.set_theme
       data:
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
         theme: Red-Nightz
     - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
@@ -730,7 +1284,7 @@ browser_theme_orange:
     - action: browser_mod.set_theme
       data:
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
         theme: Orange-Nightz
     - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
@@ -760,7 +1314,7 @@ browser_theme_yellow:
     - action: browser_mod.set_theme
       data:
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
         theme: Yellow-Nightz
     - action: input_select.set_options
       entity_id: input_select.mobile_wallpaper
@@ -801,12 +1355,12 @@ browser_window_reload:
     #      data:
     #        path: /lovelace/newtab
     #        browser_id:
-    #          - ac9b7f58-cfbfe785
+    #          - browser_ac9b7f58_cfbfe785
     #    - action: browser_mod.navigate
     #      data:
     #        path: /lovelace/ensuite_kiosk
     #        browser_id:
-    #          - 1b918469-5d6a2b44
+    #          - ensuite_kiosk
     - delay: "00:00:03"
     - action: browser_mod.refresh
 browser_window_reload_test:
@@ -819,6 +1373,12 @@ browser_window_reload_test:
         path: /lovelace/newtab
         browser_id:
           - d75a5595-2777b7c8
+browser_window_reload_all:
+  alias: browser window reload test
+  sequence:
+    - action: lovelace.reload_resources
+    - delay: "00:00:02"
+    - action: browser_mod.refresh
 browser_close_popup:
   alias: browser close popup
   sequence:
@@ -835,7 +1395,7 @@ browser_picsaver_on:
       data:
         path: /lovelace/screen
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
 browser_picsaver_off:
   alias: browser picsaver off
   sequence:
@@ -843,7 +1403,7 @@ browser_picsaver_off:
       data:
         path: /lovelace/newtab
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
 coffee_on:
   alias: coffee on
   sequence:
@@ -855,108 +1415,7 @@ coffee_on:
       data_template:
         title: "🔴 New Life Alert❗️"
         message: "⚠️️Coffee☕️ Maker ON!⚠️{{ states('sensor.time_12_hour_am_pm') }}"
-darrens_wake_up_old:
-  alias: darrens wake up
-  sequence:
-    - action: homeassistant.turn_on
-      entity_id: input_boolean.darren_s_alarm_triggered_today
-      continue_on_error: true
-    - action: light.turn_on
-      data:
-        entity_id: light.office_floor_lights
-        brightness_pct: 100
-        transition: 300
-        color_temp_kelvin: 2400
-    - delay: "00:00:30"
-    - action: light.turn_on
-      data:
-        entity_id: light.desk_light
-        brightness_pct: 5
-        transition: 4
-        color_temp_kelvin: 3300
-    - delay: "00:00:30"
-    - action: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id:
-          - media_player.office_google
-        volume_level: 0.3
-    - action: tts.google_say
-      continue_on_error: true
-      entity_id:
-        - media_player.office_google
-      data_template:
-        message: >
-          Good morning. {{ ["Time to wake up and be thankful.", "You have been blessed with another day!", "God is good ALL the time!"] | random }}
-    - action: light.turn_on
-      data:
-        entity_id: light.desk_light
-        brightness_pct: 30
-        transition: 4
-        color_temp_kelvin: 3800
-    - delay: "00:00:15"
-    - action: media_player.volume_set
-      continue_on_error: true
-      data:
-        volume_level: 0.2
-      target:
-        device_id: 4365464e7cdd496ca499d4ce5141ce6e
-    - action: light.turn_on
-      data:
-        entity_id: light.corner_light
-        brightness_pct: 10
-        transition: 4
-        color_temp_kelvin: 2400
-    - delay: "00:00:20"
-    - action: light.turn_on
-      data:
-        entity_id: light.corner_light
-        brightness_pct: 30
-        transition: 2
-        color_temp_kelvin: 3300
-    - action: script.tts_daily_msg
-      continue_on_error: true
-    - delay: "00:00:30"
-    - action: media_player.play_media
-      continue_on_error: true
-      target:
-        entity_id: media_player.office_display
-      data:
-        media_content_id: library://track/9
-        media_content_type: music
-      metadata:
-        title: Brandon Lake - Hard Fought Hallelujah
-        thumbnail: https://i.scdn.co/image/ab67616d0000b273e6a84fdb6474fe2c88f1366e
-        media_class: track
-        children_media_class: null
-        navigateIds:
-          - {}
-          - media_content_type: music_assistant
-            media_content_id: tracks
-    - action: switch.turn_off
-      entity_id:
-        - switch.air_cleaner
-    - delay: "00:00:30"
-    - action: light.turn_on
-      data:
-        entity_id: light.bed_light
-        brightness_pct: 30
-        transition: 2
-        color_temp_kelvin: 3300
-    - action: light.turn_on
-      data:
-        entity_id: light.office_lights
-        brightness_pct: 30
-    - delay: "00:01:00"
-    - action: script.morning
-    - action: light.turn_on
-      data:
-        entity_id: light.office_floor_lights
-        brightness_pct: 100
-        color_temp_kelvin: 3200
-    - delay: "00:30:00"
-    - action: homeassistant.turn_off
-      entity_id: input_boolean.darren_s_alarm_triggered_today
+
 darrens_wake_up:
   alias: darrens wake up
   sequence:
@@ -977,23 +1436,31 @@ darrens_wake_up:
         - switch.air_cleaner
     - action: script.tts_daily_msg
       continue_on_error: true
+    - action: media_player.volume_set
+      continue_on_error: true
+      data:
+        entity_id:
+          - media_player.office_display
+        volume_level: 0.3
     - delay: "00:00:02"
     - action: media_player.play_media
       continue_on_error: true
       target:
         entity_id: media_player.office_display
       data:
-        media_content_id: library://track/9
+        media_content_id: spotify://track/0vC82BouGPXm6X2K60RfQw
         media_content_type: music
       metadata:
-        title: Brandon Lake - Hard Fought Hallelujah
-        thumbnail: https://i.scdn.co/image/ab67616d0000b273e6a84fdb6474fe2c88f1366e
+        title: Forrest Frank - GOOD DAY
+        thumbnail: https://i.scdn.co/image/ab67616d0000b27351589347869cf63035f4505b
         media_class: track
         children_media_class: null
         navigateIds:
           - {}
           - media_content_type: music_assistant
-            media_content_id: tracks
+            media_content_id: playlists
+          - media_content_type: music
+            media_content_id: library://playlist/8
     - action: light.turn_on
       data:
         entity_id: light.office_ceiling_lights
@@ -1057,22 +1524,30 @@ donnas_wake_up:
     - action: script.tts_daily_msg_donna
       continue_on_error: true
     - delay: "00:00:30"
+    - action: media_player.volume_set
+      continue_on_error: true
+      data:
+        volume_level: 0.6
+      target:
+        entity_id: media_player.bedroom_stereo
     - action: media_player.play_media
       continue_on_error: true
       target:
         entity_id: media_player.bedroom_stereo
       data:
-        media_content_id: library://track/9
+        media_content_id: spotify://track/0vC82BouGPXm6X2K60RfQw
         media_content_type: music
       metadata:
-        title: Brandon Lake - Hard Fought Hallelujah
-        thumbnail: https://i.scdn.co/image/ab67616d0000b273e6a84fdb6474fe2c88f1366e
+        title: Forrest Frank - GOOD DAY
+        thumbnail: https://i.scdn.co/image/ab67616d0000b27351589347869cf63035f4505b
         media_class: track
         children_media_class: null
         navigateIds:
           - {}
           - media_content_type: music_assistant
-            media_content_id: tracks
+            media_content_id: playlists
+          - media_content_type: music
+            media_content_id: library://playlist/8
     - action: light.turn_on
       target:
         entity_id: light.donnas_light
@@ -1119,18 +1594,34 @@ donnas_wake_up:
     - delay: "00:30:00"
     - action: homeassistant.turn_off
       entity_id: input_boolean.donna_s_alarm_triggered_today
+darren_home:
+  alias: darren home
+  sequence:
+    - action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.naptime
+    - wait_for_trigger:
+        - trigger: state
+          entity_id: binary_sensor.office_motion_sensors
+          from: "off"
+          to: "on"
+    - action: homeassistant.turn_on
+      continue_on_error: true
+      entity_id:
+        - fan.hallway_fan
+        - switch.ha2_office_monitor
 people_home:
   alias: people home
   sequence:
     - action: homeassistant.turn_on
       continue_on_error: true
       entity_id:
-        - input_boolean.disable_popups
         - input_boolean.people_home_boolean
+        - input_boolean.camera_snapshots
+        - input_boolean.disable_popups
         - input_boolean.auto_tablet
         - input_boolean.auto_backgroundz
         - input_boolean.disable_inside_popups
-        - switch.subwoofer
         - switch.main_kiosk_screen
         - switch.den_nightlight_plugs
     - action: google_assistant_sdk.send_text_command
@@ -1154,12 +1645,6 @@ people_home:
         entity_id: media_player.kitchen_speakers_2
     - action: script.nest_set_home
     - delay: "00:00:03"
-    - action: homeassistant.turn_off
-      continue_on_error: true
-      entity_id:
-        #        - switch.inside_cam_notifications
-        #        - switch.cameras_inside_motion
-        - switch.outside_cam_notifications
 people_away:
   alias: people away
   sequence:
@@ -1177,7 +1662,6 @@ people_away:
         - input_boolean.auto_backgroundz
         - switch.night_switches
         - switch.den_nightlight_plugs
-        - switch.subwoofer
     - delay: "00:00:03"
     - action: google_assistant_sdk.send_text_command
       continue_on_error: true
@@ -1221,8 +1705,6 @@ people_away:
     - action: homeassistant.turn_on
       continue_on_error: true
       entity_id:
-        #        - switch.inside_cam_notifications
-        #        - switch.cameras_inside_motion
         - switch.outside_cam_notifications
     - action: google_assistant_sdk.send_text_command
       continue_on_error: true
@@ -1230,7 +1712,11 @@ people_away:
         command: turn off den tv
     - delay: "00:00:03"
     - action: lock.lock
-      entity_id: lock.back_door
+      continue_on_error: true
+      target:
+        entity_id:
+          - lock.side_door
+          - lock.back_door
 restart_ha:
   alias: restart ha
   sequence:
@@ -1254,7 +1740,7 @@ restart_ha:
       data:
         path: /lovelace/newtab
         browser_id:
-          - ac9b7f58-cfbfe785
+          - browser_ac9b7f58_cfbfe785
     - delay: "00:00:06"
     - action: homeassistant.restart
 reboot_cameras:
