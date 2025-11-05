@@ -1,29 +1,3 @@
-- id: '1701111117565'
-  alias: Report state on start-up
-  triggers:
-  - trigger: homeassistant
-    event: start
-  actions:
-  - action: mqtt.publish
-    data:
-      topic: shellies/command
-      payload: announce
-  - delay:
-      seconds: 5
-  - action: button.press
-    continue_on_error: true
-    target:
-      entity_id: button.main_kiosk_load_start_url
-  - action: button.press
-    continue_on_error: true
-    target:
-      entity_id: button.ensuite_kiosk_load_start_url
-  - delay:
-      seconds: 5
-  - action: frontend.set_theme
-    data:
-      name: Blue-Nightz
-  mode: single
 - id: '1735793299155456532216'
   alias: Integration Watchdog
   description: This automation watches entities to ensure the integration is functioning;
@@ -31,24 +5,16 @@
   triggers:
   - trigger: state
     entity_id:
-    - camera.backyard
-    - camera.driveway_1
-    - camera.garage_sub
-    - camera.entryway
-    - camera.garage_cam_wuuk
-    - camera.front_door
-    - camera.front_yard_cam
-    - camera.kitchen
-    - camera.den
-    - camera.patio_0
-    - camera.patio
-    - camera.porch_camera_0
-    - camera.porch
-    - camera.rambo_cam
+    - camera.driveway_cam_0
+    - camera.garage_cam_0
+    - camera.den_cam_0
+    - camera.patio_cam_0
+    - camera.porch_cam_0
+    - camera.go2rtc_streams_rambo_cam_0
     to: unavailable
     for:
       minutes: 2
-  action:
+  actions:
   - action: homeassistant.reload_config_entry
     target:
       entity_id: '{{ trigger.entity_id }}'
@@ -98,62 +64,37 @@
       entity_id:
       - input_number.timer_seconds
       - input_number.timer_minutes
-- id: '1705577229915545231'
-  alias: Turn on lights when garage or side door opened after dark
-  mode: restart
-  triggers:
-  - trigger: state
-    entity_id:
-    - cover.garage_door
-    to: open
-  - trigger: state
-    entity_id:
-    - binary_sensor.side_door_bt
-    to: 'on'
-  condition:
-  - condition: or
-    conditions:
-    - condition: sun
-      after: sunset
-      after_offset: 15
-    - condition: sun
-      before: sunrise
-      before_offset: 15
-  action:
-  - action: light.turn_on
-    target:
-      entity_id: light.front_yard_lights
-  - delay: 600
-  - action: light.turn_off
-    target:
-      entity_id: light.front_yard_lights
 - id: '18011577229915545231'
   alias: Turn ON backyard lights when door opened
   description: ''
   triggers:
   - trigger: state
-    entity_id: binary_sensor.back_door1, binary_sensor.backdoor_bt_sensor
-    to: 'on'
-  - trigger: state
-    entity_id: binary_sensor.back_motion
+    entity_id:
+    - binary_sensor.back_door1
+    - binary_sensor.backdoor_bt_sensor
+    - binary_sensor.back_motion
     to: 'on'
   conditions:
+  - condition: state
+    entity_id: light.backyard_lights
+    state: 'off'
   - condition: or
     conditions:
     - condition: sun
       after: sunset
-      after_offset: 15
+      after_offset: 00:15:00
     - condition: sun
       before: sunrise
-      before_offset: 15
+      before_offset: 00:15:00
   actions:
   - action: light.turn_on
     target:
       entity_id: light.backyard_lights
-  - delay: 600
+  - delay:
+      minutes: 10
   - action: light.turn_off
     target:
-      entity_id: light.patio_fan_light, light.back_floodlights2
+      entity_id: light.backyard_lights
   mode: restart
 - id: '1705577229915545'
   alias: Reload kiosk when lovelace is updated
@@ -222,25 +163,27 @@
     entity_id:
     - light.main_kiosk_screen
     to: 'off'
-  condition:
+  conditions:
   - condition: time
     after: 05:00:00
     before: '23:59:01'
-  action:
+  actions:
   - delay:
       minutes: 1
   - action: switch.turn_on
     target:
       entity_id: switch.main_kiosk_screen
-  - delay: 3
+  - delay:
+      seconds: 3
   - action: light.turn_on
     target:
       entity_id: light.main_kiosk_screen
-  - delay: 3
+  - delay:
+      seconds: 3
   - action: button.press
     target:
       entity_id: button.main_kiosk_load_start_url
-  mode: single
+  mode: restart
 - id: '1773719935299957'
   alias: '[Notify] HVAC Water Leak'
   initial_state: true
@@ -750,53 +693,6 @@
       message: "⚠️️Notifications\U0001F4E2 turned ON"
   initial_state: true
   mode: single
-- id: '17016131774975342345'
-  alias: '[Alarmo] Disarmed and alarm-switch'
-  triggers:
-  - trigger: state
-    entity_id: input_boolean.alarm_disarm_switch
-    to: 'on'
-  - trigger: state
-    entity_id: alarm_control_panel.alarmo
-    from: triggered
-    to: disarmed
-  actions:
-  - choose:
-    - conditions:
-      - condition: state
-        entity_id: input_boolean.alarm_disarm_switch
-        state: 'on'
-      sequence:
-      - action: alarm_control_panel.alarm_disarm
-        entity_id: alarm_control_panel.alarmo
-        data:
-          code: '{{ states(''input_text.secure_code'') }}'
-      - action: input_boolean.turn_off
-        entity_id: input_boolean.alarm_disarm_switch
-    - conditions:
-      - condition: state
-        entity_id: alarm_control_panel.alarmo
-        state: disarmed
-      sequence:
-      - action: homeassistant.turn_off
-        continue_on_error: true
-        entity_id:
-        - switch.noonlight_switch
-        - group.alarm_sirens
-      - action: light.turn_off
-        continue_on_error: true
-        entity_id:
-        - light.every_light
-        - light.outside_lights
-      - action: notify.pixels_and_den_tv
-        data_template:
-          message: Alarm canceled at {{ states('sensor.time_12_hour_am_pm') }}
-      - delay: 3
-      - action: light.turn_on
-        continue_on_error: true
-        entity_id:
-        - light.sofa_lamp
-        - light.under_cabinet_lights
 - id: '17016161677497534'
   alias: '[Alarmo] Auto Night Arm'
   triggers:
@@ -1196,36 +1092,32 @@
   alias: Darren's Alarm Pixel 8 pro next alarm
   triggers:
   - trigger: template
-    value_template: '{{ states(''sensor.date_time'') == (as_timestamp(states.sensor.pixel_8_pro_next_alarm.state)
-      |int -1)| timestamp_custom(''%Y-%m-%d, %H:%M'', True) }} '
-  condition:
-  - condition: template
-    value_template: '{{ trigger.from_state.state != ''unavailable'' }}'
+    value_template: '{{ states(''sensor.date_time'') == (as_timestamp(states.sensor.pixel_8_pro_next_alarm.state,
+      default=0) |int -1)| timestamp_custom(''%Y-%m-%d, %H:%M'', True) }}'
+  conditions:
   - condition: state
     entity_id: input_boolean.darren_s_alarm_triggered_today
     state: 'off'
   - condition: state
     entity_id: person.darren
     state: home
-  action:
+  actions:
   - action: script.darrens_wake_up
   mode: single
 - id: '1703172027074'
   alias: Donna's Alarm Pixel 5 next alarm
   triggers:
   - trigger: template
-    value_template: '{{ states(''sensor.date_time'') == (as_timestamp(states.sensor.pixel_5_next_alarm.state)
-      |int -1)| timestamp_custom(''%Y-%m-%d, %H:%M'', True) }} '
-  condition:
-  - condition: template
-    value_template: '{{ trigger.from_state.state != ''unavailable'' }}'
+    value_template: '{{ states(''sensor.date_time'') == (as_timestamp(states.sensor.pixel_5_next_alarm.state,
+      default=0) |int -1)| timestamp_custom(''%Y-%m-%d, %H:%M'', True) }}'
+  conditions:
   - condition: state
     entity_id: input_boolean.donna_s_alarm_triggered_today
     state: 'off'
   - condition: state
     entity_id: person.donna
     state: home
-  action:
+  actions:
   - action: script.donnas_wake_up
   mode: single
 - id: '170243184400922'
@@ -1273,131 +1165,6 @@
   - action: light.turn_off
     target:
       device_id: 760cfce120cdf3eedbaa7f35d36aa2db
-  mode: restart
-  max_exceeded: silent
-- id: '170263206754260'
-  alias: '[Motion] Bedroom Motion Lights'
-  triggers:
-  - trigger: state
-    entity_id: binary_sensor.bedroom_motion_sensors
-    from: 'off'
-    to: 'on'
-  condition:
-  - condition: state
-    entity_id: binary_sensor.bedroom_door
-    state: 'on'
-  - condition: state
-    entity_id: group.person_group
-    state: home
-  - condition: state
-    entity_id: input_boolean.motion_lights
-    state: 'off'
-  action:
-  - choose:
-    - conditions:
-      - condition: time
-        after: 09:30:00
-        before: '18:30:00'
-        enabled: true
-      sequence:
-      - action: light.turn_on
-        continue_on_error: true
-        entity_id: light.mood_lights
-      - action: light.turn_on
-        continue_on_error: true
-        data:
-          brightness_pct: 45
-        target:
-          entity_id: light.donnas_light
-      - action: light.turn_on
-        continue_on_error: true
-        data:
-          brightness_pct: 45
-        target:
-          entity_id: light.darrens_nightstand_light
-      - action: switch.turn_on
-        continue_on_error: true
-        entity_id: switch.ensuite_kiosk_screen
-    - conditions:
-      - condition: time
-        after: '18:30:01'
-        before: '20:30:00'
-        enabled: true
-      sequence:
-      - action: light.turn_on
-        continue_on_error: true
-        entity_id: light.mood_lights
-      - action: light.turn_on
-        continue_on_error: true
-        data:
-          brightness_pct: 15
-        target:
-          entity_id: light.donnas_light
-      - action: light.turn_on
-        continue_on_error: true
-        data:
-          brightness_pct: 15
-        target:
-          entity_id: light.darrens_nightstand_light
-      - action: switch.turn_on
-        continue_on_error: true
-        entity_id: switch.ensuite_kiosk_screen
-    - conditions:
-      - condition: time
-        after: '20:30:01'
-        before: '21:30:00'
-        enabled: true
-      sequence:
-      - action: light.turn_on
-        continue_on_error: true
-        data:
-          brightness_pct: 5
-        target:
-          entity_id: light.donnas_light
-      - action: light.turn_on
-        continue_on_error: true
-        data:
-          brightness_pct: 5
-        target:
-          entity_id: light.darrens_nightstand_light
-      - action: switch.turn_on
-        continue_on_error: true
-        entity_id: switch.ensuite_kiosk_screen
-    - conditions:
-      - condition: time
-        after: '21:30:01'
-        before: '22:30:00'
-        enabled: true
-      sequence:
-      - action: light.turn_on
-        continue_on_error: true
-        data:
-          brightness_pct: 5
-        target:
-          entity_id: light.donnas_light
-      - action: switch.turn_on
-        continue_on_error: true
-        entity_id: switch.ensuite_kiosk_screen
-  - wait_for_trigger:
-    - trigger: state
-      entity_id: binary_sensor.bedroom_motion_sensors
-      from: 'on'
-      to: 'off'
-  - delay: 800
-  - action: light.turn_off
-    entity_id: light.mood_lights
-    continue_on_error: true
-  - delay: 800
-  - action: light.turn_off
-    continue_on_error: true
-    entity_id: light.darrens_nightstand_light
-  - delay: 1800
-  - action: light.turn_off
-    continue_on_error: true
-    entity_id: light.donnas_light
-  - action: switch.turn_off
-    continue_on_error: true
-    entity_id: switch.ensuite_kiosk_screen
   mode: restart
   max_exceeded: silent
 - id: '19317603288153054'
@@ -1960,10 +1727,10 @@
     path: valentinfrlch/event_summary.yaml
     input:
       camera_entities:
-      - camera.driveway_1
-      - camera.porch_camera_0
-      - camera.garage_sub
-      - camera.patio_0
+      - camera.driveway_cam_0
+      - camera.porch_cam_0
+      - camera.garage_cam_0
+      - camera.patio_cam_0
       motion_sensors:
       - binary_sensor.side_motion_sensor
       - binary_sensor.front_motion
@@ -3301,21 +3068,6 @@
           option: mobile2
         target:
           entity_id: input_select.mobilelayout
-  - variables:
-      theme_scripts:
-      - browser_theme_red
-      - browser_theme_orange
-      - browser_theme_yellow
-      - browser_theme_geaux
-      - browser_theme_magenta
-      - browser_theme_lime
-      - browser_theme_pink
-      - browser_theme_blue
-      - browser_theme_grey
-      - browser_theme_green
-      - browser_theme_purple
-      - browser_theme_ocean
-  - action: script.{{ theme_scripts | random }}
 - id: tablet_theme_video_wallpaper
   alias: '[Tablet] Theme Match for Video Wallpaper'
   description: Sets the browser theme based on the selected video wallpaper.
@@ -3327,8 +3079,8 @@
   mode: single
   variables:
     theme_map:
-      island: orange
-      waves: orange
+      island: yellow
+      waves: geaux
       nightClouds: ocean
       greenNeon: lime
       moonRising: orange
@@ -3339,9 +3091,25 @@
       fullMoon: orange
       fire: orange
       darkskyMoon: magenta
-      spookyMoon: grey
+      spookyMoon: geaux
       beachyWaves: orange
       cloudyMoon: blue
+      tunnel: blue
+      veniceNight: orange
+      stormyNight: geaux
+      space: blue
+      bubbling: pink
+      blackBubbles: pink
+      smoked: geaux
+      fish: blue
+      fish2: red
+      fish3: ocean
+      fish4: yellow
+      fish5: green
+      fishy2: ocean
+      fishyRed: pink
+      fishNew2: blue
+      mars: blue
     selected_video: '{{ trigger.to_state.state }}'
     theme_suffix: '{{ theme_map.get(selected_video, ''lime'') }}'
 - id: auto_fan_control_away_mode
@@ -3433,9 +3201,6 @@
     trigger: state
   conditions: []
   actions:
-  - variables:
-      tv_was_off: '{{ is_state(''light.tv_ambient_lights'', ''off'') }}'
-      we_are_away: '{{ is_state(''input_boolean.people_home_boolean'', ''off'') }}'
   - choose:
     - conditions:
       - condition: trigger
@@ -3443,7 +3208,7 @@
       sequence:
       - variables:
           zone_name: Patio
-          camera_entity: camera.patio_0
+          camera_entity: camera.patio_cam_0
           video_script: script.patio_video_snapshot
           alert_boolean: input_boolean.patio_garage_alerts
           tts_message: motion on patio
@@ -3456,7 +3221,7 @@
       sequence:
       - variables:
           zone_name: Garage
-          camera_entity: camera.garage_sub
+          camera_entity: camera.garage_cam_0
           video_script: script.garage_video_snapshot
           alert_boolean: input_boolean.patio_garage_alerts
           tts_message: Motion in garage
@@ -3469,7 +3234,7 @@
       sequence:
       - variables:
           zone_name: Front Door
-          camera_entity: camera.porch_camera_0
+          camera_entity: camera.porch_cam_0
           video_script: script.porch_video_snapshot
           alert_boolean: input_boolean.camera_snapshots
           tts_message: Motion at front door
@@ -3482,7 +3247,7 @@
       sequence:
       - variables:
           zone_name: Side Door
-          camera_entity: camera.driveway_1
+          camera_entity: camera.driveway_cam_0
           video_script: script.driveway_video_snapshot
           alert_boolean: input_boolean.camera_snapshots
           tts_message: motion at side door
@@ -3490,19 +3255,20 @@
           snapshot_file: /config/www/tmp/last_snapshot_driveway.jpg
           stream_command: stream driveway camera
     default: []
-  - action: camera.snapshot
-    continue_on_error: true
+  - continue_on_error: true
     target:
       entity_id: '{{ camera_entity }}'
     data:
       filename: '{{ snapshot_file }}'
-  - action: browser_mod.navigate
-    continue_on_error: true
+    action: camera.snapshot
+  - continue_on_error: true
     data:
       path: '{{ nav_path }}'
-  - action: input_boolean.turn_on
-    entity_id: input_boolean.camera_motion_detected
-  - action: llmvision.image_analyzer
+    action: browser_mod.navigate
+  - target:
+      entity_id: input_boolean.camera_motion_detected
+    action: input_boolean.turn_on
+  - continue_on_error: true
     data:
       provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
       message: 'Classify the security event based on this image from the {{ zone_name
@@ -3522,6 +3288,7 @@
       generate_title: true
       expose_images: true
     response_variable: response
+    action: llmvision.image_analyzer
   - variables:
       label: '{{ response.title }}'
       local_image: '{{ snapshot_file | replace(''/config/www'', ''/local'') }}'
@@ -3539,29 +3306,28 @@
         after: '22:00:00'
         before: 07:00:00
       sequence:
-      - action: script.turn_on
-        continue_on_error: true
+      - continue_on_error: true
         target:
           entity_id: '{{ video_script }}'
-      - action: media_player.volume_set
-        continue_on_error: true
+        action: script.turn_on
+      - continue_on_error: true
         data:
           entity_id: media_player.office_display
           volume_level: 0.3
-      - action: tts.google_say
-        continue_on_error: true
+        action: media_player.volume_set
+      - continue_on_error: true
         data:
           cache: true
           entity_id: media_player.office_display
           message: '{{ tts_message }}'
-      - action: google_assistant_sdk.send_text_command
-        continue_on_error: true
+        action: tts.google_say
+      - continue_on_error: true
         data:
           command: '{{ stream_command }} on office display'
+        action: google_assistant_sdk.send_text_command
       - delay:
           milliseconds: 10
-      - action: notify.notify_all
-        continue_on_error: true
+      - continue_on_error: true
         data:
           title: '{{ label }}'
           message: '{{ response.response_text }}'
@@ -3576,12 +3342,9 @@
             - action: URI
               title: Click to Open Cameras
               uri: '{{ nav_path }}'
+        action: notify.notify_all
       - delay:
           seconds: 240
-      - action: media_player.turn_off
-        continue_on_error: true
-        data:
-          entity_id: media_player.ensuite_display
     - conditions:
       - condition: template
         value_template: '{{ is_state(alert_boolean, ''on'') }}'
@@ -3589,29 +3352,24 @@
         after: 07:00:01
         before: '21:59:59'
       sequence:
-      - action: script.turn_on
-        continue_on_error: true
+      - continue_on_error: true
         target:
           entity_id: '{{ video_script }}'
-      - action: media_player.volume_set
-        continue_on_error: true
+        action: script.turn_on
+      - continue_on_error: true
         data:
           entity_id: media_player.tv_speakers
           volume_level: 0.6
-      - action: tts.google_say
-        continue_on_error: true
+        action: media_player.volume_set
+      - continue_on_error: true
         data:
           cache: true
           entity_id: media_player.tv_speakers
           message: '{{ tts_message }}'
-      - action: google_assistant_sdk.send_text_command
-        continue_on_error: true
-        data:
-          command: '{{ stream_command }} on den TV'
+        action: tts.google_say
       - delay:
           milliseconds: 10
-      - action: notify.notify_all
-        continue_on_error: true
+      - continue_on_error: true
         data:
           title: '{{ label }}'
           message: '{{ response.response_text }}'
@@ -3626,49 +3384,39 @@
             - action: URI
               title: Click to Open Cameras
               uri: '{{ nav_path }}'
+        action: notify.notify_all
       - delay:
           seconds: 120
-      - choose:
-        - conditions:
-          - condition: template
-            value_template: '{{ tv_was_off or we_are_away }}'
-          sequence:
-          - action: google_assistant_sdk.send_text_command
-            continue_on_error: true
-            data:
-              command: turn off den TV
-        default: []
     default: []
-  - delay:
-      seconds: 120
-  - action: input_boolean.turn_off
-    entity_id: input_boolean.camera_motion_detected
-  - action: browser_mod.javascript
-    continue_on_error: true
+  - target:
+      entity_id: input_boolean.camera_motion_detected
+    action: input_boolean.turn_off
+  - continue_on_error: true
     data:
       code: history.back()
     target: {}
-  - action: browser_mod.navigate
-    continue_on_error: true
+    action: browser_mod.javascript
+  - continue_on_error: true
     data:
       path: /lovelace/newtab
       browser_id:
       - 6077e78a0bccd7ab8ef18e1689611a46
       - 8ee04fb979f15f78deb7840ab3ca3242
     enabled: true
-  - action: media_player.volume_set
-    continue_on_error: true
+    action: browser_mod.navigate
+  - continue_on_error: true
     data:
       entity_id: media_player.tv_speakers
       volume_level: 0.3
+    action: media_player.volume_set
   - delay:
       milliseconds: 10
-  - action: media_player.volume_set
-    continue_on_error: true
+  - continue_on_error: true
     data:
       entity_id: media_player.office_display
       volume_level: 0.2
-  mode: single
+    action: media_player.volume_set
+  mode: restart
   max_exceeded: silent
 - id: '1761876381224'
   alias: '[Motion] Bedroom Motion Lights (remix)'
@@ -3699,12 +3447,15 @@
         target:
           entity_id:
           - light.mood_lights
-          - switch.ensuite_kiosk_screen
           - light.donnas_light
           - light.darrens_nightstand_light
         data:
           brightness_pct: 45
-        action: homeassistant.turn_on
+        action: light.turn_on
+      - continue_on_error: true
+        target:
+          entity_id: switch.ensuite_kiosk_screen
+        action: switch.turn_on
     - conditions:
       - condition: time
         after: '18:30:01'
@@ -3714,12 +3465,15 @@
         target:
           entity_id:
           - light.mood_lights
-          - switch.ensuite_kiosk_screen
           - light.donnas_light
           - light.darrens_nightstand_light
         data:
           brightness_pct: 15
-        action: homeassistant.turn_on
+        action: light.turn_on
+      - continue_on_error: true
+        target:
+          entity_id: switch.ensuite_kiosk_screen
+        action: switch.turn_on
     - conditions:
       - condition: time
         after: '20:30:01'
@@ -3728,12 +3482,15 @@
       - continue_on_error: true
         target:
           entity_id:
-          - switch.ensuite_kiosk_screen
           - light.donnas_light
           - light.darrens_nightstand_light
         data:
           brightness_pct: 5
-        action: homeassistant.turn_on
+        action: light.turn_on
+      - continue_on_error: true
+        target:
+          entity_id: switch.ensuite_kiosk_screen
+        action: switch.turn_on
     - conditions:
       - condition: time
         after: '21:30:01'
@@ -3741,12 +3498,14 @@
       sequence:
       - continue_on_error: true
         target:
-          entity_id:
-          - light.donnas_light
-          - switch.ensuite_kiosk_screen
+          entity_id: light.donnas_light
         data:
           brightness_pct: 5
-        action: homeassistant.turn_on
+        action: light.turn_on
+      - continue_on_error: true
+        target:
+          entity_id: switch.ensuite_kiosk_screen
+        action: switch.turn_on
     default:
     - continue_on_error: true
       target:
@@ -4493,7 +4252,7 @@
     default: []
   mode: single
 - id: '1761928278535'
-  alias: '[Presence] Last Person Leaves Away Script'
+  alias: '[Presence] Last Person Leaves - Away actions'
   description: Runs the 'away' script when the last person has left.
   triggers:
   - entity_id: input_boolean.darren_home
@@ -4641,7 +4400,7 @@
     action: light.turn_off
   mode: restart
 - id: '1761965575144'
-  alias: '[Presence] First Person Arrives Welcome'
+  alias: '[Presence] First Person Arrives - Welcome actions'
   description: Runs 'welcome home' script when the first person arrives.
   triggers:
   - entity_id: input_boolean.darren_home
@@ -4687,10 +4446,15 @@
       entity_id: media_player.kitchen_speakers_2
       volume_level: 0.4
     action: media_player.volume_set
-  - continue_on_error: true
-    target:
+  - if:
+    - condition: state
       entity_id: media_player.kitchen_speakers_2
-    action: media_player.media_stop
+      state: playing
+    then:
+    - continue_on_error: true
+      target:
+        entity_id: media_player.kitchen_speakers_2
+      action: media_player.media_stop
   - continue_on_error: true
     action: script.nest_set_home
   - delay:
