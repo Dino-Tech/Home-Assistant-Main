@@ -184,98 +184,6 @@
     target:
       entity_id: button.main_kiosk_load_start_url
   mode: restart
-- id: '1773719935299957'
-  alias: '[Notify] HVAC Water Leak'
-  initial_state: true
-  triggers:
-  - trigger: state
-    entity_id: binary_sensor.hvac_leak_sensor
-    to: 'on'
-  action:
-  - action: notify.mobile_app_pixel_8_pro
-    continue_on_error: true
-    data:
-      message: TTS
-      data:
-        tts_text: Air conditioner is leaking!!!
-        media_stream: alarm_stream_max
-  - action: notify.mobile_app_pixel_5
-    continue_on_error: true
-    data:
-      message: TTS
-      data:
-        tts_text: Air conditioner is leaking!!!
-        media_stream: alarm_stream_max
-  - action: notify.notify_all
-    continue_on_error: true
-    data:
-      message: Air conditioner leaking {{ states('sensor.time_12_hour_am_pm') }}
-      data:
-        notification_icon: mdi:water
-        visibility: public
-  - action: climate.turn_off
-    continue_on_error: true
-  - action: script.hvac_water_leak
-- id: '17019999999957'
-  alias: '[Notify] Water Heater Leak'
-  initial_state: true
-  triggers:
-  - trigger: state
-    entity_id: binary_sensor.water_heater_leak_sensor
-    to: 'on'
-  action:
-  - action: notify.mobile_app_pixel_8_pro
-    continue_on_error: true
-    data:
-      message: TTS
-      data:
-        tts_text: Water heater is leaking!!!
-        media_stream: alarm_stream_max
-  - action: notify.mobile_app_pixel_5
-    continue_on_error: true
-    data:
-      message: TTS
-      data:
-        tts_text: Water heater is leaking!!!
-        media_stream: alarm_stream_max
-  - action: notify.notify_all
-    continue_on_error: true
-    data:
-      message: Water heater leaking {{ states('sensor.time_12_hour_am_pm') }}
-      data:
-        notification_icon: mdi:water
-        visibility: public
-  - action: script.water_heater_leak
-- id: notify_washing_machine_leak
-  alias: '[Notify] Washing Machine Leaking'
-  description: Turns off washer and sends critical alert when leak is detected.
-  triggers:
-  - entity_id: binary_sensor.washer_leak_sensor
-    to: 'on'
-    trigger: state
-  actions:
-  - entity_id: switch.washer_plug_zb
-    action: homeassistant.turn_off
-  - entity_id: media_player.everywhere_3
-    data:
-      volume_level: 0.8
-    action: media_player.volume_set
-  - delay: 00:00:02
-  - entity_id: media_player.everywhere_3
-    data:
-      message: Washing machine is Leaking!
-    action: tts.google_say
-  - delay: 00:00:10
-  - entity_id: media_player.everywhere_3
-    data:
-      message: Washing machine is Leaking!
-    action: tts.google_say
-  - delay: 00:00:10
-  - data:
-      entity_id: media_player.everywhere_3
-      volume_level: 0.3
-    action: media_player.volume_set
-  initial_state: true
 - id: '1754999377123967'
   alias: '[Notify] Garage Fridge OFF'
   initial_state: true
@@ -302,7 +210,7 @@
   - trigger: state
     entity_id: binary_sensor.den_night_light_motion
     to: 'on'
-  action:
+  actions:
   - choose:
     - conditions:
       - condition: time
@@ -334,12 +242,15 @@
         target:
           entity_id: light.den_night_lights_zb
       - action: switch.turn_on
+        continue_on_error: true
         data:
           entity_id: switch.main_kiosk_screen
       - action: light.turn_on
+        continue_on_error: true
         data:
           entity_id: light.main_kiosk_screen
       - action: browser_mod.navigate
+        continue_on_error: true
         data:
           path: /lovelace/newtab
           browser_id:
@@ -359,6 +270,7 @@
         before: '23:00:00'
       sequence:
       - action: browser_mod.navigate
+        continue_on_error: true
         data:
           path: /lovelace/screen
           browser_id:
@@ -370,6 +282,7 @@
       sequence:
       - delay: 15
       - action: light.turn_off
+        continue_on_error: true
         data:
           entity_id: light.main_kiosk_screen
   initial_state: true
@@ -4700,3 +4613,372 @@
       entity_id: media_player.living_room_google
     action: media_player.volume_set
   mode: queued
+- id: '1762303469591'
+  alias: '[Notify] Critical Water Leak Alert'
+  description: Handles all critical water leak alerts, closes valves/plugs, and sends
+    alerts.
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.water_heater_leak_sensor
+    to: 'on'
+    id: water_heater
+  - trigger: state
+    entity_id: binary_sensor.washer_leak_sensor
+    to: 'on'
+    id: washer
+  actions:
+  - variables:
+      tts_message: "{% if trigger.id == 'water_heater' %}\n  Water heater is Leaking!\n{%
+        else %}\n  Washing machine is Leaking!\n{% endif %}\n"
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: water_heater
+      sequence:
+      - action: valve.close_valve
+        continue_on_error: true
+        target:
+          entity_id: valve.main_water_valve
+    - conditions:
+      - condition: trigger
+        id: washer
+      sequence:
+      - action: homeassistant.turn_off
+        continue_on_error: true
+        target:
+          entity_id: switch.washer_plug_zb
+      - action: valve.close_valve
+        continue_on_error: true
+        target:
+          entity_id: valve.main_water_valve
+  - action: notify.mobile_app_pixel_8_pro
+    continue_on_error: true
+    data:
+      message: TTS
+      data:
+        tts_text: '{{ tts_message }}'
+        media_stream: alarm_stream_max
+  - action: notify.mobile_app_pixel_5
+    continue_on_error: true
+    data:
+      message: TTS
+      data:
+        tts_text: '{{ tts_message }}'
+        media_stream: alarm_stream_max
+  - action: notify.notify_all
+    continue_on_error: true
+    data:
+      message: '{{ tts_message }} at {{ states(''sensor.time_12_hour_am_pm'') }}'
+      data:
+        notification_icon: mdi:water
+        visibility: public
+  - action: media_player.turn_on
+    continue_on_error: true
+    target:
+      entity_id: media_player.everywhere_3
+  - action: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.everywhere_3
+      volume_level: 0.8
+  - delay:
+      seconds: 2
+  - action: tts.google_say
+    continue_on_error: true
+    data_template:
+      entity_id: media_player.everywhere_3
+      message: '{{ tts_message }}'
+  - delay:
+      seconds: 10
+  - action: tts.google_say
+    continue_on_error: true
+    data_template:
+      entity_id: media_player.everywhere_3
+      message: '{{ tts_message }}'
+  - delay:
+      seconds: 10
+  - action: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.everywhere_3
+      volume_level: 0.3
+  initial_state: true
+  mode: queued
+- id: '1762304006685'
+  alias: '[Notify] HVAC Water Leak (remixed)'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.hvac_leak_sensor
+    to: 'on'
+  actions:
+  - action: climate.turn_off
+    continue_on_error: true
+    target:
+      entity_id: climate.den
+  - action: notify.mobile_app_pixel_8_pro
+    continue_on_error: true
+    data:
+      message: TTS
+      data:
+        tts_text: Air conditioner is leaking!!!
+        media_stream: alarm_stream_max
+  - action: notify.mobile_app_pixel_5
+    continue_on_error: true
+    data:
+      message: TTS
+      data:
+        tts_text: Air conditioner is leaking!!!
+        media_stream: alarm_stream_max
+  - action: notify.notify_all
+    continue_on_error: true
+    data:
+      message: Air conditioner leaking {{ states('sensor.time_12_hour_am_pm') }}
+      data:
+        notification_icon: mdi:water
+        visibility: public
+  - action: media_player.turn_on
+    continue_on_error: true
+    target:
+      entity_id: media_player.everywhere_3
+  - action: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.everywhere_3
+      volume_level: 0.8
+  - delay:
+      seconds: 2
+  - action: tts.google_say
+    continue_on_error: true
+    data_template:
+      entity_id: media_player.everywhere_3
+      message: Air conditioner is Leaking!
+  - delay:
+      seconds: 10
+  - action: tts.google_say
+    continue_on_error: true
+    data_template:
+      entity_id: media_player.everywhere_3
+      message: Air conditioner is Leaking!
+  - delay:
+      seconds: 10
+  - action: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.everywhere_3
+      volume_level: 0.3
+  initial_state: true
+  mode: queued
+- id: '1762304880858'
+  alias: '[Notify] Water Leak All Clear'
+  description: Resets systems and sends notification when ALL water leak alerts are
+    clear.
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.hvac_leak_sensor
+    - binary_sensor.water_heater_leak_sensor
+    - binary_sensor.washer_leak_sensor
+    to: 'off'
+    for: 00:03:00
+    id: clear_water_leak
+  conditions:
+  - condition: template
+    value_template: '{{ trigger.from_state.state == ''on'' }}'
+  - condition: state
+    entity_id: binary_sensor.hvac_leak_sensor
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.water_heater_leak_sensor
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.washer_leak_sensor
+    state: 'off'
+  actions:
+  - variables:
+      trigger_name: '{{ trigger.to_state.attributes.friendly_name | default(trigger.entity_id)
+        }}'
+      clear_title: WATER LEAK ALL CLEAR
+      clear_message: All water leak sensors are now clear. {{ trigger_name }} was
+        the last to clear. ✅
+      clear_icon: mdi:check-circle-outline
+  - action: valve.open_valve
+    continue_on_error: true
+    target:
+      entity_id: valve.main_water_valve
+  - action: switch.turn_on
+    continue_on_error: true
+    target:
+      entity_id: switch.washer_plug_zb
+  - action: climate.turn_on
+    continue_on_error: true
+    target:
+      entity_id: climate.den
+  - action: logbook.log
+    data:
+      name: Water Leak System
+      entity_id: '{{ trigger.entity_id }}'
+      message: All clear received from {{ trigger_name }}
+  - action: notify.notify_all
+    data:
+      title: '{{ clear_title }}'
+      message: '{{ clear_message }}'
+      data:
+        channel: alert
+        importance: high
+        notification_icon: '{{ clear_icon }}'
+  - action: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.everywhere_3
+      volume_level: 0.6
+  - delay:
+      seconds: 2
+  - action: tts.google_say
+    continue_on_error: true
+    data_template:
+      entity_id: media_player.everywhere_3
+      message: All water leak sensors are now clear. Resuming normal operation.
+  mode: restart
+- id: '1762316796747'
+  alias: '[Notify] Secondary Water Leak Alert'
+  description: Handles non-critical water leak alerts and sends notifications.
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.bathroom_leak_sensor_moisture
+    to: 'on'
+    id: bathroom_leak
+  - trigger: state
+    entity_id: binary_sensor.donnas_sink_leak_sensor
+    to: 'on'
+    id: donnas_sink_leak
+  - trigger: state
+    entity_id: binary_sensor.kitchen_sink_leaking
+    to: 'on'
+    id: kitchen_sink_leak
+  actions:
+  - variables:
+      tts_message: "{% if trigger.id == 'bathroom_leak' %}\n  Water leak detected
+        in the bathroom!\n{% elif trigger.id == 'donnas_sink_leak' %}\n  Water leak
+        detected at Donna's sink!\n{% elif trigger.id == 'kitchen_sink_leak' %}\n
+        \ Water leak detected at the kitchen sink!\n{% else %}\n  An unknown water
+        leak has been detected!\n{% endif %}\n"
+  - if:
+    - condition: state
+      entity_id: input_boolean.people_home_boolean
+      state: 'off'
+    then:
+    - action: valve.close_valve
+      continue_on_error: true
+      target:
+        entity_id: valve.main_water_valve
+  - action: notify.mobile_app_pixel_8_pro
+    continue_on_error: true
+    data:
+      message: TTS
+      data:
+        tts_text: '{{ tts_message }}'
+        media_stream: alarm_stream_max
+  - action: notify.mobile_app_pixel_5
+    continue_on_error: true
+    data:
+      message: TTS
+      data:
+        tts_text: '{{ tts_message }}'
+        media_stream: alarm_stream_max
+  - action: notify.notify_all
+    continue_on_error: true
+    data:
+      message: '{{ tts_message }} at {{ states(''sensor.time_12_hour_am_pm'') }}'
+      data:
+        notification_icon: mdi:water
+        visibility: public
+  - action: media_player.turn_on
+    continue_on_error: true
+    target:
+      entity_id: media_player.everywhere_3
+  - action: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.everywhere_3
+      volume_level: 0.8
+  - delay:
+      seconds: 2
+  - action: tts.google_say
+    continue_on_error: true
+    data_template:
+      entity_id: media_player.everywhere_3
+      message: '{{ tts_message }}'
+  - delay:
+      seconds: 10
+  - action: tts.google_say
+    continue_on_error: true
+    data_template:
+      entity_id: media_player.everywhere_3
+      message: '{{ tts_message }}'
+  - delay:
+      seconds: 10
+  - action: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.everywhere_3
+      volume_level: 0.3
+  initial_state: true
+  mode: queued
+- id: '1762316898965'
+  alias: '[Notify] Secondary Water Leak All Clear'
+  description: Resets systems when secondary water leak alerts are clear.
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.bathroom_leak_sensor_moisture
+    - binary_sensor.donnas_sink_leak_sensor
+    - binary_sensor.kitchen_sink_leaking
+    to: 'off'
+    for: 00:03:00
+  conditions:
+  - condition: template
+    value_template: '{{ trigger.from_state.state == ''on'' }}'
+  - condition: state
+    entity_id: binary_sensor.bathroom_leak_sensor_moisture
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.donnas_sink_leak_sensor
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.kitchen_sink_leaking
+    state: 'off'
+  actions:
+  - variables:
+      clear_title: WATER LEAK ALL CLEAR
+      clear_message: All secondary water leak sensors are now clear. ✅
+      clear_icon: mdi:check-circle-outline
+  - action: valve.open_valve
+    continue_on_error: true
+    target:
+      entity_id: valve.main_water_valve
+  - action: logbook.log
+    data:
+      name: Water Leak System
+      message: All clear received from secondary water leak sensors.
+  - action: notify.notify_all
+    data:
+      title: '{{ clear_title }}'
+      message: '{{ clear_message }}'
+      data:
+        channel: alert
+        importance: high
+        notification_icon: '{{ clear_icon }}'
+  - action: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.everywhere_3
+      volume_level: 0.6
+  - delay:
+      seconds: 2
+  - action: tts.google_say
+    continue_on_error: true
+    data_template:
+      entity_id: media_player.everywhere_3
+      message: All secondary water leak sensors are now clear.
+  mode: restart
