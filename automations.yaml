@@ -1037,20 +1037,40 @@
   alias: '[Motion] Guest Motion Lights'
   triggers:
   - trigger: state
-    entity_id: binary_sensor.guest_room_motion
+    entity_id:
+    - binary_sensor.guest_room_motion
+    - binary_sensor.guest_motion
     from: 'off'
     to: 'on'
-  condition:
+  conditions:
   - condition: state
     entity_id: group.person_group
     state: home
   - condition: state
     entity_id: input_boolean.motion_lights
     state: 'off'
-  action:
+  actions:
   - action: light.turn_on
-    entity_id: light.night_light_6, light.guest_night_lights
-  mode: single
+    data: {}
+    target:
+      entity_id:
+      - light.night_light_6
+      - light.guest_night_lights
+      - light.guest_ceiling_lights
+  - wait_template: "{{ not is_state('binary_sensor.guest_room_motion', 'on') and\n
+      \  not is_state('binary_sensor.guest_motion', 'on') }}"
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 30
+      milliseconds: 0
+  - action: light.turn_off
+    target:
+      entity_id:
+      - light.night_light_6
+      - light.guest_night_lights
+      - light.guest_ceiling_lights
+  mode: restart
   max_exceeded: silent
 - id: '17025318794468582'
   alias: '[Motion] Someone''s at the Table'
@@ -2886,7 +2906,8 @@
       - condition: trigger
         id: morning
       sequence:
-      - target:
+      - action: input_select.set_options
+        target:
           entity_id: input_select.wallpaper
         data:
           options:
@@ -2899,12 +2920,19 @@
           - coffee1_51
           - coffee1_61
           - coffee1_71
-        action: input_select.set_options
+      - wait_template: '{{ state_attr(''input_select.wallpaper'', ''options'') | first
+          == ''christian41.1'' }}'
+        timeout: 5
+        continue_on_timeout: true
+      - action: input_select.select_first
+        target:
+          entity_id: input_select.wallpaper
     - conditions:
       - condition: trigger
         id: midday
       sequence:
-      - target:
+      - action: input_select.set_options
+        target:
           entity_id: input_select.wallpaper
         data:
           options:
@@ -2921,12 +2949,19 @@
           - christian5
           - christian61
           - christian7.1
-        action: input_select.set_options
+      - wait_template: '{{ state_attr(''input_select.wallpaper'', ''options'') | first
+          == ''christian1.1'' }}'
+        timeout: 5
+        continue_on_timeout: true
+      - action: input_select.select_first
+        target:
+          entity_id: input_select.wallpaper
     - conditions:
       - condition: trigger
         id: evening
       sequence:
-      - target:
+      - action: input_select.set_options
+        target:
           entity_id: input_select.wallpaper
         data:
           options:
@@ -2943,12 +2978,19 @@
           - welcome4
           - christian1.1
           - wallpaper5
-        action: input_select.set_options
+      - wait_template: '{{ state_attr(''input_select.wallpaper'', ''options'') | first
+          == ''wallpaper141'' }}'
+        timeout: 5
+        continue_on_timeout: true
+      - action: input_select.select_first
+        target:
+          entity_id: input_select.wallpaper
     - conditions:
       - condition: trigger
         id: night
       sequence:
-      - target:
+      - action: input_select.set_options
+        target:
           entity_id: input_select.wallpaper
         data:
           options:
@@ -2964,14 +3006,20 @@
           - christian21
           - wallpaper21
           - moonLake
-        action: input_select.set_options
+      - wait_template: '{{ state_attr(''input_select.wallpaper'', ''options'') | first
+          == ''christian41.1'' }}'
+        timeout: 5
+        continue_on_timeout: true
+      - action: input_select.select_first
+        target:
+          entity_id: input_select.wallpaper
     - conditions:
       - condition: trigger
         id: cycle
       sequence:
-      - target:
+      - action: input_select.select_next
+        target:
           entity_id: input_select.wallpaper
-        action: input_select.select_next
       - action: input_select.random
         entity_id:
         - input_select.mobile_wallpaper
@@ -2988,6 +3036,8 @@
   - entity_id: input_select.video_wallpaper
     trigger: state
   actions:
+  - delay:
+      seconds: 6
   - action: script.browser_theme_{{ theme_suffix }}
   mode: single
   variables:
@@ -4195,6 +4245,7 @@
   - continue_on_error: true
     target:
       entity_id:
+      - input_boolean.people_home_boolean
       - light.every_light
       - input_boolean.auto_tablet
       - input_boolean.auto_cameras
@@ -4335,6 +4386,7 @@
   - continue_on_error: true
     target:
       entity_id:
+      - input_boolean.people_home_boolean
       - input_boolean.camera_snapshots
       - input_boolean.disable_popups
       - input_boolean.auto_tablet
@@ -4423,11 +4475,16 @@
   alias: '[Presence] Master Presence Control v7'
   description: Handles person-based presence for arrivals and departures.
   triggers:
-  - entity_id: person.darren
-    from: not_home
-    to: home
+  - entity_id:
+    - person.darren
+    from:
+    - not_home
+    to:
+    - home
     id: darren
     trigger: state
+    for:
+      seconds: 8
   - entity_id: person.darren
     from: home
     to: not_home
@@ -4951,7 +5008,7 @@
   actions:
   - variables:
       clear_title: WATER LEAK ALL CLEAR
-      clear_message: All secondary water leak sensors are now clear. ✅
+      clear_message: All water leak sensors are now clear. ✅
       clear_icon: mdi:check-circle-outline
   - action: valve.open_valve
     continue_on_error: true
@@ -4982,3 +5039,35 @@
       entity_id: media_player.everywhere_3
       message: All secondary water leak sensors are now clear.
   mode: restart
+- id: '1762641698376'
+  alias: '[Alert] Send Garage Door Notification'
+  description: Sends the garage door alert with an acknowledge button.
+  triggers:
+  - trigger: event
+    event_type: alert.fired
+    event_data:
+      entity_id: alert.garage_door
+  actions:
+  - action: notify.notify_all
+    data:
+      message: '{{ state_attr(''alert.garage_door'', ''message'') }}'
+      data:
+        tag: garage-open-alert
+        actions:
+        - action: ACK_GARAGE
+          title: SILENCE ALERT
+  mode: single
+- id: '1762641751876'
+  alias: '[Alert] Handle Garage Door Acknowledge'
+  description: Acknowledges the garage alert when the notification button is pressed.
+  triggers:
+  - trigger: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: ACK_GARAGE
+  conditions: []
+  actions:
+  - action: alert.turn_off
+    target:
+      entity_id: alert.garage_door
+  mode: single
