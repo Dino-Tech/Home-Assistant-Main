@@ -61,7 +61,7 @@
 <hr>
 <h5 align="center"><a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;"></a><br></h5>
 <div>
-  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 2025.8.3 on a <a href="https://amzn.to/3F3oci0">Beelink Mini PC, Mini S12 Pro Intel 12th N100, 16GB DDR4 500GB M.2 SSD </a></h2>
+  <h2 align="center"><a> Currently operating</a> <a href="https://home-assistant.io">Home Assistant </a> version 2026.2.1 on a <a href="https://amzn.to/3F3oci0">Beelink Mini PC, Mini S12 Pro Intel 12th N100, 16GB DDR4 500GB M.2 SSD </a></h2>
 </div>
 <p align="center"><a name="menu2"></a><strong>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/blob/master/README.md#wyzemovie_cameracams-and-accessories">
