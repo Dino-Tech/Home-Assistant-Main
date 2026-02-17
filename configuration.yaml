@@ -4,6 +4,10 @@ homeassistant:
     - type: homeassistant
   media_dirs:
     local: /config/media
+    media: /media
+  allowlist_external_dirs:
+    - "/config/www/tmp/"
+    - "/config/media/"
   name: !secret home_name
   latitude: !secret home_latitude
   longitude: !secret home_longitude
@@ -12,8 +16,7 @@ homeassistant:
   currency: USD
   time_zone: "America/Chicago"
   country: US
-  #  external_url: !secret external_url
-  #  internal_url: !secret internal_url
+
   packages: !include_dir_named packages
   customize: !include customize.yaml
 
@@ -25,27 +28,11 @@ frontend:
   themes: !include includes/themes.yaml
   extra_module_url:
     - /hacsfiles/lovelace-card-mod/card-mod.js
-    - /hacsfiles/kiosk-mode/kiosk-mode.js?v7.0.0-beta.0
-    - https://fonts.googleapis.com/css?family=Righteous&family=Sofia+Sans+Extra+Condensed:wght@500
-    - https://fonts.googleapis.com/css?family=Sofia+Sans+Extra+Condensed:wght@500
-
-http:
-
-ssdp:
-
-zeroconf:
-
-usb:
-
-bluetooth:
-
-ffmpeg:
 
 recorder:
   db_url: !secret db_url
   auto_purge: true
-  purge_keep_days: 3
-  auto_repack: true
+  purge_keep_days: 7
   exclude:
     domains:
       - automation
@@ -64,7 +51,6 @@ recorder:
       - sensor.date_time
       - sensor.date_time_iso
       - sensor.daylight
-      - sensor.verse_feed
       - sensor.worldclock_sensor
       - sensor.worldclock_sensor_12hr
       - sensor.worldclock_sensor_time_date
@@ -75,18 +61,22 @@ recorder:
     event_types:
       - call_service
 
-mobile_app:
-
 lovelace:
-  mode: yaml
+  resource_mode: yaml
+  dashboards:
+    lovelace:
+      mode: yaml
+      filename: ui-lovelace.yaml
+      title: Overview
+      icon: mdi:view-dashboard
+      show_in_sidebar: true
   resources: !include lovelace/resources/resources.yaml
 
-conversation:
-
-sun:
+shell_command:
+  delete_old_snapshots: 'find /config/www/tmp/ /media/llmvision/snapshots/ /media/fmd/pixel8pro/ -type f -mtime +2 -delete'
 
 logger:
-  default: critical
+  default: warning
   logs:
     homeassistant.components.mqtt: warning
     homeassistant.components.camera: critical
@@ -95,53 +85,40 @@ logger:
     homeassistant.components.mobile_app.notify: info
     aiohttp: error
 
-system_health:
-
 media_player:
   - platform: universal
-    name: Currently Playing
+    unique_id: now_playing
+    name: Now Playing
     children:
-      - media_player.office_google
-      - media_player.office_group
-      - media_player.office_group_3
-      - media_player.office_display
-      - media_player.office_speaker
-      - media_player.office_mini
-      - media_player.office_mini_2
-      - media_player.office_pc
-      - media_player.living_room_google
-      - media_player.living_room_google_2
-      - media_player.living_room_tv
-      - media_player.patio_speaker
-      - media_player.patio_speaker_2
-      - media_player.spotify_dinotech
-      - media_player.family_tv
-      - media_player.tv_speakers
-      - media_player.kitchen_table_display
-      - media_player.kitchen_table_display_2
-      - media_player.sink_display
-      - media_player.front_group_2
+      - media_player.bedroom_stereo
+      - media_player.bedroom_stereo_3
       - media_player.front_group
-      - media_player.everywhere_3
-      - media_player.everywhere_3_2
-      - media_player.garage_mini
-      - media_player.garage_mini_2
-      - media_player.ensuite_speaker
-      - media_player.ensuite_speaker_2
-      - media_player.den_mini
-      - media_player.den_mini_2
-      - media_player.den_speakers
-      - media_player.den_speakers_2
-      - media_player.deb_tv
-      - media_player.bedroom_tv
-      - media_player.bedroom_speaker
-      - media_player.bedroom_speaker_2
-      - media_player.bathroom_speaker
-      - media_player.bathroom_speaker_2
-      - media_player.guest_clock
-      - media_player.guest_clock_2
-      - media_player.kitchen_speakers
-      - media_player.kitchen_speakers_2
+      - media_player.front_group_3
+      - media_player.office_display
+    state_template: >
+      {# Define the list of players to monitor #}
+      {% set players = [
+        'media_player.bedroom_stereo',
+        'media_player.bedroom_stereo_3',
+        'media_player.front_group',
+        'media_player.front_group_3',
+        'media_player.office_display'
+      ] %}
+
+      {# Check statuses #}
+      {% if players | select('is_state', 'playing') | list | length > 0 %}
+        playing
+      {% elif players | select('is_state', 'paused') | list | length > 0 %}
+        paused
+      {% elif players | select('is_state', 'buffering') | list | length > 0 %}
+        buffering
+      {% elif players | select('is_state', 'on') | list | length > 0 %}
+        on
+      {% elif players | select('is_state', 'idle') | list | length > 0 %}
+        idle
+      {% else %}
+        off
+      {% endif %}
 
 zone:
   - name: !secret zone2_name
@@ -171,15 +148,13 @@ automation: !include automations.yaml
 binary_sensor: !include includes/binary_sensor.yaml
 camera: !include includes/camera.yaml
 cloud: !include includes/cloud.yaml
-cover: !include includes/cover.yaml
 device_tracker: !include includes/device_tracker.yaml
-fan: !include includes/fan.yaml
 group: !include groups.yaml
-history: #!include includes/history.yaml
 input_boolean: !include includes/input_boolean.yaml
 input_datetime: !include includes/input_datetime.yaml
 input_number: !include includes/input_number.yaml
 input_select: !include includes/input_select.yaml
+input_text: !include includes/input_text.yaml
 konnected: !include includes/konnected.yaml
 light: !include includes/light.yaml
 logbook: !include includes/logbook.yaml
@@ -190,3 +165,4 @@ scene: !include scenes.yaml
 script: !include scripts.yaml
 sensor: !include includes/sensor.yaml
 switch: !include includes/switch.yaml
+template: !include includes/template.yaml

@@ -1,790 +1,632 @@
 change_screen:
   alias: change screen
   sequence:
-    - action: input_select.select_option
-      entity_id: input_select.mobilelayout
-      data:
-        option: mobile3
+  - action: input_select.select_option
+    entity_id: input_select.mobilelayout
+    data:
+      option: mobile3
 nws_alerts_persistent_notification:
   alias: NWS Alerts Persistent Notifications
   sequence:
-    - action:
-        "{% if states('sensor.nws_alerts_alerts') != '0' %}\n  persistent_notification.create\n{%
-        endif %}\n"
-      data:
-        notification_id: "{{ notification_id }}"
-        message: "{{ message }}"
-        title: "{{ title }}"
+  - action: "{% if states('sensor.nws_alerts_alerts') != '0' %}\n  persistent_notification.create\n{%
+      endif %}\n"
+    data:
+      notification_id: '{{ notification_id }}'
+      message: '{{ message }}'
+      title: '{{ title }}'
 nws_alerts_announce_hurricane_warning:
   alias: NWS Alerts Announce Hurricane Warning
   sequence:
-    - action: media_player.volume_set
-      data:
-        volume_level: 0.9
-      target:
-        entity_id:
+  - action: media_player.volume_set
+    data:
+      volume_level: 0.9
+    target:
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
+  - action: tts.google_say
+    data:
+      cache: true
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
+      message: Attention!,,,Attention!,,,The National Weather Service Has issued a
+        hurricane warning for our area.
+  - delay: 00:00:05
+  - action: media_player.play_media
+    target:
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
+    data:
+      media:
+        media_content_id: media-source://media_source/local/www_nws_alert_tone.mp3
+        media_content_type: audio/mpeg
+        metadata:
+          title: www_nws_alert_tone.mp3
+          thumbnail:
+          media_class: music
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://media_source
+          - media_content_type: ''
+            media_content_id: media-source://media_source/local/.
+          browse_entity_id:
           - media_player.bedroom_stereo
-          - media_player.office_group
+          - media_player.office_display
           - media_player.tv_speakers
           - media_player.kitchen_speakers
           - media_player.garage_speakers
-          - media_player.patio_speaker
-    - action: tts.google_say
-      data:
-        cache: true
-        entity_id:
-          - media_player.bedroom_stereo
-          - media_player.office_group
-          - media_player.tv_speakers
-          - media_player.kitchen_speakers
-          - media_player.garage_speakers
-          - media_player.patio_speaker
-        message:
-          Attention!,,,Attention!,,,The National Weather Service Has issued a
-          hurricane warning for our area.
-    - delay: 00:00:05
-    - action: media_player.play_media
-      target:
-        entity_id:
-          - media_player.bedroom_stereo
-          - media_player.office_group
-          - media_player.tv_speakers
-          - media_player.kitchen_speakers
-          - media_player.garage_speakers
-          - media_player.patio_speaker
-      data:
-        media:
-          media_content_id: media-source://media_source/local/www_nws_alert_tone.mp3
-          media_content_type: audio/mpeg
-          metadata:
-            title: www_nws_alert_tone.mp3
-            thumbnail:
-            media_class: music
-            children_media_class:
-            navigateIds:
-              - {}
-              - media_content_type: app
-                media_content_id: media-source://media_source
-              - media_content_type: ""
-                media_content_id: media-source://media_source/local/.
-            browse_entity_id:
-              - media_player.bedroom_stereo
-              - media_player.office_group
-              - media_player.tv_speakers
-              - media_player.kitchen_speakers
-              - media_player.garage_speakers
-              - media_player.patio_speaker
-    - delay: 00:00:15
-    - action: tts.google_say
-      data:
-        cache: true
-        entity_id:
-          - media_player.bedroom_stereo
-          - media_player.office_group
-          - media_player.tv_speakers
-          - media_player.kitchen_speakers
-          - media_player.garage_speakers
-          - media_player.patio_speaker
-        message:
-          Attention!,,,Attention!,,,The National Weather Service Has issued a
-          hurricane warning for our area.
-    - delay: 00:03:00
-    - action: media_player.volume_set
-      data:
-        volume_level: 0.3
-      target:
-        entity_id:
-          - media_player.bedroom_stereo
-          - media_player.bedroom_stereo_2
-          - media_player.office_group
-          - media_player.tv_speakers
-          - media_player.kitchen_speakers
-          - media_player.garage_speakers
-          - media_player.patio_speaker
+  - delay: 00:00:15
+  - action: tts.google_say
+    data:
+      cache: true
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
+      message: Attention!,,,Attention!,,,The National Weather Service Has issued a
+        hurricane warning for our area.
+  - delay: 00:03:00
+  - action: media_player.volume_set
+    data:
+      volume_level: 0.3
+    target:
+      entity_id:
+      - media_player.bedroom_stereo_3
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
 nws_alerts_announce_tornado_warning:
   alias: NWS Alerts Announce Tornado Warning
   sequence:
-    - action: media_player.volume_set
-      data:
-        volume_level: 0.9
-      target:
-        entity_id:
+  - action: media_player.volume_set
+    data:
+      volume_level: 0.9
+    target:
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
+  - action: tts.google_say
+    data:
+      cache: true
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
+      message: Attention!,,,Attention!,,,The National Weather Service Has issued a
+        tornado warning for our area.
+  - delay: 00:00:05
+  - action: media_player.play_media
+    target:
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
+    data:
+      media:
+        media_content_id: media-source://media_source/local/www_nws_alert_tone.mp3
+        media_content_type: audio/mpeg
+        metadata:
+          title: www_nws_alert_tone.mp3
+          thumbnail:
+          media_class: music
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://media_source
+          - media_content_type: ''
+            media_content_id: media-source://media_source/local/.
+          browse_entity_id:
           - media_player.bedroom_stereo
-          - media_player.office_group
+          - media_player.office_display
           - media_player.tv_speakers
           - media_player.kitchen_speakers
           - media_player.garage_speakers
-          - media_player.patio_speaker
-    - action: tts.google_say
-      data:
-        cache: true
-        entity_id:
-          - media_player.bedroom_stereo
-          - media_player.office_group
-          - media_player.tv_speakers
-          - media_player.kitchen_speakers
-          - media_player.garage_speakers
-          - media_player.patio_speaker
-        message:
-          Attention!,,,Attention!,,,The National Weather Service Has issued a
-          tornado warning for our area.
-    - delay: 00:00:05
-    - action: media_player.play_media
-      target:
-        entity_id:
-          - media_player.bedroom_stereo
-          - media_player.office_group
-          - media_player.tv_speakers
-          - media_player.kitchen_speakers
-          - media_player.garage_speakers
-          - media_player.patio_speaker
-      data:
-        media:
-          media_content_id: media-source://media_source/local/www_nws_alert_tone.mp3
-          media_content_type: audio/mpeg
-          metadata:
-            title: www_nws_alert_tone.mp3
-            thumbnail:
-            media_class: music
-            children_media_class:
-            navigateIds:
-              - {}
-              - media_content_type: app
-                media_content_id: media-source://media_source
-              - media_content_type: ""
-                media_content_id: media-source://media_source/local/.
-            browse_entity_id:
-              - media_player.bedroom_stereo
-              - media_player.office_group
-              - media_player.tv_speakers
-              - media_player.kitchen_speakers
-              - media_player.garage_speakers
-              - media_player.patio_speaker
-    - delay: 00:00:15
-    - action: tts.google_say
-      data:
-        cache: true
-        entity_id:
-          - media_player.bedroom_stereo
-          - media_player.office_group
-          - media_player.tv_speakers
-          - media_player.kitchen_speakers
-          - media_player.garage_speakers
-          - media_player.patio_speaker
-        message:
-          Attention!,,,Attention!,,,The National Weather Service Has issued a
-          tornado warning for our area.
-    - delay: 00:03:00
-    - action: media_player.volume_set
-      data:
-        volume_level: 0.3
-      target:
-        entity_id:
-          - media_player.bedroom_stereo
-          - media_player.bedroom_stereo_2
-          - media_player.office_group
-          - media_player.tv_speakers
-          - media_player.kitchen_speakers
-          - media_player.garage_speakers
-          - media_player.patio_speaker
+  - delay: 00:00:15
+  - action: tts.google_say
+    data:
+      cache: true
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
+      message: Attention!,,,Attention!,,,The National Weather Service Has issued a
+        tornado warning for our area.
+  - delay: 00:03:00
+  - action: media_player.volume_set
+    data:
+      volume_level: 0.3
+    target:
+      entity_id:
+      - media_player.bedroom_stereo_3
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
 nws_alerts_announce_thunderstorm_warning:
   alias: NWS Alerts Announce Thunderstorm Warning
   sequence:
-    - action: media_player.volume_set
-      data:
-        volume_level: 0.9
-      target:
-        entity_id:
+  - action: media_player.volume_set
+    data:
+      volume_level: 0.9
+    target:
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
+  - action: tts.google_say
+    data:
+      cache: true
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
+      message: Attention!,,,Attention!,,,The National Weather Service Has issued a
+        severe thunderstorm warning for our area.
+  - delay: 00:00:05
+  - action: media_player.play_media
+    target:
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
+    data:
+      media:
+        media_content_id: media-source://media_source/local/www_nws_alert_tone.mp3
+        media_content_type: audio/mpeg
+        metadata:
+          title: www_nws_alert_tone.mp3
+          thumbnail:
+          media_class: music
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://media_source
+          - media_content_type: ''
+            media_content_id: media-source://media_source/local/.
+          browse_entity_id:
           - media_player.bedroom_stereo
-          - media_player.office_group
+          - media_player.office_display
           - media_player.tv_speakers
           - media_player.kitchen_speakers
           - media_player.garage_speakers
-          - media_player.patio_speaker
-    - action: tts.google_say
-      data:
-        cache: true
-        entity_id:
-          - media_player.bedroom_stereo
-          - media_player.office_group
-          - media_player.tv_speakers
-          - media_player.kitchen_speakers
-          - media_player.garage_speakers
-          - media_player.patio_speaker
-        message:
-          Attention!,,,Attention!,,,The National Weather Service Has issued a
-          severe thunderstorm warning for our area.
-    - delay: 00:00:05
-    - action: media_player.play_media
-      target:
-        entity_id:
-          - media_player.bedroom_stereo
-          - media_player.office_group
-          - media_player.tv_speakers
-          - media_player.kitchen_speakers
-          - media_player.garage_speakers
-          - media_player.patio_speaker
-      data:
-        media:
-          media_content_id: media-source://media_source/local/www_nws_alert_tone.mp3
-          media_content_type: audio/mpeg
-          metadata:
-            title: www_nws_alert_tone.mp3
-            thumbnail:
-            media_class: music
-            children_media_class:
-            navigateIds:
-              - {}
-              - media_content_type: app
-                media_content_id: media-source://media_source
-              - media_content_type: ""
-                media_content_id: media-source://media_source/local/.
-            browse_entity_id:
-              - media_player.bedroom_stereo
-              - media_player.office_group
-              - media_player.tv_speakers
-              - media_player.kitchen_speakers
-              - media_player.garage_speakers
-              - media_player.patio_speaker
-    - delay: 00:00:15
-    - action: tts.google_say
-      data:
-        cache: true
-        entity_id:
-          - media_player.bedroom_stereo
-          - media_player.office_group
-          - media_player.tv_speakers
-          - media_player.kitchen_speakers
-          - media_player.garage_speakers
-          - media_player.patio_speaker
-        message:
-          Attention!,,,Attention!,,,The National Weather Service Has issued a
-          severe thunderstorm warning for our area.
-    - delay: 00:03:00
-    - action: media_player.volume_set
-      data:
-        volume_level: 0.3
-      target:
-        entity_id:
-          - media_player.bedroom_stereo
-          - media_player.office_group
-          - media_player.tv_speakers
-          - media_player.kitchen_speakers
-          - media_player.garage_speakers
-          - media_player.patio_speaker
+  - delay: 00:00:15
+  - action: tts.google_say
+    data:
+      cache: true
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
+      message: Attention!,,,Attention!,,,The National Weather Service Has issued a
+        severe thunderstorm warning for our area.
+  - delay: 00:03:00
+  - action: media_player.volume_set
+    data:
+      volume_level: 0.3
+    target:
+      entity_id:
+      - media_player.bedroom_stereo
+      - media_player.office_display
+      - media_player.tv_speakers
+      - media_player.kitchen_speakers
+      - media_player.garage_speakers
 alarm_clock_test:
   alias: alarm clock test
   description: Gradually brighten lights 15 minutes before alarm
   sequence:
-    - action: light.turn_on
-      target:
-        entity_id: light.office_floor_lights
-      data:
-        brightness: 1
-        color_temp_kelvin: 500
-    - repeat:
-        count: 15
-        sequence:
-          - delay: 00:00:04
-          - action: light.turn_on
-            target:
-              entity_id: light.office_floor_lights
-            data:
-              brightness: "{{ (repeat.index * 17) | int }}"
-              color_temp_kelvin: "{{ (500 - (repeat.index * 20)) | int }}"
+  - action: light.turn_on
+    target:
+      entity_id: light.office_floor_lights
+    data:
+      brightness: 1
+      color_temp_kelvin: 500
+  - repeat:
+      count: 15
+      sequence:
+      - delay: 00:00:04
+      - action: light.turn_on
+        target:
+          entity_id: light.office_floor_lights
+        data:
+          brightness: '{{ (repeat.index * 17) | int }}'
+          color_temp_kelvin: '{{ (500 - (repeat.index * 20)) | int }}'
   mode: single
-garage_video_test:
-  alias: garage video test
-  description: garage motion message
-  sequence:
-    - action: camera.snapshot
-      target:
-        entity_id:
-          - camera.garage_cam_0
-      data:
-        filename: /config/www/tmp/last_snapshot_garage.jpg
-    - delay:
-        seconds: 8
-    - action: llmvision.image_analyzer
-      data:
-        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
-        message:
-          'Classify the security event based on this image. Choose from the following
-          options: "passive" for unimportant events, "time-sensitive" for notable but
-          non-critical events such as a person at the front door, and "critical" only
-          for potential burglaries or highly suspicious activity. Respond with one of
-          these options exactly, without additional explanation.
-
-          '
-        remember: false
-        use_memory: false
-        image_entity:
-          - camera.garage_cam_0
-        model: gpt-4o-mini
-        image_file: /local/tmp/last_snapshot_garage.jpg
-        include_filename: true
-        target_width: 1280
-        max_tokens: 3
-        generate_title: true
-        expose_images: true
-      response_variable: importance
-    - choose:
-        - conditions:
-            - condition: template
-              value_template: "{{ importance.response_text|lower == 'passive' }}"
-          sequence:
-            - stop: Event is not important
-        - conditions:
-            - condition: template
-              value_template: "true"
-          sequence:
-            - action: camera.snapshot
-              target:
-                entity_id:
-                  - camera.garage_cam_0
-              data:
-                filename: /config/www/tmp/last_snapshot_garage.jpg
-            - delay:
-                seconds: 8
-            - alias: Send instant notification to notify devices
-              action: notify.notify_all
-              data:
-                title: Motion detected
-                message: Garage camera has detected activity.
-                data:
-                  notification_icon: mdi:cctv
-                  image: /local/tmp/last_snapshot_garage.jpg
-                  persistent: true
-                  color: red
-                  channel: Cameras
-                  tag: Motion
-                  actions:
-                    - action: URI
-                      title: Click to Open Cameras
-                      uri: /dashboard-cast/garage
-    - action: llmvision.stream_analyzer
-      data:
-        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
-        message:
-          "Summarize the events based on a series of images captured at short
-          intervals. Focus only on moving subjects such as people, vehicles, and other
-          active elements. Ignore static objects and scenery. Provide a clear and concise
-          account of movements and interactions. Do not mention or imply the existence
-          of images—present the information as if directly observing the events. If
-          no movement is detected, respond with: 'No activity observed.'
-
-          "
-        model: gpt-4o-mini
-        remember: true
-        use_memory: true
-        image_entity:
-          - camera.garage_cam_0
-        duration: 8
-        max_frames: 3
-        include_filename: true
-        target_width: 1280
-        max_tokens: 40
-        generate_title: true
-        expose_images: true
-      response_variable: response
-    - alias: Update label with title
-      variables:
-        label: "{{response.title}}"
-    - delay:
-        seconds: 5
-    - alias: (Snapshot) Update notification on notify devices
-      action: notify.mobile_app_pixel_8_pro
-      data:
-        title: "{{ label }}"
-        message: "{{response.response_text}}"
-        data:
-          notification_icon: mdi:cctv
-          image: /local/tmp/last_snapshot_garage.jpg
-          persistent: true
-          color: red
-          channel: Cameras
-          tag: Motion
-          actions:
-            - action: URI
-              title: Click to Open Cameras
-              uri: /dashboard-cast/garage
-    - delay:
-        seconds: 5
-    - alias: TTS notification on notify devices
-      action: notify.mobile_app_pixel_8_pro
-      data:
-        message: TTS
-        data:
-          ttl: 0
-          priority: high
-          media_stream: alarm_stream_max
-          tts_text: "{{response.response_text}}"
 garage_video_snapshot:
   alias: garage video snapshot
   description: save latest garage video clip
   sequence:
-    - action: llmvision.stream_analyzer
-      data:
-        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
-        message:
-          "Summarize the events based on a series of images captured at short
-          intervals. Focus only on moving subjects such as people, vehicles, and other
-          active elements. Ignore static objects and scenery. Provide a clear and concise
-          account of movements and interactions. Do not mention or imply the existence
-          of images—present the information as if directly observing the events. If
-          no movement is detected, respond with: 'No activity observed.'
+  - action: llmvision.stream_analyzer
+    data:
+      provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
+      message: 'Summarize the events based on a series of images captured at short
+        intervals. Focus only on moving subjects such as people, vehicles, and other
+        active elements. Ignore static objects and scenery. Provide a clear and concise
+        account of movements and interactions. Do not mention or imply the existence
+        of images—present the information as if directly observing the events. If
+        no movement is detected, respond with: ''No activity observed.''
 
-          "
-        model: gpt-4o-mini
-        remember: true
-        use_memory: true
-        image_entity:
-          - camera.garage_cam_0
-        duration: 8
-        max_frames: 3
-        include_filename: true
-        target_width: 640
-        max_tokens: 40
-        generate_title: true
-        expose_images: true
-      response_variable: response
-    - alias: Update label with title
-      variables:
-        label: "{{response.title}}"
-    - delay:
-        seconds: 2
-    - alias: (Snapshot) Update notification on notify devices
-      action: notify.mobile_app_pixel_8_pro
+        '
+      model: gpt-4o-mini
+      remember: true
+      use_memory: true
+      image_entity:
+      - camera.garage_cam_0
+      duration: 8
+      max_frames: 3
+      include_filename: true
+      target_width: 640
+      max_tokens: 40
+      generate_title: true
+      expose_images: true
+    response_variable: response
+  - alias: Update label with title
+    variables:
+      label: '{{response.title}}'
+  - delay:
+      seconds: 2
+  - alias: (Snapshot) Update notification on notify devices
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      title: '{{ label }}'
+      message: '{{response.response_text}}'
       data:
-        title: "{{ label }}"
-        message: "{{response.response_text}}"
-        data:
-          notification_icon: mdi:cctv
-          image: /local/tmp/last_snapshot_garage.jpg
-          persistent: true
-          color: red
-          channel: Cameras
-          tag: Motion
-          actions:
-            - action: URI
-              title: Click to Open Cameras
-              uri: /dashboard-cast/garage
-    - delay:
-        seconds: 1
-    - alias: TTS notification on notify devices
-      action: notify.mobile_app_pixel_8_pro
+        notification_icon: mdi:cctv
+        image: /local/tmp/last_snapshot_garage.jpg
+        persistent: true
+        color: red
+        channel: Cameras
+        tag: Motion
+        actions:
+        - action: URI
+          title: Click to Open Cameras
+          uri: /dashboard-cast/garage
+  - delay:
+      seconds: 1
+  - alias: TTS notification on notify devices
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      message: TTS
       data:
-        message: TTS
-        data:
-          ttl: 0
-          priority: high
-          media_stream: alarm_stream_max
-          tts_text: "{{response.response_text}}"
-    - alias: Gmail notification to Darren
-      action: notify.alphaprops_dwilson_gmail_com
-      data:
-        message: "{{response.response_text}}"
-        target:
-          - alphaprops.dwilson@gmail.com
-    - action: camera.record
+        ttl: 0
+        priority: high
+        media_stream: alarm_stream_max
+        tts_text: '{{response.response_text}}'
+  - alias: Gmail notification to Darren
+    action: notify.alphaprops_dwilson_gmail_com
+    data:
+      message: '{{response.response_text}}'
       target:
-        entity_id: camera.garage_cam_0
-      data:
-        filename: /config/www/tmp/last_video_snapshot_garage.mp4
-        duration: 6
-      enabled: false
+      - alphaprops.dwilson@gmail.com
+  - action: camera.record
+    target:
+      entity_id: camera.garage_cam_0
+    data:
+      filename: /config/www/tmp/last_video_snapshot_garage.mp4
+      duration: 6
+    enabled: false
 porch_video_snapshot:
   alias: porch video snapshot
   description: process movement and save latest porch video clip
   sequence:
-    - action: llmvision.stream_analyzer
-      data:
-        provider: 01JZECF0T517YNCCB6WV6KTS3K
-        message:
-          "Summarize the events based on a series of images captured at short
-          intervals. Focus only on moving subjects such as people, vehicles, and other
-          active elements. Ignore static objects and scenery. Provide a clear and concise
-          account of movements and interactions. Do not mention or imply the existence
-          of images—present the information as if directly observing the events. If
-          no movement is detected, respond with: 'No activity observed.'
+  - action: llmvision.stream_analyzer
+    data:
+      provider: 01JZECF0T517YNCCB6WV6KTS3K
+      message: 'Summarize the events based on a series of images captured at short
+        intervals. Focus only on moving subjects such as people, vehicles, and other
+        active elements. Ignore static objects and scenery. Provide a clear and concise
+        account of movements and interactions. Do not mention or imply the existence
+        of images—present the information as if directly observing the events. If
+        no movement is detected, respond with: ''No activity observed.''
 
-          "
-        model: gemini-2.5-pro
-        remember: true
-        use_memory: true
-        image_entity:
-          - camera.porch_cam_0
-        duration: 8
-        max_frames: 3
-        include_filename: true
-        target_width: 1280
-        max_tokens: 40
-        generate_title: true
-        expose_images: true
-      response_variable: response
-    - alias: Update label with title
-      variables:
-        label: "{{response.title}}"
-    - delay:
-        seconds: 2
-    - alias: (Snapshot) Update notification on notify devices
-      action: notify.mobile_app_pixel_8_pro
+        '
+      model: gemini-2.5-pro
+      remember: true
+      use_memory: true
+      image_entity:
+      - camera.go2rtc_streams_front_door
+      duration: 8
+      max_frames: 3
+      include_filename: true
+      target_width: 1280
+      max_tokens: 40
+      generate_title: true
+      expose_images: true
+    response_variable: response
+  - alias: Update label with title
+    variables:
+      label: '{{response.title}}'
+  - delay:
+      seconds: 2
+  - alias: (Snapshot) Update notification on notify devices
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      title: '{{ label }}'
+      message: '{{response.response_text}}'
       data:
-        title: "{{ label }}"
-        message: "{{response.response_text}}"
-        data:
-          notification_icon: mdi:cctv
-          image: /local/tmp/last_snapshot_porch.jpg
-          persistent: true
-          color: red
-          channel: Cameras
-          tag: Motion
-          actions:
-            - action: URI
-              title: Click to Open Cameras
-              uri: /dashboard-cast/porch
-    - delay:
-        seconds: 1
-    - alias: TTS notification on notify devices
-      action: notify.mobile_app_pixel_8_pro
+        notification_icon: mdi:cctv
+        image: /local/tmp/last_snapshot_porch.jpg
+        persistent: true
+        color: red
+        channel: Cameras
+        tag: Motion
+        actions:
+        - action: URI
+          title: Click to Open Cameras
+          uri: /dashboard-cast/porch
+  - delay:
+      seconds: 1
+  - alias: TTS notification on notify devices
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      message: TTS
       data:
-        message: TTS
-        data:
-          ttl: 0
-          priority: high
-          media_stream: alarm_stream_max
-          tts_text: "{{response.response_text}}"
-    - alias: Gmail notification to Darren
-      action: notify.alphaprops_dwilson_gmail_com
-      data:
-        message: "{{response.response_text}}"
-        target:
-          - alphaprops.dwilson@gmail.com
-    - action: camera.record
+        ttl: 0
+        priority: high
+        media_stream: alarm_stream_max
+        tts_text: '{{response.response_text}}'
+  - alias: Gmail notification to Darren
+    action: notify.alphaprops_dwilson_gmail_com
+    data:
+      message: '{{response.response_text}}'
       target:
-        entity_id: camera.porch_cam_0
-      data:
-        filename: /config/www/tmp/last_video_snapshot_porch.mp4
-        duration: 6
-      enabled: false
+      - alphaprops.dwilson@gmail.com
+  - action: camera.record
+    target:
+      entity_id: camera.go2rtc_streams_front_door
+    data:
+      filename: /config/www/tmp/last_video_snapshot_porch.mp4
+      duration: 6
+    enabled: false
 driveway_video_snapshot:
   alias: driveway video snapshot
   description: save latest driveway video clip
   sequence:
-    - action: llmvision.stream_analyzer
-      data:
-        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
-        message:
-          "Summarize the events based on a series of images captured at short
-          intervals. Focus only on moving subjects such as people, vehicles, and other
-          active elements. Ignore static objects and scenery. Provide a clear and concise
-          account of movements and interactions. Do not mention or imply the existence
-          of images—present the information as if directly observing the events. If
-          no movement is detected, respond with: 'No activity observed.'
+  - action: llmvision.stream_analyzer
+    data:
+      provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
+      message: 'Summarize the events based on a series of images captured at short
+        intervals. Focus only on moving subjects such as people, vehicles, and other
+        active elements. Ignore static objects and scenery. Provide a clear and concise
+        account of movements and interactions. Do not mention or imply the existence
+        of images—present the information as if directly observing the events. If
+        no movement is detected, respond with: ''No activity observed.''
 
-          "
-        model: gpt-4o-mini
-        remember: true
-        use_memory: true
-        image_entity:
-          - camera.driveway_cam_0
-        duration: 8
-        max_frames: 3
-        include_filename: true
-        target_width: 640
-        max_tokens: 40
-        generate_title: true
-        expose_images: true
-      response_variable: response
-    - alias: Update label with title
-      variables:
-        label: "{{response.title}}"
-    - delay:
-        seconds: 2
-    - alias: (Snapshot) Update notification on notify devices
-      action: notify.mobile_app_pixel_8_pro
+        '
+      model: gpt-4o-mini
+      remember: true
+      use_memory: true
+      image_entity:
+      - camera.driveway_cam_0
+      duration: 8
+      max_frames: 3
+      include_filename: true
+      target_width: 640
+      max_tokens: 40
+      generate_title: true
+      expose_images: true
+    response_variable: response
+  - alias: Update label with title
+    variables:
+      label: '{{response.title}}'
+  - delay:
+      seconds: 2
+  - alias: (Snapshot) Update notification on notify devices
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      title: '{{ label }}'
+      message: '{{response.response_text}}'
       data:
-        title: "{{ label }}"
-        message: "{{response.response_text}}"
-        data:
-          notification_icon: mdi:cctv
-          image: /local/tmp/last_snapshot_driveway.jpg
-          persistent: true
-          color: red
-          channel: Cameras
-          tag: Motion
-          actions:
-            - action: URI
-              title: Click to Open Cameras
-              uri: /dashboard-cast/driveway
-    - delay:
-        seconds: 1
-    - alias: TTS notification on notify devices
-      action: notify.mobile_app_pixel_8_pro
+        notification_icon: mdi:cctv
+        image: /local/tmp/last_snapshot_driveway.jpg
+        persistent: true
+        color: red
+        channel: Cameras
+        tag: Motion
+        actions:
+        - action: URI
+          title: Click to Open Cameras
+          uri: /dashboard-cast/driveway
+  - delay:
+      seconds: 1
+  - alias: TTS notification on notify devices
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      message: TTS
       data:
-        message: TTS
-        data:
-          ttl: 0
-          priority: high
-          media_stream: alarm_stream_max
-          tts_text: "{{response.response_text}}"
-    - alias: Gmail notification to Darren
-      action: notify.alphaprops_dwilson_gmail_com
-      data:
-        message: "{{response.response_text}}"
-        target:
-          - alphaprops.dwilson@gmail.com
-    - action: camera.record
+        ttl: 0
+        priority: high
+        media_stream: alarm_stream_max
+        tts_text: '{{response.response_text}}'
+  - alias: Gmail notification to Darren
+    action: notify.alphaprops_dwilson_gmail_com
+    data:
+      message: '{{response.response_text}}'
       target:
-        entity_id: camera.driveway_cam_0
-      data:
-        filename: /config/www/tmp/last_video_snapshot_driveway.mp4
-        duration: 6
-      enabled: false
+      - alphaprops.dwilson@gmail.com
+  - action: camera.record
+    target:
+      entity_id: camera.driveway_cam_0
+    data:
+      filename: /config/www/tmp/last_video_snapshot_driveway.mp4
+      duration: 6
+    enabled: false
 patio_video_snapshot:
   alias: patio video snapshot
   description: save latest patio video clip
   sequence:
-    - action: llmvision.stream_analyzer
-      data:
-        provider: 01JZECF0T517YNCCB6WV6KTS3K
-        message:
-          "Summarize the events based on a series of images captured at short
-          intervals. Focus only on moving subjects such as people, vehicles, and other
-          active elements. Ignore static objects and scenery. Provide a clear and concise
-          account of movements and interactions. Do not mention or imply the existence
-          of images—present the information as if directly observing the events. If
-          no movement is detected, respond with: 'No activity observed.'
+  - action: llmvision.stream_analyzer
+    data:
+      provider: 01JZECF0T517YNCCB6WV6KTS3K
+      message: 'Summarize the events based on a series of images captured at short
+        intervals. Focus only on moving subjects such as people, vehicles, and other
+        active elements. Ignore static objects and scenery. Provide a clear and concise
+        account of movements and interactions. Do not mention or imply the existence
+        of images—present the information as if directly observing the events. If
+        no movement is detected, respond with: ''No activity observed.''
 
-          "
-        model: gemini-2.5-pro
-        remember: true
-        use_memory: true
-        image_entity:
-          - camera.patio_cam_0
-        duration: 8
-        max_frames: 3
-        include_filename: true
-        target_width: 1280
-        max_tokens: 40
-        generate_title: true
-        expose_images: true
-      response_variable: response
-    - alias: Update label with title
-      variables:
-        label: "{{response.title}}"
-    - delay:
-        seconds: 2
-    - alias: (Snapshot) Update notification on notify devices
-      action: notify.mobile_app_pixel_8_pro
+        '
+      model: gemini-2.5-pro
+      remember: true
+      use_memory: true
+      image_entity:
+      - camera.patio_cam_0
+      duration: 8
+      max_frames: 3
+      include_filename: true
+      target_width: 1280
+      max_tokens: 40
+      generate_title: true
+      expose_images: true
+    response_variable: response
+  - alias: Update label with title
+    variables:
+      label: '{{response.title}}'
+  - delay:
+      seconds: 2
+  - alias: (Snapshot) Update notification on notify devices
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      title: '{{ label }}'
+      message: '{{response.response_text}}'
       data:
-        title: "{{ label }}"
-        message: "{{response.response_text}}"
-        data:
-          notification_icon: mdi:cctv
-          image: /local/tmp/last_snapshot_patio.jpg
-          persistent: true
-          color: red
-          channel: Cameras
-          tag: Motion
-          actions:
-            - action: URI
-              title: Click to Open Cameras
-              uri: /dashboard-cast/patio
-    - delay:
-        seconds: 1
-    - alias: TTS notification on notify devices
-      action: notify.mobile_app_pixel_8_pro
+        notification_icon: mdi:cctv
+        image: /local/tmp/last_snapshot_patio.jpg
+        persistent: true
+        color: red
+        channel: Cameras
+        tag: Motion
+        actions:
+        - action: URI
+          title: Click to Open Cameras
+          uri: /dashboard-cast/patio
+  - delay:
+      seconds: 1
+  - alias: TTS notification on notify devices
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      message: TTS
       data:
-        message: TTS
-        data:
-          ttl: 0
-          priority: high
-          media_stream: alarm_stream_max
-          tts_text: "{{response.response_text}}"
-    - alias: Gmail notification to Darren
-      action: notify.alphaprops_dwilson_gmail_com
-      data:
-        message: "{{response.response_text}}"
-        target:
-          - alphaprops.dwilson@gmail.com
-    - action: camera.record
+        ttl: 0
+        priority: high
+        media_stream: alarm_stream_max
+        tts_text: '{{response.response_text}}'
+  - alias: Gmail notification to Darren
+    action: notify.alphaprops_dwilson_gmail_com
+    data:
+      message: '{{response.response_text}}'
       target:
-        entity_id: camera.patio_cam_0
-      data:
-        filename: /config/www/tmp/last_video_snapshot_patio.mp4
-        duration: 6
-      enabled: false
+      - alphaprops.dwilson@gmail.com
+  - action: camera.record
+    target:
+      entity_id: camera.patio_cam_0
+    data:
+      filename: /config/www/tmp/last_video_snapshot_patio.mp4
+      duration: 6
+    enabled: false
 tablet_home_screen:
   alias: tablet home screen
   description: tablet navigate back home screen
   sequence:
-    - action: input_select.select_option
-      data:
-        option: buttonshow
-      target:
-        entity_id: input_select.button_animation_2
-    - action: input_select.select_option
-      data:
-        option: mainsection
-      target:
-        entity_id: input_select.button_layout
+  - action: input_select.select_option
+    data:
+      option: buttonshow
+    target:
+      entity_id: input_select.button_animation_2
+  - action: input_select.select_option
+    data:
+      option: mainsection
+    target:
+      entity_id: input_select.button_layout
 yellow_space:
   alias: browser yellow
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Yellow-Nightz
-    - action: input_select.select_option
-      data:
-        option: space
-      target:
-        entity_id: input_select.video_wallpaper
-    - action: input_select.select_option
-      data:
-        option: mobile6
-      target:
-        entity_id: input_select.mobilelayout
+  - action: frontend.set_theme
+    data:
+      name: Yellow-Nightz
+  - action: input_select.select_option
+    data:
+      option: space
+    target:
+      entity_id: input_select.video_wallpaper
+  - action: input_select.select_option
+    data:
+      option: mobile6
+    target:
+      entity_id: input_select.mobilelayout
 tv_volume_down:
   alias: volume down
   sequence:
-    - action: media_player.play_media
-      data:
-        entity_id: media_player.family_tv
-        media_content_type: send_key
-        media_content_id: KEY_VOLDOWN
+  - action: media_player.play_media
+    data:
+      entity_id: media_player.family_tv
+      media_content_type: send_key
+      media_content_id: KEY_VOLDOWN
 tv_volume_up:
   alias: volume up
   sequence:
-    - action: media_player.play_media
-      data:
-        entity_id: media_player.family_tv
-        media_content_type: send_key
-        media_content_id: KEY_VOLUP
+  - action: media_player.play_media
+    data:
+      entity_id: media_player.family_tv
+      media_content_type: send_key
+      media_content_id: KEY_VOLUP
 tv_volume_mute:
   alias: volume mute
   sequence:
-    - action: media_player.play_media
-      data:
-        entity_id: media_player.family_tv
-        media_content_type: send_key
-        media_content_id: KEY_MUTE
+  - action: media_player.play_media
+    data:
+      entity_id: media_player.family_tv
+      media_content_type: send_key
+      media_content_id: KEY_MUTE
 voice_google_search:
   sequence:
-    - action: conversation.process
-      metadata: {}
-      data:
-        agent_id: conversation.google_generative_ai_conversation
-        text: "{{ query }}"
-      response_variable: result
-    - variables:
-        result:
-          response: "{{ result.response.speech.plain.speech }}"
-    - stop: ""
-      response_variable: result
-  alias: "Assist: Search Google"
-  description:
-    Makes a Google search to answer questions that are completely unrelated
+  - action: conversation.process
+    metadata: {}
+    data:
+      agent_id: conversation.google_generative_ai_conversation
+      text: '{{ query }}'
+    response_variable: result
+  - variables:
+      result:
+        response: '{{ result.response.speech.plain.speech }}'
+  - stop: ''
+    response_variable: result
+  alias: 'Assist: Search Google'
+  description: Makes a Google search to answer questions that are completely unrelated
     with the smart home and are exclusively about current events or information in
     real-time like the current president, results of last night's game, release dates,
     etc.
@@ -795,219 +637,146 @@ voice_google_search:
       name: Query
       description: The query to search Google for
       required: true
-tts_daily_msg:
-  alias: daily morning message
-  sequence:
-    - variables:
-        weather_entity: weather.bayou_gman_s
-        calendar_entity: calendar.dwilson_churchoftheking_com
-        zone_entity: zone.home
-        calendar_duration:
-          hours: 24
-        prompt:
-          'You are Darren''s personal AI assistant, and your goal is to generate
-          a warm, insightful, and helpful spoken message to start his day.
-
-          Adopt a friendly and inviting tone, with a playful hint of mischief. For example,
-          you might start with something like "Rise and shine, Darren. The world has
-          been waiting for you."
-
-          Craft a single, conversational paragraph that seamlessly includes the following
-          key information. Do not use lists in your final response.
-
-          - **Greeting and Time:** Always start by stating the current day of the week,
-          the full date, and the current time in 12-hour format.
-
-          - **Local Weather:** Provide a concise weather report for Madisonville, Louisiana.
-          Include the current temperature, humidity, and air quality level. Then, highlight
-          the forecast for the next 3 hours. Make a special note of any unusual weather
-          for this time of year, but skip mundane details like a "0% chance of rain."
-
-          - **Today''s Schedule:** Mention how much time is left until Darren''s first
-          calendar event or meeting. If his schedule is clear, mention that he has an
-          open morning.
-
-          - **Special Occasions:** Note anything unique about today, such as a birthday
-          or holiday.
-
-          - **Inspiration:** Conclude with two distinct and inspirational Bible verses
-          from the New Testament (NIV translation).
-
-          **Important:** Your entire response must sound natural when spoken. Do not
-          mention technical terms, Home Assistant, or internal system details.'
-    - alias: Fetch Weather Forecast
-      action: weather.get_forecasts
-      data:
-        type: hourly
-      target:
-        entity_id:
-          - "{{ weather_entity }}"
-      response_variable: daily_forecast
-    - variables:
-        forecast_entity: "{{ daily_forecast[weather_entity] }}"
-        forecast: "{{ forecast_entity.forecast[0] }}"
-    - alias: Fetch Calendar Agenda
-      action: calendar.get_events
-      data:
-        duration:
-          hours: 24
-      target:
-        entity_id: calendar.dwilson_churchoftheking_com
-      response_variable: events_response
-    - alias: Conversation Agent Notification Text
-      action: conversation.process
-      data:
-        text:
-          "Time: {{ now().strftime(\"%A %B %d %H:%M %p\") }}\n{%- if weather_entity
-          is defined %}\n{%- set temperature_unit = state_attr(weather_entity, 'temperature_unit')
-          -%}\nForecast: {{ forecast.condition }} ({{ forecast.temperature }}{{ temperature_unit
-          }}, {{ forecast.precipitation }}% precipitation)\n{%- endif %}\n\nCalendar
-          \"{{ state_attr(calendar_entity, 'friendly_name') }}\" events for the next
-          {{ calendar_duration.hours }} hours:\n{%- set agenda = (events_response |
-          items | first)[1] %}\n{%- if agenda.events %}\n  {%- for event in agenda.events
-          %}\n  - Summary: {{ event.summary }}\n    Start-End: {% if event.start is
-          defined %}{{ event.start }} to {{ event.end }}{% else %}All Day{% endif %}\n
-          \   {%- if event.description is defined %}\n    Description: {{ event.description
-          }}\n    {% endif -%}\n    {%- if event.location is defined %}\n      Location:
-          {{ event.location }}\n    {% endif -%}\n  {%- endfor %}\n{%- else %}\n  -
-          No upcoming events.\n{%- endif %}\n\n{{ prompt }}"
-        agent_id: conversation.google_generative_ai
-      response_variable: agent
-    - alias: Send notification
-      action: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id:
-          - media_player.office_display
-        volume_level: 0.2
-    - action: tts.cloud_say
-      continue_on_error: true
-      entity_id:
-        - media_player.office_display
-      data_template:
-        message: "{{ agent.response.speech.plain.speech }}"
 tts_daily_msg_donna:
   alias: tts daily msg donna
   sequence:
-    - variables:
-        weather_entity: weather.bayou_gman_s
-        calendar_entity: calendar.holidays_in_united_states
-        zone_entity: zone.home
-        calendar_duration:
-          hours: 24
-        prompt:
-          'You are Donna''s personal AI assistant, and your goal is to generate
-          a warm, insightful, and helpful spoken message to start her day.
-
-          Adopt a friendly and inviting tone, with a playful hint of mischief. For example,
-          you might start with something like "Rise and shine, Donna. The world has
-          been waiting for you."
-
-          Craft a single, conversational paragraph that seamlessly includes the following
-          key information. Do not use lists in your final response.
-
-          - **Greeting and Time:** Always start by stating the current day of the week,
-          the full date, and the current time in 12-hour format.
-
-          - **Local Weather:** Provide a concise weather report for Madisonville, Louisiana.
-          Include the current temperature, humidity, and air quality level. Then, highlight
-          the forecast for the next 3 hours. Make a special note of any unusual weather
-          for this time of year, but skip mundane details like a "0% chance of rain."
-
-          - **Special Occasions:** Note anything unique about today, such as a birthday
-          or holiday.
-
-          - **Inspiration:** Conclude with two distinct and random inspirational Bible
-          verses from the New Testament (NIV translation).
-
-          **Important:** Your entire response must sound natural when spoken. Do not
-          mention technical terms, Home Assistant, or internal system details.'
-    - alias: Fetch Weather Forecast
-      action: weather.get_forecasts
-      data:
-        type: hourly
-      target:
-        entity_id:
-          - "{{ weather_entity }}"
-      response_variable: daily_forecast
-    - variables:
-        forecast_entity: "{{ daily_forecast[weather_entity] }}"
-        forecast: "{{ forecast_entity.forecast[0] }}"
-    - alias: Fetch Calendar Agenda
-      action: calendar.get_events
-      data:
-        duration:
-          hours: 24
-      target:
-        entity_id: calendar.holidays_in_united_states
-      response_variable: events_response
-    - alias: Conversation Agent Notification Text
-      action: conversation.process
-      data:
-        text:
-          "Time: {{ now().strftime(\"%A %B %d %H:%M %p\") }}\n{%- if weather_entity
-          is defined %}\n{%- set temperature_unit = state_attr(weather_entity, 'temperature_unit')
-          -%}\nForecast: {{ forecast.condition }} ({{ forecast.temperature }}{{ temperature_unit
-          }}, {{ forecast.precipitation }}% precipitation)\n{%- endif %}\n\nCalendar
-          \"{{ state_attr(calendar_entity, 'friendly_name') }}\" events for the next
-          {{ calendar_duration.hours }} hours:\n{%- set agenda = (events_response |
-          items | first)[1] %}\n{%- if agenda.events %}\n  {%- for event in agenda.events
-          %}\n  - Summary: {{ event.summary }}\n    Start-End: {% if event.start is
-          defined %}{{ event.start }} to {{ event.end }}{% else %}All Day{% endif %}\n
-          \   {%- if event.description is defined %}\n    Description: {{ event.description
-          }}\n    {% endif -%}\n    {%- if event.location is defined %}\n      Location:
-          {{ event.location }}\n    {% endif -%}\n  {%- endfor %}\n{%- else %}\n  -
-          No upcoming events.\n{%- endif %}\n\n{{ prompt }}"
-        agent_id: conversation.google_generative_ai
-      response_variable: agent
-    - alias: Send notification
-      action: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id:
-          - media_player.bedroom_stereo
-        volume_level: 0.2
-    - action: tts.cloud_say
-      continue_on_error: true
-      entity_id:
-        - media_player.bedroom_stereo
-      data_template:
-        message: "{{ agent.response.speech.plain.speech }}"
+  - variables:
+      weather_entity: "{% set candidates = [\n  'weather.bayou_gman_s',\n  'weather.tomorrow_io_new_life_hourly',\n
+        \ 'weather.khdc_daynight',\n  'weather.home'\n] %} {% set ns = namespace(found=candidates[0])
+        %} {% for entity in candidates %}\n  {% if states(entity) not in ['unavailable',
+        'unknown'] %}\n    {% set ns.found = entity %}\n    {% break %}\n  {% endif
+        %}\n{% endfor %} {{ ns.found }}"
+      air_quality_entity: sensor.waqi_northshore_site_madisonville_louisiana_usa
+      calendar_entity: calendar.holidays_in_united_states
+      verse_entity: sensor.verse_of_the_day
+      nws_entity: sensor.nws_alerts_alerts
+      calendar_duration:
+        hours: 24
+      active_alerts_count: '{{ states(nws_entity) | int(0) }}'
+      active_alerts_data: '{{ state_attr(nws_entity, ''Alerts'') if active_alerts_count
+        > 0 else [] }}'
+      verse_text: "{% set verse_state = states(verse_entity) %}\n{% set verse_attr
+        = state_attr(verse_entity, 'text') or state_attr(verse_entity, 'content')
+        or '' %}\n{% if verse_state not in ['unavailable', 'unknown', 'none', '']
+        and verse_attr | length > 5 %}\n  {{ verse_attr }}\n{% else %}\n  unavailable\n{%
+        endif %}"
+      prompt: "You are Donna's personal AI assistant. Generate a warm, insightful,
+        and helpful spoken message to start her day.\nAdopt a friendly and inviting
+        tone with a playful hint of mischief.\nCraft a single, conversational paragraph
+        including:\n- **Greeting:** Day of week, date, and time.\n- **Weather:** Current
+        conditions, humidity, and air quality (AQI) for Madisonville, LA.\n  Analyze
+        the provided 3-hour forecast trend (is it warming up? raining soon?)\n  and
+        mention anything notable.\n- **Safety Alerts:** If there are active weather
+        alerts in the data provided below,\n  briefly summarize them (e.g., \"There
+        is currently a Dense Fog Advisory in effect\").\n  If there are no alerts,
+        do not mention this section.\n- **Schedule:** Time until the first meeting
+        or event. If clear, mention the open day.\n- **Inspiration:** {% if verse_text
+        != 'unavailable' %}The verse for today is \"{{ states(verse_entity) }}\".
+        Here is the text to read: \"{{ verse_text }}\"{% else %}The verse for today
+        is \"{{ states(verse_entity) }}\". The text is currently unavailable in the
+        sensor, so please recite this full verse reference from your own knowledge
+        using the NIV translation.{% endif %}\n\nSound natural. Do not mention \"Home
+        Assistant\", technical data formats, or \"0 alerts\"."
+  - alias: Fetch Weather Forecast
+    action: weather.get_forecasts
+    continue_on_error: true
+    data:
+      type: hourly
+    target:
+      entity_id: '{{ weather_entity }}'
+    response_variable: daily_forecast
+  - variables:
+      forecast_data: '{{ daily_forecast[weather_entity].forecast if daily_forecast
+        is defined and weather_entity in daily_forecast else [] }}'
+      forecast_list: '{{ forecast_data[:3] }}'
+      current_humidity: '{{ state_attr(weather_entity, ''humidity'') }}'
+      current_condition: '{{ states(weather_entity) }}'
+      current_aqi: '{{ states(air_quality_entity) }}'
+  - alias: Fetch Calendar Agenda
+    action: calendar.get_events
+    continue_on_error: true
+    data:
+      duration:
+        hours: 24
+    target:
+      entity_id: '{{ calendar_entity }}'
+    response_variable: events_response
+  - alias: Conversation Agent Notification Text
+    action: conversation.process
+    continue_on_error: true
+    data:
+      agent_id: conversation.google_generative_ai
+      text: "Current Time: {{ now().strftime(\"%A, %B %d, %I:%M %p\") }}\nCurrent
+        Weather: {{ current_condition }}, {{ current_humidity }}% Humidity. Current
+        Air Quality (AQI): {{ current_aqi }}\nActive NWS Weather Alerts: {%- if active_alerts_count
+        > 0 and active_alerts_data is iterable %}\n  {%- for alert in active_alerts_data
+        %}\n  - {{ alert.Event }}: {{ alert.Headline }}\n  {%- endfor %}\n{%- else
+        %}\n  None\n{%- endif %}\nForecast next 3 hours:  {%- if forecast_list | length
+        > 0 %}\n  {%- for f in forecast_list %}\n  - {{ as_timestamp(f.datetime) |
+        timestamp_custom('%I %p') }}: {{ f.condition }}, {{ f.temperature }} degrees.\n
+        \ {%- endfor %}\n{%- else %}\n  (Weather forecast data is temporarily unavailable,
+        please mention current weather only)\n{%- endif %}\nCalendar for next 24h:
+        \ {%- set agenda = (events_response | items | first)[1] if events_response
+        is defined else {'events': []} %} {%- if agenda.events %}\n  {%- for event
+        in agenda.events %}\n  - {{ event.summary }} at {{ as_timestamp(event.start)
+        | timestamp_custom('%I:%M %p') }}\n  {%- endfor %}\n{%- else %}\n  - No upcoming
+        events.\n{%- endif %}\n{{ prompt }}"
+    response_variable: agent
+  - alias: Send notification
+    action: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.bedroom_stereo_3
+      volume_level: 0.2
+  - action: tts.cloud_say
+    continue_on_error: true
+    entity_id: media_player.bedroom_stereo_3
+    data:
+      message: '{{ (agent.response.speech.plain.speech | replace(''*'', '''') | replace(''#'',
+        '''') if agent is defined and agent.response is defined else ''Good morning!
+        Your daily briefing is currently unavailable.'') }}'
 tts_alerts_mailbox:
   alias: tts alerts mailbox
   sequence:
-    - condition: state
-      entity_id: sensor.pixel_8_pro_ringer_mode
-      state: normal
-    - condition: state
-      entity_id: sensor.pixel_8_pro_do_not_disturb_sensor
-      state: "off"
-    - action: notify.mobile_app_pixel_8_pro
+  - condition: state
+    entity_id: sensor.pixel_8_pro_ringer_mode
+    state: normal
+  - condition: state
+    entity_id: sensor.pixel_8_pro_do_not_disturb_sensor
+    state: 'off'
+  - action: notify.mobile_app_pixel_8_pro
+    data:
+      message: TTS
       data:
-        message: TTS
-        data:
-          tts_text: You've got mail!!!
-          media_stream: alarm_stream_max
+        tts_text: You've got mail!!!
+        media_stream: alarm_stream_max
 screen_changer:
   alias: screen changer
   sequence:
-    - action: homeassistant.turn_on
-      data:
-        entity_id: input_boolean.sports_updates
-    - action: input_select.select_option
-      data:
-        entity_id: input_select.mobilelayout2
-        option: mobile23
+  - action: homeassistant.turn_on
+    data:
+      entity_id: input_boolean.sports_updates
+  - action: input_select.select_option
+    data:
+      entity_id: input_select.mobilelayout2
+      option: mobile23
 good_night:
-  alias: good night
+  alias: Good Night
+  icon: mdi:weather-night
+  mode: restart
   sequence:
+  - parallel:
     - action: homeassistant.turn_off
       continue_on_error: true
-      entity_id:
+      target:
+        entity_id:
         - light.every_light
         - light.office_floor_lights
         - switch.night_switches
         - switch.keurig_coffee_maker
+        - switch.patio_led_outlet
+        - switch.main_kiosk_screen
+        - media_player.ensuite_tv
         - input_boolean.motion_lights
         - input_boolean.disable_popups
         - input_boolean.darren_s_alarm_triggered_today
@@ -1020,15 +789,16 @@ good_night:
         - input_boolean.auto_backgroundz
         - input_boolean.sports_updates
         - input_boolean.radar_updates
-        - switch.patio_led_outlet
     - action: alarm_control_panel.alarm_arm_night
       continue_on_error: true
-      entity_id: alarm_control_panel.alarmo
+      target:
+        entity_id: alarm_control_panel.alarmo
       data:
-        code: "{{ states('input_text.secure_code') }}"
+        code: '{{ states(''input_text.secure_code'') }}'
     - action: homeassistant.turn_on
       continue_on_error: true
-      entity_id:
+      target:
+        entity_id:
         - input_boolean.good_night_executed
         - input_boolean.naptime
         - input_boolean.camera_snapshots
@@ -1036,1371 +806,991 @@ good_night:
         - switch.air_cleaner
         - input_boolean.disable_auto_garage
         - input_boolean.disable_laundry_notifications
-    - choose:
-        - conditions:
-            - condition: state
-              entity_id: media_player.office_display
-              state: "off"
-          sequence:
-            - action: media_player.volume_set
-              data:
-                volume_level: 0
-              target:
-                entity_id: media_player.office_display
-            - action: media_player.turn_on
-              target:
-                entity_id: media_player.office_display
-            - wait_template: "{{ is_state('media_player.office_display', 'idle') }}"
-            - action: media_player.volume_set
-              data:
-                volume_level: 0.2
-              target:
-                entity_id: media_player.office_display
-        - conditions:
-            - condition: state
-              entity_id: media_player.office_display
-              state: idle
-          sequence:
-            - action: media_player.volume_set
-              data:
-                volume_level: 0.2
-              target:
-                entity_id: media_player.office_display
-            - delay: 1
-    - action: tts.google_say
-      continue_on_error: true
-      entity_id:
-        - media_player.office_display
-      data_template:
-        message:
-          'Good night. {{ ["You are a child of God.", "Sleep well!", "God is
-          good ALL the time!"] | random }}
-
-          '
-    - action: google_assistant_sdk.send_text_command
-      continue_on_error: true
-      data:
-        command: turn off kitchen water heater
-    - action: media_player.volume_set
-      continue_on_error: true
-      data:
-        volume_level: 0.5
-      target:
-        entity_id: media_player.office_display
-    - action: media_player.play_media
-      continue_on_error: true
-      metadata: {}
-      data:
-        media:
-          media_content_id: library://playlist/100
-          media_content_type: music
-          metadata:
-            title: Sleepyhead
-            thumbnail: https://mosaic.scdn.co/640/ab67616d00001e023f57589f62ba222552370ac8ab67616d00001e0254fd590e1d82f29e50061821ab67616d00001e026966eaa8ebf1d1ac3fe60605ab67616d00001e02f1034d56d6468293d0c09917
-            media_class: playlist
-            children_media_class:
-            navigateIds:
-              - {}
-              - media_content_type: music_assistant
-                media_content_id: playlists
-            browse_entity_id: media_player.office_display
-      target:
-        entity_id: media_player.office_display
-    - action: homeassistant.turn_off
-      continue_on_error: true
-      entity_id: switch.main_kiosk_screen
-    - action: notify.mobile_app_pixel_8_pro
-      continue_on_error: true
-      data:
-        message: command_broadcast_intent
-        data:
-          intent_package_name: com.urbandroid.sleep
-          intent_action: com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK
-          ttl: 0
-          priority: high
-    - delay: 2
-    - action: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id: media_player.living_room_google
-        volume_level: 0.3
-    - action: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id: media_player.tv_speakers
-        volume_level: 0.3
-    - action: media_player.turn_off
-      continue_on_error: true
-      target:
-        entity_id: media_player.ensuite_tv
-    - delay: 1
     - action: lock.lock
       continue_on_error: true
       target:
         entity_id:
-          - lock.side_door
-          - lock.back_door
-morning:
-  alias: morning wake up
-  sequence:
-    - condition: state
-      entity_id: input_boolean.morning_triggered_today
-      state: "off"
-    - action: alarm_control_panel.alarm_disarm
-      entity_id: alarm_control_panel.alarmo
-      data:
-        code: "{{ states('input_text.secure_code') }}"
-    - action: mqtt.publish
+        - lock.side_door
+        - lock.back_door
+    - action: google_assistant_sdk.send_text_command
       continue_on_error: true
       data:
-        topic: cmnd/cabinets/power1
-        payload: "ON"
-        retain: "true"
-    - action: input_boolean.turn_off
+        command: turn off kitchen water heater
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: media_player.office_display
+        state: 'off'
+      sequence:
+      - action: media_player.turn_on
+        target:
+          entity_id: media_player.office_display
+      - wait_template: '{{ not is_state(''media_player.office_display'', ''off'')
+          }}'
+        timeout: 00:00:10
+        continue_on_timeout: true
+      - action: media_player.volume_set
+        target:
+          entity_id: media_player.office_display
+        data:
+          volume_level: 0.2
+  - wait_template: '{{ is_state(''media_player.office_display'', ''idle'') }}'
+    timeout: 00:00:05
+    continue_on_timeout: true
+  - action: script.tts_bedtime_msg_darren
+    continue_on_error: true
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
+      entity_id: media_player.office_display
+    data:
+      volume_level: 0.5
+  - action: media_player.play_media
+    continue_on_error: true
+    target:
+      entity_id: media_player.office_display
+    data:
+      media_content_id: deezer--sKaFPBto://track/1990100927
+      media_content_type: music
+      metadata:
+        title: Brown Noise Stream
+        media_class: track
+  - action: notify.mobile_app_pixel_8_pro
+    continue_on_error: true
+    data:
+      message: command_broadcast_intent
+      data:
+        intent_package_name: com.urbandroid.sleep
+        intent_action: com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK
+        ttl: 0
+        priority: high
+  - device_id: a1e84293f3bbd9cb62393962d06c9783
+    domain: select
+    entity_id: 29d0aad0050f80c41f3da43c733a8404
+    type: select_first
+    continue_on_error: true
+  - delay:
+      seconds: 10
+  - device_id: a1e84293f3bbd9cb62393962d06c9783
+    domain: select
+    entity_id: 5fc820debd0a25d6a51ae4d261fa391c
+    type: select_last
+    continue_on_error: true
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
       entity_id:
+      - media_player.den_mini
+      - media_player.tv_speakers
+    data:
+      volume_level: 0.3
+morning:
+  alias: Morning
+  icon: mdi:weather-sunny
+  mode: single
+  sequence:
+  - condition: state
+    entity_id: input_boolean.morning_triggered_today
+    state: 'off'
+  - parallel:
+    - action: alarm_control_panel.alarm_disarm
+      target:
+        entity_id: alarm_control_panel.alarmo
+      data:
+        code: '{{ states(''input_text.secure_code'') }}'
+    - action: input_boolean.turn_off
+      target:
+        entity_id:
         - input_boolean.good_night_executed
         - input_boolean.disable_laundry_notifications
         - input_boolean.patio_garage_alerts
         - input_boolean.alarm_disarm_switch
         - input_boolean.naptime
-    - action: google_assistant_sdk.send_text_command
-      continue_on_error: true
-      data:
-        command: turn on kitchen water heater
     - action: homeassistant.turn_on
-      continue_on_error: true
-      entity_id:
+      target:
+        entity_id:
         - input_boolean.auto_backgroundz
         - input_boolean.auto_tablet
-        - input_boolean.auto_backgroundz
         - light.sofa_lamp
         - switch.main_kiosk_screen
         - switch.den_nightlight_plugs
         - switch.keurig_coffee_maker
+        - switch.office_work_bench_zb
+    - action: google_assistant_sdk.send_text_command
+      continue_on_error: true
+      data:
+        command: turn on kitchen water heater
     - action: script.browser_window_reload
       continue_on_error: true
-    - delay: 300
-    - action: input_boolean.turn_on
-      entity_id:
-        - input_boolean.morning_triggered_today
-    - action: homeassistant.turn_off
-      continue_on_error: true
-      entity_id:
-        - switch.attic_outlet
-    - delay: 30
-    - action: homeassistant.turn_on
-      continue_on_error: true
-      entity_id:
-        - switch.attic_outlet
-browser_blackout_button:
-  alias: browser blackout button
-  sequence:
-    - action: tts.google_say
-      data:
-        entity_id:
-          - media_player.office_speaker
-      data_template:
-        message: Browser blackout is active
+  - delay: 10
+  - action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.morning_triggered_today
 browser_theme_ocean:
   alias: browser theme ocean
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Ocean-Nightz
-    - action: browser_mod.set_theme
-      data:
-        theme: Ocean-Nightz
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
-    - action: input_select.set_options
+  - action: frontend.set_theme
+    data:
+      name: Ocean-Nightz
+  - action: browser_mod.set_theme
+    data:
+      theme: Ocean-Nightz
+      browser_id:
+      - browser_ac9b7f58_cfbfe785
+  - action: input_select.set_options
+    entity_id: input_select.mobile_wallpaper
+    data_template:
+      options:
+      - mobile1
+      - mobile23
+      - mobile3
+      - mobile4
+      - mobile51
+      - mobile6
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile11
+      - mobile121
+      - mobile14
+      - mobile15
+      - mobile16
+      - mobile171
+      - mobile18
+  - action: input_select.random
+    target:
       entity_id: input_select.mobile_wallpaper
-      data_template:
-        options:
-          - mobile1
-          - mobile23
-          - mobile3
-          - mobile4
-          - mobile51
-          - mobile6
-          - mobile7
-          - mobile8
-          - mobile9
-          - mobile10
-          - mobile11
-          - mobile121
-          - mobile14
-          - mobile15
-          - mobile16
-          - mobile171
-          - mobile18
-    - wait_template: "{{ state_attr('input_select.mobile_wallpaper', 'options') | first == 'mobile1' }}"
-      timeout: 5
-      continue_on_timeout: true
-    - action: input_select.select_first
-      target:
-        entity_id: input_select.mobile_wallpaper
 browser_theme_purple:
   alias: browser theme purple
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Purple-Nightz
-    - action: input_select.set_options
+  - action: frontend.set_theme
+    data:
+      name: Purple-Nightz
+  - action: input_select.set_options
+    entity_id: input_select.mobile_wallpaper
+    data_template:
+      options:
+      - mobile20
+      - mobile21
+      - mobile1
+      - mobile19
+      - mobile3
+      - mobile51
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile11
+      - mobile13
+      - mobile14
+      - mobile15
+      - mobile16
+      - mobile18
+  - action: input_select.random
+    target:
       entity_id: input_select.mobile_wallpaper
-      data_template:
-        options:
-          - mobile20
-          - mobile21
-          - mobile1
-          - mobile19
-          - mobile3
-          - mobile51
-          - mobile7
-          - mobile8
-          - mobile9
-          - mobile10
-          - mobile11
-          - mobile13
-          - mobile14
-          - mobile15
-          - mobile16
-          - mobile18
-    - wait_template: "{{ state_attr('input_select.mobile_wallpaper', 'options') | first == 'mobile20' }}"
-      timeout: 5
-      continue_on_timeout: true
-    - action: input_select.select_first
-      target:
-        entity_id: input_select.mobile_wallpaper
 browser_theme_green:
   alias: browser theme green
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Green-Nightz
-    - action: input_select.set_options
+  - action: frontend.set_theme
+    data:
+      name: Green-Nightz
+  - action: input_select.set_options
+    entity_id: input_select.mobile_wallpaper
+    data_template:
+      options:
+      - mobile23
+      - mobile11
+      - mobile18
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile3
+      - mobile13
+      - mobile1
+      - mobile15
+      - mobile16
+      - mobile51
+  - action: input_select.random
+    target:
       entity_id: input_select.mobile_wallpaper
-      data_template:
-        options:
-          - mobile23
-          - mobile11
-          - mobile18
-          - mobile7
-          - mobile8
-          - mobile9
-          - mobile10
-          - mobile3
-          - mobile13
-          - mobile1
-          - mobile15
-          - mobile16
-          - mobile51
-    - wait_template: "{{ state_attr('input_select.mobile_wallpaper', 'options') | first == 'mobile23' }}"
-      timeout: 5
-      continue_on_timeout: true
-    - action: input_select.select_first
-      target:
-        entity_id: input_select.mobile_wallpaper
 browser_theme_grey:
   alias: browser theme grey
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Grey-Nightz
-    - action: browser_mod.set_theme
-      data:
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
-        theme: Grey-Nightz
-    - action: input_select.set_options
+  - action: frontend.set_theme
+    data:
+      name: Grey-Nightz
+  - action: browser_mod.set_theme
+    data:
+      browser_id:
+      - browser_ac9b7f58_cfbfe785
+      theme: Grey-Nightz
+  - action: input_select.set_options
+    entity_id: input_select.mobile_wallpaper
+    data_template:
+      options:
+      - mobile14
+      - mobile23
+      - mobile18
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile3
+      - mobile13
+      - mobile1
+      - mobile15
+      - mobile16
+      - mobile51
+  - action: input_select.random
+    target:
       entity_id: input_select.mobile_wallpaper
-      data_template:
-        options:
-          - mobile14
-          - mobile23
-          - mobile18
-          - mobile7
-          - mobile8
-          - mobile9
-          - mobile10
-          - mobile3
-          - mobile13
-          - mobile1
-          - mobile15
-          - mobile16
-          - mobile51
-    - wait_template: "{{ state_attr('input_select.mobile_wallpaper', 'options') | first == 'mobile14' }}"
-      timeout: 5
-      continue_on_timeout: true
-    - action: input_select.select_first
-      target:
-        entity_id: input_select.mobile_wallpaper
 browser_theme_blue:
   alias: browser theme blue
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Blue-Nightz
-    - action: browser_mod.set_theme
-      data:
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
-        theme: Blue-Nightz
-    - action: input_select.set_options
+  - action: frontend.set_theme
+    data:
+      name: Blue-Nightz
+  - action: browser_mod.set_theme
+    data:
+      browser_id:
+      - browser_ac9b7f58_cfbfe785
+      theme: Blue-Nightz
+  - action: input_select.set_options
+    entity_id: input_select.mobile_wallpaper
+    data_template:
+      options:
+      - mobile6
+      - mobile11
+      - mobile18
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile3
+      - mobile13
+      - mobile1
+      - mobile15
+      - mobile16
+      - mobile51
+  - action: input_select.random
+    target:
       entity_id: input_select.mobile_wallpaper
-      data_template:
-        options:
-          - mobile6
-          - mobile11
-          - mobile18
-          - mobile7
-          - mobile8
-          - mobile9
-          - mobile10
-          - mobile3
-          - mobile13
-          - mobile1
-          - mobile15
-          - mobile16
-          - mobile51
-    - wait_template: "{{ state_attr('input_select.mobile_wallpaper', 'options') | first == 'mobile6' }}"
-      timeout: 5
-      continue_on_timeout: true
-    - action: input_select.select_first
-      target:
-        entity_id: input_select.mobile_wallpaper
 browser_theme_pink:
   alias: browser theme pink
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Pink-Nightz
-    - action: browser_mod.set_theme
-      data:
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
-        theme: Pink-Nightz
-    - action: input_select.set_options
+  - action: frontend.set_theme
+    data:
+      name: Pink-Nightz
+  - action: browser_mod.set_theme
+    data:
+      browser_id:
+      - browser_ac9b7f58_cfbfe785
+      theme: Pink-Nightz
+  - action: input_select.set_options
+    entity_id: input_select.mobile_wallpaper
+    data_template:
+      options:
+      - mobile52
+      - mobile11
+      - mobile18
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile3
+      - mobile13
+      - mobile1
+      - mobile15
+      - mobile16
+      - mobile51
+  - action: input_select.random
+    target:
       entity_id: input_select.mobile_wallpaper
-      data_template:
-        options:
-          - mobile52
-          - mobile11
-          - mobile18
-          - mobile7
-          - mobile8
-          - mobile9
-          - mobile10
-          - mobile3
-          - mobile13
-          - mobile1
-          - mobile15
-          - mobile16
-          - mobile51
-    - wait_template: "{{ state_attr('input_select.mobile_wallpaper', 'options') | first == 'mobile52' }}"
-      timeout: 5
-      continue_on_timeout: true
-    - action: input_select.select_first
-      target:
-        entity_id: input_select.mobile_wallpaper
 browser_theme_lime:
   alias: browser theme lime
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Lime-Nightz
-    - action: browser_mod.set_theme
-      data:
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
-        theme: Lime-Nightz
-    - action: input_select.set_options
+  - action: frontend.set_theme
+    data:
+      name: Lime-Nightz
+  - action: browser_mod.set_theme
+    data:
+      browser_id:
+      - browser_ac9b7f58_cfbfe785
+      theme: Lime-Nightz
+  - action: input_select.set_options
+    entity_id: input_select.mobile_wallpaper
+    data_template:
+      options:
+      - mobile171
+      - mobile172
+      - mobile18
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile3
+      - mobile13
+      - mobile1
+      - mobile15
+      - mobile16
+      - mobile51
+  - action: input_select.random
+    target:
       entity_id: input_select.mobile_wallpaper
-      data_template:
-        options:
-          - mobile171
-          - mobile172
-          - mobile18
-          - mobile7
-          - mobile8
-          - mobile9
-          - mobile10
-          - mobile3
-          - mobile13
-          - mobile1
-          - mobile15
-          - mobile16
-          - mobile51
-    - wait_template: "{{ state_attr('input_select.mobile_wallpaper', 'options') | first == 'mobile171' }}"
-      timeout: 5
-      continue_on_timeout: true
-    - action: input_select.select_first
-      target:
-        entity_id: input_select.mobile_wallpaper
 browser_theme_magenta:
   alias: browser theme magenta
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Magenta-Nightz
-    - action: browser_mod.set_theme
-      data:
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
-        theme: Magenta-Nightz
-    - action: input_select.set_options
+  - action: frontend.set_theme
+    data:
+      name: Magenta-Nightz
+  - action: browser_mod.set_theme
+    data:
+      browser_id:
+      - browser_ac9b7f58_cfbfe785
+      theme: Magenta-Nightz
+  - action: input_select.set_options
+    entity_id: input_select.mobile_wallpaper
+    data_template:
+      options:
+      - mobile6
+      - mobile11
+      - mobile18
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile3
+      - mobile13
+      - mobile1
+      - mobile15
+      - mobile16
+      - mobile51
+  - action: input_select.random
+    target:
       entity_id: input_select.mobile_wallpaper
-      data_template:
-        options:
-          - mobile6
-          - mobile11
-          - mobile18
-          - mobile7
-          - mobile8
-          - mobile9
-          - mobile10
-          - mobile3
-          - mobile13
-          - mobile1
-          - mobile15
-          - mobile16
-          - mobile51
-    - wait_template: "{{ state_attr('input_select.mobile_wallpaper', 'options') | first == 'mobile6' }}"
-      timeout: 5
-      continue_on_timeout: true
-    - action: input_select.select_first
-      target:
-        entity_id: input_select.mobile_wallpaper
 browser_theme_geaux:
   alias: browser theme geaux
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Geaux-Nightz
-    - action: browser_mod.set_theme
-      data:
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
-        theme: Geaux-Nightz
-    - action: input_select.set_options
+  - action: frontend.set_theme
+    data:
+      name: Geaux-Nightz
+  - action: browser_mod.set_theme
+    data:
+      browser_id:
+      - browser_ac9b7f58_cfbfe785
+      theme: Geaux-Nightz
+  - action: input_select.set_options
+    entity_id: input_select.mobile_wallpaper
+    data_template:
+      options:
+      - mobile51
+      - mobile11
+      - mobile18
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile3
+      - mobile13
+      - mobile1
+      - mobile15
+      - mobile16
+  - action: input_select.random
+    target:
       entity_id: input_select.mobile_wallpaper
-      data_template:
-        options:
-          - mobile51
-          - mobile11
-          - mobile18
-          - mobile7
-          - mobile8
-          - mobile9
-          - mobile10
-          - mobile3
-          - mobile13
-          - mobile1
-          - mobile15
-          - mobile16
-    - wait_template: "{{ state_attr('input_select.mobile_wallpaper', 'options') | first == 'mobile51' }}"
-      timeout: 5
-      continue_on_timeout: true
-    - action: input_select.select_first
-      target:
-        entity_id: input_select.mobile_wallpaper
 browser_theme_red:
   alias: browser theme red
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Red-Nightz
-    - action: browser_mod.set_theme
-      data:
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
-        theme: Red-Nightz
-    - action: input_select.set_options
+  - action: frontend.set_theme
+    data:
+      name: Red-Nightz
+  - action: browser_mod.set_theme
+    data:
+      browser_id:
+      - browser_ac9b7f58_cfbfe785
+      theme: Red-Nightz
+  - action: input_select.set_options
+    entity_id: input_select.mobile_wallpaper
+    data_template:
+      options:
+      - mobile22
+      - mobile11
+      - mobile18
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile3
+      - mobile13
+      - mobile1
+      - mobile15
+      - mobile16
+      - mobile51
+  - action: input_select.random
+    target:
       entity_id: input_select.mobile_wallpaper
-      data_template:
-        options:
-          - mobile22
-          - mobile11
-          - mobile18
-          - mobile7
-          - mobile8
-          - mobile9
-          - mobile10
-          - mobile3
-          - mobile13
-          - mobile1
-          - mobile15
-          - mobile16
-          - mobile51
-    - wait_template: "{{ state_attr('input_select.mobile_wallpaper', 'options') | first == 'mobile22' }}"
-      timeout: 5
-      continue_on_timeout: true
-    - action: input_select.select_first
-      target:
-        entity_id: input_select.mobile_wallpaper
 browser_theme_orange:
   alias: browser theme orange
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Orange-Nightz
-    - action: browser_mod.set_theme
-      data:
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
-        theme: Orange-Nightz
-    - action: input_select.set_options
+  - action: frontend.set_theme
+    data:
+      name: Orange-Nightz
+  - action: browser_mod.set_theme
+    data:
+      browser_id:
+      - browser_ac9b7f58_cfbfe785
+      theme: Orange-Nightz
+  - action: input_select.set_options
+    entity_id: input_select.mobile_wallpaper
+    data_template:
+      options:
+      - mobile121
+      - mobile11
+      - mobile18
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile3
+      - mobile13
+      - mobile1
+      - mobile15
+      - mobile16
+      - mobile51
+  - action: input_select.random
+    target:
       entity_id: input_select.mobile_wallpaper
-      data_template:
-        options:
-          - mobile121
-          - mobile11
-          - mobile18
-          - mobile7
-          - mobile8
-          - mobile9
-          - mobile10
-          - mobile3
-          - mobile13
-          - mobile1
-          - mobile15
-          - mobile16
-          - mobile51
-    - wait_template: "{{ state_attr('input_select.mobile_wallpaper', 'options') | first == 'mobile121' }}"
-      timeout: 5
-      continue_on_timeout: true
-    - action: input_select.select_first
-      target:
-        entity_id: input_select.mobile_wallpaper
 browser_theme_yellow:
   alias: browser theme yellow
   sequence:
-    - action: frontend.set_theme
-      data:
-        name: Yellow-Nightz
-    - action: browser_mod.set_theme
-      data:
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
-        theme: Yellow-Nightz
-    - action: input_select.set_options
+  - action: frontend.set_theme
+    data:
+      name: Yellow-Nightz
+  - action: browser_mod.set_theme
+    data:
+      browser_id:
+      - browser_ac9b7f58_cfbfe785
+      theme: Yellow-Nightz
+  - action: input_select.set_options
+    entity_id: input_select.mobile_wallpaper
+    data_template:
+      options:
+      - mobile23
+      - mobile14
+      - mobile18
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile3
+      - mobile13
+      - mobile1
+      - mobile15
+      - mobile16
+      - mobile51
+  - action: input_select.random
+    target:
       entity_id: input_select.mobile_wallpaper
-      data_template:
-        options:
-          - mobile23
-          - mobile14
-          - mobile18
-          - mobile7
-          - mobile8
-          - mobile9
-          - mobile10
-          - mobile3
-          - mobile13
-          - mobile1
-          - mobile15
-          - mobile16
-          - mobile51
-    - wait_template: "{{ state_attr('input_select.mobile_wallpaper', 'options') | first == 'mobile23' }}"
-      timeout: 5
-      continue_on_timeout: true
-    - action: input_select.select_first
-      target:
-        entity_id: input_select.mobile_wallpaper
 browser_window_reload:
   alias: browser window reload
   sequence:
-    - action: switch.turn_on
-      data:
-        entity_id: switch.main_kiosk_screen
-    - action: lovelace.reload_resources
-    - delay: 00:00:04
-    - action: button.press
-      continue_on_error: true
-      target:
-        entity_id: button.main_kiosk_load_start_url
-    - action: button.press
-      continue_on_error: true
-      target:
-        entity_id: button.ensuite_kiosk_load_start_url
-    - delay: 00:00:03
-    - action: browser_mod.refresh
-browser_window_reload_test:
-  alias: browser window reload test
-  sequence:
-    - action: lovelace.reload_resources
-    - delay: 00:00:04
-    - action: browser_mod.navigate
-      data:
-        path: /lovelace/newtab
-        browser_id:
-          - d75a5595-2777b7c8
+  - action: switch.turn_on
+    data:
+      entity_id: switch.main_kiosk_screen
+  - action: lovelace.reload_resources
+  - delay: 00:00:04
+  - action: button.press
+    continue_on_error: true
+    target:
+      entity_id: button.main_kiosk_load_start_url
+  - action: button.press
+    continue_on_error: true
+    target:
+      entity_id: button.ensuite_kiosk_load_start_url
+  - delay: 00:00:03
+  - action: browser_mod.refresh
 browser_window_reload_all:
   alias: browser window reload all
   sequence:
-    - action: lovelace.reload_resources
-    - delay: 00:00:02
-    - action: browser_mod.refresh
+  - action: lovelace.reload_resources
+  - delay: 00:00:02
+  - action: browser_mod.refresh
 browser_close_popup:
   alias: browser close popup
   sequence:
-    - action: browser_mod.refresh
-browser_picsaver_on:
-  alias: browser picsaver on
-  sequence:
-    - action: input_select.select_option
-      data:
-        entity_id:
-          - input_select.button_animation_1
-        option: blink
-    - action: browser_mod.navigate
-      data:
-        path: /lovelace/screen
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
-browser_picsaver_off:
-  alias: browser picsaver off
-  sequence:
-    - action: browser_mod.navigate
-      data:
-        path: /lovelace/newtab
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
+  - action: browser_mod.refresh
 coffee_on:
   alias: coffee on
   sequence:
-    - action: homeassistant.turn_on
-      entity_id:
-        - switch.coffee_maker
-        - light.coffee_light
-    - action: notify.mobile_app_pixel_8_pro
-      data_template:
-        title: "\U0001F534 New Life Alert❗️"
-        message: ⚠️️Coffee☕️ Maker ON!⚠️{{ states('sensor.time_12_hour_am_pm') }}
+  - action: homeassistant.turn_on
+    entity_id:
+    - switch.coffee_maker
+    - light.coffee_light
+  - action: notify.mobile_app_pixel_8_pro
+    data_template:
+      title: "\U0001F534 New Life Alert❗️"
+      message: ⚠️️Coffee☕️ Maker ON!⚠️{{ states('sensor.time_12_hour_am_pm') }}
 darrens_wake_up:
-  alias: darrens wake up
+  alias: Darren's Wake Up
+  icon: mdi:alarm
+  mode: restart
   sequence:
-    - action: homeassistant.turn_on
+  - action: input_boolean.turn_on
+    continue_on_error: true
+    target:
       entity_id: input_boolean.darren_s_alarm_triggered_today
-      continue_on_error: true
+  - action: script.tts_daily_msg_darren
+    continue_on_error: true
+  - wait_template: '{{ is_state(''media_player.office_display'', ''playing'') }}'
+    timeout: 00:00:05
+    continue_on_timeout: true
+  - wait_template: '{{ not is_state(''media_player.office_display'', ''playing'')
+      }}'
+    timeout: 00:01:00
+    continue_on_timeout: true
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
+      entity_id: media_player.office_display
+    data:
+      volume_level: 0.3
+  - delay: 2
+  - action: media_player.play_media
+    continue_on_error: true
+    target:
+      entity_id: media_player.office_display
+    data:
+      media_content_id: deezer--sKaFPBto://track/3277397191
+      media_content_type: music
+      metadata:
+        title: Hope Darst - Mighty Name Of Jesus
+        media_class: track
+  - parallel:
     - action: light.turn_on
       continue_on_error: true
       target:
-        entity_id: light.office_floor_lights
-      data:
-        brightness: 1
-        color_temp_kelvin: 500
-    - repeat:
-        count: 10
-        sequence:
-          - delay: 00:00:02
-          - action: light.turn_on
-            continue_on_error: true
-            target:
-              entity_id: light.office_floor_lights
-            data:
-              brightness: "{{ (repeat.index * 17) | int }}"
-              color_temp_kelvin: "{{ (500 - (repeat.index * 20)) | int }}"
-    - action: switch.turn_off
-      continue_on_error: true
-      entity_id:
-        - switch.air_cleaner
-    - action: script.tts_daily_msg_darren
-      continue_on_error: true
-    - action: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id:
-          - media_player.office_display
-        volume_level: 0.3
-    - delay: 00:00:02
-    - action: media_player.play_media
-      continue_on_error: true
-      metadata: {}
-      data:
-        media:
-          media_content_id: library://track/153
-          media_content_type: music
-          metadata:
-            title: Forrest Frank - GOOD DAY
-            thumbnail: https://i.scdn.co/image/ab67616d0000b27351589347869cf63035f4505b
-            media_class: track
-            children_media_class:
-            navigateIds:
-              - {}
-              - media_content_type: music_assistant
-                media_content_id: tracks
-            browse_entity_id: media_player.office_display
-      target:
-        entity_id: media_player.office_display
-    - action: light.turn_on
-      data:
         entity_id: light.office_ceiling_dimmer
+      data:
         brightness_pct: 30
     - action: light.turn_on
-      data:
+      continue_on_error: true
+      target:
         entity_id: light.office_floor_lights
+      data:
         brightness_pct: 100
-    - delay: 00:01:00
-    - action: script.morning
-    - delay: 00:30:00
-    - action: homeassistant.turn_off
+  - delay: 60
+  - action: script.morning
+    continue_on_error: true
+  - delay: 1800
+  - action: input_boolean.turn_off
+    continue_on_error: true
+    target:
       entity_id: input_boolean.darren_s_alarm_triggered_today
 donnas_wake_up:
-  alias: donnas wake up
+  alias: Donna's Wake Up
+  icon: mdi:alarm
+  mode: restart
   sequence:
-    - action: homeassistant.turn_on
+  - action: input_boolean.turn_on
+    continue_on_error: true
+    target:
       entity_id: input_boolean.donna_s_alarm_triggered_today
-    - delay: 00:04:00
-      enabled: true
-    - action: light.turn_on
-      target:
-        entity_id: light.nightstand_lamps
-      data:
-        brightness: 1
-        color_temp_kelvin: 500
-    - repeat:
-        count: 7
-        sequence:
-          - delay:
-              hours: 0
-              minutes: 0
-              seconds: 20
-              milliseconds: 0
-          - action: light.turn_on
-            target:
-              entity_id: light.nightstand_lamps
-            data:
-              brightness: "{{ (repeat.index * 3) | int }}"
-              color_temp_kelvin: "{{ (500 - (repeat.index * 20)) | int }}"
-      enabled: true
-    - action: media_player.turn_on
-      continue_on_error: true
-      data:
-        entity_id: media_player.bedroom_stereo
-    - action: media_player.volume_set
-      continue_on_error: true
-      data:
-        volume_level: 0.2
-      target:
-        entity_id: media_player.bedroom_stereo
-    - action: tts.google_say
-      continue_on_error: true
-      data:
-        entity_id: media_player.bedroom_stereo
-      data_template:
-        message:
-          'Good morning beautiful woman of God. {{ ["Time to wake up my love.",
-          "Your husband is madly in love with you!", "Your husband thinks you are beautiful!",
-          "God is good ALL the time!", "You are a child of God.", "Rise and shine! God
-          gave you another day!", "God is good ALL the time!"] | random }}
-
-          '
-    - action: script.tts_daily_msg_donna
-      continue_on_error: true
-    - action: media_player.volume_set
-      continue_on_error: true
-      data:
-        volume_level: 0.6
-      target:
-        entity_id: media_player.bedroom_stereo
-    - action: media_player.play_media
-      continue_on_error: true
-      target:
-        entity_id: media_player.bedroom_stereo
-      data:
-        media:
-          media_content_id: spotify://track/0vC82BouGPXm6X2K60RfQw
-          media_content_type: music
-          metadata:
-            title: Forrest Frank - GOOD DAY
-            thumbnail: https://i.scdn.co/image/ab67616d0000b27351589347869cf63035f4505b
-            media_class: track
-            children_media_class:
-            navigateIds:
-              - {}
-              - media_content_type: music_assistant
-                media_content_id: playlists
-              - media_content_type: music
-                media_content_id: library://playlist/8
-    - action: light.turn_on
-      target:
-        entity_id: light.darrens_nightstand_light
-      data:
-        color_temp_kelvin: 3600
-        brightness_pct: 35
-    - delay: 00:00:30
-    - action: light.turn_on
-      target:
-        entity_id: light.donnas_light
-      data:
-        color_temp_kelvin: 3600
-        brightness_pct: 35
-    - action: light.turn_on
-      data:
-        entity_id: light.jacuzzi_color
-        brightness_pct: 35
-    - delay: 00:12:00
-    - action: light.turn_on
-      data:
-        entity_id: light.mood_lights
-    - action: script.morning
-    - action: input_boolean.turn_off
+  - action: light.turn_on
+    continue_on_error: true
+    target:
+      entity_id: light.nightstand_lamps
+    data:
+      brightness: 1
+      color_temp_kelvin: 2000
+  - repeat:
+      count: 7
+      sequence:
+      - delay: 20
+      - action: light.turn_on
+        continue_on_error: true
+        target:
+          entity_id: light.nightstand_lamps
+        data:
+          brightness: '{{ (repeat.index * 3) | int }}'
+          color_temp_kelvin: '{{ (2000 + (repeat.index * 115)) | int }}'
+  - action: media_player.turn_on
+    continue_on_error: true
+    target:
+      entity_id: media_player.bedroom_stereo_3
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
+      entity_id: media_player.bedroom_stereo_3
+    data:
+      volume_level: 0.22
+  - action: tts.google_say
+    continue_on_error: true
+    target:
+      entity_id: media_player.bedroom_stereo_3
+    data:
+      message: Good morning beautiful woman of God. {{ ["Time to wake up my love.",
+        "Your husband is madly in love with you!", "Your husband thinks you are beautiful!",
+        "God is good ALL the time!", "You are a child of God.", "Rise and shine! God
+        gave you another day!", "God is good ALL the time!"] | random }}
+  - wait_template: '{{ is_state(''media_player.bedroom_stereo_3'', ''playing'') }}'
+    timeout: 00:00:05
+    continue_on_timeout: true
+  - wait_template: '{{ not is_state(''media_player.bedroom_stereo_3'', ''playing'')
+      }}'
+    timeout: 00:00:15
+    continue_on_timeout: true
+  - action: script.tts_daily_msg_donna
+    continue_on_error: true
+  - wait_template: '{{ is_state(''media_player.bedroom_stereo_3'', ''playing'') }}'
+    timeout: 00:00:05
+    continue_on_timeout: true
+  - wait_template: '{{ not is_state(''media_player.bedroom_stereo_3'', ''playing'')
+      }}'
+    timeout: 00:00:15
+    continue_on_timeout: true
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
+      entity_id: media_player.bedroom_stereo_3
+    data:
+      volume_level: 0.46
+  - action: media_player.play_media
+    continue_on_error: true
+    target:
+      entity_id: media_player.bedroom_stereo_3
+    data:
+      media_content_id: deezer--sKaFPBto://track/2423663595
+      media_content_type: music
+      metadata:
+        title: Brandon Lake - GOD IS NOT AGAINST ME
+        media_class: track
+  - delay: 5
+  - action: light.turn_on
+    continue_on_error: true
+    target:
+      entity_id: light.darrens_nightstand_light
+    data:
+      color_temp_kelvin: 3600
+      brightness_pct: 35
+  - delay: 30
+  - action: light.turn_on
+    continue_on_error: true
+    target:
+      entity_id: light.donnas_light
+    data:
+      color_temp_kelvin: 3600
+      brightness_pct: 35
+  - delay: 720
+  - action: light.turn_on
+    continue_on_error: true
+    target:
+      entity_id: light.mood_lights
+  - action: script.morning
+    continue_on_error: true
+  - action: input_boolean.turn_off
+    continue_on_error: true
+    target:
       entity_id: input_boolean.patio_garage_alerts
-    - delay: 00:30:00
-    - wait_for_trigger:
-        trigger: state
-        entity_id: binary_sensor.ensuite_ceiling_motion1
-        to: "off"
-    - delay: 600
-    - action: light.turn_off
+  - delay: 1800
+  - wait_for_trigger:
+      trigger: state
+      entity_id: binary_sensor.ensuite_ceiling_motion
+      to: 'off'
+      for: 00:05:00
+    timeout: 01:00:00
+    continue_on_timeout: true
+  - action: light.turn_off
+    continue_on_error: true
+    target:
       entity_id: light.ensuite_lights
-    - wait_for_trigger:
-        trigger: state
-        entity_id: binary_sensor.bedroom_motion_sensors
-        to: "off"
-    - delay: 600
-    - action: light.turn_off
+  - wait_for_trigger:
+      trigger: state
+      entity_id: binary_sensor.bedroom_motion_sensors
+      to: 'off'
+      for: 00:05:00
+    timeout: 01:00:00
+    continue_on_timeout: true
+  - action: light.turn_off
+    continue_on_error: true
+    target:
       entity_id: light.bedroom_lights
-    - delay: 00:30:00
-    - action: homeassistant.turn_off
+  - delay: 1800
+  - action: input_boolean.turn_off
+    continue_on_error: true
+    target:
       entity_id: input_boolean.donna_s_alarm_triggered_today
-  description: ""
 darren_home:
   alias: darren home
   sequence:
-    - action: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.naptime
-    - wait_for_trigger:
-        - trigger: state
-          entity_id: binary_sensor.office_motion_sensors
-          from: "off"
-          to: "on"
-    - action: homeassistant.turn_on
-      continue_on_error: true
-      entity_id:
-        - fan.hallway_fan
-        - switch.ha2_office_monitor
+  - action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.naptime
+  - wait_for_trigger:
+    - trigger: state
+      entity_id: binary_sensor.office_motion_sensors
+      from: 'off'
+      to: 'on'
+  - action: homeassistant.turn_on
+    continue_on_error: true
+    entity_id:
+    - fan.hallway_fan
+    - switch.ha2_office_monitor
 people_home:
-  alias: people home
+  alias: People Home
+  icon: mdi:home-account
+  mode: restart
   sequence:
-    - action: homeassistant.turn_on
-      continue_on_error: true
+  - action: homeassistant.turn_on
+    continue_on_error: true
+    target:
       entity_id:
-        - input_boolean.people_home_boolean
-        - input_boolean.camera_snapshots
-        - input_boolean.disable_popups
-        - input_boolean.auto_tablet
-        - input_boolean.auto_backgroundz
-        - input_boolean.disable_inside_popups
-        - switch.main_kiosk_screen
-        - switch.den_nightlight_plugs
-    - action: google_assistant_sdk.send_text_command
-      continue_on_error: true
-      data:
-        command: turn on kitchen water heater
-    - action: homeassistant.turn_off
-      continue_on_error: true
+      - input_boolean.people_home_boolean
+      - input_boolean.camera_snapshots
+      - input_boolean.disable_popups
+      - input_boolean.auto_tablet
+      - input_boolean.auto_backgroundz
+      - input_boolean.disable_inside_popups
+      - switch.main_kiosk_screen
+      - switch.den_nightlight_plugs
+  - action: google_assistant_sdk.send_text_command
+    continue_on_error: true
+    data:
+      command: turn on kitchen water heater
+  - action: homeassistant.turn_off
+    continue_on_error: true
+    target:
       entity_id:
-        - input_boolean.notifications
-        - input_boolean.motion_lights
-        - input_boolean.patio_garage_alerts
-    - action: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id: media_player.kitchen_speakers_2
-        volume_level: 0.4
-    - action: media_player.media_stop
-      continue_on_error: true
-      data:
-        entity_id: media_player.kitchen_speakers_2
-    - action: script.nest_set_home
-    - delay: 00:00:03
+      - input_boolean.notifications
+      - input_boolean.motion_lights
+      - input_boolean.patio_garage_alerts
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
+      entity_id: media_player.kitchen_speakers_2
+    data:
+      volume_level: 0.4
+  - action: media_player.media_stop
+    continue_on_error: true
+    target:
+      entity_id: media_player.kitchen_speakers_2
+  - action: script.nest_set_home
+    continue_on_error: true
+  - delay: 3
 people_away:
-  alias: people away
+  alias: People Away
+  icon: mdi:home-export-outline
+  mode: restart
   sequence:
-    - action: homeassistant.turn_off
-      continue_on_error: true
+  - action: homeassistant.turn_off
+    continue_on_error: true
+    target:
       entity_id:
-        - light.every_light
-        - input_boolean.people_home_boolean
-        - input_boolean.auto_tablet
-        - input_boolean.auto_cameras
-        - input_boolean.disable_popups
-        - input_boolean.disable_cabinet_auto_lights
-        - input_boolean.disable_patio_motion
-        - input_boolean.disable_garage_auto_lights
-        - input_boolean.auto_backgroundz
-        - switch.night_switches
-        - switch.den_nightlight_plugs
-    - delay: 00:00:03
-    - action: google_assistant_sdk.send_text_command
-      continue_on_error: true
-      data:
-        command: turn off kitchen water heater
-    - action: homeassistant.turn_on
-      continue_on_error: true
+      - light.every_light
+      - input_boolean.people_home_boolean
+      - input_boolean.auto_tablet
+      - input_boolean.auto_cameras
+      - input_boolean.disable_popups
+      - input_boolean.disable_cabinet_auto_lights
+      - input_boolean.disable_patio_motion
+      - input_boolean.disable_garage_auto_lights
+      - input_boolean.auto_backgroundz
+      - switch.night_switches
+      - switch.den_nightlight_plugs
+  - delay: 3
+  - action: google_assistant_sdk.send_text_command
+    continue_on_error: true
+    data:
+      command: turn off kitchen water heater
+  - action: homeassistant.turn_on
+    continue_on_error: true
+    target:
       entity_id:
-        - input_boolean.door_announcements
-        - input_boolean.camera_snapshots
-        - input_boolean.patio_garage_alerts
-        - light.sofa_lamp
-        - light.under_cabinet_lights
-        - input_boolean.motion_lights
-    - action: script.nest_set_away
-      continue_on_error: true
-    - delay: 00:00:10
-    - action: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id: media_player.kitchen_speakers_2
-        volume_level: 0.5
-    - delay: 00:00:05
-    - action: media_player.play_media
-      continue_on_error: true
-      target:
-        entity_id: media_player.kitchen_speakers_2
-      data:
-        media_content_id: library://radio/3
-        media_content_type: music
+      - input_boolean.door_announcements
+      - input_boolean.camera_snapshots
+      - input_boolean.patio_garage_alerts
+      - light.sofa_lamp
+      - light.under_cabinet_lights
+      - input_boolean.motion_lights
+  - action: script.nest_set_away
+    continue_on_error: true
+  - delay: 10
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
+      entity_id: media_player.kitchen_speakers_2
+    data:
+      volume_level: 0.5
+  - delay: 5
+  - action: media_player.play_media
+    continue_on_error: true
+    target:
+      entity_id: media_player.kitchen_speakers_2
+    data:
+      media_content_id: library://radio/3
+      media_content_type: music
       metadata:
         title: Way FM
-        thumbnail: http://cdn-profiles.tunein.com/s24847/images/logoq.png?t=162397
         media_class: music
-        children_media_class:
-        navigateIds:
-          - {}
-          - media_content_type: music_assistant
-            media_content_id: radio
-    - delay: 00:00:03
-    - action: homeassistant.turn_on
-      continue_on_error: true
+  - delay: 3
+  - action: google_assistant_sdk.send_text_command
+    continue_on_error: true
+    data:
+      command: turn off den tv
+  - delay: 3
+  - action: lock.lock
+    continue_on_error: true
+    target:
       entity_id:
-        - switch.outside_cam_notifications
-    - action: google_assistant_sdk.send_text_command
-      continue_on_error: true
-      data:
-        command: turn off den tv
-    - delay: 00:00:03
-    - action: lock.lock
-      continue_on_error: true
-      target:
-        entity_id:
-          - lock.side_door
-          - lock.back_door
+      - lock.side_door
+      - lock.back_door
 restart_ha:
   alias: restart ha
   sequence:
-    - action: input_select.select_option
-      continue_on_error: true
-      data:
-        option: fireworks
-      target:
-        entity_id: input_select.video_wallpaper
-    - action: browser_mod.navigate
-      data:
-        path: /dashboard-wallkiosk/screen
-    - delay: 00:00:03
-    - action: browser_mod.navigate
-      data:
-        path: /lovelace/newtab
-        browser_id:
-          - d75a5595-2777b7c8
-    - delay: 00:00:01
-    - action: browser_mod.navigate
-      data:
-        path: /lovelace/newtab
-        browser_id:
-          - browser_ac9b7f58_cfbfe785
-    - delay: 00:00:06
-    - action: homeassistant.restart
+  - action: input_select.select_option
+    continue_on_error: true
+    data:
+      option: fireworks
+    target:
+      entity_id: input_select.video_wallpaper
+  - action: browser_mod.navigate
+    data:
+      path: /dashboard-wallkiosk/screen
+  - delay: 00:00:03
+  - action: browser_mod.navigate
+    data:
+      path: /lovelace/newtab
+      browser_id:
+      - d75a5595-2777b7c8
+  - delay: 00:00:01
+  - action: browser_mod.navigate
+    data:
+      path: /lovelace/newtab
+      browser_id:
+      - browser_ac9b7f58_cfbfe785
+  - delay: 00:00:06
+  - action: homeassistant.restart
 reboot_cameras:
   alias: reboot cameras
   sequence:
-    - action: homeassistant.turn_off
-      data: {}
-      target:
-        entity_id:
-          - switch.porch_outlets
-          - light.ha2_camera_reboot_back
-    - delay:
-        hours: 0
-        minutes: 1
-        seconds: 0
-        milliseconds: 0
-    - action: homeassistant.turn_on
-      data: {}
-      target:
-        entity_id:
-          - switch.porch_outlets
-          - light.ha2_camera_reboot_back
+  - action: homeassistant.turn_off
+    continue_on_error: true
+    target:
+      entity_id:
+      - switch.porch_outlets
+      - light.ha2_camera_reboot_back
+  - delay:
+      minutes: 1
+  - action: homeassistant.turn_on
+    continue_on_error: true
+    target:
+      entity_id:
+      - switch.porch_outlets
+      - light.ha2_camera_reboot_back
   mode: single
   icon: mdi:backup-restore
-hvac_water_leak:
-  alias: hvac water leak
-  sequence:
-    - action: media_player.volume_set
-      data:
-        entity_id: media_player.everywhere_3
-        volume_level: 0.8
-    - delay: 00:00:02
-    - action: tts.google_say
-      data:
-        entity_id: media_player.everywhere_3
-      data_template:
-        message: Air conditioner is Leaking!
-    - delay: 00:00:10
-    - action: tts.google_say
-      data:
-        entity_id: media_player.everywhere_3
-      data_template:
-        message: Air conditioner is Leaking!
-    - delay: 00:00:10
-    - action: media_player.volume_set
-      data:
-        entity_id: media_player.everywhere_3
-        volume_level: 0.3
-water_heater_leak:
-  alias: water heater leak
-  sequence:
-    - action: media_player.volume_set
-      data:
-        entity_id: media_player.everywhere_3
-        volume_level: 0.8
-    - delay: 00:00:02
-    - action: tts.google_say
-      data:
-        entity_id: media_player.everywhere_3
-      data_template:
-        message: Water heater is Leaking!
-    - delay: 00:00:10
-    - action: tts.google_say
-      data:
-        entity_id: media_player.everywhere_3
-      data_template:
-        message: Water heater is Leaking!
-    - delay: 00:00:10
-    - action: media_player.volume_set
-      data:
-        entity_id: media_player.everywhere_3
-        volume_level: 0.3
-washer_leak:
-  alias: washer leak
-  sequence:
-    - action: media_player.volume_set
-      entity_id: media_player.everywhere_3
-      data:
-        volume_level: 0.8
-    - delay: 00:00:02
-    - action: tts.google_say
-      entity_id: media_player.everywhere_3
-      data_template:
-        message: Washing machine is Leaking!
-    - delay: 00:00:10
-    - action: tts.google_say
-      entity_id: media_player.everywhere_3
-      data_template:
-        message: Washing machine is Leaking!
-    - delay: 00:00:10
-    - action: media_player.volume_set
-      data:
-        entity_id: media_player.everywhere_3
-        volume_level: 0.3
 nest_set_away:
   alias: nest set away
   sequence:
-    - action: climate.set_preset_mode
-      data:
-        preset_mode: eco
-        entity_id: climate.den
+  - action: climate.set_preset_mode
+    data:
+      preset_mode: eco
+      entity_id: climate.den
 nest_set_home:
   alias: nest set home
   sequence:
-    - action: climate.set_preset_mode
-      data:
-        preset_mode: none
-        entity_id: climate.den
+  - action: climate.set_preset_mode
+    data:
+      preset_mode: none
+      entity_id: climate.den
 alarm_arm:
   alias: alarm arm
   sequence:
-    - action: alarm_control_panel.alarm_arm_away
-      entity_id: alarm_control_panel.alarmo
-      data:
-        code: "{{ states('input_text.secure_code') }}"
-    - action: input_boolean.turn_off
-      entity_id: input_boolean.alarm_arm_away_switch
+  - action: alarm_control_panel.alarm_arm_away
+    entity_id: alarm_control_panel.alarmo
+    data:
+      code: '{{ states(''input_text.secure_code'') }}'
+  - action: input_boolean.turn_off
+    entity_id: input_boolean.alarm_arm_away_switch
 alarm_arm_home:
   alias: alarm arm home
   sequence:
-    - action: alarm_control_panel.alarm_arm_home
-      entity_id: alarm_control_panel.alarmo
-      data:
-        code: "{{ states('input_text.secure_code') }}"
-    - action: input_boolean.turn_off
-      entity_id: input_boolean.alarm_arm_home
+  - action: alarm_control_panel.alarm_arm_home
+    entity_id: alarm_control_panel.alarmo
+    data:
+      code: '{{ states(''input_text.secure_code'') }}'
+  - action: input_boolean.turn_off
+    entity_id: input_boolean.alarm_arm_home
 alarm_disarm:
   alias: alarm disarm
   sequence:
-    - action: alarm_control_panel.alarm_disarm
-      entity_id: alarm_control_panel.alarmo
-      data:
-        code: "{{ states('input_text.secure_code') }}"
-    - action: switch.turn_off
-      entity_id:
-        - switch.noonlight_switch
-        - siren.alarm_panel_siren
-    - action: light.turn_off
-      continue_on_error: true
-      entity_id:
-        - light.every_light
-        - light.outside_lights
-    - action: notify.pixels_and_den_tv
-      data_template:
-        message: Alarm canceled at {{ states('sensor.time_12_hour_am_pm') }}
-    - delay: 3
-    - action: light.turn_on
-      continue_on_error: true
-      entity_id:
-        - light.sofa_lamp
-        - light.under_cabinet_lights
-    - action: input_boolean.turn_off
-      entity_id: input_boolean.alarm_disarm_switch
+  - action: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarmo
+    data:
+      code: '{{ states(''input_text.secure_code'') }}'
+  - action: switch.turn_off
+    entity_id:
+    - switch.noonlight_switch
+    - siren.alarm_panel_siren
+  - action: light.turn_off
+    continue_on_error: true
+    entity_id:
+    - light.every_light
+    - light.outside_lights
+  - action: notify.pixels_and_den_tv
+    data_template:
+      message: Alarm canceled at {{ states('sensor.time_12_hour_am_pm') }}
+  - delay: 3
+  - action: light.turn_on
+    continue_on_error: true
+    entity_id:
+    - light.sofa_lamp
+    - light.under_cabinet_lights
+  - action: input_boolean.turn_off
+    entity_id: input_boolean.alarm_disarm_switch
 alarmo_disarm:
   alias: alarmo disarm
   sequence:
-    - action: alarm_control_panel.alarm_disarm
-      entity_id: alarm_control_panel.alarmo
-      data:
-        code: "{{ states('input_text.secure_code') }}"
-    - action: switch.turn_off
-      entity_id:
-        - switch.noonlight_switch
-        - siren.alarm_panel_siren
-    - action: light.turn_off
-      entity_id:
-        - light.alarm_triggered_lights
-    - action: notify.pixels_and_den_tv
-      data_template:
-        message: Alarm disarmed at {{ states('sensor.time_12_hour_am_pm') }}
-    - action: input_boolean.turn_off
-      entity_id: input_boolean.alarm_disarm_switch
+  - action: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarmo
+    data:
+      code: '{{ states(''input_text.secure_code'') }}'
+  - action: switch.turn_off
+    entity_id:
+    - switch.noonlight_switch
+    - siren.alarm_panel_siren
+  - action: light.turn_off
+    entity_id:
+    - light.alarm_triggered_lights
+  - action: notify.pixels_and_den_tv
+    data_template:
+      message: Alarm disarmed at {{ states('sensor.time_12_hour_am_pm') }}
+  - action: input_boolean.turn_off
+    entity_id: input_boolean.alarm_disarm_switch
 away_mode_armed:
   alias: away mode armed
   sequence:
-    - action: tts.google_say
-      data:
-        entity_id: media_player.tv_speakers
-      data_template:
-        message: Motion sensors activated!
+  - action: tts.google_say
+    data:
+      entity_id: media_player.tv_speakers
+    data_template:
+      message: Motion sensors activated!
 cfe_off:
   alias: cfe_off
   sequence:
-    - delay: 00:{{ states('input_number.cfe_off') | int}}:00
-    - action: homeassistant.turn_off
-      data:
-        entity_id: switch.coffee_maker
-    - action: notify.mobile_app_pixel_8_pro
-      data_template:
-        message:
-          Coffee maker has turned off. The ({{ states('input_number.cfe_off')
-          | int }} minute timer has expired)
-    - action: script.browser_close_popup
-  description: ""
+  - delay: 00:{{ states('input_number.cfe_off') | int}}:00
+  - action: homeassistant.turn_off
+    data:
+      entity_id: switch.coffee_maker
+  - action: notify.mobile_app_pixel_8_pro
+    data_template:
+      message: Coffee maker has turned off. The ({{ states('input_number.cfe_off')
+        | int }} minute timer has expired)
+  - action: script.browser_close_popup
+  description: ''
   icon: mdi:coffee-maker-check-outline
-weatheralerts_1_popup_on_wx_alert:
-  alias: weatheralerts 1 popup on wx alert
-  description: ""
-  icon: mdi:alert-box
-  sequence:
-    - data:
-        notification_id: weatheralerts_1_alert
-      action: persistent_notification.dismiss
-    - condition: template
-      value_template:
-        "{{ states('sensor.weatheralerts_1_alerts_are_active') == 'Yes'
-        }}"
-    - data:
-        notification_id: weatheralerts_1_alert
-        message: "{{ message }}"
-        title: "{{ title }}"
-      action: persistent_notification.create
-weatheralerts_2_popup_on_wx_alert:
-  alias: weatheralerts 2 popup on wx alert
-  description: ""
-  icon: mdi:alert-box
-  sequence:
-    - data:
-        notification_id: weatheralerts_2_alert
-      action: persistent_notification.dismiss
-    - condition: template
-      value_template:
-        "{{ states('sensor.weatheralerts_2_alerts_are_active') == 'Yes'
-        }}"
-    - data:
-        notification_id: weatheralerts_2_alert
-        message: "{{ message }}"
-        title: "{{ title }}"
-      action: persistent_notification.create
-weatheralerts_3_popup_on_wx_alert:
-  alias: weatheralerts 3 popup on wx alert
-  description: ""
-  icon: mdi:alert-box
-  sequence:
-    - data:
-        notification_id: weatheralerts_3_alert
-      action: persistent_notification.dismiss
-    - condition: template
-      value_template:
-        "{{ states('sensor.weatheralerts_3_alerts_are_active') == 'Yes'
-        }}"
-    - data:
-        notification_id: weatheralerts_3_alert
-        message: "{{ message }}"
-        title: "{{ title }}"
-      action: persistent_notification.create
-tts_daily_msg_darren:
-  alias: tts daily msg darren
-  sequence:
-    - variables:
-        weather_entity: weather.bayou_gman_s
-        calendar_entity: calendar.dwilson_churchoftheking_com
-        zone_entity: zone.home
-        calendar_duration:
-          hours: 24
-        prompt:
-          'You are Darren''s personal AI assistant, and your goal is to generate
-          a warm, insightful, and helpful spoken message to start his day.
-
-          Adopt a friendly and inviting tone, with a playful hint of mischief. For example,
-          you might start with something like "Rise and shine, Darren. The world has
-          been waiting for you.", but generate something unique and random.
-
-          Craft a single, conversational paragraph that seamlessly includes the following
-          key information. Do not use lists in your final response.
-
-          - **Greeting and Time:** Always start by stating the current day of the week,
-          the full date, and the current time in 12-hour format.
-
-          - **Local Weather:** Provide a concise weather report for Madisonville, Louisiana.
-          Include the current temperature, humidity, and air quality level. Then, highlight
-          the forecast for the next 3 hours. Make a special note of any unusual weather
-          for this time of year, but skip mundane details like a "0% chance of rain."
-
-          - **Today''s Schedule:** Mention how much time is left until Darren''s first
-          calendar event or meeting. If his schedule is clear, mention that he has an
-          open morning.
-
-          - **Special Occasions:** Note anything unique about today, such as a birthday
-          or holiday.
-
-          - **Inspiration:** Conclude with two distinct and random inspirational Bible
-          verses from the New Testament (NIV translation).
-
-          **Important:** Your entire response must sound natural when spoken. Do not
-          mention technical terms, Home Assistant, or internal system details.'
-    - alias: Fetch Weather Forecast
-      action: weather.get_forecasts
-      data:
-        type: hourly
-      target:
-        entity_id:
-          - "{{ weather_entity }}"
-      response_variable: daily_forecast
-    - variables:
-        forecast_entity: "{{ daily_forecast[weather_entity] }}"
-        forecast: "{{ forecast_entity.forecast[0] }}"
-    - alias: Fetch Calendar Agenda
-      action: calendar.get_events
-      data:
-        duration:
-          hours: 24
-      target:
-        entity_id: calendar.dwilson_churchoftheking_com
-      response_variable: events_response
-    - alias: Conversation Agent Notification Text
-      action: conversation.process
-      data:
-        text:
-          "Time: {{ now().strftime(\"%A %B %d %H:%M %p\") }}\n{%- if weather_entity
-          is defined %}\n{%- set temperature_unit = state_attr(weather_entity, 'temperature_unit')
-          -%}\nForecast: {{ forecast.condition }} ({{ forecast.temperature }}{{ temperature_unit
-          }}, {{ forecast.precipitation }}% precipitation)\n{%- endif %}\n\nCalendar
-          \"{{ state_attr(calendar_entity, 'friendly_name') }}\" events for the next
-          {{ calendar_duration.hours }} hours:\n{%- set agenda = (events_response |
-          items | first)[1] %}\n{%- if agenda.events %}\n  {%- for event in agenda.events
-          %}\n  - Summary: {{ event.summary }}\n    Start-End: {% if event.start is
-          defined %}{{ event.start }} to {{ event.end }}{% else %}All Day{% endif %}\n
-          \   {%- if event.description is defined %}\n    Description: {{ event.description
-          }}\n    {% endif -%}\n    {%- if event.location is defined %}\n      Location:
-          {{ event.location }}\n    {% endif -%}\n  {%- endfor %}\n{%- else %}\n  -
-          No upcoming events.\n{%- endif %}\n\n{{ prompt }}"
-        agent_id: conversation.google_generative_ai
-      response_variable: agent
-    - alias: Send notification
-      action: media_player.volume_set
-      continue_on_error: true
-      data:
-        entity_id:
-          - media_player.office_display
-        volume_level: 0.2
-    - action: tts.cloud_say
-      continue_on_error: true
-      entity_id:
-        - media_player.office_display
-      data_template:
-        message: "{{ agent.response.speech.plain.speech }}"
-morning_wake_up:
-  alias: morning wake up
-  sequence:
-    - condition: state
-      entity_id: input_boolean.morning_triggered_today
-      state: "off"
-    - action: alarm_control_panel.alarm_disarm
-      entity_id: alarm_control_panel.alarmo
-      data:
-        code: "{{ states('input_text.secure_code') }}"
-    - action: mqtt.publish
-      continue_on_error: true
-      data:
-        topic: cmnd/cabinets/power1
-        payload: "ON"
-        retain: "true"
-    - action: input_boolean.turn_off
-      entity_id:
-        - input_boolean.good_night_executed
-        - input_boolean.disable_laundry_notifications
-        - input_boolean.patio_garage_alerts
-        - input_boolean.alarm_disarm_switch
-        - input_boolean.naptime
-    - action: google_assistant_sdk.send_text_command
-      continue_on_error: true
-      data:
-        command: turn on kitchen water heater
-    - action: homeassistant.turn_on
-      continue_on_error: true
-      entity_id:
-        - input_boolean.auto_backgroundz
-        - input_boolean.auto_tablet
-        - input_boolean.auto_backgroundz
-        - light.sofa_lamp
-        - switch.main_kiosk_screen
-        - switch.den_nightlight_plugs
-        - switch.keurig_coffee_maker
-    - action: script.browser_window_reload
-      continue_on_error: true
-    - delay: 300
-    - action: input_boolean.turn_on
-      entity_id:
-        - input_boolean.morning_triggered_today
-    - action: homeassistant.turn_off
-      continue_on_error: true
-      entity_id:
-        - switch.attic_outlet
-    - delay: 30
-    - action: homeassistant.turn_on
-      continue_on_error: true
-      entity_id:
-        - switch.attic_outlet
-  description: ""
 ask_a_yes_no_question_in_office:
   alias: Ask a Yes/No question in office
   use_blueprint:
@@ -2408,13 +1798,13 @@ ask_a_yes_no_question_in_office:
     input:
       question: would you like me to dim the lights
       yes_actions:
-        - action: light.turn_on
-          metadata: {}
-          data:
-            brightness_pct: 1
-          target:
-            area_id: office
-  description: ""
+      - action: light.turn_on
+        metadata: {}
+        data:
+          brightness_pct: 1
+        target:
+          area_id: office
+  description: ''
 ask_a_yes_no_question_turn_off_kitchen_lights:
   alias: Ask a Yes/No question turn off Kitchen lights
   use_blueprint:
@@ -2422,92 +1812,230 @@ ask_a_yes_no_question_turn_off_kitchen_lights:
     input:
       question: would you like me to turn off the kitchen lights
       yes_actions:
-        - action: light.turn_off
-          metadata: {}
-          data: {}
-          target:
-            area_id: kitchen
-  description: ""
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          area_id: kitchen
+  description: ''
 dj_announcer_music_assistant:
   alias: DJ Announcer (Music Assistant)
   use_blueprint:
     path: chrisrbarnett/music-assistant-dj-announcer-blueprint-for-home-assistant-automated-dj-style-music-playback.yaml
-  description: ""
-garage_video_snapshot_revised:
-  alias: garage video snapshot revised
-  description: save latest garage video clip
-  sequence:
-    - data:
-        provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
-        message:
-          "Summarize the events based on a series of images captured at short
-          intervals. Focus only on moving subjects such as people, vehicles, and other
-          active elements. Ignore static objects and scenery. Provide a clear and concise
-          account of movements and interactions. Do not mention or imply the existence
-          of images—present the information as if directly observing the events. If
-          no movement is detected, respond with: 'No activity observed.'
-
-          "
-        model: gpt-4o-mini
-        remember: true
-        use_memory: true
-        image_entity:
-          - camera.garage_cam_0
-        duration: 8
-        max_frames: 3
-        include_filename: true
-        target_width: 640
-        max_tokens: 40
-        generate_title: true
-        expose_images: true
-      response_variable: response
-      action: llmvision.stream_analyzer
-    - alias: Update label with title
-      variables:
-        label: "{{response.title}}"
-    - delay:
-        seconds: 2
-    - alias: (Snapshot) Update notification on notify devices
-      data:
-        title: "{{ label }}"
-        message: "{{response.response_text}}"
-        data:
-          notification_icon: mdi:cctv
-          image: /local/tmp/last_snapshot_garage.jpg
-          persistent: true
-          color: red
-          channel: Cameras
-          tag: Motion
-          actions:
-            - action: URI
-              title: Click to Open Cameras
-              uri: /dashboard-cast/garage
-      action: notify.mobile_app_pixel_8_pro
-    - delay:
-        seconds: 1
-    - alias: TTS notification on notify devices
-      data:
-        message: TTS
-        data:
-          ttl: 0
-          priority: high
-          media_stream: alarm_stream_max
-          tts_text: "{{response.response_text}}"
-      action: notify.mobile_app_pixel_8_pro
-    - alias: Gmail notification to Darren
-      data:
-        message: "{{response.response_text}}"
-      action: notify.alphaprops_dwilson_gmail_com
-    - target:
-        entity_id: camera.garage_cam_0
-      data:
-        filename: /config/www/tmp/last_video_snapshot_garage.mp4
-        duration: 6
-      action: camera.record
+  description: ''
 voice_weather_forecasts:
-  alias: "Voice Assistant- Weather Forecasts "
+  alias: 'Voice Assistant- Weather Forecasts '
   use_blueprint:
     path: TheFes/3_voice_weather_forecast_full_llm.yaml
     input:
       weather_entity: weather.bayou_gman_s
-  description: ""
+  description: ''
+llm_script_for_music_assistant_voice_requests:
+  alias: LLM Script for Music Assistant voice requests
+  use_blueprint:
+    path: music-assistant/llm_voice_script.yaml
+    input:
+      play_continuously: Always
+      default_player: media_player.den_speakers
+  description: ''
+ring_pixel_pro:
+  sequence:
+  - device_id: a1e84293f3bbd9cb62393962d06c9783
+    domain: button
+    entity_id: 12ecbcd72ae6d37b87a756dce247e4eb
+    type: press
+  alias: Ring Pixel Pro
+  description: ring phone when missing
+  icon: m3o:my-location
+tts_daily_msg_darren:
+  alias: tts daily msg darren
+  sequence:
+  - variables:
+      weather_entity: "{% set candidates = [\n  'weather.tomorrow_io_new_life_hourly',\n
+        \ 'weather.home',\n  'weather.bayou_gman_s',\n  'weather.khdc_daynight'\n]
+        %} {% set ns = namespace(found=candidates[0]) %} {% for entity in candidates
+        %}\n  {% if states(entity) not in ['unavailable', 'unknown'] %}\n    {% set
+        ns.found = entity %}\n    {% break %}\n  {% endif %}\n{% endfor %} {{ ns.found
+        }}"
+      air_quality_entity: sensor.waqi_northshore_site_madisonville_louisiana_usa
+      calendar_entity: calendar.dwilson_churchoftheking_com
+      verse_entity: sensor.verse_of_the_day
+      tide_entity: sensor.tchefuncta_river_lake_pontchartrain_la_next_high_tide
+      verse_text: "{% set verse_state = states(verse_entity) %}\n{% set verse_attr
+        = state_attr(verse_entity, 'text') or state_attr(verse_entity, 'content')
+        or '' %}\n{% if verse_state not in ['unavailable', 'unknown', 'none', '']
+        and verse_attr | length > 5 %}\n  {{ verse_attr }}\n{% else %}\n  unavailable\n{%
+        endif %}"
+      nws_entity: sensor.nws_alerts_alerts
+      calendar_duration:
+        hours: 24
+      active_alerts_count: '{{ states(nws_entity) | int(0) }}'
+      active_alerts_data: '{{ state_attr(nws_entity, ''Alerts'') if active_alerts_count
+        > 0 else [] }}'
+      prompt: "You are Darren's personal AI assistant. Generate a warm, insightful,
+        and helpful spoken message to start his day.\nAdopt a friendly and inviting
+        tone with a playful hint of mischief.\nCraft a single, conversational paragraph
+        including:\n- **Greeting:** Day of week, date, and time.\n- **Weather:** Current
+        conditions, humidity, and air quality (AQI) for Madisonville, LA.\n  Analyze
+        the provided 3-hour forecast trend (is it warming up? raining soon?) and mention
+        anything notable.\n- **Safety Alerts:** If there are active weather alerts
+        in the data provided below,\n  briefly summarize them (e.g., \"There is currently
+        a Dense Fog Advisory in effect\").\n  If there are no alerts, do not mention
+        this section.\n- **Schedule:** Time until the first meeting. If clear, mention
+        the open morning. - **Tides:** If available, mention the time and height of
+        the next high tide for the Tchefuncta River. If unavailable, skip this section.
+        - **Inspiration:** {% if verse_text != 'unavailable' %}The verse for today
+        is \"{{ states(verse_entity) }}\". Here is the text to read: \"{{ verse_text
+        }}\"{% else %}The verse for today is \"{{ states(verse_entity) }}\". The
+        text is currently unavailable in the sensor, so please recite this full verse
+        reference from your own knowledge using the NIV translation.{% endif %}\n\
+        nSound natural. Do not mention \"Home Assistant\", technical data formats,
+        or \"0 alerts\"."
+  - alias: Fetch Weather Forecast
+    action: weather.get_forecasts
+    continue_on_error: true
+    data:
+      type: hourly
+    target:
+      entity_id: '{{ weather_entity }}'
+    response_variable: daily_forecast
+  - variables:
+      forecast_data: '{{ daily_forecast[weather_entity].forecast if daily_forecast
+        is defined and weather_entity in daily_forecast else [] }}'
+      forecast_list: '{{ forecast_data[:3] }}'
+      current_humidity: '{{ state_attr(weather_entity, ''humidity'') }}'
+      current_condition: '{{ states(weather_entity) }}'
+      current_aqi: '{{ states(air_quality_entity) }}'
+  - alias: Fetch Calendar Agenda
+    action: calendar.get_events
+    continue_on_error: true
+    data:
+      duration:
+        hours: 24
+    target:
+      entity_id: '{{ calendar_entity }}'
+    response_variable: events_response
+  - alias: Conversation Agent Notification Text
+    action: conversation.process
+    continue_on_error: true
+    data:
+      agent_id: conversation.google_generative_ai
+      text: "Current Time: {{ now().strftime(\"%A, %B %d, %I:%M %p\") }}\nCurrent
+        Weather: {{ current_condition }}, {{ current_humidity }}% Humidity.  Current
+        Air Quality (AQI): {{ current_aqi }}\nTide Data: {% set tide_state = states(tide_entity)
+        %} {% if tide_state not in ['unavailable', 'unknown', 'none'] %}\n  Next High
+        Tide: {{ as_timestamp(tide_state) | timestamp_custom('%I:%M %p') }}\n  Height:
+        {{ state_attr(tide_entity, 'height') | default('unknown') }} feet\n{% else
+        %}\n  Tide data unavailable.\n{% endif %}\nActive NWS Weather Alerts:  {%-
+        if active_alerts_count
+        > 0 and active_alerts_data is iterable %}\n  {%- for alert in active_alerts_data
+        %}\n  - {{ alert.Event }}: {{ alert.Headline }}\n  {%- endfor %}\n{%- else
+        %}\n  None\n{%- endif %}\nForecast next 3 hours:  {%- if forecast_list | length
+        > 0 %}\n  {%- for f in forecast_list %}\n  - {{ as_timestamp(f.datetime) |
+        timestamp_custom('%I %p') }}: {{ f.condition }}, {{ f.temperature }} degrees.\n
+        \ {%- endfor %}\n{%- else %}\n  (Weather forecast data is temporarily unavailable,
+        please mention current weather only)\n{%- endif %}\nCalendar for next 24h:
+        \ {%- set agenda = (events_response | items | first)[1] if events_response
+        is defined else {'events': []} %} {%- if agenda.events %}\n  {%- for event
+        in agenda.events %}\n  - {{ event.summary }} at {{ as_timestamp(event.start)
+        | timestamp_custom('%I:%M %p') }}\n  {%- endfor %}\n{%- else %}\n  - No upcoming
+        events.\n{%- endif %}\n{{ prompt }}"
+    response_variable: agent
+  - alias: Send notification
+    action: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.office_display
+      volume_level: 0.2
+  - repeat:
+      count: 10
+      sequence:
+      - delay: 00:00:03
+      - action: light.turn_on
+        continue_on_error: true
+        target:
+          entity_id: light.office_floor_lights
+        data:
+          brightness: '{{ (repeat.index * 17) | int }}'
+          color_temp_kelvin: '{{ (2000 + (repeat.index * 200)) | int }}'
+          transition: 3
+  - action: switch.turn_off
+    continue_on_error: true
+    entity_id:
+    - switch.air_cleaner
+  - action: tts.cloud_say
+    continue_on_error: true
+    entity_id: media_player.office_display
+    data:
+      message: '{{ (agent.response.speech.plain.speech | replace(''*'', '''') | replace(''#'',
+        '''') if agent is defined and agent.response is defined else ''Good morning!
+        Your daily briefing is currently unavailable.'') }}'
+tts_bedtime_msg_darren:
+  alias: tts bedtime msg darren
+  sequence:
+  - alias: Fetch Weather Forecast
+    continue_on_error: true
+    action: weather.get_forecasts
+    data:
+      type: hourly
+    target:
+      entity_id: weather.tomorrow_io_new_life_hourly
+    response_variable: hourly_forecast
+  - variables:
+      weather_entity: weather.tomorrow_io_new_life_hourly
+      alarm_entity: sensor.darrens_next_alarm
+      verse_entity: sensor.verse_of_the_day
+      nws_entity: sensor.nws_alerts_alerts
+      current_condition: '{{ states(weather_entity) }}'
+      current_temp: '{{ state_attr(weather_entity, ''temperature'') }}'
+      verse_ref: '{{ states(verse_entity) }}'
+  - alias: Generate Bedtime Text
+    action: conversation.process
+    data:
+      agent_id: conversation.google_generative_ai
+      text: "{% set alarm_state = states(alarm_entity) %} {% set alarm_ts = as_timestamp(alarm_state,
+        default=0) %}\n{% set alarm_forecast_text = 'unavailable' %} {% if hourly_forecast
+        is defined and hourly_forecast[weather_entity] is defined %}\n  {% set forecasts
+        = hourly_forecast[weather_entity].forecast %}\n  {% if alarm_ts > 0 %}\n    {%
+        for f in forecasts %}\n      {% set f_ts = as_timestamp(f.datetime) %}\n      {%
+        if f_ts <= alarm_ts < (f_ts + 3600) %}\n        {% set alarm_forecast_text
+        = f.condition ~ \" and \" ~ f.temperature ~ \" degrees\" %}\n      {% endif
+        %}\n    {% endfor %}\n  {% endif %}\n{% endif %}\n{% set wake_up_alerts =
+        [] %} {% set active_alerts = state_attr(nws_entity, 'Alerts') %} {% if active_alerts
+        and alarm_ts > 0 %}\n  {% for alert in active_alerts %}\n    {% set start
+        = as_timestamp(alert.Onset, default=0) %}\n    {% set end = as_timestamp(alert.Expires,
+        default=0) %}\n    {% if start <= alarm_ts <= end %}\n      {% set wake_up_alerts
+        = wake_up_alerts + [alert.Event] %}\n    {% endif %}\n  {% endfor %}\n{% endif
+        %}\nYou are Darren's comforting bedtime assistant. Generate a short, spoken
+        message to help him wind down.\n**IMPORTANT INSTRUCTION:** - Do NOT use markdown
+        formatting (no asterisks, no bolding). - Output only plain text to be spoken.\n**Tone:**
+        Soft, quiet, soothing, and intimate. Speak slowly.\n**Content:** 1. **Current:**
+        Weather right now is {{ current_temp }} degrees and {{ current_condition }}.\n2.
+        **Alerts:** {% if wake_up_alerts | length > 0 %}\n  WARN HIM: There will be
+        a {{ wake_up_alerts | join(', ') }} active when his alarm goes off.\n{% endif
+        %}\n3. **Wake Up:** - Alarm is at: {{ alarm_state }}.\n  {% if alarm_forecast_text
+        != 'unavailable' %}\n  - Weather then will be: {{ alarm_forecast_text }}.\n
+        \ {% else %}\n  - Weather then is unavailable, but right now it is {{ current_condition
+        }}.\n  {% endif %}\n\n4. **Verse:** Today's verse is \"{{ verse_ref }}\".
+        Please recite this verse fully (NIV). If you do not have the text provided
+        here, please look it up yourself and recite it.\n5. **Closing:** Short, warm
+        Christian goodnight blessing."
+    response_variable: agent
+  - alias: Set Volume Low
+    action: media_player.volume_set
+    continue_on_error: true
+    data:
+      volume_level: 0.35
+    target:
+      entity_id: media_player.office_display
+  - alias: Speak Message
+    action: tts.cloud_say
+    continue_on_error: true
+    entity_id: media_player.office_display
+    data:
+      message: '{{ agent.response.speech.plain.speech | replace(''*'', '''') | replace(''#'',
+        '''') }}'
+  - action: switch.turn_on
+    continue_on_error: true
+    entity_id:
+    - switch.air_cleaner
