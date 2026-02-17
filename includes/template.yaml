@@ -1,0 +1,384 @@
+---
+# template.yaml
+# --------------------------
+- fan:
+    - unique_id: office_fan
+      turn_on:
+        - action: light.turn_on
+          target:
+            entity_id: light.office_ceiling_fan
+      turn_off:
+        - action: light.turn_off
+          target:
+            entity_id: light.office_ceiling_fan
+      preset_modes:
+        - "off"
+        - low
+        - medium
+        - high
+        - max
+      set_preset_mode:
+        - action: light.turn_on
+          target:
+            entity_id: light.office_ceiling_fan
+          data:
+            brightness: >
+              {% if preset_mode == 'max' %} 255
+              {% elif preset_mode == 'high' %} 191
+              {% elif preset_mode == 'medium' %} 127
+              {% elif preset_mode == 'low' %} 63
+              {% else %} 0
+              {% endif %}
+      default_entity_id: fan.office_fan
+      name: Office Fan
+      preset_mode: >
+        {% if is_state('light.office_ceiling_fan', 'on') %}
+          {% set b = state_attr('light.office_ceiling_fan', 'brightness') %}
+          {% if b == 255 %} max
+          {% elif b == 191 %} high
+          {% elif b == 127 %} medium
+          {% elif b == 63 %} low
+          {% else %} unknown
+          {% endif %}
+        {% else %} off
+        {% endif %}
+      state: "{{ states('light.office_ceiling_fan') }}"
+
+    - unique_id: bedroom_fan
+      turn_on:
+        - action: light.turn_on
+          target:
+            entity_id: light.bedroom_ceiling_fan
+      turn_off:
+        - action: light.turn_off
+          target:
+            entity_id: light.bedroom_ceiling_fan
+      preset_modes:
+        - "off"
+        - low
+        - medium
+        - high
+        - max
+      set_preset_mode:
+        - action: light.turn_on
+          target:
+            entity_id: light.bedroom_ceiling_fan
+          data:
+            brightness: >
+              {% if preset_mode == 'max' %} 255
+              {% elif preset_mode == 'high' %} 191
+              {% elif preset_mode == 'medium' %} 127
+              {% elif preset_mode == 'low' %} 63
+              {% else %} 0
+              {% endif %}
+      default_entity_id: fan.bedroom_fan
+      name: Bedroom Fan
+      preset_mode: >
+        {% if is_state('light.bedroom_ceiling_fan', 'on') %}
+          {% set b = state_attr('light.bedroom_ceiling_fan', 'brightness') %}
+          {% if b == 255 %} max
+          {% elif b == 191 %} high
+          {% elif b == 127 %} medium
+          {% elif b == 63 %} low
+          {% else %} unknown
+          {% endif %}
+        {% else %} off
+        {% endif %}
+      state: "{{ states('light.bedroom_ceiling_fan') }}"
+
+    - unique_id: guest_fan
+      turn_on:
+        - action: google_assistant_sdk.send_text_command
+          continue_on_error: true
+          data:
+            command: turn on guest ceiling fan
+        - action: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.guest_ceiling_fan
+      turn_off:
+        - action: google_assistant_sdk.send_text_command
+          continue_on_error: true
+          data:
+            command: turn off guest ceiling fan
+        - action: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.guest_ceiling_fan
+      default_entity_id: fan.guest_fan
+      name: Guest Fan
+      state: "{{ states('input_boolean.guest_ceiling_fan') }}"
+
+    - unique_id: den_fan_rf_remote
+      turn_on:
+        - action: remote.send_command
+          target:
+            entity_id: remote.universal_remote
+          data:
+            device: fan
+            command: power
+        - action: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.den_fan
+      turn_off:
+        - action: remote.send_command
+          target:
+            entity_id: remote.universal_remote
+          data:
+            device: fan
+            command: power
+        - action: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.den_fan
+      default_entity_id: fan.den_fan
+      name: Den Fan
+      state: "{{ states('input_boolean.den_fan') }}"
+
+# -------------------------------------------------------------------
+# COVER
+# -------------------------------------------------------------------
+- cover:
+    - name: Garage Door
+      unique_id: garage_door
+      device_class: garage
+      position: >
+        {% if states('binary_sensor.garage_door_sensor_zb') == 'on' %}
+          100
+        {% else %}
+          0
+        {% endif %}
+      open_cover:
+        - action: switch.turn_on
+          target:
+            entity_id: switch.garage_door
+      close_cover:
+        - action: switch.turn_on
+          target:
+            entity_id: switch.garage_door
+      icon: >-
+        {% if is_state('binary_sensor.garage_door_sensor_zb', 'on') %}
+          mdi:garage-open-variant
+        {% else %}
+          mdi:garage-variant
+        {% endif %}
+
+- binary_sensor:
+    - name: NWS Alerts Are Active
+      unique_id: nws_alerts_are_active
+      state: >
+        {{ states('sensor.nws_alerts_alerts') | int(0) > 0 }}
+      icon: >-
+        {% if states('sensor.nws_alerts_alerts') | int(0) > 0 %}
+          mdi:alert-box-outline
+        {% else %}
+          mdi:cancel
+        {% endif %}
+
+    - name: HVAC Fan
+      unique_id: hvac_fan_mode
+      state: "{{ state_attr('climate.den', 'fan_mode') is not none }}"
+
+#    - name: Weather alerts active
+#      unique_id: weather_alert_detected
+#      state: '{{ states("sensor.weatheralerts_1") | float(default=0) > 0 }}'
+
+# -------------------------------------------------------------------
+# TRIGGER SENSORS (update every 30 seconds)
+# -------------------------------------------------------------------
+- trigger:
+    - trigger: time_pattern
+      seconds: "/30"
+      variables:
+        unavailable_entities: |
+          {{ label_entities('Monitored') | expand() | selectattr('state' , 'in' , ['unavailable','unknown']) | sort(attribute='name') | map(attribute='name') | list }}
+        unavailable_entity_count: |
+          {{ unavailable_entities  | count }}
+        unavailable_entity_list: |
+          {{ unavailable_entities | join(', ') }}
+
+  sensor:
+    - name: Unavailable Monitored Entities
+      unique_id: unavailable_monitored_entities
+      state: "{{ unavailable_entity_count }}"
+      attributes:
+        monitored_entities_count: |
+          {{ label_entities('Monitored') | expand() | map(attribute='name') | list | count }}
+        unavailable: |
+          {% if unavailable_entity_count | int > 0 %} {{ unavailable_entity_list }} {% else %} No unavailable entities {% endif %}
+        previous_state: |
+          {% if this.last_changed == this.last_updated and this.state == this.attributes.previous_state %} {{ this.state }} {% else %} {{ this.attributes.previous_state }} {% endif %}
+        previous_unavailable: |
+          {% if this.last_changed == this.last_updated and this.state == this.attributes.previous_state %} {{ this.attributes.unavailable }} {% else %} {{ this.attributes.previous_unavailable }} {% endif %}
+
+# -------------------------------------------------------------------
+# STANDARD SENSORS
+# -------------------------------------------------------------------
+- sensor:
+    - name: "Pixel 8 Pro Battery Level"
+      unique_id: pixel_8_pro_fmd_battery
+      state: "{{ state_attr('device_tracker.fmd_pixel8pro', 'battery_level') }}"
+      unit_of_measurement: "%"
+      device_class: battery
+      icon: mdi:battery
+
+    - name: "Pixel 8 Pro Last Poll"
+      unique_id: pixel_8_pro_fmd_last_poll
+      state: "{{ state_attr('device_tracker.fmd_pixel8pro', 'last_poll_time') }}"
+      device_class: timestamp
+      icon: mdi:clock-check
+
+    - name: "Pixel 8 Pro GPS Accuracy"
+      unique_id: pixel_8_pro_fmd_gps_accuracy
+      state: "{{ state_attr('device_tracker.fmd_pixel8pro', 'gps_accuracy') }}"
+      unit_of_measurement: "ft"
+      icon: mdi:crosshairs-gps
+
+    - name: "Pixel 8 Pro Altitude"
+      unique_id: pixel_8_pro_fmd_altitude
+      state: "{{ state_attr('device_tracker.fmd_pixel8pro', 'altitude') }}"
+      unit_of_measurement: "ft"
+      icon: mdi:elevation-rise
+
+    - name: "Pixel 8 Pro Speed"
+      unique_id: pixel_8_pro_fmd_speed
+      state: "{{ state_attr('device_tracker.fmd_pixel8pro', 'speed') }}"
+      unit_of_measurement: "mph"
+      icon: mdi:speedometer
+
+    - name: "Pixel 8 Pro Location Provider"
+      unique_id: pixel_8_pro_fmd_provider
+      state: "{{ state_attr('device_tracker.fmd_pixel8pro', 'provider') | capitalize }}"
+      icon: mdi:access-point-network
+
+    - unique_id: windowopencount
+      default_entity_id: sensor.window_open_count
+      name: Window open count
+      state: >
+        {% set windows_on = states.binary_sensor
+          | selectattr('attributes.device_class', 'eq', 'window')
+          | selectattr('state', 'eq', 'on')
+          | list
+          | count %}
+        {{ windows_on }}
+
+    - unique_id: lightsoncount
+      default_entity_id: sensor.lights_on_count
+      name: Lights on count
+      state: >
+        {% set lights_on = states.light
+          | selectattr('state', 'eq', 'on')
+          | list
+          | count %}
+        {{ lights_on }}
+
+    - default_entity_id: sensor.pixel_8_pro_detected_activity_formatted
+      name: Pixel 8 Pro Detected Activity Formatted
+      state: >
+        {% set activity = states('sensor.pixel_8_pro_detected_activity') %}
+        {% if activity %}
+          {{ activity.replace('_', ' ').title() }}
+        {% else %}
+          Unknown
+        {% endif %}
+
+    - default_entity_id: sensor.pixel_5_detected_activity_formatted
+      name: Pixel 5 Detected Activity Formatted
+      state: >
+        {% set activity = states('sensor.pixel_5_detected_activity') %}
+        {% if activity %}
+          {{ activity.replace('_', ' ').title() }}
+        {% else %}
+          Unknown
+        {% endif %}
+
+    - unique_id: lightalarm_time_start
+      default_entity_id: sensor.lightalarm_time_start
+      name: lightalarm_time_start
+      state: >
+        {{ (strptime(states("input_datetime.lightalarm_time"), "%H:%M:%S") - timedelta(minutes=(states("input_number.lightalarm_duration") | int) )).strftime("%H:%M") }}
+
+    - unique_id: date_and_day_of_week
+      default_entity_id: sensor.date_long
+      name: Date and Day of week
+      state: >
+        {% set months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] %}
+        {% set days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] %}
+        {{ months[now().month-1] }}.{{ now().day }}th. {{ days[now().weekday()] }}
+
+    - unique_id: darrens_next_alarm
+      default_entity_id: sensor.darrens_next_alarm
+      name: Darren's Next Alarm
+      state: "{{ state_attr('sensor.pixel_8_pro_next_alarm', 'Local Time') }}"
+
+    - unique_id: donnas_next_alarm
+      default_entity_id: sensor.donnas_next_alarm
+      name: Donna's Next Alarm
+      state: "{{ state_attr('sensor.pixel_5_next_alarm', 'Local Time') }}"
+
+    - unique_id: day_night
+      default_entity_id: sensor.day_night
+      picture: >
+        {% if is_state('sun.sun', 'above_horizon') %}
+          /local/images-lovelace/sun.jpg
+        {% else %}
+          /local/images-lovelace/night.jpg
+        {% endif %}
+      name: Day/Night
+      state: >
+        {% if is_state('sun.sun', 'above_horizon') %}
+          Day
+        {% else %}
+          Night
+        {% endif %}
+
+    - default_entity_id: sensor.hvac_mode
+      name: HVAC Action Mode
+      state: "{{ state_attr('climate.den', 'hvac_action') }}"
+
+    - unique_id: sunset
+      default_entity_id: sensor.sunset
+      state: >
+        {% set timestamp = as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom("%I:%M") %}
+        {{ timestamp.lstrip("0") }}
+      name: sunset
+
+    - unique_id: sunrise
+      default_entity_id: sensor.sunrise
+      state: >
+        {% set timestamp = as_timestamp(states.sun.sun.attributes.next_rising) | timestamp_custom("%I:%M") %}
+        {{ timestamp.lstrip("0") }}
+      name: sunrise
+
+    - default_entity_id: sensor.daylight
+      state: >
+        {% set nr = as_timestamp(state_attr('sun.sun','next_rising')) %}
+        {% set ns = as_timestamp(state_attr('sun.sun','next_setting')) %}
+        {% if nr > ns %}
+          {% set nr = nr - 60*60*24 %}
+        {% endif %}
+        {{ (ns - nr)|timestamp_custom('%H:%M',false) }}
+      name: daylight
+
+    - default_entity_id: sensor.time_12_hour_am_pm
+      name: Time 12 Hour AM PM
+      state: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%I:%M %p') }}"
+
+    - default_entity_id: sensor.time_12_hour
+      name: Time 12 Hour
+      state: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%I:%M') }}"
+
+    - default_entity_id: sensor.motion_count
+      name: Motion Sensors Active
+      state: >
+        {{ states.binary_sensor | selectattr('state', 'eq', 'on') | selectattr('attributes.device_class', 'eq', 'motion') | list | count }}
+
+    - name: "Time Until High Tide"
+      unique_id: time_until_high_tide
+      state: >
+        {% set high_tide = states('sensor.tchefuncta_river_lake_pontchartrain_la_next_high_tide') | as_datetime %}
+        {% if high_tide %}
+          {% set diff = high_tide - now() %}
+          {# Added | int to remove decimal points (e.g., 2.0h -> 2h) #}
+          {{ (diff.total_seconds() // 3600) | int }}h {{ ((diff.total_seconds() % 3600) // 60) | int }}m
+        {% else %}
+          unavailable
+        {% endif %}
+      availability: "{{ states('sensor.tchefuncta_river_lake_pontchartrain_la_next_high_tide') | as_datetime is not none }}"
