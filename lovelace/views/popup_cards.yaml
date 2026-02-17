@@ -1,0 +1,2311 @@
+---
+title: Popups
+path: popups
+icon: el:briefcase
+cards:
+  - popup_card_id: test_popup
+    type: custom:popup-card
+    title: Custom popup
+    dismissable: true
+    card:
+      type: markdown
+      content: >-
+        This card can be used in browser_mod.popup service or to replace the
+        more-info dialog
+      title: Test
+    popup_card_all_views: true
+
+  - popup_card_id: location_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: custom:stack-in-card
+      mode: vertical
+      cards:
+        - type: map
+          entities:
+            - entity: person.donna
+            - entity: person.darren
+          theme_mode: dark
+          hours_to_show: 14
+          aspect_ratio: "9:18"
+          default_zoom: 18
+      card_mod:
+        style: |
+          ha-card {
+            box-shadow: 0px 0px 2px 1px var(--accent-color);
+            height: 78vh;
+          }
+
+  - popup_card_id: camera_alerts
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: custom:stack-in-card
+      mode: vertical
+      cards:
+        - type: custom:mass-player-card
+          entities:
+            - media_player.office_display
+            - media_player.uuid_05ea1a4e_a2b2_40f7_a9b8_ffb8fc833b68
+            - media_player.front_group
+            - media_player.garage_speakers_2
+            - media_player.den_mini_2
+            - media_player.sink_display
+          expressive_scheme: vibrant
+          panel: true
+          sync_player_across_dashboard: true
+
+  - popup_card_id: google_maps
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: custom:stack-in-card
+      mode: vertical
+      cards:
+        - type: custom:google-map-card
+          api_key: !secret google_maps_api
+          zoom: 14.5
+          aspect_ratio: "9:16"
+          cameraControl: false
+          zoomControl: false
+          streetViewControl: true
+          streetViewControl_position: LEFT_BOTTOM
+          fullscreenControl: true
+          fullscreenControl_position: RIGHT_BOTTOM
+          mapTypeControl: true
+          mapTypeControl_position: LEFT_BOTTOM
+          rotateControl: true
+          rotateControl_position: LEFT_BOTTOM
+          show_traffic_button: true
+          show_traffic_button_position: TOP_LEFT
+          show_weather_button: true
+          show_weather_button_position: TOP_RIGHT
+          show_recenter_button: true
+          show_recenter_button_position: RIGHT_BOTTOM
+          show_datepicker_button: true
+          show_datepicker_button_position: TOP_CENTER
+          buttons_opacity: 0.3
+          showScale: true
+          keyboardShortcuts: true
+          gesture_handling: greedy
+          marker_clustering: false
+          proximity_clustering: false
+          proximity_radius: 150
+          spiderfy: true
+          show_traffic: false
+          weather_layer: precipitation_new
+          zones:
+            zone.cotk:
+              show: true
+              color: "#3498db"
+              follow: true
+              label_color: "#c4dbf9"
+            zone.donna_s_work:
+              show: true
+              color: "#3498db"
+              follow: true
+              label_color: "#c4dbf9"
+            zone.home:
+              show: true
+              color: "#3498db"
+              follow: true
+              label_color: "#c4dbf9"
+            zone.mom_dad:
+              show: false
+              color: "#3498db"
+              follow: false
+              label_color: "#c4dbf9"
+            zone.mom_dad_2:
+              show: false
+              color: "#3498db"
+              follow: false
+              label_color: "#c4dbf9"
+            zone.monique_s:
+              show: false
+              color: "#3498db"
+              follow: false
+              label_color: "#c4dbf9"
+            zone.ron_s:
+              show: false
+              color: "#3498db"
+              follow: false
+              label_color: "#c4dbf9"
+            zone.scooter_s:
+              show: false
+              color: "#3498db"
+              follow: false
+              label_color: "#c4dbf9"
+          map_type: terrain
+          entities:
+            - entity: person.darren
+              icon_size: 20
+              polyline_color: "#0ced1b"
+              polyline_width: 1
+              icon_color: "#2112f8"
+              background_color: "#ffffff"
+              follow: true
+              hours_to_show: 24
+              history_start_date: null
+              history_end_date: null
+            - entity: person.donna
+              icon_size: 20
+              polyline_color: "#fb04f3"
+              polyline_width: 1
+              icon_color: "#b700db"
+              background_color: "#ffffff"
+              follow: true
+              hours_to_show: 24
+              history_start_date: null
+              history_end_date: null
+          grid_options:
+            columns: full
+
+      card_mod:
+        style: |
+          ha-card {
+                box-shadow: 0px 0px 2px 1px var(--accent-color);
+                height: 100%;
+
+  - popup_card_id: lyrics_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: custom:stack-in-card
+      mode: vertical
+      cards:
+        - type: markdown
+          content: >-
+            ![image]({{
+            states.sensor.genius_lyrics_now_playing_lyrics.attributes.media_image
+            }})
+
+            {{
+            states.sensor.genius_lyrics_now_playing_lyrics.attributes.media_lyrics
+            }}
+      card_mod:
+        style: |
+          ha-card {
+            box-shadow: 0px 0px 2px 1px var(--accent-color);
+            height: auto;
+          }
+          ha-card::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            border-radius: 22px;
+            overflow: hidden;
+            filter: brightness(1.1) opacity(0.2);
+            background-image: url('{{ state_attr('media_player.now_playing', 'entity_picture') }}');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+          .card-content {
+            padding: 2px;
+          }
+          .card-content > div {
+            margin: 0 !important;
+          }
+
+  - popup_card_id: lunch_timer
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: custom:stack-in-card
+      mode: vertical
+      cards:
+        - type: custom:circular-timer-card
+          entity: timer.lunch_timer
+          bins: 60
+          color:
+            - "#ff0000"
+            - "#ffff00"
+            - "#00ff00"
+        - type: custom:entity-progress-card
+          force_circular_background: true
+          framless: true
+          layout: vertical
+          bar_size: large
+          unit: flextimer
+          bar_effect: shimmer
+          bar_orientation: ltr
+          reverse: true
+          hide:
+            - name
+            - secondary_info
+            - icon
+          theme: optimal_when_high
+          entity: timer.lunch_timer
+          tap_action:
+            action: perform-action
+            perform_action: timer.start
+            target:
+              entity_id: timer.lunch_timer
+      card_mod:
+        style: |
+          ha-card {
+            box-shadow: 0px 0px 2px 1px var(--accent-color);
+            backdrop-filter: blur(19.6px) brightness(0.3) !important;
+            -webkit-backdrop-filter: blur(19.6px) brightness(0.3) !important;
+            padding: 160px 0px;
+            height: 78vh;
+          }
+          ha-card::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            border-radius: 22px;
+            overflow: hidden;
+            filter: brightness(1.1) opacity(0.25);
+            background-image: url('/local/images-lovelace/mobile_backz/{{ states('input_select.mobile_wallpaper') }}.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+          .card-content {
+            padding: 2px;
+          }
+          .card-content > div {
+            margin: 0 !important;
+          }
+
+  - popup_card_id: darrens_health
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:button-card
+          color_type: blank-card
+          styles:
+            card:
+              - height: 1px
+        - type: custom:stack-in-card
+          mode: vertical
+          card_mod:
+            style: |
+              ha-card {
+                box-shadow: 0px 0px 2px 1px var(--accent-color);
+                backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                -webkit-backdrop-filter: blur(19.6px) brightness(0.3) !important;
+              }
+              ha-card::before {
+                content: '';
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                top: 0;
+                border-radius: 22px;
+                overflow: hidden;
+                filter: brightness(1.1) opacity(0.25);
+                background-image: url('/local/images-lovelace/mobile_backz/{{ states('input_select.mobile_wallpaper') }}.jpg');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+              }
+              .card-content {
+                padding: 2px;
+              }
+              .card-content > div {
+                margin: 0 !important;
+              }
+          cards:
+            - type: entities
+              entities:
+                - entity: sensor.darren_w_calories
+                  name: Calories
+                - entity: sensor.darren_w_distance
+                  name: Distance
+                - entity: sensor.darren_w_resting_heart_rate
+                  name: Resting heart rate
+                - entity: sensor.darren_w_steps
+                  name: Steps
+                - entity: sensor.darren_w_activity_calories
+                  name: Activity calories
+                - entity: sensor.darren_w_minutes_lightly_active
+                  name: Minutes lightly active
+                - entity: sensor.darren_w_minutes_sedentary
+                  name: Minutes sedentary
+                - entity: sensor.darren_w_minutes_very_active
+                  name: Minutes very active
+              title: Activity
+            - type: entities
+              entities:
+                - entity: sensor.darren_w_sleep_efficiency
+                  name: Sleep efficiency
+                - entity: sensor.darren_w_sleep_minutes_asleep
+                  name: Sleep minutes asleep
+                - entity: sensor.darren_w_sleep_minutes_awake
+                  name: Sleep minutes awake
+                - entity: sensor.darren_w_sleep_start_time
+                  name: Sleep start time
+                - entity: sensor.darren_w_sleep_time_in_bed
+                  icon: mdi:timer
+                  name: Sleep time in bed
+              title: Sleep
+
+  - popup_card_id: den_remote
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: custom:firemote-card
+      entity: media_player.android_tv_192_168_1_128
+      device_family: chromecast
+      device_type: chromecast-4k
+      compatibility_mode: default
+      visible_name_text: Den TV
+      name_position: bottom
+      visible_name_text_color: "#f70202"
+      button_overrides:
+        mute-button:
+          script: tv_volume_mute
+        volume-down-button:
+          script: tv_volume_down
+        volume-up-button:
+          script: tv_volume_up
+      show_media_controls: false
+      app_launch_1: prime-video
+      app_launch_2: netflix
+      app_launch_3: discovery-plus
+      app_launch_4: paramount-plus
+      app_launch_5: tubi
+      app_launch_6: youtube
+      android_tv_remote_entity: remote.den_tv
+      defaultRemoteStyle_override: CC2
+
+  - popup_card_id: thermostat
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: brand
+    right_button_appearance: accent
+    left_button: FANS
+    left_button_close: false
+    left_button_variant: brand
+    left_button_appearance: accent
+    left_button_action:
+      service: browser_mod.popup
+      data:
+        popup_card_id: fans_popup
+    allow_nested_more_info: true
+    dismissable: false
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:button-card
+          color_type: blank-card
+          styles:
+            card:
+              - height: 5px
+        - type: custom:stack-in-card
+          mode: vertical
+          card_mod:
+            style: |
+              ha-card {
+                box-shadow: 0px 0px 2px 1px rgba(3, 169, 244, 0.3);
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(19.6px) brightness(0.3);
+                -webkit-backdrop-filter: blur(19.6px) brightness(0.3);
+              }
+          cards:
+            - type: grid
+              square: false
+              columns: 2
+              cards:
+                - type: custom:mushroom-legacy-template-card
+                  entity: climate.den
+                  tap_action:
+                    action: none
+                  icon: |-
+                    {% if is_state(entity, 'heat') %}
+                      mdi:fire
+                    {% elif is_state(entity, 'heat_cool') %}
+                      mdi:sun-snowflake
+                    {% elif is_state(entity, 'cool') %}
+                      mdi:snowflake
+                    {% elif is_state(entity, 'fan_only') %}
+                      mdi:fan
+                    {% else %}
+                      mdi:radiator-off
+                    {% endif %}
+                  icon_color: |-
+                    {% if is_state_attr(entity,
+                    'hvac_action', 'heating') %}
+                      deep-orange
+                    {% elif is_state_attr(entity,
+                    'hvac_action', 'cooling') %}
+                      blue
+                    {% elif is_state_attr(entity,
+                    'hvac_action', 'drying') %}
+                      orange
+                    {% elif is_state_attr(entity,
+                    'hvac_action', 'fan') %}
+                      turquoise
+                    {% else %}
+                      disabled
+                    {% endif %}
+                  primary: |
+                    {{ states('sensor.den_temperature') | round(1) }}°F
+                  secondary: |-
+                    {% if is_state(entity, 'heat_cool') %}
+                      Heat/Cool
+                    {% elif is_state_attr(entity,
+                    'hvac_action', 'heating') %}
+                      Heating
+                    {% elif is_state_attr(entity,
+                    'hvac_action', 'cooling') %}
+                      Cooling
+                    {% elif is_state(entity, 'heat') %}
+                      Heat
+                    {% elif is_state(entity, 'cool') %}
+                      Cool
+                    {% elif is_state(entity, 'fan_only') %}
+                      Fan
+                    {% else %}
+                      Off 
+                    {% endif %}
+                - type: custom:mushroom-legacy-template-card
+                  entity: sensor.den_humidity
+                  tap_action:
+                    action: none
+                  primary: |
+                    {{ states(entity) | round(1) }}%
+                  secondary: Humidity
+                  icon: mdi:water-percent
+                  icon_color: blue
+            - type: thermostat
+              entity: climate.den
+              theme: Blue-Nightz
+              show_current_as_primary: false
+              features:
+                - style: icons
+                  type: climate-hvac-modes
+                  hvac_modes:
+                    - "off"
+                    - heat_cool
+                    - heat
+                    - cool
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 15px
+            - type: custom:mushroom-entity-card
+              entity: sensor.outside_recent_temperature
+              layout: vertical
+              fill_container: true
+              icon_type: none
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 5px
+        - type: custom:mushroom-legacy-template-card
+          primary: "FAN {{ state_attr('climate.den', 'fan_mode' ) }}"
+          entity: binary_sensor.hvac_fan
+          animation: spin
+          layout: vertical
+          tap_action:
+            action: none
+          icon_color: >
+            {{ ((states(entity)) == 'off') | iif("grey","black")
+            }}
+          icon: >
+            {{ ((states(entity)) == 'off') |
+            iif("mdi:fan-off","mdi:fan") }}
+          card_mod:
+            style: |
+              ha-state-icon {
+                --icon-symbol-size: 60px;
+              }
+              ha-card {
+                {% set entity = 'binary_sensor.hvac_fan' %}
+                background: 
+                    {% if is_state (entity, 'off') %} rgba(10,10,10,0.55)
+                    {% else %} rgba(3, 169, 244,0.6)
+                    {% endif %};
+                text-transform: uppercase;
+                padding: 20px 0px 5px 0px;
+                box-shadow: 0px 0px 2px 1px rgba(3, 169, 244,0.3);
+                backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                -webkit-backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                }
+        - type: horizontal-stack
+          cards:
+            - type: tile
+              features_position: bottom
+              vertical: false
+              entity: input_button.hvac_15_fan_timer
+              hide_state: true
+              color: blue
+            - type: tile
+              features_position: bottom
+              vertical: false
+              entity: input_button.hvac_30_fan_timer
+              hide_state: true
+              color: blue
+
+  - popup_card_id: fans_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: brand
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: vertical-stack
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: custom:mushroom-fan-card
+              card_mod:
+                style: |
+                  ha-card {
+                      box-shadow: 0px 2px 4px 0px rgba(210,210,210,0.22);
+                      background: black;
+                  }
+              entity: fan.bedroom_fan
+            - type: custom:mushroom-fan-card
+              card_mod:
+                style: |
+                  ha-card {
+                      box-shadow: 0px 2px 4px 0px rgba(210,210,210,0.22);
+                      background: black;
+                  }
+              entity: fan.den_fan
+              tap_action:
+                action: toggle
+        - type: custom:button-card
+          color_type: blank-card
+          styles:
+            card:
+              - height: .5px
+        - type: horizontal-stack
+          cards:
+            - type: custom:mushroom-fan-card
+              card_mod:
+                style: |
+                  ha-card {
+                      box-shadow: 0px 2px 4px 0px rgba(210,210,210,0.22);
+                      background: black;
+                  }
+              entity: fan.office_fan
+            - type: custom:mushroom-fan-card
+              card_mod:
+                style: |
+                  ha-card {
+                      box-shadow: 0px 2px 4px 0px rgba(210,210,210,0.22);
+                      background: black;
+                  }
+              entity: fan.guest_fan
+              name: Guest Fan
+        - type: custom:button-card
+          color_type: blank-card
+          styles:
+            card:
+              - height: .5px
+        - type: horizontal-stack
+          cards:
+            - type: custom:mushroom-fan-card
+              card_mod:
+                style: |
+                  ha-card {
+                      box-shadow: 0px 2px 4px 0px rgba(210,210,210,0.22);
+                      background: black;
+                  }
+              entity: fan.hallway_fan
+            - type: custom:mushroom-fan-card
+              card_mod:
+                style: |
+                  ha-card {
+                      box-shadow: 0px 2px 4px 0px rgba(210,210,210,0.22);
+                      background: black;
+                  }
+              entity: fan.patio_fan
+        - type: custom:button-card
+          color_type: blank-card
+          styles:
+            card:
+              - height: .5px
+        - type: horizontal-stack
+          cards:
+            - type: custom:mushroom-legacy-template-card
+              features_position: bottom
+              entity: input_boolean.den_fan_cycles
+              primary: Den Fan Cycle
+              layout: vertical
+              icon_color: >
+                {{ ((states(entity)) == 'off') | iif("grey","#00ff00")
+                }}
+              icon: >
+                {{ ((states(entity)) == 'off') |
+                iif("mdi:toggle-switch-off-outline","mdi:toggle-switch-outline") }}
+              card_mod:
+                style: |
+                  ha-card {
+                      font-family: "Sofia Sans Extra Condensed";
+                      --state-active-color: lime !important;
+                  }
+            - type: custom:mushroom-legacy-template-card
+              features_position: bottom
+              entity: input_boolean.guest_fan_cycles
+              primary: Guest Fan Cycle
+              layout: vertical
+              icon_color: >
+                {{ ((states(entity)) == 'off') | iif("grey","#00ff00")
+                }}
+              icon: >
+                {{ ((states(entity)) == 'off') |
+                iif("mdi:toggle-switch-off-outline","mdi:toggle-switch-outline") }}
+              card_mod:
+                style: |
+                  ha-card {
+                      font-family: "Sofia Sans Extra Condensed";
+                      --state-active-color: lime !important;
+                  }
+            - type: custom:mushroom-legacy-template-card
+              features_position: bottom
+              entity: input_boolean.office_fan_cycles
+              primary: Office Fan Cycle
+              layout: vertical
+              icon_color: >
+                {{ ((states(entity)) == 'off') | iif("grey","#00ff00")
+                }}
+              icon: >
+                {{ ((states(entity)) == 'off') |
+                iif("mdi:toggle-switch-off-outline","mdi:toggle-switch-outline") }}
+              card_mod:
+                style: |
+                  ha-card {
+                      font-family: "Sofia Sans Extra Condensed";
+                      --state-active-color: lime !important;
+                  }
+        - type: custom:mod-card
+          card_mod:
+            style: |
+              :host {
+                  --swiper-theme-color: lime !important;
+                  --swiper-navigation-color: lime !important;
+              }
+          card:
+            type: custom:swipe-card
+            card_width: 100%
+            parameters:
+              effect: cube
+              shadow: true
+              shadowOffset: 20
+              shadowScale: 0.94
+              navigation: null
+              keyboard:
+                enabled: true
+                onlyInViewport: true
+              loop: false
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: custom:stack-in-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          background: rgba(15, 10, 10, 0.84);
+                          backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                          -webkit-backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                          --primary-color: lime !important;
+                          --secondary-text-color: lime !important;
+                        }
+                    mode: vertical
+                    cards:
+                      - type: custom:large-number-input-card
+                        entity: input_number.office_fan_cycle_on_time
+                      - type: custom:large-number-input-card
+                        entity: input_number.office_fan_cycle_off_time
+              - type: vertical-stack
+                cards:
+                  - type: custom:stack-in-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          background: rgba(15, 10, 10, 0.84);
+                          backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                          -webkit-backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                          --primary-color: lime !important;
+                          --secondary-text-color: lime !important;
+                        }
+                    mode: vertical
+                    cards:
+                      - type: custom:large-number-input-card
+                        entity: input_number.guest_fan_cycle_on_time
+                      - type: custom:large-number-input-card
+                        entity: input_number.guest_fan_cycle_off_time
+              - type: vertical-stack
+                cards:
+                  - type: custom:stack-in-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          box-shadow: 0px 0px 2px 1px rgba(0, 255, 0, 0.5);
+                          background: rgba(15, 10, 10, 0.84);
+                          backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                          -webkit-backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                          --primary-color: lime !important;
+                          --secondary-text-color: lime !important;
+                        }
+                    mode: vertical
+                    cards:
+                      - type: custom:large-number-input-card
+                        entity: input_number.den_fan_cycle_on_time
+                      - type: custom:large-number-input-card
+                        entity: input_number.den_fan_cycle_off_time
+
+  - popup_card_id: pollen_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:button-card
+          color_type: blank-card
+          styles:
+            card:
+              - height: 1px
+        - type: custom:stack-in-card
+          mode: vertical
+          card_mod:
+            style: |
+              ha-card {
+                box-shadow: 0px 0px 2px 1px var(--accent-color);
+                backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                -webkit-backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                background: rgba(0, 0, 0, 0.0);
+                --accent-color: lime;
+                --secondary-text-color: rgba(0, 255, 0, 0.7);
+                --card-background-color: rgba(0, 0, 0, 0.4) !important;
+                --border-radius: 20px;
+              }
+              .mdc-button:not(:disabled) {
+                color: rgba(0, 255, 0, 0.7) !important;
+              }
+              ha-card::before {
+                content: '';
+                background: rgba(0, 0, 0, 0.0);
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                top: 0;
+                border-radius: 22px;
+                overflow: hidden;
+                opacity: .2;
+                background-image: url('/local/images-lovelace/mobile_backz/mobile171a.jpg');
+                background-position: cover;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+              }
+              .card-content {
+                padding: 2px;
+              }
+              .card-content > div {
+                margin: 0 !important;
+              }
+          cards:
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 20px
+            - type: entity
+              icon: "null"
+              entity: sensor.pollen_info_30_418239_90_175324_last_updated
+              name: Pollen Info Last Updated
+              state_color: false
+            - type: horizontal-stack
+              title: null
+              cards:
+                - type: custom:mushroom-legacy-template-card
+                  primary: "{{ state_attr(entity, 'friendly_name') }}"
+                  secondary: "{{ state_attr(entity, 'category') | default('Unknown', true) }}"
+                  icon: mdi:flower-pollen-outline
+                  entity: sensor.grass
+                  layout: vertical
+                  fill_container: true
+                  tap_action:
+                    action: more-info
+                  hold_action:
+                    action: none
+                  double_tap_action:
+                    action: none
+                  icon_color: |-
+                    {% set entity = 'sensor.grass' %}
+                    {% if states(entity) != "unknown" %}
+                      {% set category = state_attr(entity, 'category') %}
+                      {% set color_map = {
+                        'Very Low': 'green',
+                        'Low': 'lightgreen',
+                        'Moderate': 'yellow',
+                        'High': 'orange',
+                        'Very High': '#FF6C71',
+                        'Extremely High': 'red'
+                      } %}
+                      {{ color_map.get(category, 'grey') }}
+                    {% endif %}
+                - type: custom:mushroom-legacy-template-card
+                  primary: "{{ state_attr(entity, 'friendly_name') }}"
+                  secondary: "{{ state_attr(entity, 'category') | default('Unknown', true) }}"
+                  icon: mdi:flower-pollen-outline
+                  entity: sensor.tree
+                  layout: vertical
+                  fill_container: true
+                  tap_action:
+                    action: more-info
+                  hold_action:
+                    action: none
+                  double_tap_action:
+                    action: none
+                  icon_color: |-
+                    {% set entity = 'sensor.tree' %}
+                    {% if states(entity) != "unknown" %}
+                      {% set category = state_attr(entity, 'category') %}
+                      {% set color_map = {
+                        'Very Low': 'green',
+                        'Low': 'lightgreen',
+                        'Moderate': 'yellow',
+                        'High': 'orange',
+                        'Very High': '#FF6C71',
+                        'Extremely High': 'red'
+                      } %}
+                      {{ color_map.get(category, 'grey') }}
+                    {% endif %}
+                - type: custom:mushroom-legacy-template-card
+                  primary: "{{ state_attr(entity, 'friendly_name') }}"
+                  secondary: "{{ state_attr(entity, 'category') | default('Unknown', true) }}"
+                  icon: mdi:flower-pollen-outline
+                  entity: sensor.weed
+                  layout: vertical
+                  fill_container: true
+                  tap_action:
+                    action: more-info
+                  hold_action:
+                    action: none
+                  double_tap_action:
+                    action: none
+                  icon_color: |-
+                    {% set entity = 'sensor.weed' %}
+                    {% if states(entity) != "unknown" %}
+                      {% set category = state_attr(entity, 'category') %}
+                      {% set color_map = {
+                        'Very Low': 'green',
+                        'Low': 'lightgreen',
+                        'Moderate': 'yellow',
+                        'High': 'orange',
+                        'Very High': '#FF6C71',
+                        'Extremely High': 'red'
+                      } %}
+                      {{ color_map.get(category, 'grey') }}
+                    {% endif %}
+            - type: custom:aqi-dashboard
+              entity: sensor.google_aqi_sensor
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 20px
+
+  - popup_card_id: tides_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:stack-in-card
+          card_mod:
+            style: |
+              ha-card {
+                border-radius: 12px;
+                box-shadow: 0px 0px 2px 1px rgba(3, 169, 244, 0.7);
+                background: rgba(15, 10, 10, 0.92);
+                backdrop-filter: blur(19.6px) !important;
+                -webkit-backdrop-filter: blur(19.6px) !important;
+                height: 780px;
+              }
+          mode: vertical
+          cards:
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 80px
+            - show_state: false
+              show_name: false
+              camera_view: auto
+              fit_mode: cover
+              type: picture-entity
+              entity: image.tchefuncta_river_lake_pontchartrain_la_tide_chart
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 40px
+            - type: entities
+              entities:
+                - entity: sensor.tchefuncta_river_lake_pontchartrain_la_current_tide_height
+                - entity: sensor.tchefuncta_river_lake_pontchartrain_la_tide_trend
+                - entity: sensor.tchefuncta_river_lake_pontchartrain_la_next_high_tide
+                - entity: sensor.tchefuncta_river_lake_pontchartrain_la_next_low_tide
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 80px
+
+  - popup_card_id: wind_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:stack-in-card
+          card_mod:
+            style: |
+              ha-card {
+                border-radius: 12px;
+                box-shadow: 0px 0px 2px 1px rgba(3, 169, 244, 0.7);
+                background: rgba(15, 10, 10, 0.92);
+                backdrop-filter: blur(19.6px) !important;
+                -webkit-backdrop-filter: blur(19.6px) !important;
+                height: 78vh;
+              }
+          mode: vertical
+          cards:
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 45px
+            - type: custom:windrose-card
+              title: "Madisonville, Louisiana"
+              data_period:
+                period_selector:
+                  location: top
+                  active_color: black
+                  active_bg_color: rgb(3, 169, 244)
+                  buttons:
+                    - hours: 1
+                      title: 1 hour
+                    - hours: 8
+                      title: 8 hours
+                    - hours: 24
+                      title: 1 day
+                      active: true
+                    - hours: 240
+                      title: 10 days
+              refresh_interval: 300
+              windspeed_bar_location: bottom
+              wind_direction_entity:
+                entity: sensor.home_wind_direction_cardinal
+                use_statistics: false
+                direction_compensation: 0
+              windspeed_entities:
+                - entity: sensor.home_wind_speed
+                  name: Speed
+                  speed_unit: auto
+                  use_statistics: false
+                  windspeed_bar_full: true
+                  output_speed_unit: mps
+                  speed_range_beaufort: true
+                - entity: sensor.home_wind_gust
+                  name: Gust
+                  speed_unit: auto
+                  use_statistics: false
+                  windspeed_bar_full: false
+                  output_speed_unit: mps
+                  speed_range_beaufort: false
+                  speed_ranges:
+                    - from_value: 0
+                      color: rgb(0,255,0)
+                    - from_value: 2
+                      color: yellow
+                    - from_value: 5
+                      color: hsl(200, 100%, 60%)
+                    - from_value: 10
+                      color: orange
+                    - from_value: 15
+                      color: red
+              current_direction:
+                show_arrow: true
+                arrow_size: 50
+                center_circle_size: 30
+                hide_direction_below_speed: 3
+              compass_direction:
+                auto_rotate: true
+                as_heading: false
+                entity: sensor.home_wind_direction_cardinal
+              corner_info:
+                top_left:
+                  label: Current gust
+                  unit: " mph"
+                  entity: sensor.home_wind_gust
+                  label_text_size: 50
+                  value_text_size: 50
+                  input_unit: mph
+                  output_unit: mph
+                  precision: 1
+                top_right:
+                  label: Wind direction
+                  unit: °
+                  color: rgb(3, 169, 244)
+                  entity: sensor.home_wind_direction_degrees
+                  input_unit: degrees
+                  output_unit: letters
+                bottom_right:
+                  label: Degrees
+                  unit: °
+                  entity: sensor.home_wind_direction_degrees
+                  label_text_size: 40
+
+              direction_labels:
+                cardinal_direction_letters: NESW
+                show_cardinal_directions: true
+                show_intercardinal_directions: true
+                show_secondary_intercardinal_directions: true
+                cardinal_directions_text_size: 100
+                intercardinal_directions_text_size: 35
+                secondary_intercardinal_directions_text_size: 20
+
+              show_intercardinal_directions: true
+              show_secondary_intercardinal_directions: true
+              matching_strategy: full-time
+              background_image: /local/images-lovelace/WIII_tranz/fog1.png
+              center_calm_percentage: true
+              colors:
+                rose_lines: rgb(3, 169, 244)
+                rose_intercardinal_direction_labels: rgba(255,255,255,0.65)
+                rose_secondary_intercardinal_direction_labels: rgba(3, 169, 244, 0.7)
+                rose_center_percentage: rgb(3, 169, 244)
+                rose_current_direction_arrow: rgb(3, 169, 244)
+                bar_border: rgb(3, 169, 244)
+                bar_unit_name: rgb(3, 169, 244)
+                bar_name: rgb(3, 169, 244)
+                bar_unit_values: rgba(255,255,255,0.5)
+                bar_percentages: auto
+
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 100px
+
+  - popup_card_id: aqi_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:button-card
+          color_type: blank-card
+          styles:
+            card:
+              - height: 1px
+        - type: custom:stack-in-card
+          mode: vertical
+          card_mod:
+            style: |
+              ha-card {
+                box-shadow: 0px 0px 2px 1px var(--accent-color);
+                backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                -webkit-backdrop-filter: blur(19.6px) brightness(0.3) !important;
+              }
+              ha-card::before {
+                content: '';
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                top: 0;
+                border-radius: 22px;
+                overflow: hidden;
+                opacity: .40;
+                background-image: url('/local/images-lovelace/mobile_backz/mobile8.jpg');
+                background-position: cover;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+              }
+              .card-content {
+                padding: 2px;
+              }
+              .card-content > div {
+                margin: 0 !important;
+              }
+          cards:
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 150px
+            - type: entities
+              title: Madisonville Air Quality
+              theme: Lime-Nightz
+              show_header_toggle: false
+              entities:
+                - entity: sensor.home_aqi_us_aqi
+                  name: Air Quality Index
+                - entity: sensor.home_carbon_monoxide
+                  name: Carbon Monoxide
+                  icon: mdi:molecule-co
+                - entity: sensor.home_aqi_us_dominant_pollutant
+                  name: Dominant Pollutant
+                  icon: mdi:smoke
+                - entity: sensor.home_nitrogen_dioxide
+                  name: Nitrogen Dioxide
+                  icon: mdi:dots-hexagon
+                - entity: sensor.home_ozone
+                  name: Ozone
+                  icon: mdi:cloud-arrow-down
+                - entity: sensor.home_pm10
+                  name: PM10
+                  icon: mdi:flask
+                - entity: sensor.home_pm2_5
+                  name: PM2.5
+                  icon: mdi:flask
+                - entity: sensor.home_sulphur_dioxide
+                  name: Sulphur Dioxide
+                  icon: mdi:molecule-so2
+
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 110px
+  - popup_card_id: main_valve_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: custom:mod-card
+      card_mod:
+        style: |
+          ha-card {
+            border-radius: 12px;
+            box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+            background: rgba(15, 10, 10, 0.84);
+            backdrop-filter: blur(19.6px) brightness(0.3) !important;
+            -webkit-backdrop-filter: blur(19.6px) brightness(0.3) !important;
+            height: 78vh;
+          }
+      card:
+        type: vertical-stack
+        cards:
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+              card:
+                - height: 190px
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 20px
+              - type: vertical-stack
+                cards:
+                  - type: custom:bignumber-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          background: rgba(0,0,0,0.7);
+                          box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                          border-radius: 20px;
+                          border: none;
+                          font-weight: bold;
+                          letter-spacing: 2px;
+                          height: 125px;
+                          display: block;
+                        }
+                    title: Total Gallons Used
+                    entity: sensor.main_valve_water_meter_reading
+                    round: 1
+                    scale: 35px
+                  - type: tile
+                    entity: valve.main_water_valve
+                    show_entity_picture: false
+                    hide_state: false
+                    state_content:
+                      - last_changed
+                      - state
+                    vertical: false
+                    icon_tap_action:
+                      action: more-info
+                    features:
+                      - type: valve-open-close
+                    features_position: bottom
+                  - type: tile
+                    name: Water is Flowing
+                    entity: binary_sensor.main_valve_water_is_flowing
+                    vertical: false
+                    features_position: bottom
+                  - type: custom:entity-progress-card
+                    entity: sensor.main_valve_battery
+                    theme: optimal_when_high
+                    name: Battery Status
+                    bar_effect:
+                      - radius
+                      - shimmer
+                    icon_tap_action:
+                      action: more-info
+                    card_mod:
+                      style: |
+                        ha-card {
+                          background: rgba(0,0,0,0.7);
+                          box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                          border-radius: 20px;
+                          border: none;
+                          height: 105px;
+                        }
+              - type: custom:button-card
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 20px
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+              card:
+                - height: 120px
+
+  - popup_card_id: alarm_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: custom:stack-in-card
+      card_mod:
+        style: |
+          ha-card {
+            border-radius: 12px;
+            box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+            background: rgba(15, 10, 10, 0.84);
+            backdrop-filter: blur(19.6px) brightness(0.3) !important;
+            -webkit-backdrop-filter: blur(19.6px) brightness(0.3) !important;
+            height: 78vh;
+          }
+      mode: vertical
+      cards:
+        - type: custom:alarmo-card
+          card_mod:
+            style: |
+              ha-card {
+                --ha-card-background: rgba(0, 0, 0,0.0);
+                backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                -webkit-backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                --ha-card-border-width: 0px;
+                --ha-card-box-shadow: 0px;
+              }
+          entity: alarm_control_panel.alarmo
+          keep_keypad_visible: false
+          button_scale_keypad: 1.2
+          button_scale_actions: 1.0
+        - type: custom:auto-entities
+          card:
+            type: entities
+          filter:
+            include:
+              - domain: binary_sensor
+                attributes:
+                  device_class: motion
+              - domain: binary_sensor
+                attributes:
+                  device_class: door
+              - domain: binary_sensor
+                attributes:
+                  device_class: window
+              - domain: binary_sensor
+                attributes:
+                  device_class: opening
+              - domain: binary_sensor
+                attributes:
+                  device_class: smoke
+          sort:
+            method: last_changed
+            reverse: true
+            count: 12
+
+  - popup_card_id: bedroom_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:stack-in-card
+          card_mod:
+            style: |
+              ha-card {
+                border-radius: 12px;
+                box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                background: rgba(15, 10, 10, 0.86);
+                --state-icon-color: var(--accent-color);
+                backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                -webkit-backdrop-filter: blur(19.6px) brightness(0.3) !important;
+                height: 78vh;
+              }
+              :host {
+                --state-icon-color: var(--accent-color);
+              }
+          mode: vertical
+          cards:
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 35px
+            - type: custom:mushroom-light-card
+              entity: light.bedroom_lights
+              layout: vertical
+              primary_info: name
+              card_mod:
+                style: |
+                  ha-card {
+                    --ha-card-border-width: 0px;
+                    --ha-card-background: rgba(0, 0, 0, 0);
+                    box-shadow: 0px;
+                  }
+            - type: custom:text-divider-row
+              text: Nightstand
+            - type: custom:mushroom-chips-card
+              chips:
+                - type: light
+                  entity: light.nightstand_lamps
+                  name: Daylight
+                  icon: mdi:lightbulb
+                  content_info: name
+                  use_light_color: false
+                  tap_action:
+                    action: call-service
+                    service: light.turn_on
+                    data:
+                      color_temp_kelvin: 5500
+                      brightness: 255
+                      transition: 2
+                    target:
+                      entity_id: light.nightstand_lamps
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-background: rgb(255, 236, 224);
+                        --text-color: black;
+                      }
+                - type: light
+                  entity: light.nightstand_lamps
+                  name: Cool White
+                  tap_action:
+                    action: call-service
+                    service: light.turn_on
+                    data:
+                      color_temp_kelvin: 3500
+                      brightness: 200
+                      transition: 2
+                    target:
+                      entity_id: light.nightstand_lamps
+                  content_info: name
+                  use_light_color: false
+                  icon: mdi:lightbulb
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-background: rgb(255, 196, 137); 
+                        --text-color: black;
+                      }
+                - type: light
+                  entity: light.nightstand_lamps
+                  icon: mdi:lightbulb
+                  name: Cozy
+                  use_light_color: false
+                  content_info: name
+                  tap_action:
+                    action: call-service
+                    service: light.turn_on
+                    data:
+                      transition: 2
+                      brightness: 5
+                      color_temp_kelvin: 2000
+                    target:
+                      entity_id: light.nightstand_lamps
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-background: rgb(255, 169, 87); 
+                        --text-color: black;
+                      }
+              alignment: center
+            - type: custom:mushroom-light-card
+              entity: light.nightstand_lamps
+              show_brightness_control: true
+              show_color_control: false
+              name: Brightness
+              layout: horizontal
+              fill_container: false
+              use_light_color: true
+              secondary_info: none
+              icon: mdi:brightness-7
+              card_mod:
+                style: |
+                  ha-card {
+                    --ha-card-border-width: 0px;
+                    background: rgba(0, 0, 0, 0);
+                    box-shadow: 0px;
+                  }
+            - type: custom:rgb-light-card
+              entity: light.nightstand_lamps
+              justify: around
+              size: 32px
+              colors:
+                - rgb_color:
+                    - 255
+                    - 127
+                    - 255
+                  brightness: 255
+                  transition: 10
+                - rgb_color:
+                    - 0
+                    - 127
+                    - 255
+                  brightness: 255
+                  transition: 5
+                - rgb_color:
+                    - 255
+                    - 0
+                    - 0
+                  brightness: 255
+                  transition: 5
+                - rgb_color:
+                    - 0
+                    - 255
+                    - 0
+                  brightness: 255
+                  transition: 5
+            - type: custom:text-divider-row
+              text: Ceiling Lights
+              card_mod:
+                style: |
+                  ha-card {
+                    --ha-card-border-width: 0px;
+                    --ha-card-background: rgba(0, 0, 0, 0);
+                    box-shadow: 0px;
+                  }
+            - type: custom:stack-in-card
+              card_mod:
+                style: |
+                  ha-card {
+                    --ha-card-border-width: 0px;
+                    --ha-card-background: rgba(0, 0, 0, 0);
+                    box-shadow: 0px;
+                  }
+              mode: vertical
+              cards:
+                - type: custom:mushroom-light-card
+                  entity: light.mood_lights
+                  show_brightness_control: true
+                  show_color_control: false
+                  name: Mood
+                  layout: horizontal
+                  fill_container: false
+                  use_light_color: true
+                  secondary_info: none
+                  icon: mdi:brightness-7
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --ha-card-border-width: 0px;
+                        background: rgba(0, 0, 0, 0);
+                        box-shadow: 0px;
+                      }
+                - type: custom:mushroom-light-card
+                  entity: light.bedroom_ceiling
+                  show_brightness_control: true
+                  show_color_control: false
+                  name: Tray
+                  layout: horizontal
+                  fill_container: false
+                  use_light_color: true
+                  secondary_info: none
+                  icon: mdi:brightness-7
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --ha-card-border-width: 0px;
+                        background: rgba(0, 0, 0, 0);
+                        box-shadow: 0px;
+                      }
+            - type: custom:text-divider-row
+              text: Ceiling Fan
+            - type: entities
+              show_header_toggle: false
+              entities:
+                - entity: fan.bedroom_fan
+                  type: custom:fan-mode-button-row
+                  name: Modes
+                  customTheme: true
+                  buttonInactiveColor: rgba(0,0,0, 0.65)
+                  isOffColor: rgba(220,220,220, 0.35)
+                  isOnModeOneColor: var(--accent-color)
+                  isOnModeTwoColor: var(--accent-color)
+                  isOnModeThreeColor: var(--accent-color)
+                  width: 35px
+              state_color: false
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 5px
+            - type: custom:stack-in-card
+              card_mod:
+                style: |
+                  ha-card {
+                    --ha-card-border-width: 0px;
+                    --ha-card-background: rgba(0, 0, 0, 0);
+                    box-shadow: 0px;
+                  }
+              mode: vertical
+              cards:
+                - type: custom:mushroom-legacy-template-card
+                  primary: Bedroom
+                  secondary: >-
+                    {{ states('sensor.bedroom_temperature_2') | round(1)
+                    }}°F  | {{ states('sensor.bedroom_humidity_2') }} %
+                  icon: mdi:thermometer-water
+                  card_mod:
+                    style: |
+                      ha-card {
+                        z-index: 1;
+                        --ha-card-border-width: 0px;
+                        box-shadow: 0px;
+                      }
+                - type: custom:mini-graph-card
+                  entities:
+                    - entity: sensor.bedroom_temperature_2
+                      name: Temperature
+                      color: green
+                    - entity: sensor.bedroom_humidity_2
+                      name: Humidity
+                      color: "#3399ff"
+                      y_axis: secondary
+                  height: 50
+                  hours_to_show: 12
+                  line_width: 3
+                  font_size: 50
+                  animate: true
+                  show:
+                    name: false
+                    icon: false
+                    state: false
+                    legend: false
+                    fill: fade
+                  card_mod:
+                    style: |
+                      ha-card {
+                        position: absolute !important;
+                        height: 100%;
+                        width: 100%;
+                        top: 0px;
+                        --ha-card-border-width: 0px;
+                        background: rgba(0,0,0,0);
+                        box-shadow: 0px;
+                      }
+                      ha-card:after {
+                        content: "";
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0,0,0,0);
+                      }
+
+  - popup_card_id: office_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:stack-in-card
+          card_mod:
+            style: |
+              ha-card {
+                border-radius: 12px;
+                box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+                background: rgba(15, 10, 10, 0.86);
+                --state-icon-color: var(--accent-color);
+                height: 78vh;
+              }
+          mode: vertical
+          cards:
+            - type: custom:mushroom-light-card
+              entity: light.office_lights
+              layout: vertical
+              primary_info: name
+              card_mod:
+                style: |
+                  ha-card {
+                    --ha-card-border-width: 0px;
+                    --ha-card-background: rgba(0, 0, 0, 0);
+                    box-shadow: 0px;
+                  }
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 30px
+            - type: custom:mushroom-chips-card
+              chips:
+                - type: light
+                  entity: light.office_floor_lights
+                  name: Daylight
+                  icon: mdi:lightbulb
+                  content_info: name
+                  use_light_color: false
+                  tap_action:
+                    action: call-service
+                    service: light.turn_on
+                    data:
+                      color_temp_kelvin: 6500
+                      brightness_pct: 100
+                      transition: 2
+                    target:
+                      entity_id: light.office_floor_lights
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-background: rgb(255, 236, 224);
+                        --text-color: black;
+                      }
+                - type: light
+                  entity: light.office_floor_lights
+                  name: Cool White
+                  tap_action:
+                    action: call-service
+                    service: light.turn_on
+                    data:
+                      color_temp_kelvin: 4000
+                      brightness_pct: 50
+                      transition: 2
+                    target:
+                      entity_id: light.office_floor_lights
+                  content_info: name
+                  use_light_color: false
+                  icon: mdi:lightbulb
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-background: rgb(255, 196, 137); 
+                        --text-color: black;
+                      }
+                - type: light
+                  entity: light.office_floor_lights
+                  icon: mdi:lightbulb
+                  name: Cozy
+                  use_light_color: false
+                  content_info: name
+                  tap_action:
+                    action: call-service
+                    service: light.turn_on
+                    data:
+                      transition: 2
+                      brightness_pct: 5
+                      color_temp_kelvin: 2000
+                    target:
+                      entity_id: light.office_floor_lights
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-background: rgb(255, 169, 87); 
+                        --text-color: black;
+                      }
+              alignment: center
+            - features:
+                - type: custom:service-call
+                  entries:
+                    - type: button
+                      tap_action:
+                        action: perform-action
+                        perform_action: light.toggle
+                        confirmation:
+                          text: >-
+                            Are you sure you want to turn the light
+                            {{ 'on' if
+                            is_state('light.office_floor_lights',
+                            'off') else 'off' }}?
+                          exemptions: []
+                        target:
+                          entity_id: light.office_floor_lights
+                      icon: >-
+                        {{
+                        iif(is_state("light.office_floor_lights",
+                        "on"), "mdi:ceiling-light",
+                        "mdi:ceiling-light-outline") }}
+                      label: >-
+                        {{ value if value > 0 else "" }}{{ unit if
+                        value > 0 else "" }}
+                      value_attribute: brightness
+                      unit_of_measurement: "%"
+                      autofill_entity_id: true
+                      entity_id: light.office_floor_lights
+                      styles: |-
+                        :host {
+                          flex-basis: 200%;
+                          --icon-color: var(--accent-color);
+                          {% if is_state("light.office_floor_lights", "on") %}
+                          --color: rgb({{ state_attr("light.office_floor_lights", "rgb_color") }});
+                          {% endif %}
+                          ;
+                        }
+                    - tap_action:
+                        action: perform-action
+                        perform_action: light.toggle
+                        target:
+                          entity_id: light.desk_light
+                      icon: mdi:lightbulb
+                      label: Desk
+                      entity_id: light.desk_light
+                      type: button
+                      value_attribute: state
+                      styles: |-
+                        :host {
+                          --icon-color: var(--accent-color);
+                        }
+                    - tap_action:
+                        action: perform-action
+                        perform_action: light.toggle
+                        target:
+                          entity_id: light.bed_light
+                      icon: mdi:lightbulb
+                      label: Bed
+                      entity_id: light.bed_light
+                      type: button
+                      value_attribute: state
+                      styles: |-
+                        :host {
+                          --icon-color: var(--accent-color);
+                        }
+                    - tap_action:
+                        action: perform-action
+                        perform_action: light.toggle
+                        target:
+                          entity_id: light.corner_light
+                      icon: mdi:lightbulb
+                      label: Corner
+                      entity_id: light.corner_light
+                      type: button
+                      value_attribute: state
+                      styles: |-
+                        :host {
+                          --icon-color: var(--accent-color);
+                        }
+                  styles: ""
+                - type: custom:service-call
+                  entries:
+                    - type: selector
+                      entity_id: light.office_floor_lights
+                      value_attribute: rgb_color
+                      options:
+                        - tap_action:
+                            action: perform-action
+                            perform_action: light.turn_on
+                            data:
+                              color_name: red
+                            target:
+                              entity_id: light.office_floor_lights
+                          option: 255,0,0
+                          label: Red
+                          icon: mdi:alpha-r
+                          entity_id: light.office_floor_lights
+                          type: button
+                          value_attribute: state
+                          styles: |
+                            :host {
+                              --label-color: red;
+                              --color: red;
+                              {% if (state_attr("light.office_floor_lights", "rgb_color") or []).join(',') == '255,0,0' %}
+                              --label-filter: invert(1);
+                              {% endif %}
+                            }
+                        - tap_action:
+                            action: perform-action
+                            perform_action: light.turn_on
+                            data:
+                              color_name: green
+                            target:
+                              entity_id: light.office_floor_lights
+                          option: 0,128,0
+                          label: Green
+                          icon: mdi:alpha-g
+                          entity_id: light.office_floor_lights
+                          type: button
+                          value_attribute: state
+                          styles: |-
+                            :host {
+                              --label-color: green;
+                              --color: green;
+                              {% if (state_attr("light.office_floor_lights", "rgb_color") or []).join(',') == '0,128,0' %}
+                              --label-filter: invert(1);
+                              {% endif %}
+                            }
+                        - tap_action:
+                            action: perform-action
+                            perform_action: light.turn_on
+                            data:
+                              color_name: blue
+                            target:
+                              entity_id: light.office_floor_lights
+                          option: 0,0,255
+                          label: Blue
+                          icon: mdi:alpha-b
+                          entity_id: light.office_floor_lights
+                          type: button
+                          value_attribute: state
+                          styles: |-
+                            :host {
+                              --label-color: blue;
+                              --color: blue;
+                              {% if (state_attr("light.office_floor_lights", "rgb_color") or []).join(',') == '0,0,255' %}
+                              --label-filter: invert(1);
+                              {% endif %}
+                            }
+                        - tap_action:
+                            action: perform-action
+                            perform_action: light.turn_on
+                            target:
+                              entity_id: light.office_floor_lights
+                            data:
+                              color_name: purple
+                          option: 128,0,128
+                          label: Purple
+                          icon: mdi:alpha-p
+                          entity_id: light.office_floor_lights
+                          type: button
+                          value_attribute: state
+                          styles: |-
+                            :host {
+                              --label-color: purple;
+                              --color: purple;
+                              {% if (state_attr("light.office_floor_lights", "rgb_color") or []).join(',') == '128,0,128' %}
+                              --label-filter: invert(1);
+                              {% endif %}
+                            }
+                        - tap_action:
+                            action: perform-action
+                            perform_action: light.turn_on
+                            data:
+                              color_temp_kelvin: 500
+                            target:
+                              entity_id: light.office_floor_lights
+                          option: 255,166,87
+                          label: White
+                          icon: mdi:alpha-w
+                          entity_id: light.office_floor_lights
+                          type: button
+                          value_attribute: state
+                          styles: |-
+                            :host {
+                              flex-basis: 200%;
+                              --label-color: white;
+                              --color: white;
+                              {% if (state_attr("light.office_floor_lights", "rgb_color") or []).join(',') == '255,166,87' %}
+                              --label-filter: invert(1);
+                              --icon-filter: invert(1);
+                              {% endif %}
+                            }
+                      styles: |-
+                        .background {
+                          {% if is_state("light.office_floor_lights", "on") %}
+                          --background: rgb({{ state_attr("light.office_floor_lights", "rgb_color") }});
+                          {% endif %}
+                        }
+                - type: custom:service-call
+                  entries:
+                    - type: slider
+                      label: "{{ value }}{{ unit }}"
+                      unit_of_measurement: "%"
+                      value_attribute: brightness
+                      icon: mdi:brightness-4
+                      tap_action:
+                        action: perform-action
+                        perform_action: light.turn_on
+                        data:
+                          brightness_pct: "{{ value }}"
+                        target:
+                          entity_id: light.office_floor_lights
+                      entity_id: light.office_floor_lights
+                      styles: |
+                        :host {
+                          flex-basis: 200%;
+                        }
+                      range:
+                        - 0
+                        - 100
+                      step: 1
+                    - type: slider
+                      thumb: line
+                      value_attribute: color_temp
+                      tap_action:
+                        action: perform-action
+                        perform_action: light.turn_on
+                        target:
+                          entity_id: light.office_floor_lights
+                        data:
+                          color_temp: "{{ value }}"
+                      label: "{{ value }}{{ unit }}"
+                      unit_of_measurement: " Mireds"
+                      icon: mdi:thermometer
+                      range:
+                        - >-
+                          {{
+                          state_attr("light.office_floor_lights",
+                          "min_mireds") }}
+                        - >-
+                          {{
+                          state_attr("light.office_floor_lights",
+                          "max_mireds") }}
+                      step: 1
+                      entity_id: light.office_floor_lights
+                      styles: |-
+                        :host {
+                          --label-color: var(--disabled-color);
+                          --background: linear-gradient(-90deg, rgb(255, 167, 87), rgb(255, 255, 251));
+                          --background-opacity: 1;
+                        }
+                  styles: ""
+                - type: custom:service-call
+                  entries:
+                    - type: spinbox
+                      haptics: true
+                      icon: mdi:brightness-4
+                      unit_of_measurement: "%"
+                      label: "{{ value }}{{ unit }}"
+                      step: 3
+                      debounceTime: 1000
+                      range:
+                        - 0
+                        - 100
+                      value_attribute: brightness
+                      tap_action:
+                        action: perform-action
+                        perform_action: light.turn_on
+                        data:
+                          brightness_pct: "{{ value | float }}"
+                        target:
+                          entity_id: light.office_floor_lights
+                      decrement:
+                        icon: mdi:brightness-3
+                        label: down
+                        hold_action:
+                          action: repeat
+                        entity_id: light.office_floor_lights
+                        type: button
+                        value_attribute: state
+                        styles: |-
+                          :host {
+                            flex-flow: row;
+                          }
+                          .icon {
+                            padding-right: 4px;
+                          }
+                      increment:
+                        icon: mdi:brightness-2
+                        label: up
+                        hold_action:
+                          action: repeat
+                        entity_id: light.office_floor_lights
+                        type: button
+                        value_attribute: state
+                        styles: |-
+                          :host {
+                            flex-flow: row-reverse;
+                          }
+                          .icon {
+                            padding-left: 4px;
+                          }
+                      hold_action:
+                        action: repeat
+                      entity_id: light.office_floor_lights
+                      styles: |-
+                        :host {
+                          --light-color: rgb({{ state_attr("light.office_floor_lights", "rgb_color") }});
+                          --on-color: {{ "var(--light-color)" if is_state("light.office_floor_lights", "on") else "initial" }};
+                          --background: var(--on-color);
+                          --icon-color: var(--on-color);
+                          --label-color: var(--on-color);
+                        }
+              type: tile
+              entity: light.office_floor_lights
+              layout_options:
+                grid_columns: 4
+                grid_rows: 3
+            - type: custom:mushroom-light-card
+              entity: light.office_ceiling_dimmer
+              show_brightness_control: true
+              show_color_control: false
+              name: Ceiling Lights
+              layout: horizontal
+              fill_container: false
+              use_light_color: true
+              secondary_info: none
+              icon: mdi:brightness-7
+              card_mod:
+                style: |
+                  ha-card {
+                    --ha-card-border-width: 0px; 
+                  }
+            - type: custom:mushroom-number-card
+              entity: input_number.office_fan_duration
+              layout: horizontal
+              name: Fan Timer
+              card_mod:
+                style:
+                  mushroom-number-value-control$:
+                    mushroom-slider$: |
+                      .slider {
+                        --main-color: var(--accent-color) !important;
+                        --bg-color: dimgrey !important;
+                      }
+                  .: ""
+                  mushroom-shape-icon$: |
+                    .shape {
+                      --shape-color: var(--accent-color-lighter) !important;
+                    }
+              icon: mdi:ceiling-fan
+            - type: entities
+              show_header_toggle: false
+              entities:
+                - entity: fan.office_fan
+                  type: custom:fan-mode-button-row
+                  name: Fan
+                  customTheme: true
+                  buttonInactiveColor: rgba(0,0,0, 0.60)
+                  isOffColor: rgba(220,220,220, 0.3)
+                  isOnModeOneColor: var(--accent-color)
+                  isOnModeTwoColor: var(--accent-color)
+                  isOnModeThreeColor: var(--accent-color)
+                  width: 35px
+              state_color: false
+            - type: custom:mushroom-chips-card
+              chips:
+                - type: template
+                  entity: input_boolean.office_fan_cycles
+                  icon_color: >
+                    {{ ((states(entity)) == 'off') |
+                    iif("rgba(255,255,255,0.1)","black") }}
+                  icon: mdi:fan-auto
+                  content: Cycle
+                  tap_action:
+                    action: toggle
+                  card_mod:
+                    style: |
+                      ha-card {
+                        {% set entity = 'input_boolean.office_fan_cycles' %}
+                        --text-color: 
+                            {% if is_state (entity, 'off') %} var(--accent-color)
+                            {% else %} black
+                            {% endif %};
+                        --chip-background: 
+                            {% if is_state (entity, 'off') %} rgba(179,179,179,0.15)
+                            {% else %} var(--accent-color-light)
+                            {% endif %};
+                      }
+                - type: template
+                  entity: switch.ha2_office_monitor
+                  icon_color: >
+                    {{ ((states(entity)) == 'off') |
+                    iif("rgba(255,255,255,0.1)","black") }}
+                  icon: mdi:monitor
+                  content: Desk
+                  tap_action:
+                    action: toggle
+                  card_mod:
+                    style: |
+                      ha-card {
+                        {% set entity = 'switch.ha2_office_monitor' %}
+                        --text-color: 
+                            {% if is_state (entity, 'off') %} var(--accent-color)
+                            {% else %} black
+                            {% endif %};
+                        --chip-background: 
+                            {% if is_state (entity, 'off') %} rgba(179,179,179,0.15)
+                            {% else %} var(--accent-color-light)
+                            {% endif %};
+                      }
+                - type: template
+                  entity: switch.office_work_bench_zb
+                  icon_color: >
+                    {{ ((states(entity)) == 'off') |
+                    iif("rgba(255,255,255,0.1)","black") }}
+                  icon: mdi:desk
+                  content: Bench
+                  tap_action:
+                    action: toggle
+                  card_mod:
+                    style: |
+                      ha-card {
+                        {% set entity = 'switch.office_work_bench_zb' %}
+                        --text-color: 
+                            {% if is_state (entity, 'off') %} var(--accent-color)
+                            {% else %} black
+                            {% endif %};
+                        --chip-background: 
+                            {% if is_state (entity, 'off') %} rgba(179,179,179,0.15)
+                            {% else %} var(--accent-color-light)
+                            {% endif %};
+                      }
+                - type: template
+                  entity: input_boolean.naptime
+                  icon_color: >
+                    {{ ((states(entity)) == 'off') |
+                    iif("rgba(255,255,255,0.1)","black") }}
+                  icon: mdi:sleep
+                  content: Nap
+                  tap_action:
+                    action: toggle
+                  card_mod:
+                    style: |
+                      ha-card {
+                        {% set entity = 'input_boolean.naptime' %}
+                        --text-color: 
+                            {% if is_state (entity, 'off') %} var(--accent-color)
+                            {% else %} black
+                            {% endif %};
+                        --chip-background: 
+                            {% if is_state (entity, 'off') %} rgba(179,179,179,0.15)
+                            {% else %} var(--accent-color-light)
+                            {% endif %};
+                      }
+                - type: template
+                  entity: switch.air_cleaner
+                  icon_color: >
+                    {{ ((states(entity)) == 'off') |
+                    iif("rgba(255,255,255,0.1)","black") }}
+                  icon: mdi:air-purifier
+                  content: Noise
+                  tap_action:
+                    action: toggle
+                  card_mod:
+                    style: |
+                      ha-card {
+                        {% set entity = 'switch.air_cleaner' %}
+                        --text-color: 
+                            {% if is_state (entity, 'off') %} var(--accent-color)
+                            {% else %} black
+                            {% endif %};
+                        --chip-background: 
+                            {% if is_state (entity, 'off') %} rgba(179,179,179,0.15)
+                            {% else %} var(--accent-color-light)
+                            {% endif %};
+                      }
+              alignment: center
