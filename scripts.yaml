@@ -266,298 +266,6 @@ alarm_clock_test:
           brightness: '{{ (repeat.index * 17) | int }}'
           color_temp_kelvin: '{{ (500 - (repeat.index * 20)) | int }}'
   mode: single
-garage_video_snapshot:
-  alias: garage video snapshot
-  description: save latest garage video clip
-  sequence:
-  - action: llmvision.stream_analyzer
-    data:
-      provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
-      message: 'Summarize the events based on a series of images captured at short
-        intervals. Focus only on moving subjects such as people, vehicles, and other
-        active elements. Ignore static objects and scenery. Provide a clear and concise
-        account of movements and interactions. Do not mention or imply the existence
-        of images—present the information as if directly observing the events. If
-        no movement is detected, respond with: ''No activity observed.''
-
-        '
-      model: gpt-4o-mini
-      remember: true
-      use_memory: true
-      image_entity:
-      - camera.garage_cam_0
-      duration: 8
-      max_frames: 3
-      include_filename: true
-      target_width: 640
-      max_tokens: 40
-      generate_title: true
-      expose_images: true
-    response_variable: response
-  - alias: Update label with title
-    variables:
-      label: '{{response.title}}'
-  - delay:
-      seconds: 2
-  - alias: (Snapshot) Update notification on notify devices
-    action: notify.mobile_app_pixel_8_pro
-    data:
-      title: '{{ label }}'
-      message: '{{response.response_text}}'
-      data:
-        notification_icon: mdi:cctv
-        image: /local/tmp/last_snapshot_garage.jpg
-        persistent: true
-        color: red
-        channel: Cameras
-        tag: Motion
-        actions:
-        - action: URI
-          title: Click to Open Cameras
-          uri: /dashboard-cast/garage
-  - delay:
-      seconds: 1
-  - alias: TTS notification on notify devices
-    action: notify.mobile_app_pixel_8_pro
-    data:
-      message: TTS
-      data:
-        ttl: 0
-        priority: high
-        media_stream: alarm_stream_max
-        tts_text: '{{response.response_text}}'
-  - alias: Gmail notification to Darren
-    action: notify.alphaprops_dwilson_gmail_com
-    data:
-      message: '{{response.response_text}}'
-      target:
-      - alphaprops.dwilson@gmail.com
-  - action: camera.record
-    target:
-      entity_id: camera.garage_cam_0
-    data:
-      filename: /config/www/tmp/last_video_snapshot_garage.mp4
-      duration: 6
-    enabled: false
-porch_video_snapshot:
-  alias: porch video snapshot
-  description: process movement and save latest porch video clip
-  sequence:
-  - action: llmvision.stream_analyzer
-    data:
-      provider: 01JZECF0T517YNCCB6WV6KTS3K
-      message: 'Summarize the events based on a series of images captured at short
-        intervals. Focus only on moving subjects such as people, vehicles, and other
-        active elements. Ignore static objects and scenery. Provide a clear and concise
-        account of movements and interactions. Do not mention or imply the existence
-        of images—present the information as if directly observing the events. If
-        no movement is detected, respond with: ''No activity observed.''
-
-        '
-      model: gemini-2.5-pro
-      remember: true
-      use_memory: true
-      image_entity:
-      - camera.go2rtc_streams_front_door
-      duration: 8
-      max_frames: 3
-      include_filename: true
-      target_width: 1280
-      max_tokens: 40
-      generate_title: true
-      expose_images: true
-    response_variable: response
-  - alias: Update label with title
-    variables:
-      label: '{{response.title}}'
-  - delay:
-      seconds: 2
-  - alias: (Snapshot) Update notification on notify devices
-    action: notify.mobile_app_pixel_8_pro
-    data:
-      title: '{{ label }}'
-      message: '{{response.response_text}}'
-      data:
-        notification_icon: mdi:cctv
-        image: /local/tmp/last_snapshot_porch.jpg
-        persistent: true
-        color: red
-        channel: Cameras
-        tag: Motion
-        actions:
-        - action: URI
-          title: Click to Open Cameras
-          uri: /dashboard-cast/porch
-  - delay:
-      seconds: 1
-  - alias: TTS notification on notify devices
-    action: notify.mobile_app_pixel_8_pro
-    data:
-      message: TTS
-      data:
-        ttl: 0
-        priority: high
-        media_stream: alarm_stream_max
-        tts_text: '{{response.response_text}}'
-  - alias: Gmail notification to Darren
-    action: notify.alphaprops_dwilson_gmail_com
-    data:
-      message: '{{response.response_text}}'
-      target:
-      - alphaprops.dwilson@gmail.com
-  - action: camera.record
-    target:
-      entity_id: camera.go2rtc_streams_front_door
-    data:
-      filename: /config/www/tmp/last_video_snapshot_porch.mp4
-      duration: 6
-    enabled: false
-driveway_video_snapshot:
-  alias: driveway video snapshot
-  description: save latest driveway video clip
-  sequence:
-  - action: llmvision.stream_analyzer
-    data:
-      provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
-      message: 'Summarize the events based on a series of images captured at short
-        intervals. Focus only on moving subjects such as people, vehicles, and other
-        active elements. Ignore static objects and scenery. Provide a clear and concise
-        account of movements and interactions. Do not mention or imply the existence
-        of images—present the information as if directly observing the events. If
-        no movement is detected, respond with: ''No activity observed.''
-
-        '
-      model: gpt-4o-mini
-      remember: true
-      use_memory: true
-      image_entity:
-      - camera.driveway_cam_0
-      duration: 8
-      max_frames: 3
-      include_filename: true
-      target_width: 640
-      max_tokens: 40
-      generate_title: true
-      expose_images: true
-    response_variable: response
-  - alias: Update label with title
-    variables:
-      label: '{{response.title}}'
-  - delay:
-      seconds: 2
-  - alias: (Snapshot) Update notification on notify devices
-    action: notify.mobile_app_pixel_8_pro
-    data:
-      title: '{{ label }}'
-      message: '{{response.response_text}}'
-      data:
-        notification_icon: mdi:cctv
-        image: /local/tmp/last_snapshot_driveway.jpg
-        persistent: true
-        color: red
-        channel: Cameras
-        tag: Motion
-        actions:
-        - action: URI
-          title: Click to Open Cameras
-          uri: /dashboard-cast/driveway
-  - delay:
-      seconds: 1
-  - alias: TTS notification on notify devices
-    action: notify.mobile_app_pixel_8_pro
-    data:
-      message: TTS
-      data:
-        ttl: 0
-        priority: high
-        media_stream: alarm_stream_max
-        tts_text: '{{response.response_text}}'
-  - alias: Gmail notification to Darren
-    action: notify.alphaprops_dwilson_gmail_com
-    data:
-      message: '{{response.response_text}}'
-      target:
-      - alphaprops.dwilson@gmail.com
-  - action: camera.record
-    target:
-      entity_id: camera.driveway_cam_0
-    data:
-      filename: /config/www/tmp/last_video_snapshot_driveway.mp4
-      duration: 6
-    enabled: false
-patio_video_snapshot:
-  alias: patio video snapshot
-  description: save latest patio video clip
-  sequence:
-  - action: llmvision.stream_analyzer
-    data:
-      provider: 01JZECF0T517YNCCB6WV6KTS3K
-      message: 'Summarize the events based on a series of images captured at short
-        intervals. Focus only on moving subjects such as people, vehicles, and other
-        active elements. Ignore static objects and scenery. Provide a clear and concise
-        account of movements and interactions. Do not mention or imply the existence
-        of images—present the information as if directly observing the events. If
-        no movement is detected, respond with: ''No activity observed.''
-
-        '
-      model: gemini-2.5-pro
-      remember: true
-      use_memory: true
-      image_entity:
-      - camera.patio_cam_0
-      duration: 8
-      max_frames: 3
-      include_filename: true
-      target_width: 1280
-      max_tokens: 40
-      generate_title: true
-      expose_images: true
-    response_variable: response
-  - alias: Update label with title
-    variables:
-      label: '{{response.title}}'
-  - delay:
-      seconds: 2
-  - alias: (Snapshot) Update notification on notify devices
-    action: notify.mobile_app_pixel_8_pro
-    data:
-      title: '{{ label }}'
-      message: '{{response.response_text}}'
-      data:
-        notification_icon: mdi:cctv
-        image: /local/tmp/last_snapshot_patio.jpg
-        persistent: true
-        color: red
-        channel: Cameras
-        tag: Motion
-        actions:
-        - action: URI
-          title: Click to Open Cameras
-          uri: /dashboard-cast/patio
-  - delay:
-      seconds: 1
-  - alias: TTS notification on notify devices
-    action: notify.mobile_app_pixel_8_pro
-    data:
-      message: TTS
-      data:
-        ttl: 0
-        priority: high
-        media_stream: alarm_stream_max
-        tts_text: '{{response.response_text}}'
-  - alias: Gmail notification to Darren
-    action: notify.alphaprops_dwilson_gmail_com
-    data:
-      message: '{{response.response_text}}'
-      target:
-      - alphaprops.dwilson@gmail.com
-  - action: camera.record
-    target:
-      entity_id: camera.patio_cam_0
-    data:
-      filename: /config/www/tmp/last_video_snapshot_patio.mp4
-      duration: 6
-    enabled: false
 tablet_home_screen:
   alias: tablet home screen
   description: tablet navigate back home screen
@@ -1886,11 +1594,10 @@ tts_daily_msg_darren:
         the next high tide for the Tchefuncta River. If unavailable, skip this section.
         - **Inspiration:** {% if verse_text != 'unavailable' %}The verse for today
         is \"{{ states(verse_entity) }}\". Here is the text to read: \"{{ verse_text
-        }}\"{% else %}The verse for today is \"{{ states(verse_entity) }}\". The
-        text is currently unavailable in the sensor, so please recite this full verse
-        reference from your own knowledge using the NIV translation.{% endif %}\n\
-        nSound natural. Do not mention \"Home Assistant\", technical data formats,
-        or \"0 alerts\"."
+        }}\"{% else %}The verse for today is \"{{ states(verse_entity) }}\". The text
+        is currently unavailable in the sensor, so please recite this full verse reference
+        from your own knowledge using the NIV translation.{% endif %}\nnSound natural.
+        Do not mention \"Home Assistant\", technical data formats, or \"0 alerts\"."
   - alias: Fetch Weather Forecast
     action: weather.get_forecasts
     continue_on_error: true
@@ -1927,20 +1634,28 @@ tts_daily_msg_darren:
         Tide: {{ as_timestamp(tide_state) | timestamp_custom('%I:%M %p') }}\n  Height:
         {{ state_attr(tide_entity, 'height') | default('unknown') }} feet\n{% else
         %}\n  Tide data unavailable.\n{% endif %}\nActive NWS Weather Alerts:  {%-
-        if active_alerts_count
-        > 0 and active_alerts_data is iterable %}\n  {%- for alert in active_alerts_data
-        %}\n  - {{ alert.Event }}: {{ alert.Headline }}\n  {%- endfor %}\n{%- else
-        %}\n  None\n{%- endif %}\nForecast next 3 hours:  {%- if forecast_list | length
-        > 0 %}\n  {%- for f in forecast_list %}\n  - {{ as_timestamp(f.datetime) |
-        timestamp_custom('%I %p') }}: {{ f.condition }}, {{ f.temperature }} degrees.\n
-        \ {%- endfor %}\n{%- else %}\n  (Weather forecast data is temporarily unavailable,
-        please mention current weather only)\n{%- endif %}\nCalendar for next 24h:
-        \ {%- set agenda = (events_response | items | first)[1] if events_response
-        is defined else {'events': []} %} {%- if agenda.events %}\n  {%- for event
-        in agenda.events %}\n  - {{ event.summary }} at {{ as_timestamp(event.start)
+        if active_alerts_count > 0 and active_alerts_data is iterable %}\n  {%- for
+        alert in active_alerts_data %}\n  - {{ alert.Event }}: {{ alert.Headline }}\n
+        \ {%- endfor %}\n{%- else %}\n  None\n{%- endif %}\nForecast next 3 hours:
+        \ {%- if forecast_list | length > 0 %}\n  {%- for f in forecast_list %}\n
+        \ - {{ as_timestamp(f.datetime) | timestamp_custom('%I %p') }}: {{ f.condition
+        }}, {{ f.temperature }} degrees.\n  {%- endfor %}\n{%- else %}\n  (Weather
+        forecast data is temporarily unavailable, please mention current weather only)\n{%-
+        endif %}\nCalendar for next 24h:  {%- set agenda = (events_response | items
+        | first)[1] if events_response is defined else {'events': []} %} {%- if agenda.events
+        %}\n  {%- for event in agenda.events %}\n  - {{ event.summary }} at {{ as_timestamp(event.start)
         | timestamp_custom('%I:%M %p') }}\n  {%- endfor %}\n{%- else %}\n  - No upcoming
         events.\n{%- endif %}\n{{ prompt }}"
     response_variable: agent
+  - alias: Turn on
+    action: media_player.turn_on
+    continue_on_error: true
+    target:
+      entity_id: media_player.office_display
+  - delay: 00:00:02
+  - action: media_player.clear_playlist
+    target:
+      entity_id: media_player.office_display
   - alias: Send notification
     action: media_player.volume_set
     continue_on_error: true
@@ -2031,7 +1746,8 @@ tts_bedtime_msg_darren:
   - alias: Speak Message
     action: tts.cloud_say
     continue_on_error: true
-    entity_id: media_player.office_display
+    target:
+      entity_id: media_player.office_display
     data:
       message: '{{ agent.response.speech.plain.speech | replace(''*'', '''') | replace(''#'',
         '''') }}'
@@ -2039,3 +1755,292 @@ tts_bedtime_msg_darren:
     continue_on_error: true
     entity_id:
     - switch.air_cleaner
+office_cam_native_ai_test:
+  alias: Office Cam Native AI Test
+  sequence:
+  - action: camera.snapshot
+    target:
+      entity_id: camera.go2rtc_streams_side_door_cam_0
+    data:
+      filename: /config/www/tmp/last_snapshot_office_test.jpg
+  - action: camera.snapshot
+    target:
+      entity_id: camera.go2rtc_streams_side_door_cam_0
+    data:
+      filename: /config/media/last_snapshot_office_test.jpg
+  - action: ai_task.generate_data
+    data:
+      entity_id: ai_task.google_ai_task
+      task_name: Office Camera Motion Analysis
+      instructions: Analyze this image and briefly describe the cause of motion.  Keep
+        it concise and direct for a push notification.
+      attachments:
+      - media_content_id: media-source://media_source/local/last_snapshot_office_test.jpg
+        media_content_type: image/jpeg
+    response_variable: ai_response
+  - action: notify.mobile_app_pixel_8_pro
+    data:
+      title: 'Test: Office Motion'
+      message: '{{ ai_response.data }}'
+      data:
+        notification_icon: mdi:cctv
+        image: /local/tmp/last_snapshot_office_test.jpg
+        clickAction: /dashboard-cast/driveway
+driveway_video_processing:
+  alias: Driveway Video Processing
+  mode: single
+  sequence:
+  - action: camera.record
+    target:
+      entity_id: camera.driveway_cam_0
+    data:
+      filename: /config/media/last_video_driveway.mp4
+      duration: 6
+  - delay:
+      seconds: 8
+  - action: ai_task.generate_data
+    data:
+      entity_id: ai_task.google_ai_task
+      task_name: Driveway Video Analysis
+      instructions: 'Summarize the events based on a series of images captured at
+        short intervals. Focus only on moving subjects such as people, vehicles, and
+        other active elements. Ignore static objects and scenery. Provide a clear
+        and concise account of movements and interactions. Do not mention or imply
+        the existence of images—present the information as if directly observing the
+        events. If no movement is detected, respond with: ''No activity observed.'''
+      attachments:
+      - media_content_id: media-source://media_source/local/last_video_driveway.mp4
+        media_content_type: video/mp4
+    response_variable: video_analysis
+  - action: camera.snapshot
+    target:
+      entity_id: camera.driveway_cam_0
+    data:
+      filename: /config/www/tmp/last_snapshot_driveway_final.jpg
+  - alias: Update push notification with video analysis
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      title: 'Driveway: Video Analyzed'
+      message: '{{ video_analysis.data }}'
+      data:
+        notification_icon: mdi:cctv
+        image: /local/tmp/last_snapshot_driveway_final.jpg
+        persistent: true
+        color: red
+        channel: Cameras
+        tag: driveway_motion
+        clickAction: /dashboard-cast/driveway
+        actions:
+        - action: URI
+          title: Click to Open Cameras
+          uri: /dashboard-cast/driveway
+  - alias: Pixel Deep TTS
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      message: TTS
+      data:
+        ttl: 0
+        priority: high
+        media_stream: alarm_stream_max
+        tts_text: '{{ video_analysis.data }}'
+  - alias: Gmail notification
+    action: notify.alphaprops_dwilson_gmail_com
+    data:
+      message: '{{ video_analysis.data }}'
+      target:
+      - alphaprops.dwilson@gmail.com
+porch_video_processing:
+  alias: Porch Video Processing
+  description: 'Background worker: Records video, runs deep AI analysis, takes final
+    snapshot, and sends alerts.'
+  mode: single
+  sequence:
+  - action: camera.record
+    target:
+      entity_id: camera.go2rtc_streams_front_door
+    data:
+      filename: /config/media/last_video_porch.mp4
+      duration: 6
+  - delay:
+      seconds: 8
+  - action: ai_task.generate_data
+    data:
+      entity_id: ai_task.google_ai_task
+      task_name: Porch Video Analysis
+      instructions: 'Summarize the events based on a series of images captured at
+        short intervals. Focus only on moving subjects such as people, vehicles, and
+        other active elements. Ignore static objects and scenery. Provide a clear
+        and concise account of movements and interactions. Do not mention or imply
+        the existence of images—present the information as if directly observing the
+        events. If no movement is detected, respond with: ''No activity observed.'''
+      attachments:
+      - media_content_id: media-source://media_source/local/last_video_porch.mp4
+        media_content_type: video/mp4
+    response_variable: video_analysis
+  - action: camera.snapshot
+    target:
+      entity_id: camera.go2rtc_streams_front_door
+    data:
+      filename: /config/www/tmp/last_snapshot_porch_final.jpg
+  - alias: Update push notification with video analysis
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      title: 'Porch: Video Analyzed'
+      message: '{{ video_analysis.data }}'
+      data:
+        notification_icon: mdi:cctv
+        image: /local/tmp/last_snapshot_porch_final.jpg
+        persistent: true
+        color: red
+        channel: Cameras
+        tag: porch_motion
+        clickAction: /dashboard-cast/porch
+        actions:
+        - action: URI
+          title: View Live Stream
+          uri: /dashboard-cast/porch
+  - alias: Pixel Deep TTS
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      message: TTS
+      data:
+        ttl: 0
+        priority: high
+        media_stream: alarm_stream_max
+        tts_text: '{{ video_analysis.data }}'
+  - alias: Gmail notification
+    action: notify.alphaprops_dwilson_gmail_com
+    data:
+      message: '{{ video_analysis.data }}'
+      target:
+      - alphaprops.dwilson@gmail.com
+patio_video_processing:
+  alias: Patio Video Processing
+  description: 'Background worker: Records video, runs deep AI analysis, takes final
+    snapshot, and sends alerts.'
+  mode: single
+  sequence:
+  - action: camera.record
+    target:
+      entity_id: camera.patio_cam_0
+    data:
+      filename: /config/media/last_video_patio.mp4
+      duration: 6
+  - delay:
+      seconds: 8
+  - action: ai_task.generate_data
+    data:
+      entity_id: ai_task.google_ai_task
+      task_name: Patio Video Analysis
+      instructions: 'Summarize the events based on a series of images captured at
+        short intervals. Focus only on moving subjects such as people, vehicles, and
+        other active elements. Ignore static objects and scenery. Provide a clear
+        and concise account of movements and interactions. Do not mention or imply
+        the existence of images—present the information as if directly observing the
+        events. If no movement is detected, respond with: ''No activity observed.'''
+      attachments:
+      - media_content_id: media-source://media_source/local/last_video_patio.mp4
+        media_content_type: video/mp4
+    response_variable: video_analysis
+  - action: camera.snapshot
+    target:
+      entity_id: camera.patio_cam_0
+    data:
+      filename: /config/www/tmp/last_snapshot_patio_final.jpg
+  - alias: Update push notification with video analysis
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      title: 'Patio: Video Analyzed'
+      message: '{{ video_analysis.data }}'
+      data:
+        notification_icon: mdi:cctv
+        image: /local/tmp/last_snapshot_patio_final.jpg
+        persistent: true
+        color: red
+        channel: Cameras
+        tag: patio_motion
+        clickAction: /dashboard-cast/patio
+        actions:
+        - action: URI
+          title: View Live Stream
+          uri: /dashboard-cast/patio
+  - alias: Pixel Deep TTS
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      message: TTS
+      data:
+        ttl: 0
+        priority: high
+        media_stream: alarm_stream_max
+        tts_text: '{{ video_analysis.data }}'
+  - alias: Gmail notification
+    action: notify.alphaprops_dwilson_gmail_com
+    data:
+      message: '{{ video_analysis.data }}'
+      target:
+      - alphaprops.dwilson@gmail.com
+garage_video_processing:
+  alias: Garage Video Processing
+  description: 'Background worker: Records video, runs deep AI analysis, takes final
+    snapshot, and sends alerts.'
+  mode: single
+  sequence:
+  - action: camera.record
+    target:
+      entity_id: camera.garage_cam_0
+    data:
+      filename: /config/media/last_video_garage.mp4
+      duration: 6
+  - delay:
+      seconds: 8
+  - action: ai_task.generate_data
+    data:
+      entity_id: ai_task.google_ai_task
+      task_name: Garage Video Analysis
+      instructions: 'Summarize the events based on a series of images captured at
+        short intervals. Focus only on moving subjects such as people, vehicles, and
+        other active elements. Ignore static objects and scenery. Provide a clear
+        and concise account of movements and interactions. Do not mention or imply
+        the existence of images—present the information as if directly observing the
+        events. If no movement is detected, respond with: ''No activity observed.'''
+      attachments:
+      - media_content_id: media-source://media_source/local/last_video_garage.mp4
+        media_content_type: video/mp4
+    response_variable: video_analysis
+  - action: camera.snapshot
+    target:
+      entity_id: camera.garage_cam_0
+    data:
+      filename: /config/www/tmp/last_snapshot_garage_final.jpg
+  - alias: Update push notification with video analysis
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      title: 'Garage: Video Analyzed'
+      message: '{{ video_analysis.data }}'
+      data:
+        notification_icon: mdi:cctv
+        image: /local/tmp/last_snapshot_garage_final.jpg
+        persistent: true
+        color: red
+        channel: Cameras
+        tag: garage_motion
+        clickAction: /dashboard-cast/garage
+        actions:
+        - action: URI
+          title: View Live Stream
+          uri: /dashboard-cast/garage
+  - alias: Pixel Deep TTS
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      message: TTS
+      data:
+        ttl: 0
+        priority: high
+        media_stream: alarm_stream_max
+        tts_text: '{{ video_analysis.data }}'
+  - alias: Gmail notification
+    action: notify.alphaprops_dwilson_gmail_com
+    data:
+      message: '{{ video_analysis.data }}'
+      target:
+      - alphaprops.dwilson@gmail.com

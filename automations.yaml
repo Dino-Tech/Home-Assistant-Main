@@ -865,52 +865,10 @@
     entity_id: input_boolean.camera_motion_detected
   mode: restart
   max_exceeded: silent
-- id: front_yard_lights_unified
-  alias: '[Motion] Front Yard Lights (Unified)'
-  description: Turns on front yard lights for any door or motion activity after dark
-  mode: restart
-  max_exceeded: silent
-  triggers:
-  - trigger: state
-    entity_id: binary_sensor.side_motion_sensor
-    to: 'on'
-  - trigger: state
-    entity_id: binary_sensor.side_door_bt
-    to: 'on'
-  - trigger: state
-    entity_id: cover.garage_door
-    to: open
-  conditions:
-  - condition: state
-    entity_id: input_boolean.disable_exterior_motion
-    state: 'off'
-  - condition: or
-    conditions:
-    - condition: sun
-      after: sunset
-      after_offset: 00:15:00
-    - condition: sun
-      before: sunrise
-      before_offset: -00:15:00
-  actions:
-  - action: light.turn_on
-    continue_on_error: true
-    target:
-      entity_id: light.front_yard_lights
-  - wait_template: '{{ is_state(''binary_sensor.side_motion_sensor'', ''off'') and
-      is_state(''binary_sensor.side_door_bt'', ''off'') and is_state(''cover.garage_door'',
-      ''closed'') }}'
-    timeout: 01:00:00
-    continue_on_timeout: false
-  - delay:
-      minutes: 5
-  - action: light.turn_off
-    continue_on_error: true
-    target:
-      entity_id: light.front_yard_lights
 - id: '170223138270251'
   alias: '[Motion] Garage Motion Lights revised'
-  description: Handles garage lighting brightness based on time of day using Group Sensor
+  description: Handles garage lighting brightness based on time of day using Group
+    Sensor
   triggers:
   - trigger: state
     entity_id: binary_sensor.garage_occupied
@@ -923,7 +881,7 @@
   - choose:
     - conditions:
       - condition: time
-        after: '09:00:00'
+        after: 09:00:00
         before: '21:30:00'
       sequence:
       - action: light.turn_on
@@ -945,7 +903,7 @@
       to: 'off'
       for:
         minutes: 10
-    timeout: '01:00:00'
+    timeout: 01:00:00
     continue_on_timeout: false
   - action: light.turn_off
     continue_on_error: true
@@ -1597,42 +1555,6 @@
       person_entity: person.donna
       zone_entity: zone.donna_s_work
       notify_device: 5402f427ac93601eeab00b7fc7d6f6da
-- id: '1760066028618'
-  alias: AI Event Summary (v1.4.3) III
-  description: ''
-  use_blueprint:
-    path: valentinfrlch/event_summary.yaml
-    input:
-      camera_entities:
-      - camera.driveway_cam_0
-      - camera.go2rtc_streams_front_door
-      - camera.garage_cam_0
-      - camera.patio_cam_0
-      motion_sensors:
-      - binary_sensor.side_motion_sensor
-      - binary_sensor.front_motion
-      - binary_sensor.garage_motion_sensors
-      - binary_sensor.back_motion
-      remember: true
-      provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
-      notify_device:
-      - 5402f427ac93601eeab00b7fc7d6f6da
-      notification_channel: alarm_stream
-      tts_notification: true
-      tts_volume: alarm_stream_max
-      model: gpt-4o-mini
-      file_path: /config/www/tmp/{{ camera_file_path }}/last_snapshot.jpg
-      use_memory: true
-      run_conditions:
-      - condition: state
-        entity_id: input_boolean.people_home_boolean
-        state: 'off'
-      - condition: or
-        conditions:
-        - condition: time
-          after: '23:59:00'
-          before: 06:00:00
-      max_tokens: 40
 - id: '1760117169977'
   alias: NWS Check for Multi Alerts
   description: NWS Check for Multi Alerts
@@ -3107,260 +3029,6 @@
         continue_on_error: true
         data:
           command: turn off guest ceiling fan
-- id: '1761795411635'
-  alias: '[Master] Camera Last Motion Alerts'
-  description: Handles all camera motion, analysis, and alerts for 4 zones.
-  triggers:
-  - entity_id: binary_sensor.back_motion
-    to: 'on'
-    id: back_door
-    trigger: state
-  - entity_id: binary_sensor.garage_motion_sensors
-    to: 'on'
-    id: garage
-    trigger: state
-  - entity_id: binary_sensor.front_porch_motion
-    to: 'on'
-    id: front_door
-    trigger: state
-  - device_id: 011d22447a45c26939459e4d099889cb
-    domain: nest
-    type: camera_person
-    id: front_door
-    trigger: device
-  - type: turned_on
-    device_id: 65ffc57afcd59b6ced1b3c6b83255f9b
-    entity_id: 5a82940c665069df453de06251fe1250
-    domain: binary_sensor
-    trigger: device
-    id: front_door
-  - entity_id: binary_sensor.side_motion_sensor
-    to: 'on'
-    id: side_door
-    trigger: state
-  conditions: []
-  actions:
-  - choose:
-    - conditions:
-      - condition: trigger
-        id: back_door
-      sequence:
-      - variables:
-          zone_name: Patio
-          camera_entity: camera.patio_cam_0
-          video_script: script.patio_video_snapshot
-          alert_boolean: input_boolean.patio_garage_alerts
-          tts_message: motion on patio
-          nav_path: /dashboard-cast/patio
-          snapshot_file: /config/www/tmp/last_snapshot_patio.jpg
-          stream_command: stream patio camera
-    - conditions:
-      - condition: trigger
-        id: garage
-      sequence:
-      - variables:
-          zone_name: Garage
-          camera_entity: camera.driveway_cam_0
-          video_script: script.garage_video_snapshot
-          alert_boolean: input_boolean.patio_garage_alerts
-          tts_message: Motion in garage
-          nav_path: /dashboard-cast/garage
-          snapshot_file: /config/www/tmp/last_snapshot_garage.jpg
-          stream_command: stream garage camera
-    - conditions:
-      - condition: trigger
-        id: front_door
-      sequence:
-      - variables:
-          zone_name: Front Door
-          camera_entity: camera.go2rtc_streams_front_door
-          video_script: script.porch_video_snapshot
-          alert_boolean: input_boolean.camera_snapshots
-          tts_message: Motion at front door
-          nav_path: /dashboard-cast/porch
-          snapshot_file: /config/www/tmp/last_snapshot_porch.jpg
-          stream_command: stream front door camera
-    - conditions:
-      - condition: trigger
-        id: side_door
-      sequence:
-      - variables:
-          zone_name: Side Door
-          camera_entity: camera.driveway_cam_0
-          video_script: script.driveway_video_snapshot
-          alert_boolean: input_boolean.camera_snapshots
-          tts_message: motion at side door
-          nav_path: /dashboard-cast/driveway
-          snapshot_file: /config/www/tmp/last_snapshot_driveway.jpg
-          stream_command: stream side door camera
-    default: []
-  - condition: template
-    value_template: '{{ is_state(alert_boolean, ''on'') }}'
-  - continue_on_error: true
-    target:
-      entity_id: '{{ camera_entity }}'
-    data:
-      filename: '{{ snapshot_file }}'
-    action: camera.snapshot
-  - continue_on_error: true
-    data:
-      path: '{{ nav_path }}'
-    action: browser_mod.navigate
-  - target:
-      entity_id: input_boolean.camera_motion_detected
-    action: input_boolean.turn_on
-  - continue_on_error: true
-    data:
-      provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
-      message: 'Classify the security event based on this image from the {{ zone_name
-        }} camera. Choose from the following options: "passive" only when no people
-        are present, "time-sensitive" for notable but non-critical events such as
-        a person visible, and "critical" only for potential burglaries or highly suspicious
-        activity. Respond with one of these options exactly, without additional explanation.
-
-        '
-      remember: true
-      use_memory: true
-      model: gpt-4o-mini
-      image_file: '{{ snapshot_file }}'
-      include_filename: true
-      target_width: 1280
-      max_tokens: 3
-      generate_title: true
-      expose_images: true
-    response_variable: response
-    action: llmvision.image_analyzer
-  - variables:
-      label: '{{ response.title }}'
-      local_image: '{{ snapshot_file | replace(''/config/www'', ''/local'') }}'
-  - choose:
-    - conditions:
-      - condition: template
-        value_template: '{{ response.response_text|lower == ''passive'' }}'
-      sequence:
-      - delay:
-          milliseconds: 10
-    - conditions:
-      - condition: template
-        value_template: '{{ is_state(alert_boolean, ''on'') }}'
-      - condition: time
-        after: '22:00:00'
-        before: 07:00:00
-      sequence:
-      - continue_on_error: true
-        target:
-          entity_id: '{{ video_script }}'
-        action: script.turn_on
-      - continue_on_error: true
-        data:
-          entity_id: media_player.office_display
-          volume_level: 0.3
-        action: media_player.volume_set
-      - continue_on_error: true
-        data:
-          cache: true
-          entity_id: media_player.office_display
-          message: '{{ tts_message }}'
-        action: tts.google_say
-      - continue_on_error: true
-        data:
-          command: '{{ stream_command }} on office display'
-        action: google_assistant_sdk.send_text_command
-      - delay:
-          milliseconds: 10
-      - continue_on_error: true
-        data:
-          title: '{{ label }}'
-          message: '{{ response.response_text }}'
-          data:
-            notification_icon: mdi:cctv
-            image: '{{ local_image }}'
-            persistent: true
-            color: red
-            channel: Cameras
-            tag: Motion
-            actions:
-            - action: URI
-              title: Click to Open Cameras
-              uri: '{{ nav_path }}'
-        action: notify.notify_all
-      - delay:
-          seconds: 240
-    - conditions:
-      - condition: template
-        value_template: '{{ is_state(alert_boolean, ''on'') }}'
-      - condition: time
-        after: 07:00:01
-        before: '21:59:59'
-      sequence:
-      - continue_on_error: true
-        target:
-          entity_id: '{{ video_script }}'
-        action: script.turn_on
-      - continue_on_error: true
-        data:
-          entity_id: media_player.tv_speakers
-          volume_level: 0.6
-        action: media_player.volume_set
-      - continue_on_error: true
-        data:
-          cache: true
-          entity_id: media_player.tv_speakers
-          message: '{{ tts_message }}'
-        action: tts.google_say
-      - delay:
-          milliseconds: 10
-      - continue_on_error: true
-        data:
-          title: '{{ label }}'
-          message: '{{ response.response_text }}'
-          data:
-            notification_icon: mdi:cctv
-            image: '{{ local_image }}'
-            persistent: true
-            color: red
-            channel: Cameras
-            tag: Motion
-            actions:
-            - action: URI
-              title: Click to Open Cameras
-              uri: '{{ nav_path }}'
-        action: notify.notify_all
-      - delay:
-          seconds: 120
-    default: []
-  - target:
-      entity_id: input_boolean.camera_motion_detected
-    action: input_boolean.turn_off
-  - continue_on_error: true
-    data:
-      code: history.back()
-    target: {}
-    action: browser_mod.javascript
-  - continue_on_error: true
-    data:
-      path: /lovelace/newtab
-      browser_id:
-      - 6077e78a0bccd7ab8ef18e1689611a46
-      - 8ee04fb979f15f78deb7840ab3ca3242
-    enabled: true
-    action: browser_mod.navigate
-  - continue_on_error: true
-    data:
-      entity_id: media_player.tv_speakers
-      volume_level: 0.3
-    action: media_player.volume_set
-  - delay:
-      milliseconds: 10
-  - continue_on_error: true
-    data:
-      entity_id: media_player.office_display
-      volume_level: 0.2
-    action: media_player.volume_set
-  - delay:
-      minutes: 10
-  mode: single
-  max_exceeded: silent
 - id: '1761876381224'
   alias: '[Motion] Bedroom Motion Lights'
   description: Manage bedroom lighting based on motion, time, and door state.
@@ -5581,41 +5249,6 @@
       entity_id: input_select.mobile_wallpaper
     data:
       options: '{{ mobile_options }}'
-- id: '1763191842714'
-  alias: AI Event Summary (v1.4.3)
-  description: ''
-  use_blueprint:
-    path: valentinfrlch/event_summary.yaml
-    input:
-      camera_entities:
-      - camera.driveway_cam_0
-      - camera.go2rtc_streams_front_door
-      - camera.garage_cam_0
-      - camera.patio_cam_0
-      motion_sensors:
-      - binary_sensor.side_motion_sensor
-      - binary_sensor.porch_motion_sensor
-      - binary_sensor.garage_occupied
-      - binary_sensor.back_motion
-      remember: true
-      use_memory: true
-      provider: 01JZ8Q8C7HDXYKWP5JF8M4ECFX
-      model: gpt-4o-mini
-      notify_device:
-      - 5402f427ac93601eeab00b7fc7d6f6da
-      notification_channel: alarm_stream
-      tts_notification: true
-      tts_volume: alarm_stream_max
-      run_conditions:
-      - condition: state
-        entity_id: input_boolean.people_home_boolean
-        state: 'off'
-      - condition: or
-        conditions:
-        - condition: time
-          after: '23:59:00'
-          before: 06:00:00
-      max_tokens: 40
 - id: '1763612062470'
   alias: '[FMD] Turn ON High Frequency Mode on Departure'
   description: Automatically enables FMD High Frequency Mode when Darren leaves ANY
@@ -5828,7 +5461,7 @@
   mode: queued
   max: 10
 - id: '255990513186892'
-  alias: Combined Porch Motion & Lights
+  alias: 'Lighting: Front Porch Automation'
   description: Handles all front porch motion (Nest, Reolink, Sensor) and door events.
   triggers:
   - trigger: state
@@ -5888,8 +5521,6 @@
   alias: '[Notify] Front Door Person Detected (Unified)'
   description: Triggers on Nest or Reolink person detection. Sends snapshot to Pixel
     & Fire TV.
-  mode: single
-  max_exceeded: silent
   triggers:
   - trigger: device
     domain: nest
@@ -5939,7 +5570,9 @@
         actions:
         - action: URI
           title: View Live Stream
-          uri: /dashboard-test/streams
+          uri: /dashboard-cast/porch
+  mode: single
+  max_exceeded: silent
 - id: '1770781464519'
   alias: Maintenance - Cleanup Old Snapshots
   description: Deletes camera snapshots older than 2 days from the www/tmp folder.
@@ -5951,3 +5584,589 @@
   - data: {}
     action: shell_command.delete_old_snapshots
   mode: single
+- id: driveway_motion
+  alias: 'Camera Alert: Driveway Motion'
+  description: Handles Driveway triggers, UI casting, triage, and audio routing.
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.side_motion_sensor
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.camera_snapshots
+    state:
+    - 'on'
+  actions:
+  - continue_on_error: true
+    action: browser_mod.navigate
+    data:
+      path: /dashboard-cast/driveway
+  - action: input_boolean.turn_on
+    continue_on_error: true
+    target:
+      entity_id: input_boolean.camera_motion_detected
+  - action: camera.snapshot
+    continue_on_error: true
+    target:
+      entity_id: camera.driveway_cam_0
+    data:
+      filename: /config/www/tmp/last_snapshot_driveway.jpg
+  - action: camera.snapshot
+    continue_on_error: true
+    target:
+      entity_id: camera.driveway_cam_0
+    data:
+      filename: /config/media/last_snapshot_driveway.jpg
+  - action: ai_task.generate_data
+    continue_on_error: true
+    data:
+      entity_id: ai_task.google_ai_task
+      task_name: Driveway Triage
+      instructions: 'Classify the security event in this image. Choose exactly one
+        option: "passive" (no people/vehicles), "time-sensitive" (person/vehicle visible),
+        or "critical" (highly suspicious/burglary). Respond ONLY with the exact word.'
+      attachments:
+      - media_content_id: media-source://media_source/local/last_snapshot_driveway.jpg
+        media_content_type: image/jpeg
+    response_variable: triage_response
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ triage_response is defined and triage_response.data is
+          defined and triage_response.data | lower | trim != ''passive'' }}'
+      sequence:
+      - alias: Initial fast notification
+        continue_on_error: true
+        action: notify.mobile_app_pixel_8_pro
+        data:
+          title: 'Driveway: {{ triage_response.data | title }} Motion'
+          message: Recording video for deep analysis...
+          data:
+            notification_icon: mdi:cctv
+            image: /local/tmp/last_snapshot_driveway.jpg
+            persistent: true
+            color: red
+            channel: Cameras
+            tag: driveway_motion
+            actions:
+            - action: URI
+              title: Click to Open Cameras
+              uri: /dashboard-cast/driveway
+      - alias: Fire TV Snapshot Overlay
+        continue_on_error: true
+        action: notify.android_tv_fire_tv
+        data:
+          title: 'Driveway: {{ triage_response.data | title }}'
+          message: Motion Detected. AI Analyzing...
+          data:
+            duration: 12
+            position: top-right
+            fontsize: large
+            transparency: 25%
+            color: grey
+            interrupt: 1
+            image:
+              url: http://192.168.1.134:8123/local/tmp/last_snapshot_driveway.jpg
+      - choose:
+        - conditions:
+          - condition: time
+            after: '22:00:00'
+            before: 07:00:00
+          sequence:
+          - continue_on_error: true
+            action: media_player.volume_set
+            data:
+              entity_id: media_player.office_display
+              volume_level: 0.3
+          - continue_on_error: true
+            action: tts.google_say
+            data:
+              cache: true
+              entity_id: media_player.office_display
+              message: Motion in driveway
+          - continue_on_error: true
+            action: google_assistant_sdk.send_text_command
+            data:
+              command: stream driveway camera on office display
+        - conditions:
+          - condition: time
+            after: 07:00:00
+            before: '22:00:00'
+          sequence:
+          - continue_on_error: true
+            action: media_player.volume_set
+            data:
+              entity_id: media_player.tv_speakers
+              volume_level: 0.6
+          - continue_on_error: true
+            action: tts.google_say
+            data:
+              cache: true
+              entity_id: media_player.tv_speakers
+              message: Motion in driveway
+      - action: script.turn_on
+        continue_on_error: true
+        target:
+          entity_id: script.driveway_video_processing
+      - delay:
+          minutes: 4
+      - action: input_boolean.turn_off
+        continue_on_error: true
+        target:
+          entity_id: input_boolean.camera_motion_detected
+      - continue_on_error: true
+        action: browser_mod.javascript
+        data:
+          code: history.back()
+    default:
+    - action: input_boolean.turn_off
+      continue_on_error: true
+      target:
+        entity_id: input_boolean.camera_motion_detected
+    - continue_on_error: true
+      action: browser_mod.javascript
+      data:
+        code: history.back()
+  mode: single
+  max_exceeded: silent
+- id: front_porch_motion
+  alias: 'Camera Alert: Front Porch Motion'
+  description: Handles Porch triggers, UI casting, triage, and audio routing.
+  mode: single
+  max_exceeded: silent
+  triggers:
+  - trigger: device
+    domain: nest
+    device_id: 011d22447a45c26939459e4d099889cb
+    type: camera_person
+  - trigger: device
+    domain: binary_sensor
+    device_id: 65ffc57afcd59b6ced1b3c6b83255f9b
+    entity_id: 5a82940c665069df453de06251fe1250
+    type: turned_on
+  conditions:
+  - condition: state
+    entity_id: input_boolean.camera_snapshots
+    state: 'on'
+  actions:
+  - continue_on_error: true
+    action: browser_mod.navigate
+    data:
+      path: /dashboard-cast/porch
+  - continue_on_error: true
+    action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.camera_motion_detected
+  - continue_on_error: true
+    action: camera.snapshot
+    target:
+      entity_id: camera.go2rtc_streams_front_door
+    data:
+      filename: /config/www/tmp/last_snapshot_porch.jpg
+  - continue_on_error: true
+    action: camera.snapshot
+    target:
+      entity_id: camera.go2rtc_streams_front_door
+    data:
+      filename: /config/media/last_snapshot_porch.jpg
+  - continue_on_error: true
+    action: ai_task.generate_data
+    data:
+      entity_id: ai_task.google_ai_task
+      task_name: Porch Triage
+      instructions: 'Classify the security event in this image. Choose exactly one
+        option: "passive" (no people/vehicles), "time-sensitive" (person/vehicle visible),
+        or "critical" (highly suspicious/burglary). Respond ONLY with the exact word.'
+      attachments:
+      - media_content_id: media-source://media_source/local/last_snapshot_porch.jpg
+        media_content_type: image/jpeg
+    response_variable: triage_response
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ triage_response is defined and triage_response.data is
+          defined and triage_response.data | lower | trim != ''passive'' }}'
+      sequence:
+      - alias: Initial fast notification
+        continue_on_error: true
+        action: notify.mobile_app_pixel_8_pro
+        data:
+          title: 'Porch: {{ triage_response.data | title }} Motion'
+          message: Recording video for deep analysis...
+          data:
+            notification_icon: mdi:cctv
+            image: /local/tmp/last_snapshot_porch.jpg
+            persistent: true
+            color: red
+            channel: Cameras
+            tag: porch_motion
+            clickAction: /dashboard-test/streams
+            actions:
+            - action: URI
+              title: View Live Stream
+              uri: /dashboard-cast/porch
+      - alias: Fire TV Snapshot Overlay
+        continue_on_error: true
+        action: notify.android_tv_fire_tv
+        data:
+          title: 'Porch: {{ triage_response.data | title }}'
+          message: Motion Detected. AI Analyzing...
+          data:
+            duration: 12
+            position: top-right
+            fontsize: large
+            transparency: 25%
+            color: grey
+            interrupt: 1
+            image:
+              url: http://192.168.1.134:8123/local/tmp/last_snapshot_porch.jpg
+      - choose:
+        - conditions:
+          - condition: time
+            after: '22:00:00'
+            before: 07:00:00
+          sequence:
+          - continue_on_error: true
+            action: media_player.volume_set
+            data:
+              entity_id: media_player.office_display
+              volume_level: 0.3
+          - continue_on_error: true
+            action: tts.google_say
+            data:
+              cache: true
+              entity_id: media_player.office_display
+              message: Motion at front porch
+          - continue_on_error: true
+            action: google_assistant_sdk.send_text_command
+            data:
+              command: stream front door camera on office display
+        - conditions:
+          - condition: time
+            after: 07:00:00
+            before: '22:00:00'
+          sequence:
+          - continue_on_error: true
+            action: media_player.volume_set
+            data:
+              entity_id: media_player.tv_speakers
+              volume_level: 0.6
+          - continue_on_error: true
+            action: tts.google_say
+            data:
+              cache: true
+              entity_id: media_player.tv_speakers
+              message: Motion at front porch
+      - continue_on_error: true
+        action: script.turn_on
+        target:
+          entity_id: script.porch_video_processing
+      - delay:
+          minutes: 4
+      - continue_on_error: true
+        action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.camera_motion_detected
+      - continue_on_error: true
+        action: browser_mod.javascript
+        data:
+          code: history.back()
+    default:
+    - continue_on_error: true
+      action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.camera_motion_detected
+    - continue_on_error: true
+      action: browser_mod.javascript
+      data:
+        code: history.back()
+- id: patio_motion
+  alias: 'Camera Alert: Patio Motion'
+  description: Handles Patio triggers, UI casting, triage, and audio routing.
+  mode: single
+  max_exceeded: silent
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.back_motion
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.patio_garage_alerts
+    state: 'on'
+  actions:
+  - continue_on_error: true
+    action: browser_mod.navigate
+    data:
+      path: /dashboard-cast/patio
+  - continue_on_error: true
+    action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.camera_motion_detected
+  - continue_on_error: true
+    action: camera.snapshot
+    target:
+      entity_id: camera.patio_cam_0
+    data:
+      filename: /config/www/tmp/last_snapshot_patio.jpg
+  - continue_on_error: true
+    action: camera.snapshot
+    target:
+      entity_id: camera.patio_cam_0
+    data:
+      filename: /config/media/last_snapshot_patio.jpg
+  - continue_on_error: true
+    action: ai_task.generate_data
+    data:
+      entity_id: ai_task.google_ai_task
+      task_name: Patio Triage
+      instructions: 'Classify the security event in this image. Choose exactly one
+        option: "passive" (no people/vehicles), "time-sensitive" (person/vehicle visible),
+        or "critical" (highly suspicious/burglary). Respond ONLY with the exact word.'
+      attachments:
+      - media_content_id: media-source://media_source/local/last_snapshot_patio.jpg
+        media_content_type: image/jpeg
+    response_variable: triage_response
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ triage_response is defined and triage_response.data is
+          defined and triage_response.data | lower | trim != ''passive'' }}'
+      sequence:
+      - alias: Initial fast notification
+        continue_on_error: true
+        action: notify.mobile_app_pixel_8_pro
+        data:
+          title: 'Patio: {{ triage_response.data | title }} Motion'
+          message: Recording video for deep analysis...
+          data:
+            notification_icon: mdi:cctv
+            image: /local/tmp/last_snapshot_patio.jpg
+            persistent: true
+            color: red
+            channel: Cameras
+            tag: patio_motion
+            clickAction: /dashboard-cast/patio
+            actions:
+            - action: URI
+              title: View Live Stream
+              uri: /dashboard-cast/patio
+      - alias: Fire TV Snapshot Overlay
+        continue_on_error: true
+        action: notify.android_tv_fire_tv
+        data:
+          title: 'Patio: {{ triage_response.data | title }}'
+          message: Motion Detected. AI Analyzing...
+          data:
+            duration: 12
+            position: top-right
+            fontsize: large
+            transparency: 25%
+            color: grey
+            interrupt: 1
+            image:
+              url: http://192.168.1.134:8123/local/tmp/last_snapshot_patio.jpg
+      - choose:
+        - conditions:
+          - condition: time
+            after: '22:00:00'
+            before: 07:00:00
+          sequence:
+          - continue_on_error: true
+            action: media_player.volume_set
+            data:
+              entity_id: media_player.office_display
+              volume_level: 0.3
+          - continue_on_error: true
+            action: tts.google_say
+            data:
+              cache: true
+              entity_id: media_player.office_display
+              message: Motion at the patio
+          - continue_on_error: true
+            action: google_assistant_sdk.send_text_command
+            data:
+              command: stream patio camera on office display
+        - conditions:
+          - condition: time
+            after: 07:00:00
+            before: '22:00:00'
+          sequence:
+          - continue_on_error: true
+            action: media_player.volume_set
+            data:
+              entity_id: media_player.tv_speakers
+              volume_level: 0.6
+          - continue_on_error: true
+            action: tts.google_say
+            data:
+              cache: true
+              entity_id: media_player.tv_speakers
+              message: Motion at the patio
+      - continue_on_error: true
+        action: script.turn_on
+        target:
+          entity_id: script.patio_video_processing
+      - delay:
+          minutes: 4
+      - continue_on_error: true
+        action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.camera_motion_detected
+      - continue_on_error: true
+        action: browser_mod.javascript
+        data:
+          code: history.back()
+    default:
+    - continue_on_error: true
+      action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.camera_motion_detected
+    - continue_on_error: true
+      action: browser_mod.javascript
+      data:
+        code: history.back()
+- id: garage_motion
+  alias: 'Camera Alert: Garage Motion'
+  description: Handles Garage triggers, UI casting, triage, and audio routing.
+  mode: single
+  max_exceeded: silent
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.garage_motion_sensors
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.patio_garage_alerts
+    state: 'on'
+  actions:
+  - continue_on_error: true
+    action: browser_mod.navigate
+    data:
+      path: /dashboard-cast/garage
+  - continue_on_error: true
+    action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.camera_motion_detected
+  - continue_on_error: true
+    action: camera.snapshot
+    target:
+      entity_id: camera.garage_cam_0
+    data:
+      filename: /config/www/tmp/last_snapshot_garage.jpg
+  - continue_on_error: true
+    action: camera.snapshot
+    target:
+      entity_id: camera.garage_cam_0
+    data:
+      filename: /config/media/last_snapshot_garage.jpg
+  - continue_on_error: true
+    action: ai_task.generate_data
+    data:
+      entity_id: ai_task.google_ai_task
+      task_name: Garage Triage
+      instructions: 'Classify the security event in this image. Choose exactly one
+        option: "passive" (no people/vehicles), "time-sensitive" (person/vehicle visible),
+        or "critical" (highly suspicious/burglary). Respond ONLY with the exact word.'
+      attachments:
+      - media_content_id: media-source://media_source/local/last_snapshot_garage.jpg
+        media_content_type: image/jpeg
+    response_variable: triage_response
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ triage_response is defined and triage_response.data is
+          defined and triage_response.data | lower | trim != ''passive'' }}'
+      sequence:
+      - alias: Initial fast notification
+        continue_on_error: true
+        action: notify.mobile_app_pixel_8_pro
+        data:
+          title: 'Garage: {{ triage_response.data | title }} Motion'
+          message: Recording video for deep analysis...
+          data:
+            notification_icon: mdi:cctv
+            image: /local/tmp/last_snapshot_garage.jpg
+            persistent: true
+            color: red
+            channel: Cameras
+            tag: garage_motion
+            clickAction: /dashboard-cast/garage
+            actions:
+            - action: URI
+              title: View Live Stream
+              uri: /dashboard-cast/garage
+      - alias: Fire TV Snapshot Overlay
+        continue_on_error: true
+        action: notify.android_tv_fire_tv
+        data:
+          title: 'Garage: {{ triage_response.data | title }}'
+          message: Motion Detected. AI Analyzing...
+          data:
+            duration: 12
+            position: top-right
+            fontsize: large
+            transparency: 25%
+            color: grey
+            interrupt: 1
+            image:
+              url: http://192.168.1.134:8123/local/tmp/last_snapshot_garage.jpg
+      - choose:
+        - conditions:
+          - condition: time
+            after: '22:00:00'
+            before: 07:00:00
+          sequence:
+          - continue_on_error: true
+            action: media_player.volume_set
+            data:
+              entity_id: media_player.office_display
+              volume_level: 0.3
+          - continue_on_error: true
+            action: tts.google_say
+            data:
+              cache: true
+              entity_id: media_player.office_display
+              message: Motion in the garage
+          - continue_on_error: true
+            action: google_assistant_sdk.send_text_command
+            data:
+              command: stream garage camera on office display
+        - conditions:
+          - condition: time
+            after: 07:00:00
+            before: '22:00:00'
+          sequence:
+          - continue_on_error: true
+            action: media_player.volume_set
+            data:
+              entity_id: media_player.tv_speakers
+              volume_level: 0.6
+          - continue_on_error: true
+            action: tts.google_say
+            data:
+              cache: true
+              entity_id: media_player.tv_speakers
+              message: Motion in the garage
+      - continue_on_error: true
+        action: script.turn_on
+        target:
+          entity_id: script.garage_video_processing
+      - delay:
+          minutes: 4
+      - continue_on_error: true
+        action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.camera_motion_detected
+      - continue_on_error: true
+        action: browser_mod.javascript
+        data:
+          code: history.back()
+    default:
+    - continue_on_error: true
+      action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.camera_motion_detected
+    - continue_on_error: true
+      action: browser_mod.javascript
+      data:
+        code: history.back()
