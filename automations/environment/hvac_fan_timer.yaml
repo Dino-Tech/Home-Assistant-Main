@@ -1,0 +1,24 @@
+﻿- id: '302170975645999164'
+  alias: '[Timer] HVAC Fan Timer'
+  initial_state: true
+  triggers:
+  - trigger: state
+    entity_id: input_button.hvac_15_fan_timer
+    id: '15'
+  - trigger: state
+    entity_id: input_button.hvac_30_fan_timer
+    id: '30'
+  actions:
+  - action: climate.set_fan_mode
+    data:
+      fan_mode: 'on'
+    target:
+      entity_id: climate.den
+  - delay:
+      minutes: '{{ trigger.id | int }}'
+  - action: climate.set_fan_mode
+    data:
+      fan_mode: 'off'
+    target:
+      entity_id: climate.den
+  mode: restart

@@ -1,0 +1,70 @@
+﻿- id: auto_ensuite_vent_manager_combined
+  alias: '[Auto] Ensuite Vent Manager (Combined)'
+  description: Manages fan based on humidity or a 15-minute timer, max runtime 20
+    mins.
+  mode: single
+  max_exceeded: silent
+  triggers:
+  - entity_id: sensor.ensuite_humidity_2
+    above: 65
+    id: humidity_high
+    trigger: numeric_state
+  - entity_id: sensor.ensuite_humidity_2
+    below: 60
+    id: humidity_low
+    trigger: numeric_state
+  - entity_id: fan.ensuite_vent_2
+    to: 'on'
+    for:
+      minutes: 15
+    id: timer_expired
+    trigger: state
+  - entity_id: fan.ensuite_vent_2
+    to: 'on'
+    for:
+      minutes: 20
+    id: max_time_reached
+    trigger: state
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: humidity_high
+      - condition: state
+        entity_id: light.jacuzzi_downlight
+        state: 'off'
+      sequence:
+      - action: fan.turn_on
+        continue_on_error: true
+        target:
+          entity_id: fan.ensuite_vent_2
+    - conditions:
+      - condition: trigger
+        id: humidity_low
+      - condition: state
+        entity_id: light.jacuzzi_downlight
+        state: 'off'
+      sequence:
+      - action: fan.turn_off
+        continue_on_error: true
+        target:
+          entity_id: fan.ensuite_vent_2
+    - conditions:
+      - condition: trigger
+        id: timer_expired
+      - condition: numeric_state
+        entity_id: sensor.ensuite_humidity_2
+        below: 59
+      sequence:
+      - action: fan.turn_off
+        continue_on_error: true
+        target:
+          entity_id: fan.ensuite_vent_2
+    - conditions:
+      - condition: trigger
+        id: max_time_reached
+      sequence:
+      - action: fan.turn_off
+        continue_on_error: true
+        target:
+          entity_id: fan.ensuite_vent_2

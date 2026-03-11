@@ -1,0 +1,49 @@
+﻿- id: auto_bathroom_vent_manager_combined
+  alias: '[Auto] Bathroom Vent Manager (Combined)'
+  description: Manages bathroom vent based on humidity or a 15-minute timer.
+  mode: single
+  max_exceeded: silent
+  triggers:
+  - entity_id: sensor.bathroom_humidity_2
+    above: 65
+    id: humidity_high
+    trigger: numeric_state
+  - entity_id: sensor.bathroom_humidity_2
+    below: 59
+    id: humidity_low
+    trigger: numeric_state
+  - entity_id: switch.bathroom_vent
+    to: 'on'
+    for:
+      minutes: 15
+    id: timer_expired
+    trigger: state
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: humidity_high
+      sequence:
+      - action: switch.turn_on
+        continue_on_error: true
+        target:
+          entity_id: switch.bathroom_vent
+    - conditions:
+      - condition: trigger
+        id: humidity_low
+      sequence:
+      - action: switch.turn_off
+        continue_on_error: true
+        target:
+          entity_id: switch.bathroom_vent
+    - conditions:
+      - condition: trigger
+        id: timer_expired
+      - condition: numeric_state
+        entity_id: sensor.bathroom_humidity_2
+        below: 59
+      sequence:
+      - action: switch.turn_off
+        continue_on_error: true
+        target:
+          entity_id: switch.bathroom_vent

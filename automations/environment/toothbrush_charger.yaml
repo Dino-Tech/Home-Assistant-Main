@@ -1,0 +1,15 @@
+﻿- id: '202946321485676354'
+  alias: '[TIMER] Toothbrush Charger'
+  triggers:
+  - trigger: time
+    at: 02:30:00
+  actions:
+  - action: switch.turn_on
+    target:
+      entity_id: switch.bathroom_night_light_plug
+  - delay:
+      minutes: 20
+  - action: switch.turn_off
+    target:
+      entity_id: switch.bathroom_night_light_plug
+  initial_state: true

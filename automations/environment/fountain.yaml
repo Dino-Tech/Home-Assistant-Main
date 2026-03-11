@@ -1,0 +1,14 @@
+﻿- id: '170999999299876354'
+  alias: '[TIMER] Fountain'
+  triggers:
+  - trigger: time
+    at: '20:00:00'
+  actions:
+  - action: switch.turn_on
+    target:
+      entity_id: switch.patio_fountain_plug
+  - delay: 600
+  - action: switch.turn_off
+    target:
+      entity_id: switch.patio_fountain_plug
+  initial_state: true

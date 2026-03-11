@@ -1,0 +1,87 @@
+﻿- id: '1761438252145'
+  alias: '[SWITCH] Office Fan cycle (Dynamic with State)'
+  description: Cycles office fan using helpers; restores original state on stop.
+  triggers:
+  - entity_id: input_boolean.office_fan_cycles
+    trigger: state
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.office_fan_cycles
+        state: 'on'
+      sequence:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: fan.office_fan
+            state: 'on'
+          sequence:
+          - action: input_text.set_value
+            target:
+              entity_id: input_text.office_fan_cycle_initial_state
+            data:
+              value: 'on'
+        - conditions:
+          - condition: state
+            entity_id: fan.office_fan
+            state: 'off'
+          sequence:
+          - action: input_text.set_value
+            target:
+              entity_id: input_text.office_fan_cycle_initial_state
+            data:
+              value: 'off'
+          - action: fan.turn_on
+            continue_on_error: true
+            entity_id: fan.office_fan
+        default:
+        - action: input_text.set_value
+          target:
+            entity_id: input_text.office_fan_cycle_initial_state
+          data:
+            value: 'off'
+        - action: fan.turn_on
+          continue_on_error: true
+          entity_id: fan.office_fan
+      - repeat:
+          while:
+          - condition: state
+            entity_id: input_boolean.office_fan_cycles
+            state: 'on'
+          sequence:
+          - delay:
+              minutes: '{{ states(''input_number.office_fan_cycle_on_time'') | int(600)
+                }}'
+          - action: fan.turn_off
+            continue_on_error: true
+            entity_id: fan.office_fan
+          - delay:
+              minutes: '{{ states(''input_number.office_fan_cycle_off_time'') | int(4)
+                }}'
+          - action: fan.turn_on
+            continue_on_error: true
+            entity_id: fan.office_fan
+    default:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: input_text.office_fan_cycle_initial_state
+          state: 'on'
+        sequence:
+        - action: fan.turn_on
+          continue_on_error: true
+          entity_id: fan.office_fan
+      - conditions:
+        - condition: state
+          entity_id: input_text.office_fan_cycle_initial_state
+          state: 'off'
+        sequence:
+        - action: fan.turn_off
+          continue_on_error: true
+          entity_id: fan.office_fan
+      default:
+      - action: fan.turn_off
+        continue_on_error: true
+        entity_id: fan.office_fan
+  mode: restart

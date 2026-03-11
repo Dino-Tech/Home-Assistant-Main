@@ -1,0 +1,68 @@
+﻿- id: auto_fan_control_away_mode
+  alias: '[Auto] Fan Control (Away Mode)'
+  description: Turns Office and Guest fans on/off based on temp when away.
+  mode: queued
+  max: 10
+  triggers:
+  - entity_id: sensor.office_temperature_2
+    above: 75.5
+    id: office_high
+    trigger: numeric_state
+  - entity_id: sensor.office_temperature_2
+    below: 74
+    id: office_low
+    trigger: numeric_state
+  - entity_id: sensor.guest_room_temperature
+    above: 75.5
+    id: guest_high
+    trigger: numeric_state
+  - entity_id: sensor.guest_room_temperature
+    below: 74
+    id: guest_low
+    trigger: numeric_state
+  conditions:
+  - condition: state
+    entity_id: group.person_group
+    state: not_home
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: office_high
+      sequence:
+      - action: fan.turn_on
+        continue_on_error: true
+        target:
+          entity_id: fan.office_fan
+    - conditions:
+      - condition: trigger
+        id: office_low
+      sequence:
+      - action: fan.turn_off
+        continue_on_error: true
+        target:
+          entity_id: fan.office_fan
+    - conditions:
+      - condition: trigger
+        id: guest_high
+      sequence:
+      - action: input_boolean.turn_on
+        continue_on_error: true
+        target:
+          entity_id: input_boolean.guest_ceiling_fan
+      - action: google_assistant_sdk.send_text_command
+        continue_on_error: true
+        data:
+          command: turn on guest ceiling fan
+    - conditions:
+      - condition: trigger
+        id: guest_low
+      sequence:
+      - action: input_boolean.turn_off
+        continue_on_error: true
+        target:
+          entity_id: input_boolean.guest_ceiling_fan
+      - action: google_assistant_sdk.send_text_command
+        continue_on_error: true
+        data:
+          command: turn off guest ceiling fan

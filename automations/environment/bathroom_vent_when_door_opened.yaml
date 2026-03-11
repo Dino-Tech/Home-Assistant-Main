@@ -1,0 +1,18 @@
+﻿- id: '17091227643669'
+  alias: '[AUTO] Bathroom vent when door opened'
+  triggers:
+  - type: opened
+    trigger: device
+    device_id: ddfdaa597a6f3d5253692718365c95a1
+    entity_id: 7d7ea576c802654a8876e7ae82d10add
+    domain: binary_sensor
+  actions:
+  - action: switch.turn_on
+    target:
+      entity_id: switch.bathroom_vent
+  - delay:
+      minutes: 3
+  - action: switch.turn_off
+    target:
+      entity_id: switch.bathroom_vent
+  mode: restart

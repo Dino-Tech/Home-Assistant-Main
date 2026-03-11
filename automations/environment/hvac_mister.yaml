@@ -1,0 +1,46 @@
+﻿- id: '1761884965420'
+  alias: '[Control] HVAC Mister'
+  description: Turns the HVAC mister on when cooling (if warm/dry) and off when idle.
+  triggers:
+  - entity_id: sensor.hvac_mode
+    to: cooling
+    id: turn_on
+    trigger: state
+  - entity_id: sensor.hvac_mode
+    to: idle
+    for:
+      seconds: 60
+    id: turn_off
+    trigger: state
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: turn_on
+      - condition: state
+        entity_id: binary_sensor.night
+        state: 'off'
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: weather.home
+          state: rainy
+      - condition: numeric_state
+        entity_id: sensor.outside_recent_temperature
+        above: 77
+      sequence:
+      - target:
+          entity_id: switch.hvac_mister_2
+        action: switch.turn_on
+    - conditions:
+      - condition: trigger
+        id: turn_off
+      - condition: state
+        entity_id: switch.hvac_mister_2
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: switch.hvac_mister_2
+        action: switch.turn_off
+    default: []
+  mode: single

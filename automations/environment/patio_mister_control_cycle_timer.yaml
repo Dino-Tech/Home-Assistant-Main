@@ -1,0 +1,60 @@
+﻿- id: switch_patio_mister_control
+  alias: '[SWITCH] Patio Mister Control (Cycle & Timer)'
+  description: Cycles mister for 10s on / 50s off. Auto-off after 10 mins.
+  triggers:
+  - entity_id: input_boolean.patio_mister_switch
+    to: 'on'
+    id: turn_on
+    trigger: state
+  - entity_id: input_boolean.patio_mister_switch
+    to: 'off'
+    id: turn_off
+    trigger: state
+  - entity_id: input_boolean.patio_mister_switch
+    to: 'on'
+    for:
+      minutes: 10
+    id: timer_expired
+    trigger: state
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: turn_on
+      sequence:
+      - entity_id: fan.patio_fan
+        action: fan.turn_on
+      - repeat:
+          while:
+          - condition: state
+            entity_id: input_boolean.patio_mister_switch
+            state: 'on'
+          sequence:
+          - entity_id: switch.patio_mister_2
+            action: switch.turn_on
+          - delay:
+              seconds: 10
+          - entity_id: switch.patio_mister_2
+            action: switch.turn_off
+          - delay:
+              seconds: 50
+    - conditions:
+      - condition: trigger
+        id: timer_expired
+      sequence:
+      - entity_id: input_boolean.patio_mister_switch
+        action: input_boolean.turn_off
+    - conditions:
+      - condition: trigger
+        id: turn_off
+      sequence:
+      - entity_id: fan.patio_fan
+        action: fan.turn_off
+      - entity_id: switch.patio_mister_2
+        action: switch.turn_off
+    default:
+    - entity_id: fan.patio_fan
+      action: fan.turn_off
+    - entity_id: switch.patio_mister_2
+      action: switch.turn_off
+  mode: restart
