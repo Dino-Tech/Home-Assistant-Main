@@ -1,0 +1,46 @@
+﻿- id: '170223138270251'
+  alias: '[Motion] Garage Motion Lights revised'
+  description: Handles garage lighting brightness based on time of day using Group
+    Sensor
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.garage_occupied
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.guest_mode_active
+    state: 'off'
+  actions:
+  - choose:
+    - conditions:
+      - condition: time
+        after: 09:00:00
+        before: '21:30:00'
+      sequence:
+      - action: light.turn_on
+        continue_on_error: true
+        target:
+          entity_id: light.garage_lights
+        data:
+          brightness_pct: 100
+    default:
+    - action: light.turn_on
+      continue_on_error: true
+      target:
+        entity_id: light.garage_lights
+      data:
+        brightness_pct: 35
+  - wait_for_trigger:
+    - trigger: state
+      entity_id: binary_sensor.garage_occupied
+      to: 'off'
+      for:
+        minutes: 10
+    timeout: 01:00:00
+    continue_on_timeout: false
+  - action: light.turn_off
+    continue_on_error: true
+    target:
+      entity_id: light.garage_lights
+  mode: restart
+  max_exceeded: silent

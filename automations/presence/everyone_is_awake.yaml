@@ -1,0 +1,17 @@
+﻿- id: '1703432544430144455712'
+  alias: Everyone is awake
+  mode: single
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.everyone_awake
+    to: 'on'
+  actions:
+  - action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.everyone_is_awake
+  - action: media_player.volume_set
+    target:
+      entity_id: media_player.den_mini
+    data:
+      volume_level: 0.45

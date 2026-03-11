@@ -1,0 +1,16 @@
+﻿- id: '1703172027074'
+  alias: Donna's Alarm Pixel 5 next alarm
+  triggers:
+  - trigger: template
+    value_template: '{{ states(''sensor.date_time'') == (as_timestamp(states.sensor.pixel_5_next_alarm.state,
+      default=0) |int -1)| timestamp_custom(''%Y-%m-%d, %H:%M'', True) }}'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.donna_s_alarm_triggered_today
+    state: 'off'
+  - condition: state
+    entity_id: person.donna
+    state: home
+  actions:
+  - action: script.donnas_wake_up
+  mode: single

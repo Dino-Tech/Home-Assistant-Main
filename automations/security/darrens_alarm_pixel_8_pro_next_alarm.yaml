@@ -1,0 +1,16 @@
+﻿- id: '170233166895065'
+  alias: Darren's Alarm Pixel 8 pro next alarm
+  triggers:
+  - trigger: template
+    value_template: '{{ states(''sensor.date_time'') == (as_timestamp(states.sensor.pixel_8_pro_next_alarm.state,
+      default=0) |int -1)| timestamp_custom(''%Y-%m-%d, %H:%M'', True) }}'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.darren_s_alarm_triggered_today
+    state: 'off'
+  - condition: state
+    entity_id: person.darren
+    state: home
+  actions:
+  - action: script.darrens_wake_up
+  mode: single

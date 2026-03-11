@@ -1,0 +1,94 @@
+- id: brain_boolean_to_select_sync
+  alias: "Brain: Sync Manual Booleans to House Mode"
+  description: "Bridges Darren's manual toggles to the main EDA state machine"
+  triggers:
+    - trigger: state
+      entity_id:
+        - input_boolean.house_mode_sleep
+        - input_boolean.house_mode_guest
+        - input_boolean.house_mode_vacation
+
+  actions:
+    - choose:
+        # --- SLEEP MODE ---
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.house_mode_sleep
+              state: "on"
+          sequence:
+            - action: input_select.select_option
+              target:
+                entity_id: input_select.house_mode
+              data:
+                option: "sleep"
+              continue_on_error: true
+            # Safety: Turn off the other manual modes so they don't conflict
+            - action: input_boolean.turn_off
+              target:
+                entity_id:
+                  - input_boolean.house_mode_guest
+                  - input_boolean.house_mode_vacation
+              continue_on_error: true
+
+        # --- VACATION MODE ---
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.house_mode_vacation
+              state: "on"
+          sequence:
+            - action: input_select.select_option
+              target:
+                entity_id: input_select.house_mode
+              data:
+                option: "vacation"
+              continue_on_error: true
+            - action: input_boolean.turn_off
+              target:
+                entity_id:
+                  - input_boolean.house_mode_sleep
+                  - input_boolean.house_mode_guest
+              continue_on_error: true
+
+        # --- GUEST MODE ---
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.house_mode_guest
+              state: "on"
+          sequence:
+            - action: input_select.select_option
+              target:
+                entity_id: input_select.house_mode
+              data:
+                option: "guest"
+              continue_on_error: true
+            - action: input_boolean.turn_off
+              target:
+                entity_id:
+                  - input_boolean.house_mode_sleep
+                  - input_boolean.house_mode_vacation
+              continue_on_error: true
+
+        # --- ALL BOOLEANS OFF -> RETURN TO HOME ---
+        # Guard: do NOT override away mode — presence automation handles that transition
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.house_mode_sleep
+              state: "off"
+            - condition: state
+              entity_id: input_boolean.house_mode_guest
+              state: "off"
+            - condition: state
+              entity_id: input_boolean.house_mode_vacation
+              state: "off"
+            - condition: not
+              conditions:
+                - condition: state
+                  entity_id: input_select.house_mode
+                  state: "away"
+          sequence:
+            - action: input_select.select_option
+              target:
+                entity_id: input_select.house_mode
+              data:
+                option: "home"
+              continue_on_error: true

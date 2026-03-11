@@ -1,0 +1,24 @@
+﻿- id: '17016499927893058'
+  alias: Update notifications
+  use_blueprint:
+    path: mdegat01/update_notifications.yaml
+    input:
+      reminder_hours: '3'
+      update_entities:
+      - update.home_assistant_core_update
+      - update.home_assistant_google_drive_backup_update
+      - update.home_assistant_operating_system_update
+      - update.home_assistant_supervisor_update
+      - update.zerotier_one_update
+      - update.mariadb_update
+      - update.network_ups_tools_update
+      - update.mosquitto_broker_update
+      - update.nginx_home_assistant_ssl_proxy_update
+      - update.studio_code_server_update
+      mobile_app_device: 5402f427ac93601eeab00b7fc7d6f6da
+      send_to_ha: true
+      take_backup: false
+      only_before: '23:00:00'
+      only_after: 07:00:00
+      run_config_check: false
+      mobile_app_device_2: 5402f427ac93601eeab00b7fc7d6f6da

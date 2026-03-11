@@ -1,0 +1,66 @@
+﻿- id: '421345566532245565054'
+  alias: '[Motion] Nightlights and Kiosk'
+  description: Manages Den nightlights and Kiosk wake/sleep based on motion.
+  mode: restart
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.den_night_light_motion
+    to: 'on'
+  variables:
+    is_night: '{{ now().hour >= 23 or now().hour < 5 or (now().hour == 5 and now().minute
+      < 30) }}
+
+      '
+  actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.den_night_lights_zb
+    data:
+      hs_color:
+      - '{{ range(360)|random }}'
+      - '{{ range(80,101)|random }}'
+      brightness_pct: '{{ 30 if is_night else 100 }}'
+  - if:
+    - condition: template
+      value_template: '{{ not is_night }}'
+    then:
+    - action: switch.turn_on
+      target:
+        entity_id: switch.main_kiosk_screen
+    - action: light.turn_on
+      target:
+        entity_id: light.main_kiosk_screen
+    - if:
+      - condition: state
+        entity_id: input_boolean.camera_motion_detected
+        state: 'off'
+      then:
+      - action: browser_mod.navigate
+        data:
+          path: /lovelace/newtab
+          browser_id:
+          - 22de4b5bc46885f8fafdf89c6db80a28
+          - 6077e78a0bccd7ab8ef18e1689611a46
+  - wait_for_trigger:
+    - trigger: state
+      entity_id: binary_sensor.den_night_light_motion
+      to: 'off'
+      for:
+        seconds: 90
+  - action: light.turn_off
+    target:
+      entity_id: light.den_night_lights_zb
+  - choose:
+    - conditions: '{{ is_night }}'
+      sequence:
+      - delay: 15
+      - action: light.turn_off
+        target:
+          entity_id: light.main_kiosk_screen
+    default:
+    - action: browser_mod.navigate
+      data:
+        path: /lovelace/screen
+        browser_id:
+        - 22de4b5bc46885f8fafdf89c6db80a28
+        - 6077e78a0bccd7ab8ef18e1689611a46

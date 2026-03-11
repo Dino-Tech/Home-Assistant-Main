@@ -1,0 +1,78 @@
+﻿- id: '1761879585763'
+  alias: '[Remote] Den Remote Control'
+  description: Handles all button presses for the den remote.
+  triggers:
+  - device_id: 8fcbe6652dc5f7737c49fda014896978
+    domain: bthome
+    type: button_1
+    subtype: press
+    id: den_btn_1_press
+    trigger: device
+  - device_id: 8fcbe6652dc5f7737c49fda014896978
+    domain: bthome
+    type: button_2
+    subtype: press
+    id: den_btn_2_press
+    trigger: device
+  - device_id: 8fcbe6652dc5f7737c49fda014896978
+    domain: bthome
+    type: button_3
+    subtype: press
+    id: den_btn_3_press
+    trigger: device
+  - device_id: 8fcbe6652dc5f7737c49fda014896978
+    domain: bthome
+    type: button_4
+    subtype: press
+    id: den_btn_4_press
+    trigger: device
+  - device_id: 8fcbe6652dc5f7737c49fda014896978
+    domain: bthome
+    type: button_4
+    subtype: long_press
+    id: den_btn_4_long
+    trigger: device
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: den_btn_1_press
+      sequence:
+      - target:
+          entity_id: light.foyer_lights
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: den_btn_2_press
+      sequence:
+      - target:
+          entity_id: light.porch_light_mini
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: den_btn_3_press
+      sequence:
+      - target:
+          entity_id: light.outside_lights
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: den_btn_4_press
+      sequence:
+      - target:
+          entity_id: light.den_lights
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: den_btn_4_long
+      sequence:
+      - target:
+          entity_id: light.every_light
+        action: light.turn_off
+      - delay:
+          milliseconds: 500
+      - target:
+          entity_id: light.tv_ambient_lights
+        action: light.turn_on
+    default: []
+  mode: single

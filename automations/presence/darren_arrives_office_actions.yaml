@@ -1,0 +1,36 @@
+﻿- id: '1761877868563'
+  alias: '[Presence] Darren Arrives - Office Actions'
+  description: Actions when Darren arrives home and enters the office.
+  triggers:
+  - entity_id: person.darren
+    from: not_home
+    to: home
+    trigger: state
+  actions:
+  - continue_on_error: true
+    action: number.set_value
+    target:
+      entity_id: number.fmd_pixel8pro_update_interval
+    data:
+      value: 300
+  - wait_for_trigger:
+    - entity_id: binary_sensor.office_motion_sensors
+      from: 'off'
+      to: 'on'
+      trigger: state
+    timeout:
+      minutes: 30
+    continue_on_timeout: true
+  - target:
+      entity_id:
+      - fan.hallway_fan
+      - switch.ha2_office_monitor
+      - light.office_lights
+    continue_on_error: true
+    action: homeassistant.turn_on
+  - target:
+      entity_id:
+      - switch.fmd_pixel8pro_high_frequency_mode
+    continue_on_error: true
+    action: homeassistant.turn_off
+  mode: single

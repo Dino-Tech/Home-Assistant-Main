@@ -1,0 +1,111 @@
+﻿- id: combined_clocks_grandfather_cuckoo
+  alias: Audible Clocks (Grandfather & Cuckoo)
+  description: Plays clock chimes using Standard Service with Announce and Volume.
+  triggers:
+  - hours: '*'
+    minutes: '0'
+    trigger: time_pattern
+  - minutes: '30'
+    trigger: time_pattern
+  conditions:
+  - condition: time
+    after: 09:29:00
+    before: '21:30:00'
+  - condition: state
+    entity_id: light.tv_ambient_lights
+    state: 'off'
+  - condition: state
+    entity_id: input_boolean.everyone_is_awake
+    state: 'on'
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: input_boolean.grandfather_clock
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.cuckoo_clock
+      state: 'on'
+  actions:
+  - variables:
+      is_half_hour: '{{ now().minute == 30 }}'
+      current_hour: '{{ now().strftime(''%I'') }}'
+      target_player: "{% if states('media_player.front_group') == 'playing' %}\n  media_player.front_group\n{%
+        elif states('media_player.everywhere') == 'playing' %}\n  media_player.everywhere\n{%
+        elif states('media_player.garage_speakers_3') == 'playing' %}\n  media_player.garage_speakers_3\n{%
+        else %}\n  media_player.tv_speakers\n{% endif %}"
+      chime_duration: '{{ 5 if is_half_hour else (5 + (current_hour | int * 1.9))
+        }}'
+  - variables:
+      original_volume: '{{ state_attr(target_player, ''volume_level'') | float(0.3)
+        }}'
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ target_player == ''media_player.tv_speakers'' and states(''media_player.tv_speakers'')
+          in [''off'', ''standby'', ''unavailable'', ''unknown''] }}'
+      sequence:
+      - action: media_player.turn_on
+        continue_on_error: true
+        target:
+          entity_id: media_player.tv_speakers
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
+      entity_id: '{{ target_player }}'
+    data:
+      volume_level: 0.4
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.grandfather_clock
+        state: 'on'
+      - condition: state
+        entity_id: remote.den_tv
+        state: 'off'
+      sequence:
+      - action: media_player.play_media
+        target:
+          entity_id: '{{ target_player }}'
+        data:
+          announce: true
+          media:
+            media_content_id: "{% if is_half_hour %}\n  media-source://media_source/local/gf-hour-30.mp3\n{%
+              else %}\n  media-source://media_source/local/gf-hour-{{ current_hour
+              }}.mp3\n{% endif %}"
+            media_content_type: music
+            metadata: {}
+      - if:
+        - condition: state
+          entity_id: input_boolean.cuckoo_clock
+          state: 'on'
+        then:
+        - action: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.cuckoo_clock
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.cuckoo_clock
+        state: 'on'
+      - condition: state
+        entity_id: remote.den_tv
+        state: 'off'
+      sequence:
+      - action: media_player.play_media
+        target:
+          entity_id: '{{ target_player }}'
+        data:
+          announce: true
+          media:
+            media_content_id: "{% if is_half_hour %}\n  media-source://media_source/local/cuckoo-clock-01.wav\n{%
+              else %}\n  media-source://media_source/local/cuckoo-clock-{{ current_hour
+              }}.wav\n{% endif %}"
+            media_content_type: music
+            metadata: {}
+  - delay:
+      seconds: '{{ chime_duration | int }}'
+  - action: media_player.volume_set
+    target:
+      entity_id: '{{ target_player }}'
+    data:
+      volume_level: '{{ original_volume }}'
+  mode: single

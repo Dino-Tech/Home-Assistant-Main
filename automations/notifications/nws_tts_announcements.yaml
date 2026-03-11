@@ -1,0 +1,59 @@
+﻿- alias: NWS - TTS Announcements
+  id: nws_tts_announcements
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: sensor.nws_alerts_alerts
+  conditions:
+  - condition: numeric_state
+    entity_id: sensor.nws_alerts_alerts
+    above: 0
+  actions:
+  - repeat:
+      sequence:
+      - variables:
+          alert: '{{ repeat.item }}'
+      - if:
+        - condition: template
+          value_template: '{{ (''Tornado Warning'' in alert.Event) and (alert.Type
+            == ''Alert'') }}'
+        then:
+        - action: script.turn_on
+          entity_id: script.nws_alerts_announce_tornado_warning
+        - delay:
+            minutes: 1
+      for_each: '{{ trigger.to_state.attributes.Alerts | reject(''in'', trigger.from_state.attributes.Alerts)
+        | list() | sort(attribute=''ID'') }}'
+  - repeat:
+      sequence:
+      - variables:
+          alert: '{{ repeat.item }}'
+      - if:
+        - condition: template
+          value_template: '{{ (''Hurricane Warning'' in alert.Event) and (alert.Type
+            == ''Alert'') }}'
+        then:
+        - action: script.turn_on
+          entity_id: script.nws_alerts_announce_hurricane_warning
+        - delay:
+            minutes: 1
+      for_each: '{{ trigger.to_state.attributes.Alerts | reject(''in'', trigger.from_state.attributes.Alerts)
+        | list() | sort(attribute=''ID'') }}'
+  - repeat:
+      sequence:
+      - variables:
+          alert: '{{ repeat.item }}'
+      - if:
+        - condition: template
+          value_template: '{{ (''Severe Thunderstorm Warning'' in alert.Event) and
+            (alert.Type == ''Alert'') }}'
+        then:
+        - action: script.turn_on
+          entity_id: script.nws_alerts_announce_thunderstorm_warning
+        - delay:
+            minutes: 1
+      for_each: '{{ trigger.to_state.attributes.Alerts | reject(''in'', trigger.from_state.attributes.Alerts)
+        | list() | sort(attribute=''ID'') }}'
+  mode: queued
+  initial_state: true
+  max: 10

@@ -1,0 +1,25 @@
+﻿- id: '19936353603288153054'
+  alias: Patio LEDs ON when Donna is awake
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.donna_is_awake
+    to: 'on'
+  conditions:
+  - condition: sun
+    before: sunrise
+    before_offset: 00:45:00
+  actions:
+  - action: switch.turn_on
+    target:
+      entity_id: switch.patio_led_outlet
+  - wait_for_trigger:
+    - trigger: state
+      entity_id: person.donna
+      to: not_home
+  - action: switch.turn_off
+    target:
+      entity_id: switch.patio_led_outlet
+  - action: switch.turn_on
+    target:
+      entity_id: switch.office_work_bench_zb
+  mode: single

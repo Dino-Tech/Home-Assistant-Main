@@ -1,0 +1,20 @@
+﻿- id: '384450173036339632'
+  alias: Side Door Camera live view for wall mounted Nest
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.side_motion_sensor
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.camera_snapshots
+    state: 'on'
+  actions:
+  - action: google_assistant_sdk.send_text_command
+    continue_on_error: true
+    data:
+      command: Show me the side door camera on entryway display
+  - delay:
+      minutes: 5
+  mode: single

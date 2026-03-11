@@ -1,0 +1,17 @@
+﻿- id: '1767328462451'
+  alias: High Tide Alert
+  description: ''
+  triggers:
+  - trigger: template
+    value_template: '{% set tide = states(''sensor.tchefuncta_river_lake_pontchartrain_la_next_high_tide'')
+      | as_datetime %} {{ tide is not none and 0 < (tide - now()).total_seconds()
+      < 1800 }}'
+  actions:
+  - action: notify.mobile_app_pixel_8_pro
+    continue_on_error: true
+    data:
+      title: High Tide Soon!
+      message: 'High tide in 30 minutes. Height: {{ state_attr(''sensor.tchefuncta_river_lake_pontchartrain_la_next_high_tide'',
+        ''height'') }}'
+      data:
+        clickAction: /dashboard-test/tides

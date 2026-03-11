@@ -1,0 +1,26 @@
+﻿- id: '18011577229915545232'
+  alias: Turn ON front yard lights when door opened
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.side_door_bt
+    to: 'on'
+  - trigger: state
+    entity_id: cover.garage_door
+    to: open
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.night
+    state: 'on'
+  actions:
+  - action: light.turn_on
+    continue_on_error: true
+    target:
+      entity_id: light.front_yard_lights
+  - delay:
+      minutes: 15
+  - action: light.turn_off
+    continue_on_error: true
+    target:
+      entity_id: light.front_yard_lights
+  mode: restart

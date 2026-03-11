@@ -1,0 +1,10 @@
+﻿- id: '17016181474697534'
+  alias: Turn desk light on when notification action is tapped
+  triggers:
+    trigger: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: turn_on
+  actions:
+    action: light.turn_on
+    entity_id: light.desk_light

@@ -1,0 +1,20 @@
+﻿- id: '17016181237497534'
+  alias: Notify when desk light goes off
+  triggers:
+  - trigger: state
+    entity_id:
+    - light.desk_light
+    to: 'off'
+  conditions:
+  - condition: state
+    entity_id: person.darren
+    state: not_home
+  actions:
+  - action: notify.mobile_app_pixel_8_pro
+    data:
+      message: Desk light off
+      data:
+        color: red
+        actions:
+        - action: turn_on
+          title: Turn light on

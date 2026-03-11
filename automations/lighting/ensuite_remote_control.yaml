@@ -1,0 +1,98 @@
+﻿- id: '1761882949117'
+  alias: '[Remote] Ensuite Remote Control'
+  description: Handles all button presses for the ensuite remote.
+  triggers:
+  - device_id: 440e3fe1262b930f2812b5da9ca95f6b
+    domain: bthome
+    type: button_1
+    subtype: press
+    id: ensuite_btn_1_press
+    trigger: device
+  - device_id: 440e3fe1262b930f2812b5da9ca95f6b
+    domain: bthome
+    type: button_1
+    subtype: double_press
+    id: ensuite_btn_1_double
+    trigger: device
+  - device_id: 440e3fe1262b930f2812b5da9ca95f6b
+    domain: bthome
+    type: button_1
+    subtype: long_press
+    id: ensuite_btn_1_long
+    trigger: device
+  - device_id: 440e3fe1262b930f2812b5da9ca95f6b
+    domain: bthome
+    type: button_2
+    subtype: press
+    id: ensuite_btn_2_press
+    trigger: device
+  - device_id: 440e3fe1262b930f2812b5da9ca95f6b
+    domain: bthome
+    type: button_3
+    subtype: press
+    id: ensuite_btn_3_press
+    trigger: device
+  - device_id: 440e3fe1262b930f2812b5da9ca95f6b
+    domain: bthome
+    type: button_4
+    subtype: press
+    id: ensuite_btn_4_press
+    trigger: device
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: ensuite_btn_1_press
+      sequence:
+      - target:
+          entity_id: light.jacuzzi_downlight
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: ensuite_btn_1_double
+      sequence:
+      - target:
+          entity_id: light.jacuzzi_downlight
+        data:
+          color_temp_kelvin: 3600
+          brightness_pct: 10
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: ensuite_btn_1_long
+      sequence:
+      - target:
+          entity_id: light.jacuzzi_downlight
+        data:
+          brightness_pct: 100
+          color_temp_kelvin: 3600
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: ensuite_btn_2_press
+      sequence:
+      - target:
+          entity_id: light.jacuzzi_downlight
+        data:
+          color_temp_kelvin: 3600
+          brightness_pct: 10
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: ensuite_btn_3_press
+      sequence:
+      - target:
+          entity_id: light.jacuzzi_downlight
+        data:
+          brightness_pct: 50
+          color_name: darkviolet
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: ensuite_btn_4_press
+      sequence:
+      - target:
+          entity_id: light.ensuite_lights
+        action: light.toggle
+    default: []
+  mode: single

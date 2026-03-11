@@ -1,0 +1,9 @@
+﻿- id: '1760065616426'
+  alias: Zone Notification Donna's Work
+  description: ''
+  use_blueprint:
+    path: homeassistant/notify_leaving_zone.yaml
+    input:
+      person_entity: person.donna
+      zone_entity: zone.donna_s_work
+      notify_device: 5402f427ac93601eeab00b7fc7d6f6da

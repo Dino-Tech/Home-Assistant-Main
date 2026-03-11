@@ -1,0 +1,23 @@
+﻿- id: shower_motion_light
+  alias: Ensuite Shower Light on Door Open
+  description: Turns on shower light when shower door opens and turns off after 20
+    minutes
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.shower_door_sensor
+    to: 'on'
+  actions:
+  - action: light.turn_on
+    target:
+      entity_id:
+      - light.shower_light
+      - light.left_vanity
+  - delay:
+      minutes: 12
+  - action: light.turn_off
+    target:
+      entity_id:
+      - light.shower_light
+      - light.left_vanity
+  mode: restart

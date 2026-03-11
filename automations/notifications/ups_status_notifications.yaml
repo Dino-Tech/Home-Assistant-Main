@@ -1,0 +1,46 @@
+﻿- id: ups_status_notifications_combined
+  alias: UPS Status Notifications
+  description: Sends notifications for power off, fully charged, and NUT events.
+  triggers:
+  - entity_id: sensor.mainups_input_voltage
+    below: 10
+    id: power_off
+    trigger: numeric_state
+  - entity_id: sensor.mainups_battery_charge
+    above: 99
+    id: fully_charged
+    trigger: numeric_state
+  - event_type: nut.ups_event
+    id: nut_event
+    trigger: event
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: power_off
+      sequence:
+      - data:
+          title: Smart Home Alert
+          message: The Power went OFF at {{ states('sensor.time_12_hour_am_pm') }}
+        action: notify.mobile_app_pixel_8_pro
+    - conditions:
+      - condition: trigger
+        id: fully_charged
+      - condition: numeric_state
+        entity_id: sensor.mainups_input_voltage
+        above: 120
+      sequence:
+      - data:
+          title: Smart Home Alert
+          message: UPS is online and fully charged at {{ states('sensor.time_12_hour_am_pm')
+            }}
+        action: notify.mobile_app_pixel_8_pro
+    - conditions:
+      - condition: trigger
+        id: nut_event
+      sequence:
+      - data:
+          title: UPS changed state
+          message: '{{ trigger.event.data.notify_msg }}'
+        action: notify.mobile_app_pixel_8_pro
+  mode: single

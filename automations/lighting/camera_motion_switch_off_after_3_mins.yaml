@@ -1,0 +1,14 @@
+﻿- id: '493724371155444526'
+  alias: camera motion switch OFF after 3 mins
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.camera_motion_detected
+    to: 'on'
+  actions:
+  - delay:
+      minutes: 3
+  - action: input_boolean.turn_off
+    entity_id: input_boolean.camera_motion_detected
+  mode: restart
+  max_exceeded: silent

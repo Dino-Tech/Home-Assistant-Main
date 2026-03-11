@@ -1,0 +1,35 @@
+﻿- id: '179161817217497534'
+  alias: '[Motion] Foyer Motion Lights'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.foyer_motion_sensors
+    from: 'off'
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: group.person_group
+    state: home
+  - condition: state
+    entity_id: input_boolean.guest_mode_active
+    state: 'off'
+  actions:
+  - action: light.turn_on
+    continue_on_error: true
+    target:
+      entity_id: light.foyer_lights
+  - wait_for_trigger:
+    - trigger: state
+      entity_id: binary_sensor.foyer_motion_sensors
+      from: 'on'
+      to: 'off'
+    timeout:
+      minutes: 30
+    continue_on_timeout: true
+  - delay: 90
+  - action: light.turn_off
+    continue_on_error: true
+    target:
+      entity_id: light.foyer_lights
+  mode: restart
+  max_exceeded: silent

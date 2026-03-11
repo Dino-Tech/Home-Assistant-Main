@@ -1,0 +1,11 @@
+﻿- id: '17016181474947534545454'
+  alias: Turn AC unit on when notification action is tapped
+  triggers:
+  - trigger: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: turn_on_ac
+  actions:
+  - delay: 00:05:00
+  - action: homeassistant.turn_on
+    entity_id: climate.den

@@ -1,0 +1,45 @@
+﻿- alias: Reset Speaker Volumes
+  id: reset_speaker_volumes
+  description: Reset volume levels on all active speakers when the house is empty
+  mode: single
+  triggers:
+    - trigger: event
+      event_type: house_mode_changed
+      event_data:
+        new_mode: away
+  conditions: []
+  actions:
+    - action: media_player.turn_on
+      continue_on_error: true
+      target:
+        entity_id:
+          - media_player.everywhere
+    - delay: 00:00:02
+    - action: media_player.turn_on
+      continue_on_error: true
+      target:
+        entity_id:
+          - media_player.everywhere
+    - delay: 00:00:08
+    - action: media_player.volume_set
+      continue_on_error: true
+      data:
+        volume_level: 0.4
+      target:
+        entity_id:
+          - media_player.everywhere
+    - delay: 00:00:02
+    - action: media_player.volume_set
+      continue_on_error: true
+      data:
+        volume_level: 0.4
+      target:
+        entity_id:
+          - media_player.everywhere
+    - delay: 00:00:02
+    - action: media_player.turn_off
+      continue_on_error: true
+      target:
+        entity_id:
+          - media_player.everywhere
+          - media_player.everywhere

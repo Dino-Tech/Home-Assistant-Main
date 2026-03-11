@@ -1,0 +1,14 @@
+﻿- id: '17099999919856349'
+  alias: '[Notify] Coffee Maker ON'
+  initial_state: true
+  triggers:
+  - trigger: state
+    entity_id: switch.coffee_maker
+    to: 'on'
+  actions:
+  - action: homeassistant.turn_on
+    entity_id: light.coffee_light
+  - action: notify.mobile_app_pixel_8_pro
+    data:
+      title: ⚠️Coffee☕️ Maker ON
+      message: ' at {{ states(''sensor.time_12_hour_am_pm'') }}'

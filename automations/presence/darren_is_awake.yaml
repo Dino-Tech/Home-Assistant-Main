@@ -1,0 +1,59 @@
+﻿- id: '17034325444301455712'
+  alias: Darren is awake
+  triggers:
+  - trigger: state
+    entity_id:
+    - light.office_lights
+    to: 'on'
+  conditions:
+  - condition: time
+    before: '11:00:00'
+    after: 05:00:00
+  actions:
+  - wait_for_trigger:
+    - trigger: state
+      entity_id: binary_sensor.office_motion_sensors
+      to: 'on'
+  - action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.darren_is_awake
+  - action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.naptime
+  - action: switch.turn_on
+    target:
+      entity_id: switch.ha2_office_monitor
+  - action: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.office_display
+      volume_level: 0.4
+  - action: notify.mobile_app_pixel_8_pro
+    data:
+      message: command_broadcast_intent
+      data:
+        intent_package_name: com.urbandroid.sleep
+        intent_action: com.urbandroid.sleep.alarmclock.STOP_SLEEP_TRACK
+        ttl: 0
+        priority: high
+  - delay:
+      seconds: 5
+  - action: select.select_option
+    continue_on_error: true
+    target:
+      entity_id: select.fmd_pixel8pro_volume_ringer_mode
+    data:
+      option: Normal (Sound + Vibrate)
+  - action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.door_announcements
+  - action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.radar_updates
+  - action: switch.turn_on
+    target:
+      entity_id: switch.keurig_coffee_maker
+  - action: switch.turn_on
+    target:
+      entity_id: switch.office_work_bench_zb
+  mode: single

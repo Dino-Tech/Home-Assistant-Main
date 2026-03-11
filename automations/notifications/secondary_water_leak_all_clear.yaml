@@ -1,0 +1,59 @@
+﻿- id: '1762316898965'
+  alias: '[Notify] Secondary Water Leak All Clear'
+  description: Resets systems when secondary water leak alerts are clear.
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.bathroom_leak_sensor_moisture
+    - binary_sensor.donnas_sink_leak_sensor
+    - binary_sensor.kitchen_sink_leaking
+    to: 'off'
+    for: 00:03:00
+  conditions:
+  - condition: template
+    value_template: '{{ trigger.from_state.state == ''on'' }}'
+  - condition: state
+    entity_id: binary_sensor.bathroom_leak_sensor_moisture
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.donnas_sink_leak_sensor
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.kitchen_sink_leaking
+    state: 'off'
+  actions:
+  - variables:
+      clear_title: WATER LEAK ALL CLEAR
+      clear_message: All water leak sensors are now clear. ✅
+      clear_icon: mdi:check-circle-outline
+  - action: valve.open_valve
+    continue_on_error: true
+    target:
+      entity_id: valve.main_water_valve
+  - action: logbook.log
+    data:
+      name: Water Leak System
+      message: All clear received from secondary water leak sensors.
+  - action: notify.notify_all
+    data:
+      title: '{{ clear_title }}'
+      message: '{{ clear_message }}'
+      data:
+        channel: alert
+        importance: high
+        notification_icon: '{{ clear_icon }}'
+  - action: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.everywhere
+      volume_level: 0.6
+  - delay:
+      seconds: 2
+  - action: tts.speak
+    continue_on_error: true
+    target:
+      entity_id: tts.home_assistant_cloud
+    data:
+      media_player_entity_id: media_player.everywhere
+      message: All secondary water leak sensors are now clear.
+  mode: restart

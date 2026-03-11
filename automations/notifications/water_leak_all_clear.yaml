@@ -1,0 +1,76 @@
+﻿- id: '1762304880858'
+  alias: '[Notify] Water Leak All Clear'
+  description: Resets systems and sends notification when ALL water leak alerts are
+    clear.
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.hvac_leak_sensor
+    - binary_sensor.water_heater_leak_sensor
+    - binary_sensor.washer_leak_sensor
+    to: 'off'
+    for: 00:03:00
+    id: clear_water_leak
+  conditions:
+  - condition: template
+    value_template: '{{ trigger.from_state.state == ''on'' }}'
+  - condition: state
+    entity_id: binary_sensor.hvac_leak_sensor
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.water_heater_leak_sensor
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.washer_leak_sensor
+    state: 'off'
+  actions:
+  - variables:
+      trigger_name: '{{ trigger.to_state.attributes.friendly_name | default(trigger.entity_id)
+        }}'
+      clear_title: WATER LEAK ALL CLEAR
+      clear_message: All water leak sensors are now clear. {{ trigger_name }} was
+        the last to clear. ✅
+      clear_icon: mdi:check-circle-outline
+  - action: valve.open_valve
+    continue_on_error: true
+    target:
+      entity_id: valve.main_water_valve
+  - action: switch.turn_on
+    continue_on_error: true
+    target:
+      entity_id: switch.washer_plug_zb
+  - action: climate.turn_on
+    continue_on_error: true
+    target:
+      entity_id: climate.den
+  - action: logbook.log
+    continue_on_error: true
+    data:
+      name: Water Leak System
+      entity_id: '{{ trigger.entity_id }}'
+      message: All clear received from {{ trigger_name }}
+  - action: notify.notify_all
+    continue_on_error: true
+    data:
+      title: '{{ clear_title }}'
+      message: '{{ clear_message }}'
+      data:
+        channel: alert
+        importance: high
+        notification_icon: '{{ clear_icon }}'
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
+      entity_id: media_player.everywhere
+    data:
+      volume_level: 0.6
+  - delay:
+      seconds: 2
+  - action: tts.speak
+    continue_on_error: true
+    target:
+      entity_id: tts.home_assistant_cloud
+    data:
+      media_player_entity_id: media_player.everywhere
+      message: All water leak sensors are now clear. Resuming normal operation.
+  mode: restart

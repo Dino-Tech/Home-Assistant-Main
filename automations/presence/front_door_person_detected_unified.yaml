@@ -1,0 +1,56 @@
+﻿- id: '3383270780838229'
+  alias: '[Notify] Front Door Person Detected (Unified)'
+  description: Triggers on Nest or Reolink person detection. Sends snapshot to Pixel
+    & Fire TV.
+  triggers:
+  - trigger: device
+    domain: nest
+    device_id: 011d22447a45c26939459e4d099889cb
+    type: camera_person
+  - trigger: device
+    domain: binary_sensor
+    device_id: 65ffc57afcd59b6ced1b3c6b83255f9b
+    entity_id: 5a82940c665069df453de06251fe1250
+    type: turned_on
+  conditions: []
+  actions:
+  - variables:
+      base_url: http://192.168.1.134:8123
+      filename: reolink_snapshot_{{ now().strftime('%Y%m%d-%H%M%S') }}.jpg
+      local_path: /config/www/tmp/{{ filename }}
+      http_url: '{{ base_url }}/local/tmp/{{ filename }}'
+  - action: camera.snapshot
+    continue_on_error: true
+    target:
+      entity_id: camera.go2rtc_streams_front_door
+    data:
+      filename: '{{ local_path }}'
+  - action: notify.android_tv_fire_tv
+    continue_on_error: true
+    data:
+      title: Front Door
+      message: Person Detected
+      data:
+        duration: 12
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        color: grey
+        interrupt: 1
+        image:
+          url: '{{ http_url }}'
+  - action: notify.mobile_app_pixel_8_pro
+    continue_on_error: true
+    data:
+      title: Person Detected at Front Door
+      message: Tap to view live stream
+      data:
+        image: '{{ http_url }}'
+        tag: front_door_person
+        clickAction: /dashboard-test/streams
+        actions:
+        - action: URI
+          title: View Live Stream
+          uri: /dashboard-cast/porch
+  mode: single
+  max_exceeded: silent

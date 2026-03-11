@@ -1,0 +1,107 @@
+﻿- id: critical_safety_alerts_detected
+  alias: '[Notify] NEST Fire, Smoke, CO, & Heat Detected II'
+  description: Handles all smoke, CO, and heat alerts with comprehensive safety actions.
+  mode: queued
+  max: 10
+  triggers:
+  - id: smoke
+    entity_id:
+    - binary_sensor.nest_protect_hallway_smoke_status
+    - binary_sensor.nest_protect_kitchen_smoke_status
+    - binary_sensor.nest_protect_garage_smoke_status
+    - binary_sensor.laundry_smoke_detected
+    - binary_sensor.bedroom_smoke_detected
+    to: 'on'
+    for:
+      seconds: 3
+    trigger: state
+  - id: co
+    entity_id:
+    - binary_sensor.nest_protect_hallway_co_status
+    - binary_sensor.nest_protect_kitchen_co_status
+    - binary_sensor.nest_protect_garage_co_status
+    - binary_sensor.laundry_co_detected
+    - binary_sensor.bedroom_carbon_monoxide_detected
+    to: 'on'
+    for:
+      seconds: 3
+    trigger: state
+  - id: heat
+    entity_id:
+    - binary_sensor.nest_protect_hallway_heat_status
+    - binary_sensor.nest_protect_kitchen_heat_status
+    - binary_sensor.nest_protect_garage_heat_status
+    to: 'on'
+    for:
+      seconds: 3
+    trigger: state
+  actions:
+  - variables:
+      trigger_name: '{{ trigger.to_state.attributes.friendly_name | default(trigger.entity_id)
+        }}'
+      alert_title: "{% if trigger.id == 'smoke' %}\n  Smoke Alarm\n{% elif trigger.id
+        == 'co' %}\n  Carbon Monoxide Alarm\n{% else %}\n  Heat Alarm\n{% endif %}"
+      alert_message: "{% if trigger.id == 'smoke' %}\n  {{ trigger_name }} smoke detected
+        \U0001F525\n{% elif trigger.id == 'co' %}\n  {{ trigger_name }} carbon monoxide
+        detected ⚠️\n{% else %}\n  {{ trigger_name }} heat detected \U0001F525\n{%
+        endif %}"
+      alert_icon: "{% if trigger.id == 'smoke' %}\n  mdi:smoke-detector-variant-alert\n{%
+        elif trigger.id == 'co' %}\n  mdi:molecule-co\n{% else %}\n  mdi:fire-alert\n{%
+        endif %}"
+  - if:
+    - condition: template
+      value_template: '{{ trigger.id in ["smoke", "co"] }}'
+    then:
+    - action: noonlight.create_alarm
+      continue_on_error: true
+      data:
+        service: fire
+    - action: logbook.log
+      continue_on_error: true
+      data:
+        name: Noonlight
+        entity_id: '{{ trigger.entity_id }}'
+        message: Fire/CO alarm triggered from {{ trigger_name }}
+  - parallel:
+    - action: climate.turn_off
+      continue_on_error: true
+      target:
+        entity_id: climate.den
+    - action: switch.turn_off
+      continue_on_error: true
+      target:
+        entity_id: switch.dryer_zb
+    - action: lock.unlock
+      continue_on_error: true
+      target:
+        entity_id:
+        - lock.side_door
+        - lock.back_door
+    - action: cover.open_cover
+      continue_on_error: true
+      target:
+        entity_id: cover.garage_door
+    - action: siren.turn_on
+      continue_on_error: true
+      target:
+        entity_id: siren.alarm_panel_siren
+    - action: switch.turn_on
+      continue_on_error: true
+      target:
+        entity_id: switch.konnected_da0e8a_siren
+    - action: light.turn_on
+      continue_on_error: true
+      target:
+        entity_id: light.every_light
+      data:
+        brightness_pct: 100
+  - action: notify.notify_all
+    continue_on_error: true
+    data:
+      title: '{{ alert_title }}'
+      message: '{{ alert_message }}'
+      data:
+        channel: alert
+        sticky: true
+        importance: high
+        notification_icon: '{{ alert_icon }}'

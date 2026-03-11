@@ -1,0 +1,88 @@
+﻿- id: '1761928278535'
+  alias: '[Presence] Last Person Leaves - Away actions'
+  description: Triggers on house_mode_changed event (new_mode=away). 6-min delay at top allows for quick returns before away actions fire.
+  triggers:
+  - trigger: event
+    event_type: house_mode_changed
+    event_data:
+      new_mode: away
+  conditions: []
+  actions:
+  - delay:
+      minutes: 6
+  - continue_on_error: true
+    target:
+      entity_id: alarm_control_panel.alarmo
+    data:
+      code: '{{ states(''input_text.secure_code'') }}'
+    action: alarm_control_panel.alarm_arm_away
+  - continue_on_error: true
+    target:
+      entity_id: switch.main_kiosk_screen
+    action: switch.turn_off
+  - continue_on_error: true
+    target:
+      entity_id:
+      - input_boolean.people_home_boolean
+      - light.every_light
+      - input_boolean.auto_tablet
+      - input_boolean.auto_cameras
+      - input_boolean.disable_popups
+      - input_boolean.disable_cabinet_auto_lights
+      - input_boolean.disable_patio_motion
+      - input_boolean.disable_garage_auto_lights
+      - input_boolean.auto_backgroundz
+      - switch.night_switches
+      - switch.den_nightlight_plugs
+      - switch.office_work_bench_zb
+    action: homeassistant.turn_off
+  - delay:
+      seconds: 3
+  - continue_on_error: true
+    data:
+      command: turn off kitchen water heater
+    action: google_assistant_sdk.send_text_command
+  - continue_on_error: true
+    target:
+      entity_id:
+      - input_boolean.door_announcements
+      - input_boolean.camera_snapshots
+      - input_boolean.patio_garage_alerts
+      - light.sofa_lamp
+      - light.under_cabinet_lights
+      - input_boolean.guest_mode_active
+    action: homeassistant.turn_on
+  - continue_on_error: true
+    action: script.nest_set_away
+  - delay:
+      seconds: 10
+  - continue_on_error: true
+    target:
+      entity_id: media_player.kitchen_speakers_2
+    data:
+      volume_level: 0.5
+    action: media_player.volume_set
+  - delay:
+      seconds: 5
+  - continue_on_error: true
+    target:
+      entity_id: media_player.kitchen_speakers_2
+    data:
+      media_content_id: library://radio/3
+      media_content_type: music
+    action: media_player.play_media
+  - delay:
+      seconds: 3
+  - continue_on_error: true
+    data:
+      command: turn off den tv
+    action: google_assistant_sdk.send_text_command
+  - delay:
+      seconds: 3
+  - continue_on_error: true
+    target:
+      entity_id:
+      - lock.side_door
+      - lock.back_door
+    action: lock.lock
+  mode: single

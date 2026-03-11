@@ -1,0 +1,75 @@
+﻿- id: '1761876381224'
+  alias: '[Motion] Bedroom Motion Lights'
+  description: Manage bedroom lighting based on motion, time, and door state.
+  triggers:
+  - entity_id: binary_sensor.bedroom_motion_sensors
+    from: 'off'
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.bedroom_door
+    state: 'on'
+  - condition: state
+    entity_id: group.person_group
+    state: home
+  - condition: state
+    entity_id: input_boolean.guest_mode_active
+    state: 'off'
+  actions:
+  - variables:
+      current_hour: '{{ now().hour + now().minute / 60 }}'
+      target_lights: "{% if 9.5 <= current_hour < 18.5 %}\n  light.mood_lights,light.donnas_light,light.darrens_nightstand_light\n{%
+        elif 18.5 <= current_hour < 20.5 %}\n  light.mood_lights,light.donnas_light,light.darrens_nightstand_light\n{%
+        elif 20.5 <= current_hour < 21.5 %}\n  light.donnas_light,light.darrens_nightstand_light\n{%
+        elif 21.5 <= current_hour <= 22.5 %}\n  light.donnas_light\n{% else %}\n  light.darrens_nightstand_light\n{%
+        endif %}"
+      brightness_level: "{% if 9.5 <= current_hour < 18.5 %}\n  45\n{% elif 18.5 <=
+        current_hour < 20.5 %}\n  15\n{% elif 20.5 <= current_hour < 21.5 %}\n  5\n{%
+        elif 21.5 <= current_hour <= 22.5 %}\n  5\n{% else %}\n  1\n{% endif %}"
+      kiosk_on: "{% if current_hour >= 9.5 and current_hour <= 22.5 %}\n  true\n{%
+        else %}\n  false\n{% endif %}"
+  - action: light.turn_on
+    continue_on_error: true
+    target:
+      entity_id: '{{ target_lights }}'
+    data:
+      brightness_pct: '{{ brightness_level }}'
+  - if:
+    - condition: template
+      value_template: '{{ kiosk_on == "true" }}'
+    then:
+    - action: switch.turn_on
+      continue_on_error: true
+      target:
+        entity_id: switch.ensuite_kiosk_screen
+  - wait_for_trigger:
+    - entity_id: binary_sensor.bedroom_motion_sensors
+      from: 'on'
+      to: 'off'
+      trigger: state
+      for:
+        seconds: 10
+  - if:
+    - condition: state
+      entity_id: binary_sensor.bedroom_door
+      state: 'on'
+    then:
+    - delay: 300
+    - action: light.turn_off
+      target:
+        entity_id: light.mood_lights
+    - delay: 300
+    - action: light.turn_off
+      target:
+        entity_id: light.darrens_nightstand_light
+    - wait_template: "{{ is_state('binary_sensor.ensuite_motion_sensors', 'off')\n
+        \  and not is_state('media_player.ensuite_tv', 'playing') }}\n   "
+    - delay: 1800
+    - action: light.turn_off
+      target:
+        entity_id: light.donnas_light
+    - action: switch.turn_off
+      target:
+        entity_id: switch.ensuite_kiosk_screen
+  mode: restart

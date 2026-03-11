@@ -1,0 +1,61 @@
+﻿- id: ensuite_motion_light_on_evening
+  alias: '[Motion] Ensuite motion light on'
+  description: Turns on ensuite lights & kiosk
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.ensuite_motion_sensors
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: light.jacuzzi_downlight
+    state: 'off'
+  actions:
+  - if:
+    - condition: time
+      before: '22:00:00'
+      after: '10:00:00'
+    then:
+    - action: light.turn_on
+      continue_on_error: true
+      target:
+        entity_id: light.vanity_right
+    - action: light.turn_on
+      continue_on_error: true
+      target:
+        entity_id: light.donnas_light
+    - if:
+      - condition: state
+        entity_id: switch.ensuite_kiosk_screen
+        state: 'off'
+      then:
+      - action: switch.turn_on
+        continue_on_error: true
+        target:
+          entity_id: switch.ensuite_kiosk_screen
+      - delay:
+          seconds: 2
+      else:
+      - delay:
+          seconds: 1
+    - action: button.press
+      continue_on_error: true
+      target:
+        entity_id: button.ensuite_kiosk_load_start_url
+  - wait_template: '{{ is_state(''binary_sensor.ensuite_motion_sensors'', ''off'')
+      }}'
+    timeout:
+      minutes: 60
+    continue_on_timeout: true
+  - delay:
+      minutes: 15
+  - action: light.turn_off
+    continue_on_error: true
+    target:
+      entity_id: light.ensuite_lights
+  - action: switch.turn_off
+    continue_on_error: true
+    target:
+      entity_id: switch.ensuite_kiosk_screen
+  mode: restart
+  max_exceeded: silent

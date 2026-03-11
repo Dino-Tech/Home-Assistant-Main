@@ -1,0 +1,10 @@
+﻿- id: '170163035746544'
+  alias: Notify of Camera channel importance
+  triggers: []
+  actions:
+  - action: notify.mobile_app_pixel_8_pro
+    data:
+      message: Motion Detected
+      data:
+        channel: Cameras
+        ledColor: red

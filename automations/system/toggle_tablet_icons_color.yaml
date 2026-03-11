@@ -1,0 +1,10 @@
+﻿- id: '17099299999977'
+  alias: '[Tablet] Toggle tablet icons color'
+  initial_state: true
+  triggers:
+  - trigger: state
+    entity_id: input_boolean.tablet_icons_color
+  actions:
+  - action: homeassistant.turn_{{- trigger.to_state.state -}}
+    data:
+      entity_id: group.tablet_icons

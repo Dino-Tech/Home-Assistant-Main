@@ -1,0 +1,25 @@
+﻿- id: '1761947757593'
+  alias: Report state on start-up
+  description: Publishes to MQTT, reloads kiosks, and sets theme on startup
+  triggers:
+  - event: start
+    trigger: homeassistant
+  actions:
+  - data:
+      topic: shellies/command
+      payload: announce
+    action: mqtt.publish
+  - delay:
+      seconds: 2
+  - continue_on_error: true
+    target:
+      entity_id:
+      - button.main_kiosk_load_start_url
+      - button.ensuite_kiosk_load_start_url
+    action: button.press
+  - delay:
+      seconds: 2
+  - data:
+      name: Blue-Nightz
+    action: frontend.set_theme
+  mode: single

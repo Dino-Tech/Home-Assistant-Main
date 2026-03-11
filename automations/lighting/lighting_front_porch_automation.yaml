@@ -1,0 +1,53 @@
+﻿- id: '255990513186892'
+  alias: 'Lighting: Front Porch Automation'
+  description: Handles all front porch motion (Nest, Reolink, Sensor) and door events.
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.front_porch_motion
+    from: 'off'
+    to: 'on'
+  - trigger: state
+    entity_id: binary_sensor.front_door
+    to: 'on'
+  - trigger: device
+    domain: nest
+    device_id: 011d22447a45c26939459e4d099889cb
+    type: camera_person
+  - trigger: state
+    entity_id: binary_sensor.front_door_person
+    to: 'on'
+  conditions:
+  - condition: or
+    conditions:
+    - condition: sun
+      after: sunset
+      after_offset: 00:45:00
+    - condition: sun
+      before: sunrise
+      before_offset: 00:45:00
+  actions:
+  - action: light.turn_on
+    continue_on_error: true
+    target:
+      entity_id:
+      - light.porch_light_mini
+      - light.front_led_spot
+      - light.front_door_floodlight
+    data:
+      brightness: 255
+  - wait_template: "{{ is_state('binary_sensor.front_porch_motion', 'off') and \n
+      \  is_state('binary_sensor.front_door', 'off') }}"
+    timeout:
+      minutes: 30
+    continue_on_timeout: true
+  - delay:
+      minutes: 5
+  - action: light.turn_off
+    continue_on_error: true
+    target:
+      entity_id:
+      - light.porch_light_mini
+      - light.front_led_spot
+      - light.front_door_floodlight
+  mode: restart
+  max_exceeded: silent

@@ -1,0 +1,532 @@
+﻿- id: '1763075334333'
+  alias: '[Tablet] Theme Match for Video Wallpaper V18'
+  description: Sets browser theme AND mobile wallpaper options based on selected video.
+  mode: restart
+  triggers:
+  - trigger: state
+    entity_id: input_select.video_wallpaper
+  variables:
+    video_theme_map:
+      fish:
+      - blue
+      - - mobile6
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      fish2:
+      - red
+      - - mobile22
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      fish3:
+      - ocean
+      - - mobile1
+        - mobile23
+        - mobile3
+        - mobile4
+        - mobile51
+        - mobile6
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile11
+        - mobile121
+        - mobile14
+        - mobile15
+        - mobile16
+        - mobile171
+        - mobile18
+      fish4:
+      - yellow
+      - - mobile23
+        - mobile14
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      fish5:
+      - green
+      - - mobile23
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      fishy2:
+      - ocean
+      - - mobile1
+        - mobile23
+        - mobile3
+        - mobile4
+        - mobile51
+        - mobile6
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile11
+        - mobile121
+        - mobile14
+        - mobile15
+        - mobile16
+        - mobile171
+        - mobile18
+      fishyRed:
+      - pink
+      - - mobile52
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      fishNew2:
+      - blue
+      - - mobile6
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      nightClouds:
+      - ocean
+      - - mobile1
+        - mobile23
+        - mobile3
+        - mobile4
+        - mobile51
+        - mobile6
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile11
+        - mobile121
+        - mobile14
+        - mobile15
+        - mobile16
+        - mobile171
+        - mobile18
+      moonRising:
+      - orange
+      - - mobile121
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      fullMoon:
+      - orange
+      - - mobile121
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      darkskyMoon:
+      - magenta
+      - - mobile6
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      spookyMoon:
+      - grey
+      - - mobile14
+        - mobile23
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      cloudyMoon:
+      - blue
+      - - mobile6
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      veniceNight:
+      - orange
+      - - mobile121
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      stormyNight:
+      - geaux
+      - - mobile51
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+      space:
+      - blue
+      - - mobile6
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      mars:
+      - blue
+      - - mobile6
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      fireworks:
+      - red
+      - - mobile22
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      greenNeon:
+      - lime
+      - - mobile171
+        - mobile172
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      berry:
+      - purple
+      - - mobile20
+        - mobile21
+        - mobile1
+        - mobile19
+        - mobile3
+        - mobile51
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile11
+        - mobile13
+        - mobile14
+        - mobile15
+        - mobile16
+        - mobile18
+      inferno:
+      - orange
+      - - mobile121
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      fire:
+      - orange
+      - - mobile121
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      tunnel:
+      - blue
+      - - mobile6
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      bubbling:
+      - pink
+      - - mobile52
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      blackBubbles:
+      - pink
+      - - mobile52
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      smoked:
+      - geaux
+      - - mobile51
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+      island:
+      - yellow
+      - - mobile23
+        - mobile14
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      waves:
+      - geaux
+      - - mobile51
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+      orangeSunset:
+      - orange
+      - - mobile121
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+      beachyWaves:
+      - orange
+      - - mobile121
+        - mobile11
+        - mobile18
+        - mobile7
+        - mobile8
+        - mobile9
+        - mobile10
+        - mobile3
+        - mobile13
+        - mobile1
+        - mobile15
+        - mobile16
+        - mobile51
+    default_theme_data:
+    - lime
+    - - mobile171
+      - mobile172
+      - mobile18
+      - mobile7
+      - mobile8
+      - mobile9
+      - mobile10
+      - mobile3
+      - mobile13
+      - mobile1
+      - mobile15
+      - mobile16
+      - mobile51
+    selected_video: '{{ trigger.to_state.state }}'
+    theme_data: '{{ video_theme_map.get(selected_video, default_theme_data) }}'
+    theme_suffix: '{{ theme_data[0] }}'
+    mobile_options: '{{ theme_data[1] }}'
+    theme_name: '{{ theme_suffix | capitalize }}-Nightz'
+  actions:
+  - delay: 6
+  - action: frontend.set_theme
+    data:
+      name: '{{ theme_name }}'
+  - action: browser_mod.set_theme
+    data:
+      browser_id:
+      - browser_ac9b7f58_cfbfe785
+      theme: '{{ theme_name }}'
+  - action: input_select.set_options
+    target:
+      entity_id: input_select.mobile_wallpaper
+    data:
+      options: '{{ (mobile_options + [states(''input_select.mobile_wallpaper'')])
+        | unique | list }}'
+  - action: input_select.select_option
+    target:
+      entity_id: input_select.mobile_wallpaper
+    data:
+      option: '{{ mobile_options | random }}'
+  - action: input_select.set_options
+    target:
+      entity_id: input_select.mobile_wallpaper
+    data:
+      options: '{{ mobile_options }}'

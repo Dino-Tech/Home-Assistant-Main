@@ -1,0 +1,16 @@
+﻿- id: garage_lights_door_open_override
+  alias: 'Garage: Lights ON when Door Opens'
+  description: Unconditionally turn on the garage lights whenever the garage door
+    opens.
+  mode: single
+  triggers:
+  - trigger: state
+    entity_id: cover.garage_door
+    from: closed
+    to: open
+  conditions: []
+  actions:
+  - action: light.turn_on
+    continue_on_error: true
+    target:
+      entity_id: light.garage_lights

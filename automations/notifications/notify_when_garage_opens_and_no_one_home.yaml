@@ -1,0 +1,30 @@
+﻿- id: '17016181157497534'
+  alias: Notify us when the garage door opens and no one home
+  triggers:
+  - trigger: state
+    entity_id: group.person_group
+    to: not_home
+    for:
+      minutes: 2
+  conditions:
+  - condition: state
+    entity_id: cover.garage_door
+    state: open
+  actions:
+  - action: notify.mobile_app_pixel_8_pro
+    data:
+      message: TTS
+      data:
+        ttl: 0
+        priority: high
+        tts_text: The garage is open.
+  - delay: 5
+  - action: notify.notify_all
+    data:
+      message: The garage is open and no one is home!!!
+      data:
+        color: red
+        actions:
+        - action: close_garage
+          title: Close Garage Door
+      title: GARAGE IS OPEN

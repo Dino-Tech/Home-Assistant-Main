@@ -1,0 +1,60 @@
+﻿- id: '1761878499879'
+  alias: '[Remote] Patio Remote Control'
+  description: Handles all 4 button presses for the patio remote.
+  triggers:
+  - device_id: 678ee59e9221d02b1ee09145dd4183f1
+    domain: bthome
+    type: button_1
+    subtype: press
+    id: patio_btn_1
+    trigger: device
+  - device_id: 678ee59e9221d02b1ee09145dd4183f1
+    domain: bthome
+    type: button_2
+    subtype: press
+    id: patio_btn_2
+    trigger: device
+  - device_id: 678ee59e9221d02b1ee09145dd4183f1
+    domain: bthome
+    type: button_3
+    subtype: press
+    id: patio_btn_3
+    trigger: device
+  - device_id: 678ee59e9221d02b1ee09145dd4183f1
+    domain: bthome
+    type: button_4
+    subtype: press
+    id: patio_btn_4
+    trigger: device
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: patio_btn_1
+      sequence:
+      - target:
+          entity_id: light.patio_led_lights
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: patio_btn_2
+      sequence:
+      - target:
+          entity_id: switch.patio_fountain_plug
+        action: switch.toggle
+    - conditions:
+      - condition: trigger
+        id: patio_btn_3
+      sequence:
+      - target:
+          entity_id: input_boolean.patio_mister_switch
+        action: input_boolean.toggle
+    - conditions:
+      - condition: trigger
+        id: patio_btn_4
+      sequence:
+      - target:
+          entity_id: light.outside_lights
+        action: light.toggle
+    default: []
+  mode: single

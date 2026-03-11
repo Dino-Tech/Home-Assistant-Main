@@ -1,0 +1,22 @@
+﻿- id: '1735793299155456532216'
+  alias: Integration Watchdog
+  description: This automation watches entities to ensure the integration is functioning;
+    if not, it will restart it.
+  triggers:
+  - trigger: state
+    entity_id:
+    - camera.driveway_cam_0
+    - camera.garage_cam_0
+    - camera.den_cam_0
+    - camera.patio_cam_0
+    - camera.go2rtc_streams_front_door
+    to: unavailable
+    for:
+      minutes: 2
+  actions:
+  - action: homeassistant.reload_config_entry
+    target:
+      entity_id: '{{ trigger.entity_id }}'
+  mode: queued
+  max: 10
+  initial_state: true

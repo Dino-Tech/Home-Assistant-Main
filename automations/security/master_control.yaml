@@ -1,0 +1,216 @@
+﻿- id: alarmo_master_control_combined_revised
+  alias: '[Alarmo] Master Control'
+  description: Handles all Alarmo state changes, triggers, and notifications.
+  mode: restart
+  triggers:
+  - entity_id: alarm_control_panel.alarmo
+    to: triggered
+    id: triggered
+    trigger: state
+  - entity_id: alarm_control_panel.alarmo
+    to: armed_home
+    id: armed_home
+    trigger: state
+  - entity_id: alarm_control_panel.alarmo
+    to: armed_away
+    id: armed_away
+    trigger: state
+  - entity_id: alarm_control_panel.alarmo
+    to: disarmed
+    id: disarmed
+    trigger: state
+  - entity_id: input_boolean.alarm_arm_home_switch
+    to: 'on'
+    id: arm_home_switch
+    trigger: state
+  - entity_id: input_boolean.alarm_arm_away_switch
+    to: 'on'
+    id: arm_away_switch
+    trigger: state
+  - entity_id: input_boolean.alarm_disarm_switch
+    to: 'on'
+    id: disarm_switch
+    trigger: state
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: triggered
+      sequence:
+      - variables:
+          triggered_sensors: '{{ dict((states|selectattr(''entity_id'', ''in'', state_attr(''group.monitored_contacts'',
+            ''entity_id''))|list)|groupby(''state''))[''on'']|map(attribute=''name'')|list|join('',
+            '') if dict((states|selectattr(''entity_id'', ''in'', state_attr(''group.monitored_contacts'',
+            ''entity_id''))|list)|groupby(''state'')).get(''on'') else ''unknown sensors''
+            }}'
+          tts_msg: The alarm has been triggered by {{ triggered_sensors }}
+      - action: notify.notify_all
+        continue_on_error: true
+        data:
+          message: TTS
+          target:
+          - mobile_app_pixel_8_pro
+          - mobile_app_pixel_5
+          data:
+            ttl: 0
+            priority: high
+            tts_text: '{{ tts_msg }}'
+      - action: homeassistant.turn_on
+        continue_on_error: true
+        target:
+          entity_id: group.alarm_sirens
+      - action: noonlight.create_alarm
+        continue_on_error: true
+        data:
+          action: police
+      - action: light.turn_on
+        continue_on_error: true
+        target:
+          entity_id:
+          - light.every_light
+          - light.outside_lights
+      - action: media_player.turn_on
+        continue_on_error: true
+        target:
+          entity_id: media_player.tv_speakers
+      - action: media_player.volume_set
+        continue_on_error: true
+        target:
+          entity_id: media_player.tv_speakers
+        data:
+          volume_level: 0.9
+      - delay:
+          seconds: 1
+      - action: tts.speak
+        continue_on_error: true
+        target:
+          entity_id: tts.home_assistant_cloud
+        data:
+          media_player_entity_id: media_player.tv_speakers
+          message: Alarm triggered! Police has been notified! at {{ states('sensor.time_12_hour_am_pm')
+            }}
+    - conditions:
+      - condition: trigger
+        id: armed_home
+      sequence:
+      - action: notify.mobile_app_pixel_8_pro
+        continue_on_error: true
+        data:
+          message: TTS
+          data:
+            ttl: 0
+            priority: high
+            tts_text: Security system activated.
+    - conditions:
+      - condition: trigger
+        id: armed_away
+      sequence:
+      - action: notify.mobile_app_pixel_8_pro
+        continue_on_error: true
+        data:
+          message: TTS
+          data:
+            ttl: 0
+            priority: high
+            tts_text: Security system armed. I will notify you of any activity while
+              you are out.
+      - action: media_player.turn_on
+        continue_on_error: true
+        target:
+          entity_id: media_player.tv_speakers
+      - action: tts.speak
+        continue_on_error: true
+        target:
+          entity_id: tts.home_assistant_cloud
+        data:
+          media_player_entity_id: media_player.tv_speakers
+          message: Motion sensors activated!
+    - conditions:
+      - condition: trigger
+        id: disarmed
+      sequence:
+      - if:
+        - condition: template
+          value_template: '{{ trigger.from_state.state == ''triggered'' }}'
+        then:
+        - action: homeassistant.turn_off
+          continue_on_error: true
+          target:
+            entity_id:
+            - switch.noonlight_switch
+            - group.alarm_sirens
+        - action: light.turn_off
+          continue_on_error: true
+          target:
+            entity_id:
+            - light.every_light
+            - light.outside_lights
+        - action: notify.pixels_and_den_tv
+          continue_on_error: true
+          data:
+            message: Alarm canceled at {{ states('sensor.time_12_hour_am_pm') }}
+        - delay:
+            seconds: 3
+        - action: light.turn_on
+          continue_on_error: true
+          target:
+            entity_id:
+            - light.sofa_lamp
+            - light.under_cabinet_lights
+      - if:
+        - condition: state
+          entity_id: input_boolean.naptime
+          state: 'off'
+        then:
+        - delay:
+            seconds: 5
+        - action: notify.mobile_app_pixel_8_pro
+          continue_on_error: true
+          data:
+            message: TTS
+            data:
+              ttl: 0
+              priority: high
+              tts_text: Security system deactivated. Welcome home!
+    - conditions:
+      - condition: trigger
+        id: arm_home_switch
+      sequence:
+      - action: alarm_control_panel.alarm_arm_home
+        continue_on_error: true
+        target:
+          entity_id: alarm_control_panel.alarmo
+        data:
+          code: '{{ states(''input_text.secure_code'') }}'
+      - action: input_boolean.turn_off
+        continue_on_error: true
+        target:
+          entity_id: input_boolean.alarm_arm_home_switch
+    - conditions:
+      - condition: trigger
+        id: arm_away_switch
+      sequence:
+      - action: alarm_control_panel.alarm_arm_away
+        continue_on_error: true
+        target:
+          entity_id: alarm_control_panel.alarmo
+        data:
+          code: '{{ states(''input_text.secure_code'') }}'
+      - action: input_boolean.turn_off
+        continue_on_error: true
+        target:
+          entity_id: input_boolean.alarm_arm_away_switch
+    - conditions:
+      - condition: trigger
+        id: disarm_switch
+      sequence:
+      - action: alarm_control_panel.alarm_disarm
+        continue_on_error: true
+        target:
+          entity_id: alarm_control_panel.alarmo
+        data:
+          code: '{{ states(''input_text.secure_code'') }}'
+      - action: input_boolean.turn_off
+        continue_on_error: true
+        target:
+          entity_id: input_boolean.alarm_disarm_switch

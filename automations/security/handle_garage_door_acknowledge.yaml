@@ -1,0 +1,13 @@
+﻿- id: '1762641751876'
+  alias: '[Alert] Handle Garage Door Acknowledge'
+  description: Acknowledges the garage alert when the notification button is pressed.
+  triggers:
+  - trigger: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: ACK_GARAGE
+  conditions: []
+  actions:
+  - action: alert.turn_off
+    entity_id: alert.garage_door
+  mode: single

@@ -1,0 +1,58 @@
+﻿- id: door_announcements_combined
+  alias: Door Announcements (TTS)
+  description: Announces open/close status for Front, Side, Back, and Garage doors.
+  triggers:
+  - entity_id:
+    - binary_sensor.front_door
+    - binary_sensor.side_door_bt
+    - binary_sensor.backdoor_bt_sensor
+    - binary_sensor.garage_door_sensor_zb
+    to:
+    - 'on'
+    - 'off'
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: input_boolean.door_announcements
+    state: 'on'
+  - condition: template
+    value_template: '{{ trigger.from_state.state != ''unavailable'' and trigger.from_state.state
+      != ''unknown'' }}'
+  actions:
+  - action: media_player.play_media
+    target:
+      entity_id: media_player.den_mini
+    data:
+      announce: true
+      media_content_id: http://192.168.1.134:8123/local/audio/doors/{{ door_name |
+        slugify }}_{{ door_action | slugify }}.mp3
+      media_content_type: music
+  - action: notify.android_tv_fire_tv
+    data:
+      data:
+        fontsize: large
+        position: bottom-right
+        duration: 3
+        transparency: 25%
+        color: dimgray
+        interrupt: 1
+      message: "{% if door_entity_id == 'binary_sensor.garage_door_sensor_zb' %}\n
+        \ {% if door_action == 'opened' %}\n    {{ door_name }}⚠️opened⚠️ {{ states('sensor.time_12_hour_am_pm')
+        }}\n  {% else %}\n    {{ door_name }} closed✅ {{ states('sensor.time_12_hour_am_pm')
+        }}\n  {% endif %}\n{% elif door_entity_id == 'binary_sensor.side_door_bt'
+        %}\n   ⚠️{{ door_name }}\U0001F6AA{{ door_action }} {{ states('sensor.time_12_hour_am_pm')
+        }}\n{% else %}\n   {{ door_name }}\U0001F6AA{{ door_action }} {{ states('sensor.time_12_hour_am_pm')
+        }}\n{% endif %}\n"
+  mode: queued
+  variables:
+    door_entity_id: '{{ trigger.entity_id }}'
+    door_state: '{{ trigger.to_state.state }}'
+    door_action: '{{ ''opened'' if door_state == ''on'' else ''closed'' }}'
+    door_name_map:
+      binary_sensor.front_door: Front door
+      binary_sensor.side_door_bt: Side door
+      binary_sensor.back_door1: Back door
+      binary_sensor.backdoor_bt_sensor: Back door
+      binary_sensor.garage_door_sensor_zb: Garage door
+    door_name: '{{ door_name_map.get(door_entity_id, trigger.to_state.attributes.friendly_name
+      | default(''Unknown Door'')) }}'

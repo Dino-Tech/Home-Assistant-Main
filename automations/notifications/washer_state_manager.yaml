@@ -1,0 +1,95 @@
+﻿- id: washer_state_manager_combined
+  alias: Washer State Manager (Combined)
+  description: Handles 'Washing', 'Idle', and 'Finished' notifications.
+  triggers:
+  - entity_id: sensor.washer_plug_zb_power
+    above: 4
+    for:
+      minutes: 4
+    id: started
+    trigger: numeric_state
+  - entity_id: sensor.washer_plug_zb_power
+    below: 5
+    for:
+      minutes: 4
+    id: stopped
+    trigger: numeric_state
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: started
+      sequence:
+      - if:
+        - condition: template
+          value_template: '{{ states(''sensor.washer_state'') != ''Washing'' }}'
+        then:
+        - data:
+            topic: hass/state/washer
+            payload: Washing
+            retain: true
+          action: mqtt.publish
+    - conditions:
+      - condition: trigger
+        id: stopped
+      sequence:
+      - if:
+        - condition: template
+          value_template: '{{ states(''sensor.washer_state'') == ''Washing'' }}'
+        then:
+        - data:
+            topic: hass/state/washer
+            payload: Idle
+            retain: true
+          action: mqtt.publish
+        - if:
+          - condition: state
+            entity_id: input_boolean.disable_laundry_notifications
+            state: 'off'
+          then:
+          - variables:
+              target_player: "{% if states('media_player.front_group') == 'playing'
+                %}\n  media_player.front_group\n{% elif states('media_player.everywhere')
+                == 'playing' %}\n  media_player.everywhere\n{% elif states('media_player.garage_speakers_3')
+                == 'playing' %}\n  media_player.garage_speakers_3\n{% else %}\n  media_player.tv_speakers\n{%
+                endif %}"
+              original_volume: '{{ state_attr(target_player, ''volume_level'') | float(0.3)
+                }}'
+          - choose:
+            - conditions:
+              - condition: template
+                value_template: '{{ target_player == ''media_player.tv_speakers''
+                  and states(''media_player.tv_speakers'') in [''off'', ''standby'',
+                  ''unavailable'', ''unknown''] }}'
+              sequence:
+              - action: media_player.turn_on
+                continue_on_error: true
+                target:
+                  entity_id: media_player.tv_speakers
+          - action: media_player.volume_set
+            continue_on_error: true
+            target:
+              entity_id: '{{ target_player }}'
+            data:
+              volume_level: 0.5
+          - action: tts.speak
+            continue_on_error: true
+            target:
+              entity_id: tts.home_assistant_cloud
+            data:
+              media_player_entity_id: '{{ target_player }}'
+              message: Donna and Darren. Clothes ready. The washing machine has finished!
+              cache: true
+          - delay:
+              seconds: 7
+          - action: media_player.volume_set
+            continue_on_error: true
+            target:
+              entity_id: '{{ target_player }}'
+            data:
+              volume_level: '{{ original_volume }}'
+          - action: notify.pixels_and_den_tv
+            continue_on_error: true
+            data:
+              message: "Washer\U0001F455\U0001F457\U0001F456Finished {{ states('sensor.time_12_hour_am_pm')
+                }}"

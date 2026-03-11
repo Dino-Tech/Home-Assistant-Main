@@ -1,0 +1,19 @@
+﻿- id: '1763612230991'
+  alias: '[FMD] Handle Normal Frequency Response'
+  description: Turns OFF FMD High Frequency switch.
+  triggers:
+  - event_type: mobile_app_notification_action
+    event_data:
+      action: TURN_OFF_FMD_HF
+    trigger: event
+  actions:
+  - target:
+      entity_id: switch.fmd_pixel8pro_high_frequency_mode
+    continue_on_error: true
+    action: switch.turn_off
+  - data:
+      message: clear_notification
+      data:
+        tag: fmd_normal_freq_prompt
+    action: notify.mobile_app_pixel_8_pro
+  mode: single

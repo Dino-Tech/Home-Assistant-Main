@@ -1,0 +1,19 @@
+﻿- id: garage_lights_door_closed_cleanup
+  alias: 'Garage: Lights OFF after Door Closes (Cleanup)'
+  description: Safety net to turn off lights if the door is closed and the room is
+    empty.
+  mode: restart
+  triggers:
+  - trigger: state
+    entity_id: cover.garage_door
+    to: closed
+  actions:
+  - delay:
+      minutes: 20
+  - condition: state
+    entity_id: binary_sensor.garage_occupied
+    state: 'off'
+  - action: light.turn_off
+    continue_on_error: true
+    target:
+      entity_id: light.garage_lights

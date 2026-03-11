@@ -1,0 +1,29 @@
+﻿- id: '17016739887151444'
+  alias: Reboot Kiosk
+  mode: restart
+  triggers:
+  - trigger: state
+    entity_id:
+    - switch.main_kiosk_screen
+    - light.main_kiosk_screen
+    to: 'off'
+    for:
+      seconds: 10
+  conditions:
+  - condition: time
+    after: 05:00:00
+    before: '23:00:00'
+  actions:
+  - action: switch.turn_on
+    target:
+      entity_id: switch.main_kiosk_screen
+  - delay:
+      seconds: 5
+  - action: light.turn_on
+    target:
+      entity_id: light.main_kiosk_screen
+  - delay:
+      seconds: 5
+  - action: button.press
+    target:
+      entity_id: button.main_kiosk_load_start_url

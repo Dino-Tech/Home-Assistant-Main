@@ -1,0 +1,36 @@
+﻿- id: '1763612151397'
+  alias: '[FMD] Prompt for Normal Frequency on Arrival'
+  description: Asks to turn OFF High Frequency Mode when Darren arrives at a zone
+    (except home).
+  triggers:
+  - entity_id: person.darren
+    from: not_home
+    to:
+    trigger: state
+  - entity_id: switch.fmd_pixel8pro_high_frequency_mode
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: switch.fmd_pixel8pro_high_frequency_mode
+    state: 'on'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: person.darren
+      state: home
+  actions:
+  - data:
+      message: You have arrived at {{ trigger.to_state.state }}. Turn OFF High Frequency
+        Mode to save battery?
+      title: FMD Battery Saver
+      data:
+        tag: fmd_normal_freq_prompt
+        persistent: true
+        sticky: true
+        color: '#2196F3'
+        actions:
+        - action: TURN_OFF_FMD_HF
+          title: Turn OFF (Save Battery)
+    action: notify.mobile_app_pixel_8_pro
+  mode: single

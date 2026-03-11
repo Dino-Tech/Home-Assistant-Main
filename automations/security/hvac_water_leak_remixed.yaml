@@ -1,0 +1,71 @@
+﻿- id: '1762304006685'
+  alias: '[Notify] HVAC Water Leak (remixed)'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.hvac_leak_sensor
+    to: 'on'
+  actions:
+  - action: climate.turn_off
+    continue_on_error: true
+    target:
+      entity_id: climate.den
+  - action: notify.mobile_app_pixel_8_pro
+    continue_on_error: true
+    data:
+      message: TTS
+      data:
+        tts_text: Air conditioner is leaking!!!
+        media_stream: alarm_stream_max
+  - action: notify.mobile_app_pixel_5
+    continue_on_error: true
+    data:
+      message: TTS
+      data:
+        tts_text: Air conditioner is leaking!!!
+        media_stream: alarm_stream_max
+  - action: notify.notify_all
+    continue_on_error: true
+    data:
+      message: Air conditioner leaking {{ states('sensor.time_12_hour_am_pm') }}
+      data:
+        notification_icon: mdi:water
+        visibility: public
+  - action: media_player.turn_on
+    continue_on_error: true
+    target:
+      entity_id: media_player.everywhere
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
+      entity_id: media_player.everywhere
+    data:
+      volume_level: 0.8
+  - delay:
+      seconds: 2
+  - action: tts.speak
+    continue_on_error: true
+    target:
+      entity_id: tts.home_assistant_cloud
+    data:
+      media_player_entity_id: media_player.everywhere
+      message: Air conditioner is Leaking!
+  - delay:
+      seconds: 10
+  - action: tts.speak
+    continue_on_error: true
+    target:
+      entity_id: tts.home_assistant_cloud
+    data:
+      media_player_entity_id: media_player.everywhere
+      message: Air conditioner is Leaking!
+  - delay:
+      seconds: 10
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
+      entity_id: media_player.everywhere
+    data:
+      volume_level: 0.3
+  initial_state: true
+  mode: queued

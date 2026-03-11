@@ -1,0 +1,18 @@
+﻿- id: '1759252390526'
+  alias: Garage lights toggle
+  description: toggle garage lights from inside switch
+  triggers:
+  - trigger: state
+    entity_id: light.garage_lights_inside_switch_2
+    to: 'on'
+  conditions: []
+  actions:
+  - action: light.toggle
+    target:
+      entity_id: light.garage_lights
+  - delay:
+      milliseconds: 400
+  - action: light.turn_off
+    target:
+      entity_id: light.garage_lights_inside_switch_2
+  mode: single

@@ -1,0 +1,42 @@
+﻿- id: '1767986533726'
+  alias: NWS - Weather Alerts (Combined)
+  description: Mobile and Persistent notifications for new NWS alerts
+  triggers:
+  - entity_id: sensor.nws_alerts_alerts
+    trigger: state
+  conditions:
+  - condition: numeric_state
+    entity_id: sensor.nws_alerts_alerts
+    above: 0
+  actions:
+  - repeat:
+      for_each: "{{ trigger.to_state.attributes.Alerts \n   | reject('in', trigger.from_state.attributes.Alerts)
+        \n   | sort(attribute='ID') \n   | list() }}"
+      sequence:
+      - action: notify.mobile_app_pixel_8_pro
+        continue_on_error: true
+        data:
+          title: ⚠️ {{ repeat.item.Event }}
+          message: '{{ repeat.item.Description }}'
+          data:
+            tag: NWS_{{ repeat.item.ID }}
+            channel: alert
+            group: weather_alerts
+            sticky: true
+            importance: high
+            color: '#D32F2F'
+            notification_icon: mdi:weather-alert
+            ttl: 0
+            priority: high
+            tts_text: Attention! {{ repeat.item.Event }} issued for your area.
+            clickAction: /lovelace/weatheralert
+      - action: persistent_notification.create
+        continue_on_error: true
+        data:
+          notification_id: NWS_{{ repeat.item.ID }}
+          title: 'NWS Alert: {{ repeat.item.Event }}'
+          message: '{{ repeat.item.Description }}'
+      - delay:
+          seconds: 2
+  mode: queued
+  max: 10

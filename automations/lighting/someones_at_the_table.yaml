@@ -1,0 +1,30 @@
+- mode: restart
+  max_exceeded: silent
+  id: someones_at_the_table
+  alias: "[Motion] Someone's at the Table"
+  triggers:
+  - to: "on"
+    entity_id:
+    - binary_sensor.kitchen_table_motion_sensors
+    trigger: state
+  actions:
+  - target:
+      entity_id: light.table_light
+    action: light.turn_on
+  - wait_for_trigger:
+    - from: "on"
+      to: "off"
+      entity_id:
+      - binary_sensor.kitchen_table_motion_sensors
+      trigger: state
+  - delay:
+      minutes: 15
+  - target:
+      entity_id: light.table_light
+    action: light.turn_off
+  conditions:
+  - condition: state
+    entity_id: input_boolean.guest_mode_active
+    state: "off"
+
+

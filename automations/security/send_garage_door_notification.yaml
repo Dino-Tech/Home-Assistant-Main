@@ -1,0 +1,18 @@
+﻿- id: '1762641698376'
+  alias: '[Alert] Send Garage Door Notification'
+  description: Sends the garage door alert with an acknowledge button.
+  triggers:
+  - trigger: event
+    event_type: alert.fired
+    event_data:
+      entity_id: alert.garage_door
+  actions:
+  - action: notify.notify_all
+    data:
+      message: '{{ state_attr(''alert.garage_door'', ''message'') }}'
+      data:
+        tag: garage-open-alert
+        actions:
+        - action: ACK_GARAGE
+          title: SILENCE ALERT
+  mode: single

@@ -1,0 +1,25 @@
+﻿- id: '1763612062470'
+  alias: '[FMD] Turn ON High Frequency Mode on Departure'
+  description: Automatically enables FMD High Frequency Mode when Darren leaves ANY
+    zone.
+  triggers:
+  - entity_id: person.darren
+    to: not_home
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: '{{ trigger.from_state.state != ''not_home'' }}'
+  actions:
+  - target:
+      entity_id: switch.fmd_pixel8pro_high_frequency_mode
+    action: switch.turn_on
+    continue_on_error: true
+  - delay:
+      seconds: 6
+  - continue_on_error: true
+    action: number.set_value
+    target:
+      entity_id: number.fmd_pixel8pro_update_interval
+    data:
+      value: 30
+  mode: single

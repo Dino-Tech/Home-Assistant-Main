@@ -1,0 +1,119 @@
+﻿- id: '1761882426306'
+  alias: '[Remote] Kitchen Remote Control 1'
+  description: Handles all button presses for the main kitchen remote 1.
+  triggers:
+  - device_id: 5089e3c96fa21a53fa7baa762b008778
+    domain: bthome
+    type: button_1
+    subtype: press
+    id: kitch_btn_1_press
+    trigger: device
+  - device_id: 5089e3c96fa21a53fa7baa762b008778
+    domain: bthome
+    type: button_1
+    subtype: long_press
+    id: kitch_btn_1_long
+    trigger: device
+  - device_id: 5089e3c96fa21a53fa7baa762b008778
+    domain: bthome
+    type: button_1
+    subtype: double_press
+    id: kitch_btn_1_double
+    trigger: device
+  - device_id: 5089e3c96fa21a53fa7baa762b008778
+    domain: bthome
+    type: button_2
+    subtype: press
+    id: kitch_btn_2_press
+    trigger: device
+  - device_id: 5089e3c96fa21a53fa7baa762b008778
+    domain: bthome
+    type: button_2
+    subtype: long_press
+    id: kitch_btn_2_long
+    trigger: device
+  - device_id: 5089e3c96fa21a53fa7baa762b008778
+    domain: bthome
+    type: button_3
+    subtype: press
+    id: kitch_btn_3_press
+    trigger: device
+  - device_id: 5089e3c96fa21a53fa7baa762b008778
+    domain: bthome
+    type: button_4
+    subtype: press
+    id: kitch_btn_4_press
+    trigger: device
+  - device_id: 5089e3c96fa21a53fa7baa762b008778
+    domain: bthome
+    type: button_4
+    subtype: long_press
+    id: kitch_btn_4_long
+    trigger: device
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: kitch_btn_1_press
+      sequence:
+      - target:
+          entity_id: light.kitchen_ceiling_lights_3
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: kitch_btn_1_long
+      sequence:
+      - target:
+          entity_id: light.sofa_lamp
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: kitch_btn_1_double
+      sequence:
+      - target:
+          entity_id: light.kitchen_ceiling_lights_3
+        data:
+          brightness_pct: 25
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: kitch_btn_2_press
+      sequence:
+      - target:
+          entity_id: light.under_cabinet_lights
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: kitch_btn_2_long
+      sequence:
+      - target:
+          entity_id: light.fireplace_lights
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: kitch_btn_3_press
+      sequence:
+      - target:
+          entity_id: light.table_light
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: kitch_btn_4_press
+      sequence:
+      - target:
+          entity_id: light.kitchen_lights
+        action: light.turn_off
+    - conditions:
+      - condition: trigger
+        id: kitch_btn_4_long
+      sequence:
+      - target:
+          entity_id: light.every_light
+        action: light.turn_off
+      - delay:
+          milliseconds: 500
+      - target:
+          entity_id: light.tv_ambient_lights
+        action: light.turn_on
+    default: []
+  mode: single

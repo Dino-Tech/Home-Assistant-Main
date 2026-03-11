@@ -1,0 +1,61 @@
+﻿- id: '1762015911681'
+  alias: Mailbox Opened Notification
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.mailbox_door
+    to: 'on'
+  actions:
+  - data:
+      volume_level: 0
+    target:
+      entity_id: media_player.den_mini
+    action: media_player.volume_set
+  - target:
+      entity_id: media_player.den_mini
+    action: media_player.turn_on
+  - delay:
+      seconds: 1
+  - data:
+      volume_level: 0.7
+    target:
+      entity_id: media_player.den_mini
+    action: media_player.volume_set
+  - delay:
+      seconds: 1
+  - target:
+      entity_id: media_player.den_mini
+    data:
+      media:
+        media_content_id: media-source://media_source/local/youve-got-mail-sound.mp3
+        media_content_type: audio/mpeg
+        metadata: {}
+    action: media_player.play_media
+  - if:
+    - condition: state
+      entity_id: sensor.pixel_8_pro_ringer_mode
+      state: normal
+    - condition: state
+      entity_id: sensor.pixel_8_pro_do_not_disturb_sensor
+      state: 'off'
+    then:
+    - data:
+        message: TTS
+        data:
+          tts_text: You've got mail!!!
+          media_stream: alarm_stream_max
+      action: notify.mobile_app_pixel_8_pro
+  - data:
+      message: Mailbox opened at {{ states('sensor.time_12_hour_am_pm') }}
+      data:
+        notification_icon: mdi:mailbox
+        visibility: public
+    action: notify.mobile_app_pixel_8_pro
+  - delay:
+      seconds: 4
+  - data:
+      volume_level: 0.4
+    target:
+      entity_id: media_player.den_mini
+    action: media_player.volume_set
+  mode: queued

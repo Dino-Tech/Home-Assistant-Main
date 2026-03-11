@@ -1,0 +1,18 @@
+﻿- id: '17016181374977534434343'
+  alias: Notify when AC unit goes off
+  triggers:
+  - trigger: state
+    entity_id:
+    - climate.den
+    to: 'off'
+    for:
+      minutes: 1
+  actions:
+  - action: notify.notify_all
+    data:
+      message: A/C Unit is off
+      data:
+        color: red
+        actions:
+        - action: turn_on_ac
+          title: Turn AC on

@@ -1,0 +1,18 @@
+﻿- id: '170112684169772'
+  alias: Sports sensor update
+  triggers:
+  - trigger: time_pattern
+    seconds: '59'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.sports_updates
+    state: 'on'
+  actions:
+  - action: homeassistant.update_entity
+    target:
+      entity_id:
+      - sensor.predators
+      - sensor.atlanta_braves
+      - sensor.saints
+      - sensor.titans
+  mode: single

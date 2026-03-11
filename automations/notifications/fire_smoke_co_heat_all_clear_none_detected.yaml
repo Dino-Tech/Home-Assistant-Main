@@ -1,0 +1,118 @@
+﻿- id: safety_alerts_all_clear
+  alias: '[Notify] Fire, Smoke, CO, & Heat All Clear None Detected'
+  description: Resets systems and sends notification when ALL alerts clear.
+  mode: restart
+  triggers:
+  - id: clear_smoke
+    entity_id:
+    - binary_sensor.nest_protect_hallway_smoke_status
+    - binary_sensor.nest_protect_kitchen_smoke_status
+    - binary_sensor.nest_protect_garage_smoke_status
+    - binary_sensor.laundry_smoke_detected
+    - binary_sensor.bedroom_smoke_detected
+    to: 'off'
+    for:
+      seconds: 10
+    trigger: state
+  - id: clear_co
+    entity_id:
+    - binary_sensor.nest_protect_hallway_co_status
+    - binary_sensor.nest_protect_kitchen_co_status
+    - binary_sensor.nest_protect_garage_co_status
+    - binary_sensor.laundry_co_detected
+    - binary_sensor.bedroom_carbon_monoxide_detected
+    to: 'off'
+    for:
+      seconds: 10
+    trigger: state
+  - id: clear_heat
+    entity_id:
+    - binary_sensor.nest_protect_hallway_heat_status
+    - binary_sensor.nest_protect_kitchen_heat_status
+    - binary_sensor.nest_protect_garage_heat_status
+    to: 'off'
+    for:
+      seconds: 10
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id:
+    - binary_sensor.nest_protect_hallway_smoke_status
+    - binary_sensor.nest_protect_kitchen_smoke_status
+    - binary_sensor.nest_protect_garage_smoke_status
+    - binary_sensor.laundry_smoke_detected
+    - binary_sensor.bedroom_smoke_detected
+    state: 'off'
+  - condition: state
+    entity_id:
+    - binary_sensor.nest_protect_hallway_co_status
+    - binary_sensor.nest_protect_kitchen_co_status
+    - binary_sensor.nest_protect_garage_co_status
+    - binary_sensor.laundry_co_detected
+    - binary_sensor.bedroom_carbon_monoxide_detected
+    state: 'off'
+  - condition: state
+    entity_id:
+    - binary_sensor.nest_protect_hallway_heat_status
+    - binary_sensor.nest_protect_kitchen_heat_status
+    - binary_sensor.nest_protect_garage_heat_status
+    state: 'off'
+  actions:
+  - variables:
+      trigger_name: '{{ trigger.to_state.attributes.friendly_name | default(trigger.entity_id)
+        }}'
+      clear_title: All Clear
+      clear_message: '{{ trigger_name }} alarm cleared - All systems safe ✅'
+      clear_icon: mdi:check-circle-outline
+  - parallel:
+    - action: climate.turn_on
+      continue_on_error: true
+      target:
+        entity_id: climate.den
+    - action: switch.turn_on
+      continue_on_error: true
+      target:
+        entity_id: switch.dryer_zb
+    - action: siren.turn_off
+      continue_on_error: true
+      target:
+        entity_id: siren.alarm_panel_siren
+    - action: switch.turn_off
+      continue_on_error: true
+      target:
+        entity_id: switch.konnected_da0e8a_siren
+    - action: lock.lock
+      continue_on_error: true
+      target:
+        entity_id:
+        - lock.side_door
+        - lock.back_door
+    - action: cover.close_cover
+      continue_on_error: true
+      target:
+        entity_id: cover.garage_door
+    - action: light.turn_off
+      continue_on_error: true
+      target:
+        entity_id: light.every_light
+    - action: light.turn_on
+      continue_on_error: true
+      target:
+        entity_id:
+        - light.under_cabinet_lights
+        - light.sofa_lamp
+  - action: logbook.log
+    continue_on_error: true
+    data:
+      name: Safety System
+      entity_id: '{{ trigger.entity_id }}'
+      message: All clear received from {{ trigger_name }}
+  - action: notify.notify_all
+    continue_on_error: true
+    data:
+      title: '{{ clear_title }}'
+      message: '{{ clear_message }}'
+      data:
+        channel: alert
+        importance: high
+        notification_icon: '{{ clear_icon }}'

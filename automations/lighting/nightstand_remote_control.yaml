@@ -1,0 +1,108 @@
+﻿- id: '1761883452271'
+  alias: '[Remote] Nightstand Remote Control'
+  description: Handles all 4 button presses for nightstand remote.
+  triggers:
+  - device_id: 78ff2e94b80783ed2058499a305889b0
+    domain: zha
+    type: remote_button_short_press
+    subtype: button_1
+    id: nightstand_btn_1_press
+    trigger: device
+  - device_id: 78ff2e94b80783ed2058499a305889b0
+    domain: zha
+    type: remote_button_short_press
+    subtype: button_2
+    id: nightstand_btn_2_press
+    trigger: device
+  - device_id: 78ff2e94b80783ed2058499a305889b0
+    domain: zha
+    type: remote_button_short_press
+    subtype: button_3
+    id: nightstand_btn_3_press
+    trigger: device
+  - device_id: 78ff2e94b80783ed2058499a305889b0
+    domain: zha
+    type: remote_button_short_press
+    subtype: button_4
+    id: nightstand_btn_4_press
+    trigger: device
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: nightstand_btn_1_press
+      sequence:
+      - target:
+          entity_id: light.nightstand_lamps
+        data:
+          transition: 3
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: nightstand_btn_2_press
+      sequence:
+      - target:
+          entity_id: light.nightstand_lamps
+        data:
+          brightness_pct: 1
+          color_temp_kelvin: 2496
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: nightstand_btn_3_press
+      sequence:
+      - action: script.turn_on
+        target:
+          entity_id: script.tts_bedtime_msg_donna
+      - target:
+          entity_id: light.bedroom_lights
+        data:
+          transition: 3
+        action: light.turn_off
+      - target:
+          entity_id: light.wiz_rgbww_tunable_82d732
+        data:
+          transition: 5
+        action: light.turn_off
+    - conditions:
+      - condition: trigger
+        id: nightstand_btn_4_press
+      sequence:
+      - target:
+          entity_id: light.nightstand_lamps
+        data:
+          brightness_pct: 1
+          color_name: red
+        action: light.turn_on
+      - target:
+          entity_id: light.wiz_rgbww_tunable_82d732
+        data:
+          brightness_pct: 30
+          color_name: red
+        action: light.turn_on
+      - action: media_player.volume_set
+        metadata: {}
+        target:
+          entity_id: media_player.bedroom_stereo_2
+        data:
+          volume_level: 0.35
+      - action: media_player.play_media
+        metadata: {}
+        target:
+          entity_id: media_player.bedroom_stereo_2
+        data:
+          media:
+            media_content_id: library://playlist/138
+            media_content_type: music
+            metadata:
+              title: Lovely Nights
+              thumbnail: https://cdn-images.dzcdn.net/images/cover/4da0c791bef5a1a3fc42506d413cb773-9711b3c62b19c9e1d23e6789dd819ef1-d15d476764e117d2c58cafae72e151cd-d81f340086d43567c26635a6732844ce/500x500-000000-80-0-0.jpg
+              media_class: playlist
+              children_media_class:
+              navigateIds:
+              - {}
+              - media_content_type: music_assistant
+                media_content_id: playlists
+              browse_entity_id: media_player.bedroom_stereo_2
+    default: []
+  mode: single

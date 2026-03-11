@@ -1,0 +1,42 @@
+﻿- id: '170243184400922'
+  alias: '[Motion] Guest Motion Lights'
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.guest_bt_motion
+    from: 'off'
+    to: 'on'
+  - trigger: state
+    entity_id:
+    - binary_sensor.guest_motion
+    from: 'off'
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: group.person_group
+    state: home
+  - condition: state
+    entity_id: input_boolean.guest_mode_active
+    state: 'off'
+  actions:
+  - action: light.turn_on
+    data: {}
+    target:
+      entity_id:
+      - light.night_light_6
+      - light.guest_night_lights
+      - light.guest_ceiling_lights
+  - wait_template: '{{ not is_state(''binary_sensor.guest_room_motion'', ''on'') }}'
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 30
+      milliseconds: 0
+  - action: light.turn_off
+    target:
+      entity_id:
+      - light.night_light_6
+      - light.guest_night_lights
+      - light.guest_ceiling_lights
+  mode: restart
+  max_exceeded: silent

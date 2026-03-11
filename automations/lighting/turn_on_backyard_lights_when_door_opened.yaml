@@ -1,0 +1,34 @@
+﻿- id: '18011577229915545231'
+  alias: Turn ON backyard lights when door opened
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.back_door1
+    - binary_sensor.backdoor_bt_sensor
+    - binary_sensor.back_motion
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.disable_exterior_motion
+    state: 'off'
+  - condition: or
+    conditions:
+    - condition: sun
+      after: sunset
+      after_offset: 00:15:00
+    - condition: sun
+      before: sunrise
+      before_offset: 00:15:00
+  actions:
+  - action: light.turn_on
+    continue_on_error: true
+    target:
+      entity_id: light.backyard_lights
+  - delay:
+      minutes: 15
+  - action: light.turn_off
+    continue_on_error: true
+    target:
+      entity_id: light.backyard_lights
+  mode: restart

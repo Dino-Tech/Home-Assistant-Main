@@ -1,0 +1,74 @@
+﻿- id: '1767464025010'
+  alias: 'Watchdog: Stale Sensor Check'
+  description: Checks if battery sensors have stopped reporting data
+  triggers:
+  - trigger: time
+    at: '12:00:00'
+  - trigger: time
+    at: '20:00:00'
+  actions:
+  - variables:
+      stale_sensors: "{% set ns = namespace(stale=[]) %} {% for entity in sensors_to_check
+        %}\n  {% if states(entity) not in ['unavailable', 'unknown'] %}\n     {% set
+        last_updated = as_timestamp(states[entity].last_updated) %}\n     {% if (as_timestamp(now())
+        - last_updated) > stale_seconds %}\n       {% set ns.stale = ns.stale + [state_attr(entity,
+        'friendly_name') or entity] %}\n     {% endif %}\n  {% endif %}\n{% endfor
+        %} {{ ns.stale }}\n"
+  - if:
+    - condition: template
+      value_template: '{{ stale_sensors | length > 0 }}'
+    then:
+    - action: notify.mobile_app_pixel_8_pro
+      continue_on_error: true
+      data:
+        title: ⚠️ Stale Sensors Detected
+        message: 'The following sensors haven''t updated in 2 hours: {{ stale_sensors
+          | join('', '') }}
+
+          Check batteries or connections.
+
+          '
+        data:
+          tag: stale_sensors
+          clickAction: /config/dashboard
+    - action: persistent_notification.create
+      continue_on_error: true
+      data:
+        title: ⚠️ Stale Sensors Detected
+        message: 'The following sensors haven''t updated in 2 hours: {{ stale_sensors
+          | join('', '') }}
+
+          Check batteries or connections.
+
+          '
+        notification_id: stale_sensor_alert
+  mode: single
+  variables:
+    sensors_to_check:
+    - sensor.patio_temperature_2
+    - sensor.office_temperature_2
+    - sensor.bedroom_temperature_2
+    - sensor.guest_room_temperature
+    - sensor.den_temperature
+    - sensor.kitchen_temperature_2
+    - sensor.bathroom_temperature_2
+    - sensor.ensuite_temperature_2
+    - sensor.xtra_motion_sensor_temperature
+    - sensor.kitchen_fridge_temperature
+    - sensor.garage_fridge_voltage_3
+    - sensor.work_bench_energy_voltage
+    - sensor.dryer_energy_voltage
+    - sensor.washer_plug_zb_voltage
+    - sensor.office_work_bench_zb_voltage
+    - sensor.keurig_coffee_electric_consumption_v
+    - sensor.air_cleaner_electric_consumption_v
+    - sensor.ensuite_fan_voltage
+    - sensor.hallway_fan_voltage
+    - sensor.patio_fan_light_patio_fan_light_power
+    - sensor.slim_multi_sensor_pir_door_temperature_illumination_illuminance
+    - sensor.xtra_motion_sensor_luminosity
+    - sensor.bathroom_motion_illuminance
+    - sensor.kitchen_bt_motion_illuminance
+    - sensor.office_bt_illuminance
+    - sensor.bedroom_illuminance
+    stale_seconds: 7200

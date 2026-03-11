@@ -1,0 +1,91 @@
+﻿- id: '1762316796747'
+  alias: '[Notify] Secondary Water Leak Alert'
+  description: Handles non-critical water leak alerts and sends notifications.
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.bathroom_leak_sensor_moisture
+    to: 'on'
+    id: bathroom_leak
+  - trigger: state
+    entity_id: binary_sensor.donnas_sink_leak_sensor
+    to: 'on'
+    id: donnas_sink_leak
+  - trigger: state
+    entity_id: binary_sensor.kitchen_sink_leaking
+    to: 'on'
+    id: kitchen_sink_leak
+  actions:
+  - variables:
+      tts_message: "{% if trigger.id == 'bathroom_leak' %}\n  Water leak detected
+        in the bathroom!\n{% elif trigger.id == 'donnas_sink_leak' %}\n  Water leak
+        detected at Donna's sink!\n{% elif trigger.id == 'kitchen_sink_leak' %}\n
+        \ Water leak detected at the kitchen sink!\n{% else %}\n  An unknown water
+        leak has been detected!\n{% endif %}\n"
+  - if:
+    - condition: state
+      entity_id: input_boolean.people_home_boolean
+      state: 'off'
+    then:
+    - action: valve.close_valve
+      continue_on_error: true
+      target:
+        entity_id: valve.main_water_valve
+  - action: notify.mobile_app_pixel_8_pro
+    continue_on_error: true
+    data:
+      message: TTS
+      data:
+        tts_text: '{{ tts_message }}'
+        media_stream: alarm_stream_max
+  - action: notify.mobile_app_pixel_5
+    continue_on_error: true
+    data:
+      message: TTS
+      data:
+        tts_text: '{{ tts_message }}'
+        media_stream: alarm_stream_max
+  - action: notify.notify_all
+    continue_on_error: true
+    data:
+      message: '{{ tts_message }} at {{ states(''sensor.time_12_hour_am_pm'') }}'
+      data:
+        notification_icon: mdi:water
+        visibility: public
+  - action: media_player.turn_on
+    continue_on_error: true
+    target:
+      entity_id: media_player.everywhere
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
+      entity_id: media_player.everywhere
+    data:
+      volume_level: 0.8
+  - delay:
+      seconds: 2
+  - action: tts.speak
+    continue_on_error: true
+    target:
+      entity_id: tts.home_assistant_cloud
+    data:
+      media_player_entity_id: media_player.everywhere
+      message: '{{ tts_message }}'
+  - delay:
+      seconds: 10
+  - action: tts.speak
+    continue_on_error: true
+    target:
+      entity_id: tts.home_assistant_cloud
+    data:
+      media_player_entity_id: media_player.everywhere
+      message: '{{ tts_message }}'
+  - delay:
+      seconds: 10
+  - action: media_player.volume_set
+    continue_on_error: true
+    target:
+      entity_id: media_player.everywhere
+    data:
+      volume_level: 0.3
+  initial_state: true
+  mode: queued

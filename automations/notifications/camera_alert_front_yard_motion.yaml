@@ -1,0 +1,84 @@
+﻿- id: front_yard_motion
+  alias: 'Camera Alert: Front Yard Motion'
+  description: Person/Mailbox gets snapshot + push notification. No TTS.
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.front_yard_person
+    to: 'on'
+  - trigger: state
+    entity_id: binary_sensor.mailbox_door
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.camera_snapshots
+    state: 'on'
+  actions:
+  - continue_on_error: true
+    action: browser_mod.navigate
+    data:
+      path: /dashboard-cast/front_yard
+  - continue_on_error: true
+    action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.camera_motion_detected
+  - continue_on_error: true
+    action: camera.snapshot
+    target:
+      entity_id: camera.go2rtc_streams_front_yard
+    data:
+      filename: /config/www/tmp/last_snapshot_front_yard.jpg
+  - continue_on_error: true
+    action: camera.snapshot
+    target:
+      entity_id: camera.go2rtc_streams_front_yard
+    data:
+      filename: /config/media/last_snapshot_front_yard.jpg
+  - alias: Person Mobile Push
+    continue_on_error: true
+    action: notify.mobile_app_pixel_8_pro
+    data:
+      title: Front Yard Motion
+      message: Motion detected in front yard
+      data:
+        notification_icon: mdi:walk
+        image: /local/tmp/last_snapshot_front_yard.jpg
+        persistent: true
+        color: red
+        channel: Cameras
+        tag: front_yard_motion
+        clickAction: /dashboard-cast/front_yard
+        actions:
+        - action: URI
+          title: View Live Stream
+          uri: /dashboard-cast/front_yard
+  - alias: Person Fire TV Overlay
+    continue_on_error: true
+    action: notify.android_tv_fire_tv
+    data:
+      title: Front Yard Motion
+      message: Motion detected in front yard
+      data:
+        duration: 20
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        color: grey
+        interrupt: 1
+        image:
+          url: http://192.168.1.134:8123/local/tmp/last_snapshot_front_yard.jpg
+  - continue_on_error: true
+    action: script.turn_on
+    target:
+      entity_id: script.front_yard_video_processing
+  - delay:
+      minutes: 4
+  - continue_on_error: true
+    action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.camera_motion_detected
+  - continue_on_error: true
+    action: browser_mod.javascript
+    data:
+      code: history.back()
+  mode: single
+  max_exceeded: silent

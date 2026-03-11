@@ -1,0 +1,18 @@
+﻿- id: master_closet_motion_light
+  alias: Master Closet Motion Lights
+  description: Turns on master closet light on motion and turns off after 15 minutes
+  mode: restart
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.bedroom_closet
+    to: 'on'
+  actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.master_closet
+  - delay:
+      minutes: 15
+  - action: light.turn_off
+    target:
+      entity_id: light.master_closet

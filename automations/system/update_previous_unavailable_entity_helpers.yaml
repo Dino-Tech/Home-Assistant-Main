@@ -1,0 +1,17 @@
+﻿- id: update_previous_unavailable_entity_helpers
+  alias: Update Previous Unavailable Entity Helpers
+  description: ''
+  triggers:
+  - entity_id: sensor.unavailable_monitored_entities
+    trigger: state
+  actions:
+  - target:
+      entity_id: input_text.previous_unavailable_count
+    data:
+      value: '{{ trigger.from_state.state }}'
+    action: input_text.set_value
+  - target:
+      entity_id: input_text.previous_unavailable_list
+    data:
+      value: '{{ trigger.from_state.attributes.unavailable }}'
+    action: input_text.set_value

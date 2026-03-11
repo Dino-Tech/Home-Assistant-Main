@@ -1,0 +1,178 @@
+﻿- id: patio_motion
+  alias: 'Camera Alert: Patio Motion'
+  description: Handles Patio triggers, UI casting, triage, and audio routing.
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.back_motion
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.patio_garage_alerts
+    state: 'on'
+  - condition: template
+    value_template: "{{ (as_timestamp(now()) - as_timestamp(\n   state_attr('automation.camera_alert_patio_motion',
+      'last_triggered')\n   | default(0))) > 300 }}\n"
+  actions:
+  - continue_on_error: true
+    action: browser_mod.navigate
+    data:
+      path: /dashboard-cast/patio
+  - continue_on_error: true
+    action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.camera_motion_detected
+  - continue_on_error: true
+    action: camera.snapshot
+    target:
+      entity_id: camera.patio_cam_0
+    data:
+      filename: /config/www/tmp/last_snapshot_patio.jpg
+  - continue_on_error: true
+    action: camera.snapshot
+    target:
+      entity_id: camera.patio_cam_0
+    data:
+      filename: /config/media/last_snapshot_patio.jpg
+  - continue_on_error: true
+    action: ai_task.generate_data
+    data:
+      entity_id: ai_task.google_ai_task
+      task_name: Patio Triage
+      instructions: 'Classify the security event in this image. Choose exactly one
+        option: "passive" (no people/vehicles), "time-sensitive" (person/vehicle visible),
+        or "critical" (highly suspicious/burglary). Respond ONLY with the exact word.'
+      attachments:
+      - media_content_id: media-source://media_source/local/last_snapshot_patio.jpg
+        media_content_type: image/jpeg
+    response_variable: triage_response
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ triage_response is defined and triage_response.data is
+          defined and triage_response.data | lower | trim != ''passive'' }}'
+      sequence:
+      - alias: Initial fast notification
+        continue_on_error: true
+        action: notify.mobile_app_pixel_8_pro
+        data:
+          title: 'Patio: {{ triage_response.data | title }} Motion'
+          message: Recording video for deep analysis...
+          data:
+            notification_icon: mdi:cctv
+            image: /local/tmp/last_snapshot_patio.jpg
+            persistent: true
+            color: red
+            channel: Cameras
+            tag: patio_motion
+            clickAction: /dashboard-cast/patio
+            actions:
+            - action: URI
+              title: View Live Stream
+              uri: /dashboard-cast/patio
+      - alias: Fire TV Snapshot Overlay
+        continue_on_error: true
+        action: notify.android_tv_fire_tv
+        data:
+          title: 'Patio: {{ triage_response.data | title }}'
+          message: Motion Detected. AI Analyzing...
+          data:
+            duration: 20
+            position: top-right
+            fontsize: large
+            transparency: 25%
+            color: grey
+            interrupt: 1
+            image:
+              url: http://192.168.1.134:8123/local/tmp/last_snapshot_patio.jpg
+      - choose:
+        - conditions:
+          - condition: time
+            after: '22:00:00'
+            before: 07:00:00
+          sequence:
+          - continue_on_error: true
+            action: media_player.volume_set
+            data:
+              entity_id: media_player.office_display
+              volume_level: 0.3
+          - continue_on_error: true
+            action: tts.speak
+            target:
+              entity_id: tts.home_assistant_cloud
+            data:
+              media_player_entity_id: media_player.office_display
+              message: Motion at the patio
+              cache: true
+          - continue_on_error: true
+            action: google_assistant_sdk.send_text_command
+            data:
+              command: stream patio camera on office display
+        - conditions:
+          - condition: time
+            after: 07:00:00
+            before: '22:00:00'
+          sequence:
+          - variables:
+              target_player: "{% if states('media_player.front_group') == 'playing'
+                %}\n  media_player.front_group\n{% elif states('media_player.everywhere')
+                == 'playing' %}\n  media_player.everywhere\n{% elif states('media_player.garage_speakers_3')
+                == 'playing' %}\n  media_player.garage_speakers_3\n{% else %}\n  media_player.tv_speakers\n{%
+                endif %}"
+              original_volume: '{{ state_attr(target_player, ''volume_level'') | float(0.3)
+                }}'
+          - choose:
+            - conditions:
+              - condition: template
+                value_template: '{{ target_player == ''media_player.tv_speakers''
+                  and states(''media_player.tv_speakers'') in [''off'', ''standby'',
+                  ''unavailable'', ''unknown''] }}'
+              sequence:
+              - action: media_player.turn_on
+                continue_on_error: true
+                target:
+                  entity_id: media_player.tv_speakers
+          - continue_on_error: true
+            action: media_player.volume_set
+            target:
+              entity_id: '{{ target_player }}'
+            data:
+              volume_level: 0.6
+          - continue_on_error: true
+            action: tts.speak
+            target:
+              entity_id: tts.home_assistant_cloud
+            data:
+              media_player_entity_id: '{{ target_player }}'
+              message: Motion on the patio
+              cache: true
+          - continue_on_error: true
+            action: media_player.volume_set
+            target:
+              entity_id: '{{ target_player }}'
+            data:
+              volume_level: '{{ original_volume }}'
+      - continue_on_error: true
+        action: script.turn_on
+        target:
+          entity_id: script.patio_video_processing
+      - delay:
+          minutes: 4
+      - continue_on_error: true
+        action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.camera_motion_detected
+      - continue_on_error: true
+        action: browser_mod.javascript
+        data:
+          code: history.back()
+    default:
+    - continue_on_error: true
+      action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.camera_motion_detected
+    - continue_on_error: true
+      action: browser_mod.javascript
+      data:
+        code: history.back()
+  mode: single
+  max_exceeded: silent

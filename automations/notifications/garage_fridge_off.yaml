@@ -1,0 +1,20 @@
+﻿- id: '1754999377123967'
+  alias: '[Notify] Garage Fridge OFF'
+  initial_state: true
+  triggers:
+  - trigger: state
+    entity_id: switch.kitchen_fridge
+    to: 'off'
+    for:
+      minutes: 2
+  actions:
+  - action: notify.mobile_app_pixel_8_pro
+    data:
+      message: 'Garage fridge turned off at ''{{ now().strftime(''%I:%M %p'') }}'' '
+  - delay: 00:15:00
+  - action: homeassistant.turn_on
+    entity_id: switch.kitchen_fridge
+  - action: notify.mobile_app_pixel_8_pro
+    data:
+      message: 'Garage fridge turned back on at ''{{ now().strftime(''%I:%M %p'')
+        }}'' '

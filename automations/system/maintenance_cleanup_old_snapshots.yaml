@@ -1,0 +1,11 @@
+﻿- id: '1770781464519'
+  alias: Maintenance - Cleanup Old Snapshots
+  description: Deletes camera snapshots older than 2 days from the www/tmp folder.
+  triggers:
+  - at: 03:30:00
+    trigger: time
+  conditions: []
+  actions:
+  - data: {}
+    action: shell_command.delete_old_snapshots
+  mode: single

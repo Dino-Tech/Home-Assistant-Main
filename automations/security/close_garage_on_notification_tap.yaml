@@ -1,0 +1,10 @@
+﻿- id: '17016181274497534'
+  alias: Close the garage when notification action is tapped
+  triggers:
+    trigger: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: close_garage
+  actions:
+    action: cover.close_cover
+    entity_id: cover.garage_door

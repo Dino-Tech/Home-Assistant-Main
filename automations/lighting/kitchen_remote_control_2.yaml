@@ -1,0 +1,108 @@
+﻿- id: '1761881973438'
+  alias: '[Remote] Kitchen Remote Control 2'
+  description: Handles all button presses for kitchen remote 2.
+  triggers:
+  - device_id: 8d5ed8bf9702b9d30766b381026f1fd3
+    domain: bthome
+    type: button_1
+    subtype: press
+    id: kitch_1_btn_1_press
+    trigger: device
+  - device_id: 8d5ed8bf9702b9d30766b381026f1fd3
+    domain: bthome
+    type: button_1
+    subtype: double_press
+    id: kitch_1_btn_1_double
+    trigger: device
+  - device_id: 8d5ed8bf9702b9d30766b381026f1fd3
+    domain: bthome
+    type: button_1
+    subtype: long_press
+    id: kitch_1_btn_1_long
+    trigger: device
+  - device_id: 8d5ed8bf9702b9d30766b381026f1fd3
+    domain: bthome
+    type: button_2
+    subtype: press
+    id: kitch_1_btn_2_press
+    trigger: device
+  - device_id: 8d5ed8bf9702b9d30766b381026f1fd3
+    domain: bthome
+    type: button_3
+    subtype: press
+    id: kitch_1_btn_3_press
+    trigger: device
+  - device_id: 8d5ed8bf9702b9d30766b381026f1fd3
+    domain: bthome
+    type: button_3
+    subtype: long_press
+    id: kitch_1_btn_3_long
+    trigger: device
+  - device_id: 8d5ed8bf9702b9d30766b381026f1fd3
+    domain: bthome
+    type: button_4
+    subtype: long_press
+    id: kitch_1_btn_4_long
+    trigger: device
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: kitch_1_btn_1_press
+      sequence:
+      - target:
+          entity_id: light.kitchen_ceiling_lights_3
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: kitch_1_btn_1_double
+      sequence:
+      - target:
+          entity_id: light.kitchen_ceiling_lights_3
+        data:
+          brightness_pct: 25
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: kitch_1_btn_1_long
+      sequence:
+      - target:
+          entity_id: light.kitchen_ceiling_lights_3
+        data:
+          brightness_pct: 100
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: kitch_1_btn_2_press
+      sequence:
+      - target:
+          entity_id: light.under_cabinet_lights
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: kitch_1_btn_3_press
+      sequence:
+      - target:
+          entity_id: light.table_light
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: kitch_1_btn_3_long
+      sequence:
+      - target:
+          entity_id: input_boolean.romance_time
+        action: input_boolean.turn_on
+    - conditions:
+      - condition: trigger
+        id: kitch_1_btn_4_long
+      sequence:
+      - target:
+          entity_id: light.every_light
+        action: light.turn_off
+      - delay:
+          milliseconds: 500
+      - target:
+          entity_id: light.tv_ambient_lights
+        action: light.turn_on
+    default: []
+  mode: single

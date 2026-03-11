@@ -1,0 +1,50 @@
+﻿- id: '17591923683508746'
+  alias: Unavailable Entities 2-Hour Check
+  description: Checks for unavailable entities every 2 hours and notifies if any are
+    found.
+  triggers:
+  - trigger: time_pattern
+    hours: /2
+  conditions:
+  - condition: numeric_state
+    entity_id: sensor.unavailable_monitored_entities
+    above: 0
+  actions:
+  - choose:
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.unavailable_monitored_entities
+        above: 1
+      sequence:
+      - action: notify.mobile_app_pixel_8_pro
+        data:
+          title: ⚠️ Multiple Entities Unavailable
+          message: '{{ state_attr(''sensor.unavailable_monitored_entities'', ''unavailable'')
+            }} are unresponsive.'
+          data:
+            color: '#2DF56D'
+            timeout: 3600
+            channel: alert
+            group: alert
+            sticky: true
+            importance: high
+            notification_icon: mdi:alert
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.unavailable_monitored_entities
+        above: 0
+      sequence:
+      - action: notify.mobile_app_pixel_8_pro
+        data:
+          title: ⚠️ Entity Unavailable
+          message: '{{ state_attr(''sensor.unavailable_monitored_entities'', ''unavailable'')
+            }} is unresponsive.'
+          data:
+            color: '#2DF56D'
+            timeout: 3600
+            channel: alert
+            group: alert
+            sticky: true
+            importance: high
+            notification_icon: mdi:alert
+  mode: restart

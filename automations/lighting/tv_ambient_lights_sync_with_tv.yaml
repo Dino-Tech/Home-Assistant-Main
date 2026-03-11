@@ -1,0 +1,14 @@
+﻿- id: tv_ambient_lights_sync
+  alias: TV Ambient Lights Sync with TV
+  description: Turns ambient lights on/off based on TV remote state.
+  triggers:
+  - entity_id: remote.den_tv
+    to:
+    - 'on'
+    - 'off'
+    trigger: state
+  actions:
+  - target:
+      device_id: bc73bb14e38e8396900015b6b0d86506
+    action: homeassistant.turn_{{ trigger.to_state.state }}
+  mode: single

@@ -1,0 +1,58 @@
+﻿- id: motion_hall_bathroom_lights_revised
+  alias: '[Motion] Hall Bathroom Lights'
+  description: Manages bathroom lighting based on motion and time of day.
+  mode: restart
+  max_exceeded: silent
+  triggers:
+  - entity_id: binary_sensor.bathroom_motion_motion
+    from: 'off'
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: group.person_group
+    state: home
+  - condition: state
+    entity_id: input_boolean.guest_mode_active
+    state: 'off'
+  actions:
+  - variables:
+      current_hour: '{{ now().hour + now().minute / 60 }}'
+      is_night_time: '{{ current_hour >= 22.5 or current_hour < 6 }}'
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ not is_night_time }}'
+      sequence:
+      - action: light.turn_on
+        continue_on_error: true
+        target:
+          entity_id: light.bathroom_lights
+    - conditions:
+      - condition: template
+        value_template: '{{ is_night_time }}'
+      sequence:
+      - action: light.turn_on
+        continue_on_error: true
+        target:
+          entity_id: light.bathtub_light
+  - wait_for_trigger:
+    - entity_id: binary_sensor.bathroom_motion_motion
+      to: 'off'
+      trigger: state
+    timeout:
+      minutes: 30
+    continue_on_timeout: true
+  - delay:
+      seconds: 80
+  - if:
+    - condition: state
+      entity_id: binary_sensor.bathroom_door_bt
+      state: 'on'
+    then:
+    - action: light.turn_off
+      continue_on_error: true
+      target:
+        entity_id:
+        - light.bathroom_lights
+        - light.bathtub_light

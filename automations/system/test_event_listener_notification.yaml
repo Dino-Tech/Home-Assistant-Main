@@ -1,0 +1,22 @@
+- id: test_event_listener_notification
+  alias: "Test: Event Listener Notification"
+  description: "Proves EDA routing is working by sending UI and mobile notifications"
+  triggers:
+    - trigger: event
+      event_type: house_mode_changed
+  actions:
+    - action: persistent_notification.create
+      data:
+        title: "EDA Logic Test Successful"
+        message: "The house mode changed from {{ trigger.event.data.old_mode }} to {{ trigger.event.data.new_mode }}."
+      continue_on_error: true
+    - action: system_log.write
+      data:
+        level: info
+        message: "Event Driven Architecture test fired successfully."
+      continue_on_error: true
+    - action: notify.mobile_app_pixel_8_pro
+      data:
+        title: "EDA State Change"
+        message: "House mode changed from {{ trigger.event.data.old_mode }} to {{ trigger.event.data.new_mode }} at {{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+      continue_on_error: true

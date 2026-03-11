@@ -1,0 +1,117 @@
+﻿- id: tablet_background_theme_manager
+  alias: '[Tablet] Background and Theme Manager'
+  description: Sets wallpaper playlists at specific times and cycles wallpaper/theme
+    periodically.
+  mode: restart
+  variables:
+    playlists:
+      morning:
+      - christian41.1
+      - coffee1_11
+      - coffee1_21
+      - wallpaper7e
+      - coffee1_31
+      - coffee1_41
+      - coffee1_51
+      - coffee1_61
+      - coffee1_71
+      midday:
+      - christian1.1
+      - wallpaper13
+      - wallpaper7e
+      - wallpaper66
+      - christian21
+      - wallpaper141
+      - wallpaper33
+      - christian31
+      - wallpaper21
+      - christian41.1
+      - christian5
+      - christian61
+      - christian7.1
+      evening:
+      - wallpaper141
+      - wallpaper1
+      - wallpaper13
+      - wallpaper7e
+      - wallpaper66
+      - eye11
+      - christian21
+      - wallpaper121
+      - ufo1
+      - christian5
+      - welcome4
+      - christian1.1
+      - wallpaper5
+      night:
+      - christian41.1
+      - wallpaper13
+      - moonFull
+      - christian31
+      - wallpaper7e
+      - wallpaper141
+      - moon2Blue
+      - wallpaper66
+      - wallpaper1
+      - christian21
+      - wallpaper21
+      - moonLake
+  triggers:
+  - id: set_playlist
+    trigger: time
+    at:
+    - 04:30:00
+    - '10:00:00'
+    - '16:00:00'
+    - '19:00:00'
+  - id: cycle
+    trigger: time_pattern
+    minutes: /7
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: set_playlist
+      sequence:
+      - action: input_select.set_options
+        target:
+          entity_id: input_select.wallpaper
+        data:
+          options: '{% set t = now().strftime(''%H:%M:%S'') %} {% set selected_playlist
+            = playlists.night if t >= ''19:00:00'' else playlists.evening if t >=
+            ''16:00:00'' else playlists.midday if t >= ''10:00:00'' else playlists.morning
+            %} {{ (selected_playlist + [states(''input_select.wallpaper'')]) | unique
+            | list }}
+
+            '
+      - action: input_select.select_first
+        target:
+          entity_id: input_select.wallpaper
+      - action: input_select.set_options
+        target:
+          entity_id: input_select.wallpaper
+        data:
+          options: '{% set t = now().strftime(''%H:%M:%S'') %} {% if t >= ''19:00:00''
+            %} {{ playlists.night }} {% elif t >= ''16:00:00'' %} {{ playlists.evening
+            }} {% elif t >= ''10:00:00'' %} {{ playlists.midday }} {% else %} {{ playlists.morning
+            }} {% endif %}
+
+            '
+    - conditions:
+      - condition: trigger
+        id: cycle
+      sequence:
+      - action: input_select.select_next
+        target:
+          entity_id: input_select.wallpaper
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.video_wallpaper
+        data:
+          option: '{{ state_attr(''input_select.video_wallpaper'', ''options'') |
+            random }}'
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.mobilelayout
+        data:
+          option: mobile2

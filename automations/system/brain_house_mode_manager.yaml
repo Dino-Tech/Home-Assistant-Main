@@ -1,0 +1,47 @@
+- id: brain_house_mode_manager
+  alias: "Brain: House Mode Manager"
+  description: "Evaluates raw presence but respects manual Sleep/Guest/Vacation overrides. Uses template conditions to handle zone-named states (e.g. Donna's Work) as well as not_home."
+  triggers:
+    - trigger: state
+      entity_id:
+        - person.darren
+        - person.donna
+
+  conditions:
+    # Do not auto-change modes if the house is manually set to these states
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: input_select.house_mode
+          state:
+            - "sleep"
+            - "vacation"
+            - "guest"
+
+  actions:
+    - choose:
+        # --- AWAY MODE: Both Darren and Donna are not home (handles zone names too) ---
+        - conditions:
+            - condition: template
+              value_template: >
+                {{ not is_state('person.darren', 'home') and not is_state('person.donna', 'home') }}
+          sequence:
+            - action: input_select.select_option
+              target:
+                entity_id: input_select.house_mode
+              data:
+                option: "away"
+              continue_on_error: true
+
+        # --- HOME MODE: Either Darren or Donna is home ---
+        - conditions:
+            - condition: template
+              value_template: >
+                {{ is_state('person.darren', 'home') or is_state('person.donna', 'home') }}
+          sequence:
+            - action: input_select.select_option
+              target:
+                entity_id: input_select.house_mode
+              data:
+                option: "home"
+              continue_on_error: true

@@ -1,0 +1,11 @@
+﻿- id: '19317603288153054'
+  alias: Patio LEDs ON at sunset
+  mode: single
+  triggers:
+  - trigger: sun
+    event: sunset
+    offset: +00:20:00
+  actions:
+  - action: switch.turn_on
+    target:
+      entity_id: switch.patio_led_outlet

@@ -1,0 +1,16 @@
+- id: system_house_mode_publisher
+  alias: "System: House Mode Event Publisher"
+  description: "Broadcasts house_mode changes to the HA Event Bus. Also replays on startup so listeners always have the current mode."
+  triggers:
+    - trigger: state
+      entity_id: input_select.house_mode
+      id: mode_changed
+    - trigger: homeassistant
+      event: start
+      id: ha_start
+  actions:
+    - event: house_mode_changed
+      event_data:
+        new_mode: "{{ states('input_select.house_mode') }}"
+        old_mode: >-
+          {{ trigger.from_state.state if trigger.id == 'mode_changed' else 'startup' }}

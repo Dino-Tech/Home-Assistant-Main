@@ -1,0 +1,47 @@
+﻿- id: '17016161677497534'
+  alias: '[Alarmo] Auto Night Arm'
+  triggers:
+  - trigger: time
+    at: '23:56:00'
+  conditions:
+  - condition: state
+    entity_id: alarm_control_panel.alarmo
+    state: disarmed
+  actions:
+  - choose:
+    - conditions:
+      - condition: time
+        weekday:
+        - fri
+        - sat
+      sequence:
+      - action: notify.mobile_app_pixel_8_pro
+        continue_on_error: true
+        data:
+          message: TTS
+          data:
+            ttl: 0
+            priority: high
+            tts_text: The alarm will be activated in three minutes.
+      - delay: 180
+      - target:
+          entity_id: alarm_control_panel.alarmo
+        data:
+          code: '{{ states(''input_text.secure_code'') }}'
+        action: alarm_control_panel.alarm_arm_home
+    - conditions:
+      - condition: time
+        weekday:
+        - sun
+        - mon
+        - tue
+        - wed
+        - thu
+      sequence:
+      - delay: 180
+      - target:
+          entity_id: alarm_control_panel.alarmo
+        data:
+          code: '{{ states(''input_text.secure_code'') }}'
+        action: alarm_control_panel.alarm_arm_home
+  initial_state: true

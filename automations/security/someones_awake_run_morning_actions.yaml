@@ -1,0 +1,48 @@
+- mode: single
+  id: someones_awake_run_morning_actions
+  initial_state: true
+  alias: "[Alarmo] Someone's awake run Morning script & Disarm alarm"
+  triggers:
+    - to: "on"
+      entity_id: input_boolean.darren_is_awake
+      trigger: state
+    - to: "on"
+      entity_id: input_boolean.donna_is_awake
+      trigger: state
+  actions:
+    - wait_for_trigger:
+        - from: "off"
+          to: "on"
+          entity_id:
+            - binary_sensor.den_main_motion
+          trigger: state
+        - from: "off"
+          to: "on"
+          entity_id:
+            - binary_sensor.kitchen_motion_sensors
+          trigger: state
+    - action: script.morning
+  conditions:
+    - condition: state
+      entity_id: input_boolean.morning_triggered_today
+      state: "off"
+    - before: '11:00:00'
+      condition: time
+      after: '06:00:00'
+    - condition: state
+      entity_id: group.person_group
+      state: home
+    - condition: and
+      conditions:
+        - condition: or
+          conditions:
+            - domain: alarm_control_panel
+              device_id: 796b669c1f2c31677ae6e0a838928d34
+              type: is_armed_home
+              entity_id: alarm_control_panel.alarmo
+              condition: device
+            - domain: alarm_control_panel
+              device_id: 796b669c1f2c31677ae6e0a838928d34
+              type: is_armed_night
+              entity_id: alarm_control_panel.alarmo
+              condition: device

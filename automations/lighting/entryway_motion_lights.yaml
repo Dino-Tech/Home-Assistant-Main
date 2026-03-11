@@ -1,0 +1,41 @@
+﻿- id: '1701618177497534'
+  alias: '[Motion] Entryway Motion Lights'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.entryway_motion
+    from: 'off'
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: group.person_group
+    state: home
+    enabled: true
+  - condition: state
+    entity_id: input_boolean.guest_mode_active
+    state: 'off'
+  actions:
+  - action: light.turn_on
+    continue_on_error: true
+    target:
+      entity_id:
+      - light.entryway_ceiling_dimmer
+      - light.laundry_room_dimmer
+  - wait_for_trigger:
+    - trigger: state
+      entity_id: binary_sensor.entryway_motion
+      from: 'on'
+      to: 'off'
+    timeout:
+      minutes: 30
+    continue_on_timeout: true
+  - delay: 30
+  - action: light.turn_off
+    continue_on_error: true
+    target:
+      entity_id:
+      - light.entryway_ceiling_dimmer
+      - light.laundry_room_dimmer
+  mode: restart
+  max_exceeded: silent
+  initial_state: true

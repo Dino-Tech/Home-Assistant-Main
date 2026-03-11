@@ -1,0 +1,95 @@
+﻿- id: '1761879094337'
+  alias: '[Remote] Bedroom Remote Control'
+  description: Handles all button presses for the bedroom remote.
+  triggers:
+  - device_id: adb14876079214910d4e2e8f2cf6fbf2
+    domain: bthome
+    type: button_1
+    subtype: press
+    id: bed_btn_1_press
+    trigger: device
+  - device_id: adb14876079214910d4e2e8f2cf6fbf2
+    domain: bthome
+    type: button_1
+    subtype: long_press
+    id: bed_btn_1_long
+    trigger: device
+  - device_id: adb14876079214910d4e2e8f2cf6fbf2
+    domain: bthome
+    type: button_1
+    subtype: double_press
+    id: bed_btn_1_double
+    trigger: device
+  - device_id: adb14876079214910d4e2e8f2cf6fbf2
+    domain: bthome
+    type: button_2
+    subtype: press
+    id: bed_btn_2_press
+    trigger: device
+  - device_id: adb14876079214910d4e2e8f2cf6fbf2
+    domain: bthome
+    type: button_3
+    subtype: press
+    id: bed_btn_3_press
+    trigger: device
+  - device_id: adb14876079214910d4e2e8f2cf6fbf2
+    domain: bthome
+    type: button_4
+    subtype: press
+    id: bed_btn_4_press
+    trigger: device
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: bed_btn_1_press
+      sequence:
+      - target:
+          entity_id: light.nightstand_lamps
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: bed_btn_1_long
+      sequence:
+      - target:
+          entity_id: light.nightstand_lamps
+        data:
+          rgb_color:
+          - 255
+          - 0
+          - 0
+          brightness_pct: 16
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: bed_btn_1_double
+      sequence:
+      - target:
+          entity_id: light.nightstand_lamps
+        data:
+          color_temp_kelvin: 3000
+          brightness_pct: 15
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: bed_btn_2_press
+      sequence:
+      - target:
+          entity_id: light.bedroom_ceiling
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: bed_btn_3_press
+      sequence:
+      - target:
+          entity_id: light.mood_lights
+        action: light.toggle
+    - conditions:
+      - condition: trigger
+        id: bed_btn_4_press
+      sequence:
+      - target:
+          entity_id: light.bedroom_lights
+        action: light.toggle
+    default: []
+  mode: single

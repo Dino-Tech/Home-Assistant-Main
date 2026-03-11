@@ -1,0 +1,23 @@
+﻿- id: '17016185774975347'
+  alias: '[Notify] Auto Notifications ON'
+  triggers:
+  - trigger: time
+    at: '23:00:00'
+  actions:
+  - action: input_boolean.turn_on
+    entity_id:
+    - input_boolean.camera_snapshots
+    - input_boolean.patio_garage_alerts
+    - input_boolean.door_announcements
+    - input_boolean.disable_laundry_notifications
+  - action: input_boolean.turn_off
+    entity_id:
+    - input_boolean.guest_mode_active
+    - input_boolean.disable_popups
+    - input_boolean.auto_tablet
+    - input_boolean.auto_backgroundz
+  - action: notify.mobile_app_pixel_8_pro
+    data:
+      message: "⚠️️Notifications\U0001F4E2 turned ON"
+  initial_state: true
+  mode: single
