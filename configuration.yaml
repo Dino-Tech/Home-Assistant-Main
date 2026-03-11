@@ -32,17 +32,19 @@ frontend:
 recorder:
   db_url: !secret db_url
   auto_purge: true
-  purge_keep_days: 7
+  purge_keep_days: 3
   exclude:
     domains:
       - automation
-      - lock
+      - script
+      - media_player
+      - camera
+      - update
+      - scene
+      - group
+      - device_tracker
       - weblink
       - updater
-      - update
-      - camera
-      - media_player
-      - automation
     entities:
       - sun.sun
       - sensor.last_boot
@@ -56,10 +58,9 @@ recorder:
       - sensor.worldclock_sensor_time_date
       - sensor.home_local_observation_time
     entity_globs:
-      - sensor.sun*
       - weather.*
-    event_types:
-      - call_service
+      - binary_sensor.*_connectivity
+      - binary_sensor.uptime*
 
 lovelace:
   resource_mode: yaml
@@ -68,20 +69,18 @@ lovelace:
       mode: yaml
       filename: ui-lovelace.yaml
       title: Overview
-      icon: mdi:view-dashboard
+      icon: mdi:monitor-cellphone-star
       show_in_sidebar: true
   resources: !include lovelace/resources/resources.yaml
 
 shell_command:
-  delete_old_snapshots: 'find /config/www/tmp/ /media/llmvision/snapshots/ /media/fmd/pixel8pro/ -type f -mtime +2 -delete'
+  delete_old_snapshots: "find /config/www/tmp/ /media/fmd/pixel8pro/ -type f -mtime +2 -delete"
 
 logger:
   default: warning
   logs:
-    homeassistant.components.mqtt: warning
-    homeassistant.components.camera: critical
-    homeassistant.components.device_tracker: critical
-    homeassistant.components: warning
+    homeassistant.components.camera: error
+    homeassistant.components.device_tracker: error
     homeassistant.components.mobile_app.notify: info
     aiohttp: error
 
@@ -91,7 +90,7 @@ media_player:
     name: Now Playing
     children:
       - media_player.bedroom_stereo
-      - media_player.bedroom_stereo_3
+      - media_player.bedroom_stereo_2
       - media_player.front_group
       - media_player.front_group_3
       - media_player.office_display
@@ -99,7 +98,7 @@ media_player:
       {# Define the list of players to monitor #}
       {% set players = [
         'media_player.bedroom_stereo',
-        'media_player.bedroom_stereo_3',
+        'media_player.bedroom_stereo_2',
         'media_player.front_group',
         'media_player.front_group_3',
         'media_player.office_display'
@@ -130,7 +129,7 @@ zone:
   - name: !secret home_name
     latitude: !secret home_latitude
     longitude: !secret home_longitude
-    radius: 95
+    radius: 100
     icon: mdi:home-assistant
 
 tts:
@@ -144,7 +143,11 @@ samsungtv_smart:
     source_list: '{"TV": "KEY_SOURCE+KEY_LEFT+KEY_LEFT+KEY_ENTER", "HDMI": "KEY_HDMI", "CHROMECAST": "KEY_SOURCE+KEY_LEFT+KEY_LEFT+KEY_RIGHT+KEY_RIGHT+KEY_ENTER"}'
 
 alert: !include includes/alert.yaml
-automation: !include automations.yaml
+# ----------------------------------------------------------------
+# Quantum Home Technologies: Modular Automation Architecture
+# ----------------------------------------------------------------
+# automation: !include automations.yaml # <--- Keep commented for 10s rollback
+automation: !include_dir_merge_list automations/
 binary_sensor: !include includes/binary_sensor.yaml
 camera: !include includes/camera.yaml
 cloud: !include includes/cloud.yaml
