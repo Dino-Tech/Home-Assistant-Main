@@ -8,7 +8,7 @@
   <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/powered-by.png" alt="Powered by HA" width="200">
 
 <p>
-<a href="https://img.shields.io/badge/Home%20Assistant-2026.2.1-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-2026.2.1-blue.svg?style=plastic" alt="Home Assistant Version"/></a>
+<a href="https://img.shields.io/badge/Home%20Assistant-2026.4.3-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-2026.4.3-blue.svg?style=plastic" alt="Home Assistant Version"/></a>
 <a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master" alt="Travis CI Status"/></a>
 <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plastic" alt="GitHub Stars"/></a>
 <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plastic" alt="GitHub Watchers"/></a>
@@ -45,7 +45,7 @@ The configuration, devices, themes and screen layouts should help inspire your j
 
 <a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;"></a>
 
-<h2>Currently operating <a href="https://home-assistant.io">Home Assistant</a> version 2026.2.1<br>
+<h2>Currently operating <a href="https://home-assistant.io">Home Assistant</a> version 2026.4.3<br>
 Running on a <a href="https://amzn.to/3F3oci0">Beelink Mini PC (N100, 16GB RAM)</a></h2>
 </div>
 
@@ -58,7 +58,7 @@ Running on a <a href="https://amzn.to/3F3oci0">Beelink Mini PC (N100, 16GB RAM)<
 
 | Entities | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Areas | Fans | Media Players |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 3017 | 98 | 204 | 258 | 340 | 191 | 1137 | 21 | 7 | 72 |
+| 2869 | 111 | 275 | 173 | 232 | 68 | 941 | 21 | 7 | 85 |
 
 <details>
 <summary><strong>View Automation code and sensors for tracking</strong></summary>
