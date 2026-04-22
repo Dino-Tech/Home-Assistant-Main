@@ -100,7 +100,7 @@ Purple-Nightz:
       table-row-alternative-background-color: var(--medium-grey-color)
       mdc-checkbox-unchecked-color: var(--accent-color)
       mdc-theme-primary: var(--accent-color)
-      ha-color-form-background-hover: var(--accent-color)
+      ha-color-form-background-hover: var(--sidebar-accent-color-lighter)
       dialog-backdrop-filter: blur(2em) brightness(0.80)
 
       # --- WEBAWESOME: LOUD BUTTONS (e.g., "Perform Action", "Save") ---
@@ -334,7 +334,7 @@ Green-Nightz:
       table-row-alternative-background-color: var(--medium-grey-color)
       mdc-checkbox-unchecked-color: var(--accent-color)
       mdc-theme-primary: var(--accent-color)
-      ha-color-form-background-hover: var(--accent-color)
+      ha-color-form-background-hover: var(--sidebar-accent-color-lighter)
       dialog-backdrop-filter: blur(2em) brightness(0.80)
 
       # --- WEBAWESOME: LOUD BUTTONS (e.g., "Perform Action", "Save") ---
@@ -343,7 +343,7 @@ Green-Nightz:
 
       # --- WEBAWESOME: NORMAL BUTTONS (e.g., "Add Target", secondary actions) ---
       wa-color-brand-fill-normal: var(--accent-color-lighter)
-      ha-color-fill-primary-normal-hover: var(--accent-color-light)
+      ha-color-fill-primary-normal-hover: var(--sidebar-accent-color-lighter)
       wa-color-brand-on-normal: var(--primary-text-color)
 
       # --- WEBAWESOME: QUIET / PLAIN BUTTONS (e.g., "1 device" text links) ---
@@ -568,7 +568,7 @@ Grey-Nightz:
       table-row-alternative-background-color: var(--medium-grey-color)
       mdc-checkbox-unchecked-color: var(--accent-color)
       mdc-theme-primary: var(--accent-color)
-      ha-color-form-background-hover: var(--accent-color)
+      ha-color-form-background-hover: var(--sidebar-accent-color-lighter)
       dialog-backdrop-filter: blur(2em) brightness(0.80)
 
       # --- WEBAWESOME: LOUD BUTTONS (e.g., "Perform Action", "Save") ---
@@ -802,7 +802,7 @@ Blue-Nightz:
       table-row-alternative-background-color: var(--medium-grey-color)
       mdc-checkbox-unchecked-color: var(--accent-color)
       mdc-theme-primary: var(--accent-color)
-      ha-color-form-background-hover: var(--accent-color)
+      ha-color-form-background-hover: var(--sidebar-accent-color-lighter)
       dialog-backdrop-filter: blur(2em) brightness(0.80)
 
       # --- WEBAWESOME: LOUD BUTTONS (e.g., "Perform Action", "Save") ---
@@ -1036,7 +1036,7 @@ Pink-Nightz:
       table-row-alternative-background-color: var(--medium-grey-color)
       mdc-checkbox-unchecked-color: var(--accent-color)
       mdc-theme-primary: var(--accent-color)
-      ha-color-form-background-hover: var(--accent-color)
+      ha-color-form-background-hover: var(--sidebar-accent-color-lighter)
       dialog-backdrop-filter: blur(2em) brightness(0.80)
 
       # --- WEBAWESOME: LOUD BUTTONS (e.g., "Perform Action", "Save") ---
@@ -1270,7 +1270,7 @@ Lime-Nightz:
       table-row-alternative-background-color: var(--medium-grey-color)
       mdc-checkbox-unchecked-color: var(--accent-color)
       mdc-theme-primary: var(--accent-color)
-      ha-color-form-background-hover: var(--accent-color)
+      ha-color-form-background-hover: var(--sidebar-accent-color-lighter)
       dialog-backdrop-filter: blur(2em) brightness(0.80)
 
       # --- WEBAWESOME: LOUD BUTTONS (e.g., "Perform Action", "Save") ---
@@ -1504,7 +1504,7 @@ Magenta-Nightz:
       table-row-alternative-background-color: var(--medium-grey-color)
       mdc-checkbox-unchecked-color: var(--accent-color)
       mdc-theme-primary: var(--accent-color)
-      ha-color-form-background-hover: var(--accent-color)
+      ha-color-form-background-hover: var(--sidebar-accent-color-lighter)
       dialog-backdrop-filter: blur(2em) brightness(0.80)
 
       # --- WEBAWESOME: LOUD BUTTONS (e.g., "Perform Action", "Save") ---
@@ -1738,7 +1738,7 @@ Orange-Nightz:
       table-row-alternative-background-color: var(--medium-grey-color)
       mdc-checkbox-unchecked-color: var(--accent-color)
       mdc-theme-primary: var(--accent-color)
-      ha-color-form-background-hover: var(--accent-color)
+      ha-color-form-background-hover: var(--sidebar-accent-color-lighter)
       dialog-backdrop-filter: blur(2em) brightness(0.80)
 
       # --- WEBAWESOME: LOUD BUTTONS (e.g., "Perform Action", "Save") ---
@@ -1972,7 +1972,7 @@ Red-Nightz:
       table-row-alternative-background-color: var(--medium-grey-color)
       mdc-checkbox-unchecked-color: var(--accent-color)
       mdc-theme-primary: var(--accent-color)
-      ha-color-form-background-hover: var(--accent-color)
+      ha-color-form-background-hover: var(--sidebar-accent-color-lighter)
       dialog-backdrop-filter: blur(2em) brightness(0.80)
 
       # --- WEBAWESOME: LOUD BUTTONS (e.g., "Perform Action", "Save") ---
@@ -2182,8 +2182,8 @@ Geaux-Nightz:
 
       # --- SIDEBAR ---
       sidebar-background-color: var(--darker-grey-color)
-      sidebar-accent-color-light: "rgba(206, 184, 136, 0.5)"
-      sidebar-accent-color-lighter: "rgba(206, 184, 136, 0.2)"
+      sidebar-accent-color-light: "rgba(37, 155, 154, 0.5)"
+      sidebar-accent-color-lighter: "rgba(37, 155, 154, 0.2)"
       sidebar-icon-color: var(--sidebar-accent-color-light)
       sidebar-selected-background-color: var(--sidebar-accent-color-lighter)
       sidebar-selected-text-color: var(--secondary-text-color)
@@ -2206,7 +2206,7 @@ Geaux-Nightz:
       table-row-alternative-background-color: var(--medium-grey-color)
       mdc-checkbox-unchecked-color: var(--accent-color)
       mdc-theme-primary: var(--accent-color)
-      ha-color-form-background-hover: var(--accent-color)
+      ha-color-form-background-hover: var(--sidebar-accent-color-lighter)
       dialog-backdrop-filter: blur(2em) brightness(0.80)
 
       # --- WEBAWESOME: LOUD BUTTONS (e.g., "Perform Action", "Save") ---
@@ -2441,7 +2441,7 @@ Yellow-Nightz:
       table-row-alternative-background-color: var(--medium-grey-color)
       mdc-checkbox-unchecked-color: var(--accent-color)
       mdc-theme-primary: var(--accent-color)
-      ha-color-form-background-hover: var(--accent-color)
+      ha-color-form-background-hover: var(--sidebar-accent-color-lighter)
       dialog-backdrop-filter: blur(2em) brightness(0.80)
 
       # --- WEBAWESOME: LOUD BUTTONS (e.g., "Perform Action", "Save") ---
@@ -2676,7 +2676,7 @@ Ocean-Nightz:
       table-row-alternative-background-color: var(--medium-grey-color)
       mdc-checkbox-unchecked-color: var(--accent-color)
       mdc-theme-primary: var(--accent-color)
-      ha-color-form-background-hover: var(--accent-color)
+      ha-color-form-background-hover: var(--sidebar-accent-color-lighter)
       dialog-backdrop-filter: blur(2em) brightness(0.80)
 
       # --- WEBAWESOME: LOUD BUTTONS (e.g., "Perform Action", "Save") ---
