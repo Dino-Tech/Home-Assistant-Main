@@ -16,6 +16,614 @@ cards:
       title: Test
     popup_card_all_views: true
 
+  - popup_card_id: garage_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    hide_header: true
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
+    content:
+      type: custom:mod-card
+      uix:
+        style: |
+          ha-card {
+            background-color: rgba(19, 19, 19, 0.9);
+            box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+            border-radius: 15px;
+            padding: 0px, 5px, 15px, 5px;
+          }
+          .: |
+            app-toolbar {
+              color: rgba(0, 0, 0,0.58) !important;
+              background-color: rgba(0, 0, 0,0.58) !important;
+              height: 20px !important;
+            }
+      card:
+        type: custom:vertical-stack-in-card
+        uix:
+          style: |
+            ha-card {
+              box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+              backdrop-filter: blur(9.6px) brightness(0.3) !important;
+              -webkit-backdrop-filter: blur(9.6px) brightness(0.3) !important;
+            }
+        cards:
+          - type: custom:mushroom-title-card
+            title: Garage
+            alignment: center
+            title_tap_action:
+              action: none
+            subtitle_tap_action:
+              action: none
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 8px
+              - type: picture-glance
+                camera_view: live
+                entities: []
+                camera_image: camera.garage_cam_0
+              - type: custom:button-card
+                color_type: blank-card
+                styles:
+                  card:
+                    - width: 8px
+          - type: custom:mushroom-cover-card
+            uix:
+              style: |
+                ha-card {
+                  backdrop-filter: blur(9.6px) brightness(0.3) !important;
+                  -webkit-backdrop-filter: blur(9.6px) brightness(0.3) !important;
+                }
+            entity: cover.garage_door
+            layout: vertical
+            fill_container: true
+            show_position_control: false
+            show_buttons_control: true
+          - type: custom:mushroom-light-card
+            uix:
+              style: |
+                ha-card {
+                  backdrop-filter: blur(9.6px) brightness(0.3) !important;
+                  -webkit-backdrop-filter: blur(9.6px) brightness(0.3) !important;
+                }
+            entity: light.garage_lights
+            icon: mdi:light-recessed
+            layout: vertical
+            fill_container: true
+            show_brightness_control: true
+
+  - popup_card_id: current_weather_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    hide_header: true
+    title: Current Weather
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
+    content:
+      type: custom:vertical-stack-in-card
+      uix:
+        style: |
+          ha-card {
+            padding: 0 15px 15px 15px;
+            box-shadow: 0px 0px 2px 1px var(--accent-color);
+            backdrop-filter: blur(9.6px) brightness(0.3) !important;
+            -webkit-backdrop-filter: blur(9.6px) brightness(0.3) !important;
+            --ha-card-border-width: 0px;
+          }
+      cards:
+        - type: custom:weather-forecast-card
+          show_current: true
+          show_forecast: true
+          default_forecast: daily
+          entity: weather.bayou_gman_s
+          icons_path: /local/weather_icons/animated/
+          name: Weather at Home
+          forecast:
+            mode: chart
+            show_sun_times: true
+            extra_attribute: precipitation_probability
+            hourly_group_size: 4
+          forecast_action:
+            tap_action:
+              action: toggle-forecast
+        - type: picture
+          uix:
+            style: |
+              ha-card {
+                margin: 0px !important;
+                padding: 0px !important;
+                box-shadow: 0px;
+                overflow: hidden;
+                height: 247px !important;
+              }
+          image: >-
+            https://s.w-x.co/staticmaps/wu/wu/wxtype1200_cur/usmsy/animate.png
+          tap_action:
+            action: none
+
+  - popup_card_id: darren_location_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    hide_header: true
+    title: Darren
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
+    content:
+      type: custom:vertical-stack-in-card
+      uix:
+        style: |
+          ha-card {
+            padding: 0 15px 15px 15px;
+            box-shadow: 0px 0px 2px 1px var(--accent-color);
+            border-radius: 20px;
+            backdrop-filter: blur(9.6px) brightness(0.3) !important;
+            -webkit-backdrop-filter: blur(9.6px) brightness(0.3) !important;
+            --ha-card-border-width: 0px;
+            height: 780px;
+          }
+      cards:
+        - type: custom:mushroom-entity-card
+          entity: sensor.pixel_8_pro_geocoded_location
+          secondary_info: last-updated
+          primary_info: state
+          icon: mdi:map-marker
+          icon_color: yellow
+        - type: custom:mushroom-entity-card
+          entity: sensor.pixel_8_pro_detected_activity_formatted
+          secondary_info: last-updated
+          primary_info: state
+          tap_action:
+            action: call-service
+            service: notify.mobile_app_pixel_8_pro
+            data:
+              message: request_location_update
+        - type: map
+          entities:
+            - entity: person.darren
+          dark_mode: false
+          aspect_ratio: "9:16"
+          hours_to_show: 12
+          auto_fit: true
+          default_zoom: 16
+
+  - popup_card_id: darren_battery_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    hide_header: true
+    title: Darren's Phone
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
+    content:
+      type: custom:mod-card
+      uix:
+        style: |
+          ha-card {
+            padding: 5px !important;
+            border: solid 2px var(--accent-color-light) !important;
+            height: 600px !important;
+          }
+      card:
+        type: gauge
+        entity: sensor.pixel_8_pro_battery_level
+        needle: true
+        severity:
+          green: 70
+          yellow: 40
+          red: 0
+
+  - popup_card_id: donna_location_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    hide_header: true
+    title: Donna
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
+    content:
+      type: custom:vertical-stack-in-card
+      uix:
+        style: |
+          ha-card {
+            padding: 0 15px 15px 15px;
+            box-shadow: 0px 0px 2px 1px var(--accent-color);
+            border-radius: 20px;
+            backdrop-filter: blur(9.6px) brightness(0.3) !important;
+            -webkit-backdrop-filter: blur(9.6px) brightness(0.3) !important;
+            --ha-card-border-width: 0px;
+            height: 780px;
+          }
+      cards:
+        - type: custom:mushroom-entity-card
+          entity: sensor.pixel_10a_geocoded_location
+          secondary_info: last-updated
+          primary_info: state
+          icon: mdi:map-marker
+          icon_color: yellow
+        - type: custom:mushroom-entity-card
+          entity: sensor.pixel_10a_detected_activity_formatted
+          secondary_info: last-updated
+          primary_info: state
+          tap_action:
+            action: call-service
+            service: notify.mobile_app_pixel_10a
+            data:
+              message: request_location_update
+        - type: map
+          entities:
+            - entity: person.donna
+          dark_mode: false
+          aspect_ratio: "9:16"
+          hours_to_show: 12
+          auto_fit: true
+          default_zoom: 16
+
+  - popup_card_id: donna_battery_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    hide_header: true
+    title: Donna's Phone
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
+    content:
+      type: custom:mod-card
+      uix:
+        style: |
+          ha-card {
+            padding: 5px;
+            border: solid 2px var(--accent-color-light);
+            height: 600px;
+          }
+      card:
+        type: gauge
+        entity: sensor.pixel_10a_battery_level
+        needle: true
+        severity:
+          green: 70
+          yellow: 40
+          red: 0
+
+  - popup_card_id: lights_on_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    hide_header: true
+    title: Lights On
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
+    content:
+      type: vertical-stack
+      cards:
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: light.den_night_lights_zb
+              state: "on"
+          card:
+            type: custom:mushroom-light-card
+            show_brightness_control: true
+            show_color_control: true
+            show_color_temp_control: true
+            entity: light.den_night_lights_zb
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: light.office_floor_lights
+              state: "on"
+          card:
+            type: custom:mushroom-light-card
+            show_brightness_control: true
+            show_color_control: true
+            show_color_temp_control: true
+            entity: light.office_floor_lights
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: light.under_cabinet_lights
+              state: "on"
+          card:
+            type: custom:mushroom-light-card
+            entity: light.under_cabinet_lights
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: light.garage_lights
+              state: "on"
+          card:
+            type: custom:mushroom-light-card
+            show_brightness_control: true
+            entity: light.garage_lights
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: light.kitchen_lights
+              state: "on"
+          card:
+            type: custom:mushroom-light-card
+            show_brightness_control: false
+            entity: light.kitchen_lights
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: light.kitchen_ceiling_lights_3
+              state: "on"
+          card:
+            type: custom:mushroom-light-card
+            show_brightness_control: true
+            entity: light.kitchen_ceiling_lights_3
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: light.den_ceiling_lights_group
+              state: "on"
+          card:
+            type: custom:mushroom-light-card
+            show_brightness_control: true
+            entity: light.den_ceiling_lights_group
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: light.outside_lights
+              state: "on"
+          card:
+            type: custom:mushroom-light-card
+            entity: light.outside_lights
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: light.guest_night_lights
+              state: "on"
+          card:
+            type: custom:mushroom-light-card
+            show_brightness_control: false
+            entity: light.guest_night_lights
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: light.guest_ceiling_lights
+              state: "on"
+          card:
+            type: custom:mushroom-light-card
+            show_brightness_control: true
+            show_color_control: true
+            show_color_temp_control: true
+            entity: light.guest_ceiling_lights
+        - type: custom:auto-entities
+          uix:
+            style: |
+              ha-card {
+                backdrop-filter: blur(9.6px) brightness(0.3) !important;
+                -webkit-backdrop-filter: blur(9.6px) brightness(0.3) !important;
+                height: auto;
+              }
+          filter:
+            template: |-
+              {% for light in expand('light.every_light') if light.state == 'on' -%}
+                {{
+                  {
+                    'type': 'custom:mushroom-light-card',
+                    'entity': light.entity_id,
+                    'show_brightness_control': true,
+                    'show_color_control': true,
+                    'show_color_temp_control': true
+                  }
+                }},
+              {%- endfor %}
+            exclude:
+              - entity_id: light.coffee_light
+              - entity_id: light.cabinet_right_side
+              - entity_id: light.cabinet_left_side_zw
+              - entity_id: light.sink_light
+              - entity_id: light.corner_light
+              - entity_id: light.bed_light
+              - entity_id: light.desk_light
+              - entity_id: light.kitchen_ceiling_lights_2
+              - entity_id: light.den_ceiling_light
+              - entity_id: light.fireplace_lights
+              - entity_id: light.foyer_accent_lights
+              - entity_id: light.night_light_2
+              - entity_id: light.night_light_3
+              - entity_id: light.night_light_4
+              - entity_id: light.night_light_5
+              - entity_id: light.ha2_office_1
+              - entity_id: light.ha2_office_2
+              - entity_id: light.ha2_office_3
+              - entity_id: light.ha2_office_4
+              - entity_id: light.ha2_guest_dimmer
+          show_empty: true
+          card_param: cards
+          sort:
+            method: friendly_name
+          card:
+            type: grid
+            columns: 1
+            square: false
+
+  - popup_card_id: quantum_web_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    hide_header: true
+    title: Quantum Home Technologies
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: neutral
+    right_button_appearance: accent
+    dismissable: false
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
+    content:
+      type: iframe
+      url: https://quantumhometechnologies.com/
+      aspect_ratio: 200%
+
+  - popup_card_id: rss_feeds_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    hide_header: true
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: brand
+    right_button_appearance: accent
+    dismissable: false
+    left_button: LOCAL
+    left_button_close: false
+    left_button_variant: brand
+    left_button_appearance: accent
+    left_button_action:
+      service: browser_mod.popup
+      data:
+        title: " "
+        size: fullscreen
+        right_button: CLOSE
+        right_button_close: true
+        right_button_variant: brand
+        right_button_appearance: accent
+        dismissable: false
+        content:
+          type: vertical-stack
+          cards:
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 1
+            - type: custom:rss-accordion
+              entity: sensor.st_tammany_news
+              max_items: 6
+              title: St. Tammany News
+              allow_multiple: true
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:button-card
+          color_type: blank-card
+          styles:
+            card:
+              - height: 1
+        - type: custom:rss-accordion
+          max_items: 5
+          initial_open: true
+          allow_multiple: true
+          title: Hackaday
+          entity: sensor.hackaday_home_automation
+          new_pill_duration_hours: 6
+
+  - popup_card_id: northshore_rss_popup
+    popup_card_all_views: true
+    type: custom:popup-card
+    hide_header: true
+    title: " "
+    size: fullscreen
+    right_button: CLOSE
+    right_button_close: true
+    right_button_variant: brand
+    right_button_appearance: accent
+    dismissable: false
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
+    content:
+      type: vertical-stack
+      cards:
+        - type: custom:button-card
+          color_type: blank-card
+          styles:
+            card:
+              - height: 1
+        - type: custom:rss-accordion
+          entity: sensor.st_tammany_news
+          max_items: 6
+          title: St. Tammany News
+          allow_multiple: true
+
   - popup_card_id: location_popup
     popup_card_all_views: true
     type: custom:popup-card
@@ -27,7 +635,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: custom:stack-in-card
       mode: vertical
@@ -58,7 +671,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -82,7 +700,6 @@ cards:
           show_past_events: true
           today_indicator: pulse
           today_indicator_size: 7px
-
           show_countdown: true
           weather:
             position: both # date
@@ -146,7 +763,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -246,7 +868,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: custom:stack-in-card
       mode: vertical
@@ -369,7 +996,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: custom:stack-in-card
       mode: vertical
@@ -421,7 +1053,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: custom:stack-in-card
       mode: vertical
@@ -494,7 +1131,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -578,7 +1220,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: custom:firemote-card
       entity: media_player.android_tv_192_168_1_128
@@ -625,7 +1272,12 @@ cards:
         popup_card_id: fans_popup
     allow_nested_more_info: true
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -790,6 +1442,12 @@ cards:
     right_button_variant: brand
     right_button_appearance: accent
     dismissable: false
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -972,7 +1630,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -1133,7 +1796,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -1189,7 +1857,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -1343,7 +2016,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -1515,7 +2193,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -1668,7 +2351,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -1756,7 +2444,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: custom:mod-card
       uix:
@@ -1861,7 +2554,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: custom:stack-in-card
       uix:
@@ -1926,7 +2624,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -2224,7 +2927,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -2813,7 +3521,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -2882,7 +3595,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -2954,8 +3672,20 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
+    uix:
+      style:
+        "ha-dialog $ wa-dialog":
+          .: |
+            ha-dialog-header {
+              display: none !important;
+            }
       type: vertical-stack
       cards:
         - type: custom:stack-in-card
@@ -3033,7 +3763,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: vertical-stack
       cards:
@@ -3227,6 +3962,15 @@ cards:
                   hide_state: false
                   vertical: false
                   features_position: bottom
+            - type: horizontal-stack
+              cards:
+                - type: tile
+                  features_position: inline
+                  vertical: false
+                  entity: input_boolean.guest_mode_active
+                  tap_action:
+                    action: toggle
+                  name: Guest Mode
             - type: custom:button-card
               color_type: blank-card
               styles:
@@ -3260,7 +4004,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: custom:swipe-card
       parameters:
@@ -3445,7 +4194,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: custom:swipe-card
       parameters:
@@ -4182,7 +4936,12 @@ cards:
     right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
-
+    uix:
+      style:
+        ha-dialog $: |
+          ha-dialog-header {
+            display: none !important;
+          }
     content:
       type: custom:stack-in-card
       uix:
