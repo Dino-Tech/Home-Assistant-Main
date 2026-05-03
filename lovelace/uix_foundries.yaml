@@ -1,0 +1,88 @@
+# ==============================================================================
+# UIX Foundries — Reusable CSS Patterns
+# ==============================================================================
+# ⚠️  STATUS: INACTIVE — PENDING UIX BUG FIX
+# ==============================================================================
+# This file is registered with the UIX integration but NOT currently referenced
+# by any card in ui-lovelace.yaml or popup_cards.yaml.
+#
+# REASON: YAML file foundries suffer from an async race condition where the
+# foundry definitions are loaded on-demand (when first requested by the
+# browser) rather than synchronously at integration startup. This causes
+# "Configuration error" failures approximately 3 out of 10 page loads
+#
+# RESOLUTION: Waiting for a UIX update that pre-loads YAML foundry files at
+# integration startup before the first dashboard request is served.
+#
+# TRACKING: https://github.com/Lint-Free-Technology/uix
+#
+# WHEN FIXED: These foundries replace the inline `uix: style:` blocks that
+# appear ~50+ times across ui-lovelace.yaml and popup_cards.yaml.
+# ==============================================================================
+# File:    lovelace/uix_foundries.yaml
+# Purpose: Centralized UIX Forge foundry definitions for recurring CSS patterns.
+# Register: Settings → Devices & Services → UI eXtension → Configure →
+#           Manage foundry files → Register a foundry file →
+#           Path: lovelace/uix_foundries.yaml
+# ==============================================================================
+
+uix_foundries:
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # glass_tile
+  # ────────────────────────────────────────────────────────────────────────────
+  # The standard semi-transparent blurred tile used across the home view
+  # for buttons, stack-in-cards, and grid containers.
+  # Target count: ~17 instances in ui-lovelace.yaml
+  # ────────────────────────────────────────────────────────────────────────────
+  glass_tile:
+    forge:
+      mold: card
+    element:
+      uix:
+        style: |
+          ha-card {
+            backdrop-filter: blur(12px);
+            background: rgba(79, 79, 79, 0.5);
+          }
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # frosted_glass
+  # ────────────────────────────────────────────────────────────────────────────
+  # The dark frosted glass effect used on popup card content wrappers
+  # and auto-entities containers. Stronger blur + brightness reduction.
+  # Target count: ~25+ instances across popup_cards.yaml
+  # ────────────────────────────────────────────────────────────────────────────
+  frosted_glass:
+    forge:
+      mold: card
+    element:
+      uix:
+        style: |
+          ha-card {
+            backdrop-filter: blur(9.6px) brightness(0.3) !important;
+            -webkit-backdrop-filter: blur(9.6px) brightness(0.3) !important;
+            --ha-card-border-width: 0px;
+          }
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # frosted_highlight
+  # ────────────────────────────────────────────────────────────────────────────
+  # Frosted glass with accent-color glow border, rounded corners, and
+  # inner padding. Used as the primary popup content container styling.
+  # Target count: ~6 instances (location popups, weather popup, etc.)
+  # ────────────────────────────────────────────────────────────────────────────
+  frosted_highlight:
+    forge:
+      mold: card
+    element:
+      uix:
+        style: |
+          ha-card {
+            padding: 0 15px 15px 15px;
+            box-shadow: 0px 0px 2px 1px var(--accent-color);
+            border-radius: 20px;
+            backdrop-filter: blur(9.6px) brightness(0.3) !important;
+            -webkit-backdrop-filter: blur(9.6px) brightness(0.3) !important;
+            --ha-card-border-width: 0px;
+          }
