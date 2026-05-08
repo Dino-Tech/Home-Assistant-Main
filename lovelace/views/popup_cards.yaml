@@ -29,8 +29,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -120,8 +120,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -179,8 +179,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -234,8 +234,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -269,8 +269,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -324,8 +324,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -359,8 +359,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -524,8 +524,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -541,12 +541,12 @@ cards:
     size: fullscreen
     right_button: CLOSE
     right_button_close: true
-    right_button_variant: brand
+    right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
     left_button: LOCAL
     left_button_close: false
-    left_button_variant: brand
+    left_button_variant: neutral
     left_button_appearance: accent
     left_button_action:
       service: browser_mod.popup
@@ -555,7 +555,7 @@ cards:
         size: fullscreen
         right_button: CLOSE
         right_button_close: true
-        right_button_variant: brand
+        right_button_variant: neutral
         right_button_appearance: accent
         dismissable: false
         content:
@@ -573,8 +573,8 @@ cards:
               allow_multiple: true
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -601,13 +601,13 @@ cards:
     size: fullscreen
     right_button: CLOSE
     right_button_close: true
-    right_button_variant: brand
+    right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -637,8 +637,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -673,8 +673,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -765,8 +765,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -870,8 +870,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -998,8 +998,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -1055,8 +1055,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -1133,8 +1133,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -1222,8 +1222,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -1260,11 +1260,11 @@ cards:
     size: fullscreen
     right_button: CLOSE
     right_button_close: true
-    right_button_variant: brand
+    right_button_variant: neutral
     right_button_appearance: accent
     left_button: FANS
     left_button_close: false
-    left_button_variant: brand
+    left_button_variant: neutral
     left_button_appearance: accent
     left_button_action:
       service: browser_mod.popup
@@ -1274,8 +1274,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -1439,13 +1439,13 @@ cards:
     size: fullscreen
     right_button: CLOSE
     right_button_close: true
-    right_button_variant: brand
+    right_button_variant: neutral
     right_button_appearance: accent
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -1632,8 +1632,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -1798,8 +1798,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -1859,8 +1859,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -2018,8 +2018,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -2195,8 +2195,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -2282,9 +2282,6 @@ cards:
               features_position: bottom
               uix:
                 style: |
-                  ha-card {
-                    border: none;
-                  }
                   ha-tile-info$: |
                     .secondary:after {
                       visibility: visible;
@@ -2353,8 +2350,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -2446,8 +2443,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -2556,8 +2553,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -2626,8 +2623,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -2929,8 +2926,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -3523,8 +3520,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -3597,8 +3594,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -3674,8 +3671,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -3765,8 +3762,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -4006,8 +4003,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -4196,8 +4193,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
@@ -4938,8 +4935,8 @@ cards:
     dismissable: false
     uix:
       style:
-        ha-dialog $: |
-          ha-dialog-header {
+        $$ha-dialog-header: |
+          :host {
             display: none !important;
           }
     content:
