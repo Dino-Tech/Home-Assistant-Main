@@ -122,11 +122,22 @@ Purple-Nightz:
       ha-color-fill-primary-normal-resting: rgba(77, 77, 77, 0.5)
 
       # --- SWITCHES & SLIDERS ---
-      switch-checked-color: var(--accent-color)
+      switch-checked-color: var(--accent-color-lighter)
       switch-checked-track-color: var(--accent-color-light)
       switch-checked-button-color: var(--accent-color)
       switch-unchecked-button-color: var(--disabled-text-color)
       switch-unchecked-track-color: var(--disabled-text-color)
+      ha-switch-checked-background-color: var(--accent-color-lighter)
+      ha-switch-checked-border-color: var(--accent-color)
+      ha-switch-checked-hover-background-color: var(--accent-color-light)
+      ha-switch-checked-thumb-background-color: var(--accent-color)
+      ha-switch-checked-thumb-border-color: var(--accent-color)
+      ha-switch-background-color: var(--disabled-text-color)
+      ha-switch-border-color: var(--disabled-text-color)
+      ha-switch-hover-background-color: var(--medium-grey-color)
+      ha-switch-thumb-background-color: var(--lighter-grey-color)
+      ha-switch-thumb-border-color: var(--light-grey-color)
+      ha-switch-thumb-box-shadow: none
       slider-color: var(--accent-color)
       slider-bar-color: var(--accent-color)
       slider-track-color: var(--secondary-background-color)
@@ -171,15 +182,6 @@ Purple-Nightz:
       honeycomb-menu-icon-active-color: "#ffffffbd"
       honeycomb-menu-icon-color: "#FFFFFF80"
 
-      # --- POPUPS / DIALOGS ---
-      dialog-box-shadow: var(--accent-color)
-      popup-background-color: rgba(34,38,39,0.75)
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-
   # ---------------------------------------------------------
   # UIX Theme Configuration (Replaces card-mod)
   # ---------------------------------------------------------
@@ -188,8 +190,14 @@ Purple-Nightz:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -229,6 +237,10 @@ Purple-Nightz:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-view-yaml: |
@@ -356,11 +368,22 @@ Green-Nightz:
       ha-color-fill-primary-normal-resting: rgba(77, 77, 77, 0.5)
 
       # --- SWITCHES & SLIDERS ---
-      switch-checked-color: var(--accent-color)
+      switch-checked-color: var(--accent-color-lighter)
       switch-checked-track-color: var(--accent-color-light)
       switch-checked-button-color: var(--accent-color)
       switch-unchecked-button-color: var(--disabled-text-color)
       switch-unchecked-track-color: var(--disabled-text-color)
+      ha-switch-checked-background-color: var(--accent-color-lighter)
+      ha-switch-checked-border-color: var(--accent-color)
+      ha-switch-checked-hover-background-color: var(--accent-color-light)
+      ha-switch-checked-thumb-background-color: var(--accent-color)
+      ha-switch-checked-thumb-border-color: var(--accent-color)
+      ha-switch-background-color: var(--disabled-text-color)
+      ha-switch-border-color: var(--disabled-text-color)
+      ha-switch-hover-background-color: var(--medium-grey-color)
+      ha-switch-thumb-background-color: var(--lighter-grey-color)
+      ha-switch-thumb-border-color: var(--light-grey-color)
+      ha-switch-thumb-box-shadow: none
       slider-color: var(--accent-color)
       slider-bar-color: var(--accent-color)
       slider-track-color: var(--secondary-background-color)
@@ -405,15 +428,6 @@ Green-Nightz:
       honeycomb-menu-icon-active-color: "#ffffffbd"
       honeycomb-menu-icon-color: "#FFFFFF80"
 
-      # --- POPUPS / DIALOGS ---
-      dialog-box-shadow: var(--accent-color)
-      popup-background-color: rgba(34,38,39,0.75)
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-
   # ---------------------------------------------------------
   # UIX Theme Configuration (Replaces card-mod)
   # ---------------------------------------------------------
@@ -422,8 +436,14 @@ Green-Nightz:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -463,6 +483,10 @@ Green-Nightz:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-view-yaml: |
@@ -590,11 +614,22 @@ Grey-Nightz:
       ha-color-fill-primary-normal-resting: rgba(77, 77, 77, 0.5)
 
       # --- SWITCHES & SLIDERS ---
-      switch-checked-color: var(--accent-color)
+      switch-checked-color: var(--accent-color-lighter)
       switch-checked-track-color: var(--accent-color-light)
       switch-checked-button-color: var(--accent-color)
       switch-unchecked-button-color: var(--disabled-text-color)
       switch-unchecked-track-color: var(--disabled-text-color)
+      ha-switch-checked-background-color: var(--accent-color-lighter)
+      ha-switch-checked-border-color: var(--accent-color)
+      ha-switch-checked-hover-background-color: var(--accent-color-light)
+      ha-switch-checked-thumb-background-color: var(--accent-color)
+      ha-switch-checked-thumb-border-color: var(--accent-color)
+      ha-switch-background-color: var(--disabled-text-color)
+      ha-switch-border-color: var(--disabled-text-color)
+      ha-switch-hover-background-color: var(--medium-grey-color)
+      ha-switch-thumb-background-color: var(--lighter-grey-color)
+      ha-switch-thumb-border-color: var(--light-grey-color)
+      ha-switch-thumb-box-shadow: none
       slider-color: var(--accent-color)
       slider-bar-color: var(--accent-color)
       slider-track-color: var(--secondary-background-color)
@@ -639,15 +674,6 @@ Grey-Nightz:
       honeycomb-menu-icon-active-color: "#ffffffbd"
       honeycomb-menu-icon-color: "#FFFFFF80"
 
-      # --- POPUPS / DIALOGS ---
-      dialog-box-shadow: var(--accent-color)
-      popup-background-color: rgba(34,38,39,0.75)
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-
   # ---------------------------------------------------------
   # UIX Theme Configuration (Replaces card-mod)
   # ---------------------------------------------------------
@@ -656,8 +682,14 @@ Grey-Nightz:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -697,6 +729,10 @@ Grey-Nightz:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-view-yaml: |
@@ -824,11 +860,22 @@ Blue-Nightz:
       ha-color-fill-primary-normal-resting: rgba(77, 77, 77, 0.5)
 
       # --- SWITCHES & SLIDERS ---
-      switch-checked-color: var(--accent-color)
+      switch-checked-color: var(--accent-color-lighter)
       switch-checked-track-color: var(--accent-color-light)
       switch-checked-button-color: var(--accent-color)
       switch-unchecked-button-color: var(--disabled-text-color)
       switch-unchecked-track-color: var(--disabled-text-color)
+      ha-switch-checked-background-color: var(--accent-color-lighter)
+      ha-switch-checked-border-color: var(--accent-color)
+      ha-switch-checked-hover-background-color: var(--accent-color-light)
+      ha-switch-checked-thumb-background-color: var(--accent-color)
+      ha-switch-checked-thumb-border-color: var(--accent-color)
+      ha-switch-background-color: var(--disabled-text-color)
+      ha-switch-border-color: var(--disabled-text-color)
+      ha-switch-hover-background-color: var(--medium-grey-color)
+      ha-switch-thumb-background-color: var(--lighter-grey-color)
+      ha-switch-thumb-border-color: var(--light-grey-color)
+      ha-switch-thumb-box-shadow: none
       slider-color: var(--accent-color)
       slider-bar-color: var(--accent-color)
       slider-track-color: var(--secondary-background-color)
@@ -873,15 +920,6 @@ Blue-Nightz:
       honeycomb-menu-icon-active-color: "#ffffffbd"
       honeycomb-menu-icon-color: "#FFFFFF80"
 
-      # --- POPUPS / DIALOGS ---
-      dialog-box-shadow: var(--accent-color)
-      popup-background-color: rgba(34,38,39,0.75)
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-
   # ---------------------------------------------------------
   # UIX Theme Configuration (Replaces card-mod)
   # ---------------------------------------------------------
@@ -890,8 +928,14 @@ Blue-Nightz:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -931,6 +975,10 @@ Blue-Nightz:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-view-yaml: |
@@ -1058,11 +1106,22 @@ Pink-Nightz:
       ha-color-fill-primary-normal-resting: rgba(77, 77, 77, 0.5)
 
       # --- SWITCHES & SLIDERS ---
-      switch-checked-color: var(--accent-color)
+      switch-checked-color: var(--accent-color-lighter)
       switch-checked-track-color: var(--accent-color-light)
       switch-checked-button-color: var(--accent-color)
       switch-unchecked-button-color: var(--disabled-text-color)
       switch-unchecked-track-color: var(--disabled-text-color)
+      ha-switch-checked-background-color: var(--accent-color-lighter)
+      ha-switch-checked-border-color: var(--accent-color)
+      ha-switch-checked-hover-background-color: var(--accent-color-light)
+      ha-switch-checked-thumb-background-color: var(--accent-color)
+      ha-switch-checked-thumb-border-color: var(--accent-color)
+      ha-switch-background-color: var(--disabled-text-color)
+      ha-switch-border-color: var(--disabled-text-color)
+      ha-switch-hover-background-color: var(--medium-grey-color)
+      ha-switch-thumb-background-color: var(--lighter-grey-color)
+      ha-switch-thumb-border-color: var(--light-grey-color)
+      ha-switch-thumb-box-shadow: none
       slider-color: var(--accent-color)
       slider-bar-color: var(--accent-color)
       slider-track-color: var(--secondary-background-color)
@@ -1107,15 +1166,6 @@ Pink-Nightz:
       honeycomb-menu-icon-active-color: "#ffffffbd"
       honeycomb-menu-icon-color: "#FFFFFF80"
 
-      # --- POPUPS / DIALOGS ---
-      dialog-box-shadow: var(--accent-color)
-      popup-background-color: rgba(34,38,39,0.75)
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-
   # ---------------------------------------------------------
   # UIX Theme Configuration (Replaces card-mod)
   # ---------------------------------------------------------
@@ -1124,8 +1174,14 @@ Pink-Nightz:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -1165,6 +1221,10 @@ Pink-Nightz:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-view-yaml: |
@@ -1292,11 +1352,22 @@ Lime-Nightz:
       ha-color-fill-primary-normal-resting: rgba(77, 77, 77, 0.5)
 
       # --- SWITCHES & SLIDERS ---
-      switch-checked-color: var(--accent-color)
+      switch-checked-color: var(--accent-color-lighter)
       switch-checked-track-color: var(--accent-color-light)
       switch-checked-button-color: var(--accent-color)
       switch-unchecked-button-color: var(--disabled-text-color)
       switch-unchecked-track-color: var(--disabled-text-color)
+      ha-switch-checked-background-color: var(--accent-color-lighter)
+      ha-switch-checked-border-color: var(--accent-color)
+      ha-switch-checked-hover-background-color: var(--accent-color-light)
+      ha-switch-checked-thumb-background-color: var(--accent-color)
+      ha-switch-checked-thumb-border-color: var(--accent-color)
+      ha-switch-background-color: var(--disabled-text-color)
+      ha-switch-border-color: var(--disabled-text-color)
+      ha-switch-hover-background-color: var(--medium-grey-color)
+      ha-switch-thumb-background-color: var(--lighter-grey-color)
+      ha-switch-thumb-border-color: var(--light-grey-color)
+      ha-switch-thumb-box-shadow: none
       slider-color: var(--accent-color)
       slider-bar-color: var(--accent-color)
       slider-track-color: var(--secondary-background-color)
@@ -1341,15 +1412,6 @@ Lime-Nightz:
       honeycomb-menu-icon-active-color: "#ffffffbd"
       honeycomb-menu-icon-color: "#FFFFFF80"
 
-      # --- POPUPS / DIALOGS ---
-      dialog-box-shadow: var(--accent-color)
-      popup-background-color: rgba(34,38,39,0.75)
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-
   # ---------------------------------------------------------
   # UIX Theme Configuration (Replaces card-mod)
   # ---------------------------------------------------------
@@ -1358,8 +1420,14 @@ Lime-Nightz:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -1399,6 +1467,10 @@ Lime-Nightz:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-view-yaml: |
@@ -1526,11 +1598,22 @@ Magenta-Nightz:
       ha-color-fill-primary-normal-resting: rgba(77, 77, 77, 0.5)
 
       # --- SWITCHES & SLIDERS ---
-      switch-checked-color: var(--accent-color)
+      switch-checked-color: var(--accent-color-lighter)
       switch-checked-track-color: var(--accent-color-light)
       switch-checked-button-color: var(--accent-color)
       switch-unchecked-button-color: var(--disabled-text-color)
       switch-unchecked-track-color: var(--disabled-text-color)
+      ha-switch-checked-background-color: var(--accent-color-lighter)
+      ha-switch-checked-border-color: var(--accent-color)
+      ha-switch-checked-hover-background-color: var(--accent-color-light)
+      ha-switch-checked-thumb-background-color: var(--accent-color)
+      ha-switch-checked-thumb-border-color: var(--accent-color)
+      ha-switch-background-color: var(--disabled-text-color)
+      ha-switch-border-color: var(--disabled-text-color)
+      ha-switch-hover-background-color: var(--medium-grey-color)
+      ha-switch-thumb-background-color: var(--lighter-grey-color)
+      ha-switch-thumb-border-color: var(--light-grey-color)
+      ha-switch-thumb-box-shadow: none
       slider-color: var(--accent-color)
       slider-bar-color: var(--accent-color)
       slider-track-color: var(--secondary-background-color)
@@ -1575,15 +1658,6 @@ Magenta-Nightz:
       honeycomb-menu-icon-active-color: "#ffffffbd"
       honeycomb-menu-icon-color: "#FFFFFF80"
 
-      # --- POPUPS / DIALOGS ---
-      dialog-box-shadow: var(--accent-color)
-      popup-background-color: rgba(34,38,39,0.75)
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-
   # ---------------------------------------------------------
   # UIX Theme Configuration (Replaces card-mod)
   # ---------------------------------------------------------
@@ -1592,8 +1666,14 @@ Magenta-Nightz:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -1633,6 +1713,10 @@ Magenta-Nightz:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-view-yaml: |
@@ -1760,11 +1844,22 @@ Orange-Nightz:
       ha-color-fill-primary-normal-resting: rgba(77, 77, 77, 0.5)
 
       # --- SWITCHES & SLIDERS ---
-      switch-checked-color: var(--accent-color)
+      switch-checked-color: var(--accent-color-lighter)
       switch-checked-track-color: var(--accent-color-light)
       switch-checked-button-color: var(--accent-color)
       switch-unchecked-button-color: var(--disabled-text-color)
       switch-unchecked-track-color: var(--disabled-text-color)
+      ha-switch-checked-background-color: var(--accent-color-lighter)
+      ha-switch-checked-border-color: var(--accent-color)
+      ha-switch-checked-hover-background-color: var(--accent-color-light)
+      ha-switch-checked-thumb-background-color: var(--accent-color)
+      ha-switch-checked-thumb-border-color: var(--accent-color)
+      ha-switch-background-color: var(--disabled-text-color)
+      ha-switch-border-color: var(--disabled-text-color)
+      ha-switch-hover-background-color: var(--medium-grey-color)
+      ha-switch-thumb-background-color: var(--lighter-grey-color)
+      ha-switch-thumb-border-color: var(--light-grey-color)
+      ha-switch-thumb-box-shadow: none
       slider-color: var(--accent-color)
       slider-bar-color: var(--accent-color)
       slider-track-color: var(--secondary-background-color)
@@ -1809,15 +1904,6 @@ Orange-Nightz:
       honeycomb-menu-icon-active-color: "#ffffffbd"
       honeycomb-menu-icon-color: "#FFFFFF80"
 
-      # --- POPUPS / DIALOGS ---
-      dialog-box-shadow: var(--accent-color)
-      popup-background-color: rgba(34,38,39,0.75)
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-
   # ---------------------------------------------------------
   # UIX Theme Configuration (Replaces card-mod)
   # ---------------------------------------------------------
@@ -1826,8 +1912,14 @@ Orange-Nightz:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -1867,6 +1959,10 @@ Orange-Nightz:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-view-yaml: |
@@ -1994,11 +2090,22 @@ Red-Nightz:
       ha-color-fill-primary-normal-resting: rgba(77, 77, 77, 0.5)
 
       # --- SWITCHES & SLIDERS ---
-      switch-checked-color: var(--accent-color)
+      switch-checked-color: var(--accent-color-lighter)
       switch-checked-track-color: var(--accent-color-light)
       switch-checked-button-color: var(--accent-color)
       switch-unchecked-button-color: var(--disabled-text-color)
       switch-unchecked-track-color: var(--disabled-text-color)
+      ha-switch-checked-background-color: var(--accent-color-lighter)
+      ha-switch-checked-border-color: var(--accent-color)
+      ha-switch-checked-hover-background-color: var(--accent-color-light)
+      ha-switch-checked-thumb-background-color: var(--accent-color)
+      ha-switch-checked-thumb-border-color: var(--accent-color)
+      ha-switch-background-color: var(--disabled-text-color)
+      ha-switch-border-color: var(--disabled-text-color)
+      ha-switch-hover-background-color: var(--medium-grey-color)
+      ha-switch-thumb-background-color: var(--lighter-grey-color)
+      ha-switch-thumb-border-color: var(--light-grey-color)
+      ha-switch-thumb-box-shadow: none
       slider-color: var(--accent-color)
       slider-bar-color: var(--accent-color)
       slider-track-color: var(--secondary-background-color)
@@ -2043,15 +2150,6 @@ Red-Nightz:
       honeycomb-menu-icon-active-color: "#ffffffbd"
       honeycomb-menu-icon-color: "#FFFFFF80"
 
-      # --- POPUPS / DIALOGS ---
-      dialog-box-shadow: var(--accent-color)
-      popup-background-color: rgba(34,38,39,0.75)
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-
   # ---------------------------------------------------------
   # UIX Theme Configuration
   # ---------------------------------------------------------
@@ -2060,8 +2158,14 @@ Red-Nightz:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -2101,6 +2205,10 @@ Red-Nightz:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-view-yaml: |
@@ -2228,11 +2336,22 @@ Geaux-Nightz:
       ha-color-fill-primary-normal-resting: rgba(77, 77, 77, 0.5)
 
       # --- SWITCHES & SLIDERS ---
-      switch-checked-color: var(--accent-color)
+      switch-checked-color: var(--accent-color-lighter)
       switch-checked-track-color: var(--accent-color-light)
       switch-checked-button-color: var(--accent-color)
       switch-unchecked-button-color: var(--disabled-text-color)
       switch-unchecked-track-color: var(--disabled-text-color)
+      ha-switch-checked-background-color: var(--accent-color-lighter)
+      ha-switch-checked-border-color: var(--accent-color)
+      ha-switch-checked-hover-background-color: var(--accent-color-light)
+      ha-switch-checked-thumb-background-color: var(--accent-color)
+      ha-switch-checked-thumb-border-color: var(--accent-color)
+      ha-switch-background-color: var(--disabled-text-color)
+      ha-switch-border-color: var(--disabled-text-color)
+      ha-switch-hover-background-color: var(--medium-grey-color)
+      ha-switch-thumb-background-color: var(--lighter-grey-color)
+      ha-switch-thumb-border-color: var(--light-grey-color)
+      ha-switch-thumb-box-shadow: none
       slider-color: var(--accent-color)
       slider-bar-color: var(--accent-color)
       slider-track-color: var(--secondary-background-color)
@@ -2277,15 +2396,6 @@ Geaux-Nightz:
       honeycomb-menu-icon-active-color: "#ffffffbd"
       honeycomb-menu-icon-color: "#FFFFFF80"
 
-      # --- POPUPS / DIALOGS ---
-      dialog-box-shadow: var(--accent-color)
-      popup-background-color: rgba(34,38,39,0.75)
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-
   # ---------------------------------------------------------
   # UIX Theme Configuration
   # ---------------------------------------------------------
@@ -2294,8 +2404,14 @@ Geaux-Nightz:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -2336,6 +2452,10 @@ Geaux-Nightz:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-view-yaml: |
@@ -2463,11 +2583,22 @@ Yellow-Nightz:
       ha-color-fill-primary-normal-resting: rgba(77, 77, 77, 0.5)
 
       # --- SWITCHES & SLIDERS ---
-      switch-checked-color: var(--accent-color)
+      switch-checked-color: var(--accent-color-lighter)
       switch-checked-track-color: var(--accent-color-light)
       switch-checked-button-color: var(--accent-color)
       switch-unchecked-button-color: var(--disabled-text-color)
       switch-unchecked-track-color: var(--disabled-text-color)
+      ha-switch-checked-background-color: var(--accent-color-lighter)
+      ha-switch-checked-border-color: var(--accent-color)
+      ha-switch-checked-hover-background-color: var(--accent-color-light)
+      ha-switch-checked-thumb-background-color: var(--accent-color)
+      ha-switch-checked-thumb-border-color: var(--accent-color)
+      ha-switch-background-color: var(--disabled-text-color)
+      ha-switch-border-color: var(--disabled-text-color)
+      ha-switch-hover-background-color: var(--medium-grey-color)
+      ha-switch-thumb-background-color: var(--lighter-grey-color)
+      ha-switch-thumb-border-color: var(--light-grey-color)
+      ha-switch-thumb-box-shadow: none
       slider-color: var(--accent-color)
       slider-bar-color: var(--accent-color)
       slider-track-color: var(--secondary-background-color)
@@ -2512,15 +2643,6 @@ Yellow-Nightz:
       honeycomb-menu-icon-active-color: "#ffffffbd"
       honeycomb-menu-icon-color: "#FFFFFF80"
 
-      # --- POPUPS / DIALOGS ---
-      dialog-box-shadow: var(--accent-color)
-      popup-background-color: rgba(34,38,39,0.75)
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-
   # ---------------------------------------------------------
   # UIX Theme Configuration
   # ---------------------------------------------------------
@@ -2529,8 +2651,14 @@ Yellow-Nightz:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -2571,6 +2699,10 @@ Yellow-Nightz:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-view-yaml: |
@@ -2698,11 +2830,22 @@ Ocean-Nightz:
       ha-color-fill-primary-normal-resting: rgba(77, 77, 77, 0.5)
 
       # --- SWITCHES & SLIDERS ---
-      switch-checked-color: var(--accent-color)
+      switch-checked-color: var(--accent-color-lighter)
       switch-checked-track-color: var(--accent-color-light)
       switch-checked-button-color: var(--accent-color)
       switch-unchecked-button-color: var(--disabled-text-color)
       switch-unchecked-track-color: var(--disabled-text-color)
+      ha-switch-checked-background-color: var(--accent-color-lighter)
+      ha-switch-checked-border-color: var(--accent-color)
+      ha-switch-checked-hover-background-color: var(--accent-color-light)
+      ha-switch-checked-thumb-background-color: var(--accent-color)
+      ha-switch-checked-thumb-border-color: var(--accent-color)
+      ha-switch-background-color: var(--disabled-text-color)
+      ha-switch-border-color: var(--disabled-text-color)
+      ha-switch-hover-background-color: var(--medium-grey-color)
+      ha-switch-thumb-background-color: var(--lighter-grey-color)
+      ha-switch-thumb-border-color: var(--light-grey-color)
+      ha-switch-thumb-box-shadow: none
       slider-color: var(--accent-color)
       slider-bar-color: var(--accent-color)
       slider-track-color: var(--secondary-background-color)
@@ -2747,15 +2890,6 @@ Ocean-Nightz:
       honeycomb-menu-icon-active-color: "#ffffffbd"
       honeycomb-menu-icon-color: "#FFFFFF80"
 
-      # --- POPUPS / DIALOGS ---
-      dialog-box-shadow: var(--accent-color)
-      popup-background-color: rgba(34,38,39,0.75)
-      popup-border-radius: 1em
-      popup-padding-x: 0px
-      popup-padding-y: 0px
-      popup-min-width: 20vw
-      popup-max-width: 100vw
-
   # ---------------------------------------------------------
   # UIX Theme Configuration
   # ---------------------------------------------------------
@@ -2764,8 +2898,14 @@ Ocean-Nightz:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -2805,6 +2945,10 @@ Ocean-Nightz:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-view-yaml: |
@@ -2925,8 +3069,14 @@ neumorphix-darkBlack-inset:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -3062,8 +3212,14 @@ neumorphix-darkCharcoal-inset:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -3200,8 +3356,14 @@ neumorphix-darkLime-inset:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -3330,8 +3492,14 @@ neumorphix-darker-inset:
   uix-more-info-yaml: |
     .: |
       ha-dialog {
-        --dialog-surface-margin-top: auto !important; 
-        --ha-dialog-show-duration: 0s !important; 
+        --dialog-surface-margin-top: auto !important;
+        --ha-dialog-show-duration: 0s !important;
+        --ha-dialog-border-radius: 1em;
+        --dialog-box-shadow: 0 0 6px 1px var(--accent-color);
+      }
+    ha-dialog $: |
+      ha-dialog-header {
+        display: none !important;
       }
     ha-dialog $ wa-dialog $: |
       dialog {
@@ -3346,6 +3514,10 @@ neumorphix-darker-inset:
       ha-card[outlined] {
         --ha-card-border-color: #2a2a2a !important;
         --ha-card-border-width: 1px !important;
+      }
+      ha-switch:focus-visible {
+        outline: 2px solid var(--accent-color-lighter) !important;
+        outline-offset: 2px;
       }
 
   uix-sidebar-yaml: |
