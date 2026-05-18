@@ -83,7 +83,63 @@ animated_background:
 title: New Life Home
 
 views:
+  - title: Splash
+    path: splash
+    background: "#000000"
+    cards:
+      - type: custom:button-card
+        tap_action:
+          action: navigate
+          navigation_path: /lovelace/home
+        hold_action:
+          action: none
+        show_name: false
+        show_state: false
+        show_icon: true
+        icon: svg-spinners:bars-scale
+        custom_fields:
+          auto_nav: |
+            [[[
+              setTimeout(() => {
+                if (window.location.href.includes('splash')) {
+                  history.pushState(null, '', '/lovelace/home');
+                  window.dispatchEvent(new CustomEvent('location-changed'));
+                }
+              }, 2600);
+              return '';
+            ]]]
+        styles:
+          card:
+            - background: "#000000"
+            - border-radius: "0"
+            - box-shadow: none
+            - position: fixed
+            - top: "0"
+            - left: "0"
+            - width: "100vw"
+            - height: "100vh"
+            - display: flex
+            - align-items: center
+            - justify-content: center
+            - cursor: default
+          custom_fields:
+            auto_nav:
+              - display: none
+          icon:
+            - width: "160px"
+            - height: "160px"
+            - color: "#FFFFFF"
+            - animation: haPulse 1.2s ease-in-out infinite
+        extra_styles: |
+          @keyframes haPulse {
+            0%   { filter: drop-shadow(0 0 25px var(--accent-color)); }
+            50%  { filter: drop-shadow(0 0 60px var(--accent-color))
+                           drop-shadow(0 0 100px var(--accent-color)); }
+            100% { filter: drop-shadow(0 0 25px var(--accent-color)); }
+          }
+
   - title: Home
+    path: home
     icon: mdi:home-assistant
     background: transparent
     cards:
@@ -176,11 +232,19 @@ views:
             colorTheme: nws
             layout: compact
             sortOrder: severity
+            hideNoAlerts: true
+            contrast: strict
+            dismissable: true
             animations: true
             visibility:
               - condition: state
                 entity: binary_sensor.nws_alerts_are_active
                 state: "on"
+            uix:
+              style: |
+                ha-card {
+                  --secondary-text-color: var(--primary-text-color);
+                }
           - type: custom:clock-weather-card
             uix:
               style: |
@@ -729,44 +793,103 @@ views:
 
       - type: custom:atmospheric-weather-card
         weather_entity: weather.bayou_gman_s
-        theme_entity: sun.sun
-        card_style: standalone
-        card_height: 136
-        text_position: left
-        swap_texts: false
-        bottom_text_sensor: weather.bayou_gman_s
-        bottom_text_icon: weather
         sun_entity: sun.sun
-        sun_moon_size: 70
-        sun_moon_x_position: 165
-        sun_moon_y_position: center
         moon_phase_entity: sensor.moon_phase
-        tap_action:
-          action: none
-        custom_cards_position: top-right
-        custom_cards:
-          - type: custom:minimal-forecast-card
-            custom_width: 190px
-            entity: weather.bayou_gman_s
-            forecast_type: hourly
-            items_to_show: 12
-            visible: 2
-            style: glass
-            hide_min_temp: true
-            dividers: true
-            divider_color: rgba(255,255,255,0.3)
-            divider_width: 2px
-            divider_inset: 0px
-            item_spacing: 4px
-            inner_spacing: 12px
-            card_padding: 0px
-            item_padding: 1em 20px
-            item_height: 50px
-            card_shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.15)
-            direction: vertical
-            font_size: 15px
-            icon_size: 22px
-            custom_icon_path: /local/weather_icons/animated/
+        card_style: standalone
+        card_height: 145px
+        card_padding: 16px
+        celestial_size: 80
+        celestial_position: fixed
+        celestial_alignment: left
+        celestial_x: 112
+        celestial_y: 0
+        celestial_moon_style: grey
+        chip_area_position: top-right
+        chip_text_size: 14px
+        chip_label_size: 14px
+        chip_area_layout: vertical-scroll
+        chip_area_scroll_count: 2
+        chip_area_align: spread
+        chip_area_width: 175px
+        chip_padding: 8px 12px 8px 10px
+        chip_area_gap: 0px
+        chip_gap: 8px
+        chip_icon_size: 24px
+        chip_area_background: true
+        chip_area_grouped: true
+        chip_area_separator: true
+        chip_icon_background: false
+        chips:
+          - entity: weather.bayou_gman_s
+            position: custom
+            position_anchor: top-left
+            position_x: 16px
+            position_y: 16px
+            text_size: 32px
+            background: false
+            padding: 0px 4px
+            hide_icon: true
+            hide_label: true
+            fancy_unit: true
+            value_weight: "600"
+            behind_effects: jalse
+          - entity: weather.bayou_gman_s
+            attribute: precipitation_probability
+            icon_background: true
+            position: custom
+            position_anchor: bottom-left
+            position_x: 16px
+            position_y: 16px
+            icon: mdi:umbrella
+            icon_size: 14px
+            padding: 8px 12px 8px 8px
+            inner_gap: 8px
+            text_size: 12px
+            style: stacked
+            align: start
+            name: Rain
+            label_size: 10px
+            icon_padding: 0px
+            icon_background_color: rgba(134, 172, 201, 0.5)
+            forecast: daily
+            unit_format: " %"
+            forecast_precision: 0
+          - entity: weather.bayou_gman_s
+            forecast: hourly
+            attribute: temperature
+            icon: weather
+            forecast_precision: 0
+            icon_path: /local/weather_icons/animated/
+            icon_background: false
+          - entity: weather.bayou_gman_s
+            forecast: hourly
+            attribute: temperature
+            forecast_offset: 1
+            icon: weather
+            forecast_precision: 0
+            icon_path: /local/weather_icons/animated/
+          - entity: weather.bayou_gman_s
+            forecast: hourly
+            attribute: temperature
+            forecast_offset: 2
+            icon: weather
+            forecast_precision: 0
+            icon_path: /local/weather_icons/animated/
+          - entity: weather.bayou_gman_s
+            forecast: hourly
+            attribute: temperature
+            forecast_offset: 3
+            icon: weather
+            forecast_precision: 0
+            icon_path: /local/weather_icons/animated/
+        chip_icon_padding: 0px
+        grid_options:
+          rows: auto
+        uix:
+          style: |
+            ha-card {
+              --secondary-text-color: var(--primary-text-color);
+            }
       ######################################################
       ######################################################
       #####  NAV-BAR  #####
@@ -840,6 +963,9 @@ views:
               - icon: mdi:hammer
                 label: Dev Tools
                 url: /developer-tools/yaml
+              - icon: mdi:battery-60
+                label: Batteries
+                url: /maintenance
               - icon: mdi:creation
                 label: Integrations
                 url: /config/integrations/dashboard
@@ -1186,7 +1312,14 @@ views:
                     service: browser_mod.popup
                     data:
                       popup_card_id: google_maps
-
+              - icon: svg-spinners:blocks-wave
+                label: Retro Cast
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    service: browser_mod.popup
+                    data:
+                      popup_card_id: weatherstar_popup
               - icon: svg-spinners:blocks-wave
                 label: Water Valve
                 tap_action:
