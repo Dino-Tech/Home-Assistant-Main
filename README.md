@@ -199,3 +199,4 @@ Main panel has auto-changing background images, sleep/wake via motion, and voice
 <p align="center">
 <a href="https://www.affordableautomating.com/affiliate-disclosure">Affiliate Disclosure</a>
 </p>
+
