@@ -8,16 +8,9 @@
   <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/powered-by.png" alt="Powered by HA" width="200">
 
 <p>
-<a href="https://img.shields.io/badge/Home%20Assistant-2026.4.3-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-2026.4.3-blue.svg?style=plastic" alt="Home Assistant Version"/></a>
-<a href="https://travis-ci.org/Dino-Tech/Home-Assistant-Main"><img src="https://travis-ci.org/Dino-Tech/Home-Assistant-Main.svg?branch=master" alt="Travis CI Status"/></a>
-<a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plastic" alt="GitHub Stars"/></a>
-<a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plastic" alt="GitHub Watchers"/></a>
-<a href="https://github.com/Dino-Tech/Home-Assistant-Main/graphs/commit-activity"><img src="https://img.shields.io/badge/Maintained%3F-Yes-brightgreen.svg?style=plastic" alt="Maintained"/></a>
-<a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master"><img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=plastic" alt="Last Commit"/></a>
+<a href="https://img.shields.io/badge/Home%20Assistant-2026.8.3-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-2026.8.3-blue.svg?style=plastic" alt="Home Assistant Version"/></a> <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plastic" alt="GitHub Stars"/></a> <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plastic" alt="GitHub Watchers"/></a> <a href="https://github.com/Dino-Tech/Home-Assistant-Main/graphs/commit-activity"><img src="https://img.shields.io/badge/Maintained%3F-Yes-brightgreen.svg?style=plastic" alt="Maintained"/></a> <a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master"><img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=plastic" alt="Last Commit"/></a>
 <br>
-<a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-OliveDrab?style=plastic" alt="HA Community Forum"/></a>
-<a href="https://www.twitter.com/DarrenW96969730"><img src="https://img.shields.io/twitter/follow/DarrenW96969730.svg?style=social&logo=twitter" alt="Twitter Follow"/></a>
-<a href="https://discord.gg/aYTW2Z9"><img src="https://img.shields.io/badge/HA%20Discord-Frontend-GoldenRod?style=plastic" alt="HA Discord Frontend"/></a>
+<a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-OliveDrab?style=plastic" alt="HA Community Forum"/></a> <a href="https://discord.gg/aYTW2Z9"><img src="https://img.shields.io/badge/HA%20Discord-Frontend-GoldenRod?style=plastic" alt="HA Discord Frontend"/></a>
 </p>
 
 <h3 align="center">My Home Assistant Configuration and Lovelace Designs<br>Be sure to :star: my repo so you can keep current on updates!</h3>
@@ -45,7 +38,7 @@ The configuration, devices, themes and screen layouts should help inspire your j
 
 <a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;"></a>
 
-<h2>Currently operating <a href="https://home-assistant.io">Home Assistant</a> version 2026.4.3<br>
+<h2>Currently operating <a href="https://home-assistant.io">Home Assistant</a> version 2026.8.3<br>
 Running on a <a href="https://amzn.to/3F3oci0">Beelink Mini PC (N100, 16GB RAM)</a></h2>
 </div>
 
@@ -72,23 +65,39 @@ Running on a <a href="https://amzn.to/3F3oci0">Beelink Mini PC (N100, 16GB RAM)<
 <hr>
 
 <h3 id="devices">
-  Wyze :movie_camera: Cams and Accessories
+  :movie_camera: Cameras & NVR — 100% Local
   <a href="#readme-top"><img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/upArrow.png" align="right" width="50" alt="Back to Top"></a>
 </h3>
 
-| [Wyze Cam v2 (8)](https://amzn.to/37YiBmY) | [Wyze Cam Pan (1)](https://amzn.to/32pzF4r) | [Wyzesense Sensors](https://amzn.to/3a1ONr1) | [Outdoor Mounts](https://amzn.to/2uqpqA3) |
-| :---: | :---: | :---: | :---: |
-| <a href="https://amzn.to/37YiBmY"><img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B076H3SRXG&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" alt="Wyze Cam v2"></a> | <a href="https://amzn.to/32pzF4r"><img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07DGR98VQ&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" alt="Wyze Cam Pan"></a> | <a href="https://amzn.to/3a1ONr1"><img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07R3H3N97&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" alt="Wyzesense Sensors"></a> | <a href="https://amzn.to/2uqpqA3"><img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07DW8G22H&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" alt="Outdoor Mounts"></a> |
+All cameras run **100% locally** with no cloud dependencies. The Wyze and WUUK cameras are flashed with [Thingino](https://github.com/themactep/thingino-firmware) open-source firmware for native RTSP streaming. Video is aggregated through [go2rtc](https://github.com/AlexxIT/go2rtc) and served to Home Assistant via [WebRTC](https://github.com/AlexxIT/WebRTC). Recording is handled by the [$15 Thingino NVR](https://github.com/themactep/thingino-firmware/wiki/Integration:-$15-NVR).
 
-The Wyze cameras are running on a [tinyCam PRO](https://play.google.com/store/apps/details?id=com.alexvas.dvr.pro&hl=en_US) webserver through a [Vankyo MatrixPad Z4](https://amzn.to/39iRdBN), which is also my Main Kiosk. Then added to Home Assistant's [MJPEG IP Camera](https://www.home-assistant.io/integrations/mjpeg/) integration for display through [Lovelace](https://www.home-assistant.io/lovelace/) frontend.
+| Qty | Camera | Firmware | Locations |
+| :---: | --- | --- | --- |
+| 4 | WUUK Y0510 | [Thingino](https://github.com/themactep/thingino-firmware) | Garage, Driveway, Backyard, Patio |
+| 3 | Wyze Cam v3 | [Thingino](https://github.com/themactep/thingino-firmware) | Entryway, Kitchen, Den |
+| 2 | Wyze Cam v2 | [Thingino](https://github.com/themactep/thingino-firmware) | Office, Hallway |
+| 2 | Reolink Lumus / Lumus Pro | Reolink native | Front Door (Porch), Front Yard |
+
+<!-- TODO: Add Amazon product links after research -->
+
+**Streaming & Recording Stack:**
+- **[go2rtc](https://github.com/AlexxIT/go2rtc) v1.9.14** — RTSP stream aggregation + WebRTC relay
+- **[WebRTC Camera](https://github.com/AlexxIT/WebRTC)** — Low-latency browser streams in Lovelace
+- **[Reolink Integration](https://www.home-assistant.io/integrations/reolink/)** — Native HA integration (91 entities)
+- **[$15 Thingino NVR](https://github.com/themactep/thingino-firmware/wiki/Integration:-$15-NVR)** — Local network video recording
+- All cameras isolated on a dedicated VLAN
 
 <details>
 <summary><strong>Related Automations & Scripts</strong></summary>
 <br>
 <ul>
-<li><a href="https://github.com/Dino-Tech/Home-Assistant-Main">Automation</a></li>
-<li><a href="https://github.com/Dino-Tech/Home-Assistant-Main">Scripts</a></li>
-<li><a href="https://github.com/Dino-Tech/Home-Assistant-Main">Popups</a></li>
+<li>Camera Alert: Driveway Motion</li>
+<li>Camera Alert: Front Porch Motion</li>
+<li>Camera Alert: Front Yard Motion</li>
+<li>Camera Alert: Garage Motion</li>
+<li>Camera Alert: Patio Motion</li>
+<li>Front Door Person Detected (Unified)</li>
+<li>Driveway Video Processing</li>
 </ul>
 </details>
 
