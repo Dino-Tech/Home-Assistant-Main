@@ -15,7 +15,7 @@
 
 <h3 align="center">My Home Assistant Configuration and Lovelace Designs<br>Be sure to :star: my repo so you can keep current on updates!</h3>
 
-<p align="justify">
+<p align="center">
 <strong>This Repo is designed for Smart Home and Lovelace UI/UX inspiration.</strong><br>
 The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world. This is a working configuration of <em>my Smart Home</em> and <em>my Lovelace designs</em>. All of the code is free to use and contribute to.
 </p>
