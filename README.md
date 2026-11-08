@@ -1,45 +1,74 @@
 <div align="center">
   <a name="readme-top">
-    <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/header2.jpg" alt="Dino Tech's Smart Home" width="85%">
+    <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/header_neon.png" alt="Dino Tech Smart Home — Home Assistant & Lovelace UI/UX" width="100%">
+  </a>
+  <br><br>
+
+  <!-- Primary Telemetry & Repo Status Badges (Neon Cyberpunk Theme) -->
+  <p>
+    <a href="https://www.home-assistant.io">
+      <img src="https://img.shields.io/badge/HOME%20ASSISTANT-2026.11.0-00f0ff?style=for-the-badge&logo=home-assistant&logoColor=00f0ff&labelColor=0a0d24" alt="Home Assistant Version"/>
+    </a>
+    <a href="https://amzn.to/3F3oci0">
+      <img src="https://img.shields.io/badge/HARDWARE-BEELINK%20N100%20%E2%80%A2%2016GB-a855f7?style=for-the-badge&logo=intel&logoColor=a855f7&labelColor=0a0d24" alt="Beelink N100"/>
+    </a>
+    <a href="#devices">
+      <img src="https://img.shields.io/badge/AI%20ENGINE-GEMINI%203.8%20%2B%20GPT--6%20LUNA-d946ef?style=for-the-badge&logo=openai&logoColor=d946ef&labelColor=0a0d24" alt="AI Engine"/>
+    </a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/graphs/commit-activity">
+      <img src="https://img.shields.io/badge/STATUS-ACTIVE-00ffaa?style=for-the-badge&labelColor=0a0d24" alt="Maintained"/>
+    </a>
+  </p>
+
+  <p>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers">
+      <img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=for-the-badge&logo=github&logoColor=00f0ff&labelColor=0a0d24&color=00f0ff" alt="GitHub Stars"/>
+    </a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers">
+      <img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=for-the-badge&logo=github&logoColor=a855f7&labelColor=0a0d24&color=a855f7" alt="GitHub Watchers"/>
+    </a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master">
+      <img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=for-the-badge&logo=git&logoColor=d946ef&labelColor=0a0d24&color=d946ef" alt="Last Commit"/>
+    </a>
+    <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180">
+      <img src="https://img.shields.io/badge/HA%20COMMUNITY-FORUM-00f0ff?style=for-the-badge&logo=discourse&logoColor=00f0ff&labelColor=0a0d24" alt="HA Community Forum"/>
+    </a>
+    <a href="https://discord.gg/aYTW2Z9">
+      <img src="https://img.shields.io/badge/HA%20DISCORD-FRONTEND-a855f7?style=for-the-badge&logo=discord&logoColor=a855f7&labelColor=0a0d24" alt="HA Discord Frontend"/>
+    </a>
+  </p>
+
+  <h3 align="center">⚡ Next-Gen Home Assistant Configuration & WebGL Neon Lovelace UI/UX ⚡<br><sub>Be sure to ⭐ star this repo to stay current on the latest custom cards, themes & AI automations!</sub></h3>
+
+  <p align="center">
+    <strong>Designed for Smart Home Architecture & High-Contrast Lovelace UI/UX Inspiration.</strong><br>
+    Explore a production smart home powered by local WebRTC/Thingino NVR cameras, multi-agent AI vision & voice pipelines, and custom WebGL neon glassmorphism dashboards. All configurations, custom cards, and themes are open-source and free to use.
+  </p>
+
+  <!-- Quick-Jump Neon Pill Navigation Bar -->
+  <p>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main"><img src="https://img.shields.io/badge/%E2%9A%A1_CODE-0a0d24?style=for-the-badge&color=0a0d24&labelColor=00f0ff" alt="Code"/></a>
+    <a href="#devices"><img src="https://img.shields.io/badge/%F0%9F%8E%A5_DEVICES_%26_NVR-0a0d24?style=for-the-badge&color=0a0d24&labelColor=a855f7" alt="Devices"/></a>
+    <a href="#stats"><img src="https://img.shields.io/badge/%F0%9F%93%8A_LIVE_STATS-0a0d24?style=for-the-badge&color=0a0d24&labelColor=d946ef" alt="Stats"/></a>
+    <a href="#mobile"><img src="https://img.shields.io/badge/%F0%9F%93%B1_MOBILE_UI-0a0d24?style=for-the-badge&color=0a0d24&labelColor=00f0ff" alt="Mobile Screens"/></a>
+    <a href="#tablet"><img src="https://img.shields.io/badge/%F0%9F%96%A5%EF%B8%8F_TABLET_KIOSK-0a0d24?style=for-the-badge&color=0a0d24&labelColor=a855f7" alt="Tablet Screens"/></a>
+    <a href="https://github.com/Dino-Tech/Home-Assistant-Main/wiki#lovelace-tips--tricks-wiki"><img src="https://img.shields.io/badge/%F0%9F%92%A1_TIPS_%26_TRICKS-0a0d24?style=for-the-badge&color=0a0d24&labelColor=00ffaa" alt="Tips & Tricks"/></a>
+    <a href="https://www.youtube.com/channel/UCrSoN-g4sH1ADQq3A9f-Gzw?view_as=subscriber"><img src="https://img.shields.io/badge/%E2%96%B6%EF%B8%8F_YOUTUBE-0a0d24?style=for-the-badge&color=0a0d24&labelColor=ff0055" alt="YouTube"/></a>
+  </p>
+
+  <!-- WebGL 4-Gauge Live System Telemetry HUD Banner -->
+  <a href="#stats">
+    <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/telemetry_hud_neon.png" alt="Dino Tech Smart Home — Live System Telemetry HUD" width="100%">
   </a>
   <br>
-  <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/LoadingScreen3.gif" alt="Dino Tech's Smart Home" width="230">
-  <br>
-  <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/powered-by.png" alt="Powered by HA" width="200">
+  <sub>Inspired by the WebGL neon plasma aesthetic of <a href="https://github.com/cerealkiller57540/neon-dual-gauge-card">neon-dual-gauge-card</a> & community documentation by <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></sub>
 
-<p>
-<a href="https://img.shields.io/badge/Home%20Assistant-2026.8.3-blue.svg"><img src="https://img.shields.io/badge/Home%20Assistant-2026.8.3-blue.svg?style=plastic" alt="Home Assistant Version"/></a> <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers"><img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=plastic" alt="GitHub Stars"/></a> <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers"><img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=plastic" alt="GitHub Watchers"/></a> <a href="https://github.com/Dino-Tech/Home-Assistant-Main/graphs/commit-activity"><img src="https://img.shields.io/badge/Maintained%3F-Yes-brightgreen.svg?style=plastic" alt="Maintained"/></a> <a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master"><img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=plastic" alt="Last Commit"/></a>
-<br>
-<a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180"><img src="https://img.shields.io/badge/HA%20community-forum-OliveDrab?style=plastic" alt="HA Community Forum"/></a> <a href="https://discord.gg/aYTW2Z9"><img src="https://img.shields.io/badge/HA%20Discord-Frontend-GoldenRod?style=plastic" alt="HA Discord Frontend"/></a>
-</p>
+  <hr>
 
-<h3 align="center">My Home Assistant Configuration and Lovelace Designs<br>Be sure to :star: my repo so you can keep current on updates!</h3>
+  <a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;"></a>
 
-<p align="center">
-<strong>This Repo is designed for Smart Home and Lovelace UI/UX inspiration.</strong><br>
-The configuration, devices, themes and screen layouts should help inspire your journey into Home Assistant's Lovelace UI designing and the IoT world. This is a working configuration of <em>my Smart Home</em> and <em>my Lovelace designs</em>. All of the code is free to use and contribute to.
-</p>
-
-<p>
-<a href="#code">Code</a> •
-<a href="#devices">Devices</a> •
-<a href="#stats">Stats</a> •
-<a href="#mobile">Mobile Screens</a> •
-<a href="#tablet">Tablet Screens</a> •
-<a href="https://github.com/Dino-Tech/Home-Assistant-Main/wiki#lovelace-tips--tricks-wiki">Tips & Tricks</a> •
-<a href="https://www.youtube.com/channel/UCrSoN-g4sH1ADQq3A9f-Gzw?view_as=subscriber">YouTube</a>
-</p>
-
-<img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/update2020.0.jpg" alt="Dino Tech's Smart Home Update">
-<br>
-<sub>This readme was inspired from the awesome documentation of <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></sub>
-
-<hr>
-
-<a href="https://www.buymeacoffee.com/9lTxIVgZ3" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;"></a>
-
-<h2>Currently operating <a href="https://home-assistant.io">Home Assistant</a> version 2026.8.3<br>
-Running on a <a href="https://amzn.to/3F3oci0">Beelink Mini PC (N100, 16GB RAM)</a></h2>
+  <h2>Currently operating <a href="https://home-assistant.io">Home Assistant</a> version 2026.11.0<br>
+  Running on a <a href="https://amzn.to/3F3oci0">Beelink Mini PC (N100, 16GB RAM)</a></h2>
 </div>
 
 <hr>
@@ -51,7 +80,7 @@ Running on a <a href="https://amzn.to/3F3oci0">Beelink Mini PC (N100, 16GB RAM)<
 
 | Entities | Lights | Binary Sensors | Switches | Automations | Scripts | Sensors | Areas | Fans | Media Players |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 2869 | 111 | 275 | 173 | 232 | 68 | 941 | 21 | 7 | 85 |
+| 3,269 | 122 | 332 | 213 | 128 | 84 | 1,120 | 29 | 10 | 93 |
 
 <details>
 <summary><strong>View Automation code and sensors for tracking</strong></summary>
@@ -199,4 +228,3 @@ Main panel has auto-changing background images, sleep/wake via motion, and voice
 <p align="center">
 <a href="https://www.affordableautomating.com/affiliate-disclosure">Affiliate Disclosure</a>
 </p>
-
