@@ -1,0 +1,360 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" width="100%" height="100%">
+  <defs>
+    <!-- Deep Background Gradients -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#04050f"/>
+      <stop offset="45%" stop-color="#090b20"/>
+      <stop offset="100%" stop-color="#050818"/>
+    </linearGradient>
+
+    <radialGradient id="gauge-well" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a0836" stop-opacity="0.95"/>
+      <stop offset="55%" stop-color="#090820" stop-opacity="0.98"/>
+      <stop offset="85%" stop-color="#040510" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#020308" stop-opacity="1"/>
+    </radialGradient>
+
+    <radialGradient id="ambient-left" cx="18%" cy="50%" r="38%">
+      <stop offset="0%" stop-color="#d946ef" stop-opacity="0.28"/>
+      <stop offset="45%" stop-color="#6366f1" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="ambient-right" cx="72%" cy="48%" r="42%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.18"/>
+      <stop offset="55%" stop-color="#00f0ff" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Neon Tube Border Gradients (Matches neon-dual-gauge-card logo) -->
+    <linearGradient id="border-neon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff00aa"/>
+      <stop offset="32%" stop-color="#c026d3"/>
+      <stop offset="65%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#00f0ff"/>
+    </linearGradient>
+
+    <linearGradient id="inner-ring-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="30%" stop-color="#a855f7"/>
+      <stop offset="70%" stop-color="#ff00aa"/>
+      <stop offset="100%" stop-color="#ff4dff"/>
+    </linearGradient>
+
+    <linearGradient id="outer-ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="50%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+
+    <linearGradient id="title-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="55%" stop-color="#f0abfc"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <linearGradient id="sub-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="50%" stop-color="#e879f9"/>
+      <stop offset="100%" stop-color="#00f0ff"/>
+    </linearGradient>
+
+    <linearGradient id="needle-grad" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#ff00aa"/>
+      <stop offset="60%" stop-color="#ff77ff"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+
+    <!-- Carbon Diagonal Stripe Pattern -->
+    <pattern id="carbon-stripes" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#00f0ff" stroke-width="1.5" stroke-opacity="0.045"/>
+    </pattern>
+
+    <!-- Cyber Grid Pattern -->
+    <pattern id="cyber-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#8b5cf6" stroke-width="0.6" stroke-opacity="0.07"/>
+    </pattern>
+
+    <!-- Heavy Neon Glow Filters -->
+    <filter id="neon-bloom-magenta" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="b2"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="b3"/>
+      <feMerge>
+        <feMergeNode in="b3"/>
+        <feMergeNode in="b2"/>
+        <feMergeNode in="b1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="neon-bloom-cyan" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="b1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="b2"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="b3"/>
+      <feMerge>
+        <feMergeNode in="b3"/>
+        <feMergeNode in="b2"/>
+        <feMergeNode in="b1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="text-neon" x="-25%" y="-35%" width="150%" height="170%">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#ff00aa" flood-opacity="0.85"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#a855f7" flood-opacity="0.75"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="22" flood-color="#7c3aed" flood-opacity="0.5"/>
+    </filter>
+
+    <filter id="plasma-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="g1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="g2"/>
+      <feMerge>
+        <feMergeNode in="g2"/>
+        <feMergeNode in="g1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .title-main {
+      font-family: 'Orbitron', 'Rajdhani', 'Segoe UI', 'Arial Black', sans-serif;
+      font-weight: 900;
+      font-size: 50px;
+      letter-spacing: 5px;
+      fill: url(#title-grad);
+      stroke: #e879f9;
+      stroke-width: 1.2px;
+      filter: url(#text-neon);
+    }
+    .title-sub {
+      font-family: 'Orbitron', 'Rajdhani', 'Segoe UI', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 7.5px;
+      fill: #d8b4fe;
+    }
+    .pill-text {
+      font-family: 'Orbitron', 'Consolas', 'Segoe UI', monospace;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1.8px;
+    }
+    .gauge-val {
+      font-family: 'Orbitron', 'Consolas', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: 2px;
+      fill: #ffffff;
+    }
+    .gauge-lbl {
+      font-family: 'Orbitron', 'Segoe UI', sans-serif;
+      font-weight: 700;
+      font-size: 8.5px;
+      letter-spacing: 2.5px;
+      fill: #00f0ff;
+    }
+    @keyframes plasma-spin-cw {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes plasma-spin-ccw {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+    @keyframes needle-sweep {
+      0%, 100% { transform: rotate(-28deg); }
+      50% { transform: rotate(32deg); }
+    }
+    @keyframes pulse-halo {
+      0%, 100% { opacity: 0.55; transform: scale(0.98); }
+      50% { opacity: 0.95; transform: scale(1.03); }
+    }
+    @keyframes border-flow {
+      0% { stroke-dashoffset: 2400; }
+      100% { stroke-dashoffset: 0; }
+    }
+    @keyframes chevron-pulse {
+      0%, 100% { opacity: 0.45; }
+      50% { opacity: 1; }
+    }
+    .plasma-cw {
+      transform-origin: 185px 140px;
+      animation: plasma-spin-cw 14s linear infinite;
+    }
+    .plasma-ccw {
+      transform-origin: 185px 140px;
+      animation: plasma-spin-ccw 10s linear infinite;
+    }
+    .needle-anim {
+      transform-origin: 185px 152px;
+      animation: needle-sweep 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    }
+    .halo-anim {
+      transform-origin: 185px 140px;
+      animation: pulse-halo 3.8s ease-in-out infinite;
+    }
+    .energy-trace {
+      stroke-dasharray: 180 2220;
+      animation: border-flow 7s linear infinite;
+    }
+    .chev-1 { animation: chevron-pulse 1.8s ease-in-out 0s infinite; }
+    .chev-2 { animation: chevron-pulse 1.8s ease-in-out 0.3s infinite; }
+    .chev-3 { animation: chevron-pulse 1.8s ease-in-out 0.6s infinite; }
+  </style>
+
+  <!-- Outer Dark Obsidian Capsule -->
+  <rect x="10" y="10" width="980" height="260" rx="28" ry="28" fill="url(#bg-grad)"/>
+  <rect x="10" y="10" width="980" height="260" rx="28" ry="28" fill="url(#cyber-grid)"/>
+  <rect x="450" y="18" width="530" height="244" rx="22" ry="22" fill="url(#carbon-stripes)"/>
+  <rect x="10" y="10" width="980" height="260" rx="28" ry="28" fill="url(#ambient-left)"/>
+  <rect x="10" y="10" width="980" height="260" rx="28" ry="28" fill="url(#ambient-right)"/>
+
+  <!-- Inner Beveled Tech Frame -->
+  <path d="M 42 22 L 580 22 L 596 30 L 958 30 Q 976 30 976 48 L 976 232 Q 976 250 958 250 L 410 250 L 395 258 L 42 258 Q 24 258 24 240 L 24 40 Q 24 22 42 22 Z"
+        fill="none" stroke="url(#border-neon)" stroke-width="1.4" stroke-opacity="0.55"/>
+
+  <!-- Outer Glowing Neon Tube Border -->
+  <rect x="12" y="12" width="976" height="256" rx="26" ry="26"
+        fill="none" stroke="url(#border-neon)" stroke-width="4.5" filter="url(#neon-bloom-magenta)"/>
+  <rect x="12" y="12" width="976" height="256" rx="26" ry="26"
+        fill="none" stroke="#ffffff" stroke-width="1.2" stroke-opacity="0.65"/>
+
+  <!-- Animated High-Energy Laser Trace Around Perimeter -->
+  <rect x="12" y="12" width="976" height="256" rx="26" ry="26"
+        fill="none" stroke="#00f0ff" stroke-width="3" class="energy-trace" filter="url(#neon-bloom-cyan)"/>
+
+  <!-- ========================================================= -->
+  <!-- LEFT SIDE: NEON DUAL-GAUGE & WEBGL PLASMA CORE (cx=185)   -->
+  <!-- ========================================================= -->
+
+  <!-- Deep Gauge Well -->
+  <circle cx="185" cy="140" r="112" fill="url(#gauge-well)" stroke="#2e1065" stroke-width="1.5"/>
+
+  <!-- Outer Resonance Halo -->
+  <g class="halo-anim">
+    <circle cx="185" cy="140" r="108" fill="none" stroke="#00f0ff" stroke-width="2" stroke-opacity="0.28" filter="url(#neon-bloom-cyan)"/>
+    <circle cx="185" cy="140" r="96" fill="none" stroke="#ff00aa" stroke-width="2.5" stroke-opacity="0.32" filter="url(#neon-bloom-magenta)"/>
+  </g>
+
+  <!-- Outer Gauge Track & Glowing Cyan Arcs (225 deg sweep) -->
+  <!-- Left Outer Cyan Arc -->
+  <path d="M 107 218 A 110 110 0 0 1 112 58"
+        fill="none" stroke="#00f0ff" stroke-width="5.5" stroke-linecap="round" filter="url(#neon-bloom-cyan)"/>
+  <path d="M 107 218 A 110 110 0 0 1 112 58"
+        fill="none" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Right Outer Cyan/Violet Arc -->
+  <path d="M 258 58 A 110 110 0 0 1 263 218"
+        fill="none" stroke="url(#outer-ring-grad)" stroke-width="5.5" stroke-linecap="round" filter="url(#neon-bloom-cyan)"/>
+
+  <!-- Top Outer Magenta Crown Arc -->
+  <path d="M 122 50 A 110 110 0 0 1 248 50"
+        fill="none" stroke="#f0abfc" stroke-width="3.5" stroke-linecap="round" filter="url(#neon-bloom-magenta)"/>
+
+  <!-- WebGL Plasma Filaments Between Core and Inner Ring -->
+  <g class="plasma-cw" filter="url(#plasma-glow)" opacity="0.88">
+    <path d="M 185 140 Q 155 95 185 56" fill="none" stroke="#ff00aa" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M 185 140 Q 230 110 264 135" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M 185 140 Q 215 185 165 215" fill="none" stroke="#a855f7" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M 185 140 Q 130 165 108 125" fill="none" stroke="#00f0ff" stroke-width="2.0" stroke-linecap="round"/>
+    <path d="M 185 140 Q 145 110 130 78" fill="none" stroke="#f472b6" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M 185 140 Q 225 145 245 92" fill="none" stroke="#c084fc" stroke-width="2.0" stroke-linecap="round"/>
+  </g>
+  <g class="plasma-ccw" filter="url(#plasma-glow)" opacity="0.75">
+    <path d="M 185 140 Q 210 92 172 58" fill="none" stroke="#00f0ff" stroke-width="2.0" stroke-linecap="round"/>
+    <path d="M 185 140 Q 232 162 252 175" fill="none" stroke="#ff00aa" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M 185 140 Q 140 190 122 182" fill="none" stroke="#c084fc" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M 185 140 Q 125 125 115 98" fill="none" stroke="#ff00aa" stroke-width="1.8" stroke-linecap="round"/>
+  </g>
+
+  <!-- Main Inner Thick Neon Plasma Gauge Band (Matches neon_logo.png) -->
+  <!-- Background Track -->
+  <path d="M 122 206 A 90 90 0 1 1 248 206"
+        fill="none" stroke="#1e1b4b" stroke-width="16" stroke-linecap="butt"/>
+
+  <!-- Lit Neon Gradient Band -->
+  <path d="M 122 206 A 90 90 0 1 1 248 206"
+        fill="none" stroke="url(#inner-ring-grad)" stroke-width="15" stroke-linecap="butt"
+        filter="url(#neon-bloom-magenta)"/>
+  <path d="M 122 206 A 90 90 0 1 1 248 206"
+        fill="none" stroke="#ffffff" stroke-width="3" stroke-opacity="0.45" stroke-linecap="butt"/>
+
+  <!-- Segment Dividers on Inner Band -->
+  <g stroke="#070818" stroke-width="2.4" opacity="0.75">
+    <line x1="95" y1="140" x2="115" y2="140"/>
+    <line x1="107" y1="95" x2="125" y2="105"/>
+    <line x1="140" y1="62" x2="150" y2="80"/>
+    <line x1="185" y1="50" x2="185" y2="70"/>
+    <line x1="230" y1="62" x2="220" y2="80"/>
+    <line x1="263" y1="95" x2="245" y2="105"/>
+    <line x1="275" y1="140" x2="255" y2="140"/>
+  </g>
+
+  <!-- Glowing Inner Gauge Tick Marks -->
+  <g stroke="#f0abfc" stroke-width="3" stroke-linecap="round" filter="url(#plasma-glow)">
+    <line x1="136" y1="192" x2="146" y2="182"/>
+    <line x1="118" y1="152" x2="132" y2="152"/>
+    <line x1="126" y1="112" x2="139" y2="119"/>
+    <line x1="152" y1="84" x2="160" y2="96"/>
+    <line x1="185" y1="74" x2="185" y2="88"/>
+    <line x1="218" y1="84" x2="210" y2="96"/>
+    <line x1="244" y1="112" x2="231" y2="119"/>
+    <line x1="252" y1="152" x2="238" y2="152"/>
+    <line x1="234" y1="192" x2="224" y2="182" stroke="#00f0ff"/>
+  </g>
+
+  <!-- Sweeping Neon Gauge Needle -->
+  <g class="needle-anim" filter="url(#neon-bloom-magenta)">
+    <polygon points="181,155 189,155 236,104 185,147" fill="url(#needle-grad)"/>
+    <line x1="185" y1="152" x2="235" y2="105" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Center Glass Hub -->
+  <circle cx="185" cy="152" r="14" fill="#1e0938" stroke="#f0abfc" stroke-width="3" filter="url(#plasma-glow)"/>
+  <circle cx="185" cy="152" r="5" fill="#ffffff"/>
+
+  <!-- Bottom Gauge Readout -->
+  <text x="185" y="206" text-anchor="middle" class="gauge-val">2026.11</text>
+  <text x="185" y="221" text-anchor="middle" class="gauge-lbl">CORE ACTIVE</text>
+
+  <!-- ========================================================= -->
+  <!-- RIGHT SIDE: DINO TECH NEON TYPOGRAPHY & HUD TELEMETRY     -->
+  <!-- ========================================================= -->
+
+  <!-- Top Telemetry Tagline -->
+  <g transform="translate(340, 52)">
+    <circle cx="8" cy="-5" r="4.5" fill="#00ffaa" filter="url(#neon-bloom-cyan)"/>
+    <text x="22" y="0" class="pill-text" fill="#00f0ff">SYSTEM ONLINE  //  BEELINK N100  //  WEBGL NEON ARCHITECTURE</text>
+  </g>
+
+  <!-- Main 2-Line Neon Title (Matches Neon Dual Gauge Card Logo Layout) -->
+  <text x="338" y="114" class="title-main">DINO TECH</text>
+  <text x="338" y="172" class="title-main">SMART HOME</text>
+
+  <!-- Spaced Subtitle -->
+  <text x="342" y="204" class="title-sub">HOME ASSISTANT  •  LOVELACE UI/UX</text>
+
+  <!-- Bottom Telemetry Pills Row -->
+  <g transform="translate(340, 218)">
+    <!-- Pill 1: Entities -->
+    <rect x="0" y="0" width="142" height="24" rx="12" fill="#0d132a" stroke="#00f0ff" stroke-width="1.2" stroke-opacity="0.8"/>
+    <text x="71" y="16" text-anchor="middle" class="pill-text" fill="#00f0ff">3,269 ENTITIES</text>
+
+    <!-- Pill 2: Automations -->
+    <rect x="152" y="0" width="164" height="24" rx="12" fill="#170d2a" stroke="#d946ef" stroke-width="1.2" stroke-opacity="0.8"/>
+    <text x="234" y="16" text-anchor="middle" class="pill-text" fill="#f0abfc">212 AUTOMATIONS</text>
+
+    <!-- Pill 3: Local AI & NVR -->
+    <rect x="326" y="0" width="162" height="24" rx="12" fill="#0d1f2a" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.8"/>
+    <text x="407" y="16" text-anchor="middle" class="pill-text" fill="#7dd3fc">100% LOCAL AI</text>
+  </g>
+
+  <!-- Bottom-Right Cyber Chevrons (Matches neon-dual-gauge-card logo) -->
+  <g filter="url(#neon-bloom-cyan)">
+    <polygon points="865,256 890,224 912,224 887,256" fill="#00f0ff" class="chev-1"/>
+    <polygon points="898,256 923,224 945,224 920,256" fill="#00f0ff" class="chev-2"/>
+    <polygon points="931,256 956,224 978,224 953,256" fill="#38bdf8" class="chev-3"/>
+  </g>
+</svg>
