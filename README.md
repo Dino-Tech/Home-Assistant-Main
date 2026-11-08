@@ -1,6 +1,6 @@
 <div align="center">
   <a name="readme-top">
-    <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/header_neon.png" alt="Dino Tech Smart Home — Home Assistant & Lovelace UI/UX" width="100%">
+    <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/header_neon.png?v=2" alt="Dino Tech Smart Home — Home Assistant & Lovelace UI/UX" width="100%">
   </a>
   <br><br>
 
@@ -10,31 +10,31 @@
       <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/badge_ha_version.svg" alt="Home Assistant Version"/>
     </a>
     <a href="https://amzn.to/3F3oci0">
-      <img src="https://img.shields.io/badge/HARDWARE-BEELINK%20N100%20%E2%80%A2%2016GB-a855f7?style=for-the-badge&logo=intel&logoColor=a855f7&labelColor=0a0d24" alt="Beelink N100"/>
+      <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/badge_hardware.svg" alt="Beelink N100"/>
     </a>
     <a href="#devices">
-      <img src="https://img.shields.io/badge/AI%20ENGINE-GEMINI%203.8%20%2B%20GPT--6%20LUNA-d946ef?style=for-the-badge&logo=openai&logoColor=d946ef&labelColor=0a0d24" alt="AI Engine"/>
+      <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/badge_ai_engine.svg" alt="AI Engine"/>
     </a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/graphs/commit-activity">
-      <img src="https://img.shields.io/badge/STATUS-ACTIVE-00ffaa?style=for-the-badge&labelColor=0a0d24" alt="Maintained"/>
+      <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/badge_status.svg" alt="Maintained"/>
     </a>
   </p>
 
   <p>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/stargazers">
-      <img src="https://img.shields.io/github/stars/Dino-Tech/Home-Assistant-Main?style=for-the-badge&logo=github&logoColor=00f0ff&labelColor=0a0d24&color=00f0ff" alt="GitHub Stars"/>
+      <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/badge_stars.svg" alt="GitHub Stars"/>
     </a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/watchers">
-      <img src="https://img.shields.io/github/watchers/Dino-Tech/Home-Assistant-Main?style=for-the-badge&logo=github&logoColor=a855f7&labelColor=0a0d24&color=a855f7" alt="GitHub Watchers"/>
+      <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/badge_watchers.svg" alt="GitHub Watchers"/>
     </a>
     <a href="https://github.com/Dino-Tech/Home-Assistant-Main/commits/master">
-      <img src="https://img.shields.io/github/last-commit/Dino-Tech/Home-Assistant-Main?style=for-the-badge&logo=git&logoColor=d946ef&labelColor=0a0d24&color=d946ef" alt="Last Commit"/>
+      <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/badge_last_commit.svg" alt="Last Commit"/>
     </a>
     <a href="https://community.home-assistant.io/t/dinotechs-latest-mobile-designs-new-theme-added-nov-20/143180">
-      <img src="https://img.shields.io/badge/HA%20COMMUNITY-FORUM-00f0ff?style=for-the-badge&logo=discourse&logoColor=00f0ff&labelColor=0a0d24" alt="HA Community Forum"/>
+      <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/badge_ha_community.svg" alt="HA Community Forum"/>
     </a>
     <a href="https://discord.gg/aYTW2Z9">
-      <img src="https://img.shields.io/badge/HA%20DISCORD-FRONTEND-a855f7?style=for-the-badge&logo=discord&logoColor=a855f7&labelColor=0a0d24" alt="HA Discord Frontend"/>
+      <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/badge_ha_discord.svg" alt="HA Discord Frontend"/>
     </a>
   </p>
 
