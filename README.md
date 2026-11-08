@@ -165,48 +165,88 @@ SmartThings has long been retired in favor of **direct local control** across Z-
 <hr>
 
 <h3 id="networking">
-  Networking :globe_with_meridians: and Battery :battery: Backups
+  :globe_with_meridians: UniFi Networking, NextDNS & :battery: APC UPS Fleet
   <a href="#readme-top"><img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/upArrow.png" align="right" width="50" alt="Back to Top"></a>
 </h3>
 
-| [Google WiFi](https://amzn.to/2PlSVKI) | [Netgear 16-Port](https://amzn.to/3aGQH0E) | [600VA UPS](https://amzn.to/335JG7b) | [425VA UPS](https://amzn.to/2Q4dHit) |
-| :---: | :---: | :---: | :---: |
-| <img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01MAW2294&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US"> | <img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01AX8XHRQ&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US"> | <img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01FWAZEIU&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US"> | <img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01HDC236Q&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US"> |
+The home network is built around an enterprise **Ubiquiti UniFi** core with dedicated VLAN isolation for IoT and local NVR cameras, paired with **NextDNS** security filtering and a **4-unit APC UPS** battery backup fleet.
 
-*Google WiFi mesh points maintain 126 WiFi clients. Average speed: 434 Mbps.*
+| Category | Hardware | Qty | Role & Telemetry |
+| --- | --- | :---: | --- |
+| **Core Router / Gateway** | **Ubiquiti UniFi Dream Machine Pro (UDM Pro)** | 1 | Core routing, IDS/IPS, VLAN segmentation, and live HA WAN/CPU/PHY telemetry (`unifi` / `unifiprotect`) |
+| **Wi-Fi 6 / Wi-Fi 7 APs** | **Ubiquiti UniFi U6-LR** (Long-Range Wi-Fi 6)<br>**Ubiquiti UniFi U7 Lite** (Wi-Fi 7) | 2<br>1 | High-density whole-home & outdoor multi-SSID mesh coverage across 125+ connected clients |
+| **Core & PoE Switching** | **Netgear 16-Port Unmanaged Gigabit Switch**<br>**Netgear 8-Port PoE Switch** | 1<br>1 | Wired Gigabit backhaul + PoE distribution for cameras, access points, and coordinators |
+| **DNS Security** | **NextDNS (`nextdns`)** | Cloud/DoH | 5.5M+ queries tracked in HA with real-time cryptojacking, DGA, homograph, and typosquatting protection |
+| **UPS Battery Backups** | **APC Back-UPS XS 1500M** (1500VA)<br>**APC Back-UPS 850** (850VA)<br>**APC Back-UPS Connect** | 1<br>2<br>1 | Rack/server & network battery backup monitored via **NUT (Network UPS Tools)** (`nut`) with automated outage alerts |
+
+<details>
+<summary><strong>Related Automations & Network Watchdogs</strong></summary>
+<br>
+<ul>
+<li><strong>Power & UPS Monitoring:</strong> <code>UPS Status Notifications</code> (instant alerts on utility power loss, battery runtime, and restoration via NUT)</li>
+<li><strong>System & Integration Health:</strong> <code>Integration Watchdog</code>, <code>Watchdog: Stale Sensor Check</code>, <code>Unavailable Entities 2-Hour Check</code>, <code>Watchdog: Automatic Backup Size Alert</code>, <code>Report state on start-up</code></li>
+</ul>
+</details>
 
 <hr>
 
 <h3 id="displays">
-  Displays :tv: and Google Assistant :speaker: Devices
+  :tv: Kiosks, Smart Displays, TVs & :microphone: AI Voice / Audio Ecosystem
   <a href="#readme-top"><img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/upArrow.png" align="right" width="50" alt="Back to Top"></a>
 </h3>
 
-| [MatrixPad Z4](https://amzn.to/39iRdBN) | [Insignia 10.1"](https://amzn.to/2W2CuHs) | [Google Hub](https://amzn.to/2ut1b4r) | [Google Home](https://amzn.to/2Tfozuj) |
-| :---: | :---: | :---: | :---: |
-| <img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07TBM1SVR&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US"> | <img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B078JXMK5D&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US"> | <img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07XB3FK2N&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US"> | <img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07THDWHH3&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US"> |
+Whole-home control, media, and voice are unified across wall-mounted **Fully Kiosk** tablets, **Home Assistant Voice PE** hardware satellites, **Music Assistant** multi-room audio, and Android/Google TV displays.
 
-A total of 14 Google Assisted speakers do a nice job of filling the house with sound. Audio is usually played via [Spotcast](https://github.com/fondberg/spotcast) component and controlled with a fullscreen popup of [Mini-media-player](https://github.com/kalkih/mini-media-player).
+| Category | Devices | Integration | Locations & Capabilities |
+| --- | --- | --- | --- |
+| **Wall Kiosks & Tablets** | 2 × **Digiland 10.1" (`DL1036`)** Kiosks<br>1 × **Google Pixel Tablet (`Pixel Fully`)** | `fully_kiosk`<br>`browser_mod` | **Den (Main Kiosk)**, **Master Ensuite**, & **Pixel Tablet** — auto-changing video wallpapers, motion wake/sleep, and popup cards |
+| **AI Voice Satellites** | 2 × **Home Assistant Voice Preview Edition (Voice PE)** | `esphome`<br>`assist_satellite` | **Office** & **Den** — local ESP32-S3 voice hardware powered by **OpenAI `gpt-5.4-mini` / `gpt-6-luna`** (`SmarterVoice`) & **Google `gemini-3.8-flash`** (`JARVIS`) |
+| **Smart Displays** | 3 × **Google Nest Hub**<br>1 × **Lenovo Smart Clock** | `cast`<br>`music_assistant` | **Office**, **Entryway**, **Kitchen Cabinet**, & **Guest Room** — camera live-view casting, TTS announcements, and media dashboards |
+| **Multi-Room Audio** | 3 × **Google Nest Audio**<br>3 × **Google Home**<br>4 × **Google Home Mini**<br>1 × **Insignia Voice Speaker**<br>1 × **Esparagus Audio Brick** (ESP32) | `music_assistant`<br>`cast`<br>`esphome` | **12+ Speakers & Cast Groups** across Den, Living Room, Foyer, Kitchen, Bedroom, Bathroom, Ensuite, Garage (Stereo Pair), and Patio |
+| **TVs & Ambient Sync** | **Samsung 65" 4K (`Den TV`)** + **Google TV Streamer**<br>**TCL (`Ensuite TV`)** + **onn. 4K Plus**<br>**Guest Room TV** (**onn. 4K Box**) & **Bedroom TV** (**Chromecast**)<br>**GLEDOPTO Ethernet WLED** + **SceneGlow** | `samsungtv_smart`<br>`androidtv_remote`<br>`nfandroidtv`<br>`wled` / `sceneglow` | Real-time **SceneGlow + WLED** ambient TV bias lighting in the Den + live **Picture-in-Picture camera motion overlays** on TVs via `nfandroidtv` |
+
+<details>
+<summary><strong>Related Automations & Voice/Media Scripts</strong></summary>
+<br>
+<ul>
+<li><strong>Kiosk & Dynamic UI Automations:</strong> <code>[Tablet] Theme Match for Video Wallpaper V18</code>, <code>[Tablet] Background and Theme Manager</code>, <code>[Tablet] Toggle tablet icons color</code>, <code>[Motion] Nightlights and Kiosk</code>, <code>Reboot Kiosk</code></li>
+<li><strong>AI Voice & Music Assistant Scripts:</strong> <code>LLM Script for Music Assistant voice requests</code>, <code>DJ Announcer (Music Assistant)</code>, <code>Assist: Search Google</code>, <code>Voice Assistant - Weather Forecasts</code>, <code>Ask a Yes/No question (Office / Kitchen Lights)</code>, <code>Ring Pixel Pro</code></li>
+<li><strong>TV, Audio & TTS Workflows:</strong> <code>TV Ambient Lights Sync with TV</code>, <code>Experiences: Esparagus EQ Preset Sync</code>, <code>Reset Speaker Volumes</code>, <code>Audible Clocks (Grandfather & Cuckoo)</code>, <code>NWS - Weather Alerts & TTS Announcements</code>, <code>Door Announcements (TTS)</code>, <code>tts daily / bedtime msg (Darren & Donna)</code></li>
+</ul>
+</details>
 
 <hr>
 
 <h3 id="alarm">
-  Konnected :cop: Alarm & :busts_in_silhouette: Sensors
+  :rotating_light: Konnected ESPHome Alarm, Alarmo & :shield: Security Sensors
   <a href="#readme-top"><img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/upArrow.png" align="right" width="50" alt="Back to Top"></a>
 </h3>
 
-| [Konnected Alarm](https://amzn.to/3c6k12c) | [Sonoff RF Bridge](https://amzn.to/2VkO68o) | [Sonoff Motion](https://amzn.to/37XHAXN) | [PIR Motion](https://amzn.to/3c4SBd1) |
-| :---: | :---: | :---: | :---: |
-| <img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07P6DBV8F&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US"> | <img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07CWTT8R1&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US"> | <img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07CVXGQ64&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US"> | <img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07GJDJV63&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US"> |
+Home security combines **hardwired Konnected alarm panels** (flashed with native **ESPHome** firmware) and **[Alarmo](https://github.com/nielsfaber/alarmo)** orchestration with **104 motion/mmWave occupancy entities**, **22 door/window/garage sensors**, and **YoLink LoRa smart locks**.
 
-Our home is protected by an 18 zone Konnected alarm system and HA's [Manual MQTT Alarm](https://www.home-assistant.io/integrations/manual_mqtt/). Using 24 motion sensors, 5 door sensors, and a glass break detector.
+| Category | Hardware | Protocol / Integration | Coverage & Details |
+| --- | --- | --- | --- |
+| **Hardwired Alarm Panels** | **Konnected Alarm Panel Pro** (12-Zone PoE/Ethernet)<br>**Konnected Alarm Panel** (6-Zone Wi-Fi) | `esphome`<br>`alarmo` | 18 hardwired zones covering **Garage, Living Room, Master, Guest, Kitchen Bay, & Office/WC Windows**, **Back & Garage Entry Doors**, wired **Ceiling PIR Motion** (Den, Ensuite, Laundry), warning piezos, & **Main Siren** |
+| **Smart Locks & Garage** | 2 × **YoLink Smart Locks (`LockV2`)** + **Back Door Lock**<br>**Shelly Plus 1** Garage Controller | `yolink`<br>`shelly` | **Front Door**, **Side Door**, **Back Door**, & **Garage Door** with automated away-alerting and actionable mobile close notifications |
+| **mmWave Human Presence** | **SONOFF SNZB-06P**, **Athom Presence Sensor**, **AtomS3 Motion**, **Tuya TS0225** | `zha`<br>`esphome` | Stationary human presence detection in **Office**, **Kitchen**, **Den**, and **Ensuite** |
+| **Zigbee, Z-Wave & LoRa Sensors** | **YoLink LoRa** Outdoor Motion & Door Sensors<br>**Third Reality** (`3RSNL02043Z` Nightlight/Motion, `3RMS16BZ`, `3RDS17BZ`)<br>**SONOFF / Aqara / eWeLink** Motion & Contact<br>**Shelly Motion 2** & **Philio Z-Wave PST02A** | `yolink`<br>`zha`<br>`shelly`<br>`zwave_js` | Whole-home indoor/outdoor perimeter & room motion (**Porch, Driveway/Side, Patio, Foyer, Bedroom, Guest, Garage, Hallway**) + **LoRa Mailbox Sensor** |
+
+<details>
+<summary><strong>Related Security & Lighting Automations</strong></summary>
+<br>
+<ul>
+<li><strong>Alarmo Orchestration:</strong> <code>[Alarmo] Master Control</code>, <code>[Alarmo] Auto Night Arm</code>, <code>[Alarmo] Someone's awake run Morning script & Disarm alarm</code>, <code>alarm_arm / alarm_arm_home / alarm_disarm / away_mode_armed</code></li>
+<li><strong>Garage, Locks & Perimeter Alerts:</strong> <code>[Alert] Send Garage Door Notification</code>, <code>[Alert] Handle Garage Door Acknowledge</code>, <code>Close the garage when notification action is tapped</code>, <code>Notify us when the garage door opens and no one home</code>, <code>Mailbox Opened Notification</code></li>
+<li><strong>Security Deterrence & Entry Lighting:</strong> <code>Security: Random Lighting Simulation</code>, <code>Security: Turn Off Simulation Lights on Arrival</code>, <code>Turn ON front yard / backyard lights when door opened</code>, <code>Garage: Lights ON when Door Opens / OFF after Door Closes</code></li>
+</ul>
+</details>
 
 <hr>
 
 <h1>Screenshots</h1>
 
 <h3 id="mobile">
-  Mobile Screens (Pixel 2 XL)
+  Mobile Screens (Pixel 8 Pro / Pixel 10a)
   <a href="#readme-top"><img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/upArrow.png" align="right" width="50" alt="Back to Top"></a>
 </h3>
 
