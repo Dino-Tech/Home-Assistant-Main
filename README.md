@@ -1,6 +1,6 @@
 <div align="center">
   <a name="readme-top">
-    <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/header_neon.png?v=2" alt="Dino Tech Smart Home — Home Assistant & Lovelace UI/UX" width="100%">
+    <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/header_ha_neon.png" alt="Dino Tech Smart Home — Home Assistant & Lovelace UI/UX" width="100%">
   </a>
   <br><br>
 
@@ -58,7 +58,7 @@
 
   <!-- WebGL 4-Gauge Live System Telemetry HUD Banner -->
   <a href="#stats">
-    <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/telemetry_hud_neon.png?v=3" alt="Dino Tech Smart Home — Live System Telemetry HUD" width="100%">
+    <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/telemetry_hud_v3.png" alt="Dino Tech Smart Home — Live System Telemetry HUD" width="100%">
   </a>
   <br>
   <sub>Inspired by the WebGL neon plasma aesthetic of <a href="https://github.com/cerealkiller57540/neon-dual-gauge-card">neon-dual-gauge-card</a> & community documentation by <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></sub>
