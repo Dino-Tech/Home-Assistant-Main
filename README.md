@@ -7,7 +7,7 @@
   <!-- Primary Telemetry & Repo Status Badges (Neon Cyberpunk Theme) -->
   <p>
     <a href="https://www.home-assistant.io">
-      <img src="https://img.shields.io/badge/HOME%20ASSISTANT-2026.11.0-00f0ff?style=for-the-badge&logo=home-assistant&logoColor=00f0ff&labelColor=0a0d24" alt="Home Assistant Version"/>
+      <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/badge_ha_version.svg" alt="Home Assistant Version"/>
     </a>
     <a href="https://amzn.to/3F3oci0">
       <img src="https://img.shields.io/badge/HARDWARE-BEELINK%20N100%20%E2%80%A2%2016GB-a855f7?style=for-the-badge&logo=intel&logoColor=a855f7&labelColor=0a0d24" alt="Beelink N100"/>
@@ -58,7 +58,7 @@
 
   <!-- WebGL 4-Gauge Live System Telemetry HUD Banner -->
   <a href="#stats">
-    <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/telemetry_hud_neon.png" alt="Dino Tech Smart Home — Live System Telemetry HUD" width="100%">
+    <img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/telemetry_hud_neon.png?v=3" alt="Dino Tech Smart Home — Live System Telemetry HUD" width="100%">
   </a>
   <br>
   <sub>Inspired by the WebGL neon plasma aesthetic of <a href="https://github.com/cerealkiller57540/neon-dual-gauge-card">neon-dual-gauge-card</a> & community documentation by <a href="https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/README.md">CCOSTAN</a></sub>
