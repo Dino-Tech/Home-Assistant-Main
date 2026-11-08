@@ -94,54 +94,73 @@
 <hr>
 
 <h3 id="devices">
-  :movie_camera: Cameras & NVR — 100% Local
+  :movie_camera: Cameras & NVR — Local RTSP/WebRTC + AI Vision
   <a href="#readme-top"><img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/upArrow.png" align="right" width="50" alt="Back to Top"></a>
 </h3>
 
-All cameras run **100% locally** with no cloud dependencies. The Wyze and WUUK cameras are flashed with [Thingino](https://github.com/themactep/thingino-firmware) open-source firmware for native RTSP streaming. Video is aggregated through [go2rtc](https://github.com/AlexxIT/go2rtc) and served to Home Assistant via [WebRTC](https://github.com/AlexxIT/WebRTC). Recording is handled by the [$15 Thingino NVR](https://github.com/themactep/thingino-firmware/wiki/Integration:-$15-NVR).
+All 11 security cameras run **100% locally** with no cloud dependencies, paired with a **Google Nest Doorbell** at the porch/side entrance. The Wyze and WUUK cameras are flashed with [Thingino](https://github.com/themactep/thingino-firmware) open-source firmware for native RTSP streaming. Video is aggregated through [go2rtc](https://github.com/AlexxIT/go2rtc) and served to Home Assistant via [WebRTC](https://github.com/AlexxIT/WebRTC), with continuous/event recording handled by the [$15 Thingino NVR](https://github.com/themactep/thingino-firmware/wiki/Integration:-$15-NVR).
 
-| Qty | Camera | Firmware | Locations |
+| Qty | Camera | Firmware / Integration | Locations |
 | :---: | --- | --- | --- |
-| 4 | WUUK Y0510 | [Thingino](https://github.com/themactep/thingino-firmware) | Garage, Driveway, Backyard, Patio |
-| 3 | Wyze Cam v3 | [Thingino](https://github.com/themactep/thingino-firmware) | Entryway, Kitchen, Den |
-| 2 | Wyze Cam v2 | [Thingino](https://github.com/themactep/thingino-firmware) | Office, Hallway |
-| 2 | Reolink Lumus / Lumus Pro | Reolink native | Front Door (Porch), Front Yard |
+| 4 | WUUK Y0510 | [Thingino](https://github.com/themactep/thingino-firmware) (Local RTSP) | Garage, Driveway, Backyard, Patio |
+| 3 | Wyze Cam v3 | [Thingino](https://github.com/themactep/thingino-firmware) (Local RTSP) | Entryway, Kitchen, Den |
+| 2 | Wyze Cam v2 | [Thingino](https://github.com/themactep/thingino-firmware) (Local RTSP) | Office (Rambo Cam), Hallway |
+| 2 | Reolink Lumus / Lumus Pro | [Reolink Native](https://www.home-assistant.io/integrations/reolink/) (Local) | Front Door (Porch), Front Yard |
+| 1 | [Google Nest Doorbell](https://www.home-assistant.io/integrations/nest/) | Google Nest SDM / WebRTC | Porch / Side Door |
 
-<!-- TODO: Add Amazon product links after research -->
-
-**Streaming & Recording Stack:**
-- **[go2rtc](https://github.com/AlexxIT/go2rtc) v1.9.14** — RTSP stream aggregation + WebRTC relay
-- **[WebRTC Camera](https://github.com/AlexxIT/WebRTC)** — Low-latency browser streams in Lovelace
-- **[Reolink Integration](https://www.home-assistant.io/integrations/reolink/)** — Native HA integration (91 entities)
-- **[$15 Thingino NVR](https://github.com/themactep/thingino-firmware/wiki/Integration:-$15-NVR)** — Local network video recording
-- All cameras isolated on a dedicated VLAN
+**Streaming, Recording & AI Vision Stack:**
+- **[go2rtc](https://github.com/AlexxIT/go2rtc) v1.9.14** — RTSP stream aggregation + low-latency WebRTC relay
+- **[WebRTC Camera](https://github.com/AlexxIT/WebRTC)** — Instant browser/kiosk streams in Lovelace & wall-mounted Nest displays
+- **[Reolink Integration](https://www.home-assistant.io/integrations/reolink/)** — Native local HA integration (91 entities + AI person/vehicle/pet detection)
+- **[Google Nest Integration](https://www.home-assistant.io/integrations/nest/)** — Nest Doorbell live stream, chime events, and unified front-door person detection
+- **[$15 Thingino NVR](https://github.com/themactep/thingino-firmware/wiki/Integration:-$15-NVR)** — Local network video recording with automated clip & snapshot retention cleanup
+- **Gemini 3.8 Flash AI Video Triage (`script.analyze_motion_clip`)** — Records 10-second MP4 motion clips (`script.record_motion_clip`) and runs 2-stage multimodal AI scene analysis (including property-boundary Street vs. Driveway/Yard triage to eliminate false-positive street pedestrian alerts) before broadcasting TTS summaries or mobile snapshots
+- **Fire TV Picture-in-Picture Overlays (`nfandroidtv`)** — Live camera snapshots/alerts pushed directly to TV screens on motion
+- All local cameras isolated on a dedicated VLAN
 
 <details>
 <summary><strong>Related Automations & Scripts</strong></summary>
 <br>
 <ul>
-<li>Camera Alert: Driveway Motion</li>
-<li>Camera Alert: Front Porch Motion</li>
-<li>Camera Alert: Front Yard Motion</li>
-<li>Camera Alert: Garage Motion</li>
-<li>Camera Alert: Patio Motion</li>
-<li>Front Door Person Detected (Unified)</li>
-<li>Driveway Video Processing</li>
+<li><strong>Camera Alert Automations:</strong> Driveway Motion, Front Porch Motion, Front Yard Motion (2-Stage AI Street/Property Triage), Garage Motion, Patio Motion</li>
+<li><strong>Doorbell & Display Automations:</strong> <code>[Notify] Front Door Person Detected (Unified)</code>, <code>Side Door Camera live view for wall mounted Nest</code></li>
+<li><strong>AI Clip & Video Processing Scripts:</strong> <code>Record Motion Clip</code>, <code>Analyze Motion Clip</code>, <code>Driveway Video Processing</code>, <code>Porch Video Processing</code>, <code>Front Yard Video Processing</code>, <code>Garage Video Processing</code>, <code>Patio Video Processing</code></li>
+<li><strong>TV Overlay & Maintenance:</strong> <code>Fire TV Overlay (Driveway / Porch / Garage / Patio)</code>, <code>[System] Purge Old Motion Clips</code>, <code>Maintenance - Cleanup Old Snapshots</code>, <code>reboot cameras</code></li>
 </ul>
 </details>
 
 <hr>
 
 <h3 id="nest">
-  Nest :tophat:, First Alert, and SmartThings
+  :thermometer: Climate, :fire_engine: Smoke/CO/Leak Safety & :satellite: Local Hub Stack
   <a href="#readme-top"><img src="https://raw.githubusercontent.com/Dino-Tech/Home-Assistant-Main/master/screenshots_tablet/upArrow.png" align="right" width="50" alt="Back to Top"></a>
 </h3>
 
-| [Nest Protects](https://amzn.to/2wKsJmm) | [Nest Thermostats](https://amzn.to/2TVTw7v) | [First Alert ZCOMBO](https://amzn.to/2VZ9JLv) | [SmartThings Hub](https://amzn.to/3375O0E) |
-| :---: | :---: | :---: | :---: |
-| <a href="https://amzn.to/2wKsJmm"><img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00XV1RCRY&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" alt="Nest Protect"></a> | <a href="https://amzn.to/2TVTw7v"><img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0131RG6VK&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" alt="Nest Thermostat"></a> | <a href="https://amzn.to/2VZ9JLv"><img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00KMHXFAI&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" alt="First Alert"></a> | <a href="https://amzn.to/3375O0E"><img src="https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07FJGGWJL&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=affordabl010e-20&language=en_US" alt="SmartThings"></a> |
+SmartThings has long been retired in favor of **direct local control** across Z-Wave 800 Long Range, Zigbee (ZHA), ESPHome, Shelly Gen2/Gen3, and YoLink LoRa—paired with Google Nest for central HVAC and multi-sensor smoke/CO protection.
 
-The Nest thermostats and Protects don't require many automations. The sensors are tracked and the **'away'** and **'home'** modes are set with scripts via Home Assistant's [Person](https://www.home-assistant.io/components/person/) integration for occupancy verification.
+| Category | Hardware / Devices | Integration | Locations & Role |
+| --- | --- | --- | --- |
+| **Climate & HVAC** | [Google Nest Thermostat](https://amzn.to/2TVTw7v)<br>Mini-Split AC + **SMLIGHT SLWF-01Pro** | `nest`<br>`esphome` | **Den** (Central HVAC) & **Kitchen** (Mini-Split AC synced to Den cooling + HVAC condenser mister) |
+| **Smoke, CO & Heat** | 3 × [Google Nest Protect](https://amzn.to/2wKsJmm)<br>2 × First Alert **SMCO410** (Z-Wave)<br>1 × [First Alert **ZCOMBO**](https://amzn.to/2VZ9JLv) (Z-Wave)<br>1 × **Shelly Smoke** | `nest_protect`<br>`zwave_js`<br>`zwave_js`<br>`shelly` | **Kitchen, Hallway, Garage** (Smoke/CO/Heat/Pathlight)<br>**Bedroom, Office** (Z-Wave 800LR Smoke & CO)<br>**Laundry Room** (Z-Wave Smoke & CO)<br>**Guest Room** (Wi-Fi Smoke Detector) |
+| **Water Leak & Valve Protection** | **YoLink Motorized Main Water Valve** + 5 × YoLink Leak Sensors | `yolink` | **Main Water Shutoff** + **Attic HVAC, Water Heater, Washer, Ensuite Sink, Bathroom** |
+| **Local Zigbee & Z-Wave Coordinators** | **SMLIGHT SLZB-06** (Network Zigbee)<br>**Zooz ZST39 LR** (800-Series Z-Wave LR) | `zha`<br>`zwave_js` | Coordinates Zigbee presence/motion/door sensors & smart plugs (`SONOFF`, `Third Reality`, `Aqara`) and Z-Wave 800LR devices (`First Alert`, `Shelly Wave`, `Minoston`) |
+| **Shelly & ESPHome Local Control** | 20+ **Shelly Plus Wall Dimmers** & **1/1PM Mini Gen3** Relays, **Shelly H&T**, **BLU Gateways**, **Broadlink RM4 Pro** | `shelly`<br>`esphome`<br>`broadlink` | Whole-home lighting dimmers, exhaust fan humidity managers, garage door control, RF ceiling fans, and local **ESPHome** nodes |
+
+**Key Climate, Safety & Presence Workflows:**
+- **Dual-Zone Climate Sync & Custom WebGL UI:** Controlled via custom WebGL `neon-climate-card` popups with live fluid shaders. When the Den Nest Thermostat enters cooling mode, `[Climate] Kitchen Mini Split - Follow Den Cooling` automatically coordinates the Kitchen Mini-Split, while `[Control] HVAC Mister` and `[Timer] HVAC Fan Timer` optimize condenser efficiency and air circulation.
+- **Master Presence & Occupancy Engine:** Home/Away states (`Brain: House Mode Manager`, `[Presence] Master Presence Control`, `script.nest_set_home`, `script.nest_set_away`) combine mobile geofencing, Find My Device (`[FMD]`) high-frequency arrival/departure polling, and room-level **mmWave + PIR occupancy sensors** (`SONOFF SNZB-06P`, `Athom Presence Sensor`, `AtomS3 Motion`).
+- **Multi-Layer Fire, CO & Water Leak Defense:** All 7 smoke/CO detectors (Nest Protect, First Alert Z-Wave, and Shelly) feed unified emergency alert pipelines (`[Notify] NEST Fire, Smoke, CO, & Heat Detected II`), while YoLink LoRa leak sensors monitor the Attic HVAC pan, Water Heater, Washer, and bathrooms with instant critical alerts and automated main water valve control.
+
+<details>
+<summary><strong>Related Automations & Scripts</strong></summary>
+<br>
+<ul>
+<li><strong>Climate & Ventilation Automations:</strong> <code>[Climate] Kitchen Mini Split - Follow Den Cooling</code>, <code>[Control] HVAC Mister</code>, <code>[Timer] HVAC Fan Timer</code>, <code>[Auto] Bathroom Vent Manager (Combined)</code>, <code>[Auto] Ensuite Vent Manager (Combined)</code>, <code>[Auto] Fan Control (Away Mode)</code>, <code>[SWITCH] Den / Office / Guest Fan Cycle (Dynamic with State)</code></li>
+<li><strong>Fire, Smoke, CO & Leak Safety Automations:</strong> <code>[Notify] NEST Fire, Smoke, CO, & Heat Detected II</code>, <code>[Notify] Fire, Smoke, CO, & Heat All Clear None Detected</code>, <code>[Notify] Critical Water Leak Alert</code>, <code>[Notify] HVAC Water Leak</code>, <code>[Notify] Secondary Water Leak Alert & All Clear</code></li>
+<li><strong>Presence & House Mode Automations:</strong> <code>Brain: House Mode Manager</code>, <code>[Presence] Master Presence Control</code>, <code>[Presence] First Person Arrives - Welcome actions</code>, <code>[Presence] Last Person Leaves - Away actions</code>, <code>[Presence] mmWave Occupancy Light Control</code>, <code>[FMD] Turn ON High Frequency Mode on Departure</code></li>
+<li><strong>Climate & Presence Scripts:</strong> <code>Set Nest Home</code>, <code>Set Nest Away</code>, <code>People Home</code>, <code>People Away</code>, <code>Wake Up (morning)</code>, <code>Good Night</code>, <code>Den Fan Speed 1–6 / Power / Reverse</code></li>
+</ul>
+</details>
 
 <hr>
 
