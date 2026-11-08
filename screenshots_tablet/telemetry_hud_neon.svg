@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 210" width="100%" height="100%">
+  <defs>
+    <linearGradient id="hud-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050716"/>
+      <stop offset="50%" stop-color="#0a0d24"/>
+      <stop offset="100%" stop-color="#050716"/>
+    </linearGradient>
+    <linearGradient id="hud-border" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="50%" stop-color="#d946ef"/>
+      <stop offset="100%" stop-color="#00f0ff"/>
+    </linearGradient>
+    <linearGradient id="g-cyan-mag" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#ff00aa"/>
+    </linearGradient>
+    <linearGradient id="g-mag-vio" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#00f0ff"/>
+    </linearGradient>
+    <linearGradient id="g-vio-pink" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff00aa"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="g-em-cyan" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00ffaa"/>
+      <stop offset="100%" stop-color="#00f0ff"/>
+    </linearGradient>
+    <filter id="glow" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur stdDeviation="3.5" result="b1"/>
+      <feGaussianBlur stdDeviation="8" result="b2"/>
+      <feMerge>
+        <feMergeNode in="b2"/>
+        <feMergeNode in="b1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .hdr { font-family: 'Orbitron', 'Segoe UI', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 4px; fill: #e879f9; }
+    .val { font-family: 'Orbitron', 'Consolas', sans-serif; font-weight: 900; font-size: 24px; fill: #ffffff; letter-spacing: 1px; }
+    .lbl { font-family: 'Orbitron', 'Segoe UI', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 2.5px; }
+    .sub { font-family: 'Rajdhani', 'Consolas', 'Segoe UI', sans-serif; font-weight: 600; font-size: 11px; fill: #94a3b8; letter-spacing: 1px; }
+    @keyframes pulse-ring {
+      0%, 100% { stroke-opacity: 0.75; }
+      50% { stroke-opacity: 1; }
+    }
+    .ring-anim { animation: pulse-ring 3s ease-in-out infinite; }
+  </style>
+
+  <!-- Frame -->
+  <rect x="8" y="8" width="984" height="194" rx="22" fill="url(#hud-bg)" stroke="url(#hud-border)" stroke-width="2.5" filter="url(#glow)"/>
+  <text x="500" y="30" text-anchor="middle" class="hdr">⚡ LIVE SMART HOME TELEMETRY  •  DUAL-GAUGE MATRIX ⚡</text>
+  <line x1="80" y1="40" x2="920" y2="40" stroke="url(#hud-border)" stroke-width="1" stroke-opacity="0.45"/>
+
+  <!-- GAUGE 1: TOTAL ENTITIES & SENSORS (cx=145, cy=118) -->
+  <g transform="translate(145, 118)">
+    <circle cx="0" cy="0" r="56" fill="#070a1c" stroke="#1e293b" stroke-width="6"/>
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#1e1b4b" stroke-width="6"/>
+    <!-- Outer Arc (Entities) -->
+    <circle cx="0" cy="0" r="56" fill="none" stroke="url(#g-cyan-mag)" stroke-width="6"
+            stroke-dasharray="305 360" stroke-dashoffset="80" stroke-linecap="round" filter="url(#glow)" class="ring-anim"/>
+    <!-- Inner Arc (Sensors) -->
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#00f0ff" stroke-width="5"
+            stroke-dasharray="210 280" stroke-dashoffset="60" stroke-linecap="round" filter="url(#glow)"/>
+    <text x="0" y="4" text-anchor="middle" class="val">3,269</text>
+    <text x="0" y="20" text-anchor="middle" class="lbl" fill="#00f0ff">ENTITIES</text>
+    <text x="0" y="74" text-anchor="middle" class="sub">1,120 Sensors • 332 Binary</text>
+  </g>
+
+  <!-- GAUGE 2: LIGHTING & SWITCHES (cx=382, cy=118) -->
+  <g transform="translate(382, 118)">
+    <circle cx="0" cy="0" r="56" fill="#070a1c" stroke="#1e293b" stroke-width="6"/>
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#1e1b4b" stroke-width="6"/>
+    <circle cx="0" cy="0" r="56" fill="none" stroke="url(#g-mag-vio)" stroke-width="6"
+            stroke-dasharray="280 360" stroke-dashoffset="80" stroke-linecap="round" filter="url(#glow)" class="ring-anim"/>
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#e879f9" stroke-width="5"
+            stroke-dasharray="195 280" stroke-dashoffset="60" stroke-linecap="round" filter="url(#glow)"/>
+    <text x="0" y="4" text-anchor="middle" class="val">335</text>
+    <text x="0" y="20" text-anchor="middle" class="lbl" fill="#e879f9">CONTROLS</text>
+    <text x="0" y="74" text-anchor="middle" class="sub">122 Lights • 213 Switches</text>
+  </g>
+
+  <!-- GAUGE 3: AUTOMATION & AI ENGINE (cx=618, cy=118) -->
+  <g transform="translate(618, 118)">
+    <circle cx="0" cy="0" r="56" fill="#070a1c" stroke="#1e293b" stroke-width="6"/>
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#1e1b4b" stroke-width="6"/>
+    <circle cx="0" cy="0" r="56" fill="none" stroke="url(#g-vio-pink)" stroke-width="6"
+            stroke-dasharray="290 360" stroke-dashoffset="80" stroke-linecap="round" filter="url(#glow)" class="ring-anim"/>
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#ff00aa" stroke-width="5"
+            stroke-dasharray="205 280" stroke-dashoffset="60" stroke-linecap="round" filter="url(#glow)"/>
+    <text x="0" y="4" text-anchor="middle" class="val">212</text>
+    <text x="0" y="20" text-anchor="middle" class="lbl" fill="#ff77ff">AI &amp; LOGIC</text>
+    <text x="0" y="74" text-anchor="middle" class="sub">128 Automations • 84 Scripts</text>
+  </g>
+
+  <!-- GAUGE 4: MEDIA, AREAS & LOCAL NVR (cx=855, cy=118) -->
+  <g transform="translate(855, 118)">
+    <circle cx="0" cy="0" r="56" fill="#070a1c" stroke="#1e293b" stroke-width="6"/>
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#1e1b4b" stroke-width="6"/>
+    <circle cx="0" cy="0" r="56" fill="none" stroke="url(#g-em-cyan)" stroke-width="6"
+            stroke-dasharray="310 360" stroke-dashoffset="80" stroke-linecap="round" filter="url(#glow)" class="ring-anim"/>
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#00ffaa" stroke-width="5"
+            stroke-dasharray="220 280" stroke-dashoffset="60" stroke-linecap="round" filter="url(#glow)"/>
+    <text x="0" y="4" text-anchor="middle" class="val">93</text>
+    <text x="0" y="20" text-anchor="middle" class="lbl" fill="#00ffaa">MEDIA / ZONES</text>
+    <text x="0" y="74" text-anchor="middle" class="sub">93 Players • 29 Areas • 10 Fans</text>
+  </g>
+</svg>
